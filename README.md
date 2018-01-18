@@ -19,6 +19,8 @@ In `superdesk/client/package.json` add `superdesk-publisher` to the dependencies
 }
 ```
 
+After that, run npm install to install additional dependencie.
+
 Don't forget to add publisher to your superdesk config in `superdesk/client/superdesk.config.js`, and
 to enable the publisher feature:
 ```js
