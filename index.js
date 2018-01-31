@@ -61,7 +61,7 @@ function cacheIncludedTemplates($templateCache) {
  * @packageName superdesk.apps
  * @description Superdesk web publisher module.
  */
-export default angular.module('superdesk.publisher', [
+export default angular.module('superdesk-publisher', [
     'dndLists',
     'infinite-scroll'
 ])

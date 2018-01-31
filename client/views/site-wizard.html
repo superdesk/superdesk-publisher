@@ -56,7 +56,7 @@
                         ng-disabled="!generalStep.$valid || webPublisher.wizard.busy">Continue</button>
             </div>           
         </div>
-        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}" data-code="installTheme" data-disabled="false">
+        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}" data-code="installTheme" data-disabled="true">
             <div class="content">
                 <div class="flex-grid flex-grid--boxed flex-grid--wrap-items flex-grid--small-2">
                     <div class="flex-grid__item" ng-repeat="theme in webPublisher.wizard.organizationThemes">
