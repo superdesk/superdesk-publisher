@@ -26,7 +26,7 @@ to enable the publisher feature:
 ```js
 apps: [
     ....,
-    'superdesk-publisher'
+    'superdesk.publisher'
 ],
 publisher: {
     protocol: 'http',
