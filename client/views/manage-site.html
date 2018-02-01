@@ -17,58 +17,60 @@
                 translate>Save</button>
         </div>
     </div>
-    <div class="modal__body sidebarLayout">
-        <div class="sidebarLayout__sidebar">
-            <ul class="nav nav--stackedPublisher">
-                <li ng-class="{active: webPublisher.activeTab === 'general'}">
-                    <button ng-click="webPublisher.changeTab('general')" translate>General</button>
-                </li>
-                <li ng-class="{active: webPublisher.activeTab === 'routes'}">
-                    <button ng-click="webPublisher.changeTab('routes')"
-                        ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
-                        translate>Routes</button>
-                </li>
-                <li ng-class="{active: webPublisher.activeTab === 'navigation' || webPublisher.activeTab === 'navigation-menu'}">
-                    <button ng-click="webPublisher.changeTab('navigation')"
-                        ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
-                        translate>Navigation</button>
-                </li>
-            </ul>
-        </div>
-        <div class="sidebarLayout__content" ng-switch="webPublisher.activeTab">
-            <div ng-if="webPublisher.activeTab === 'general'" class="modal__header modal__header--padding-20 ng-scope">
-                <h3 class="page-nav-title--text-light" translate="">General</h3>
+    <div class="modal__body">
+        <div class="sidebarLayout removeContentPadding">
+            <div class="sidebarLayout__sidebar">
+                <ul class="nav nav--stackedPublisher">
+                    <li ng-class="{active: webPublisher.activeTab === 'general'}">
+                        <button ng-click="webPublisher.changeTab('general')" translate>General</button>
+                    </li>
+                    <li ng-class="{active: webPublisher.activeTab === 'routes'}">
+                        <button ng-click="webPublisher.changeTab('routes')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            translate>Routes</button>
+                    </li>
+                    <li ng-class="{active: webPublisher.activeTab === 'navigation' || webPublisher.activeTab === 'navigation-menu'}">
+                        <button ng-click="webPublisher.changeTab('navigation')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            translate>Navigation</button>
+                    </li>
+                </ul>
             </div>
-            <form name="webPublisher.siteForm">
-                <fieldset ng-switch-when="general" class="paneContent__main">
-                    <div class="field">
-                        <label for="name" translate>Web Site Name:</label>
-                        <input type="text" name="name" ng-model="newSite.name" class="line-input" required/>
-                    </div>
-                    <div class="field">
-                        <label for="domainName" translate>Domain Name:</label>
-                        <input type="text" ng-trim="false" ng-change="newSite.domainName = newSite.domainName.split(' ').join('')" name="domainName" ng-model="newSite.domainName" class="line-input" required/>
-                    </div>
-                    <div class="field">
-                        <label for="subdomain" translate>Subdomain Name:</label>
-                        <input type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" name="subdomain" ng-model="newSite.subdomain" class="line-input"/>
-                    </div>
-                </fieldset>
-            </form>
-            <div ng-switch-when="routes">
-                <div ng-include="'routes.html'"></div>
-            </div>
-            <div ng-switch-when="navigation">
-                <div ng-include="'navigation.html'"></div>
-            </div>
-            <div ng-switch-when="navigation-menu">
-                <div ng-include="'navigation-menu-tree.html'"></div>
-            </div>
-            <div ng-switch-when="content-bucket">
-                <div ng-include="'content-bucket.html'"></div>
-            </div>
-            <div ng-switch-when="content-list-bucket">
-                <div ng-include="'content-list-bucket.html'"></div>
+            <div class="sidebarLayout__content" ng-switch="webPublisher.activeTab">
+                <div ng-if="webPublisher.activeTab === 'general'" class="modal__header modal__header--padding-20 ng-scope">
+                    <h3 class="page-nav-title--text-light" translate="">General</h3>
+                </div>
+                <form name="webPublisher.siteForm">
+                    <fieldset ng-switch-when="general" class="paneContent__main">
+                        <div class="field">
+                            <label for="name" translate>Web Site Name:</label>
+                            <input type="text" name="name" ng-model="newSite.name" class="line-input" required/>
+                        </div>
+                        <div class="field">
+                            <label for="domainName" translate>Domain Name:</label>
+                            <input type="text" ng-trim="false" ng-change="newSite.domainName = newSite.domainName.split(' ').join('')" name="domainName" ng-model="newSite.domainName" class="line-input" required/>
+                        </div>
+                        <div class="field">
+                            <label for="subdomain" translate>Subdomain Name:</label>
+                            <input type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" name="subdomain" ng-model="newSite.subdomain" class="line-input"/>
+                        </div>
+                    </fieldset>
+                </form>
+                <div ng-switch-when="routes">
+                    <div ng-include="'routes.html'"></div>
+                </div>
+                <div ng-switch-when="navigation">
+                    <div ng-include="'navigation.html'"></div>
+                </div>
+                <div ng-switch-when="navigation-menu">
+                    <div ng-include="'navigation-menu-tree.html'"></div>
+                </div>
+                <div ng-switch-when="content-bucket">
+                    <div ng-include="'content-bucket.html'"></div>
+                </div>
+                <div ng-switch-when="content-list-bucket">
+                    <div ng-include="'content-list-bucket.html'"></div>
+                </div>
             </div>
         </div>
     </div>
