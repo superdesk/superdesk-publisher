@@ -36,6 +36,8 @@ export function SiteRoutesDirective(publisher) {
             publisher.queryRoutes({type: 'collection'}).then((routes) => {
                 scope.loading = false;
                 scope.routes = routes;
+                // set default tenant back
+                publisher.setTenant();
             });
         }
     }
