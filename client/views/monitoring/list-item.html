@@ -12,7 +12,8 @@
         <div class="line">
             <span class="keyword">{{i.headline}}</span>
             <span class="item-heading">{{i.description_text}}</span>
-            <time>{{i.updatedAt | reldate}}</time>
+            <time ng-if="i.updatedAt">{{i.updatedAt | reldate}}</time>
+            <time ng-if="!i.updatedAt">{{i.createdAt | reldate}}</time>
         </div>
         <div class="line">
             <div class="state-label state-corrected">Update {{i.version}}</div>

@@ -1,7 +1,8 @@
 .sidebarLayout {
     display: flex;
-    padding: 0 !important;
     height: 100%;
+    position: absolute;
+    width: 100%;
 
     &__sidebar {
         flex: 0 0 200px;

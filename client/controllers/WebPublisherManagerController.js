@@ -13,6 +13,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         constructor() {
             this.TEMPLATES_DIR = 'scripts/apps/web-publisher/views';
             $scope.loading = true;
+
             publisher.setToken().then(this._refreshSites);
             this.livesitePermission = privileges.userHasPrivileges({livesite: 1});
         }
@@ -397,7 +398,13 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                     this.wizard.errorMessage = false;
                     this.wizard.site = site;
                     publisher.setTenant(site);
-                    this._refreshSites();
+                    this._refreshSites()
+                        .catch((error) => {
+                            publisher.setTenant();
+                            publisher.removeSite(this.wizard.site.code);
+                            this.wizard.busy = false;
+                            this.wizard.errorMessage = 'You either misspelled domain name or there is no publisher instance under this address';
+                        });
                     publisher.getOrganizationThemes().then((response) => {
                         this.wizard.organizationThemes = response._embedded._items;
                         angular.forEach(this.wizard.organizationThemes, (theme) => {
@@ -412,7 +419,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                     });
                 })
                 .catch((error) => {
-                    this.wizardBusy = false;
+                    this.wizard.busy = false;
                     if (error.status === 409) {
                         this.wizard.errorMessage = 'Site already exists';
                     } else {
@@ -440,6 +447,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         siteWizardInstallTheme(theme) {
             this.wizard.step = 'installation';
+            publisher.setTenant(this.wizard.site);
             publisher.installTenantTheme({theme_install: {name: theme.name}})
                 .then(() => {
                     this.wizard.step = 'finish';
@@ -546,7 +554,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         _refreshSites() {
             $scope.loading = true;
-            publisher.querySites().then((sites) => {
+            return publisher.querySites().then((sites) => {
                 $scope.sites = sites;
                 $scope.loading = false;
             });

@@ -39,7 +39,7 @@ export function ArticlesDirective(publisher) {
                 case 'draggable':
                     return 'articles-draggable.html';
                 default:
-                    return 'views/articles-detail.html';
+                    return 'articles-detail.html';
 
                 }
             };

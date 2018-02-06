@@ -10,7 +10,7 @@ export function SiteRoutesDirective(publisher) {
     class SiteRoutes {
         constructor() {
             this.scope = {site: '=site'};
-            this.template = require('../views/site-routes.html');
+            this.template = require('./view.html');
         }
 
         link(scope) {
@@ -36,6 +36,8 @@ export function SiteRoutesDirective(publisher) {
             publisher.queryRoutes({type: 'collection'}).then((routes) => {
                 scope.loading = false;
                 scope.routes = routes;
+                // set default tenant back
+                publisher.setTenant();
             });
         }
     }
