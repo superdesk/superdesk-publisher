@@ -447,6 +447,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         siteWizardInstallTheme(theme) {
             this.wizard.step = 'installation';
+            publisher.setTenant(this.wizard.site);
             publisher.installTenantTheme({theme_install: {name: theme.name}})
                 .then(() => {
                     this.wizard.step = 'finish';
