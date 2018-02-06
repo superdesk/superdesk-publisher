@@ -17,7 +17,7 @@ export function GroupArticleDirective(publisher) {
                 initialFilters: '=filters'
             };
 
-            this.template = require('../views/monitoring/group-article.html');
+            this.template = require('./view.html');
         }
 
         link(scope) {

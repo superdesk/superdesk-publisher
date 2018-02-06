@@ -25,28 +25,28 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('article-preview.html', require('./client/views/monitoring/article-preview.html'));
     $templateCache.put('sections-treeElement.html', require('./client/views/monitoring/sections-treeElement.html'));
     
-    $templateCache.put('article-draggable.html', require('./client/views/articles-draggable.html'));
-    $templateCache.put('articles-detail.html', require('./client/views/articles-detail.html'));
+    $templateCache.put('articles-draggable.html', require('./client/directives/articles/articles-draggable.html'));
+    $templateCache.put('articles-detail.html', require('./client/directives/articles/articles-detail.html'));
     
-    $templateCache.put('list-articles-card.html', require('./client/views/list-articles-card.html'));
-    $templateCache.put('list-articles-detail.html', require('./client/views/list-articles-detail.html'));
-    $templateCache.put('list-articles-draggable.html', require('./client/views/list-articles-draggable.html'));
+    $templateCache.put('list-articles-card.html', require('./client/directives/listArticles/list-articles-card.html'));
+    $templateCache.put('list-articles-detail.html', require('./client/directives/listArticles/list-articles-detail.html'));
+    $templateCache.put('list-articles-draggable.html', require('./client/directives/listArticles/list-articles-draggable.html'));
 
-    $templateCache.put('content-list-automatic.html', require('./client/views/content-list-automatic.html'));
-    $templateCache.put('content-list-manual.html', require('./client/views/content-list-manual.html'));
-    $templateCache.put('content-bucket.html', require('./client/views/content-bucket.html'));
+    $templateCache.put('content-list-automatic.html', require('./client/views/content-lists/content-list-automatic.html'));
+    $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));
+    $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
     
-    $templateCache.put('routes.html', require('./client/views/routes.html'));
+    $templateCache.put('routes.html', require('./client/views/manager/manage-site/routes.html'));
     $templateCache.put('routes-tree.html', require('./client/views/routes-tree.html'));
-    $templateCache.put('navigation.html', require('./client/views/navigation.html'));
-    $templateCache.put('navigation-menu-tree.html', require('./client/views/navigation-menu-tree.html'));
-    $templateCache.put('navigation-tree-renderer.html', require('./client/views/navigation-tree-renderer.html'));
+    $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
+    $templateCache.put('navigation-menu-tree.html', require('./client/views/manager/manage-site/navigation-menu-tree.html'));
+    $templateCache.put('navigation-tree-renderer.html', require('./client/views/manager/manage-site/navigation-tree-renderer.html'));
 
-    $templateCache.put('site.html', require('./client/views/site.html'));
-    $templateCache.put('site-wizard.html', require('./client/views/site-wizard.html'));
-    $templateCache.put('site-wizard-theme-details.html', require('./client/views/site-wizard-theme-details.html'));
-    $templateCache.put('info-carousel.html', require('./client/views/info-carousel.html'));
-    $templateCache.put('manage-site.html', require('./client/views/manage-site.html'));
+    $templateCache.put('tenant.html', require('./client/views/manager/tenant.html'));
+    $templateCache.put('wizard.html', require('./client/views/manager/wizard/wizard.html'));
+    $templateCache.put('theme-details.html', require('./client/views/manager/wizard/theme-details.html'));
+    $templateCache.put('info-carousel.html', require('./client/views/manager/info-carousel/info-carousel.html'));
+    $templateCache.put('manage-site.html', require('./client/views/manager/manage-site/manage-site.html'));
 
     $templateCache.put('settings/rules.html', require('./client/views/settings/rules.html'));
     $templateCache.put('settings/rule-item.html', require('./client/views/settings/rule-item.html'));
@@ -95,7 +95,7 @@ export default angular.module('superdesk-publisher', [
             description: gettext('Publisher'),
             controller: WebPublisherManagerController,
             controllerAs: 'webPublisher',
-            template: require('./client/views/manager.html'),
+            template: require('./client/views/manager/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
         })
         .activity('/web_publisher/content_lists', {
@@ -103,7 +103,7 @@ export default angular.module('superdesk-publisher', [
             description: gettext('Publisher'),
             controller: WebPublisherContentListsController,
             controllerAs: 'webPublisherContentLists',
-            template: require('./client/views/content-lists.html'),
+            template: require('./client/views/content-lists/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
         })
         .activity('/web_publisher/settings', {

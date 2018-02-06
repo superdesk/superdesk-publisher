@@ -10,7 +10,7 @@ export function PublishRoutesDirective(publisher) {
     class PublishRoutes {
         constructor() {
             this.scope = {site: '=site', monitoringContoller: '=monitoringContoller'};
-            this.template = require('../views/monitoring/publish-routes.html');
+            this.template = require('./view.html');
         }
 
         link(scope) {

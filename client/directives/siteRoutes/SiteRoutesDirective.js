@@ -10,7 +10,7 @@ export function SiteRoutesDirective(publisher) {
     class SiteRoutes {
         constructor() {
             this.scope = {site: '=site'};
-            this.template = require('../views/site-routes.html');
+            this.template = require('./view.html');
         }
 
         link(scope) {
