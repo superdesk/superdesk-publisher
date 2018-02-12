@@ -40,6 +40,13 @@
         width: 100%;
         overflow-y: auto;
         position: relative;
+
+        > .grid {
+            margin-top: 30px;
+        }
+        h3 {
+            font-weight: 400;
+        }
     }
     // right pane
     &__pane {

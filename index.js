@@ -37,6 +37,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
     
     $templateCache.put('routes.html', require('./client/views/manager/manage-site/routes.html'));
+    $templateCache.put('theme.html', require('./client/views/manager/manage-site/theme.html'));
     $templateCache.put('routes-tree.html', require('./client/views/routes-tree.html'));
     $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
     $templateCache.put('navigation-menu-tree.html', require('./client/views/manager/manage-site/navigation-menu-tree.html'));
