@@ -34,6 +34,11 @@
                             ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
                             translate>Navigation</button>
                     </li>
+                    <li ng-class="{active: webPublisher.activeTab === 'theme'}">
+                        <button ng-click="webPublisher.changeTab('theme')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            translate>Theme customization</button>
+                    </li>
                 </ul>
             </div>
             <div class="sidebarLayout__content" ng-switch="webPublisher.activeTab">
@@ -64,6 +69,9 @@
                 </div>
                 <div ng-switch-when="navigation-menu">
                     <div ng-include="'navigation-menu-tree.html'"></div>
+                </div>
+                <div ng-switch-when="theme">
+                    <div ng-include="'theme.html'"></div>
                 </div>
             </div>
         </div>
