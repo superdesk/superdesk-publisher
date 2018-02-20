@@ -1,7 +1,8 @@
 {
   "name": "superdesk-publisher",
   "version": "1.0.0",
-  "description": "",
+  "license": "AGPL-3.0",
+  "description": "Superdesk Publisher component",
   "main": "index.js",
   "scripts": {},
   "repository": {
