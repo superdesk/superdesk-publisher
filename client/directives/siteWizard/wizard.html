@@ -1,0 +1,105 @@
+<div sd-modal data-model="active" class="modal--tabs modal--large sd-wizard">
+    <div class="modal__header">
+        <a href="" class="close" ng-click="managerController.toggleSiteWizard()"><i class="icon-close-small"></i></a>
+        <h3 class="modal__heading" translate>Create Site Wizard</h3>
+    </div>
+
+    <div class="modal__body" sd-wizard data-name="siteWizard" data-current-step="step.current" data-finish="managerController.toogleSiteWizard()">
+        <div class="busyOverlay" ng-class="{'busyOverlay--active': wizard.uploading}">
+            <i class="big-icon--upload-alt"></i>
+        </div>
+        <div sd-wizard-step data-title="{{ 'Add site' | translate }}" data-code="addSite" data-disabled="true">
+            <form name="generalStep" class="content">
+                <div class="sd-alert sd-alert--hollow sd-alert--alert" ng-if="wizard.errorMessage">
+                    {{wizard.errorMessage}}
+                </div>
+                <fieldset>
+                    <div class="form__row form__row--flex">
+                        <div class="form__row-item">
+                            <div class="sd-line-input sd-line-input--required">
+                                <label class="sd-line-input__label" translate>Site name</label>
+                                <input class="sd-line-input__input" type="text" ng-model="newSite.name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row form__row--flex">
+                        <div class="form__row-item">
+                            <div class="sd-line-input sd-line-input--required">
+                                <label class="sd-line-input__label" translate>Domain name</label>
+                                <input class="sd-line-input__input" type="text"
+                                    ng-trim="false"
+                                    ng-change="newSite.domainName = newSite.domainName.split(' ').join('')"
+                                    name="domainName"
+                                    ng-model="newSite.domainName"
+                                required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row form__row--flex">
+                        <div class="form__row-item">
+                            <div class="sd-line-input">
+                                <label class="sd-line-input__label" translate>Subdomain name</label>
+                                <input class="sd-line-input__input" type="text"
+                                    ng-trim="false"
+                                    ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')"
+                                    name="subdomain"
+                                    ng-model="newSite.subdomain"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="modal__footer">
+                <button id="next-general"
+                        class="btn btn--primary"
+                        ng-click="saveSite()"
+                        ng-disabled="!generalStep.$valid || wizard.busy">Continue</button>
+            </div>
+        </div>
+        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}" data-code="installTheme" data-disabled="true">
+            <div class="content">
+                <div class="flex-grid flex-grid--boxed flex-grid--wrap-items flex-grid--small-2">
+                    <div class="flex-grid__item upload-media">
+                        <div class="wizardThemeBox wizardThemeBox--upload">
+                            <div class="drag-area" ngf-drop="uploadTheme($files)"
+                                ngf-multiple="false" ng-class="{compact: items.length}">
+                                <div class="upload-error" ng-show="wizard.uploadError">
+                                    <span class="action"><span translate="">Error</span>: Something went wrong. Try again.</span>
+                                </div>
+                                <div class="title" translate>Drop Your Theme Here</div>
+                                <div class="upload-manual">
+                                    <div class="or-label" translate>or</div>
+                                    <label class="btn" for="theme-input">{{ 'Select from folder' | translate }}</label>
+                                    <input id="theme-input" type="file" ngf-select="uploadTheme($files)" class="hide">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grid__item" ng-repeat="theme in wizard.organizationThemes">
+                        <div class="wizardThemeBox sd-shadow--z1" ng-class="{'wizardThemeBox--active': wizard.theme && wizard.theme.active && wizard.theme.name == theme.name}">
+                            <div class="wizardThemeBox__image" ng-if="!theme.screenshots[0] || !theme.screenshots[0].url">
+                                <img src="./no-theme-preview.png" />
+                            </div>
+                            <div class="wizardThemeBox__image" ng-if="theme.screenshots[0] && theme.screenshots[0].url">
+                                <img ng-src="{{theme.screenshots[0].url}}" />
+                            </div>
+                            <h4 class="wizardThemeBox__name">{{theme.title}}</h4>
+                            <div class="wizardThemeBox__overlay">
+                                <a class="btn btn--primary btn--large btn--expanded bottomMargin" ng-click="openThemeDetails(theme)">Details/Install</a>
+                                <a class="btn btn--hollow btn--large btn--expanded" ng-if="theme.preview_url" ng-href="{{theme.preview_url}}" target="_blank">Preview</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div ng-include="'siteWizardTheme-details.html'" ng-if="wizard.themeDetailsActive"></div>
+            <div class="modal__footer">
+                <button class="btn btn--primary" ng-disabled="!wizard.ready"  ng-click="configureSite()">Configure your site</button>
+                <button class="btn btn--hollow  btn--primary" ng-disabled="!wizard.ready" ng-click="managerController.toogleSiteWizard()">Done</button>
+            </div>
+        </div>
+
+    </div>
+</div>

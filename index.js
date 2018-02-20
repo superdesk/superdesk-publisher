@@ -1,4 +1,5 @@
 import 'ng-infinite-scroll';
+import 'ng-file-upload';
 import './client/styles/web-publisher.scss';
 
 import 'angular-drag-and-drop-lists/angular-drag-and-drop-lists';
@@ -24,10 +25,10 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('list-item.html', require('./client/views/monitoring/list-item.html'));
     $templateCache.put('article-preview.html', require('./client/views/monitoring/article-preview.html'));
     $templateCache.put('sections-treeElement.html', require('./client/views/monitoring/sections-treeElement.html'));
-    
+
     $templateCache.put('articles-draggable.html', require('./client/directives/articles/articles-draggable.html'));
     $templateCache.put('articles-detail.html', require('./client/directives/articles/articles-detail.html'));
-    
+
     $templateCache.put('list-articles-card.html', require('./client/directives/listArticles/list-articles-card.html'));
     $templateCache.put('list-articles-detail.html', require('./client/directives/listArticles/list-articles-detail.html'));
     $templateCache.put('list-articles-draggable.html', require('./client/directives/listArticles/list-articles-draggable.html'));
@@ -35,7 +36,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('content-list-automatic.html', require('./client/views/content-lists/content-list-automatic.html'));
     $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));
     $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
-    
+
     $templateCache.put('routes.html', require('./client/views/manager/manage-site/routes.html'));
     $templateCache.put('routes-tree.html', require('./client/views/routes-tree.html'));
     $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
@@ -43,8 +44,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('navigation-tree-renderer.html', require('./client/views/manager/manage-site/navigation-tree-renderer.html'));
 
     $templateCache.put('tenant.html', require('./client/views/manager/tenant.html'));
-    $templateCache.put('wizard.html', require('./client/views/manager/wizard/wizard.html'));
-    $templateCache.put('theme-details.html', require('./client/views/manager/wizard/theme-details.html'));
+    $templateCache.put('siteWizardTheme-details.html', require('./client/directives/siteWizard/siteWizardTheme-details.html'));
     $templateCache.put('info-carousel.html', require('./client/views/manager/info-carousel/info-carousel.html'));
     $templateCache.put('manage-site.html', require('./client/views/manager/manage-site/manage-site.html'));
 
@@ -63,7 +63,8 @@ function cacheIncludedTemplates($templateCache) {
  */
 export default angular.module('superdesk-publisher', [
     'dndLists',
-    'infinite-scroll'
+    'infinite-scroll',
+    'ngFileUpload'
 ])
 
 .directive('sdSiteRoutes', directive.SiteRoutesDirective)
@@ -72,6 +73,7 @@ export default angular.module('superdesk-publisher', [
 .directive('sdCardInputFocus', directive.CardInputFocusDirective)
 .directive('sdGroupArticle', directive.GroupArticleDirective)
 .directive('sdArticles', directive.ArticlesDirective)
+.directive('sdSiteWizard', directive.SiteWizardDirective)
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
 

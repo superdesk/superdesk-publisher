@@ -7,8 +7,13 @@
     }
 
     &__image {
-        display: block;
-        max-width: 100%;
+        width: 100%;
+        img {
+            display: block;
+            object-fit: cover;
+            height: 186px;
+            width: 100%;
+        }
     }
     &__name {
         display: block;
@@ -33,5 +38,29 @@
 
     &:hover &__overlay {
         opacity: 1;
+    }
+
+    &--upload {
+        height: 222px;
+        background: none;
+        border: 2px dashed rgba(51, 51, 51, 0.25);
+        border-radius: 3px;
+        .drag-area {
+            &.dragover{
+                border: none;
+                background-color: rgba(255,255,255,.7);
+            }
+            .title {
+                width: 240px;
+                margin-left: -120px;
+                margin-right: 0;
+                margin-top: -50px;
+                background: none;
+                padding: 0;
+            }
+            .upload-manual {
+                margin-top: 0;
+            }
+        }
     }
 }

@@ -258,3 +258,40 @@
 .maxWidth100 {
     max-width: 100%;
 }
+
+.busyOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:2;
+    display: none !important;
+    background: rgba(255, 255, 255, 0.9);
+    justify-content: center;
+    align-items: center;
+    &--active {
+        display: flex !important;
+    }
+
+    [class^="big-icon--"], [class*=" big-icon--"] {
+        font-size: 60px;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        background: linear-gradient(to top, lighten($sd-blue, 30%) 20% , $sd-blue 40%, $sd-blue 60%, lighten($sd-blue, 30%) 80% );
+        background-size: 200% auto;
+        color: $sd-blue;
+        background-clip: text;
+        text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 1.5s linear infinite;
+    }
+}
+
+@keyframes shine {
+    to {
+        background-position: center 200%;
+    }
+}

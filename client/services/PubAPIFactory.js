@@ -9,8 +9,8 @@
  *
  * @description Publisher API service
  */
-PubAPIFactory.$inject = ['config', '$http', '$q', 'session', '$location'];
-export function PubAPIFactory(config, $http, $q, session, $location) {
+PubAPIFactory.$inject = ['config', '$http', '$q', 'session', '$location', 'Upload'];
+export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
     class PubAPI {
         constructor() {
             let pubConfig = config.publisher || {};
@@ -194,6 +194,23 @@ export function PubAPIFactory(config, $http, $q, session, $location) {
                 return $q.reject(response);
             });
         }
+
+         /**
+         * @ngdoc method
+         * @name pubapi#upload
+         * @param {String} resource
+         * @param {Object} dataObject
+         * @param {String} id
+         * @returns {Promise}
+         * @description upload data.
+         */
+        upload(resource, dataObject, id) {
+           return Upload.upload({
+                url: this.resourceURL(resource, id),
+                data: dataObject
+            })
+        }
+
     }
 
     return new PubAPI();

@@ -369,15 +369,25 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher#uploadOrganizationTheme
+         * @param {Object} themeUpload - object with file
+         * @returns {Promise}
+         * @description Uploads organization theme
+         */
+        uploadOrganizationTheme(themeUpload) {
+            return pubapi.upload('organization/themes', themeUpload);
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher#installTenantTheme
          * @param {Object} themeInstall - object with params to save
          * @returns {Promise}
-         * @description Add or edit organization rule
+         * @description Installs theme on given tenant
          */
         installTenantTheme(themeInstall) {
             return pubapi.save('themes', themeInstall);
         }
-
     }
 
     return new Publisher();
