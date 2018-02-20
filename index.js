@@ -42,6 +42,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
     $templateCache.put('navigation-menu-tree.html', require('./client/views/manager/manage-site/navigation-menu-tree.html'));
     $templateCache.put('navigation-tree-renderer.html', require('./client/views/manager/manage-site/navigation-tree-renderer.html'));
+    $templateCache.put('theme.html', require('./client/views/manager/manage-site/theme.html'));
 
     $templateCache.put('tenant.html', require('./client/views/manager/tenant.html'));
     $templateCache.put('siteWizardTheme-details.html', require('./client/directives/siteWizard/siteWizardTheme-details.html'));

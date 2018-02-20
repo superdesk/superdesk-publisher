@@ -1,0 +1,128 @@
+<div class="subnav bg--white paneLayout">
+    <h3 class="page-nav-title page-nav-title--text-light" translate>Theme customization</h3>        
+</div>
+<div class="paneLayout paneLayout--headerMargin">
+    <div class="paneLayout__content">
+            
+            <div class="grid">
+                <div class="grid__item grid__item--col-6">
+                    <div class="grid">
+                        <div class="grid__item grid__item--col-12">
+                            <h3>Logo</h3>
+                        </div>                        
+                        <div class="grid__item grid__item--col-12">
+                            <div class="sd-line-input">                                
+                                <input class="sd-line-input__input" type="file">
+                            </div>
+                        </div>
+                        <!-- <div class="grid__item grid__item--col-12 topMargin">
+                            <img src="" />
+                        </div> -->
+                    </div>
+                </div>
+            </div>  
+            <div class="grid">
+                <div class="grid__item grid__item--col-6">
+                    <div class="grid">
+                        <div class="grid__item grid__item--col-12 bottomMargin--10">
+                            <h3>Choose fonts</h3>
+                        </div>
+                        <div class="grid__item grid__item--col-12">
+                            <div class="form__row form__row--flex">
+                                <div class="sd-line-input sd-line-input--is-select">
+                                    <label class="sd-line-input__label">Primary font family</label>
+                                    <select class="sd-line-input__select">
+                                        <option value="roboto" selected>Roboto</option>
+                                        <option value="roboto slab">Roboto Slab</option>
+                                    </select>                                    
+                                </div>
+                                <div class="sd-line-input sd-line-input--is-select">
+                                    <label class="sd-line-input__label">Secondary font family</label>
+                                    <select class="sd-line-input__select">
+                                        <option value="roboto">Roboto</option>
+                                        <option value="roboto slab" selected>Roboto Slab</option>
+                                    </select>                                    
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="grid">
+                <div class="grid__item grid__item--col-6">
+                    <div class="grid">
+                        <div class="grid__item grid__item--col-12 bottomMargin--10">
+                            <h3>Body text</h3>
+                        </div>
+                        <div class="grid__item grid__item--col-12">
+                            <div class="form__row form__row--flex">
+                                <div class="sd-line-input sd-line-input--is-select">
+                                    <label class="sd-line-input__label">Body font size</label>
+                                    <select class="sd-line-input__select">
+                                        <option value="roboto">10</option>
+                                        <option value="roboto slab" selected>12</option>
+                                        <option value="roboto slab">14</option>
+                                        <option value="roboto slab">16</option>
+                                    </select>                               
+                                </div>
+                                <div class="sd-line-input sd-line-input--is-color">
+                                    <label class="sd-line-input__label">Body font color</label>
+                                    <div class="sd-line-input--flex-row">
+                                        <div class="sd-line-input__value ng-binding">{{bodyfont}}</div>
+                                        <input class="sd-line-input__color ng-pristine ng-untouched ng-valid" type="color" value="#333333" ng-init="bodyfont='#333333'" ng-model="bodyfont">
+                                    </div>
+                                </div>
+                                <div class="sd-line-input sd-line-input--is-color">
+                                    <label class="sd-line-input__label">Body link color</label>
+                                    <div class="sd-line-input--flex-row">
+                                        <div class="sd-line-input__value ng-binding">{{bodylink}}</div>
+                                        <input class="sd-line-input__color ng-pristine ng-untouched ng-valid" type="color" value="#5eadc8" ng-init="bodylink='#5eadc8'" ng-model="bodylink">
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="grid">
+                <div class="grid__item grid__item--col-6">
+                    <div class="grid">
+                        <div class="grid__item grid__item--col-12 bottomMargin--10">
+                            <h3>Colors</h3>
+                        </div>
+                        <div class="grid__item grid__item--col-12">
+                            <div class="form__row form__row--flex">
+                                <div class="sd-line-input sd-line-input--is-color">
+                                    <label class="sd-line-input__label">Primary color</label>
+                                    <div class="sd-line-input--flex-row">
+                                        <div class="sd-line-input__value ng-binding">{{primarycolor}}</div>
+                                        <input class="sd-line-input__color ng-pristine ng-untouched ng-valid" type="color" value="#00a9e1" ng-init="primarycolor='#00a9e1'" ng-model="primarycolor">
+                                    </div>
+                                </div>
+                                <div class="sd-line-input sd-line-input--is-color">
+                                    <label class="sd-line-input__label">Secondary color</label>
+                                    <div class="sd-line-input--flex-row">
+                                        <div class="sd-line-input__value ng-binding">{{secondarycolor}}</div>
+                                        <input class="sd-line-input__color ng-pristine ng-untouched ng-valid" type="color" value="#ea545f" ng-init="secondarycolor='#ea545f'" ng-model="secondarycolor">
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="grid">
+                <div class="grid__item grid__item--col-6">
+                    <div class="grid">
+                        <div class="grid__item grid__item--col-12">
+                            <h3>Revert styles</h3>
+                        </div>
+                        <div class="grid__item grid__item--col-12 topMargin">Revert styles back to theme defaults:</div>
+                        <div class="grid__item grid__item--col-12 topMargin">
+                            <button class="btn btn--hollow btn--primary"><i class="icon-refresh"></i> Theme defaults</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
