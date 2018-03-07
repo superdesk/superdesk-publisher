@@ -7,11 +7,12 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherManagerController holds a set of functions used for web publisher manager
  */
-WebPublisherManagerController.$inject = ['$scope', 'publisher', 'modal', 'privileges', '$window', 'WizardHandler'];
-export function WebPublisherManagerController($scope, publisher, modal, privileges, $window, WizardHandler) {
+WebPublisherManagerController.$inject = ['$scope', 'publisher', 'modal', 'privileges', '$window'];
+export function WebPublisherManagerController($scope, publisher, modal, privileges, $window) {
     class WebPublisherManager {
         constructor() {
             this.TEMPLATES_DIR = 'scripts/apps/web-publisher/views';
+            this.siteWizardActive = false;
             $scope.loading = true;
 
             publisher.setToken().then(this._refreshSites);
@@ -372,112 +373,8 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @description Toggles site creation wizard
          */
         toggleSiteWizard() {
-            this.wizard = {
-                busy: false,
-                step: 'details',
-                errorMessage: null,
-                themeDetailsActive: false,
-                site: null,
-                theme: null,
-                ready: false
-            };
             this.siteWizardActive = !this.siteWizardActive;
-            $scope.newSite = {};
             publisher.setTenant();
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherManagerController#siteWizardSaveSite
-         * @description Saves new tenant and continues to theme install step in site wizard
-         */
-        siteWizardSaveSite() {
-            this.wizard.busy = true;
-            publisher.manageSite({tenant: $scope.newSite})
-                .then((site) => {
-                    this.wizard.errorMessage = false;
-                    this.wizard.site = site;
-                    publisher.setTenant(site);
-                    this._refreshSites()
-                        .catch((error) => {
-                            publisher.setTenant();
-                            publisher.removeSite(this.wizard.site.code);
-                            this.wizard.busy = false;
-                            this.wizard.errorMessage = 'You either misspelled domain name or there is no publisher instance under this address';
-                        });
-                    publisher.getOrganizationThemes().then((response) => {
-                        this.wizard.organizationThemes = response._embedded._items;
-                        angular.forEach(this.wizard.organizationThemes, (theme) => {
-                            let previewSetting = theme.config.filter((setting) => setting.preview_url);
-
-                            if (previewSetting.length) {
-                                theme.preview_url = previewSetting[0].preview_url;
-                            }
-                        });
-                        this.wizard.busy = false;
-                        WizardHandler.wizard('siteWizard').next();
-                    });
-                })
-                .catch((error) => {
-                    this.wizard.busy = false;
-                    if (error.status === 409) {
-                        this.wizard.errorMessage = 'Site already exists';
-                    } else {
-                        this.wizard.errorMessage = 'Error. Try again later.';
-                    }
-                });
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherManagerController#openWizardThemeDetails
-         * @param {Object} theme - selected theme
-         * @description Opens theme details in site wizard
-         */
-        openWizardThemeDetails(theme) {
-            this.wizard.themeDetailsActive = true;
-            this.wizard.theme = theme;
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherManagerController#siteWizardInstallTheme
-         * @param {Object} theme - selected theme
-         * @description Installs selected theme
-         */
-        siteWizardInstallTheme(theme) {
-            this.wizard.step = 'installation';
-            publisher.setTenant(this.wizard.site);
-            publisher.installTenantTheme({theme_install: {name: theme.name}})
-                .then(() => {
-                    this.wizard.step = 'finish';
-                });
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherManagerController#siteWizardActivateTheme
-         * @description Activates selected theme
-         */
-        siteWizardActivateTheme() {
-            publisher.manageSite({tenant: {themeName: this.wizard.theme.name}}, this.wizard.site.code)
-                .then(() => {
-                    this.wizard.themeDetailsActive = false;
-                    this.wizard.ready = true;
-                    this.wizard.theme.active = true;
-                });
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherManagerController#siteWizardConfigureSite
-         * @description Clears site wizard data and redirects user to site configuration
-         */
-        siteWizardConfigureSite() {
-            let site = this.wizard.site;
-
-            this.toggleSiteWizard();
-            this.editSite(site);
         }
 
         /**
