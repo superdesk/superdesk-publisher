@@ -67,7 +67,6 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                  */
                 $scope.$broadcast('refreshRoutes', this.selectedSite.subdomain);
             }
-
             this.selectedSite = {};
             $scope.newSite = {};
             publisher.setTenant();
@@ -97,6 +96,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             $scope.newSite = angular.extend({}, site);
             this.openSiteModal = true;
             publisher.setTenant(site);
+            this._refreshThemeSettings();
         }
 
         /**
@@ -377,6 +377,69 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             publisher.setTenant();
         }
 
+         /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#themeSettingsRevert
+         * @description Reverts theme settings to default values
+         */
+        themeSettingsRevert() {
+            $scope.loading = true;
+            publisher.settingsRevert('theme').then( () => {
+                this._refreshThemeSettings().then( () => {
+                    $scope.loading = false;
+                })
+            });
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#cancelEditThemeSettings
+         * @description Reverts theme settings to default values
+         */
+        cancelEditThemeSettings() {
+            $scope.newThemeSettings = angular.copy(this.themeSettings);
+            this.themeSettingsForm.$setPristine();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#saveThemeSettings
+         * @description Saving theme settings and logo
+         */
+        saveThemeSettings() {
+            let settingsToSave = _.map($scope.newThemeSettings.settings, (value) => {
+                return _.pick(value, ['name', 'value']);
+            });
+            publisher.saveSettings({settings: {bulk: settingsToSave}})
+                .then((settings) => {
+                    this.themeSettingsForm.$setPristine();
+                });
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#uploadThemeLogo
+         * @param {Array} files - selected files
+         * @description Uploads new theme logo
+         */
+        uploadThemeLogo(files) {
+            $scope.newThemeSettings.logo.error = false;
+
+            if (files && files.length) {
+                let logoFile = files[0];
+                if (!logoFile.$error) {
+                    publisher.uploadThemeLogo({'logo': logoFile})
+                        .then((response) => {
+                           this.themeSettings.logo = response.data;
+                        })
+                        .catch((err) => {
+                            $scope.newThemeSettings.logo.error = true;
+                        });
+                }
+            }
+        }
+
+
         /**
          * @ngdoc method
          * @name WebPublisherManagerController#_editMode
@@ -494,6 +557,24 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             this.menuPaneOpen = false;
             publisher.queryMenus().then((menus) => {
                 $scope.menus = menus;
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#_refreshThemeSettings
+         * @private
+         * @description Loads theme settings
+         */
+        _refreshThemeSettings() {
+            return publisher.getThemeSettings().then((settings) => {
+                this.themeSettings = {};
+                this.themeSettings.logo = _.find(settings, { 'name': 'theme_logo' });
+                _.remove(settings, (setting) => {
+                    return (setting.name === 'theme_logo') ? true : false;
+                  });
+                this.themeSettings.settings = settings;
+                $scope.newThemeSettings = angular.copy(this.themeSettings);
             });
         }
     }

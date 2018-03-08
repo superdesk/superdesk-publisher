@@ -125,12 +125,11 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                         fbia: this.newDestinations[item] && this.newDestinations[item].fbia === true});
                 }
 
-                if (this.publishedDestinations[item] && this.publishedDestinations[item].route.id) {
+                if (this.publishedDestinations[item] && this.publishedDestinations[item].route && this.publishedDestinations[item].route.id) {
                     oldDestinationsRoutes.push({
                         route: this.publishedDestinations[item].route.id});
                 }
             });
-
             if (destinations.length) {
                 publisher.publishArticle(
                     {publish: {destinations: destinations}}, this.selectedArticle.id)

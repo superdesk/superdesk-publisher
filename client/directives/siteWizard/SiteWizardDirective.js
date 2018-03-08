@@ -31,7 +31,6 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                     ready: false
                 };
                 scope.newSite = {};
-                publisher.setTenant();
             };
 
             scope.$watch('active', (o, n) => {
@@ -68,6 +67,9 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                             });
                             scope.wizard.busy = false;
                             WizardHandler.wizard('siteWizard').next();
+                        })
+                        .catch((err) => {
+                            throw new Error(err);
                         });
                     })
                     .catch((error) => {
@@ -145,6 +147,9 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                                         }
                                     });
                                     scope.wizard.uploading = false;
+                                })
+                                .catch((err) => {
+                                    throw new Error(err);
                                 });
                             })
                             .catch((err) => {

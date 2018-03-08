@@ -178,6 +178,16 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher#getThemeSettings
+         * @returns {Promise}
+         * @description List theme settings
+         */
+        getThemeSettings() {
+            return pubapi.get('theme/settings');
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher#manageList
          * @param {Object} list - list which is edited
          * @param {String} id - id of list which is edited
@@ -321,7 +331,7 @@ export function PublisherFactory(pubapi) {
          * @description Saves Publisher settings
          */
         saveSettings(settings) {
-            return pubapi.patch('settings', settings);
+            return pubapi.patch('settings/bulk', settings);
         }
 
         /**
@@ -380,6 +390,17 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher# uploadThemeLogo
+         * @param {Object}  logoUpload - object with file
+         * @returns {Promise}
+         * @description Uploads theme logo
+         */
+        uploadThemeLogo(logoUpload) {
+            return pubapi.upload('theme/logo_upload', logoUpload);
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher#installTenantTheme
          * @param {Object} themeInstall - object with params to save
          * @returns {Promise}
@@ -387,6 +408,17 @@ export function PublisherFactory(pubapi) {
          */
         installTenantTheme(themeInstall) {
             return pubapi.save('themes', themeInstall);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#settingsRevert
+         * @param {String} scope - scope
+         * @returns {Promise}
+         * @description Reverts settings by scope
+         */
+        settingsRevert(scope) {
+            return pubapi.post('settings/revert', scope);
         }
     }
 

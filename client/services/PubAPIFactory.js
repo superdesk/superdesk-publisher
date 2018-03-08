@@ -105,6 +105,21 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
             });
         }
 
+         /**
+         * @ngdoc method
+         * @name pubapi#post
+         * @param {String} resource
+         * @param {String} id
+         * @returns {Promise}
+         * @description POST a given resource by id.
+         */
+        post(resource, id) {
+            return this.req({
+                url: this.resourceURL(resource, id),
+                method: 'POST'
+            });
+        }
+
         /**
          * @ngdoc method
          * @name pubapi#save
