@@ -16,6 +16,7 @@
             <time ng-if="!i.updatedAt">{{i.createdAt | reldate}}</time>
         </div>
         <div class="line">
+            <div class="state-label" ng-repeat="service in i.service">{{service.name}}</div>
             <div class="state-label state-corrected">Update {{i.version}}</div>
             <span class="provider">{{i.byline}}</span>
             <span class="container">{{i.route.name}}</span>
