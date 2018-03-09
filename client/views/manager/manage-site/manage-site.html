@@ -15,6 +15,19 @@
                 ng-show="webPublisher.activeTab === 'general'"
                 ng-click="webPublisher.saveSite()"
                 translate>Save</button>
+
+            <button
+                class="btn"
+                ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
+                ng-show="webPublisher.activeTab === 'theme'"
+                ng-click="webPublisher.cancelEditThemeSettings()"
+                translate>Cancel</button>
+            <button
+                class="btn btn--primary"
+                ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
+                ng-show="webPublisher.activeTab === 'theme'"
+                ng-click="webPublisher.saveThemeSettings()"
+                translate>Save</button>
         </div>
     </div>
     <div class="modal__body">
@@ -22,19 +35,21 @@
             <div class="sidebarLayout__sidebar">
                 <ul class="nav nav--stackedPublisher">
                     <li ng-class="{active: webPublisher.activeTab === 'general'}">
-                        <button ng-click="webPublisher.changeTab('general')" translate>General</button>
+                        <button ng-click="webPublisher.changeTab('general')"
+                            ng-disabled="webPublisher.themeSettingsForm.$dirty"
+                            translate>General</button>
                     </li>
                     <li ng-class="{active: webPublisher.activeTab === 'routes'}">
                         <button ng-click="webPublisher.changeTab('routes')"
-                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
                             translate>Routes</button>
                     </li>
                     <li ng-class="{active: webPublisher.activeTab === 'navigation' || webPublisher.activeTab === 'navigation-menu'}">
                         <button ng-click="webPublisher.changeTab('navigation')"
-                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
                             translate>Navigation</button>
                     </li>
-                    <li ng-class="{active: webPublisher.activeTab === 'theme'}">
+                    <li ng-class="{active: webPublisher.activeTab === 'theme'}" ng-show="webPublisher.themeSettings.settings">
                         <button ng-click="webPublisher.changeTab('theme')"
                             ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
                             translate>Theme customization</button>
