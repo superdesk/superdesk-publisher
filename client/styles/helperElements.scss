@@ -295,3 +295,15 @@
         background-position: center -200%;
     }
 }
+
+.animate{
+    &--rotate {
+        animation: rotate 1s linear infinite;
+    }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+

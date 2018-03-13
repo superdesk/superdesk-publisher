@@ -130,7 +130,6 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                         route: this.publishedDestinations[item].route.id});
                 }
             });
-
             if (destinations.length) {
                 publisher.publishArticle(
                     {publish: {destinations: destinations}}, this.selectedArticle.id)
