@@ -19,13 +19,13 @@
             <button
                 class="btn"
                 ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
-                ng-show="webPublisher.activeTab === 'theme'"
+                ng-show="webPublisher.activeTab === 'theme-settings'"
                 ng-click="webPublisher.cancelEditThemeSettings()"
                 translate>Cancel</button>
             <button
                 class="btn btn--primary"
                 ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
-                ng-show="webPublisher.activeTab === 'theme'"
+                ng-show="webPublisher.activeTab === 'theme-settings'"
                 ng-click="webPublisher.saveThemeSettings()"
                 translate>Save</button>
         </div>
@@ -49,10 +49,15 @@
                             ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
                             translate>Navigation</button>
                     </li>
-                    <li ng-class="{active: webPublisher.activeTab === 'theme'}" ng-show="webPublisher.themeSettings.settings">
-                        <button ng-click="webPublisher.changeTab('theme')"
+                    <li ng-class="{active: webPublisher.activeTab === 'theme-manager'}">
+                        <button ng-click="webPublisher.changeTab('theme-manager')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
+                            translate>Theme</button>
+                    </li>
+                    <li ng-class="{active: webPublisher.activeTab === 'theme-settings'}" ng-show="webPublisher.themeSettings.settings.length">
+                        <button ng-click="webPublisher.changeTab('theme-settings')"
                             ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
-                            translate>Theme customization</button>
+                            translate>Theme Customization</button>
                     </li>
                 </ul>
             </div>
@@ -85,8 +90,13 @@
                 <div ng-switch-when="navigation-menu">
                     <div ng-include="'navigation-menu-tree.html'"></div>
                 </div>
-                <div ng-switch-when="theme">
-                    <div ng-include="'theme.html'"></div>
+                <div ng-switch-when="theme-manager">
+                    <div class="contentPadding">
+                        <div sd-theme-manager data-site="webPublisher.selectedSite" activated-callback="webPublisher.themeActivatedCallback()" data-grid="4"></div>
+                    </div>
+                </div>
+                <div ng-switch-when="theme-settings">
+                    <div ng-include="'theme-settings.html'"></div>
                 </div>
             </div>
         </div>

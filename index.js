@@ -42,10 +42,10 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
     $templateCache.put('navigation-menu-tree.html', require('./client/views/manager/manage-site/navigation-menu-tree.html'));
     $templateCache.put('navigation-tree-renderer.html', require('./client/views/manager/manage-site/navigation-tree-renderer.html'));
-    $templateCache.put('theme.html', require('./client/views/manager/manage-site/theme.html'));
+    $templateCache.put('theme-settings.html', require('./client/views/manager/manage-site/theme-settings.html'));
 
     $templateCache.put('tenant.html', require('./client/views/manager/tenant.html'));
-    $templateCache.put('siteWizardTheme-details.html', require('./client/directives/siteWizard/siteWizardTheme-details.html'));
+    $templateCache.put('themeManager-details.html', require('./client/directives/themeManager/themeManager-details.html'));
     $templateCache.put('info-carousel.html', require('./client/views/manager/info-carousel/info-carousel.html'));
     $templateCache.put('manage-site.html', require('./client/views/manager/manage-site/manage-site.html'));
 
@@ -75,6 +75,7 @@ export default angular.module('superdesk-publisher', [
 .directive('sdGroupArticle', directive.GroupArticleDirective)
 .directive('sdArticles', directive.ArticlesDirective)
 .directive('sdSiteWizard', directive.SiteWizardDirective)
+.directive('sdThemeManager', directive.ThemeManagerDirective)
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
 

@@ -5,3 +5,4 @@ export {CardInputFocusDirective} from './CardInputFocusDirective';
 export {GroupArticleDirective} from './groupArticle/GroupArticleDirective';
 export {ArticlesDirective} from './articles/ArticlesDirective';
 export {SiteWizardDirective} from './siteWizard/SiteWizardDirective';
+export {ThemeManagerDirective} from './themeManager/ThemeManagerDirective';
