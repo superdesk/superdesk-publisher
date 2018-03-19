@@ -1,0 +1,38 @@
+<div class="busyOverlay" ng-class="{'busyOverlay--active': uploading}">
+        <i class="big-icon--upload-alt"></i>
+    </div>
+<div class="flex-grid flex-grid--boxed flex-grid--wrap-items" ng-class="{'flex-grid--small-2' : grid == '2', 'flex-grid--small-4': grid == '4'}">
+    <div class="flex-grid__item upload-media">
+        <div class="wizardThemeBox wizardThemeBox--upload">
+            <div class="drag-area" ngf-drop="uploadTheme($files)"
+                ngf-multiple="false" ng-class="{compact: items.length}">
+                <div class="upload-error" ng-show="uploadError">
+                    <span class="action"><span translate="">Error</span>: Something went wrong. Try again.</span>
+                </div>
+                <div class="title" translate>Drop Your Theme Here</div>
+                <div class="upload-manual">
+                    <div class="or-label" translate>or</div>
+                    <label class="btn" for="theme-input">{{ 'Select from folder' | translate }}</label>
+                    <input id="theme-input" type="file" ngf-select="uploadTheme($files)" class="hide">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-grid__item" ng-repeat="item in organizationThemes">
+        <div class="wizardThemeBox sd-shadow--z1" ng-class="{'wizardThemeBox--active': site.themeName == item.name}">
+            <div class="wizardThemeBox__image" ng-if="!item.screenshots[0] || !item.screenshots[0].url">
+                <img src="./no-theme-preview.png" />
+            </div>
+            <div class="wizardThemeBox__image" ng-if="item.screenshots[0] && item.screenshots[0].url">
+                <img ng-src="{{item.screenshots[0].url}}" />
+            </div>
+            <h4 class="wizardThemeBox__name">{{item.title}}</h4>
+            <div class="wizardThemeBox__overlay">
+                <a class="btn btn--primary btn--large btn--expanded bottomMargin" ng-click="openThemeDetails(item)">Details/Install</a>
+                <a class="btn btn--hollow btn--large btn--expanded" ng-if="item.preview_url" ng-href="{{item.preview_url}}" target="_blank">Preview</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div ng-include="'themeManager-details.html'" ng-if="themeDetailsActive"></div>

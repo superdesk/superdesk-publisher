@@ -5,9 +5,6 @@
     </div>
 
     <div class="modal__body" sd-wizard data-name="siteWizard" data-current-step="step.current" data-finish="managerController.toogleSiteWizard()">
-        <div class="busyOverlay" ng-class="{'busyOverlay--active': wizard.uploading}">
-            <i class="big-icon--upload-alt"></i>
-        </div>
         <div sd-wizard-step data-title="{{ 'Add site' | translate }}" data-code="addSite" data-disabled="true">
             <form name="generalStep" class="content">
                 <div class="sd-alert sd-alert--hollow sd-alert--alert" ng-if="wizard.errorMessage">
@@ -60,44 +57,11 @@
         </div>
         <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}" data-code="installTheme" data-disabled="true">
             <div class="content">
-                <div class="flex-grid flex-grid--boxed flex-grid--wrap-items flex-grid--small-2">
-                    <div class="flex-grid__item upload-media">
-                        <div class="wizardThemeBox wizardThemeBox--upload">
-                            <div class="drag-area" ngf-drop="uploadTheme($files)"
-                                ngf-multiple="false" ng-class="{compact: items.length}">
-                                <div class="upload-error" ng-show="wizard.uploadError">
-                                    <span class="action"><span translate="">Error</span>: Something went wrong. Try again.</span>
-                                </div>
-                                <div class="title" translate>Drop Your Theme Here</div>
-                                <div class="upload-manual">
-                                    <div class="or-label" translate>or</div>
-                                    <label class="btn" for="theme-input">{{ 'Select from folder' | translate }}</label>
-                                    <input id="theme-input" type="file" ngf-select="uploadTheme($files)" class="hide">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-grid__item" ng-repeat="theme in wizard.organizationThemes">
-                        <div class="wizardThemeBox sd-shadow--z1" ng-class="{'wizardThemeBox--active': wizard.theme && wizard.theme.active && wizard.theme.name == theme.name}">
-                            <div class="wizardThemeBox__image" ng-if="!theme.screenshots[0] || !theme.screenshots[0].url">
-                                <img src="./no-theme-preview.png" />
-                            </div>
-                            <div class="wizardThemeBox__image" ng-if="theme.screenshots[0] && theme.screenshots[0].url">
-                                <img ng-src="{{theme.screenshots[0].url}}" />
-                            </div>
-                            <h4 class="wizardThemeBox__name">{{theme.title}}</h4>
-                            <div class="wizardThemeBox__overlay">
-                                <a class="btn btn--primary btn--large btn--expanded bottomMargin" ng-click="openThemeDetails(theme)">Details/Install</a>
-                                <a class="btn btn--hollow btn--large btn--expanded" ng-if="theme.preview_url" ng-href="{{theme.preview_url}}" target="_blank">Preview</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div sd-theme-manager data-site="wizard.site" activated-callback="themeActivatedCallback()" data-grid="2"></div>
             </div>
-             <div ng-include="'siteWizardTheme-details.html'" ng-if="wizard.themeDetailsActive"></div>
             <div class="modal__footer">
                 <button class="btn btn--primary" ng-disabled="!wizard.ready"  ng-click="configureSite()">Configure your site</button>
-                <button class="btn btn--hollow  btn--primary" ng-disabled="!wizard.ready" ng-click="managerController.toogleSiteWizard()">Done</button>
+                <button class="btn btn--hollow  btn--primary" ng-disabled="!wizard.ready" ng-click="managerController.toggleSiteWizard()">Done</button>
             </div>
         </div>
 

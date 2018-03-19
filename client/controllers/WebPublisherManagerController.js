@@ -373,9 +373,21 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @description Toggles site creation wizard
          */
         toggleSiteWizard() {
+            if(this.siteWizardActive) {
+               this._refreshSites();
+            }
             this.siteWizardActive = !this.siteWizardActive;
             publisher.setTenant();
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#themeActivatedCallback
+         * @description Fires when theme got activated in theme manager directive
+         */
+        themeActivatedCallback() {
+            this._refreshThemeSettings();
+        };
 
          /**
          * @ngdoc method
