@@ -22,9 +22,22 @@
     .toolbox {
         overflow: visible !important;
         z-index: 1 !important;
+        visibility: hidden;
+
+        .dropdown {
+            line-height: 5.6rem;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to right, rgba(244, 244, 244, 0) 0%, rgba(244, 244, 244, 0) 0%, #f4f4f4 40%);
+            text-align: center;
+        }
 
         .dropdown__menu {
             z-index: 2 !important;
+
         }
         * {
             overflow: visible !important;
@@ -35,6 +48,9 @@
     }
 
     &:hover {
+        .toolbox{
+            visibility: visible;
+        }
         .toolbox .dropdown__toggle {
             visibility: visible;
         }
