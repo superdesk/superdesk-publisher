@@ -4,16 +4,16 @@
             <button class="backlink" ng-click="webPublisherContentLists.changeView('content-lists')"></button>
         </div>
     </div>
-    <div class="filter-trigger" title="Filters" ng-click="filterOpen = !filterOpen" ng-class="{'filter-trigger--active': filterOpen}">
+    <div class="filter-trigger" title="Filters" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'filter-trigger--active': webPublisherContentLists.filterOpen}">
         <i class="icon-filter-large"></i>
     </div>
     <h3 class="page-nav-title">{{newList.name}}</h3>
 </div>
 <div class="paneLayout paneLayout--headerMargin">
-    <div class="paneLayout__leftPane paneContent" ng-class="{'paneLayout__leftPane--open': filterOpen}">
+    <div class="paneLayout__leftPane paneContent" ng-class="{'paneLayout__leftPane--open': webPublisherContentLists.filterOpen}">
         <div class="paneContent__header paneContent__header--dark">
             <h3 class="pull-left" translate>Automatic List Criteria</h3>
-            <div ng-click="filterOpen = !filterOpen" class="close-filter">
+            <div ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" class="close-filter">
                 <i class="icon-close-small"></i>
             </div>
         </div>

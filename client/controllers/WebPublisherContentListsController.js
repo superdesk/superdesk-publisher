@@ -11,6 +11,7 @@ WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal'];
 export function WebPublisherContentListsController($scope, publisher, modal) {
     class WebPublisherContentLists {
         constructor() {
+            this.filterOpen = true;
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
