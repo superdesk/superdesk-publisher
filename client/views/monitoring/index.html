@@ -7,9 +7,9 @@
                 ng-click="webPublisherMonitoring.viewMonitoringHome()"></button>
         </div>
     </div>
-    <div class="filter-trigger" 
+    <div class="filter-trigger"
         title="Filters"
-        ng-click="webPublisherMonitoring.filterOpen = !webPublisherMonitoring.filterOpen"
+        ng-click="webPublisherMonitoring.toggleFilterPane()"
         ng-class="{'filter-trigger--active': webPublisherMonitoring.filterOpen}">
             <i class="icon-filter-large"></i>
     </div>
@@ -40,7 +40,7 @@
     <div class="paneLayout__content">
         <!-- paneLayout inside paneLayout :) -->
         <div class="paneLayout">
-            <div class="paneLayout__leftPane paneContent" 
+            <div class="paneLayout__leftPane paneContent"
                 ng-class="{'paneLayout__leftPane--open': webPublisherMonitoring.filterOpen}"
                 ng-include="'filter-pane.html'">
             </div>
