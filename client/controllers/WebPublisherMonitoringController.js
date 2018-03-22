@@ -8,11 +8,12 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherMonitoringController holds a set of functions used for web publisher monitoring
  */
-WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace'];
-export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace) {
+WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window'];
+export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace, $window) {
     class WebPublisherMonitoring {
         constructor() {
             this.filterButtonAllActive = true;
+            this.filterOpen = $window.localStorage.getItem('swpMonitoringFilterOpen') ? JSON.parse($window.localStorage.getItem('swpMonitoringFilterOpen' )) : false;
 
             publisher.setToken()
                 .then(publisher.querySites)
@@ -28,6 +29,16 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
 
                     this._setFilters();
                 });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#toggleFilterPane
+         * @description Toggles filter pane
+         */
+        toggleFilterPane() {
+            this.filterOpen = !this.filterOpen;
+            $window.localStorage.setItem('swpMonitoringFilterOpen', this.filterOpen);
         }
 
         /**

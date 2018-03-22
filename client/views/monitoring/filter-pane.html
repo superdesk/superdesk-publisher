@@ -1,6 +1,6 @@
 <div class="paneContent__header paneContent__header--dark">
     <h3>Advanced Filter</h3>
-    <div ng-click="webPublisherMonitoring.filterOpen = !webPublisherMonitoring.filterOpen" class="close-filter">
+    <div ng-click="webPublisherMonitoring.toggleFilterPane()" class="close-filter">
         <i class="icon-close-small"></i>
     </div>
 </div>
@@ -18,12 +18,12 @@
                                 </sd-check>
                             </div>
                             <button class="sectionTreeElement__icon iconButton sectionTreeElement__icon--extraMargin">
-                                <i class="icon-chevron-down-thin" 
-                                    ng-show="site.openInFilterPane" 
+                                <i class="icon-chevron-down-thin"
+                                    ng-show="site.openInFilterPane"
                                     ng-click="site.openInFilterPane = !site.openInFilterPane">
                                 </i>
-                                <i class="icon-chevron-right-thin" 
-                                    ng-show="!site.openInFilterPane" 
+                                <i class="icon-chevron-right-thin"
+                                    ng-show="!site.openInFilterPane"
                                     ng-click="site.openInFilterPane = !site.openInFilterPane">
                                 </i>
                             </button>
