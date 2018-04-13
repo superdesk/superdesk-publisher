@@ -40,22 +40,32 @@
                         </div>
                         <div class="grid__item grid__item--col-6"
                             ng-repeat="setting in newThemeSettings.settings">
-                            <div class="sd-line-input" ng-class="{'sd-line-input--is-select': setting.options}">
-                                <label class="sd-line-input__label">{{setting.label}}</label>
-                                <input class="sd-line-input__input" type="text"
-                                    ng-if="!setting.options"
-                                    ng-model="setting.value">
-                                    {{setting.label.toLowerCase.indexOf('color')}}
-                                <input ng-if="!setting.options && setting.label.toLowerCase().indexOf('color') !== -1"
-                                    class="sd-line-input__color"
-                                    type="color"
-                                    ng-model="setting.value">
+                            <div ng-switch="setting.type">
+                                <div ng-switch-when="boolean">
+                                    <div class="sd-line-input">
+                                        <label class="sd-line-input__label">{{setting.label}}</label>
+                                        <span ng-model="setting.value" sd-switch=""></span>
+                                    </div>
+                                </div>
 
-                                <select class="sd-line-input__select"
-                                    ng-if="setting.options"
-                                    ng-model="setting.value">
-                                    <option ng-repeat="option in setting.options" value="{{option.value}}">{{option.label}}</option>
-                                </select>
+                                <div ng-switch-default>
+                                    <div class="sd-line-input" ng-class="{'sd-line-input--is-select': setting.options}">
+                                        <label class="sd-line-input__label">{{setting.label}}</label>
+                                        <input class="sd-line-input__input" type="text"
+                                            ng-if="!setting.options"
+                                            ng-model="setting.value">
+                                        <input ng-if="!setting.options && setting.label.toLowerCase().indexOf('color') !== -1"
+                                            class="sd-line-input__color"
+                                            type="color"
+                                            ng-model="setting.value">
+
+                                        <select class="sd-line-input__select"
+                                            ng-if="setting.options"
+                                            ng-model="setting.value">
+                                            <option ng-repeat="option in setting.options" value="{{option.value}}">{{option.label}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
