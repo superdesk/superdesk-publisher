@@ -584,8 +584,14 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                 this.themeSettings.logo = _.find(settings, { 'name': 'theme_logo' });
                 _.remove(settings, (setting) => {
                     return (setting.name === 'theme_logo') ? true : false;
-                  });
-                this.themeSettings.settings = settings;
+                });
+                // little hack to make ng-select work properly
+                this.themeSettings.settings = settings
+                    .map(setting => {
+                        setting.value = setting.value.toString();
+                        return setting;
+                    }
+                );
                 $scope.newThemeSettings = angular.copy(this.themeSettings);
             });
         }
