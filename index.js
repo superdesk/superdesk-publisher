@@ -11,6 +11,8 @@ import {WebPublisherContentListsController} from './client/controllers';
 import * as services from './client/services';
 import * as directive from './client/directives';
 
+import {TargetedPublishing} from './client/extensions';
+
 cacheIncludedTemplates.$inject = ['$templateCache'];
 function cacheIncludedTemplates($templateCache) {
     $templateCache.put('sidenav-items.html', require('./client/views/sidenav-items.html'));
@@ -79,7 +81,10 @@ export default angular.module('superdesk-publisher', [
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
 
-.run(cacheIncludedTemplates)
+.run(['extensionPoints', 'session', 'config', '$templateCache', (extensionPoints, session, config,  $templateCache) => {
+        cacheIncludedTemplates($templateCache);
+        extensionPoints.register('authoring:publish', TargetedPublishing, {session: session, config: config}, ['item']);
+    }])
 
 .config(['superdeskProvider', function(superdesk) {
     superdesk
