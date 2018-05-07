@@ -100,6 +100,7 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
             angular.forEach(this.sites, (site) => {
                 site.routeEditing = false;
             });
+
             angular.forEach(article.articles, (item) => {
                 this.publishedDestinations[item.tenant.code] =
                 {
@@ -110,6 +111,11 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                     updatedAt: item.updatedAt,
                     unpublish: false
                 };
+
+                if (item.status == 'published') {
+                    let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domainName : item.tenant.domainName;
+                    this.publishedDestinations[item.tenant.code].liveUrl = 'http://' + tenantUrl + item._links.online.href;
+                }
             });
             this.newDestinations = angular.copy(this.publishedDestinations);
         }
@@ -237,12 +243,13 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
         openArticlePreview(routeId, site) {
             let token = publisher.getToken();
 
+            let tenantUrl = site.subdomain ? site.subdomain + '.'
+            + site.domainName : site.domainName;
+
             this.previewArticleUrls = {
-                regular: '//' + site.subdomain + '.'
-                + site.domainName + '/preview/package/' + routeId
+                regular: '//' + tenantUrl + '/preview/package/' + routeId
                 + '/' + this.selectedArticle.id + '?auth_token=' + token,
-                amp: '//' + site.subdomain + '.'
-                + site.domainName + '/preview/package/' + routeId
+                amp: '//' + tenantUrl + '/preview/package/' + routeId
                 + '/' + this.selectedArticle.id + '?auth_token=' + token + '&amp'
             };
 
