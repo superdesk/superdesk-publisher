@@ -76,6 +76,9 @@
 }
 
 .text {
+    &--white {
+        color: $white !important;
+    }
     &--light {
         color: $gray;
     }
