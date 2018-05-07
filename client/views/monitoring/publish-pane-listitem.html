@@ -1,4 +1,4 @@
-<div ng-show="webPublisherMonitoring.publishFilter == 'all' || webPublisherMonitoring.publishedDestinations[site.code].status == webPublisherMonitoring.publishFilter" 
+<div ng-show="webPublisherMonitoring.publishFilter == 'all' || webPublisherMonitoring.publishedDestinations[site.code].status == webPublisherMonitoring.publishFilter"
     class="listElement listElement--dark listElement--noBorder"
     ng-class="{'listElement--borderPublished listElement--lightDark': webPublisherMonitoring.publishedDestinations[site.code].status == 'published',
     'listElement--borderUnpublished': webPublisherMonitoring.publishedDestinations[site.code].status == 'unpublished'}">
@@ -38,7 +38,13 @@
             <span ng-if="webPublisherMonitoring.newDestinations[site.code].route.id && webPublisherMonitoring.publishedDestinations[site.code].route.id == webPublisherMonitoring.newDestinations[site.code].route.id">
                 {{webPublisherMonitoring.publishedDestinations[site.code].updatedAt | reldate}}
             </span>
-            <span ng-if="webPublisherMonitoring.newDestinations[site.code].route.id"
+            <a ng-if='webPublisherMonitoring.newDestinations[site.code].liveUrl && webPublisherMonitoring.publishedDestinations[site.code].route.id == webPublisherMonitoring.newDestinations[site.code].route.id'
+                class="text--uppercase text--small text--blue cursorPointer rightSpace--small"
+                ng-href="{{webPublisherMonitoring.newDestinations[site.code].liveUrl}}"
+                target="_blank">
+                <span sd-tooltip="Live Preview"><i class="icon-external icon--blue text--verticalMiddle rightSpace--small"></i></span>
+            </a>
+            <span ng-if='webPublisherMonitoring.newDestinations[site.code].route.id && ( !webPublisherMonitoring.newDestinations[site.code].liveUrl || webPublisherMonitoring.publishedDestinations[site.code].route.id != webPublisherMonitoring.newDestinations[site.code].route.id) && webPublisherMonitoring.newDestinations[site.code].status != "unpublished"'
                 class="text--uppercase text--small text--blue cursorPointer rightSpace--small"
                 ng-click="webPublisherMonitoring.openArticlePreview(webPublisherMonitoring.newDestinations[site.code].route.id, site)">
                 <span sd-tooltip="Live Preview"><i class="icon-external icon--blue text--verticalMiddle rightSpace--small"></i></span>

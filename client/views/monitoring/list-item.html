@@ -11,7 +11,7 @@
     <div class="item-info">
         <div class="line">
             <span class="keyword">{{i.headline}}</span>
-            <span class="item-heading">{{i.description_text}}</span>
+            <span class="item-heading"></span>
             <time ng-if="i.updatedAt">{{i.updatedAt | reldate}}</time>
             <time ng-if="!i.updatedAt">{{i.createdAt | reldate}}</time>
         </div>
@@ -22,8 +22,12 @@
             <span class="container">{{i.route.name}}</span>
             <div ng-repeat="item in i.articles"
                 class="state-label flex-pull-right"
-                ng-class="{'state-published': item.status == 'published', 'state-killed': item.status == 'unpublished'}">{{item.tenant.name}}
-            </div>
+                ng-class="{'state-published': item.status == 'published', 'state-killed': item.status == 'unpublished'}">
+                {{item.tenant.name}}
+                <span sd-tooltip="impressions/page views" flow="left"
+                    ng-if="item.status != 'unpublished'">
+                    {{item.articleStatistics.impressionsNumber}}/{{item.articleStatistics.pageViewsNumber}}
+                </span>
         </div>
     </div>
     <div class="item-right toolbox">
