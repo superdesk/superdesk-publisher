@@ -47,7 +47,7 @@ export function ThemeManagerDirective(publisher) {
             scope.installTheme = (theme) => {
                 scope.busy = true;
                 publisher.setTenant(scope.site);
-                publisher.installTenantTheme({theme_install: {name: theme.name}})
+                publisher.installTenantTheme({theme_install: {name: theme.name, processGeneratedData: theme.processGeneratedData}})
                     .then(() => {
                         scope.busy = false;
                         scope.step = 'finish';
