@@ -154,7 +154,7 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                         this.publishOpen = false;
                         $scope.$broadcast('refreshArticlesList', destinations, oldDestinationsRoutes);
                     })
-                    .catch(() => {
+                    .catch((err) => {
                         notify.error('Publishing failed!');
                     });
             }

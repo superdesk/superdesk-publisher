@@ -16,6 +16,7 @@ export function ThemeManagerDirective(publisher) {
         link(scope) {
             this._loadThemes(scope);
             scope.step = 'details';
+            scope.busy = false;
 
             /**
              * @ngdoc method
@@ -44,10 +45,11 @@ export function ThemeManagerDirective(publisher) {
              * @description Installs selected theme
              */
             scope.installTheme = (theme) => {
-                scope.step = 'installation';
+                scope.busy = true;
                 publisher.setTenant(scope.site);
                 publisher.installTenantTheme({theme_install: {name: theme.name}})
                     .then(() => {
+                        scope.busy = false;
                         scope.step = 'finish';
                     });
             }
@@ -58,10 +60,12 @@ export function ThemeManagerDirective(publisher) {
              * @description Activates selected theme
              */
             scope.activateTheme = () => {
+                scope.busy = true;
                 publisher.manageSite({tenant: {themeName: scope.theme.name}}, scope.site.code)
                     .then(() => {
                         scope.themeDetailsActive = false;
                         scope.step = 'details';
+                        scope.busy = false;
                         scope.activatedCallback();
                         scope.site.themeName = scope.theme.name;
                     });
