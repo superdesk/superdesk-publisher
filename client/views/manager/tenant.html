@@ -6,8 +6,18 @@
         <button class="dropdown__toggle" dropdown__toggle><i class="icon-dots"></i></button>
         <ul class="dropdown__menu">
             <li><button ng-click="webPublisher.activateLiveSite(site)"><i class="icon-external"></i> {{ 'Livesite editor' | translate }}</button></li>
+            <li>
+                <a
+                ng-href="{{site.subdomain ? 'http://' + site.subdomain + '.' + site.domainName: 'http://' + site.domainName}}"
+                target="_blank"><i class="icon-globe"></i> {{ 'Open website' | translate }}
+                </a>
+            </li>
             <li><button ng-click="webPublisher.editSite(site)"><i class="icon-pencil"></i> {{ 'Manage website' | translate }}</button></li>
+            <li class="dropdown__menu-divider"></li>
             <li><button ng-click="webPublisher.deleteSite(site.code)"><i class="icon-trash"></i> {{ 'Delete website' | translate }}</button></li>
+
+
+
         </ul>
     </div>
 </div>
