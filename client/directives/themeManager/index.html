@@ -1,6 +1,11 @@
 <div class="busyOverlay" ng-class="{'busyOverlay--active': uploading}">
-        <i class="big-icon--upload-alt"></i>
-    </div>
+    <i class="big-icon--upload-alt"></i>
+</div>
+<div class="busyOverlay" ng-class="{'busyOverlay--active': busy}">
+    <span class="animate--rotate">
+        <i class="icon-refresh"></i>
+    </span>
+</div>
 <div class="flex-grid flex-grid--boxed flex-grid--wrap-items" ng-class="{'flex-grid--small-2' : grid == '2', 'flex-grid--small-4': grid == '4'}">
     <div class="flex-grid__item upload-media">
         <div class="wizardThemeBox wizardThemeBox--upload">

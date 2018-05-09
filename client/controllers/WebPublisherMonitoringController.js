@@ -8,8 +8,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherMonitoringController holds a set of functions used for web publisher monitoring
  */
-WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window'];
-export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace, $window) {
+WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window', 'notify'];
+export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace, $window, notify) {
     class WebPublisherMonitoring {
         constructor() {
             this.filterButtonAllActive = true;
@@ -153,6 +153,9 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                     .then(() => {
                         this.publishOpen = false;
                         $scope.$broadcast('refreshArticlesList', destinations, oldDestinationsRoutes);
+                    })
+                    .catch((err) => {
+                        notify.error('Publishing failed!');
                     });
             }
         }

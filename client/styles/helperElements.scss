@@ -277,7 +277,7 @@
         display: flex !important;
     }
 
-    [class^="big-icon--"], [class*=" big-icon--"] {
+    [class^="big-icon--"], [class*=" big-icon--"], [class^="icon-"], [class*=" icon-"] {
         font-size: 60px;
         width: 60px;
         height: 60px;
