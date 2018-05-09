@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "angular-drag-and-drop-lists": "^2.1.0",
+    "axios": "^0.18.0",
     "ng-file-upload": "^12.2.13",
     "ng-infinite-scroll": "^1.3.0"
   },
   "devDependencies": {
-    "axios": "^0.18.0",
     "enzyme": "~2.9.1",
     "istanbul-instrumenter-loader": "0.2.0",
     "jasmine": "2.8.0",
