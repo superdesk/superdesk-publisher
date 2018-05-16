@@ -55,6 +55,8 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('settings/rule-item.html', require('./client/views/settings/rule-item.html'));
     $templateCache.put('settings/rule-preview.html', require('./client/views/settings/rule-preview.html'));
     $templateCache.put('settings/rule-add.html', require('./client/views/settings/rule-add.html'));
+    $templateCache.put('settings/rule-add-organization.html', require('./client/views/settings/rule-add-organization.html'));
+    $templateCache.put('settings/rule-add-tenant.html', require('./client/views/settings/rule-add-tenant.html'));
 }
 
 /**

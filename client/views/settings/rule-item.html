@@ -1,15 +1,33 @@
- <div class="sd-list-item sd-shadow--z1 bottomSpace" 
- 	ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
- 	ng-click="webPublisherSettings.previewRule(rule)">
-     <div class="sd-list-item__border"></div>
-     <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-         <div class="sd-list-item__row">
-         	 <span class="sd-overflow-ellipsis"><span class="text--uppercase text--blue text--keyword rightSpace">{{rule.name}}</span> {{rule.description}}</span>
-         </div>
-     </div>
-     <div class="sd-list-item__action-menu">
-        <button class="dropdown__toggle" ng-click="webPublisherSettings.deleteRule(rule.id, $event, $index)">
-        	<i class="icon-trash"></i>
+<div class="sd-list-item sd-shadow--z1"
+    ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
+    ng-click="webPublisherSettings.previewRule(rule, code)">
+    <div class="sd-list-item__border"></div>
+    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+        <div class="sd-list-item__row">
+            <span class="sd-overflow-ellipsis sd-list-item--element-grow"><strong>{{rule.name}}</strong> {{rule.description}}</span>
+        </div>
+        <div class="sd-list-item__row">
+            <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                <span class="label label--primary"
+                    ng-repeat="part in webPublisherSettings.makeExpressionReadable(rule.expression)">
+                    {{part}}
+                </span>
+            </span>
+            <span class="label label--darkBlue2"
+                ng-repeat="dest in rule.configuration.destinations">
+                {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
+            </span>
+            <span ng-if="rule.configuration.route" class="label label--success" ng-class="{'label--hollow' : !rule.configuration.published}">
+                {{webPublisherSettings.getRouteNameByTenantAndId(code , rule.configuration.route)}}
+            </span>
+            <span ng-if="rule.configuration.fbia" class="label label--primary">
+                Facebook
+            </span>
+        </div>
+    </div>
+    <div class="sd-list-item__action-menu">
+        <button class="icn-btn" ng-click="webPublisherSettings.deleteRule(rule.id, code, $event, $index)">
+            <i class="icon-trash"></i>
         </button>
-     </div>
- </div>
+    </div>
+</div>
