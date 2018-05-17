@@ -121,8 +121,13 @@ export function GroupArticleDirective(publisher) {
                     scope.articlesList = [];
                 }
 
-                scope.loadingArticles = true;
                 let queryParams = scope.buildQueryParams(reset);
+
+                if (!reset && scope.totalArticles && queryParams.page > scope.totalArticles.pages) {
+                    return;
+                }
+
+                scope.loadingArticles = true;
 
                 publisher.queryMonitoringArticles(queryParams).then((articles) => {
                     scope.totalArticles = articles;
