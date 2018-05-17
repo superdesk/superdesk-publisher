@@ -31,6 +31,10 @@
                 </span>
             </div>
             <span ng-if="webPublisherMonitoring.publishedDestinations[site.code].status == 'unpublished'" class="label text--smaller text--uppercase">unpublished</span>
+            <span ng-if="webPublisherMonitoring.publishedDestinations[site.code].status == 'unpublished'"
+                class="text--uppercase text--smaller text--blue cursorPointer leftSpace"
+                ng-click="webPublisherMonitoring.publishedDestinations[site.code].status = null"
+                >Publish</span>
         </div>
     </div>
     <div class="listElement__right">
