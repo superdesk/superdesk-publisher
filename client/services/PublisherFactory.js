@@ -336,12 +336,22 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
-         * @name publisher#loadOrganizationRules
+         * @name publisher#queryOrganizationRules
          * @returns {Promise}
          * @description Loads Organization Rules
          */
         queryOrganizationRules(params) {
             return pubapi.query('organization/rules', params);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#queryTenantRules
+         * @returns {Promise}
+         * @description Loads Tenant Rules
+         */
+        queryTenantRules(params) {
+            return pubapi.query('rules', params);
         }
 
         /**
@@ -365,6 +375,29 @@ export function PublisherFactory(pubapi) {
          */
         manageOrganizationRule(rule, id) {
             return pubapi.save('organization/rules', rule, id);
+        }
+
+         /**
+         * @ngdoc method
+         * @name publisher#removeTenantRule
+         * @param {Number} ruleId - id of rule which is deleted
+         * @returns {Promise}
+         * @description Delete tenant rule
+         */
+        removeTenantRule(ruleId) {
+            return pubapi.remove('rules', ruleId);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#manageTenantRule
+         * @param {Object} rule - rule which is edited
+         * @param {String} id - id of rule which is edited
+         * @returns {Promise}
+         * @description Add or edit tenant rule
+         */
+        manageTenantRule(rule, id) {
+            return pubapi.save('rules', rule, id);
         }
 
         /**
