@@ -254,7 +254,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 if (expression.option.type === 'number') {
                     newRule.expression += expression.option.value + ' ' + expression.operator + ' ' + expression.value;
                 } else if (expression.option.type === 'in') {
-                    newRule.expression += expression.value + ' ' + expression.operator + ' ' + expression.option.value;
+                    newRule.expression += '"' + expression.value + '" ' + expression.operator + ' ' + expression.option.value;
                 } else {
                     newRule.expression += expression.option.value + ' ' + expression.operator + ' "' + expression.value + '"';
                 }
