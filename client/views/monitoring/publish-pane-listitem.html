@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <span
-                    class="label label--info text--smaller text--uppercase"
+                    class="label text--smaller text--uppercase" ng-class="webPublisherMonitoring.publishedDestinations[site.code].status == 'new' ? 'label--info' : 'label--success'"
                     ng-hide="site.routeEditing">{{webPublisherMonitoring.publishedDestinations[site.code].route.name}}
                 </span>
                 <span class="text--uppercase text--smaller text--blue cursorPointer leftSpace"

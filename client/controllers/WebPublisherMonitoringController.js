@@ -128,6 +128,9 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
         publishArticle() {
             angular.forEach(this.newDestinations, (item) => {
                 item.unpublish = false;
+                if (item.status == 'new') {
+                    item.forcePublishing = true;
+                }
             });
 
             let destinations = [];
@@ -135,12 +138,12 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
             let updatedKeys = this._updatedKeys(this.newDestinations, this.publishedDestinations);
 
             angular.forEach(updatedKeys, (item) => {
-                if (this.newDestinations[item].route.id) {
-                    destinations.push({
-                        tenant: item,
-                        route: this.newDestinations[item].route.id,
-                        fbia: this.newDestinations[item] && this.newDestinations[item].fbia === true});
-                }
+                destinations.push({
+                    tenant: item,
+                    route: this.newDestinations[item].route && this.newDestinations[item].route.id ? this.newDestinations[item].route.id : null,
+                    fbia: this.newDestinations[item] && this.newDestinations[item].fbia === true,
+                    published: this.newDestinations[item].route.id ? true : false
+                });
 
                 if (this.publishedDestinations[item] && this.publishedDestinations[item].route && this.publishedDestinations[item].route.id) {
                     oldDestinationsRoutes.push({
