@@ -23,7 +23,7 @@
             <div ng-repeat="item in i.articles"
                 class="state-label flex-pull-right"
                 ng-class="{'state-published': item.status == 'published', 'state-killed': item.status == 'unpublished'}">
-                {{item.tenant.name}}
+                <span sd-tooltip="{{item.tenant.subdomain}}.{{item.tenant.domainName}}" flow="left">{{item.tenant.name}}</span>
                 <span sd-tooltip="impressions/page views" flow="left"
                     ng-if="item.status != 'unpublished'">
                     {{item.articleStatistics.impressionsNumber}}/{{item.articleStatistics.pageViewsNumber}}
