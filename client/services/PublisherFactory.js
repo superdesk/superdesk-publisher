@@ -216,7 +216,7 @@ export function PublisherFactory(pubapi) {
          * @description List all content lists
          */
         queryLists() {
-            return pubapi.query('content/lists');
+            return pubapi.query('content/lists', {limit: 9999});
         }
 
         /**
@@ -227,7 +227,7 @@ export function PublisherFactory(pubapi) {
          * @description List all articles for selected content list
          */
         queryListArticles(id) {
-            return pubapi.query('content/lists/' + id + '/items');
+            return pubapi.query('content/lists/' + id + '/items', {limit: 9999});
         }
 
         /**

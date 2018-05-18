@@ -56,8 +56,6 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             if (this.rulePaneOpen) this._prepareExpressionBuilder();
         }
 
-
-
         /**
          * @ngdoc method
          * @name WebPublisherSettingsController#getTenantNameByCode
@@ -70,6 +68,20 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             });
 
             return tenant.name;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#getTenantUrlByCode
+         * @param {String} code - tenant code
+         * @description gets tenant url by its code
+         */
+        getTenantUrlByCode(code) {
+            let tenant = this.sites.find(function(site) {
+                return site.code == code;
+            });
+
+            return tenant.subdomain + '.' + tenant.domainName;
         }
 
         /**

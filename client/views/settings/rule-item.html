@@ -14,7 +14,8 @@
                 </span>
             </span>
             <span class="label label--darkBlue2"
-                ng-repeat="dest in rule.configuration.destinations">
+                ng-repeat="dest in rule.configuration.destinations"
+                sd-tooltip="{{webPublisherSettings.getTenantUrlByCode(dest.tenant)}}" flow="left">
                 {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
             </span>
             <span ng-if="rule.configuration.route" class="label label--success" ng-class="{'label--hollow' : !rule.configuration.published}">
