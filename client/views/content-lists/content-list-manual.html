@@ -4,16 +4,18 @@
             <button class="backlink" ng-click="webPublisherContentLists.changeView('content-lists')"></button>
         </div>
     </div>
-    <div class="filter-trigger" title="Filters" ng-click="filterOpen = !filterOpen" ng-class="{'filter-trigger--active': filterOpen}">
+    <div class="filter-trigger" title="Filters" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'filter-trigger--active': webPublisherContentLists.filterOpen}">
         <i class="icon-filter-large"></i>
     </div>
     <h3 class="page-nav-title">{{newList.name}}</h3>
+    <button class="btn" ng-disabled="!webPublisherContentLists.listChangeFlag" ng-click="webPublisherContentLists.changeView('content-lists')">Cancel</button>
+    <button class="btn btn--primary rightSpace--big" ng-disabled="!webPublisherContentLists.listChangeFlag" ng-click="webPublisherContentLists.saveManualList()" >Save</button>
 </div>
 <div class="paneLayout paneLayout--headerMargin">
-    <div class="paneLayout__leftPane paneContent" ng-class="{'paneLayout__leftPane--open': filterOpen}">
+    <div class="paneLayout__leftPane paneContent" ng-class="{'paneLayout__leftPane--open': webPublisherContentLists.filterOpen}">
         <div class="paneContent__header paneContent__header--dark">
             <h3 class="pull-left" translate>Filter Articles</h3>
-            <div ng-click="filterOpen = !filterOpen" class="close-filter">
+            <div ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" class="close-filter">
                 <i class="icon-close-small"></i>
             </div>
         </div>
@@ -110,19 +112,94 @@
         </div>
     </div>
 
-    <div class="paneLayout__content verticalLayout">
-        <div class="verticalLayout__element verticalLayout__element--border contentPadding dropZone" ng-class="{'dropZone--empty': !newList.items.length, 'dropZone--active': webPublisherContentLists.draggingFlag}">
-            <h3 class="text--uppercase text--bold text--smallHeading" translate>Content List Articles</h3>
-            <h2 class="dropZone__heading" ng-if="!newList.items.length">Drag your Articles here</h2>
-            <div sd-list-articles data-list="newList" data-type="draggable" data-draggingflag="webPublisherContentLists.draggingFlag" data-listchangeflag="webPublisherContentLists.listChangeFlag"></div>
-        </div>
-
+    <div class="paneLayout__content verticalLayout verticalLayout--directionRow">
         <div class="verticalLayout__element contentPadding" id="manualListArticlesScrolling">
-            <h3 class="text--uppercase text--bold text--smallHeading" translate>Published Articles</h3>
-            <div sd-articles data-type="draggable" data-scrollcontainer="'#manualListArticlesScrolling'" data-draggingflag="webPublisherContentLists.draggingFlag"></div>
+            <h3 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big" translate>All Articles</h3>
+            <div class="sd-line-input inlineBlock">
+                <input class="sd-line-input__input" type="text" placeholder="search"
+                    ng-model='newList.filters.term'
+                    ng-model-options='{ debounce: 1000 }'
+                    ng-change='webPublisherContentLists.filterArticles()'>
+            </div>
+
+            <div ng-if="!webPublisherContentLists.tenantArticles.loading && !webPublisherContentLists.tenantArticles.items.length" class="alert alert-info alert-block">
+                <h4 translate>The list is empty</h4>
+                <p translate>Please update filter criteria to add articles to the list.</p>
+            </div>
+
+            <ul class="flatList"
+                infinite-scroll="webPublisherContentLists.loadMoreTenantArticles()"
+                infinite-scroll-container="'#manualListArticlesScrolling'"
+                dnd-list="webPublisherContentLists.tenantArticles.items"
+                dnd-allowed-types="['tenant']"
+                >
+                <li ng-repeat="article in webPublisherContentLists.tenantArticles.items"
+                    dnd-draggable="article"
+                    dnd-moved="webPublisherContentLists.tenantArticles.items.splice($index, 1)"
+                    dnd-type="article.type"
+                    dnd-effect-allowed="move"
+                >
+                    <div class="listElement listElement--noLeftBorder">
+                        <div class="listElement__icon">
+                            <i ng-if="!article.featureMedia && !article.content.featureMedia" class="icon-text"></i>
+                            <i  ng-if="article.featureMedia || article.content.featureMedia" class="icon-photo"></i>
+                        </div>
+                        <div class="listElement__content">
+                           {{ :: article.title}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div ng-if="webPublisherContentLists.tenantArticles.loading" class="topMargin">
+                <div class="item-group__loading"></div>
+            </div>
         </div>
-    </div>
-    <div class="manualListSaveBtn" ng-show="webPublisherContentLists.listChangeFlag">
-        <button class="btn btn--primary" ng-click="webPublisherContentLists.saveManualList()" translate>Save changes</button>
+        <div class="verticalLayout__element verticalLayout__element--border contentPadding dropZone" ng-class="{'dropZone--empty': !newList.items.length, 'dropZone--active': webPublisherContentLists.draggingFlag}">
+            <h3 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big" translate>Content List Articles</h3>
+            <div class="sd-line-input inlineBlock">
+                <input class="sd-line-input__input" type="text" placeholder="search"
+                    ng-model='newList.filterQuery.content.title'
+                    ng-disabled="webPublisherContentLists.listChangeFlag">
+            </div>
+            <span class="badge badge--light pull-right" sd-tooltip="number of articles" flow="left">{{newList.items.length}}</span>
+            <h2 class="dropZone__heading" ng-if="!newList.items.length">Drag your Articles here</h2>
+            <div ng-if="loading">
+                <div class="item-group__loading"></div>
+            </div>
+            <div ng-if="!loading && !newList.items.length" class="alert alert-info alert-block">
+                <h4 translate>The list is empty</h4>
+                <p translate>Please update filter criteria to add articles to the list.</p>
+            </div>
+
+            <ul ng-if="!loading && newList.items.length" class="flatList"
+                dnd-list="newList.items"
+                dnd-drop="webPublisherContentLists.onDrop(newList, item, index)"
+                dnd-inserted="webPublisherContentLists._markDuplicates(newList.items)"
+                dnd-allowed-types="['tenant', 'list']"
+                >
+                <li ng-repeat="article in newList.items | filter:newList.filterQuery"
+                    dnd-draggable="article"
+                    dnd-moved="newList.items.splice($index, 1)"
+                    dnd-type="article.type"
+                    dnd-effect-allowed="move"
+                    dnd-copied="alert('copy')"
+                >
+                    <div class="listElement listElement--noLeftBorder" >
+                        <div class="listElement__icon" ng-if="article.duplicate" sd-tooltip="duplicate">
+                            <i class="icon-warning-sign icon--red"></i>
+                        </div>
+                        <div class="listElement__icon" ng-if="!article.duplicate">
+                            <i ng-if="!article.featureMedia && !article.content.featureMedia" class="icon-text"></i>
+                            <i  ng-if="article.featureMedia || article.content.featureMedia" class="icon-photo"></i>
+                        </div>
+                        <div class="listElement__content">
+                            {{ :: article.title || article.content.title}}
+                            <button class="hidden pull-right" ng-if="!article.sticky" ng-click="webPublisherContentLists.removeFromList($index)" title="{{:: 'Delete' | translate }}"><i class="icon-trash"></i></button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
     </div>
 </div>

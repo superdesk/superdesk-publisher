@@ -28,12 +28,9 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('article-preview.html', require('./client/views/monitoring/article-preview.html'));
     $templateCache.put('sections-treeElement.html', require('./client/views/monitoring/sections-treeElement.html'));
 
-    $templateCache.put('articles-draggable.html', require('./client/directives/articles/articles-draggable.html'));
     $templateCache.put('articles-detail.html', require('./client/directives/articles/articles-detail.html'));
-
     $templateCache.put('list-articles-card.html', require('./client/directives/listArticles/list-articles-card.html'));
     $templateCache.put('list-articles-detail.html', require('./client/directives/listArticles/list-articles-detail.html'));
-    $templateCache.put('list-articles-draggable.html', require('./client/directives/listArticles/list-articles-draggable.html'));
 
     $templateCache.put('content-list-automatic.html', require('./client/views/content-lists/content-list-automatic.html'));
     $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));

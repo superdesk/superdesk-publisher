@@ -7,18 +7,21 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherContentListsController holds a set of functions used for web publisher content listis
  */
-WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal'];
-export function WebPublisherContentListsController($scope, publisher, modal) {
+WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal', '$timeout'];
+export function WebPublisherContentListsController($scope, publisher, modal, $timeout) {
     class WebPublisherContentLists {
         constructor() {
-            $scope.filterOpen = true;
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
                     this.sites = sites;
                     this.activeView = 'content-lists';
-                    this.selectedTenant = '';
                     this.changeListFilter('');
+                    // set first tenant automatically
+                    this.selectedTenant = null;
+                    if (sites[0]) {
+                        this.setTenant(sites[0]);
+                    }
                 });
         }
 
@@ -31,6 +34,7 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
         changeView(newViewName) {
             this.activeView = newViewName;
             if (newViewName === 'content-lists') {
+                this.listChangeFlag = false;
                 this.changeListFilter('');
                 this._refreshLists();
             }
@@ -143,6 +147,7 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
                 $scope.newList.id).then((savedList) => {
                     $scope.newList.updatedAt = savedList.updatedAt;
                     $scope.newList.updatedItems = [];
+                    this._queryList();
                     this.listChangeFlag = false;
                 });
         }
@@ -171,8 +176,20 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
             $scope.newList = angular.extend({}, list);
             this.metadataList = [];
             this.selectedRoutes = [];
+            this.tenantArticles = {
+                page: 0,
+                params: {}
+            };
             if (!$scope.newList.filters) {
                 $scope.newList.filters = {};
+            }
+
+            if (list.type === 'automatic') {
+                this.filterOpen = true;
+            }
+
+            if (list.type == 'manual') {
+                this._queryList();
             }
 
             if ($scope.newList.filters.metadata) {
@@ -255,14 +272,9 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
                     filters.route.push(item.id);
                 });
             }
-            /**
-             * @ngdoc event
-             * @name WebPublisherContentListsController#refreshArticles
-             * @eventType broadcast on $scope
-             * @param {Object} this.selectedRoutes - list of routes
-             * @description event is thrown when filter criteria is updated
-             */
-            $scope.$broadcast('refreshArticles', filters);
+
+            this.tenantArticles.params = filters;
+            this._queryArticles();
         }
 
         /**
@@ -274,7 +286,6 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
             if (!$scope.newList.filters.author) {
                 $scope.newList.filters.author = [];
             }
-
             $scope.newList.filters.author.push('');
         }
 
@@ -306,6 +317,78 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
         removeMetadata(itemIdx) {
             this.metadataList.splice(itemIdx, 1);
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#loadMoreTenantArticles
+         * @description loads more items
+         */
+        loadMoreTenantArticles() {
+            if (this.tenantArticles.loading || this.tenantArticles.page >= this.tenantArticles.totalPages) {
+                return;
+            }
+
+            this.tenantArticles.params.page = this.tenantArticles.page + 1;
+            this._queryArticles();
+        };
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#removeFromList
+         * @param {Int} index
+         * @description Removes article from list
+         */
+        removeFromList(index) {
+            let deletedItem;
+            let selectedItemId;
+            let updatedItem;
+
+            if (!$scope.newList.updatedItems) {
+                $scope.newList.updatedItems = [];
+            }
+
+            deletedItem = $scope.newList.items.splice(index, 1);
+            selectedItemId = deletedItem[0].content ? deletedItem[0].content.id : deletedItem[0].id;
+            updatedItem = _.find($scope.newList.updatedItems, {content_id: selectedItemId});
+            if (!updatedItem) {
+                $scope.newList.updatedItems.push({content_id: selectedItemId, action: 'delete'});
+            } else {
+                $scope.newList.updatedItems.splice($scope.newList.updatedItems.indexOf(updatedItem), 1);
+            }
+            console.log($scope.newList.updatedItems);
+            this._markDuplicates($scope.newList.items);
+            this.listChangeFlag = true;
+        };
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#onDrop
+         * @param {Object} list - list of article items
+         * @param {Array} item - dropped items
+         * @param {Int} index - index of list where items were dropped
+         * @returns {Boolean}
+         * @description Handles drop event
+         */
+        onDrop(list, item, index) {
+            this.listChangeFlag = true;
+
+            if (!list.updatedItems) {
+                list.updatedItems = [];
+            }
+
+            let selectedItemId = item.content ? item.content.id : item.id;
+            let itemAction = _.find(list.items,
+                item => (item.id === selectedItemId && !item.content) || (item.content && item.content.id === selectedItemId)) ? 'move' : 'add';
+            list.updatedItems.push({content_id: selectedItemId, action: itemAction});
+
+            for (let i = 0; i < list.updatedItems.length; i++) {
+                let itemInList = _.find(list.items, {content: {id: list.updatedItems[i].content_id}}) ||
+                        _.find(list.items, {id: list.updatedItems[i].content_id});
+
+                list.updatedItems[i].position = list.items.indexOf(itemInList);
+            }
+            return item;
+        };
 
         /**
          * @ngdoc method
@@ -348,6 +431,67 @@ export function WebPublisherContentListsController($scope, publisher, modal) {
                 $scope.lists = lists;
             });
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#_queryArticles
+         * @private
+         * @description Loads articles
+         */
+        _queryArticles() {
+            this.tenantArticles.loading = true;
+            this.tenantArticles.params.limit = 20;
+            publisher.queryTenantArticles(this.tenantArticles.params).then((response) => {
+                response._embedded._items.forEach(el => {
+                    el.type = 'tenant';
+                });
+                this.tenantArticles.loading = false;
+                this.tenantArticles.page = response.page;
+                this.tenantArticles.totalPages = response.pages;
+                this.tenantArticles.items = response.page > 1 ?
+                this.tenantArticles.items.concat(response._embedded._items) :
+                    response._embedded._items;
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#_queryList
+         * @private
+         * @description Loads items for selected list
+         */
+        _queryList() {
+            $scope.loading = true;
+            publisher.queryListArticles($scope.newList.id).then((articles) => {
+                $scope.loading = false;
+                $scope.newList.items = articles;
+                $scope.newList.items.forEach(el => {
+                    el.type = 'list';
+                });
+                this._markDuplicates($scope.newList.items);
+            });
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#_markDuplicates
+         * @private
+         * @param {Array} array
+         * @description marks duplicated items in array
+         */
+        _markDuplicates(array) {
+            $timeout(() => {
+                array.forEach(el => {
+                    let elId =  el.content ? el.content.id : el.id;
+                    let result = array.filter(element => {
+                        let elementId = element.content ? element.content.id : element.id;
+                        return elId === elementId;
+                    });
+                    el.duplicate = result.length > 1 ? true : false;
+                })
+            }, 500);
+        }
+
     }
 
     return new WebPublisherContentLists();

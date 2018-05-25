@@ -50,10 +50,6 @@
         margin-top: 2px;
         align-items: center;
 
-        i {
-          color: $grayLight;
-        }
-
         &:hover i {
             color: $blue;
         }
@@ -117,7 +113,7 @@
         &:hover {
             .dropdown__toggle {
                 opacity: 1;
-            }   
+            }
         }
     }
 

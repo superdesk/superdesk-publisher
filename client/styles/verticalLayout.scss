@@ -2,12 +2,16 @@
     display: flex;
     flex-direction: column;
 
+    &--directionRow {
+        flex-direction: row;
+    }
+
     &__element {
         position: relative;
         flex-grow: 1;
         flex-basis: 50%;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
 
         &--border {
             border-bottom: 2px solid $tableBorder;
