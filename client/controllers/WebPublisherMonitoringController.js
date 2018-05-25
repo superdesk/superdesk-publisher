@@ -28,8 +28,33 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                     });
 
                     this._setFilters();
+                    this.websocketOpen();
                 });
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#websocketOpen
+         * @description connects to websocket
+         */
+        websocketOpen() {
+            if (!this.ws || this.ws.readyState === readyState.CLOSED) {
+                this.ws = new WebSocket('wss://sp-demo-tribune.s-lab.superdesk.org:8080?token=NDRiZTkxYjgtNjRiMS00M2IyLWFjMzMtMWIwMGYzMmNlZDYyOg==');
+
+            }
+        };
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#websocketClose
+         * @description closes connection with websocket
+         */
+        websocketClose() {
+            if (this.ws) {
+                this.ws.close();
+                this.ws = null;
+            }
+        };
 
         /**
          * @ngdoc method
