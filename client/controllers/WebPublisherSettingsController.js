@@ -345,7 +345,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description Loads Organization Rules
          */
         _loadOrganizationRules() {
-            return publisher.queryOrganizationRules()
+            return publisher.queryOrganizationRules({limit: 99999})
                 .then((rules) => {
                     this.organizationRules = rules;
                     return rules;
@@ -386,7 +386,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description Loads Tenant Rules
          */
         _loadTenantRules() {
-            return publisher.queryTenantRules()
+            return publisher.queryTenantRules({limit: 99999})
                 .then((rules) => {
                     return rules;
                 });
