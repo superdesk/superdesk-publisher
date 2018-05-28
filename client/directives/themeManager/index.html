@@ -6,14 +6,16 @@
         <i class="icon-refresh"></i>
     </span>
 </div>
+<div class="sd-alert sd-alert--hollow sd-alert--alert" ng-show="uploadError">
+    <button class="sd-alert__close" ng-click="uploadError=false"></button>
+    <span ng-if="uploadError != true">{{uploadError}}</span>
+    <span ng-if="uploadError === true"><span translate="">Error</span>: Something went wrong. Try again.</span>
+</div>
 <div class="flex-grid flex-grid--boxed flex-grid--wrap-items" ng-class="{'flex-grid--small-2' : grid == '2', 'flex-grid--small-4': grid == '4'}">
     <div class="flex-grid__item upload-media">
         <div class="wizardThemeBox wizardThemeBox--upload">
             <div class="drag-area" ngf-drop="uploadTheme($files)"
                 ngf-multiple="false" ng-class="{compact: items.length}">
-                <div class="upload-error" ng-show="uploadError">
-                    <span class="action"><span translate="">Error</span>: Something went wrong. Try again.</span>
-                </div>
                 <div class="title" translate>Drop Your Theme Here</div>
                 <div class="upload-manual">
                     <div class="or-label" translate>or</div>
