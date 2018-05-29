@@ -118,7 +118,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 .replace(new RegExp('(article.getPackage\\(\\)|package).getPriority\\(\\)', 'gmu'), 'Priority')
                 .replace(new RegExp('(article.getPackage\\(\\)|package).getUrgency\\(\\)', 'gmu'), 'Urgency')
                 .replace(new RegExp('(article|package).getAuthorsNames\\(\\)', 'gmu'), 'Authors')
-                .replace(new RegExp('(article.getPackage\\(\\)|package).getServices\\(\\)', 'gmu'), 'Categories')
+                .replace(new RegExp('(article.getPackage\\(\\)|package).getServicesNames\\(\\)', 'gmu'), 'Categories')
                 .replace(/(package|article\.getPackage\(\))\.getExtra\(\)\[\'([\S]*)\'\]/gi, '$2')
                 .replace(new RegExp('==', 'gmu'), 'is')
                 .replace(new RegExp('\s(matches|in)\s', 'gmu'), ' is ')
@@ -427,7 +427,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             if($scope.newRule.type == 'organization') {
                 this.expressionBuilder.options = [
                     {name: 'Language', value: 'package.getLanguage()', type: 'string'},
-                    {name: 'Category', value: 'package.getServices()', type: 'in'},
+                    {name: 'Category', value: 'package.getServicesNames()', type: 'in'},
                     {name: 'Author', value: 'package.getAuthorsNames()', type: 'in'},
                     {name: 'Ingest Source', value: 'package.getSource()', type: 'string'},
                     {name: 'Priority', value: 'package.getPriority()', type: 'number'},
@@ -439,7 +439,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
                 this.expressionBuilder.options = [
                     {name: 'Language', value: 'article.getLocale()', type: 'string'},
-                    {name: 'Category', value: 'article.getPackage().getServices()', type: 'in'},
+                    {name: 'Category', value: 'article.getPackage().getServicesNames()', type: 'in'},
                     {name: 'Author', value: 'article.getAuthorsNames()', type: 'in'},
                     {name: 'Ingest Source', value: 'article.getPackage().getSource()', type: 'string'},
                     {name: 'Priority', value: 'article.getPackage().getPriority()', type: 'number'},
