@@ -139,15 +139,21 @@
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="listElement listElement--noLeftBorder">
-                        <div class="listElement__icon">
-                            <i ng-if="!article.featureMedia && !article.content.featureMedia" class="icon-text"></i>
-                            <i  ng-if="article.featureMedia || article.content.featureMedia" class="icon-photo"></i>
+                <div class="sd-list-item sd-shadow--z1" ng-class="{&quot;sd-list-item--activated&quot;:itemActive2}">
+                    <div class="sd-list-item__border"></div>
+                    <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
+                        <i class="icon-warning-sign icon--red"></i>
+                    </div>
+                    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                        <div class="sd-list-item__row">
+                            <span class="sd-overflow-ellipsis">{{ :: article.title || article.content.title}}</span>
+
                         </div>
-                        <div class="listElement__content">
-                           {{ :: article.title}}
+                        <div class="sd-list-item__row">
+                            <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time><span class="sd-overflow-ellipsis sd-list-item--element-grow"></span><span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
                         </div>
                     </div>
+                </div>
                 </li>
             </ul>
             <div ng-if="webPublisherContentLists.tenantArticles.loading" class="topMargin">
@@ -171,7 +177,7 @@
                 <p translate>Please update filter criteria to add articles to the list.</p>
             </div>
 
-            <ul ng-if="!loading && newList.items.length" class="flatList"
+            <ul ng-if="!loading" class="sd-list-item-group sd-list-item-group--space-between-items" style="min-height: 50vh;"
                 dnd-list="newList.items"
                 dnd-drop="webPublisherContentLists.onDrop(newList, item, index)"
                 dnd-inserted="webPublisherContentLists._markDuplicates(newList.items)"
@@ -179,22 +185,26 @@
                 >
                 <li ng-repeat="article in newList.items | filter:newList.filterQuery"
                     dnd-draggable="article"
-                    dnd-moved="newList.items.splice($index, 1)"
+                    dnd-moved="webPublisherContentLists.onMoved(newList, $index)"
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
-                    dnd-copied="alert('copy')"
                 >
-                    <div class="listElement listElement--noLeftBorder" >
-                        <div class="listElement__icon" ng-if="article.duplicate" sd-tooltip="duplicate">
+                    <div class="sd-list-item sd-shadow--z1" ng-class="{&quot;sd-list-item--activated&quot;:itemActive2}">
+                        <div class="sd-list-item__border"></div>
+                        <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
                             <i class="icon-warning-sign icon--red"></i>
                         </div>
-                        <div class="listElement__icon" ng-if="!article.duplicate">
-                            <i ng-if="!article.featureMedia && !article.content.featureMedia" class="icon-text"></i>
-                            <i  ng-if="article.featureMedia || article.content.featureMedia" class="icon-photo"></i>
+                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                            <div class="sd-list-item__row">
+                                <span class="sd-overflow-ellipsis">{{ :: article.title || article.content.title}}</span>
+
+                            </div>
+                            <div class="sd-list-item__row">
+                                <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time><span class="sd-overflow-ellipsis sd-list-item--element-grow"></span><span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
+                            </div>
                         </div>
-                        <div class="listElement__content">
-                            {{ :: article.title || article.content.title}}
-                            <button class="hidden pull-right" ng-if="!article.sticky" ng-click="webPublisherContentLists.removeFromList($index)" title="{{:: 'Delete' | translate }}"><i class="icon-trash"></i></button>
+                        <div class="sd-list-item__action-menu">
+                            <button ng-if="!article.sticky" ng-click="webPublisherContentLists.removeFromList($index)" title="{{:: 'Delete' | translate }}"><i class="icon-trash"></i></button>
                         </div>
                     </div>
                 </li>

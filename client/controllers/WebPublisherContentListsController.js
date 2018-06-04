@@ -355,7 +355,6 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             } else {
                 $scope.newList.updatedItems.splice($scope.newList.updatedItems.indexOf(updatedItem), 1);
             }
-            console.log($scope.newList.updatedItems);
             this._markDuplicates($scope.newList.items);
             this.listChangeFlag = true;
         };
@@ -366,7 +365,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          * @param {Object} list - list of article items
          * @param {Array} item - dropped items
          * @param {Int} index - index of list where items were dropped
-         * @returns {Boolean}
+         * @returns {Object}
          * @description Handles drop event
          */
         onDrop(list, item, index) {
@@ -379,15 +378,43 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             let selectedItemId = item.content ? item.content.id : item.id;
             let itemAction = _.find(list.items,
                 item => (item.id === selectedItemId && !item.content) || (item.content && item.content.id === selectedItemId)) ? 'move' : 'add';
-            list.updatedItems.push({content_id: selectedItemId, action: itemAction});
 
+            list.updatedItems.push({content_id: selectedItemId, action: itemAction, position: index});
+
+            if (itemAction === 'add') {
+                $timeout(() => {
+                    this.updatePositions(list);
+                }, 500);
+            }
+
+            return item;
+        };
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#onMoved
+         * @param {Object} list - list object
+         * @param {Int} index - index of list where items were dropped
+         * @description Handles move event
+         */
+        onMoved(list, index) {
+            list.items.splice(index, 1);
+            this.updatePositions(list);
+        };
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#updatePositions
+         * @param {Object} list - list object
+         * @description updates position of articles in array of changes
+         */
+        updatePositions(list) {
             for (let i = 0; i < list.updatedItems.length; i++) {
                 let itemInList = _.find(list.items, {content: {id: list.updatedItems[i].content_id}}) ||
                         _.find(list.items, {id: list.updatedItems[i].content_id});
 
                 list.updatedItems[i].position = list.items.indexOf(itemInList);
             }
-            return item;
         };
 
         /**
@@ -441,6 +468,9 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
         _queryArticles() {
             this.tenantArticles.loading = true;
             this.tenantArticles.params.limit = 20;
+            this.tenantArticles.params['sorting[updatedAt]'] = 'desc';
+            this.tenantArticles.params.status = 'published';
+
             publisher.queryTenantArticles(this.tenantArticles.params).then((response) => {
                 response._embedded._items.forEach(el => {
                     el.type = 'tenant';
