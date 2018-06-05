@@ -142,7 +142,7 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                     tenant: item,
                     route: this.newDestinations[item].route && this.newDestinations[item].route.id ? this.newDestinations[item].route.id : null,
                     fbia: this.newDestinations[item] && this.newDestinations[item].fbia === true,
-                    published: this.newDestinations[item].route.id ? true : false
+                    published: this.newDestinations[item].route && this.newDestinations[item].route.id ? true : false
                 });
 
                 if (this.publishedDestinations[item] && this.publishedDestinations[item].route && this.publishedDestinations[item].route.id) {
