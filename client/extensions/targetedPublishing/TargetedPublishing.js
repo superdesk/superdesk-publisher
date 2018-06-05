@@ -16,14 +16,38 @@ export class TargetedPublishing extends React.Component {
         const protocol = pubConfig.protocol || 'https';
         const subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
         const domainName = pubConfig.domain;
-        const filteredItem = _(item).omitBy(_.isNil).omitBy(_.isEmpty).value();
+        let filteredItem =  {
+            language: item.language,
+            body_html: item.body_html,
+            byline: item.byline,
+            keywords: item.keywords,
+            "guid":"urn:newsml:localhost:2016-09-23T13:56:39.404843:56465de4-0d5c-495a-8e36-3b396def3cf0",
+            priority: item.priority,
+            urgency: item.urgency,
+            headline: item.headline,
+            description_html: item.abstract,
+            pubstatus: item.pubstatus,
+            authors: item.authors
+          };
 
-        filteredItem.guid = filteredItem._id;
-        // genre "fix"
-        filteredItem.genre.forEach(obj => {
-            obj.code = obj.qcode;
-            delete obj.qcode;
-        });
+
+
+        // _(item).omitBy(_.isNil).omitBy(_.isEmpty).value();
+
+        // filteredItem.guid = filteredItem._id;
+        // // genre "fix"
+        // filteredItem.genre.forEach(obj => {
+        //     obj.code = obj.qcode;
+        //     delete obj.qcode;
+        // });
+        // // subject "fix"
+        // filteredItem.subject.forEach(obj => {
+        //     obj.code = obj.qcode;
+        //     delete obj.qcode;
+        //     delete obj.parent;
+        // });
+
+        console.log(item);
 
         this.state = {
             config: config,
