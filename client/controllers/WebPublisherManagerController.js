@@ -588,7 +588,9 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                 // little hack to make ng-select work properly
                 this.themeSettings.settings = settings
                     .map(setting => {
-                        setting.value = setting.value.toString();
+                        if (setting.options) {
+                            setting.value = setting.value.toString();
+                        }
                         return setting;
                     }
                 );
