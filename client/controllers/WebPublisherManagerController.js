@@ -205,8 +205,13 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @description Deleting route
          */
         deleteRoute(id) {
-            modal.confirm(gettext('Please confirm you want to delete route.')).then(
-                () => publisher.removeRoute(id).then(this._refreshRoutes));
+            modal.confirm(gettext('Please confirm you want to delete route.')).then(() =>
+                publisher.removeRoute(id)
+                    .then(this._refreshRoutes))
+                    .catch(err => {
+                        let message = err.data.message ? err.data.message : 'Something went wrong. Try again.';
+                        modal.confirm(message);
+                    });
         }
 
         /**
