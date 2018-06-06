@@ -16,38 +16,24 @@ export class TargetedPublishing extends React.Component {
         const protocol = pubConfig.protocol || 'https';
         const subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
         const domainName = pubConfig.domain;
+
         let filteredItem =  {
+            guid: item.guid,
             language: item.language,
             body_html: item.body_html,
             byline: item.byline,
             keywords: item.keywords,
-            "guid":"urn:newsml:localhost:2016-09-23T13:56:39.404843:56465de4-0d5c-495a-8e36-3b396def3cf0",
             priority: item.priority,
             urgency: item.urgency,
             headline: item.headline,
             description_html: item.abstract,
             pubstatus: item.pubstatus,
-            authors: item.authors
-          };
+            authors: item.authors,
+            extra: item.extra,
+            source: item.source
+        };
 
-
-
-        // _(item).omitBy(_.isNil).omitBy(_.isEmpty).value();
-
-        // filteredItem.guid = filteredItem._id;
-        // // genre "fix"
-        // filteredItem.genre.forEach(obj => {
-        //     obj.code = obj.qcode;
-        //     delete obj.qcode;
-        // });
-        // // subject "fix"
-        // filteredItem.subject.forEach(obj => {
-        //     obj.code = obj.qcode;
-        //     delete obj.qcode;
-        //     delete obj.parent;
-        // });
-
-        console.log(item);
+        filteredItem = _(filteredItem).omitBy(_.isNil).omitBy(_.isEmpty).value();
 
         this.state = {
             config: config,
@@ -142,7 +128,7 @@ export class TargetedPublishing extends React.Component {
                     </div>
                 }
                 {this.state.rules.map((rule, index) => {
-                    return (
+                    return rule.route && rule.published ? (
                         <Tenant
                             rule={rule}
                             key={rule.tenant.code}
@@ -151,7 +137,7 @@ export class TargetedPublishing extends React.Component {
                             item={this.state.item}
                             done={this.reload.bind(this)}
                         />
-                    )
+                    ) : null;
                 })}
             </div>
         );
