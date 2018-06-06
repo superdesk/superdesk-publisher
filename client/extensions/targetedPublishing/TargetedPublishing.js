@@ -16,14 +16,24 @@ export class TargetedPublishing extends React.Component {
         const protocol = pubConfig.protocol || 'https';
         const subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
         const domainName = pubConfig.domain;
-        const filteredItem = _(item).omitBy(_.isNil).omitBy(_.isEmpty).value();
 
-        filteredItem.guid = filteredItem._id;
-        // genre "fix"
-        filteredItem.genre.forEach(obj => {
-            obj.code = obj.qcode;
-            delete obj.qcode;
-        });
+        let filteredItem =  {
+            guid: item.guid,
+            language: item.language,
+            body_html: item.body_html,
+            byline: item.byline,
+            keywords: item.keywords,
+            priority: item.priority,
+            urgency: item.urgency,
+            headline: item.headline,
+            description_html: item.abstract,
+            pubstatus: item.pubstatus,
+            authors: item.authors,
+            extra: item.extra,
+            source: item.source
+        };
+
+        filteredItem = _(filteredItem).omitBy(_.isNil).omitBy(_.isEmpty).value();
 
         this.state = {
             config: config,
@@ -118,7 +128,7 @@ export class TargetedPublishing extends React.Component {
                     </div>
                 }
                 {this.state.rules.map((rule, index) => {
-                    return (
+                    return rule.route && rule.published ? (
                         <Tenant
                             rule={rule}
                             key={rule.tenant.code}
@@ -127,7 +137,7 @@ export class TargetedPublishing extends React.Component {
                             item={this.state.item}
                             done={this.reload.bind(this)}
                         />
-                    )
+                    ) : null;
                 })}
             </div>
         );
