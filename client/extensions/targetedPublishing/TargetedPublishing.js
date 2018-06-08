@@ -63,8 +63,9 @@ export class TargetedPublishing extends React.Component {
         return axios.post(this.state.apiUrl + 'organization/rules/evaluate',this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 if (!_.isEmpty(res.data)) {
+                    let rules = res.data.tenants.filter(rule => rule.route && rule.published);
                     this.setState({
-                        rules: res.data.tenants
+                        rules: rules
                     });
                 }
                 return res;
@@ -128,7 +129,7 @@ export class TargetedPublishing extends React.Component {
                     </div>
                 }
                 {this.state.rules.map((rule, index) => {
-                    return rule.route && rule.published ? (
+                    return (
                         <Tenant
                             rule={rule}
                             key={rule.tenant.code}
@@ -137,7 +138,7 @@ export class TargetedPublishing extends React.Component {
                             item={this.state.item}
                             done={this.reload.bind(this)}
                         />
-                    ) : null;
+                    );
                 })}
             </div>
         );
