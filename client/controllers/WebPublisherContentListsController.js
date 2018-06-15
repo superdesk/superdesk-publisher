@@ -176,6 +176,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             $scope.newList = angular.extend({}, list);
             this.metadataList = [];
             this.selectedRoutes = [];
+            $scope.routes = null;
             this.tenantArticles = {
                 page: 0,
                 params: {}
@@ -200,7 +201,6 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
 
             publisher.queryRoutes().then((routes) => {
                 $scope.routes = routes;
-
                 if ($scope.newList.filters.route && $scope.newList.filters.route.length > 0) {
                     routes.forEach((item) => {
                         if ($scope.newList.filters.route.indexOf(item.id + '') !== -1) {
