@@ -479,7 +479,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
                 this.tenantArticles.page = response.page;
                 this.tenantArticles.totalPages = response.pages;
                 this.tenantArticles.items = response.page > 1 ?
-                this.tenantArticles.items.concat(response._embedded._items) :
+                    this.tenantArticles.items.concat(response._embedded._items) :
                     response._embedded._items;
             });
         }
