@@ -17,6 +17,12 @@ export class TargetedPublishing extends React.Component {
         const subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
         const domainName = pubConfig.domain;
 
+        let service = item.anpa_category.map( item => {
+            return {
+                name: item.name,
+                code: item.qcode
+            };
+        });
         let filteredItem =  {
             guid: item.guid,
             language: item.language,
@@ -30,7 +36,8 @@ export class TargetedPublishing extends React.Component {
             pubstatus: item.pubstatus,
             authors: item.authors,
             extra: item.extra,
-            source: item.source
+            source: item.source,
+            service: service
         };
 
         filteredItem = _(filteredItem).omitBy(_.isNil).omitBy(_.isEmpty).value();
@@ -73,7 +80,7 @@ export class TargetedPublishing extends React.Component {
     }
 
     getSites() {
-        return axios.get(this.state.apiUrl + 'tenants', {headers: this.state.apiHeader})
+        return axios.get(this.state.apiUrl + 'tenants/', {headers: this.state.apiHeader})
         .then(res => {
             this.setState({
                 sites: res.data._embedded._items
