@@ -22,6 +22,7 @@ export function GroupArticleDirective(publisher) {
 
         link(scope) {
             scope.articlesList = [];
+            scope.articlesLimit = 20;
             scope.filters = scope.initialFilters ? scope.initialFilters : {};
             scope.loadedFilters = !!scope.initialFilters;
 
@@ -87,7 +88,7 @@ export function GroupArticleDirective(publisher) {
                 let page = reset || !scope.totalArticles ? 1 : scope.totalArticles.page + 1;
                 let queryParams = {
                     page: page,
-                    limit: 20,
+                    limit: scope.articlesLimit,
                     'status[]': [],
                     'sorting[updatedAt]': 'desc'
                 };
@@ -136,6 +137,30 @@ export function GroupArticleDirective(publisher) {
                 });
             };
 
+            scope.$on('newPackage', (e, item, state) => {
+               if (!this._isNewPackageInteresting(item, scope)) {
+                   return false;
+               }
+               item.animate = true;
+               if (state === 'update') {
+                    //update
+                    let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
+                    if (elIndex != -1) {
+                        scope.articlesList[elIndex] = item;
+                        scope.$apply();
+                    }
+               } else {
+                    //new article
+                    scope.articlesList = [item].concat(scope.articlesList);
+                    if (scope.articlesList.length % scope.articlesLimit === 0) {
+                        scope.articlesList.splice(-1,1)
+                    }
+                    scope.totalArticles.total += 1;
+                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+               }
+
+            });
+
             scope.$on('refreshArticlesList', (e, updatedDestinations, oldDestinationsRoutes, filters) => {
                 if (filters) {
                     scope.filters = filters;
@@ -150,6 +175,36 @@ export function GroupArticleDirective(publisher) {
                 }
             });
         }
+
+        _isNewPackageInteresting(item, scope) {
+
+
+            if ( scope.rootType &&
+                (scope.rootType == 'incoming' && item.status == 'published' ||
+                scope.rootType == 'published' && item.status == 'new') ) {
+                return false;
+            }
+            // if site is defined check if matches tenants from incoming package
+            if (scope.site && scope.site.code ) {
+                let siteFlag = null;
+                item.articles.forEach((article) => {
+                    siteFlag = article.status != 'new' && article.tenant.code === scope.site.code ? true : false;
+                });
+
+                if (siteFlag === false) return false;
+            }
+            // if site and route is defined check if matches routes from incoming package
+            if (scope.route && scope.route.id ) {
+                let routeFlag = null;
+                item.articles.forEach((article) => {
+                    routeFlag = article.route.id === scope.route.id ? true : false;
+                });
+
+                if (routeFlag === false) return false;
+            }
+            // return true if everything passes checks
+            return true;
+        };
     }
 
     return new GroupArticle();
