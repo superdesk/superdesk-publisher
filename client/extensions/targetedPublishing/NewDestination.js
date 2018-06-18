@@ -109,8 +109,17 @@ export default class NewDestination extends Component {
             </div>
         );
 
-        const routesSelect = (
+
+        let routesSelect = (
             <select className="sd-line-input__select" value={this.state.destination.route} onChange={this.routeChangeHandler.bind(this)}>
+                    {
+                        this.state.routes.length &&
+                        <option value="" disabled selected>Select a route</option>
+                    }
+                    {
+                        !this.state.routes.length &&
+                        <option value="" disabled>No routes defined</option>
+                    }
                 {this.state.routes.map((route, index) => {
                     return <option value={route.id} key={route.id}>{route.name}</option>
                 })}

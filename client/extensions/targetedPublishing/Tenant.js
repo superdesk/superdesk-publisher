@@ -134,7 +134,6 @@ export default class Tenant extends Component {
                                 <span className="sd-list-item__text-strong">{siteDomain}</span>
                             </span>
                         </div>
-
                         {!newRule.published &&
                             <div className="sd-list-item__row">
                                 <span className="label label--alert">Do not publish</span>
@@ -146,8 +145,6 @@ export default class Tenant extends Component {
                                 <span className="sd-overflow-ellipsis">{publishRoute}</span>
                             </div>
                         }
-
-
                     </div>
                 </div>
 
