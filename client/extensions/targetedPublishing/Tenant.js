@@ -29,7 +29,7 @@ export default class Tenant extends Component {
     }
 
     getRoutes() {
-        return axios.get(this.state.apiUrl + 'content/routes', {headers: this.state.apiHeader, params: {limit: 1000, type: 'collection'}})
+        return axios.get(this.state.apiUrl + 'content/routes/', {headers: this.state.apiHeader, params: {limit: 1000, type: 'collection'}})
             .then(res => {
                 this.setState({
                     routes: res.data._embedded._items
