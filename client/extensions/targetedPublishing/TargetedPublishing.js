@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import {ToggleBox} from './components/ToggleBox.jsx';
 import Tenant from './Tenant';
 import NewDestination from './NewDestination';
+import Loading from './components/Loading.jsx';
 import styles from './targetedPublishing.css';
 
 
@@ -51,7 +52,8 @@ export class TargetedPublishing extends React.Component {
             sites: [],
             rules: [],
             addWebsiteOpen: false,
-            newSite: {}
+            newSite: {},
+            loading: true
         };
     }
 
@@ -67,12 +69,16 @@ export class TargetedPublishing extends React.Component {
     }
 
     evaluate() {
+        this.setState({
+            loading: true
+        });
         return axios.post(this.state.apiUrl + 'organization/rules/evaluate',this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 if (!_.isEmpty(res.data)) {
                     let rules = res.data.tenants.filter(rule => rule.route);
                     this.setState({
-                        rules: rules
+                        rules: rules,
+                        loading: false
                     });
                 }
                 return res;
@@ -129,7 +135,7 @@ export class TargetedPublishing extends React.Component {
     render() {
         const siteRules = (
             <div>
-                {!this.state.rules.length &&
+                {!this.state.rules.length && !this.state.loading &&
                     <div className="sp-targetedPublshing__alert">
                         No websites have been set, this article won't show up on any website. It will go to: <br />
                         <span>Publisher > Output Control > Incoming list</span>
@@ -164,7 +170,7 @@ export class TargetedPublishing extends React.Component {
 
         let addButton = null;
 
-        if (remainingSites.length) {
+        if (remainingSites.length && !this.state.loading) {
             addButton = (
                 <button className="navbtn dropdown sd-create-btn" onClick={this.addButtonHandler.bind(this)}>
                     <i className="icon-plus-large"></i>
@@ -207,9 +213,10 @@ export class TargetedPublishing extends React.Component {
             );
         }
 
-
         return (
+
             <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui" isOpen={true}>
+                {this.state.loading && <Loading />}
                 {siteRules}
                 {addButton}
                 {addWebsite}
