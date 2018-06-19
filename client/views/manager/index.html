@@ -28,6 +28,7 @@
         <div class="desk-container" ng-repeat="site in sites | orderBy: 'name'">
             <div class="desk" ng-include="'tenant.html'"></div>
         </div>
+        <div style="flex: 0 0 60px"></div>
     </div>
     <a class="btn btn--sd-green btn--icon-only-circle btn--large sd-shadow--z4 absPosition absPosition--topRight" ng-click="webPublisher.toggleInfoCarousel()"><i class="icon-info-large"></i></a>
     <div class="panel-info" ng-if="!sites.length && !loading">

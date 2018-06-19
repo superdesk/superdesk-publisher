@@ -23,7 +23,9 @@
                 <div class="sd-list-item__row">
                     <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
                     <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
-                    <span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
+                    <span class="label"
+                        ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
+                        >{{article.route.name || article.content.route.name}}</span>
                     <span ng-if="article.sticky" class="pull-right state-label state-fetched" translate>pinned</span>
                 </div>
             </div>

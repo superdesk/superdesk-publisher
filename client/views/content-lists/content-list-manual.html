@@ -26,7 +26,7 @@
                         <label for="term" translate>Search</label>
                         <input type="text" ng-model="newList.filters.term" class="line-input">
                     </div>
-                    <div class="item">
+                    <div class="item" ng-if="routes">
                       <label translate>routes</label>
                         <div sd-meta-terms
                             class="data"
@@ -150,7 +150,11 @@
 
                         </div>
                         <div class="sd-list-item__row">
-                            <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time><span class="sd-overflow-ellipsis sd-list-item--element-grow"></span><span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
+                            <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
+                            <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
+                            <span class="label"
+                                    ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
+                                    >{{article.route.name || article.content.route.name}}</span>
                         </div>
                     </div>
                 </div>
@@ -200,7 +204,11 @@
 
                             </div>
                             <div class="sd-list-item__row">
-                                <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time><span class="sd-overflow-ellipsis sd-list-item--element-grow"></span><span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
+                                <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
+                                <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
+                                <span class="label"
+                                    ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
+                                    >{{article.route.name || article.content.route.name}}</span>
                             </div>
                         </div>
                         <div class="sd-list-item__action-menu">
