@@ -23,7 +23,18 @@
             <div ng-repeat="item in i.articles"
                 class="state-label flex-pull-right"
                 ng-class="{'state-published': item.status == 'published', 'state-killed': item.status == 'unpublished'}">
-                <span sd-tooltip="{{item.tenant.subdomain}}.{{item.tenant.domainName}}" flow="left">{{item.tenant.name}}</span>
+                <a
+                    ng-if="item.status == 'published'"
+                    ng-href="https://{{item.tenant.subdomain}}.{{item.tenant.domainName}}{{item._links.online.href}}"
+                    target="_blank"
+                    style="color: inherit"
+                    ng-click="$event.stopPropagation()"
+                    sd-tooltip="{{item.tenant.subdomain}}.{{item.tenant.domainName}}"
+                    flow="left">{{item.tenant.name}}</a>
+                <span
+                    ng-if="item.status != 'published'"
+                    sd-tooltip="{{item.tenant.subdomain}}.{{item.tenant.domainName}}"
+                    flow="left">{{item.tenant.name}}</span>
                 <span sd-tooltip="impressions/page views" flow="left"
                     ng-if="item.status != 'unpublished'">
                     {{item.articleStatistics.impressionsNumber}}/{{item.articleStatistics.pageViewsNumber}}
