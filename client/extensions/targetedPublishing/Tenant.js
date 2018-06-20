@@ -28,6 +28,16 @@ export default class Tenant extends Component {
         this.getRoutes();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.rule) {
+            const rule = nextProps.rule;
+            this.setState({
+                rule: rule,
+                newRule: rule
+            });
+        }
+    }
+
     getRoutes() {
         return axios.get(this.state.apiUrl + 'content/routes/', {headers: this.state.apiHeader, params: {limit: 1000, type: 'collection'}})
             .then(res => {

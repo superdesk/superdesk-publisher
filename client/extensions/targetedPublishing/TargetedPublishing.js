@@ -69,9 +69,6 @@ export class TargetedPublishing extends React.Component {
     }
 
     evaluate() {
-        this.setState({
-            loading: true
-        });
         return axios.post(this.state.apiUrl + 'organization/rules/evaluate',this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 if (!_.isEmpty(res.data)) {
@@ -201,7 +198,7 @@ export class TargetedPublishing extends React.Component {
 
         if (this.state.newSite.id) {
             newRuleForm = (
-                 <NewDestination
+                <NewDestination
                     key={this.state.newSite.id}
                     site={this.state.newSite}
                     apiHeader={this.state.apiHeader}
