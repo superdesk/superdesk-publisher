@@ -12,8 +12,13 @@
 		</div>
 	</div>
 	<div class="shadowBlock">
-		<label class="form-label">Expression</label>
-		<div class="form__row form__row--flex bottomMargin0" ng-repeat="expression in newRule.expressions">
+		<label class="form-label inlineBlock">Expression</label>
+		<div class="inlineBlock pull-right">
+			<label class="inlineBlock form-label">Catch all</label><span ng-model="newRule.catchAll" sd-switch=""></span>
+		</div>
+		<div class="form__row form__row--flex bottomMargin0"
+			ng-if="!newRule.catchAll"
+			ng-repeat="expression in newRule.expressions">
 			<div class="form__row-item">
 				<div class="sd-line-input sd-line-input--is-select bottomMargin0">
 					<select class="sd-line-input__select"
@@ -60,7 +65,7 @@
 			</div>
 		</div>
 
-		<div class="form__row topMargin">
+		<div class="form__row topMargin" ng-if="!newRule.catchAll">
 			<button class="btn"
 				ng-click="webPublisherSettings.addRuleExpression()"
 				ng-disabled="!newRule.expressions[newRule.expressions.length-1].value">

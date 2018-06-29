@@ -67,7 +67,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 return site.code == code;
             });
 
-            return tenant.name;
+            return tenant ? tenant.name : null;
         }
 
         /**
@@ -81,7 +81,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 return site.code == code;
             });
 
-            return tenant.subdomain + '.' + tenant.domainName;
+            return tenant ? tenant.subdomain + '.' + tenant.domainName : null;
         }
 
         /**
@@ -113,6 +113,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let language = '<span class="label label--yellow2">Language</span>';
 
             let readable = expression
+                .replace(new RegExp('true == true', 'gmu'), 'catch all')
                 .replace(new RegExp('(article|package).(getLanguage|getLocale)\\(\\)', 'gmu'), 'Language')
                 .replace(new RegExp('(article.getPackage\\(\\)|package).getSource\\(\\)', 'gmu'), 'Source')
                 .replace(new RegExp('(article.getPackage\\(\\)|package).getPriority\\(\\)', 'gmu'), 'Priority')
@@ -257,20 +258,23 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     newRule.configuration.push({key: 'fbia', value: true});
                 }
             }
+            if ($scope.newRule.catchAll) {
+                newRule.expression = 'true == true';
+            } else {
+                _.each($scope.newRule.expressions, (expression, index) => {
+                    if (index > 0) {
+                        newRule.expression += ' and ';
+                    }
 
-            _.each($scope.newRule.expressions, (expression, index) => {
-                if (index > 0) {
-                    newRule.expression += ' and ';
-                }
-
-                if (expression.option.type === 'number') {
-                    newRule.expression += expression.option.value + ' ' + expression.operator + ' ' + expression.value;
-                } else if (expression.option.type === 'in') {
-                    newRule.expression += '"' + expression.value + '" ' + expression.operator + ' ' + expression.option.value;
-                } else {
-                    newRule.expression += expression.option.value + ' ' + expression.operator + ' "' + expression.value + '"';
-                }
-            });
+                    if (expression.option.type === 'number') {
+                        newRule.expression += expression.option.value + ' ' + expression.operator + ' ' + expression.value;
+                    } else if (expression.option.type === 'in') {
+                        newRule.expression += '"' + expression.value + '" ' + expression.operator + ' ' + expression.option.value;
+                    } else {
+                        newRule.expression += expression.option.value + ' ' + expression.operator + ' "' + expression.value + '"';
+                    }
+                });
+            }
 
             return newRule;
         }
