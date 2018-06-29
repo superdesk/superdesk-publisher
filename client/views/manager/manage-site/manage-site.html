@@ -83,6 +83,10 @@
                             <label for="subdomain" translate>Subdomain Name:</label>
                             <input type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" name="subdomain" ng-model="newSite.subdomain" class="line-input"/>
                         </div>
+                        <div class="field">
+                            <label>Enable AMP</label><span ng-model="newSite.ampEnabled" sd-switch=""></span>
+                        </div>
+
                     </fieldset>
                 </form>
                 <div ng-switch-when="routes">
