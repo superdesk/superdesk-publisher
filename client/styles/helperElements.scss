@@ -321,3 +321,16 @@
     to { transform: rotate(360deg); }
 }
 
+
+.fadeElement {
+    animation-name: fadeOpacity;
+      animation-duration: 2s;
+      animation-iteration-count:1;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode:forwards;
+  }
+
+  @keyframes fadeOpacity {
+    from {opacity:0}
+    to {opacity: 1}
+  }

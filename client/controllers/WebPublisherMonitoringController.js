@@ -8,8 +8,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherMonitoringController holds a set of functions used for web publisher monitoring
  */
-WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window', 'notify'];
-export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace, $window, notify) {
+WebPublisherMonitoringController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window', 'notify', '$interval', 'config'];
+export function WebPublisherMonitoringController($scope, $sce, modal, publisher, authoringWorkspace, $window, notify, $interval, config) {
     class WebPublisherMonitoring {
         constructor() {
             this.filterButtonAllActive = true;
@@ -28,8 +28,76 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
                     });
 
                     this._setFilters();
+                    this.websocketOpen();
                 });
+
+            $scope.$on('$destroy', () => {
+                this.websocketClose();
+            });
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#websocketOpen
+         * @description connects to websocket
+         */
+        websocketOpen() {
+            let pubConfig = config.publisher || {};
+
+            let subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
+            let domainName = pubConfig.domain;
+            let port = pubConfig.wsPort ? pubConfig.wsPort : '8080'
+
+            this.ws = new WebSocket(`wss://${subdomain}${domainName}:${port}?token=` + publisher.getToken());
+            this.websocketBindEvents();
+        };
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#websocketBindEvents
+         * @description binds websocket events
+         */
+        websocketBindEvents() {
+            this.ws.onclose = () => {
+                $interval.cancel(this.wsTimer);
+                this.wsTimer = $interval(() => {
+                    if (this.ws) {
+                        this.websocketOpen();
+                    }
+                }, 5000, 0, false); // passed invokeApply = false to prevent triggering digest cycle
+
+            };
+
+            this.ws.onopen = (event) => {
+                $interval.cancel(this.wsTimer);
+            };
+
+            this.ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                // hello came
+                if (data[0] === 0 ) {
+                    // topic subscription
+                    this.ws.send('[5, "package_created"]');
+                }
+                // package came
+                if (data[0] === 8 && data[2].package ) {
+                    $scope.$broadcast('newPackage', data[2].package, data[2].state);
+                }
+            }
+
+        };
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherMonitoringController#websocketClose
+         * @description closes connection with websocket
+         */
+        websocketClose() {
+            if (this.ws) {
+                this.ws.close();
+                this.ws = null;
+            }
+        };
 
         /**
          * @ngdoc method
