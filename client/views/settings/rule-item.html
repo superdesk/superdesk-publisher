@@ -1,6 +1,6 @@
 <div class="sd-list-item sd-shadow--z1"
     ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
-    ng-click="webPublisherSettings.previewRule(rule, code)">
+    ng-click="webPublisherSettings.togglePreviewRule(rule, code)">
     <div class="sd-list-item__border"></div>
     <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
         <div class="sd-list-item__row">
@@ -27,8 +27,29 @@
         </div>
     </div>
     <div class="sd-list-item__action-menu">
-        <button class="icn-btn" ng-click="webPublisherSettings.deleteRule(rule.id, code, $event, $index)">
-            <i class="icon-trash"></i>
-        </button>
+        <div class="dropdown" dropdown dropdown-append-to-body>
+            <button class="dropdown__toggle" dropdown__toggle ng-click="$event.stopPropagation()">
+                <i class="icon-dots-vertical"></i>
+            </button>
+            <ul class="dropdown__menu">
+                <li>
+                    <div class="dropdown__menu-label">
+                        Actions
+                        <button class="dropdown__menu-close"><i class="icon-close-small"></i></button>
+                    </div>
+                </li>
+                <li class="dropdown__menu-divider"></li>
+                <li>
+                    <button ng-click="webPublisherSettings.editRule(rule, code)">
+                        <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+                    </button>
+                </li>
+                <li>
+                    <button ng-click="webPublisherSettings.deleteRule(rule.id, code)">
+                        <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

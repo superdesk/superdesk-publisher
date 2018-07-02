@@ -48,13 +48,10 @@
         </div>
     </div>
     <div class="paneLayout__pane paneContent"
-    	ng-class="{'paneLayout__pane--open': webPublisherSettings.rulePaneOpen}"
-    	ng-include="'settings/rule-preview.html'"
-    	ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRule)">
+    	ng-class="{'paneLayout__pane--open': webPublisherSettings.rulePreviewOpen || webPublisherSettings.rulePaneOpen}"
+    >
+        <span ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></span>
+        <span ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></span>
     </div>
-    <div class="paneLayout__pane paneContent"
-    	ng-class="{'paneLayout__pane--open': webPublisherSettings.rulePaneOpen}"
-    	ng-include="'settings/rule-add.html'"
-    	ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRule)">
-    </div>
+
 </div>
