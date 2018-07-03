@@ -58,14 +58,7 @@ export class TargetedPublishing extends React.Component {
     }
 
     authorize() {
-        const _this = this;
-        return axios.post(this.state.apiUrl + 'auth/superdesk/', {auth_superdesk: {session_id: this.state.session.sessionId, token: this.state.session.token}})
-            .then((res) => {
-                _this.setState({
-                    apiHeader: {Authorization: 'Basic ' + res.data.token.api_key}
-                });
-                return res;
-            });
+        return axios.post(this.state.apiUrl + 'auth/superdesk/', {auth_superdesk: {session_id: this.state.session.sessionId, token: this.state.session.token}});
     }
 
     evaluate() {
@@ -121,13 +114,15 @@ export class TargetedPublishing extends React.Component {
 
     componentDidMount() {
         this.authorize()
-            .then(() => {
-                this.evaluate();
-                this.getSites();
+            .then((res) => {
+                this.setState(
+                    {apiHeader: {Authorization: 'Basic ' + res.data.token.api_key}},
+                    () => {
+                        this.evaluate();
+                        this.getSites();
+                    });
             });
     }
-
-
 
     render() {
         const siteRules = (
