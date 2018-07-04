@@ -142,6 +142,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             }else{
                 $scope.newRule.destinations.push({});
             }
+            this.ruleForm.$setDirty();
         }
 
          /**
@@ -152,6 +153,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          */
         removeRuleDestination(index) {
             $scope.newRule.destinations.splice(index, 1);
+            this.ruleForm.$setDirty();
         }
 
         /**
@@ -175,25 +177,29 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
          /**
          * @ngdoc method
-         * @name WebPublisherSettingsController#previewRule
+         * @name WebPublisherSettingsController#togglePreviewRule
          * @param {Object} rule - rule which is previewed
-         * @description Opens preview pane for selected rule
+         * @description Toggles preview pane for selected rule
          */
-        previewRule(rule, code) {
-            this.selectedRule = rule;
-            this.selectedRule.tenantCode = code;
-            this.rulePaneOpen = true;
+        togglePreviewRule(rule, code) {
+            if (rule) {
+                this.selectedRule = rule;
+                this.selectedRule.tenantCode = code;
+                this.rulePreviewOpen = true;
+            } else {
+                this.selectedRule = {};
+                this.rulePreviewOpen = false;
+            }
         }
 
-         /**
+        /**
          * @ngdoc method
          * @name WebPublisherSettingsController#deleteRule
          * @param {Number} ruleId - id of rule
-         * @param {Event} event - angular event
-         * @param {Number} index - index of the item to remove
-         * @description Deleting organization rule
+         * @param {String} tenantCode - tenant code
+         * @description Deletes rule
          */
-        deleteRule(ruleId, tenantCode, event, index) {
+        deleteRule(ruleId, tenantCode) {
             event.stopPropagation();
             modal.confirm(gettext('Please confirm you want to delete rule.'))
                 .then(() => {
@@ -216,6 +222,41 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
         /**
          * @ngdoc method
+         * @name WebPublisherSettingsController#editRule
+         * @param {Object} rule - rule
+         * @param {Object} tenantCode - tenant code
+         * @description Edit rule
+         */
+        editRule(rule, tenantCode) {
+            this.selectedRule = angular.copy(rule);
+            $scope.newRule = angular.copy(rule)
+            $scope.newRule.type = $scope.newRule.configuration.route ? 'tenant' : 'organization';
+            $scope.newRule.action = {};
+
+            if (tenantCode && $scope.newRule.type === 'tenant') {
+                // tenant rule
+                $scope.newRule.action.tenant = this.sites.find(function(site) {
+                    return site.code == tenantCode;
+                });
+                $scope.newRule.action.route = parseInt($scope.newRule.configuration.route);
+                $scope.newRule.action.published = $scope.newRule.configuration.published ? true : false;
+                $scope.newRule.action.fbia = $scope.newRule.configuration.fbia ? true : false;
+            } else {
+                 // organization rule
+                 $scope.newRule.destinations = [];
+
+                _.each($scope.newRule.configuration.destinations, destination => {
+                    let tenant = this.sites.find(function(site) {
+                        return site.code == destination.tenant;
+                    });
+                    $scope.newRule.destinations.push(tenant);
+                });
+            }
+            this.rulePaneOpen = true;
+        }
+
+        /**
+         * @ngdoc method
          * @name WebPublisherSettingsController#buildRule
          * @returns {Object}
          * @description Building rule from selected parameters
@@ -224,7 +265,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let newRule = {
                 name: $scope.newRule.name,
                 description: $scope.newRule.description,
-                priority: 1,
+                priority: '1',
                 expression: '',
                 configuration: []
             };
@@ -275,8 +316,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     }
                 });
             }
-
-            return newRule;
+            return _(newRule).omitBy(_.isNil).omitBy(_.isEmpty).value();
         }
 
         /**
@@ -293,6 +333,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 publisher.manageOrganizationRule({rule: _.pick(newRule, updatedKeys)}, this.selectedRule.id)
                     .then((rule) => {
                         this.rulePaneOpen = false;
+                        this.selectedRule = {};
                         this._refreshRules();
                     });
             } else {
@@ -300,6 +341,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 publisher.manageTenantRule({rule: _.pick(newRule, updatedKeys)}, this.selectedRule.id)
                     .then((rule) => {
                         this.rulePaneOpen = false;
+                        this.selectedRule = {};
                         this._refreshRules();
                     });
             }

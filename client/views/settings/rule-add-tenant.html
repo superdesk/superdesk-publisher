@@ -26,8 +26,10 @@
         </div>
 
 
-        <label class="form-label">Expression</label>
-        <div class="form__row form__row--flex bottomMargin0" ng-repeat="expression in newRule.expressions">
+        <label class="form-label" ng-if="!newRule.id">Expression</label>
+        <div ng-if="!newRule.id"
+            class="form__row form__row--flex bottomMargin0"
+            ng-repeat="expression in newRule.expressions">
             <div class="form__row-item">
                 <div class="sd-line-input sd-line-input--is-select bottomMargin0">
                     <select class="sd-line-input__select"
@@ -74,7 +76,7 @@
             </div>
         </div>
 
-        <div class="form__row topMargin">
+        <div ng-if="!newRule.id" class="form__row topMargin">
             <button class="btn"
                 ng-click="webPublisherSettings.addRuleExpression()"
                 ng-disabled="!newRule.expressions[newRule.expressions.length-1].value">
