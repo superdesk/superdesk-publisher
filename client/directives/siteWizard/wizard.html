@@ -1,7 +1,7 @@
 <div sd-modal data-model="active" class="modal--tabs modal--large sd-wizard">
     <div class="modal__header">
         <a href="" class="close" ng-click="managerController.toggleSiteWizard()"><i class="icon-close-small"></i></a>
-        <h3 class="modal__heading" translate>Create Site Wizard</h3>
+        <h3 class="modal__heading" translate>Create Site Wizard <span ng-if="newSite.outputChannel">- {{newSite.outputChannel.type.charAt(0).toUpperCase() + newSite.outputChannel.type.slice(1)}}</span></h3>
     </div>
 
     <div class="modal__body" sd-wizard data-name="siteWizard" data-current-step="step.current" data-finish="managerController.toogleSiteWizard()">
@@ -11,6 +11,9 @@
                     {{wizard.errorMessage}}
                 </div>
                 <fieldset>
+                    <div ng-if="newSite.outputChannel" class="form__row form__row--flex">
+                            <h4 class="text--light text--thin text--uppercase">Superdesk Publisher tenant settings</h4>
+                    </div>
                     <div class="form__row form__row--flex">
                         <div class="form__row-item">
                             <div class="sd-line-input sd-line-input--required">
@@ -45,6 +48,19 @@
                             </div>
                         </div>
                     </div>
+                    <div ng-if="newSite.outputChannel" class="form__row form__row--flex">
+                            <h4 class="text--light text--thin text--uppercase">{{newSite.outputChannel.type}} settings</h4>
+                    </div>
+                    <div class="form__row form__row--flex"
+                        ng-if="newSite.outputChannel"
+                        ng-repeat="(name, value) in newSite.outputChannel.config" >
+                            <div class="form__row-item">
+                                <div class="sd-line-input sd-line-input--required">
+                                    <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
+                                    <input class="sd-line-input__input" type="text" ng-model="newSite.outputChannel.config[name]" required>
+                                </div>
+                            </div>
+                        </div>
                 </fieldset>
             </form>
 
@@ -55,7 +71,10 @@
                         ng-disabled="!generalStep.$valid || wizard.busy">Continue</button>
             </div>
         </div>
-        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}" data-code="installTheme" data-disabled="true">
+        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}"
+            ng-if="!newSite.outputChannel"
+            data-code="installTheme"
+            data-disabled="true">
             <div class="content">
                 <div sd-theme-manager data-site="wizard.site" activated-callback="themeActivatedCallback()" data-grid="2"></div>
             </div>

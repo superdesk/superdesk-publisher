@@ -324,13 +324,27 @@
 
 .fadeElement {
     animation-name: fadeOpacity;
-      animation-duration: 2s;
-      animation-iteration-count:1;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode:forwards;
-  }
+    animation-duration: 2s;
+    animation-iteration-count:1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode:forwards;
+}
 
-  @keyframes fadeOpacity {
-    from {opacity:0}
-    to {opacity: 1}
-  }
+@keyframes fadeOpacity {
+from {opacity:0}
+to {opacity: 1}
+}
+
+.sp-logo-sd {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: transparent url(../images/sd-icon.svg) center center no-repeat;
+}
+
+.sp-logo-wordpress {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: transparent url(../images/wordpress-icon.svg) center center no-repeat;
+}

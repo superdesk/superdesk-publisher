@@ -1,0 +1,40 @@
+<div class="modal__header modal__header--padding-20 ng-scope">
+    <h3 class="page-nav-title--text-light" translate="">General</h3>
+</div>
+<form name="webPublisher.siteForm" class="flex-grid flex-grid--boxed flex-grid--small-2 paneContent__main">
+    <fieldset class="flex-grid__item">
+        <div class="field">
+            <label for="name" translate>Web Site Name:</label>
+            <input type="text" name="name" ng-model="newSite.name" class="line-input" required/>
+        </div>
+        <div class="field">
+            <label for="domainName" translate>Domain Name:</label>
+            <input type="text" ng-trim="false" ng-change="newSite.domainName = newSite.domainName.split(' ').join('')" name="domainName" ng-model="newSite.domainName" class="line-input" required/>
+        </div>
+        <div class="field">
+            <label for="subdomain" translate>Subdomain Name:</label>
+            <input type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" name="subdomain" ng-model="newSite.subdomain" class="line-input"/>
+        </div>
+        <div class="field">
+            <label>Enable AMP</label><span ng-model="newSite.ampEnabled" sd-switch=""></span>
+        </div>
+    </fieldset>
+    <fieldset class="flex-grid__item" ng-if="newSite.outputChannel">
+        <div class="sd-card">
+            <div class="sd-card__content">
+                <div class="form__row form__row--flex">
+                    <h4 class="text--light text--uppercase">{{newSite.outputChannel.type}} settings</h4>
+                </div>
+                <div class="form__row form__row--flex"
+                    ng-repeat="(name, value) in newSite.outputChannel.config" >
+                    <div class="form__row-item">
+                        <div class="sd-line-input sd-line-input--required">
+                            <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
+                            <input class="sd-line-input__input" type="text" ng-model="newSite.outputChannel.config[name]" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

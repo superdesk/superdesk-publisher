@@ -9,12 +9,11 @@ SiteWizardDirective.$inject = ['publisher', 'WizardHandler'];
 export function SiteWizardDirective(publisher, WizardHandler) {
     class SiteWizardDirective {
         constructor() {
-            this.scope = {active: '=active', managerController: '=managerController'};
+            this.scope = {active: '=active', managerController: '=managerController', outputChannelType: '=outputChannelType'};
             this.template = require('./wizard.html');
         }
 
         link(scope) {
-
             /**
              * @ngdoc method
              * @name sdWizard#toggleWizard
@@ -28,6 +27,16 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                     ready: false
                 };
                 scope.newSite = {};
+
+                if (scope.outputChannelType) {
+                    scope.newSite.outputChannel = {
+                        type: scope.outputChannelType.toLowerCase(),
+                        config: {
+                            url: '',
+                            authorization_key: ''
+                        }
+                    };
+                }
             };
 
             scope.$watch('active', (o, n) => {
@@ -58,7 +67,11 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                         // by doing this we check if tenant responds to requests
                         scope.managerController._refreshSites().then(() => {
                             scope.wizard.busy = false;
-                            WizardHandler.wizard('siteWizard').next();
+                            if (scope.wizard.site.outputChannel) {
+                                scope.managerController.toggleSiteWizard();
+                            } else {
+                                WizardHandler.wizard('siteWizard').next();
+                            }
                         })
                         .catch((error) => {
                             publisher.setTenant();

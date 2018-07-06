@@ -93,7 +93,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         editSite(site) {
             this.selectedSite = site;
-            $scope.newSite = angular.extend({}, site);
+            $scope.newSite = angular.copy(site);
             this.openSiteModal = true;
             publisher.setTenant(site);
             this._refreshThemeSettings();
@@ -105,7 +105,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @description Canceles changes to site
          */
         cancelEditSite() {
-            $scope.newSite = angular.extend({}, this.selectedSite);
+            $scope.newSite = angular.copy(this.selectedSite);
             this.siteForm.$setPristine();
         }
 
@@ -122,7 +122,6 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                     this.siteForm.$setPristine();
                     this.selectedSite = site;
                     publisher.setTenant(site);
-                    this.changeTab('routes');
                     this._refreshSites();
                 });
         }
@@ -175,7 +174,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         editRoute(route) {
             this.routeForm.$setPristine();
             this.selectedRoute = route;
-            $scope.newRoute = angular.extend({}, route);
+            $scope.newRoute = angular.copy(route);
             this.routePaneOpen = true;
         }
 
@@ -234,7 +233,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         editMenuCard(menu) {
             this.selectedMenu = menu;
-            $scope.newMenu = angular.extend({}, menu);
+            $scope.newMenu = angular.copy(menu);
             this.menuAdd = true;
         }
 
@@ -244,7 +243,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @description Canceling update of menu card
          */
         cancelEditMenuCard() {
-            $scope.newMenu = angular.extend({}, this.selectedMenu);
+            $scope.newMenu = angular.copy(this.selectedMenu);
             this.menuAdd = false;
             if (!this.selectedMenu.id) {
                 $scope.menus.pop();
@@ -313,7 +312,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         editMenu(menu) {
             this.menuForm.$setPristine();
             this.selectedMenu = menu;
-            $scope.newMenu = angular.extend({}, menu);
+            $scope.newMenu = angular.copy(menu);
             this.menuPaneOpen = true;
         }
 
@@ -375,12 +374,14 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         /**
          * @ngdoc method
          * @name WebPublisherManagerController#toggleSiteWizard
+         * @param {String} outputChannelType - channel type (eg wordpress, drupal)
          * @description Toggles site creation wizard
          */
-        toggleSiteWizard() {
+        toggleSiteWizard(outputChannelType) {
             if(this.siteWizardActive) {
                this._refreshSites();
             }
+            this.siteWizardOutputChannelType = outputChannelType ? outputChannelType : null;
             this.siteWizardActive = !this.siteWizardActive;
             publisher.setTenant();
         }
