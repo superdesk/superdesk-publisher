@@ -1,7 +1,6 @@
-<div ng-if="loading" class="item-group__loading"></div>
-<div ng-if="!loading && !routes.length" class="item-group__no-items" translate>No routes in this site</div>
-<div ng-if="routes.length" class="item-group" ng-repeat="route in routes | filter: {parent: null} | orderBy: 'name'">
-    <div class="item-group__header">
-        <div class="item-group__name">{{ :: route.name}}</div>
-    </div>
-</div>
+<ul class="simple-list simple-list--dotted" ng-if="loading || routes.length">
+    <li ng-if="loading" class="item-group__loading"></li>
+    <li class="simple-list__item" ng-repeat="route in routes | filter: {parent: null} | orderBy: 'name'">
+        <span class="text--light text--uppercase">{{ :: route.name}}</span> <span class="badge pull-right">{{ :: route.articlesCount }}</span>
+    </li>
+</ul>

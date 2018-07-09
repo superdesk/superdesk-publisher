@@ -22,5 +22,17 @@
     </div>
 </div>
 <div class="desk__content">
-    <div sd-site-routes data-site="site"></div>
+    <div class="sd-card">
+        <div class="sd-card__content">
+            <div class="flex-grid flex-grid--small-2">
+                <div class="flex-grid__item numberLabel">
+                    <span class="numberLabel__number">{{site.articlesCount}}</span>
+                    <span class="numberLabel__label">published<br />items</span>
+                </div>
+                <div ng-if="!site.outputChannel" class="flex-grid__item"><i class="sp-logo-sd pull-right" sd-tooltip="Superdesk Publisher" flow="left"></i></div>
+                <div ng-if="site.outputChannel" class="flex-grid__item"><i class="sp-logo-wordpress pull-right" sd-tooltip="Wordpress" flow="left"></i></div>
+            </div>
+            <div sd-site-routes data-site="site"></div>
+        </div>
+    </div>
 </div>

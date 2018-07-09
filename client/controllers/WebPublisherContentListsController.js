@@ -84,7 +84,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          */
         editListCard(list) {
             this.selectedList = list;
-            $scope.newList = angular.extend({}, list);
+            $scope.newList = angular.copy(list);
             this.listAdd = true;
         }
 
@@ -94,7 +94,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          * @description Canceling update of content list card
          */
         cancelEditListCard() {
-            $scope.newList = angular.extend({}, this.selectedList);
+            $scope.newList = angular.copy(this.selectedList);
             this.listAdd = false;
             if (!this.selectedList.id) {
                 $scope.lists.pop();
@@ -109,7 +109,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          */
         editListCardSettings(list) {
             this.selectedList = list;
-            $scope.newList = angular.extend({}, list);
+            $scope.newList = angular.copy(list);
             this.settingsModal = true;
         }
 
@@ -173,7 +173,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          */
         openListCriteria(list) {
             this.selectedList = list;
-            $scope.newList = angular.extend({}, list);
+            $scope.newList = angular.copy(list);
             this.metadataList = [];
             this.selectedRoutes = [];
             $scope.routes = null;
