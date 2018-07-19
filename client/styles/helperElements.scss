@@ -4,6 +4,10 @@
     &--extraBottom {
         padding-bottom: 50px;
     }
+
+    &--small {
+        padding: 10px;
+    }
 }
 
 .headerMargin {
@@ -102,12 +106,24 @@
         color: $grayDarker;
     }
 
+    &--green {
+        color: $green;
+    }
+
+    &--red {
+        color: $red;
+    }
+
     &--italic {
         font-style: italic;
     }
 
     &--bold {
         font-weight: 500;
+    }
+
+    &--bolder {
+        font-weight: 700;
     }
 
     &--thin {
@@ -120,6 +136,10 @@
 
     &--small {
         font-size: .9em;
+    }
+
+    &--smallish {
+        font-size: .8em;
     }
 
     &--smaller {
@@ -135,6 +155,10 @@
 
     &--right {
         text-align: right;
+    }
+
+    &--strikethrough {
+        text-decoration: line-through;
     }
 
     &--verticalMiddle {
@@ -273,6 +297,15 @@
     max-width: 100%;
 }
 
+.flexColumn {
+    display: flex;
+    flex-flow: column;
+}
+
+.flex1 {
+    flex: 1;
+}
+
 .busyOverlay {
     position: absolute;
     top: 0;
@@ -336,15 +369,43 @@ to {opacity: 1}
 }
 
 .sp-logo-sd {
-    display: inline-block;
+    display: block;
+    float: left;
+    margin-right: 1rem;
     width: 30px;
     height: 30px;
     background: transparent url(../images/sd-icon.svg) center center no-repeat;
 }
 
 .sp-logo-wordpress {
-    display: inline-block;
+    display: block;
+    float: left;
+    margin-right: 1rem;
     width: 30px;
     height: 30px;
     background: transparent url(../images/wordpress-icon.svg) center center no-repeat;
+}
+
+.sp-borderBottom {
+    border-bottom: 1px solid #e5e5e5;
+    &--dark {
+        border-bottom: 1px solid #b8b8b8;
+    }
+    &--big {
+        border-bottom: 5px solid #4d4d4d;
+    }
+}
+
+.sp-borderTop {
+    border-top: 1px solid #e5e5e5;
+    &--dark {
+        border-top: 1px solid #b8b8b8;
+    }
+    &--big {
+        border-top: 5px solid #4d4d4d;
+    }
+}
+
+.sp-border {
+    border: 1px solid #e5e5e5
 }

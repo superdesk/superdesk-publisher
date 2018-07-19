@@ -15,7 +15,9 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             this.siteWizardActive = false;
             $scope.loading = true;
 
-            publisher.setToken().then(this._refreshSites);
+            publisher.setToken().then(() => {
+                this._loadThemes().then(this._refreshSites);
+            });
             this.livesitePermission = privileges.userHasPrivileges({livesite: 1});
         }
 
@@ -533,6 +535,11 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         _refreshSites() {
             $scope.loading = true;
             return publisher.querySites().then((sites) => {
+                // assigning theme to site
+                angular.forEach(sites, (site) => {
+                    site.theme = $scope.organizationThemes.find(theme => site.themeName == theme.name);
+                });
+
                 $scope.sites = sites;
                 $scope.loading = false;
             });
@@ -575,6 +582,19 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             this.menuPaneOpen = false;
             publisher.queryMenus().then((menus) => {
                 $scope.menus = menus;
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#_loadThemes
+         * @private
+         * @description Loads list of all themes
+         */
+
+        _loadThemes() {
+            return publisher.getOrganizationThemes().then((response) => {
+                $scope.organizationThemes = response._embedded._items;
             });
         }
 
