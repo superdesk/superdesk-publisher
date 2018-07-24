@@ -65,7 +65,7 @@ export class TargetedPublishing extends React.Component {
         return axios.post(this.state.apiUrl + 'organization/rules/evaluate',this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 if (!_.isEmpty(res.data)) {
-                    let rules = res.data.tenants.filter(rule => rule.route);
+                    let rules = _.filter(res.data.tenants, rule => rule.route);
                     this.setState({
                         rules: rules,
                         loading: false
