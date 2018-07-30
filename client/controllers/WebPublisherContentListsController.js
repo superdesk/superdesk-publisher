@@ -352,6 +352,10 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             updatedItem = _.find($scope.newList.updatedItems, {content_id: selectedItemId});
             if (!updatedItem) {
                 $scope.newList.updatedItems.push({content_id: selectedItemId, action: 'delete'});
+            } else if (updatedItem.action === 'move') {
+                // removes old one and adds delete action
+                $scope.newList.updatedItems.splice($scope.newList.updatedItems.indexOf(updatedItem), 1);
+                $scope.newList.updatedItems.push({content_id: selectedItemId, action: 'delete'});
             } else {
                 $scope.newList.updatedItems.splice($scope.newList.updatedItems.indexOf(updatedItem), 1);
             }

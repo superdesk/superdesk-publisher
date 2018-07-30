@@ -146,12 +146,11 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
 
         /**
          * @ngdoc method
-         * @name pubapi#save
+         * @name pubapi#patch
          * @param {String} resource
          * @param {Object} item - item which is saved
-         * @param {String} id - id of item which is saved
          * @returns {Promise}
-         * @description Save an item
+         * @description patches an item
          */
         patch(resource, item) {
             return this.req({
