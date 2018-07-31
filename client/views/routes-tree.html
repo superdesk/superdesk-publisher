@@ -9,7 +9,8 @@
     <div class="listElement__content">
         <span ng-class="{'listElement--bold': route.type == 'collection'}">{{route.name}}</span>
     </div>
-    <div class="listElement__right">        
+    <div class="listElement__right">
+        <i ng-if="route.paywallSecured" class="icon-lock icon--blue"></i>
         <div class="dropdown dropdown--align-right" dropdown>
             <button class="dropdown__toggle" dropdown__toggle>
                 <i class="icon-dots-vertical"></i>
