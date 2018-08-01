@@ -241,6 +241,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 $scope.newRule.action.route = parseInt($scope.newRule.configuration.route);
                 $scope.newRule.action.published = $scope.newRule.configuration.published ? true : false;
                 $scope.newRule.action.fbia = $scope.newRule.configuration.fbia ? true : false;
+                $scope.newRule.action.paywallSecured = $scope.newRule.configuration.paywallSecured ? true : false;
             } else {
                  // organization rule
                  $scope.newRule.destinations = [];
@@ -297,6 +298,10 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
                 if ($scope.newRule.action.fbia ) {
                     newRule.configuration.push({key: 'fbia', value: true});
+                }
+
+                if ($scope.newRule.action.paywallSecured ) {
+                    newRule.configuration.push({key: 'paywallSecured', value: true});
                 }
             }
             if ($scope.newRule.catchAll) {

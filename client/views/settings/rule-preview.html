@@ -24,6 +24,9 @@
 	<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label label--success rightSpace" ng-class="{'label--hollow' : !webPublisherSettings.selectedRule.configuration.published}">
 		{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
 	</span>
+	<span ng-if="webPublisherSettings.selectedRule.configuration.paywallSecured" class="label label--red2 rightSpace">
+		Paywall Secured
+	</span>
 	<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
 		Facebook
 	</span>

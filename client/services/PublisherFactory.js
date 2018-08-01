@@ -80,7 +80,11 @@ export function PublisherFactory(pubapi) {
          * @description List all sites in publisher
          */
         querySites() {
-            return pubapi.query('tenants');
+            let params = {
+                limit: 1000
+            };
+
+            return pubapi.query('tenants', params);
         }
 
         /**
