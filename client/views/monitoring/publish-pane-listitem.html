@@ -3,18 +3,17 @@
     ng-class="{'listElement--borderPublished listElement--lightDark': webPublisherMonitoring.publishedDestinations[site.code].status == 'published',
     'listElement--borderUnpublished': webPublisherMonitoring.publishedDestinations[site.code].status == 'unpublished'}">
     <div class="listElement__content listElement__content--dark">
-        <div>
+        <div class="minHeightLine">
             {{site.name}}
         </div>
+        <div class="text--uppercase text--smallish text--bold text--lighter">route</div>
         <div>
             <div ng-if="!webPublisherMonitoring.publishedDestinations[site.code]" class="flexBox">
-                <span class="text--uppercase text--smaller flexBox__item text--lighter">route</span>
-                <div sd-publish-routes data-site="site" data-monitoring-contoller="webPublisherMonitoring"></div>
+                <div sd-publish-routes data-site="site" data-monitoring-contoller="webPublisherMonitoring" class="flexBox__fullItem" style="margin-top: -1.8rem;"></div>
             </div>
             <div ng-if="webPublisherMonitoring.publishedDestinations[site.code] && webPublisherMonitoring.publishedDestinations[site.code].status != 'unpublished'" >
                 <div ng-show="site.routeEditing" class="flexBox">
-                    <span class="text--uppercase text--smaller flexBox__item text--lighter">route</span>
-                    <div sd-publish-routes data-site="site" data-monitoring-contoller="webPublisherMonitoring"></div>
+                    <div sd-publish-routes data-site="site" data-monitoring-contoller="webPublisherMonitoring" class="flexBox__fullItem" style="margin-top: -1.8rem;"></div>
                     <div class="flexBox__item">
                         <i class="icon-close-small icon--white text--verticalMiddle cursorPointer rightSpace"
                             ng-click="site.routeEditing = false"></i>
@@ -54,11 +53,18 @@
                 <span sd-tooltip="Live Preview"><i class="icon-external icon--blue text--verticalMiddle rightSpace--small"></i></span>
             </span>
         </div>
-        <div class="minHeightLine">
+        <div class="minHeightLine text--right">
             <span ng-if="webPublisherMonitoring.publishedDestinations[site.code].fbia" class="label label--facebook text--smaller text--uppercase">facebook</span>
             <div ng-if="webPublisherMonitoring.newDestinations[site.code].route.id && !webPublisherMonitoring.publishedDestinations[site.code].fbia && webPublisherMonitoring.publishedDestinations[site.code].status != 'unpublished'">
-                <span class="text--uppercase text--smaller text--lighter">publish to facebook</span>
+                <span class="text--uppercase text--smallish text--bold text--lighter">publish to facebook</span>
                 <sd-check ng-model="webPublisherMonitoring.newDestinations[site.code].fbia"></sd-check>
+            </div>
+        </div>
+        <div class="minHeightLine text--right">
+            <span ng-if="webPublisherMonitoring.publishedDestinations[site.code].fbia" class="label label--facebook text--smaller text--uppercase">facebook</span>
+            <div ng-if="webPublisherMonitoring.newDestinations[site.code].route.id && !webPublisherMonitoring.publishedDestinations[site.code].fbia && webPublisherMonitoring.publishedDestinations[site.code].status != 'unpublished'">
+                <span class="text--uppercase text--smallish text--bold text--lighter">Paywall Secured</span>
+                <sd-check ng-model="webPublisherMonitoring.newDestinations[site.code].paywallSecured"></sd-check>
             </div>
         </div>
     </div>

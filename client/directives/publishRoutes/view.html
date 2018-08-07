@@ -1,4 +1,6 @@
-<select class="dropdown__toggle line-input" ng-model="monitoringContoller.newDestinations[site.code].route.id"
-    ng-options="route.id as route.name for route in routes">
-    <option value=""></option>
-</select>
+<div class="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
+    <select class="sd-line-input__select" ng-model="monitoringContoller.newDestinations[site.code].route.id"
+        ng-options="route.id as route.name for route in routes">
+        <option value=""></option>
+    </select>
+</div>

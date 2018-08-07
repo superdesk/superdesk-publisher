@@ -18,6 +18,7 @@ export default class NewDestination extends Component {
             "route": undefined,
             "fbia": false,
             "published": true,
+            "paywallSecured": false,
             "packageGuid": item.guid
         };
 
@@ -59,6 +60,14 @@ export default class NewDestination extends Component {
     fbiaCheckboxHandler(e) {
         const dest = {...this.state.destination};
         dest.fbia = e.target.value;
+        this.setState({
+            destination: dest
+        });
+    }
+
+    paywallSecuredCheckboxHandler(e) {
+        const dest = {...this.state.destination};
+        dest.paywallSecured = e.target.value;
         this.setState({
             destination: dest
         });
@@ -132,6 +141,9 @@ export default class NewDestination extends Component {
             preview = <a href={this.state.previewUrl} target="_blank" className="icn-btn" sd-tooltip="Preview" flow="left"><i className="icon-external"></i></a>;
         }
 
+        const paywalSecuredStyle = {
+            marginLeft: '2em'
+        };
         const newDestinationForm = (
              <div className="sd-collapse-box__content-wraper">
                 <div className="sd-collapse-box__content">
@@ -157,6 +169,9 @@ export default class NewDestination extends Component {
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
                         <Checkbox label="Publish to facebook" value={this.state.destination.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        <span style={paywalSecuredStyle}>
+                            <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                        </span>
                     </div>
                 </div>
             </div>
