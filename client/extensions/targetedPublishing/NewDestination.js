@@ -15,7 +15,6 @@ export default class NewDestination extends Component {
 
         const destination = {
             "tenant": site.code,
-            "route": undefined,
             "fbia": false,
             "published": true,
             "paywallSecured": false,
@@ -108,32 +107,40 @@ export default class NewDestination extends Component {
         let siteDomain = this.state.site.subdomain ? this.state.site.subdomain + '.' + this.state.site.domainName : this.state.site.domainName;
 
         const destination = {...this.state.destination};
+        let disableSave = !this.state.destination.route && !this.state.site.outputChannel ? true : false;
+
         const saveBar = (
             <div className="sd-collapse-box__sliding-toolbar-wrapper">
                 <div className="sd-collapse-box__sliding-toolbar">
                     <div className="sliding-toolbar__inner"></div>
                     <a className="btn btn--hollow btn--ui-dark" onClick={this.cancelHandler.bind(this)}>Cancel</a>
-                    <button className={classNames('btn btn--primary', { 'btn--disabled': !this.state.destination.route })} onClick={this.saveHandler.bind(this)} disabled={!this.state.destination.route} >Save</button>
+                    <button className={classNames('btn btn--primary', { 'btn--disabled': disableSave})} onClick={this.saveHandler.bind(this)} disabled={disableSave} >Save</button>
                 </div>
             </div>
         );
 
+        let routesSelect = null;
 
-        let routesSelect = (
-            <select className="sd-line-input__select" value={this.state.destination.route} onChange={this.routeChangeHandler.bind(this)}>
-                    {
-                        this.state.routes.length &&
-                        <option value="" disabled selected>Select a route</option>
-                    }
-                    {
-                        !this.state.routes.length &&
-                        <option value="" disabled>No routes defined</option>
-                    }
-                {this.state.routes.map((route, index) => {
-                    return <option value={route.id} key={route.id}>{route.name}</option>
-                })}
-            </select>
-        );
+        if (!this.state.site.outputChannel) {
+            routesSelect = (
+                <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
+                    <label className="sd-line-input__label">Route</label>
+                    <select className="sd-line-input__select" value={this.state.destination.route} onChange={this.routeChangeHandler.bind(this)}>
+                            {
+                                this.state.routes.length &&
+                                <option value="" disabled selected>Select a route</option>
+                            }
+                            {
+                                !this.state.routes.length &&
+                                <option value="" disabled>No routes defined</option>
+                            }
+                        {this.state.routes.map((route, index) => {
+                            return <option value={route.id} key={route.id}>{route.name}</option>
+                        })}
+                    </select>
+                </div>
+            );
+        }
 
         let preview = <a className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank"></a>;
 
@@ -162,10 +169,7 @@ export default class NewDestination extends Component {
                         </div>
                     </div>
                     <div className="form__row">
-                        <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
-                            <label className="sd-line-input__label">Route</label>
-                            {routesSelect}
-                        </div>
+                        {routesSelect}
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
                         <Checkbox label="Publish to facebook" value={this.state.destination.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
