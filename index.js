@@ -78,7 +78,7 @@ export default angular.module('superdesk-publisher', [
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
 
-.run(['extensionPoints', 'session', 'config', '$templateCache', 'superdeskFlags', (extensionPoints, session, config,  $templateCache, superdeskFlags) => {
+.run(['extensionPoints', 'session', 'config', '$templateCache', (extensionPoints, session, config,  $templateCache) => {
         cacheIncludedTemplates($templateCache);
         extensionPoints.register('authoring:publish', TargetedPublishing, {session: session, config: config}, ['item']);
     }])
