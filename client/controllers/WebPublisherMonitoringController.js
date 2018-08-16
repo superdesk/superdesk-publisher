@@ -44,11 +44,10 @@ export function WebPublisherMonitoringController($scope, $sce, modal, publisher,
         websocketOpen() {
             let pubConfig = config.publisher || {};
 
-            let subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
-            let domainName = pubConfig.domain;
+            let wsDomain = pubConfig.wsDomain ? pubConfig.wsDomain : `${pubConfig.tenant}.${pubConfig.domain}`;
             let port = pubConfig.wsPort ? pubConfig.wsPort : '8080'
 
-            this.ws = new WebSocket(`wss://${subdomain}${domainName}:${port}?token=` + publisher.getToken());
+            this.ws = new WebSocket(`wss://${wsDomain}:${port}?token=` + publisher.getToken());
             this.websocketBindEvents();
         };
 
