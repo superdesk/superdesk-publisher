@@ -34,6 +34,7 @@ publisher: {
     domain: 'website.com',
     base: 'api/v1',
     wsDomain: 'WebSocketDomain.com',
+    wsPath: '/ws',
     wsPort: '8080'
 },
 ```
@@ -42,6 +43,7 @@ publisher.tenant - publisher tenant name
 publisher.domain - publisher domain
 publisher.base - publisher base url
 publisher.wsDomain - publisher websocket domain address
+publisher.wsPort - publisher websocket path
 publisher.wsPort - publisher websocket port
 
 This will import the `superdesk-publisher` node module and load the `superdesk.publisher` angular module in the main angular application.

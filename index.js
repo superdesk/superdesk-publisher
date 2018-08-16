@@ -4,10 +4,7 @@ import './client/styles/web-publisher.scss';
 
 import 'angular-drag-and-drop-lists/angular-drag-and-drop-lists';
 
-import {WebPublisherManagerController} from './client/controllers';
-import {WebPublisherMonitoringController} from './client/controllers';
-import {WebPublisherSettingsController} from './client/controllers';
-import {WebPublisherContentListsController} from './client/controllers';
+import * as controllers from './client/controllers';
 import * as services from './client/services';
 import * as directive from './client/directives';
 
@@ -88,13 +85,11 @@ export default angular.module('superdesk-publisher', [
 
 .config(['superdeskProvider', function(superdesk) {
     superdesk
-        .activity('/web_publisher/monitoring', {
+        .activity('/web_publisher/monitoring/', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            priority: 100,
             category: superdesk.MENU_MAIN,
-            adminTools: false,
-            controller: WebPublisherMonitoringController,
+            controller: controllers.WebPublisherMonitoringController,
             controllerAs: 'webPublisherMonitoring',
             template: require('./client/views/monitoring/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
@@ -102,7 +97,7 @@ export default angular.module('superdesk-publisher', [
         .activity('/web_publisher/manager', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            controller: WebPublisherManagerController,
+            controller: controllers.WebPublisherManagerController,
             controllerAs: 'webPublisher',
             template: require('./client/views/manager/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
@@ -110,7 +105,7 @@ export default angular.module('superdesk-publisher', [
         .activity('/web_publisher/content_lists', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            controller: WebPublisherContentListsController,
+            controller: controllers.WebPublisherContentListsController,
             controllerAs: 'webPublisherContentLists',
             template: require('./client/views/content-lists/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
@@ -118,7 +113,7 @@ export default angular.module('superdesk-publisher', [
         .activity('/web_publisher/settings', {
             label: gettext('Settings'),
             description: gettext('Settings'),
-            controller: WebPublisherSettingsController,
+            controller: controllers.WebPublisherSettingsController,
             controllerAs: 'webPublisherSettings',
             template: require('./client/views/settings/index.html'),
             sideTemplateUrl: 'sidenav-items.html'
