@@ -75,6 +75,14 @@ export default class Tenant extends Component {
         });
     }
 
+    paywallSecuredCheckboxHandler(e) {
+        const rule = {...this.state.newRule};
+        rule.paywallSecured = e.target.value;
+        this.setState({
+            newRule: rule
+        });
+    }
+
     publishedCheckboxHandler(e) {
         const rule = {...this.state.newRule};
         rule.published = !rule.published;
@@ -116,6 +124,7 @@ export default class Tenant extends Component {
                 "route": this.state.newRule.route.id,
                 "fbia": this.state.newRule.fbia,
                 "published": this.state.newRule.published,
+                "paywallSecured": this.state.newRule.paywallSecured,
                 "packageGuid": this.state.item.guid
             }
         };
@@ -188,6 +197,10 @@ export default class Tenant extends Component {
             preview = <a href={this.state.previewUrl} className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank"><i className="icon-external"></i></a>;
         }
 
+        const paywalSecuredStyle = {
+            marginLeft: '2em'
+        };
+
         const content = (
             <div className="sd-collapse-box__content-wraper">
                 <div className="sd-collapse-box__content">
@@ -218,6 +231,9 @@ export default class Tenant extends Component {
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
                         <Checkbox label="Publish to facebook" value={newRule.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        <span style={paywalSecuredStyle}>
+                            <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                        </span>
                     </div>
                     <div className="form__row">
                         <Checkbox label="Do not publish" value={!newRule.published} onChange={this.publishedCheckboxHandler.bind(this)}/>
