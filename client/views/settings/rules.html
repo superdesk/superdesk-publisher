@@ -39,7 +39,11 @@
 
             <div ng-repeat="(code, rules) in webPublisherSettings.tenantsRules">
                 <div class="sd-list-header topMargin">
-                    <span class="sd-list-header__name">{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span>
+                    <span class="sd-list-header__name flexGrow">{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span>
+                    <span class="text--uppercase text--blue text--smaller"
+                        ng-if="webPublisherSettings.getTenantOutputChannelNameByCode(code)">
+                        {{webPublisherSettings.getTenantOutputChannelNameByCode(code)}}
+                    </span>
                 </div>
                 <div ng-repeat="rule in rules track by $index"
                     ng-include="'settings/rule-item.html'">

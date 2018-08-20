@@ -65,7 +65,7 @@ export class TargetedPublishing extends React.Component {
         return axios.post(this.state.apiUrl + 'organization/rules/evaluate',this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 if (!_.isEmpty(res.data)) {
-                    let rules = _.filter(res.data.tenants, rule => rule.route);
+                    let rules = _.filter(res.data.tenants, rule => rule.published);
                     this.setState({
                         rules: rules,
                         loading: false
@@ -76,7 +76,7 @@ export class TargetedPublishing extends React.Component {
     }
 
     getSites() {
-        return axios.get(this.state.apiUrl + 'tenants/', {headers: this.state.apiHeader})
+        return axios.get(this.state.apiUrl + 'tenants/?limit=9999', {headers: this.state.apiHeader})
         .then(res => {
             this.setState({
                 sites: res.data._embedded._items

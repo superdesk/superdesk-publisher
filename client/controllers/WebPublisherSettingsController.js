@@ -63,11 +63,25 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description gets tenant name by its code
          */
         getTenantNameByCode(code) {
-            let tenant = this.sites.find(function(site) {
+            let tenant = this.sites.find((site) => {
                 return site.code == code;
             });
 
             return tenant ? tenant.name : null;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#getTenantOutputChannelNameByCode
+         * @param {String} code - tenant code
+         * @description gets tenant name by its code
+         */
+        getTenantOutputChannelNameByCode(code) {
+            let tenant = this.sites.find((site) => {
+                return site.code == code;
+            });
+
+            return tenant && tenant.outputChannel ? tenant.outputChannel.type : null;
         }
 
         /**
@@ -230,7 +244,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
         editRule(rule, tenantCode) {
             this.selectedRule = angular.copy(rule);
             $scope.newRule = angular.copy(rule)
-            $scope.newRule.type = $scope.newRule.configuration.route ? 'tenant' : 'organization';
+            $scope.newRule.type = $scope.newRule.configuration.destinations ? 'organization' : 'tenant';
             $scope.newRule.action = {};
 
             if (tenantCode && $scope.newRule.type === 'tenant') {
@@ -238,7 +252,9 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 $scope.newRule.action.tenant = this.sites.find(function(site) {
                     return site.code == tenantCode;
                 });
-                $scope.newRule.action.route = parseInt($scope.newRule.configuration.route);
+                if ($scope.newRule.configuration.route) {
+                    $scope.newRule.action.route = parseInt($scope.newRule.configuration.route);
+                }
                 $scope.newRule.action.published = $scope.newRule.configuration.published ? true : false;
                 $scope.newRule.action.fbia = $scope.newRule.configuration.fbia ? true : false;
                 $scope.newRule.action.paywallSecured = $scope.newRule.configuration.paywallSecured ? true : false;
@@ -290,8 +306,9 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 // tenant rule
                 publisher.setTenant($scope.newRule.action.tenant);
 
-                newRule.configuration.push({key: 'route', value: $scope.newRule.action.route});
-
+                if ($scope.newRule.action.route) {
+                    newRule.configuration.push({key: 'route', value: $scope.newRule.action.route});
+                }
                 if ($scope.newRule.action.published ) {
                     newRule.configuration.push({key: 'published', value: true});
                 }

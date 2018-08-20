@@ -21,6 +21,9 @@
             <span ng-if="rule.configuration.route" class="label label--success" ng-class="{'label--hollow' : !rule.configuration.published}">
                 {{webPublisherSettings.getRouteNameByTenantAndId(code , rule.configuration.route)}}
             </span>
+            <span ng-if="!rule.configuration.route && rule.configuration.published" class="label label--success">
+                auto publish
+            </span>
             <span ng-if="rule.configuration.fbia" class="label label--primary">
                 Facebook
             </span>
