@@ -59,13 +59,21 @@ export function SiteWizardDirective(publisher, WizardHandler) {
              */
             scope.saveSite = () => {
                 scope.wizard.busy = true;
-                publisher.manageSite({tenant: scope.newSite})
-                    .then((site) => {
-                        scope.wizard.errorMessage = false;
-                        scope.wizard.site = site;
-                        publisher.setTenant(site);
-                        // by doing this we check if tenant responds to requests
-                        scope.managerController._refreshSites().then(() => {
+                let newUrl = scope.newSite.subdomain + '.' + scope.newSite.domainName;
+
+                publisher.checkIfPublisher(newUrl).then(isPublisher => {
+                    if (!isPublisher) {
+                        scope.wizard.busy = false;
+                        scope.wizard.errorMessage = 'You either misspelled domain name or there is no publisher instance under this address';
+                        return;
+                    }
+
+                    publisher.manageSite({tenant: scope.newSite})
+                        .then((site) => {
+                            scope.wizard.errorMessage = false;
+                            scope.wizard.site = site;
+                            publisher.setTenant(site);
+                            scope.managerController._refreshSites();
                             scope.wizard.busy = false;
                             if (scope.wizard.site.outputChannel) {
                                 scope.managerController.toggleSiteWizard();
@@ -74,20 +82,14 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                             }
                         })
                         .catch((error) => {
-                            publisher.setTenant();
-                            publisher.removeSite(scope.wizard.site.code);
                             scope.wizard.busy = false;
-                            scope.wizard.errorMessage = 'You either misspelled domain name or there is no publisher instance under this address';
+                            if (error.status === 409) {
+                                scope.wizard.errorMessage = 'Site already exists';
+                            } else {
+                                scope.wizard.errorMessage = 'Error. Try again later.';
+                            }
                         });
-                    })
-                    .catch((error) => {
-                        scope.wizard.busy = false;
-                        if (error.status === 409) {
-                            scope.wizard.errorMessage = 'Site already exists';
-                        } else {
-                            scope.wizard.errorMessage = 'Error. Try again later.';
-                        }
-                    });
+                });
             };
 
             /**

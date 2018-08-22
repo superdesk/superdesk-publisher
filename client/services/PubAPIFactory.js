@@ -60,6 +60,28 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
 
         /**
          * @ngdoc method
+         * @name pubapi#checkIfPublisher
+         * @param {String} url data
+         * @returns {Bolean}
+         * @description Checks if there is publisher under given url
+         */
+        checkIfPublisher(url) {
+            let config = {
+                url: `${this._protocol}://` + url + `/${this._base}/`,
+                method: 'GET'
+            };
+
+            return $http(config)
+                .then((response) => {
+                    return response.headers('X-Superdesk-Publisher') ? true : false;
+                })
+                .catch((response) => {
+                    return response.headers('X-Superdesk-Publisher') ? true : false;
+                });
+        }
+
+        /**
+         * @ngdoc method
          * @name pubapi#query
          * @param {String} resource
          * @param {Object} params

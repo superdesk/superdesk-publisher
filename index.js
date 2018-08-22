@@ -89,6 +89,7 @@ export default angular.module('superdesk-publisher', [
             label: gettext('Publisher'),
             description: gettext('Publisher'),
             category: superdesk.MENU_MAIN,
+            adminTools: false,
             controller: controllers.WebPublisherMonitoringController,
             controllerAs: 'webPublisherMonitoring',
             template: require('./client/views/monitoring/index.html'),
