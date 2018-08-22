@@ -42,6 +42,17 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher#checkIfPublisher
+         * @param {String} url
+         * @returns {Bolean}
+         * @description Checks if there is publisher under given url
+         */
+        checkIfPublisher(url) {
+            return pubapi.checkIfPublisher(url);
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher#activateLiveSite
          * @returns {Promise}
          * @description Open tenant with livesite editor in new tab
