@@ -49,6 +49,9 @@ export default class Tenant extends Component {
     }
 
     setPreview() {
+        if (!this.state.newRule.route)
+            return false;
+
         return axios.post(this.state.apiUrl + 'preview/package/generate_token/' + this.state.newRule.route.id, this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 this.setState({
@@ -121,7 +124,7 @@ export default class Tenant extends Component {
         const destination = {
             "publish_destination":{
                 "tenant": this.state.newRule.tenant.code,
-                "route": this.state.newRule.route.id,
+                "route": this.state.newRule.route ? this.state.newRule.route.id : null ,
                 "fbia": this.state.newRule.fbia,
                 "published": this.state.newRule.published,
                 "paywallSecured": this.state.newRule.paywallSecured,
@@ -140,8 +143,13 @@ export default class Tenant extends Component {
     render() {
         const newRule = this.state.newRule;
         let siteDomain = newRule.tenant.subdomain ? newRule.tenant.subdomain + '.' + newRule.tenant.domainName : newRule.tenant.domainName;
-        let publishRoute = newRule.fbia ? newRule.route.name + ', Facebook' : newRule.route.name;
+        let publishRoute = null;
 
+        if (newRule.tenant.outputChannel) {
+            publishRoute = newRule.tenant.outputChannel.type;
+        } else {
+            publishRoute = newRule.fbia ? newRule.route.name + ', Facebook' : newRule.route.name;
+        }
 
         const header = (
             <div className="sd-collapse-box__header" onClick={this.openHandler.bind(this)}>
@@ -183,13 +191,19 @@ export default class Tenant extends Component {
             );
         }
 
-        let routesSelect = (
-            <select className="sd-line-input__select" value={this.state.newRule.route.id} onChange={this.routeChangeHandler.bind(this)}>
-                {this.state.routes.map((route, index) => {
-                    return <option value={route.id} key={route.id}>{route.name}</option>
-                })}
-            </select>
-        );
+        let routesSelect = null;
+        if (!newRule.tenant.outputChannel) {
+            routesSelect = (
+                <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
+                    <label className="sd-line-input__label">Route</label>
+                    <select className="sd-line-input__select" value={this.state.newRule.route.id} onChange={this.routeChangeHandler.bind(this)}>
+                        {this.state.routes.map((route, index) => {
+                            return <option value={route.id} key={route.id}>{route.name}</option>
+                        })}
+                    </select>
+                </div>
+            );
+        }
 
         let preview = <a className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank"></a>;
 
@@ -218,16 +232,13 @@ export default class Tenant extends Component {
                                     {preview}
                                 </div>
                                 <div className="sd-list-item__row">
-                                    <span className="sd-list-item__text-label sd-overflow-ellipsis">Automatically:</span><span className="sd-overflow-ellipsis">{this.state.rule.route.name}</span>
+                                    <span className="sd-list-item__text-label sd-overflow-ellipsis">Automatically:</span><span className="sd-overflow-ellipsis">{publishRoute}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="form__row">
-                        <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
-                            <label className="sd-line-input__label">Route</label>
                             {routesSelect}
-                        </div>
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
                         <Checkbox label="Publish to facebook" value={newRule.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>

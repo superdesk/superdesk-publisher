@@ -6,10 +6,20 @@
         <div class="minHeightLine">
             {{site.name}}
         </div>
-        <div class="text--uppercase text--smallish text--bold text--lighter">route</div>
+        <div ng-if="!site.outputChannel" class="text--uppercase text--smallish text--bold text--lighter">route</div>
         <div>
             <div ng-if="!webPublisherMonitoring.publishedDestinations[site.code]" class="flexBox">
-                <div sd-publish-routes data-site="site" data-monitoring-contoller="webPublisherMonitoring" class="flexBox__fullItem" style="margin-top: -1.8rem;"></div>
+                <div ng-if="!site.outputChannel"
+                    sd-publish-routes data-site="site"
+                    data-monitoring-contoller="webPublisherMonitoring"
+                    class="flexBox__fullItem" style="margin-top: -1.8rem;">
+                </div>
+                <sd-check
+                    ng-if="site.outputChannel"
+                    ng-model="webPublisherMonitoring.newDestinations[site.code].status"
+                    ng-true-value="published" ng-false-value="new"></sd-check>
+                <span ng-if="site.outputChannel" class="text--uppercase text--smallish text--bold text--lighter">publish</span>
+
             </div>
             <div ng-if="webPublisherMonitoring.publishedDestinations[site.code] && webPublisherMonitoring.publishedDestinations[site.code].status != 'unpublished'" >
                 <div ng-show="site.routeEditing" class="flexBox">
