@@ -440,20 +440,23 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          * @ngdoc method
          * @name WebPublisherManagerController#uploadThemeLogo
          * @param {Array} files - selected files
+         * @param {String}  type - type of logo (theme_logo, theme_logo_second etc)
          * @description Uploads new theme logo
          */
-        uploadThemeLogo(files) {
-            $scope.newThemeSettings.logo.error = false;
+        uploadThemeLogo(files, type) {
+            $scope.newThemeSettings[type].error = false;
 
             if (files && files.length) {
                 let logoFile = files[0];
                 if (!logoFile.$error) {
-                    publisher.uploadThemeLogo({'logo': logoFile})
+                    publisher.uploadThemeLogo({'logo': logoFile}, type)
                         .then((response) => {
-                           this.themeSettings.logo = response.data;
+                           this.themeSettings[type] = response.data;
+                           let flagName = 'replace_' + type;
+                           this[flagName] = false;
                         })
                         .catch((err) => {
-                            $scope.newThemeSettings.logo.error = true;
+                            $scope.newThemeSettings[type].error = true;
                         });
                 }
             }
@@ -607,9 +610,11 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         _refreshThemeSettings() {
             return publisher.getThemeSettings().then((settings) => {
                 this.themeSettings = {};
-                this.themeSettings.logo = _.find(settings, { 'name': 'theme_logo' });
+                this.themeSettings.theme_logo = _.find(settings, { 'name': 'theme_logo' });
+                this.themeSettings.theme_logo_second = _.find(settings, { 'name': 'theme_logo_second' });
+                this.themeSettings.theme_logo_third = _.find(settings, { 'name': 'theme_logo_third' });
                 _.remove(settings, (setting) => {
-                    return (setting.name === 'theme_logo') ? true : false;
+                    return (setting.name.includes('theme_logo')) ? true : false;
                 });
                 // little hack to make ng-select work properly
                 this.themeSettings.settings = settings
