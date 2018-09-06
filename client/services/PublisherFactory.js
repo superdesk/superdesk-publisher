@@ -131,6 +131,7 @@ export function PublisherFactory(pubapi) {
         queryRoutes(type) {
             let params = type ? type : {};
 
+            params['sorting[position]'] = 'asc';
             params.limit = 1000;
             return pubapi.query('content/routes', params);
         }
@@ -179,6 +180,18 @@ export function PublisherFactory(pubapi) {
          */
         reorderMenu(menu, id) {
             return pubapi.patch('menus/' + id + '/move', menu);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#reorderRoute
+         * @param {Object} route - route which is moved
+         * @param {String} id - id of route which is moved
+         * @returns {Promise}
+         * @description Move menu to different position
+         */
+        reorderRoute(route, id) {
+            return pubapi.save('content/routes', route, id);
         }
 
         /**

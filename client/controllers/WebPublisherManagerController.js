@@ -40,6 +40,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         changeRouteFilter(type) {
             this.routeType = type;
+            this._refreshRoutes();
         }
 
         /**
@@ -177,6 +178,8 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             this.routeForm.$setPristine();
             this.selectedRoute = route;
             $scope.newRoute = angular.copy(route);
+            // we never edit list of children
+            delete $scope.newRoute.children;
             this.routePaneOpen = true;
         }
 
@@ -192,6 +195,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             if ($scope.newRoute.parent && $scope.newRoute.parent.id) {
                 $scope.newRoute.parent = $scope.newRoute.parent.id;
             }
+
             publisher.manageRoute({route: _.pick($scope.newRoute, updatedKeys)}, this.selectedRoute.id)
                 .then((route) => {
                     this.routePaneOpen = false;
@@ -360,6 +364,39 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
                     publisher.reorderMenu({menu_move: {parent: parentId, position: menuPosition}}, item.id)
                         .then(this._refreshCurrentMenu.bind(this));
+                }
+            }
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherManagerController#reorderRoute
+         * @param {Object} list - object where list of route items is
+         * @param {Object} item - object which is moved
+         * @param {Number} index - index where item would be moved
+         * @description Move route to different position
+         */
+        reorderRoute(list, item, index) {
+            if (index !== -1) {
+                let removedItem = _.find(list.children, {id: item.id});
+
+                if (removedItem) {
+                    removedItem.removed = true;
+                }
+
+                list.children = list.children.slice(0, index)
+                    .concat(item)
+                    .concat(list.children.slice(index))
+                    .filter((item) => !item.removed);
+
+                let parentId = list.children[0].parent;
+                let newPosition = list.children.indexOf(item);
+
+                if (newPosition !== item.position || parentId !== item.parent) {
+                    list.children[newPosition].position = newPosition;
+
+                    publisher.reorderRoute({route: {parent: parentId, position: newPosition}}, item.id)
+                        .then(this._refreshRoutes.bind(this));
                 }
             }
         }
@@ -556,7 +593,17 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
          */
         _refreshRoutes() {
             publisher.queryRoutes().then((routes) => {
-                $scope.routes = routes;
+                let filteredRoutes = {children: null};
+
+                if (this.routeType === 'content'){
+                    filteredRoutes.children = routes.filter((item) => item.type === 'content');
+                }
+                else if (this.routeType === 'collection') {
+                    filteredRoutes.children = routes.filter((item) => item.type === 'collection').filter((item) => !item.parent);
+                } else {
+                    filteredRoutes.children = routes.filter((item) => !item.parent);
+                }
+                $scope.routes = filteredRoutes;
             });
         }
 

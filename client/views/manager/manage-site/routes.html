@@ -15,8 +15,6 @@
         </li>
     </ul>
 
-    <div sd-item-searchbar class="searchbar-flex-handler"></div>
-
     <div class="subnav__stretch-bar"></div>
 
     <div class="subnav__button-stack--square-buttons">
@@ -28,8 +26,12 @@
 <div class="paneLayout paneLayout--twoHeadersMargin">
     <div class="paneLayout__content">
         <div class="contentPadding">
-            <ul class="treeList">
-                <li ng-repeat="route in routes | filter: {type: webPublisher.routeType, level: webPublisher.routeType === 'content' ? '' : 0} | orderBy: ['type', 'name'] track by route.id"
+            <ul class="treeList" dnd-list="routes.children" dnd-drop="webPublisher.reorderRoute(routes, item, index)">
+                <li ng-repeat="route in routes.children"
+                    dnd-draggable="route"
+                    dnd-dragstart="route.dragging = true"
+                    dnd-dragend="route.dragging = false"
+                    ng-hide="route.dragging"
                     ng-include="'routes-tree.html'">
                 </li>
             </ul>
@@ -63,7 +65,7 @@
                     <div class="item">
                         <label for="routeParent" translate>parent</label>
                         <select id="routeParent" class="dropdown__toggle line-input" ng-model="newRoute.parent"
-                            ng-options="route.id as route.name for route in routes | filter: {id: newRoute.id ? '!' + newRoute.id : ''}">
+                            ng-options="route.id as route.name for route in routes.children | filter: {id: newRoute.id ? '!' + newRoute.id : ''}">
                             <option value=""></option>
                         </select>
                     </div>
