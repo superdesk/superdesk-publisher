@@ -440,11 +440,12 @@ export function PublisherFactory(pubapi) {
          * @ngdoc method
          * @name publisher# uploadThemeLogo
          * @param {Object}  logoUpload - object with file
+         * @param {String}  type - type of logo (theme_logo, theme_logo_second etc)
          * @returns {Promise}
          * @description Uploads theme logo
          */
-        uploadThemeLogo(logoUpload) {
-            return pubapi.upload('theme/logo_upload', logoUpload);
+        uploadThemeLogo(logoUpload, type) {
+            return pubapi.upload('theme/logo_upload', logoUpload, type);
         }
 
         /**

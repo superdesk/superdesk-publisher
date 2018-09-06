@@ -68,6 +68,9 @@ export function ThemeManagerDirective(publisher) {
                         scope.busy = false;
                         scope.activatedCallback();
                         scope.site.themeName = scope.theme.name;
+                    })
+                    .catch(err => {
+                        scope.busy = false;
                     });
             }
 

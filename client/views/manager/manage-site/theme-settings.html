@@ -5,29 +5,78 @@
     <div class="paneLayout__content contentPadding">
         <form name="webPublisher.themeSettingsForm">
             <div class="grid">
-                <div class="grid__item grid__item--col-6">
-                    <div class="grid">
-                        <div class="grid__item grid__item--col-12">
-                            <h3>Logo</h3>
-                        </div>
-                        <div class="grid__item grid__item--col-6 upload-media bottomMargin topMargin">
-                            <div class="wizardThemeBox wizardThemeBox--upload">
-                                <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files)"
-                                    ngf-multiple="false" ng-class="{compact: items.length}">
-                                    <div class="upload-error" ng-show="newThemeSettings.logo.error">
-                                        <span class="action">Something went wrong</span>
-                                    </div>
-                                    <div class="title" translate>Drop Your Logo Here</div>
-                                    <div class="upload-manual">
-                                        <div class="or-label" translate>or</div>
-                                        <label class="btn" for="theme-input">{{ 'Select from folder' | translate }}</label>
-                                        <input id="theme-input" type="file" ngf-select="webPublisher.uploadThemeLogo($files)" class="hide">
-                                    </div>
-                                </div>
+                <div class="grid__item grid__item--col-12">
+                    <h3>Logos</h3>
+                </div>
+                <div class="grid__item grid__item--col-4 upload-media bottomMargin topMargin">
+                    <h4 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big">Main Logo</h4>
+                    <div class="bottomMargin iconOnHover"
+                        ng-if="webPublisher.themeSettings.theme_logo.value && !webPublisher.replace_theme_logo"
+                        ng-click="webPublisher.replace_theme_logo = true">
+                        <i class="icon-pencil"></i>
+                        <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo.value}}" style="max-width:100%" />
+                    </div>
+                    <div class="wizardThemeBox wizardThemeBox--upload"
+                    ng-if="!webPublisher.themeSettings.theme_logo.value || webPublisher.replace_theme_logo">
+                        <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo')"
+                            ngf-multiple="false" ng-class="{compact: items.length}">
+                            <div class="upload-error" ng-show="newThemeSettings.theme_logo.error">
+                                <span class="action">Something went wrong</span>
+                            </div>
+                            <div class="title" translate>Drop Your Logo Here</div>
+                            <div class="upload-manual">
+                                <div class="or-label" translate>or</div>
+                                <label class="btn" for="theme_logo">{{ 'Select from folder' | translate }}</label>
+                                <input id="theme_logo" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo')" class="hide">
                             </div>
                         </div>
-                        <div class="grid__item grid__item--col-6 bottomMargin topMargin" ng-if="webPublisher.themeSettings.logo && webPublisher.themeSettings.logo.value">
-                            <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.logo.value}}" style="max-width:100%" />
+                    </div>
+                </div>
+                <div class="grid__item grid__item--col-4 upload-media bottomMargin topMargin">
+                    <h4 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big">Second Logo</h4>
+                    <div class="bottomMargin iconOnHover"
+                        ng-if="webPublisher.themeSettings.theme_logo_second.value && !webPublisher.replace_theme_logo_second"
+                        ng-click="webPublisher.replace_theme_logo_second = true">
+                        <i class="icon-pencil"></i>
+                        <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo_second.value}}" style="max-width:100%" />
+                    </div>
+                    <div class="wizardThemeBox wizardThemeBox--upload"
+                        ng-if="!webPublisher.themeSettings.theme_logo_second.value || webPublisher.replace_theme_logo_second">
+                        <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo_second')"
+                            ngf-multiple="false" ng-class="{compact: items.length}">
+                            <div class="upload-error" ng-show="newThemeSettings.theme_logo_second.error">
+                                <span class="action">Something went wrong</span>
+                            </div>
+                            <div class="title" translate>Drop Your Logo Here</div>
+                            <div class="upload-manual">
+                                <div class="or-label" translate>or</div>
+                                <label class="btn" for="theme_logo_second">{{ 'Select from folder' | translate }}</label>
+                                <input id="theme_logo_second" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo_second')" class="hide">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid__item grid__item--col-4 upload-media bottomMargin topMargin">
+                    <h4 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big">Third Logo</h4>
+                    <div class="bottomMargin iconOnHover"
+                        ng-if="webPublisher.themeSettings.theme_logo_third.value && !webPublisher.replace_theme_logo_third"
+                        ng-click="webPublisher.replace_theme_logo_third = true">
+                        <i class="icon-pencil"></i>
+                        <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo_third.value}}" style="max-width:100%" />
+                    </div>
+                    <div class="wizardThemeBox wizardThemeBox--upload"
+                        ng-if="!webPublisher.themeSettings.theme_logo_third.value || webPublisher.replace_theme_logo_third">
+                        <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo_third')"
+                            ngf-multiple="false" ng-class="{compact: items.length}">
+                            <div class="upload-error" ng-show="newThemeSettings.theme_logo_third.error">
+                                <span class="action">Something went wrong</span>
+                            </div>
+                            <div class="title" translate>Drop Your Logo Here</div>
+                            <div class="upload-manual">
+                                <div class="or-label" translate>or</div>
+                                <label class="btn" for="theme_logo_third">{{ 'Select from folder' | translate }}</label>
+                                <input id="theme_logo_third" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo_third')" class="hide">
+                            </div>
                         </div>
                     </div>
                 </div>
