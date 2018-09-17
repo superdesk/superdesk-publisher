@@ -382,6 +382,23 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
                 if (removedItem) {
                     removedItem.removed = true;
+                } else if (item.parent) {
+                    // item was a subroute and was moved to other list
+                    let parent = _.find(list.children, {id: item.parent});
+                    removedItem = _.find(parent.children, {id: item.id});
+
+                    if (removedItem) {
+                        removedItem.removed = true;
+                        parent.children = parent.children.filter((item) => !item.removed);
+                    }
+                } else if (!item.parent) {
+                    // item was top level and was moved to other list
+                    removedItem = _.find($scope.routes.children, {id: item.id});
+
+                    if (removedItem) {
+                        removedItem.removed = true;
+                        $scope.routes.children = $scope.routes.children.filter((item) => !item.removed);
+                    }
                 }
 
                 list.children = list.children.slice(0, index)
@@ -389,8 +406,13 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                     .concat(list.children.slice(index))
                     .filter((item) => !item.removed);
 
+
                 let parentId = list.children[0].parent;
                 let newPosition = list.children.indexOf(item);
+                // when new item was placed on position 0
+                if (newPosition === 0) {
+                    parentId = list.children[list.children.length-1].parent;
+                }
 
                 if (newPosition !== item.position || parentId !== item.parent) {
                     list.children[newPosition].position = newPosition;
