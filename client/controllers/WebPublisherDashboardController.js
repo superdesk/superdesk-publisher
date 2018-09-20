@@ -1,15 +1,15 @@
 /**
  * @ngdoc controller
  * @module superdesk.apps.web_publisher
- * @name WebPublisherManagerController
+ * @name WebPublisherDashboardController
  * @requires publisher
  * @requires modal
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherManagerController holds a set of functions used for web publisher manager
  */
-WebPublisherManagerController.$inject = ['$scope', 'publisher', 'modal', 'privileges', '$window'];
-export function WebPublisherManagerController($scope, publisher, modal, privileges, $window) {
-    class WebPublisherManager {
+WebPublisherDashboardController.$inject = ['$scope', 'publisher', 'modal', 'privileges', '$window'];
+export function WebPublisherDashboardController($scope, publisher, modal, privileges, $window) {
+    class WebPublisherDashboard {
         constructor() {
             this.TEMPLATES_DIR = 'scripts/apps/web-publisher/views';
             this.siteWizardActive = false;
@@ -23,7 +23,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#changeTab
+         * @name WebPublisherDashboardController#changeTab
          * @param {String} newTabName - name of the new active tab
          * @description Sets the active tab name to the given value
          */
@@ -34,7 +34,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#changeRouteFilter
+         * @name WebPublisherDashboardController#changeRouteFilter
          * @param {String} type - type of routes
          * @description Sets type for routes
          */
@@ -45,7 +45,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#changeListFilter
+         * @name WebPublisherDashboardController#changeListFilter
          * @param {String} type - type of content lists
          * @description Sets type for content lists
          */
@@ -55,7 +55,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#toggleEditSite
+         * @name WebPublisherDashboardController#toggleEditSite
          * @description Toggles modal window for editing site
          */
         toggleEditSite() {
@@ -63,7 +63,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
             if (!this.openSiteModal && this.selectedSite.subdomain) {
                 /**
                  * @ngdoc event
-                 * @name WebPublisherManagerController#refreshRoutes
+                 * @name WebPublisherDashboardController#refreshRoutes
                  * @eventType broadcast on $scope
                  * @param {String} subdomain - subdomain for which to refresh routes
                  * @description event is thrown when modal window is closed and saved site is selected
@@ -77,7 +77,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#activateLiveSite
+         * @name WebPublisherDashboardController#activateLiveSite
          * @param {Object} site - site which is edited
          * @description Opens site in new tab with live site activated
          */
@@ -90,7 +90,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#editSite
+         * @name WebPublisherDashboardController#editSite
          * @param {Object} site - site which is edited
          * @description Opens modal window for editing site
          */
@@ -104,7 +104,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#cancelEditSite
+         * @name WebPublisherDashboardController#cancelEditSite
          * @description Canceles changes to site
          */
         cancelEditSite() {
@@ -114,7 +114,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#saveSite
+         * @name WebPublisherDashboardController#saveSite
          * @description Saving site
          */
         saveSite() {
@@ -131,7 +131,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#deleteSite
+         * @name WebPublisherDashboardController#deleteSite
          * @param {String} code - code of site which is deleted
          * @description Deleting site
          */
@@ -142,12 +142,24 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
                     publisher.setTenant();
                     this._refreshSites();
                 })
+                .catch((err) => {
+                    if(err.status === 409) {
+                        console.log(409);
+                        modal.confirm(gettext(err.data.message + ' Are you sure you want to delete?')).then(
+                            () => publisher.removeSite(code, {force: true})
+                            .then(() => {
+                                publisher.setTenant();
+                                this._refreshSites();
+                            })
+                        )
+                    }
+                })
             );
         }
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#isObjEmpty
+         * @name WebPublisherDashboardController#isObjEmpty
          * @param {Object} value
          * @returns {Boolean}
          * @description Checks if object is empty
@@ -158,7 +170,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#toogleCreateRoute
+         * @name WebPublisherDashboardController#toogleCreateRoute
          * @param {Boolean} paneOpen - should pane be open
          * @description Opens window for creating new route
          */
@@ -170,7 +182,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#editRoute
+         * @name WebPublisherDashboardController#editRoute
          * @param {Object} route - route which is edited
          * @description Opens window for editing route
          */
@@ -185,7 +197,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#saveRoute
+         * @name WebPublisherDashboardController#saveRoute
          * @description Saving route
          */
         saveRoute() {
@@ -205,7 +217,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#deleteRoute
+         * @name WebPublisherDashboardController#deleteRoute
          * @param {String} id - id of route which is deleted
          * @description Deleting route
          */
@@ -221,7 +233,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#createMenuCard
+         * @name WebPublisherDashboardController#createMenuCard
          * @description Creates a new unsaved menu card in navigation.
          */
         createMenuCard() {
@@ -233,7 +245,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#editMenuCard
+         * @name WebPublisherDashboardController#editMenuCard
          * @param {Object} menu - menu card which is edited
          * @description Edit menu card in navigation.
          */
@@ -245,7 +257,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#cancelEditMenuCard
+         * @name WebPublisherDashboardController#cancelEditMenuCard
          * @description Canceling update of menu card
          */
         cancelEditMenuCard() {
@@ -258,7 +270,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#saveMenu
+         * @name WebPublisherDashboardController#saveMenu
          * @param {Function} refreshList - refreshing proper list after save
          * @description Creates menu in navigation or in menu tree
          */
@@ -271,7 +283,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#deleteMenu
+         * @name WebPublisherDashboardController#deleteMenu
          * @param {String} id - id of menu which is deleted
          * @description Deleting menu
          */
@@ -284,7 +296,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#editMenuTree
+         * @name WebPublisherDashboardController#editMenuTree
          * @param {Object} menu - root menu object for the tree
          * @description Opens the menu tree edit page.
          */
@@ -299,7 +311,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#toogleCreateMenu
+         * @name WebPublisherDashboardController#toogleCreateMenu
          * @param {Boolean} paneOpen - should pane be open
          * @description Creates a new menu
          */
@@ -311,7 +323,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#editMenu
+         * @name WebPublisherDashboardController#editMenu
          * @param {Object} menu - menu which is edited
          * @description Edit menu in tree
          */
@@ -324,7 +336,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#removeMenu
+         * @name WebPublisherDashboardController#removeMenu
          * @param {Object} menu - menu object to remove
          * @description Removes this menu from the site.
          */
@@ -337,7 +349,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#reorderMenu
+         * @name WebPublisherDashboardController#reorderMenu
          * @param {Object} list - object where list of menu items is
          * @param {Object} item - object which is moved
          * @param {Number} index - index where item would be moved
@@ -370,7 +382,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#reorderRoute
+         * @name WebPublisherDashboardController#reorderRoute
          * @param {Object} list - object where list of route items is
          * @param {Object} item - object which is moved
          * @param {Number} index - index where item would be moved
@@ -425,7 +437,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#toggleInfoCarousel
+         * @name WebPublisherDashboardController#toggleInfoCarousel
          * @description Toggles info carousel
          */
         toggleInfoCarousel() {
@@ -434,7 +446,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#toggleSiteWizard
+         * @name WebPublisherDashboardController#toggleSiteWizard
          * @param {String} outputChannelType - channel type (eg wordpress, drupal)
          * @description Toggles site creation wizard
          */
@@ -449,7 +461,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#themeActivatedCallback
+         * @name WebPublisherDashboardController#themeActivatedCallback
          * @description Fires when theme got activated in theme manager directive
          */
         themeActivatedCallback() {
@@ -458,7 +470,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
          /**
          * @ngdoc method
-         * @name WebPublisherManagerController#themeSettingsRevert
+         * @name WebPublisherDashboardController#themeSettingsRevert
          * @description Reverts theme settings to default values
          */
         themeSettingsRevert() {
@@ -472,7 +484,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
          /**
          * @ngdoc method
-         * @name WebPublisherManagerController#cancelEditThemeSettings
+         * @name WebPublisherDashboardController#cancelEditThemeSettings
          * @description Reverts theme settings to default values
          */
         cancelEditThemeSettings() {
@@ -482,7 +494,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#saveThemeSettings
+         * @name WebPublisherDashboardController#saveThemeSettings
          * @description Saving theme settings and logo
          */
         saveThemeSettings() {
@@ -497,7 +509,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
          /**
          * @ngdoc method
-         * @name WebPublisherManagerController#uploadThemeLogo
+         * @name WebPublisherDashboardController#uploadThemeLogo
          * @param {Array} files - selected files
          * @param {String}  type - type of logo (theme_logo, theme_logo_second etc)
          * @description Uploads new theme logo
@@ -524,7 +536,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_editMode
+         * @name WebPublisherDashboardController#_editMode
          * @private
          * @param {Object} card - card for which to check mode
          * @param {Object} selected - selected card(for edit)
@@ -538,7 +550,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_updatedKeys
+         * @name WebPublisherDashboardController#_updatedKeys
          * @private
          * @param {Object} a
          * @param {Object} b
@@ -551,7 +563,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_flattenTree
+         * @name WebPublisherDashboardController#_flattenTree
          * @private
          * @param {Object} tree
          * @returns {Array}
@@ -571,7 +583,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_loadLists
+         * @name WebPublisherDashboardController#_loadLists
          * @private
          * @param {String} tabName - name of selected tab
          * @description Loads lists dependent on selected tab
@@ -590,7 +602,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_refreshSites
+         * @name WebPublisherDashboardController#_refreshSites
          * @private
          * @description Loads list of sites
          */
@@ -604,12 +616,15 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
                 $scope.sites = sites;
                 $scope.loading = false;
+                if(!$scope.sites.length) {
+                    this.toggleInfoCarousel();
+                }
             });
         }
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_refreshRoutes
+         * @name WebPublisherDashboardController#_refreshRoutes
          * @private
          * @description Loads list of routes
          */
@@ -631,7 +646,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_refreshCurrentMenu
+         * @name WebPublisherDashboardController#_refreshCurrentMenu
          * @private
          * @description Loads child menus for selected menu
          */
@@ -645,7 +660,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_refreshMenus
+         * @name WebPublisherDashboardController#_refreshMenus
          * @private
          * @description Loads list of menus
          */
@@ -659,7 +674,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_loadThemes
+         * @name WebPublisherDashboardController#_loadThemes
          * @private
          * @description Loads list of all themes
          */
@@ -672,7 +687,7 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
 
         /**
          * @ngdoc method
-         * @name WebPublisherManagerController#_refreshThemeSettings
+         * @name WebPublisherDashboardController#_refreshThemeSettings
          * @private
          * @description Loads theme settings
          */
@@ -699,5 +714,5 @@ export function WebPublisherManagerController($scope, publisher, modal, privileg
         }
     }
 
-    return new WebPublisherManager();
+    return new WebPublisherDashboard();
 }

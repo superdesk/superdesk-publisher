@@ -1,0 +1,84 @@
+
+
+<div class="sd-page__header sd-page__header--white padding--right0">
+    <button class="backlink" ng-click="webPublisher.changeTab('navigation')"></button>
+    <h2 class="sd-page__page-heading">{{menu.name}}</h2>
+    <span class="sd-page__element-grow"></span>
+    <button class="navbtn sd-create-btn" ng-click="webPublisher.toogleCreateMenu(true)">
+        <i class="icon-plus-large"></i>
+        <span class="circle"></span>
+    </button>
+</div>
+
+<div class="sd-page-content__content-block sd-page-content__content-block--main" ng-class="{'open-preview': webPublisher.menuPaneOpen}" >
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column">
+            <ul class="treeList sd-list-item-group" dnd-list dnd-drop="webPublisher.reorderMenu(menu, item, index)">
+                <li ng-repeat="data in menu.children | orderBy: 'position'" ng-include="'navigation-tree-renderer.html'"></li>
+            </ul>
+        </div>
+
+        <div class="sd-preview-panel">
+            <div class="side-panel side-panel--shadow-right">
+                <div class="side-panel__header side-panel__header--border-b">
+                    <a class="icn-btn side-panel__close" ng-click="webPublisher.toogleCreateMenu(false)"><i class="icon-close-small"></i></a>
+                    <h3 class="side-panel__heading" ng-if="webPublisher.isObjEmpty(webPublisher.selectedMenu)" translate>Add Menu Item</h3>
+                    <h3 class="side-panel__heading" ng-if="!webPublisher.isObjEmpty(webPublisher.selectedMenu)" translate>Edit Menu Item</h3>
+                </div>
+
+                <div class="side-panel__content">
+                    <div class="side-panel__content-block">
+                        <form name="webPublisher.menuForm" class="flat">
+                            <fieldset class="label-light">
+                                <div class="item">
+                                    <label for="menuName" translate>name</label>
+                                    <input type="text" class="line-input" id="menuName" ng-model="newMenu.name" required>
+                                </div>
+
+                                <div class="item">
+                                    <label for="menuLabel" translate>label</label>
+                                    <input type="text" class="line-input" id="menuLabel" ng-model="newMenu.label" required>
+                                </div>
+
+                                <div class="item">
+                                    <label for="menuParent" translate>parent</label>
+                                    <select id="menuParent" class="dropdown__toggle line-input" ng-model="newMenu.parent"
+                                        ng-options="parent.id as parent.name for parent in menusInTree | filter: {id: (newMenu.id ? '!' + newMenu.id : '')}">
+                                    </select>
+                                </div>
+
+                                <div class="item">
+                                    <label for="menuRoute" translate>route</label>
+                                    <select id="menuRoute" class="dropdown__toggle line-input" ng-model="newMenu.route"
+                                        ng-options="route.id as route.name for route in routes"
+                                        ng-required="!(newMenu.uri.length || newMenu.route)"
+                                        ng-disabled="newMenu.uri.length">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+
+                                <div class="item">
+                                    <label for="menuUri" translate>uri</label>
+                                    <input type="text" class="line-input" id="menuUri"
+                                        ng-model="newMenu.uri"
+                                        ng-required="!(newMenu.uri.length || newMenu.route)"
+                                        ng-disabled="newMenu.route">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="side-panel__footer side-panel__footer--button-box">
+                    <div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
+                        <a class="btn btn--hollow" ng-click="webPublisher.toogleCreateMenu(false)">Cancel</a>
+                        <button class="btn btn--primary"
+                            ng-disabled="webPublisher.menuForm.$invalid || !webPublisher.menuForm.$dirty"
+                            ng-click="webPublisher.saveMenu(webPublisher._refreshCurrentMenu)">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

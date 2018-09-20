@@ -1,6 +1,6 @@
 import 'ng-infinite-scroll';
 import 'ng-file-upload';
-import './client/styles/web-publisher.scss';
+import './client/styles/_publisher.scss';
 
 import 'angular-drag-and-drop-lists/angular-drag-and-drop-lists';
 
@@ -12,7 +12,7 @@ import {TargetedPublishing} from './client/extensions';
 
 cacheIncludedTemplates.$inject = ['$templateCache'];
 function cacheIncludedTemplates($templateCache) {
-    $templateCache.put('sidenav-items.html', require('./client/views/sidenav-items.html'));
+    $templateCache.put('sidebar-content.html', require('./client/views/sidebar-content.html'));
 
     $templateCache.put('filter-pane.html', require('./client/views/monitoring/filter-pane.html'));
     $templateCache.put('filter-labels.html', require('./client/views/monitoring/filter-labels.html'));
@@ -33,18 +33,19 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));
     $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
 
-    $templateCache.put('general.html', require('./client/views/manager/manage-site/general.html'));
-    $templateCache.put('routes.html', require('./client/views/manager/manage-site/routes.html'));
-    $templateCache.put('routes-tree.html', require('./client/views/manager/manage-site/routes-tree.html'));
-    $templateCache.put('navigation.html', require('./client/views/manager/manage-site/navigation.html'));
-    $templateCache.put('navigation-menu-tree.html', require('./client/views/manager/manage-site/navigation-menu-tree.html'));
-    $templateCache.put('navigation-tree-renderer.html', require('./client/views/manager/manage-site/navigation-tree-renderer.html'));
-    $templateCache.put('theme-settings.html', require('./client/views/manager/manage-site/theme-settings.html'));
+    $templateCache.put('general.html', require('./client/views/dashboard/manage-site/general.html'));
+    $templateCache.put('routes.html', require('./client/views/dashboard/manage-site/routes.html'));
+    $templateCache.put('routes-tree.html', require('./client/views/dashboard/manage-site/routes-tree.html'));
+    $templateCache.put('navigation.html', require('./client/views/dashboard/manage-site/navigation.html'));
+    $templateCache.put('navigation-menu-tree.html', require('./client/views/dashboard/manage-site/navigation-menu-tree.html'));
+    $templateCache.put('navigation-tree-renderer.html', require('./client/views/dashboard/manage-site/navigation-tree-renderer.html'));
+    $templateCache.put('theme-settings.html', require('./client/views/dashboard/manage-site/theme-settings.html'));
 
-    $templateCache.put('tenant.html', require('./client/views/manager/tenant.html'));
     $templateCache.put('themeManager-details.html', require('./client/directives/themeManager/themeManager-details.html'));
-    $templateCache.put('info-carousel.html', require('./client/views/manager/info-carousel/info-carousel.html'));
-    $templateCache.put('manage-site.html', require('./client/views/manager/manage-site/manage-site.html'));
+    $templateCache.put('manage-site.html', require('./client/views/dashboard/manage-site/manage-site.html'));
+
+    $templateCache.put('tenant.html', require('./client/views/dashboard/tenant.html'));
+    $templateCache.put('info-carousel.html', require('./client/views/dashboard/info-carousel/info-carousel.html'));
 
     $templateCache.put('settings/rules.html', require('./client/views/settings/rules.html'));
     $templateCache.put('settings/rule-item.html', require('./client/views/settings/rule-item.html'));
@@ -70,6 +71,7 @@ export default angular.module('superdesk-publisher', [
 .directive('sdSiteRoutes', directive.SiteRoutesDirective)
 .directive('sdPublishRoutes', directive.PublishRoutesDirective)
 .directive('sdListArticles', directive.ListArticlesDirective)
+.directive('sdListContentLists', directive.ListContentListsDirective)
 .directive('sdCardInputFocus', directive.CardInputFocusDirective)
 .directive('sdGroupArticle', directive.GroupArticleDirective)
 .directive('sdArticles', directive.ArticlesDirective)
@@ -85,38 +87,38 @@ export default angular.module('superdesk-publisher', [
 
 .config(['superdeskProvider', function(superdesk) {
     superdesk
-        .activity('/web_publisher/monitoring/', {
+        .activity('/publisher/dashboard', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
             category: superdesk.MENU_MAIN,
             adminTools: false,
+            controller: controllers.WebPublisherDashboardController,
+            controllerAs: 'webPublisher',
+            template: require('./client/views/dashboard/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
+        .activity('/publisher/monitoring/', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
             controller: controllers.WebPublisherMonitoringController,
             controllerAs: 'webPublisherMonitoring',
             template: require('./client/views/monitoring/index.html'),
-            sideTemplateUrl: 'sidenav-items.html'
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
-        .activity('/web_publisher/manager', {
-            label: gettext('Publisher'),
-            description: gettext('Publisher'),
-            controller: controllers.WebPublisherManagerController,
-            controllerAs: 'webPublisher',
-            template: require('./client/views/manager/index.html'),
-            sideTemplateUrl: 'sidenav-items.html'
-        })
-        .activity('/web_publisher/content_lists', {
+        .activity('/publisher/content_lists', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
             controller: controllers.WebPublisherContentListsController,
             controllerAs: 'webPublisherContentLists',
             template: require('./client/views/content-lists/index.html'),
-            sideTemplateUrl: 'sidenav-items.html'
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
-        .activity('/web_publisher/settings', {
+        .activity('/publisher/settings', {
             label: gettext('Settings'),
             description: gettext('Settings'),
             controller: controllers.WebPublisherSettingsController,
             controllerAs: 'webPublisherSettings',
             template: require('./client/views/settings/index.html'),
-            sideTemplateUrl: 'sidenav-items.html'
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         });
 }]);

@@ -190,13 +190,15 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
          * @name pubapi#remove
          * @param {String} resource
          * @param {String} id - id of item which is deleted
+         * @param {Object} params
          * @returns {Promise}
          * @description Remove an item
          */
-        remove(resource, id) {
+        remove(resource, id, params) {
             return this.req({
                 url: this.resourceURL(resource, id),
-                method: 'DELETE'
+                method: 'DELETE',
+                params: params
             });
         }
 
