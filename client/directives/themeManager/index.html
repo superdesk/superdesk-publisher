@@ -1,11 +1,4 @@
-<div class="busyOverlay" ng-class="{'busyOverlay--active': uploading}">
-    <i class="big-icon--upload-alt"></i>
-</div>
-<div class="busyOverlay" ng-class="{'busyOverlay--active': busy}">
-    <span class="animate--rotate">
-        <i class="icon-refresh"></i>
-    </span>
-</div>
+<div class="sd-loader" ng-if="uploading || busy"></div>
 <div class="sd-alert sd-alert--hollow sd-alert--alert" ng-show="uploadError">
     <button class="sd-alert__close" ng-click="uploadError=false"></button>
     <span ng-if="uploadError != true">{{uploadError}}</span>

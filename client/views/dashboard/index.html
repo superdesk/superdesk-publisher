@@ -33,6 +33,7 @@
                             ng-include="'tenant.html'"
                         ></div>
                     </div>
+                    <div class="sd-loader" ng-if="loading"></div>
                     <div class="panel-info" ng-if="!sites.length && !loading">
                         <div class="panel-info__icon">
                             <i class="big-icon--add-to-list"></i>

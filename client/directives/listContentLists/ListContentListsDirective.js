@@ -31,8 +31,10 @@ export function ListContentListsDirective(publisher) {
          */
         _queryItems(scope) {
             publisher.setTenant(scope.site);
+            scope.loading = true;
             publisher.queryLists({limit: 5}).then((lists) => {
                 scope.contentLists = lists;
+                scope.loading = false;
             });
             publisher.setTenant();
         }
