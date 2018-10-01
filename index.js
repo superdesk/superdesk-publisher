@@ -31,7 +31,9 @@ function cacheIncludedTemplates($templateCache) {
 
     $templateCache.put('content-list-automatic.html', require('./client/views/content-lists/content-list-automatic.html'));
     $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));
+    $templateCache.put('content-lists-list.html', require('./client/views/content-lists/content-lists-list.html'));
     $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
+    $templateCache.put('list-box.html', require('./client/views/content-lists/list-box.html'));
 
     $templateCache.put('general.html', require('./client/views/dashboard/manage-site/general.html'));
     $templateCache.put('routes.html', require('./client/views/dashboard/manage-site/routes.html'));
@@ -106,6 +108,22 @@ export default angular.module('superdesk-publisher', [
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
         .activity('/publisher/content_lists', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherContentListsController,
+            controllerAs: 'webPublisherContentLists',
+            template: require('./client/views/content-lists/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
+        .activity('/publisher/content_lists/:_tenant', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherContentListsController,
+            controllerAs: 'webPublisherContentLists',
+            template: require('./client/views/content-lists/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
+        .activity('/publisher/content_lists/:_tenant/:_list', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
             controller: controllers.WebPublisherContentListsController,

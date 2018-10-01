@@ -93,7 +93,8 @@ export function PublisherFactory(pubapi) {
          */
         querySites() {
             let params = {
-                limit: 1000
+                limit: 1000,
+                'sorting[name]': 'asc'
             };
 
             return pubapi.query('tenants', params);

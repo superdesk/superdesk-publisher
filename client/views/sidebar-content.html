@@ -1,7 +1,7 @@
 <ul>
     <li sd-tooltip="Dashboard" flow="right">
         <a href="#/publisher/dashboard" class="sd-sidebar-menu__btn"
-            ng-class="{'sd-sidebar-menu__btn--active': currentRoute.href === '/publisher/dashboard'}">
+            ng-class="{'sd-sidebar-menu__btn--active': currentRoute.href === '/publisher/dashboard' || currentRoute.href.includes('/publisher/content_lists')}">
             <i class="sd-sidebar-menu__main-icon big-icon--dashboard-alt"></i>
         </a>
     </li>

@@ -3,7 +3,7 @@
     <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"
         ng-repeat="list in contentLists"
     >
-        <a href="" class="sd-card__content-list-block-link sd-overflow-ellipsis">
+        <a ng-href="#/publisher/content_lists/{{site.code}}/{{list.id}}" class="sd-card__content-list-block-link sd-overflow-ellipsis">
             {{list.name}}
         </a>
     </li>

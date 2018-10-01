@@ -56,12 +56,20 @@
         margin-top: 1em;
     }
 
+    &--top0 {
+        margin-top: 0 !important;
+    }
+
     &--bottom {
         margin-bottom: 1em;
     }
 
     &--bottomHalf {
         margin-bottom: .5em;
+    }
+
+    &--right {
+        margin-right: 1em;
     }
 }
 
@@ -175,4 +183,12 @@
     border: none;
     background: none;
     padding: 0;
+}
+
+.relative {
+    position: relative;
+}
+
+.overflow-auto {
+    overflow: auto;
 }

@@ -7,47 +7,57 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherContentListsController holds a set of functions used for web publisher content listis
  */
-WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal', '$timeout'];
-export function WebPublisherContentListsController($scope, publisher, modal, $timeout) {
+WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal', '$timeout', '$route', '$location'];
+export function WebPublisherContentListsController($scope, publisher, modal, $timeout, $route, $location) {
     class WebPublisherContentLists {
         constructor() {
+            $scope.loading = true;
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
                     this.sites = sites;
                     this.activeView = 'content-lists';
-                    this.changeListFilter('');
+                    $scope.loading = false;
                     // set first tenant automatically
                     this.selectedTenant = null;
-                    if (sites[0]) {
+                    if ($route.current.params._tenant) {
+                        let site = _.find(this.sites, site => {
+                            return site.code === $route.current.params._tenant;
+                        });
+                        if (site) this.setTenant(site);
+                    } else if (sites[0]) {
                         this.setTenant(sites[0]);
                     }
                 });
+
+            $scope.timeout = $timeout(function(){});
+
+            $scope.$watch('newList.filters.term', function(newValue, oldValue) {
+                if( oldValue !== newValue) {
+                    $timeout.cancel($scope.timeout);
+                    $scope.timeout = $timeout(function(){
+                        $scope.webPublisherContentLists.filterArticles();
+                    }, 1000);
+                }
+            });
         }
 
         /**
          * @ngdoc method
          * @name WebPublisherContentListsController#changeTab
          * @param {String} newViewName - name of the active view
+         * @param {Bool} refresh - refresh lists flag
          * @description Sets the active view name to the given value
          */
-        changeView(newViewName) {
+        changeView(newViewName, refresh = true) {
             this.activeView = newViewName;
-            if (newViewName === 'content-lists') {
-                this.listChangeFlag = false;
-                this.changeListFilter('');
-                this._refreshLists();
-            }
-        }
+            this.filterOpen = newViewName === 'content-list-automatic' ? true : false;
 
-        /**
-         * @ngdoc method
-         * @name WebPublisherContentListsController#changeListFilter
-         * @param {String} type - type of content lists
-         * @description Sets type for content lists
-         */
-        changeListFilter(type) {
-            this.listType = type;
+            if (newViewName === 'content-lists') {
+                $location.path('/publisher/content_lists', false);
+                this.listChangeFlag = false;
+                if (refresh) this._refreshLists();
+            }
         }
 
         /**
@@ -59,8 +69,14 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
         setTenant(site) {
             publisher.setTenant(site);
             this.selectedTenant = site;
-            this.changeListFilter('');
-            this._refreshLists();
+            this.activeView = 'content-lists';
+            this._refreshLists().then(() => {
+                if ($route.current.params._list) {
+                    let list = _.find($scope.lists, list => list.id === parseInt($route.current.params._list) );
+
+                    if (list) this.openListCriteria(list);
+                }
+            });
         }
 
         /**
@@ -70,6 +86,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          * @description Creates a new unsaved content list card
          */
         createListCard(listType) {
+            this.changeView('content-lists', false);
             this.selectedList = {};
             $scope.newList = {type: listType, cacheLifeTime: 0};
             $scope.lists.push($scope.newList);
@@ -132,6 +149,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
         saveList() {
             let updatedKeys = this._updatedKeys($scope.newList, this.selectedList);
 
+            $scope.loading = true;
             publisher.manageList({content_list: _.pick($scope.newList, updatedKeys)}, this.selectedList.id)
                 .then(this._refreshLists.bind(this));
         }
@@ -142,6 +160,8 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          * @description Clears and saves state of manual content list
          */
         saveManualList() {
+            $scope.loading = true;
+
             publisher.saveManualList(
                 {content_list: {items: $scope.newList.updatedItems, updated_at: $scope.newList.updatedAt}},
                 $scope.newList.id).then((savedList) => {
@@ -235,6 +255,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
                     updatedFilters.route.push(item.id);
                 });
             }
+            $scope.loading = true;
 
             /**
              * @ngdoc event
@@ -244,7 +265,10 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
              * @description event is thrown when criteria is updated
              */
             publisher.manageList({content_list: {filters: updatedFilters}}, this.selectedList.id)
-                .then(() => $scope.$broadcast('refreshListArticles', $scope.newList));
+                .then(() => {
+                    $scope.loading = false;
+                    $scope.$broadcast('refreshListArticles', $scope.newList)
+                });
         }
 
         /**
@@ -275,28 +299,6 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
 
             this.tenantArticles.params = filters;
             this._queryArticles();
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherContentListsController#addAuthor
-         * @description Adds author in criteria filters list
-         */
-        addAuthor() {
-            if (!$scope.newList.filters.author) {
-                $scope.newList.filters.author = [];
-            }
-            $scope.newList.filters.author.push('');
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherContentListsController#removeAuthor
-         * @param {Number} itemIdx - index of the item to remove
-         * @description Removes author from criteria filters list
-         */
-        removeAuthor(itemIdx) {
-            $scope.newList.filters.author.splice(itemIdx, 1);
         }
 
         /**
@@ -403,7 +405,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          */
         onMoved(list, index) {
             list.items.splice(index, 1);
-            this.updatePositions(list);
+            //this.updatePositions(list);
         };
 
         /**
@@ -458,7 +460,9 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             this.listAdd = false;
             this.listPaneOpen = false;
             this.settingsModal = false;
-            publisher.queryLists().then((lists) => {
+            $scope.loading = true;
+            return publisher.queryLists().then((lists) => {
+                $scope.loading = false;
                 $scope.lists = lists;
             });
         }
