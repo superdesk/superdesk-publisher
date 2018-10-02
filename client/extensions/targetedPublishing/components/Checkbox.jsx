@@ -23,17 +23,17 @@ function Checkbox({ value, checkedValue, onChange, label, labelPosition, readOnl
         checkbox = <span className="sd-check__wrapper" disabled={readOnly}>
             <span className={ className + ' sd-checkbox--button-style'}
                   onClick={!readOnly && onClick}>
-            <label className={classNameLabel}>{label}</label>
+            <label className={classNameLabel} style={{color: '#fff'}}>{label}</label>
         </span></span>
     } else if (labelPosition === 'left') {
         checkbox = <span className="sd-check__wrapper" disabled={readOnly}>
-            <label className={classNameLabel}>{label}</label>
+            <label className={classNameLabel} style={{color: '#fff'}}>{label}</label>
             <span className={className} onClick={!readOnly && onClick} />
         </span>
     } else {
         checkbox = <span className="sd-check__wrapper" disabled={readOnly}>
             <span className={className} onClick={!readOnly && onClick} />
-            <label className={classNameLabel}>{label}</label>
+            <label className={classNameLabel} style={{color: '#fff'}}>{label}</label>
         </span>
     }
 
