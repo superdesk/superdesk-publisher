@@ -6,8 +6,6 @@ import {ToggleBox} from './components/ToggleBox.jsx';
 import Tenant from './Tenant';
 import NewDestination from './NewDestination';
 import Loading from './components/Loading.jsx';
-import styles from './targetedPublishing.css';
-
 
 export class TargetedPublishing extends React.Component {
     constructor(props) {
@@ -124,13 +122,59 @@ export class TargetedPublishing extends React.Component {
             });
     }
 
+
+
     render() {
+        let styles = {
+            alert: {
+                padding: '1.8rem 3rem 1.8rem 2rem',
+                marginBottom: '2rem',
+                verticalAlign: 'middle',
+                borderRadius: '4px',
+                lineHeight: '1.4em',
+                border: '1px solid rgba(123, 123, 123, 0.5)',
+                fontWeight: '200',
+                position: 'relative',
+                color: '#fff',
+                maxHeight: '20rem',
+                maxWidth: '100%',
+                height: 'auto',
+                transition: 'all linear 100ms'
+            },
+            addWebsiteDropdown: {
+                boxSizing: 'border-box',
+                background: '#fff',
+                marginTop: '10px',
+                maxHeight: 0,
+                overflow: 'hidden',
+                transition: 'all ease-in-out .4s'
+            },
+            addWebsiteDropdownH3: {
+                color: 'rgba(0, 0, 0, 0.35)',
+                fontSize: '1.2rem',
+                lineHeight: '1em',
+                textTransform: 'uppercase'
+            },
+            addWebsiteDropdownLi: {
+                fontWeight: 500,
+                lineHeight: '2.4em',
+                color: '#333',
+                cursor: 'pointer',
+                margin: '0 -1.5rem',
+                padding: '0 1.5rem'
+            }
+        };
+
+        if (this.state.addWebsiteOpen) {
+            styles.addWebsiteDropdown.maxHeight = 999;
+        }
+
         const siteRules = (
             <div>
                 {!this.state.rules.length && !this.state.loading &&
-                    <div className="sp-targetedPublshing__alert">
+                    <div style={styles.alert}>
                         No websites have been set, this article won't show up on any website. It will go to: <br />
-                        <span>Publisher > Output Control > Incoming list</span>
+                        <span style={{fontWeight: '500'}}>Publisher > Output Control > Incoming list</span>
                     </div>
                 }
                 {this.state.rules.map((rule, index) => {
@@ -164,23 +208,22 @@ export class TargetedPublishing extends React.Component {
 
         if (remainingSites.length && !this.state.loading) {
             addButton = (
-                <button className="navbtn dropdown sd-create-btn" onClick={this.addButtonHandler.bind(this)}>
+                <button class="btn btn--primary btn--icon-only-circle" onClick={this.addButtonHandler.bind(this)}>
                     <i className="icon-plus-large"></i>
-                    <span className="circle"></span>
                 </button>
             );
         }
 
         const addWebsite = (
-            <div className={classNames('sp-targetedPublshing__addWebsiteDropdown', { 'sp-targetedPublshing__addWebsiteDropdown--open sd-shadow--z2': this.state.addWebsiteOpen })} >
-                <div className="sp-targetedPublshing__addWebsiteDropdown__inner">
-                    <h3>Add Website</h3>
-                    <ul>
+            <div style={styles.addWebsiteDropdown}>
+                <div style={{padding: '1.5rem'}}>
+                    <h3 style={styles.addWebsiteDropdownH3}>Add Website</h3>
+                    <ul className='simple-list--dotted simple-list'>
                         { remainingSites.map(site => {
                             let siteDomain = site.subdomain ? site.subdomain + '.' + site.domainName : site.domainName;
 
                             return (
-                                <li key={site.id} onClick={() => this.addDestinationHandler(site)}>{siteDomain}</li>
+                                <li key={site.id} className='simple-list__item' style={styles.addWebsiteDropdownLi} onClick={() => this.addDestinationHandler(site)}>{siteDomain}</li>
                             )
                         })
                         }
