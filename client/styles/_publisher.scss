@@ -52,12 +52,20 @@
 }
 
 .margin {
+    &--none {
+        margin: 0!important;
+    }
+
     &--top {
         margin-top: 1em;
     }
 
     &--top0 {
         margin-top: 0 !important;
+    }
+
+    &--topBig {
+        margin-top: 2rem!important;
     }
 
     &--bottom {
@@ -68,6 +76,10 @@
         margin-bottom: .5em;
     }
 
+    &--bottom0 {
+        margin-bottom: 0;
+    }
+
     &--right {
         margin-right: 1em;
     }
@@ -76,6 +88,9 @@
 .padding {
     &--right0 {
         padding-right: 0;
+    }
+    &--bottomBig {
+        padding-bottom: 4rem !important;
     }
 }
 

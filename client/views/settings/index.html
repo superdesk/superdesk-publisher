@@ -1,14 +1,33 @@
-<div class="sidebarLayout headerMargin" ng-init="webPublisherSettings.activeTab = 'rules'">
-    <div class="sidebarLayout__sidebar">
-        <ul class="nav nav--stackedPublisher">
-            <li ng-class="{active: webPublisherSettings.activeTab === 'rules'}">
-                <button ng-click="webPublisherSettings.changeTab('rules')" translate>Rules</button>
-            </li>
-        </ul>
+<div class="sd-page-grid--basic" doc-modal>
+        <header class="sd-top-menu">
+            <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
+            <p class="sd-top-menu__header">Publisher</p>
+        </header>
+
+        <section class="sd-content sd-page-content--slide-in">
+            <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
+                <div class="sd-page-content__content-block" ng-class="{'open-preview': webPublisherSettings.rulePreviewOpen || webPublisherSettings.rulePaneOpen}">
+                    <div class="subnav">
+                        <h3 class="subnav__page-title">Rules</h3>
+                        <div class="dropdown dropdown--align-right" dropdown="">
+                            <button class="navbtn dropdown sd-create-btn dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-plus-large"></i>
+                                <span class="circle"></span>
+                            </button>
+                            <ul class="dropdown__menu dropdown--align-right">
+                                <li>
+                                    <div class="dropdown__menu-label">Create new rule</div>
+                                </li>
+                                <li class="dropdown__menu-divider"></li>
+                                <li><button ng-click="webPublisherSettings.toggleCreateRule('organization')">Organization Rule</button></li>
+                                <li><button ng-click="webPublisherSettings.toggleCreateRule('tenant')" ng-disabled="!webPublisherSettings.organizationRules.length">Tenant Rule</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="relative sd-page__main-content" ng-include="'settings/rules.html'"></div>
+                </div>
+            </div>
+        </section>
+        <footer class="bottom-bar ">
+        </footer>
     </div>
-    <div class="sidebarLayout__content" ng-switch="webPublisherSettings.activeTab">
-        <div ng-switch-when="rules">
-            <div ng-include="'settings/rules.html'"></div>
-        </div>
-    </div>
-</div>

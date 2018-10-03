@@ -1,61 +1,41 @@
-<div class="subnav paneLayout">
-    <h3 class="subnav__page-title">Publishing Rules</h3>
-    <div class="dropdown dropdown--align-right dropdown--dropup" dropdown="">
-        <button class="navbtn dropdown sd-create-btn dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
-            <i class="icon-plus-large"></i>
-            <span class="circle"></span>
-        </button>
-        <ul class="dropdown__menu dropdown--align-right">
-            <li>
-                <div class="dropdown__menu-label">Create new rule</div>
-            </li>
-            <li class="dropdown__menu-divider"></li>
-            <li><button ng-click="webPublisherSettings.toggleCreateRule('organization')"><i class="icon-plus-sign icon--blue"></i>Organization Rule</button></li>
-            <li><button ng-click="webPublisherSettings.toggleCreateRule('tenant')" ng-disabled="!webPublisherSettings.organizationRules.length"><i class="icon-plus-sign icon--blue"></i>Tenant Rule</button></li>
-        </ul>
-    </div>
-</div>
-<div class="busyOverlay" ng-class="{'busyOverlay--active': busy}">
-    <span class="animate--rotate">
-        <i class="icon-refresh"></i>
-    </span>
-</div>
-<div class="paneLayout paneLayout--headerMargin">
-    <div class="paneLayout__content">
-        <div class="panel-info" ng-if="!webPublisherSettings.organizationRules.length">
-            <div class="panel-info__icon">
-                <i class="big-icon--comments"></i>
-            </div>
-            <h3 class="panel-info__heading">No rules so far.</h3>
-            <p class="panel-info__description">Be the first one...</p>
-        </div>
-        <div class="contentPadding contentPadding--extraBottom"  ng-if="webPublisherSettings.organizationRules.length">
-            <div class="sd-list-header">
-                <span class="sd-list-header__name">Organization Rules</span>
-            </div>
-            <div ng-repeat="rule in webPublisherSettings.organizationRules track by $index"
-                ng-include="'settings/rule-item.html'">
-            </div>
 
-            <div ng-repeat="(code, rules) in webPublisherSettings.tenantsRules">
-                <div class="sd-list-header topMargin">
-                    <span class="sd-list-header__name flexGrow">{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span>
-                    <span class="text--uppercase text--blue text--smaller"
-                        ng-if="webPublisherSettings.getTenantOutputChannelNameByCode(code)">
-                        {{webPublisherSettings.getTenantOutputChannelNameByCode(code)}}
-                    </span>
+<div class="sd-loader" ng-if="loading"></div>
+       <div class="sd-column-box--2">
+            <div class="sd-column-box__main-column sd-page__content padding--bottomBig">
+                <div class="panel-info" ng-if="!webPublisherSettings.organizationRules.length">
+                    <div class="panel-info__icon">
+                        <i class="big-icon--comments"></i>
+                    </div>
+                    <h3 class="panel-info__heading">No rules so far.</h3>
+                    <p class="panel-info__description">Be the first one...</p>
                 </div>
-                <div ng-repeat="rule in rules track by $index"
-                    ng-include="'settings/rule-item.html'">
+                <div ng-if="webPublisherSettings.organizationRules.length">
+                    <div class="sd-list-header margin--none margin--topBig">
+                        <span class="sd-list-header__name">Organization Rules</span>
+                    </div>
+                    <div ng-repeat="rule in webPublisherSettings.organizationRules track by $index"
+                        ng-include="'settings/rule-item.html'">
+                    </div>
+
+                    <div ng-repeat="(code, rules) in webPublisherSettings.tenantsRules">
+                        <div class="sd-list-header margin--none margin--topBig">
+                            <span class="sd-list-header__name flexGrow">{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span>
+                            <span class="text--uppercase text--blue text--smaller"
+                                ng-if="webPublisherSettings.getTenantOutputChannelNameByCode(code)">
+                                {{webPublisherSettings.getTenantOutputChannelNameByCode(code)}}
+                            </span>
+                        </div>
+                        <div ng-repeat="rule in rules track by $index"
+                            ng-include="'settings/rule-item.html'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sd-preview-panel">
+                <div class="side-panel side-panel--shadow-right">
+                    <span ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></span>
+                    <span ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></span>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="paneLayout__pane paneContent"
-    	ng-class="{'paneLayout__pane--open': webPublisherSettings.rulePreviewOpen || webPublisherSettings.rulePaneOpen}"
-    >
-        <span ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></span>
-        <span ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></span>
-    </div>
 
-</div>

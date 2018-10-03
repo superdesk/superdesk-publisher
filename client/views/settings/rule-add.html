@@ -1,18 +1,26 @@
-<div class="paneContent__header">
-	<h3 class="pull-left" translate ng-if="!newRule.id">Add Rule</h3>
-	<h3 class="pull-left" translate ng-if="newRule.id">Edit Rule</h3>
-	<div class="pull-right">
-		<button class="btn" ng-click="webPublisherSettings.toggleCreateRule()" translate>Cancel</button>
+<div class="side-panel__header side-panel__header--border-b">
+	<a class="icn-btn side-panel__close" ng-click="webPublisherSettings.toggleCreateRule()"><i class="icon-close-small"></i></a>
+	<h3 class="side-panel__heading" ng-if="!newRule.id" translate>Add Rule</h3>
+	<h3 class="side-panel__heading" ng-if="newRule.id" translate>Edit Rule</h3>
+</div>
+
+<div class="side-panel__content">
+	<div class="side-panel__content-block"
+		ng-include="'settings/rule-add-organization.html'"
+		ng-if="newRule.type=='organization'"></div>
+	<div class="side-panel__content-block"
+		ng-include="'settings/rule-add-tenant.html'"
+		ng-if="newRule.type=='tenant'"></div>
+</div>
+
+
+<div class="side-panel__footer side-panel__footer--button-box padding--bottomBig">
+	<div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
+		<a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateRule()">Cancel</a>
 		<button class="btn btn--primary"
-		ng-disabled="webPublisherSettings.ruleForm.$invalid || !webPublisherSettings.ruleForm.$dirty"
-		ng-click="webPublisherSettings.saveRule()" translate>Save</button>
+			ng-disabled="webPublisherSettings.ruleForm.$invalid || !webPublisherSettings.ruleForm.$dirty"
+			ng-click="webPublisherSettings.saveRule()">
+			Save
+		</button>
 	</div>
-</div>
-<div class="paneContent__content contentPadding contentPadding--extraBottom"
-	ng-include="'settings/rule-add-organization.html'"
-	ng-if="newRule.type=='organization'">
-</div>
-<div class="paneContent__content contentPadding contentPadding--extraBottom"
-	ng-include="'settings/rule-add-tenant.html'"
-	ng-if="newRule.type=='tenant'">
 </div>
