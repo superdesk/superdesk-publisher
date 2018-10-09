@@ -1,0 +1,46 @@
+<div class="side-panel side-panel--shadow-right">
+    <div class="side-panel__header side-panel__header--border-bottom">
+        <div class="side-panel__tools">
+            <a class="icn-btn" sd-tooltip="Close details" flow="top" ng-click="webPublisherOutput.closePreview()"><i class="icon-close-small"></i></a>
+        </div>
+        <h3 class="side-panel__heading">Item preview</h3>
+    </div>
+
+    <div class="side-panel__content">
+        <div class="side-panel-collapsible-header" ng-class="{'active': collapsibleHeaderOpen}" ng-init="collapsibleHeaderOpen = true">
+            <div class="side-panel-collapsible-header__fixed">
+                <p class="sd-text__date-and-author">
+                    <time ng-if="webPublisherOutput.selectedArticle.updatedAt" title="{{webPublisherOutput.selectedArticle.updatedAt}}">{{webPublisherOutput.selectedArticle.updatedAt | reldate}}</time>
+                    <time ng-if="!webPublisherOutput.selectedArticle.updatedAt" title="{{webPublisherOutput.selectedArticle.createdAt}}">{{webPublisherOutput.selectedArticle.createdAt | reldate}}</time>
+                </p>
+                <span class="btn-icon-group">
+                    <button class="icn-btn" ng-click="webPublisherOutput.editArticle(webPublisherOutput.selectedArticle); $event.stopPropagation();"><i class="icon-pencil"></i></button>
+                    <button class="icn-btn" ng-click="webPublisherOutput.openPublish(webPublisherOutput.selectedArticle, 'publish'); $event.stopPropagation();"><i class="icon-expand-thin"></i></button>
+                </span>
+            </div>
+            <div class="side-panel-collapsible-header__collapsible">
+                <div class="form__row"
+                    ng-if="webPublisherOutput.selectedArticle.articles[0] && webPublisherOutput.selectedArticle.articles[0].paywallSecured"
+                >
+                    <span class="label-icon label-icon--warning"><i class="icon-paywall"></i> Paywall secured</span>
+                </div>
+                <div class="form__row form__row--small-padding">
+                    <span class="label"
+                        ng-repeat="item in webPublisherOutput.selectedArticle.articles | orderBy:'-status'"
+                        ng-class="{'label--success': item.status == 'published', 'label--alert': item.status == 'unpublished'}"
+                    >
+                        {{item.tenant.name}}
+                    </span>
+                </div>
+            </div>
+            <button class="side-panel-collapsible-header__toggle active" ng-class="{'active': collapsibleHeaderOpen}" ng-click="collapsibleHeaderOpen = !collapsibleHeaderOpen">
+                <i class="icon-chevron-down-thin"></i>
+            </button>
+        </div>
+
+        <div class="side-panel__content-block">
+            <h3 class="side-panel__content-block-heading">{{webPublisherOutput.selectedArticle.headline}}</h3>
+            <div class="side-panel__content-block-text" ng-bind-html="webPublisherOutput.bodyHtml"></div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@ PublishRoutesDirective.$inject = ['publisher'];
 export function PublishRoutesDirective(publisher) {
     class PublishRoutes {
         constructor() {
-            this.scope = {site: '=site', monitoringContoller: '=monitoringContoller'};
+            this.scope = {destination: '=destination', monitoringContoller: '=monitoringContoller'};
             this.template = require('./view.html');
         }
 
@@ -25,7 +25,7 @@ export function PublishRoutesDirective(publisher) {
          * @description Loads routes for selected site
          */
         _queryItems(scope) {
-            publisher.setTenant(scope.site);
+            publisher.setTenant(scope.destination.tenant);
             publisher.queryRoutes({type: 'collection'}).then((routes) => {
                 scope.routes = routes;
             });

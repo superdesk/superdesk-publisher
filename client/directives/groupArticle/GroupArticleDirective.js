@@ -13,7 +13,7 @@ export function GroupArticleDirective(publisher) {
                 rootType: '@',
                 site: '=site',
                 route: '=route',
-                webPublisherMonitoring: '=webPublisherMonitoring',
+                webPublisherOutput: '=webPublisherOutput',
                 initialFilters: '=filters'
             };
 
@@ -21,48 +21,27 @@ export function GroupArticleDirective(publisher) {
         }
 
         link(scope) {
+            scope.loadingArticles = false;
             scope.articlesList = [];
             scope.articlesLimit = 20;
             scope.filters = scope.initialFilters ? scope.initialFilters : {};
-            scope.loadedFilters = !!scope.initialFilters;
+            scope.loadedFilters = !!scope.filters;
+            publisher.setToken().then(() => {
+                scope.loadArticles(true);
 
-            scope.buildTenantParams = () => {
-                let tenant = [];
-
-                if (scope.site) {
-                    tenant.push(scope.site.code);
-                }
-
-                if (!tenant.length && scope.filters.sites && !_.isEmpty(scope.filters.sites)) {
-                    angular.forEach(scope.filters.sites, (site, key) => {
-                        if (site.status) {
-                            tenant.push(key);
-                        }
-                    });
-                }
-
-                return tenant;
-            };
+                scope.$watch('rootType', () => {
+                    scope.loadArticles(true);
+                });
+            });
 
             scope.buildRouteParams = () => {
                 let route = [];
 
-                if (scope.route) {
-                    route.push(scope.route.id);
-                }
-
-                if (!route.length && scope.filters.sites) {
-                    angular.forEach(scope.filters.sites, (siteObj, tenantCode) => {
-                        if ((!scope.site || scope.site.code === tenantCode) && siteObj.routes) {
-                            angular.forEach(siteObj.routes, (routeObj, key) => {
-                                if (routeObj.status) {
-                                    route.push(key);
-                                }
-                            });
-                        }
+                if (scope.filters.routes) {
+                    angular.forEach(scope.filters.routes, (routeObj, key) => {
+                        route.push(routeObj.id);
                     });
                 }
-
                 return route;
             };
 
@@ -94,7 +73,6 @@ export function GroupArticleDirective(publisher) {
                 };
 
                 let route = scope.buildRouteParams();
-                let tenant = scope.buildTenantParams();
                 let universal = scope.buildUniversalParams();
 
                 queryParams = Object.assign(queryParams, universal);
@@ -104,37 +82,11 @@ export function GroupArticleDirective(publisher) {
                     queryParams['status[]'] = ['new'];
                 } else {
                     queryParams['status[]'] = ['published', 'unpublished'];
-                    queryParams['tenant[]'] = tenant.length ? tenant : undefined;
                     queryParams['route[]'] = route.length ? route : undefined;
                     queryParams.publishedBefore = scope.filters.publishedBefore;
                     queryParams.publishedAfter = scope.filters.publishedAfter;
                 }
-
                 return queryParams;
-            };
-
-            scope.loadArticles = (reset) => {
-                if (scope.loadingArticles) {
-                    return;
-                }
-
-                if (reset) {
-                    scope.articlesList = [];
-                }
-
-                let queryParams = scope.buildQueryParams(reset);
-
-                if (!reset && scope.totalArticles && queryParams.page > scope.totalArticles.pages) {
-                    return;
-                }
-
-                scope.loadingArticles = true;
-
-                publisher.queryMonitoringArticles(queryParams).then((articles) => {
-                    scope.totalArticles = articles;
-                    scope.articlesList = scope.articlesList.concat(articles._embedded._items);
-                    scope.loadingArticles = false;
-                });
             };
 
             scope.$on('newPackage', (e, item, state) => {
@@ -161,19 +113,46 @@ export function GroupArticleDirective(publisher) {
 
             });
 
-            scope.$on('refreshArticlesList', (e, updatedDestinations, oldDestinationsRoutes, filters) => {
+            scope.$on('refreshArticlesList', (e, filters) => {
                 if (filters) {
                     scope.filters = filters;
                     scope.loadedFilters = true;
                 }
-
-                if (filters || scope.rootType ||
-                    scope.site && _.find(updatedDestinations, {tenant: scope.site.code}) ||
-                    scope.route && _.find(updatedDestinations, {route: scope.route.id}) ||
-                    scope.route && _.find(oldDestinationsRoutes, {route: scope.route.id})) {
+                if (filters || scope.rootType) {
                     scope.loadArticles(true);
                 }
             });
+
+            scope.loadArticles = (reset) => {
+
+                if (scope.loadingArticles) {
+                    return;
+                }
+
+                if (reset) {
+                    scope.articlesList = [];
+                }
+
+                let queryParams = scope.buildQueryParams(reset);
+
+                if (!reset && scope.totalArticles && queryParams.page > scope.totalArticles.pages) {
+                    return;
+                }
+
+                scope.loadingArticles = true;
+                scope.webPublisherOutput.loadingArticles = true;
+
+                publisher.queryMonitoringArticles(queryParams).then((articles) => {
+                    scope.totalArticles = articles;
+                    scope.articlesList = scope.articlesList.concat(articles._embedded._items);
+                    scope.loadingArticles = false;
+                    scope.webPublisherOutput.loadingArticles = false;
+                })
+                .catch((err) => {
+                    scope.loadingArticles = false;
+                    scope.webPublisherOutput.loadingArticles = false;
+                });
+            };
         }
 
         _isNewPackageInteresting(item, scope) {

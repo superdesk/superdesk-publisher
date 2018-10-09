@@ -14,16 +14,11 @@ cacheIncludedTemplates.$inject = ['$templateCache'];
 function cacheIncludedTemplates($templateCache) {
     $templateCache.put('sidebar-content.html', require('./client/views/sidebar-content.html'));
 
-    $templateCache.put('filter-pane.html', require('./client/views/monitoring/filter-pane.html'));
-    $templateCache.put('filter-labels.html', require('./client/views/monitoring/filter-labels.html'));
-    $templateCache.put('index-content.html', require('./client/views/monitoring/index-content.html'));
-    $templateCache.put('publishing-pane.html', require('./client/views/monitoring/publishing-pane.html'));
-    $templateCache.put('publish-pane-listitem.html', require('./client/views/monitoring/publish-pane-listitem.html'));
-    $templateCache.put('preview-pane.html', require('./client/views/monitoring/preview-pane.html'));
-    $templateCache.put('sections-treeElement.html', require('./client/views/monitoring/sections-treeElement.html'));
-    $templateCache.put('list-item.html', require('./client/views/monitoring/list-item.html'));
-    $templateCache.put('article-preview.html', require('./client/views/monitoring/article-preview.html'));
-    $templateCache.put('sections-treeElement.html', require('./client/views/monitoring/sections-treeElement.html'));
+    $templateCache.put('filter-pane.html', require('./client/views/output/filter-pane.html'));
+    $templateCache.put('publishing-pane.html', require('./client/views/output/publishing-pane.html'));
+    $templateCache.put('publish-pane-listitem.html', require('./client/views/output/publish-pane-listitem.html'));
+    $templateCache.put('preview-pane.html', require('./client/views/output/preview-pane.html'));
+    $templateCache.put('article-preview.html', require('./client/views/output/article-preview.html'));
 
     $templateCache.put('articles-detail.html', require('./client/directives/articles/articles-detail.html'));
     $templateCache.put('list-articles-card.html', require('./client/directives/listArticles/list-articles-card.html'));
@@ -99,12 +94,12 @@ export default angular.module('superdesk-publisher', [
             template: require('./client/views/dashboard/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
-        .activity('/publisher/monitoring/', {
+        .activity('/publisher/output-control', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            controller: controllers.WebPublisherMonitoringController,
-            controllerAs: 'webPublisherMonitoring',
-            template: require('./client/views/monitoring/index.html'),
+            controller: controllers.WebPublisherOutputController,
+            controllerAs: 'webPublisherOutput',
+            template: require('./client/views/output/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
         .activity('/publisher/content_lists', {
