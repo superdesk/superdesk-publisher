@@ -16,7 +16,6 @@ export function ThemeManagerDirective(publisher) {
         link(scope) {
             this._loadThemes(scope);
             scope.step = 'details';
-            scope.busy = false;
 
             /**
              * @ngdoc method
@@ -51,6 +50,9 @@ export function ThemeManagerDirective(publisher) {
                     .then(() => {
                         scope.busy = false;
                         scope.step = 'finish';
+                    })
+                    .catch((err) => {
+                        scope.busy = false;
                     });
             }
 
@@ -113,7 +115,9 @@ export function ThemeManagerDirective(publisher) {
          * @description Loads organization themes
          */
         _loadThemes(scope) {
+            scope.busy = true;
             return publisher.getOrganizationThemes().then((response) => {
+                scope.busy = false;
                 scope.organizationThemes = response._embedded._items;
                 angular.forEach(scope.organizationThemes, (theme) => {
                     let previewSetting = theme.config.filter((setting) => setting.preview_url);

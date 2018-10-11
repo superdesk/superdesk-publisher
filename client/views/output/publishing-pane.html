@@ -1,0 +1,81 @@
+<div class="side-panel side-panel--shadow-right side-panel--dark-ui">
+    <div class="side-panel__header">
+        <div class="side-panel__tools">
+            <a class="icn-btn" ng-click="webPublisherOutput.closePublish()"><i class="icon-close-small"></i></a>
+        </div>
+        <ul class="nav-tabs nav-tabs--ui-dark">
+            <li ng-class="{'nav-tabs__tab--active': !webPublisherOutput.activePublishPane || webPublisherOutput.activePublishPane == 'publish'}" class="nav-tabs__tab nav-tabs__tab--active">
+                <button ng-click="webPublisherOutput.activePublishPane = 'publish'" class="nav-tabs__link"><span translate="">Publish</span></button>
+            </li>
+            <li ng-if="webPublisherOutput.selectedArticle.status !== 'new'"
+                ng-class="{'nav-tabs__tab--active':  webPublisherOutput.activePublishPane == 'unpublish'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherOutput.activePublishPane = 'unpublish'" class="nav-tabs__link"><span translate="">Unpublish</span></button>
+            </li>
+        </ul>
+    </div>
+    <div class="side-panel__content" ng-if="!webPublisherOutput.activePublishPane || webPublisherOutput.activePublishPane == 'publish'">
+        <div class="side-panel__content-block side-panel__content-block--pad-small">
+            <div class="side-panel__content-block-heading side-panel__content-block-heading--small-margin">
+                {{webPublisherOutput.selectedArticle.headline}}
+            </div>
+        </div>
+        <div class="side-panel__content-block side-panel__content-block--flex side-panel__content-block--space-between">
+            <div class="dropdown" dropdown="">
+                <button class="btn btn--primary btn--hollow btn--ui-dark dropdown__toggle" dropdown__toggle="">
+                    add destination
+                </button>
+                <ul class="dropdown__menu">
+                    <li ng-repeat="site in webPublisherOutput.publishingAvailableSites">
+                        <button ng-click="webPublisherOutput.publishingAddDestination(site)">{{site.name}}</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown dropdown--align-right" dropdown="">
+                <button class="dropdown__toggle" dropdown__toggle="">
+                    Filter
+                    <span class="dropdown__caret"></span>
+                </button>
+                <ul class="dropdown__menu">
+                    <li><button ng-click="webPublisherOutput.publishFilter = 'all'">All</button></li>
+                    <li><button ng-click="webPublisherOutput.publishFilter = 'published'">Published</button></li>
+                    <li><button ng-click="webPublisherOutput.publishFilter = 'unpublished'">Unpublished</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="side-panel__content-block side-panel__content-block--pad-small">
+            <div ng-repeat="destination in webPublisherOutput.newDestinations" ng-include="'publish-pane-listitem.html'"></div>
+        </div>
+    </div>
+    <!-- UNPUBLISH **************************************************** -->
+    <div class="side-panel__content" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">
+        <div class="side-panel__content-block side-panel__content-block--pad-small">
+            <div class="side-panel__content-block-heading side-panel__content-block-heading--small-margin">
+                {{webPublisherOutput.selectedArticle.headline}}
+            </div>
+        </div>
+        <div class="side-panel__content-block">
+            <div class="form__row form__row--small-padding">
+                <div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-1">
+                    <button ng-repeat="item in webPublisherOutput.newDestinations"
+                        ng-if="item.status == 'published'"
+                        ng-click="item.unpublish = !item.unpublish"
+                        class="btn__check flex-grid__item"
+                        ng-class="{'btn__check--active' : item.unpublish}"
+                    >
+                        {{item.tenant.name}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="side-panel__footer side-panel__footer--button-box-large" ng-if="!webPublisherOutput.activePublishPane || webPublisherOutput.activePublishPane === 'publish'">
+        <button class="btn btn--large btn--success btn--expanded"
+            ng-click="webPublisherOutput.publishArticle()">Publish</button>
+    </div>
+    <div class="side-panel__footer side-panel__footer--button-box-large" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">
+        <button class="btn btn--large btn--alert btn--expanded"
+            ng-click="webPublisherOutput.unPublishArticle()">Unpublish</button>
+    </div>
+</div>
+
+<div ng-include="'article-preview.html'" ng-if="webPublisherOutput.openArticlePreviewModal"></div>

@@ -1,0 +1,83 @@
+<div class="sd-collapse-box sd-shadow--z2 sd-collapse-box--lighter sd-collapse-box--margin-small"
+    ng-class="{'sd-collapse-box--open' : destination.isOpen}"
+    ng-show="webPublisherOutput.publishFilter == 'all' || destination.status == webPublisherOutput.publishFilter">
+    <div class="sd-collapse-box__header" ng-click="destination.isOpen = !destination.isOpen">
+        <!-- list item  -->
+        <div class="sd-list-item">
+            <div class="sd-list-item__border"
+            ng-class="{'sd-list-item__border--success': destination.status === 'published', 'sd-list-item__border--locked': destination.status === 'unpublished'}"></div>
+            <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                <div class="sd-list-item__row">
+                    <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                        <span class="sd-list-item__text-strong">{{destination.tenant.name}}</span>
+                    </span>
+                    <a class="icn-btn " sd-tooltip="Remove tenant" flow="left"
+                        ng-if="destination.status === 'new'"
+                        ng-click="webPublisherOutput.publishingRemoveDestination(destination); $event.stopPropagation();">
+                            <i class="icon-trash"></i>
+                        </a>
+                </div>
+                <div class="sd-list-item__row">
+                    <span class="sd-overflow-ellipsis label label--success">{{destination.route.name}}</span>
+                    <span class="sd-list-item__inline-text sd-list-item--element-grow no-line-height" ng-if="destination.isPublishedFbia">
+                        <i class="icon-facebook icon--blue icon--full-opacity"></i>
+                    </span>
+                    <span class="sd-list-item__inline-text no-line-height" ng-if="destination.paywallSecured">
+                        <i class="icon-paywall icon--full-opacity icon--orange"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- END list item  -->
+    </div>
+    <div class="sd-collapse-box__content-wraper">
+        <div class="sd-collapse-box__content sd-collapse-box__content--border-success">
+            <div class="sd-collapse-box__tools sd-collapse-box__tools--flex">
+                <a class="sd-collapse-box__collapse-btn" href="" ng-click="destination.isOpen = false">
+                    <span class="icn-btn"><i class="icon-chevron-up-thin"></i></span>
+                </a>
+                <a class="icn-btn" sd-tooltip="Remove tenant" flow="left"
+                    ng-if="destination.status === 'new'"
+                    ng-click="webPublisherOutput.publishingRemoveDestination(destination); $event.stopPropagation();">
+                    <i class="icon-trash"></i></a>
+            </div>
+            <div class="sd-collapse-box__content-block sd-collapse-box__content-block--top">
+                <div class="sd-list-item sd-list-item--no-bg sd-list-item--no-hover">
+                    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                        <div class="sd-list-item__row">
+                            <span class="sd-overflow-ellipsis sd-list-item__text-strong">{{destination.tenant.name}}</span>
+                            <a ng-if="destination.liveUrl && webPublisherOutput.publishedDestinations[site.code].route.id != destination.route.id"
+                                ng-href="{{destination.liveUrl}}"
+                                target="_blank"
+                                class="icn-btn" sd-tooltip="Preview" flow="bottom">
+                                <i class="icon-external icon--full-opacity icon--white"></i>
+                            </a>
+
+                            <a ng-if='destination.route.id && ( !destination.liveUrl || webPublisherOutput.publishedDestinations[site.code].route.id != destination.route.id) && destination.status != "unpublished"'
+                                ng-click="webPublisherOutput.openArticlePreview(destination.route.id, destination.tenant)"
+                                class="icn-btn" sd-tooltip="Preview" flow="bottom">
+                                <i class="icon-external icon--full-opacity icon--white"></i>
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form__row" ng-if="!site.outputChannel">
+                <div class="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
+                    <label class="sd-line-input__label">Route</label>
+                    <div sd-publish-routes data-destination="destination"
+                        data-monitoring-contoller="webPublisherOutput"
+                    ></div>
+                </div>
+            </div>
+            <div class="form__row" ng-init="contentChanged0 = true">
+                <sd-check ng-model="destination.isPublishedFbia"><i class="icon-facebook icon--blue"></i> Publish to facebook</sd-check>
+            </div>
+            <div class="form__row">
+                <sd-check ng-model="destination.paywallSecured"><i class="icon-paywall icon--orange"></i> Paywall secured</sd-check>
+            </div>
+        </div>
+    </div>
+</div>

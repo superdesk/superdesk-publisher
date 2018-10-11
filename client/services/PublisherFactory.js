@@ -77,11 +77,12 @@ export function PublisherFactory(pubapi) {
          * @ngdoc method
          * @name publisher#removeSite
          * @param {String} code - code of site which is deleted
+         * @param {Object} params
          * @returns {Promise}
          * @description Delete site
          */
-        removeSite(code) {
-            return pubapi.remove('tenants', code);
+        removeSite(code, params) {
+            return pubapi.remove('tenants', code, params);
         }
 
         /**
@@ -92,7 +93,8 @@ export function PublisherFactory(pubapi) {
          */
         querySites() {
             let params = {
-                limit: 1000
+                limit: 1000,
+                'sorting[name]': 'asc'
             };
 
             return pubapi.query('tenants', params);
@@ -240,11 +242,17 @@ export function PublisherFactory(pubapi) {
         /**
          * @ngdoc method
          * @name publisher#queryLists
+         * @param {Object} params - additional params to query
          * @returns {Promise}
          * @description List all content lists
          */
-        queryLists() {
-            return pubapi.query('content/lists', {limit: 9999});
+        queryLists(params) {
+            let newParams = {...params};
+
+            if (!newParams.limit) {
+                newParams.limit = 99999;
+            }
+            return pubapi.query('content/lists', newParams);
         }
 
         /**

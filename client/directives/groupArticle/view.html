@@ -1,22 +1,49 @@
-<div class="stage-header">
-    <span class="stage-header__name">
-        <a href="" ng-if="!webPublisherMonitoring.routeArticles" ng-click="webPublisherMonitoring.viewRouteArticles(site)">{{site.name}}</a>
-        <a href="" ng-if="webPublisherMonitoring.routeArticles">{{route.name}}</a>
-        <a href="" ng-if="!webPublisherMonitoring.tenantArticles && rootType == 'incoming'">Incoming Content</a>
-        <a href="" ng-if="!webPublisherMonitoring.tenantArticles && rootType == 'published'" ng-click="webPublisherMonitoring.viewTenantArticles()">Published To Web</a>
-    </span>
-    <span class="label-total stage-header__number">{{totalArticles.total}}</span>
-</div>
-<div class="publisherBoxShadow">
-    <ul class="list-view compact-view"
-        infinite-scroll="loadArticles()"
-        infinite-scroll-disabled="!initialFilters || !loadedFilters"
-        infinite-scroll-parent="true">
-        <li class="list-item-view sp-list-item-view"
-            ng-repeat="i in articlesList"
-            ng-include="'list-item.html'">
-        </li>
-        <li class="list-without-items" ng-if="initialFilters && loadedFilters && !loadingArticles && !articlesList.length">There are currently no items</li>
-        <li ng-if="!initialFilters || !loadedFilters || loadingArticles" class="item-group__loading list-without-items"></li>
-    </ul>
+
+<div class="sd-list-item-group sd-shadow--z2"
+    infinite-scroll="loadArticles()"
+    infinite-scroll-disabled="!loadedFilters"
+    infinite-scroll-parent="true"
+>
+    <div class="sd-list-item"
+        ng-class="{'sd-list-item--activated':webPublisherOutput.selectedArticle.id === i.id, 'fadeElement' : i.animate}"
+        ng-click="webPublisherOutput.openPreview(i); $event.stopPropagation();"
+        ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
+        ng-repeat="i in articlesList">
+        <div class="sd-list-item__border"></div>
+        <div class="sd-list-item__column">
+            <i ng-if="i.type == 'text'" class="filetype-icon-text"></i>
+            <i ng-if="i.type != 'text'" class="filetype-icon-picture"></i>
+        </div>
+        <div class="sd-list-item__column">
+            <span class="badge badge--success badge--square">{{i.priority}}</span>
+            <span class="badge badge--light">{{i.urgency}}</span>
+        </div>
+        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+            <div class="sd-list-item__row">
+                <span class="sd-overflow-ellipsis">{{i.headline}}</span>
+                <time ng-if="i.updatedAt" title="{{i.updatedAt}}">{{i.updatedAt | reldate}}</time>
+                <time ng-if="!i.updatedAt" title="{{i.createdAt}}">{{i.createdAt | reldate}}</time>
+            </div>
+            <div class="sd-list-item__row sd-list-item__row--wrap">
+                <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
+                <span class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
+                <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                <span class="label"
+                    ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3"
+                    ng-class="{'label--success': item.status == 'published', 'label--alert': item.status == 'unpublished'}"
+                >
+                    {{item.tenant.name}}
+                </span>
+                <span ng-if="i.articles.length - 3 > 0">+{{i.articles.length - 3}} more</span>
+            </div>
+        </div>
+        <div class="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
+            <button class="icn-btn" ng-if="rootType === 'incoming'" ng-click="webPublisherOutput.removeArticle(i); $event.stopPropagation();"><i class="icon-trash"></i></button>
+            <button class="icn-btn" ng-click="webPublisherOutput.editArticle(i); $event.stopPropagation();"><i class="icon-pencil"></i></button>
+            <button class="icn-btn" ng-click="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"><i class="icon-expand-thin"></i></button>
+        </div>
+    </div>
+
+    <div ng-if="loadingArticles" class="item-group__loading" style="margin-left: auto; margin-right: auto; line-height: 38px; height: 38px; text-align: center;"></div>
 </div>

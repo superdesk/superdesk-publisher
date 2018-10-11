@@ -12,7 +12,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
         constructor() {
             this.TEMPLATES_DIR = 'scripts/apps/web-publisher/views';
             this.selectedRule = {};
-            $scope.busy = true;
+            $scope.loading = true;
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
@@ -399,11 +399,11 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description Loads Organization and Tenant Rules
          */
         _refreshRules() {
-            $scope.busy = true;
+            $scope.loading = true;
             this._loadOrganizationRules()
                 .then(() => {
                     this._loadTenantsRules();
-                    $scope.busy = false;
+                    $scope.loading = false;
                 });
         }
 

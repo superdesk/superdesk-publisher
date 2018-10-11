@@ -1,223 +1,219 @@
-<div class="subnav paneLayout bg--white">
-    <div class="flat-searchbar monitoring-backlink">
-        <div class="search-handler">
-            <button class="backlink" ng-click="webPublisherContentLists.changeView('content-lists')"></button>
-        </div>
-    </div>
-    <div class="filter-trigger" title="Filters" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'filter-trigger--active': webPublisherContentLists.filterOpen}">
-        <i class="icon-filter-large"></i>
-    </div>
-    <h3 class="page-nav-title">{{newList.name}}</h3>
-    <button class="btn" ng-disabled="!webPublisherContentLists.listChangeFlag" ng-click="webPublisherContentLists.changeView('content-lists')">Cancel</button>
-    <button class="btn btn--primary rightSpace--big" ng-disabled="!webPublisherContentLists.listChangeFlag" ng-click="webPublisherContentLists.saveManualList()" >Save</button>
-</div>
-<div class="paneLayout paneLayout--headerMargin">
-    <div class="paneLayout__leftPane paneContent" ng-class="{'paneLayout__leftPane--open': webPublisherContentLists.filterOpen}">
-        <div class="paneContent__header paneContent__header--dark">
-            <h3 class="pull-left" translate>Filter Articles</h3>
-            <div ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" class="close-filter">
-                <i class="icon-close-small"></i>
-            </div>
-        </div>
-        <div class="paneContent__content paneContent__content--hasFooter contentPadding">
-            <form name="" class="flat">
-                <fieldset class="label-light">
-                     <div class="item">
-                        <label for="term" translate>Search</label>
-                        <input type="text" ng-model="newList.filters.term" class="line-input">
-                    </div>
-                    <div class="item" ng-if="routes">
-                      <label translate>routes</label>
-                        <div sd-meta-terms
-                            class="data"
-                            data-item="webPublisherContentLists"
-                            data-field="selectedRoutes"
-                            data-list="routes"
-                            data-unique="id"
-                            data-header="true"
-                            data-reload-list="true">
-                        </div>
-                     </div>
 
-                    <div class="item">
-                      <label translate>author</label>
-                        <div class="multiple" ng-repeat="item in newList.filters.author track by $index">
-                            <input type="text" class="line-input" ng-model="newList.filters.author[$index]">
-                            <button
-                                type="button"
-                                class="btn btn--small"
-                                ng-click="webPublisherContentLists.removeAuthor($index)"
-                                tooltip="{{:: 'Remove'|translate}}"
-                                tooltip-placement="bottom"
-                                tooltip-popup-delay="500">
-                                <i class="icon-close-small"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        class="btn btn--primary btn--small"
-                        ng-click="webPublisherContentLists.addAuthor()"
-                        tooltip="{{:: 'Add author'|translate}}"
-                        tooltip-placement="right"
-                        tooltip-popup-delay="500">
-                        <i class="svg-icon-plus"></i>
-                    </button>
-                    <div class="item">
-                        <label for="publishedAfter" translate>published after</label>
-                        <div class="field">
-                            <div sd-datepicker data-format="YYYY-MM-DD" name="publishedAfter" id="publishedAfter" ng-model="newList.filters.publishedAfter"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label for="publishedBefore" translate>published before</label>
-                        <div class="field">
-                            <div sd-datepicker data-format="YYYY-MM-DD" name="publishedBefore" id="publishedBefore" ng-model="newList.filters.publishedBefore"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label translate>metadata</label>
-                        <div class="field" ng-if="webPublisherContentLists.metadataList.length>0">
-                            <label translate>Name</label>
-                            <label translate>Value</label>
-                        </div>
-                        <div class="multiple" ng-repeat="item in webPublisherContentLists.metadataList">
-                            <input type="text" class="line-input" ng-model="item.metaName">
-                            <input type="text" class="line-input" ng-model="item.metaValue">
-                            <button
-                                type="button"
-                                class="btn btn--small"
-                                ng-click="webPublisherContentLists.removeMetadata($index)"
-                                tooltip="{{:: 'Remove'|translate}}"
-                                tooltip-placement="bottom"
-                                tooltip-popup-delay="500">
-                                <i class="icon-close-small"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        class="btn btn--primary btn--small"
-                        ng-click="webPublisherContentLists.addMetadata()"
-                        tooltip="{{:: 'Add metadata'|translate}}"
-                        tooltip-placement="right"
-                        tooltip-popup-delay="500">
-                        <i class="svg-icon-plus"></i>
-                    </button>
-                </fieldset>
-            </form>
-        </div>
-        <div class="paneContent__footer">
-            <button class="btn btn--large btn--primary btn--expanded" ng-click="webPublisherContentLists.filterArticles()" translate>Filter</button>
-        </div>
-    </div>
-
-    <div class="paneLayout__content verticalLayout verticalLayout--directionRow">
-        <div class="verticalLayout__element contentPadding" id="manualListArticlesScrolling">
-            <h3 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big" translate>All Articles</h3>
-            <div class="sd-line-input inlineBlock">
-                <input class="sd-line-input__input" type="text" placeholder="search"
-                    ng-model='newList.filters.term'
-                    ng-model-options='{ debounce: 1000 }'
-                    ng-change='webPublisherContentLists.filterArticles()'>
-            </div>
-
-            <div ng-if="!webPublisherContentLists.tenantArticles.loading && !webPublisherContentLists.tenantArticles.items.length" class="alert alert-info alert-block">
-                <h4 translate>The list is empty</h4>
-                <p translate>Please update filter criteria to add articles to the list.</p>
-            </div>
-
-            <ul class="flatList"
-                infinite-scroll="webPublisherContentLists.loadMoreTenantArticles()"
-                infinite-scroll-container="'#manualListArticlesScrolling'"
-                dnd-list="webPublisherContentLists.tenantArticles.items"
-                dnd-allowed-types="['tenant']"
-                >
-                <li ng-repeat="article in webPublisherContentLists.tenantArticles.items"
-                    dnd-draggable="article"
-                    dnd-moved="webPublisherContentLists.tenantArticles.items.splice($index, 1)"
-                    dnd-type="article.type"
-                    dnd-effect-allowed="move"
-                >
-                <div class="sd-list-item sd-shadow--z1" ng-class="{&quot;sd-list-item--activated&quot;:itemActive2}">
-                    <div class="sd-list-item__border"></div>
-                    <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
-                        <i class="icon-warning-sign icon--red"></i>
-                    </div>
-                    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                        <div class="sd-list-item__row">
-                            <span class="sd-overflow-ellipsis">{{ :: article.title || article.content.title}}</span>
-
-                        </div>
-                        <div class="sd-list-item__row">
-                            <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
-                            <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
-                            <span class="label"
-                                    ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
-                                    >{{article.route.name || article.content.route.name}}</span>
-                        </div>
-                    </div>
-                </div>
+<div class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column panel-border-right">
+    <div class="subnav subnav--lower-z-index subnav--dark-blue-grey">
+        <button class="navbtn navbtn--left" ng-click="webPublisherContentLists.changeView('content-lists', false)">
+            <i class="icon-th"></i>
+        </button>
+        <div sd-search-handler data-title="Search" ng-model='newList.filterQuery.content.title'></div>
+        <div class="dropdown" dropdown="">
+            <button class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle" dropdown-toggle="">{{webPublisherContentLists.selectedList.name}}
+                <span class="dropdown__caret"></span>
+            </button>
+            <ul class="dropdown__menu scrollable">
+                <li><div class="dropdown__menu-label">Content lists</div></li>
+                <li ng-repeat="list in lists | orderBy: 'id' track by list.id">
+                    <button ng-click="webPublisherContentLists.openListCriteria(list)">{{list.name}}</button>
                 </li>
             </ul>
-            <div ng-if="webPublisherContentLists.tenantArticles.loading" class="topMargin">
-                <div class="item-group__loading"></div>
-            </div>
         </div>
-        <div class="verticalLayout__element verticalLayout__element--border contentPadding dropZone" ng-class="{'dropZone--empty': !newList.items.length, 'dropZone--active': webPublisherContentLists.draggingFlag}">
-            <h3 class="text--uppercase text--bold text--smallHeading inlineBlock rightSpace--big" translate>Content List Articles</h3>
-            <div class="sd-line-input inlineBlock">
-                <input class="sd-line-input__input" type="text" placeholder="search"
-                    ng-model='newList.filterQuery.content.title'
-                    ng-disabled="webPublisherContentLists.listChangeFlag">
-            </div>
-            <span class="badge badge--light pull-right" sd-tooltip="number of articles" flow="left">{{newList.items.length}}</span>
-            <h2 class="dropZone__heading" ng-if="!newList.items.length">Drag your Articles here</h2>
-            <div ng-if="loading">
-                <div class="item-group__loading"></div>
-            </div>
-            <div ng-if="!loading && !newList.items.length" class="alert alert-info alert-block">
-                <h4 translate>The list is empty</h4>
-                <p translate>Please update filter criteria to add articles to the list.</p>
-            </div>
+        <div class="subnav__stretch-bar"></div>
+        <button class="btn btn--primary margin--right"
+            ng-disabled="!webPublisherContentLists.listChangeFlag"
+            ng-click="webPublisherContentLists.saveManualList()"
+        >Save</button>
+    </div>
 
-            <ul ng-if="!loading" class="sd-list-item-group sd-list-item-group--space-between-items" style="min-height: 50vh;"
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column relative dropZone"
+            ng-class="{'dropZone--empty': !newList.items.length, 'dropZone--active': webPublisherContentLists.draggingFlag}"
+        >
+            <h2 class="dropZone__heading" ng-if="!newList.items.length">Drag your Articles here</h2>
+            <div class="sd-loader" ng-if="loading"></div>
+            <ul class="sd-list-item-group sd-shadow--z2"
                 dnd-list="newList.items"
                 dnd-drop="webPublisherContentLists.onDrop(newList, item, index)"
                 dnd-inserted="webPublisherContentLists._markDuplicates(newList.items)"
                 dnd-allowed-types="['tenant', 'list']"
-                >
-                <li ng-repeat="article in newList.items | filter:newList.filterQuery"
+            >
+                <li
+                    ng-repeat="article in newList.items | filter:newList.filterQuery"
                     dnd-draggable="article"
                     dnd-moved="webPublisherContentLists.onMoved(newList, $index)"
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="sd-list-item sd-shadow--z1" ng-class="{&quot;sd-list-item--activated&quot;:itemActive2}">
-                        <div class="sd-list-item__border"></div>
-                        <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
-                            <i class="icon-warning-sign icon--red"></i>
+                    <div class="sd-list-item">
+                        <div class="sd-list-item__column" ng-if="article.duplicate">
+                            <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
+                                <i class="icon-warning-sign"></i>
+                            </a>
                         </div>
-                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                        <div class="sd-list-item__column sd-list-item__column--grow">
                             <div class="sd-list-item__row">
-                                <span class="sd-overflow-ellipsis">{{ :: article.title || article.content.title}}</span>
-
+                                <span class="sd-overflow-ellipsis sd-list-item__text-strong">
+                                        {{ :: article.title || article.content.title}}
+                                </span>
                             </div>
                             <div class="sd-list-item__row">
-                                <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
-                                <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
-                                <span class="label"
-                                    ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
-                                    >{{article.route.name || article.content.route.name}}</span>
+                                <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</span>
+                                <span class="label label--success label--hollow">{{article.route.name || article.content.route.name}}</span>
                             </div>
                         </div>
                         <div class="sd-list-item__action-menu">
-                            <button ng-if="!article.sticky" ng-click="webPublisherContentLists.removeFromList($index)" title="{{:: 'Delete' | translate }}"><i class="icon-trash"></i></button>
+                            <button ng-click="webPublisherContentLists.removeFromList($index)" title="{{:: 'Delete' | translate }}"><i class="icon-trash"></i></button>
                         </div>
                     </div>
                 </li>
             </ul>
-
         </div>
     </div>
 </div>
+
+<div class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column">
+    <div class="subnav subnav--lower-z-index">
+        <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'navbtn--active': webPublisherContentLists.filterOpen}">
+            <i class="icon-filter-large"></i>
+        </button>
+        <div sd-search-handler data-label="Search" ng-model='newList.filters.term'></div>
+        <h3 class="subnav__page-title">All published articles</h3>
+    </div>
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column relative" id="manualListArticlesScrolling">
+            <div class="sd-loader" ng-if="webPublisherContentLists.tenantArticles.loading"></div>
+            <ul class="sd-list-item-group sd-shadow--z2"
+                infinite-scroll="webPublisherContentLists.loadMoreTenantArticles()"
+                infinite-scroll-container="'#manualListArticlesScrolling'"
+                dnd-list="webPublisherContentLists.tenantArticles.items"
+                dnd-allowed-types="['tenant']"
+            >
+
+                <li
+                    ng-repeat="article in webPublisherContentLists.tenantArticles.items"
+                    dnd-draggable="article"
+                    dnd-moved="webPublisherContentLists.tenantArticles.items.splice($index, 1)"
+                    dnd-type="article.type"
+                    dnd-effect-allowed="move"
+                >
+                    <div class="sd-list-item">
+                        <div class="sd-list-item__column" ng-if="article.duplicate">
+                            <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
+                                <i class="icon-warning-sign"></i>
+                            </a>
+                        </div>
+                        <div class="sd-list-item__column sd-list-item__column--grow">
+                            <div class="sd-list-item__row">
+                                <span class="sd-overflow-ellipsis sd-list-item__text-strong">{{ :: article.title || article.content.title}}</span>
+                            </div>
+                            <div class="sd-list-item__row">
+                                <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</span>
+                                <span class="label"
+                                    ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
+                                >{{article.route.name || article.content.route.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- filters -->
+        <div class="sd-filters-panel sd-filters-panel--border-left">
+            <div class="side-panel side-panel--transparent side-panel--shadow-right">
+                <div class="side-panel__header side-panel__header--border-b">
+                        <a class="icn-btn side-panel__close" sd-tooltip="Close filters" flow="left" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen"><i class="icon-close-small"></i></a>
+                    <h3 class="side-panel__heading">Advanced filters</h3>
+                </div>
+                <div class="side-panel__content">
+                    <div class="sd-loader" ng-if="loading"></div>
+                    <div class="side-panel__content-block">
+                        <div class="form__row">
+                            <div class="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
+                                <sd-tag-input
+                                    ng-if="routes"
+                                    ng-model="webPublisherContentLists.selectedRoutes"
+                                    data-label="Routes"
+                                    data-items="routes"
+                                    data-field="name"
+                                    data-freetext="false" >
+                                    <tags-input
+                                        ng-model="model"
+                                        add-from-autocomplete-only="{{items ? !freetext : false}}"
+                                        show-button="{{!!items}}"
+                                        display-property="{{field}}"
+                                        use-strings="{{!field}}"
+                                    ></tags-input>
+                                </sd-tag-input>
+                            </div>
+                        </div>
+                        <div class="form__row">
+                            <div class="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
+                                <sd-tag-input ng-model="newList.filters.author" data-label="Authors">
+                                    <tags-input ng-model="model" add-from-autocomplete-only="{{items ? !freetext : false}}" show-button="{{!!items}}" display-property="{{field}}" use-strings="{{!field}}"></tags-input>
+                                </sd-tag-input>
+                            </div>
+                        </div>
+                        <div class="form__row form__row--flex">
+                            <div class="sd-line-input sd-line-input--no-margin">
+                                <a class="icn-btn sd-line-input__icon-right"><i class="icon-calendar"></i></a>
+                                <label class="sd-line-input__label">Published date</label>
+                                <div sd-datepicker data-format="YYYY-MM-DD" name="publishedAt" id="publishedAt" ng-model="newList.filters.publishedAt"></div>
+                            </div>
+                        </div>
+                        <div class="form__row form__row--flex">
+                            <div class="sd-line-input sd-line-input--no-margin">
+                                <label class="sd-line-input__label">Published after</label>
+                                <div sd-datepicker data-format="YYYY-MM-DD" name="publishedAfter" id="publishedAfter" ng-model="newList.filters.publishedAfter"></div>
+                            </div>
+                        </div>
+                        <div class="form__row form__row--flex">
+                            <div class="sd-line-input sd-line-input--no-margin">
+                                <label class="sd-line-input__label">Published before</label>
+                                <div sd-datepicker data-format="YYYY-MM-DD" name="publishedBefore" id="publishedBefore" ng-model="newList.filters.publishedBefore"></div>
+                            </div>
+                        </div>
+                        <div class="form__row form__row--flex">
+                            <div class="sd-line-input">
+                                <label class="sd-line-input__label">Metadata</label>
+                                <div ng-repeat="item in webPublisherContentLists.metadataList" class="grid">
+                                    <div class="grid__item grid__item--col-5">
+                                        <input class="sd-line-input__input" type="text" ng-model="item.metaName" placeholder="Name">
+                                    </div>
+                                    <div class="grid__item grid__item--col-5">
+                                        <input class="sd-line-input__input" type="text" ng-model="item.metaValue" placeholder="Value">
+                                    </div>
+                                    <div class="grid__item grid__item--col-2">
+                                        <button
+                                            type="button"
+                                            class="btn btn--alert btn--small btn--icon-only btn--hollow"
+                                            ng-click="webPublisherContentLists.removeMetadata($index)"
+                                            tooltip="{{:: 'Remove'|translate}}"
+                                            tooltip-placement="bottom"
+                                            tooltip-popup-delay="500">
+                                            <i class="icon-close-small"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    class="btn btn--primary btn--icon-only margin--top"
+                                    ng-click="webPublisherContentLists.addMetadata()"
+                                    sd-tooltip="{{:: 'Add metadata'|translate}}"
+                                    flow="right"
+                                >
+                                    <i class="icon-plus-large"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side-panel__footer side-panel__footer--button-box">
+                    <div class="flex-grid flex-grid--boxed-small flex-grid--small-1">
+                        <a ng-click="webPublisherContentLists.filterArticles()" class="btn btn--primary btn--large">Filter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

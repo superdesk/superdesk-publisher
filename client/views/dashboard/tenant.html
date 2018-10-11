@@ -1,0 +1,32 @@
+<div class="sd-grid-item-header">
+    <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
+        <a ng-href="{{site.outputChannel ? site.outputChannel.config.url : 'http://' + site.subdomain + '.' + site.domainName}}" flow="down">
+            <span>{{ site.name }}</span><i class="icon-external"></i>
+        </a>
+    </h3>
+    <div class="dropdown dropdown--align-right" dropdown="">
+        <button class="dropdown__toggle icn-btn" dropdown__toggle="">
+            <i class="icon-dots"></i>
+        </button>
+        <ul class="dropdown__menu">
+            <li><button ng-click="webPublisher.editSite(site)"><i class="icon-settings"></i>Manage</button></li>
+            <li><button ng-click="webPublisher.deleteSite(site.code)"><i class="icon-trash"></i>Delete</button></li>
+        </ul>
+    </div>
+</div>
+<div class="sd-card sd-card--flex-grow">
+    <div class="dashboard-content-header sd-shadow--z1">
+        <div class="big-number-block big-number-block--grow big-number-block--center">
+            <div class="big-number-block__number">{{site.articlesCount}}
+            </div>
+            <div class="big-number-block__text">Published<br/>items</div>
+        </div>
+        <div class="btn-icon-group" ng-if="!site.outputChannel">
+            <!-- <a class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Analytics" flow="down"><i class="icon-analytics"></i></a> -->
+            <a ng-href="#/publisher/content_lists/{{site.code}}" class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Content lists" flow="down"><i class="icon-unordered-list"></i></a>
+            <a ng-click="webPublisher.activateLiveSite(site)" class="btn btn--primary btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Livesite editor" flow="down"><i class="icon-pencil"></i></a>
+        </div>
+        <i ng-if="site.outputChannel" class="sp-logo-wordpress" sd-tooltip="Wordpress" flow="left"></i>
+    </div>
+    <div class="sd-card__content" sd-list-content-lists data-site="site"></div>
+</div>

@@ -1,0 +1,53 @@
+<div class="sd-page-grid--basic">
+    <header class="sd-top-menu">
+        <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
+        <p class="sd-top-menu__header">Publisher</p>
+    </header>
+
+    <section class="sd-content sd-page-content--slide-in" ng-class="{
+            'sd-page-content--slide-in--open' : editorOpen}">
+        <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
+        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar" ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
+            <div class="subnav">
+                <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherOutput.toggleFilterPane()" ng-class="{'navbtn--active': webPublisherOutput.filterOpen}">
+                    <i class="icon-filter-large"></i>
+                </button>
+                <div sd-search-handler data-title="Search" ng-model='webPublisherOutput.advancedFilters.term'></div>
+                <h3 class="subnav__page-title">Output Control</h3>
+            </div>
+            <div class="subnav subnav--padded subnav--lower-z-index" ng-init="listType = 'incoming'">
+                <sd-check ng-model="listType" type="radio" ng-value="incoming" label-position="inside" ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
+                <sd-check ng-model="listType" type="radio" ng-value="published" label-position="inside" ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
+            </div>
+            <div class="sd-column-box--3">
+                <div class="sd-filters-panel sd-filters-panel--border-right">
+                    <div class="side-panel side-panel--transparent side-panel--shadow-right"
+                        ng-include="'filter-pane.html'">
+                    </div>
+                </div>
+                <div class="sd-column-box__main-column relative"
+                    sd-group-article
+                    data-root-type="{{listType}}"
+                    data-web-publisher-output="webPublisherOutput"
+                    data-filters="webPublisherOutput.advancedFilters">
+                </div><!-- end main -->
+
+                <!-- start preview -->
+                <div class="sd-preview-panel"
+                    ng-include="'preview-pane.html'">
+                </div><!-- end preview -->
+
+                <!-- start publish -->
+                <div class="sd-publish-panel"
+                    ng-include="'publishing-pane.html'">
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+    <footer class="bottom-bar ">
+        This is the optional footer.
+    </footer>
+</div>

@@ -1,0 +1,108 @@
+<div sd-modal data-model="true" data-full="true" class="modal--fullscreen publisherManager" ng-init="webPublisher.activeTab = 'general'">
+    <div class="modal__header">
+        <h3 class="modal__heading pull-left"><span translate>Manage:</span> <b>{{webPublisher.selectedSite.name}}</b></h3>
+        <div class="pull-right">
+            <a class="btn btn--success" target="_blank"
+                ng-href="{{webPublisher.selectedSite.subdomain ? 'http://' + webPublisher.selectedSite.subdomain + '.' + webPublisher.selectedSite.domainName: 'http://' + webPublisher.selectedSite.domainName}}">
+                <i class="icon-globe"></i>{{ 'Open website' | translate }}
+            </a>
+            <button class="btn" ng-click="webPublisher.toggleEditSite()" translate>Close</button>
+            <button
+                class="btn"
+                ng-disabled="webPublisher.siteForm.$invalid || !webPublisher.siteForm.$dirty"
+                ng-show="webPublisher.activeTab === 'general'"
+                ng-click="webPublisher.cancelEditSite()"
+                translate>Cancel</button>
+            <button
+                class="btn btn--primary"
+                ng-disabled="webPublisher.siteForm.$invalid || !webPublisher.siteForm.$dirty"
+                ng-show="webPublisher.activeTab === 'general'"
+                ng-click="webPublisher.saveSite()"
+                translate>Save</button>
+
+            <button
+                class="btn"
+                ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
+                ng-show="webPublisher.activeTab === 'theme-settings'"
+                ng-click="webPublisher.cancelEditThemeSettings()"
+                translate>Cancel</button>
+            <button
+                class="btn btn--primary"
+                ng-disabled="webPublisher.themeSettingsForm.$invalid || !webPublisher.themeSettingsForm.$dirty"
+                ng-show="webPublisher.activeTab === 'theme-settings'"
+                ng-click="webPublisher.saveThemeSettings()"
+                translate>Save</button>
+        </div>
+    </div>
+    <div class="modal__body">
+        <main class="sd-page absPosition--top">
+            <nav class="sd-page__sidebar sd-left-nav">
+                <ul>
+                    <li class="sd-left-nav__group-header sd-left-nav__group-header--first">Tenant</li>
+                    <li>
+                        <a href="" class="sd-left-nav__btn"
+                            ng-class="{'sd-left-nav__btn--active': webPublisher.activeTab === 'general'}"
+                            ng-click="webPublisher.changeTab('general')"
+                            ng-disabled="webPublisher.themeSettingsForm.$dirty"
+                            translate>General</a>
+                    </li>
+                    <li class="sd-left-nav__group-header sd-left-nav__group-header--first">Content</li>
+                    <li ng-if="!webPublisher.selectedSite.outputChannel">
+                        <a href="" class="sd-left-nav__btn"
+                            ng-class="{'sd-left-nav__btn--active': webPublisher.activeTab === 'routes'}"
+                            ng-click="webPublisher.changeTab('routes')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
+                            translate>Routes</a>
+                    </li>
+                    <li ng-if="!webPublisher.selectedSite.outputChannel">
+                        <a href="" class="sd-left-nav__btn"
+                            ng-class="{'sd-left-nav__btn--active': webPublisher.activeTab === 'navigation' || webPublisher.activeTab === 'navigation-menu'}"
+                            ng-click="webPublisher.changeTab('navigation')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
+                            translate>Navigation</a>
+                    </li>
+                    <li class="sd-left-nav__group-header sd-left-nav__group-header--first">Theme</li>
+                    <li ng-if="!webPublisher.selectedSite.outputChannel">
+                        <a href="" class="sd-left-nav__btn"
+                            ng-class="{'sd-left-nav__btn--active': webPublisher.activeTab === 'theme-manager'}"
+                            ng-click="webPublisher.changeTab('theme-manager')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty || webPublisher.themeSettingsForm.$dirty"
+                            translate>Theme</a>
+                    </li>
+                    <li ng-show="webPublisher.themeSettings.settings.length"
+                        ng-if="!webPublisher.selectedSite.outputChannel">
+                        <a href="" class="sd-left-nav__btn"
+                            ng-class="{'sd-left-nav__btn--active': webPublisher.activeTab === 'theme-settings'}"
+                            ng-click="webPublisher.changeTab('theme-settings')"
+                            ng-disabled="!webPublisher.selectedSite.code || webPublisher.siteForm.$dirty"
+                            translate>Theme Customization</a>
+                    </li>
+                </ul>
+            </nav>
+            <section class="sd-page__main-content" ng-switch="webPublisher.activeTab">
+                <div ng-switch-when="general">
+                    <div class="sd-page__main-content" ng-include="'general.html'"></div>
+                </div>
+                <div ng-switch-when="routes">
+                    <div class="sd-page__main-content" ng-include="'routes.html'"></div>
+                </div>
+                <div ng-switch-when="navigation">
+                    <div class="sd-page__main-content" ng-include="'navigation.html'"></div>
+                </div>
+                <div ng-switch-when="navigation-menu">
+                    <div class="sd-page__main-content" ng-include="'navigation-menu-tree.html'"></div>
+                </div>
+                <div ng-switch-when="theme-manager" class="sd-page__main-content">
+                    <div sd-theme-manager
+                        data-site="webPublisher.selectedSite"
+                        activated-callback="webPublisher.themeActivatedCallback()"
+                        data-grid="4"
+                        class="sd-page__content"></div>
+                </div>
+                <div ng-switch-when="theme-settings">
+                    <div class="sd-page__main-content" ng-include="'theme-settings.html'"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>

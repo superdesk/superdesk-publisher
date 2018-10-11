@@ -14,6 +14,15 @@ export function ListArticlesDirective(publisher) {
         }
 
         link(scope) {
+            const _that = this;
+
+            scope.$watch('list', function (newValue, oldValue) {
+               if (oldValue.id != newValue.id) {
+                    scope.list = newValue;
+                    _that._queryItems(scope);
+               }
+            }, true);
+
             /**
              * @ngdoc method
              * @name sdListArticles#getTemplateUrl
@@ -36,6 +45,7 @@ export function ListArticlesDirective(publisher) {
              * @description Pins article
              */
             scope.pinArticle = (article) => {
+                scope.loading = true;
                 publisher.pinArticle(scope.list.id, article.id, {content_list_item: {sticky: !article.sticky}}).then(
                     (item) => this._queryItems(scope));
             };
@@ -61,6 +71,9 @@ export function ListArticlesDirective(publisher) {
             publisher.queryListArticles(scope.list.id).then((articles) => {
                 scope.loading = false;
                 scope.articles = articles;
+            })
+            .catch(err => {
+                scope.loading = false;
             });
         }
     }

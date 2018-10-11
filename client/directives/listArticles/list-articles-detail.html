@@ -1,38 +1,31 @@
-<div ng-if="loading">
-    <div class="item-group__loading"></div>
-</div>
+<div class="sd-loader" ng-if="loading"></div>
 
 <div ng-if="!loading && !articles.length" class="alert alert-info alert-block">
     <h4 translate>The list is empty</h4>
     <p translate>Please update filter criteria to add articles to the list.</p>
 </div>
 
-<ul ng-if="!loading && articles.length" class="flatList">
-    <li ng-repeat="article in articles">
 
-        <div class="sd-list-item sd-shadow--z1" ng-class="{&quot;sd-list-item--activated&quot;:itemActive2}">
-            <div class="sd-list-item__border"></div>
-            <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
-                <i class="icon-warning-sign icon--red"></i>
-            </div>
-            <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                <div class="sd-list-item__row">
-                    <span class="sd-overflow-ellipsis">{{ :: article.title || article.content.title}}</span>
-
-                </div>
-                <div class="sd-list-item__row">
-                    <time class="noPadding">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</time>
-                    <span class="sd-overflow-ellipsis sd-list-item--element-grow"></span>
-                    <span class="label"
-                        ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
-                        >{{article.route.name || article.content.route.name}}</span>
-                    <span ng-if="article.sticky" class="pull-right label label--primary label--hollow" translate>pinned</span>
-                </div>
-            </div>
-            <div class="sd-list-item__action-menu">
-                <button class="pull-right" ng-if="article.sticky" ng-click="pinArticle(article)" title="{{:: 'Unpin' | translate }}"><i class="icon-pin"></i></button>
-                <button class="hidden pull-right" ng-if="!article.sticky" ng-click="pinArticle(article)" title="{{:: 'Pin' | translate }}"><i class="icon-pin"></i></button>
-            </div>
+<div class="sd-list-item sd-shadow--z1"
+    ng-if="!loading && articles.length" ng-repeat="article in articles">
+    <div class="sd-list-item__border"></div>
+    <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
+        <i class="icon-warning-sign icon--red"></i>
+    </div>
+    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+        <div class="sd-list-item__row">
+            <span class="sd-overflow-ellipsis sd-list-item__text-strong">{{ :: article.title || article.content.title}}</span>
         </div>
-    </li>
-</ul>
+        <div class="sd-list-item__row">
+            <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{article.updatedAt || article.createdAt || article.content.updatedAt || article.content.createdAt | reldate}}</span>
+            <span class="label"
+                ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
+                >{{article.route.name || article.content.route.name}}</span>
+            <span ng-if="article.sticky" class="pull-right label label--primary label--hollow" translate>pinned</span>
+        </div>
+    </div>
+    <div class="sd-list-item__action-menu">
+        <button class="pull-right" ng-if="article.sticky" ng-click="pinArticle(article)" title="{{:: 'Unpin' | translate }}" sd-tooltip="Unpin" flow="left"><i class="icon-pin"></i></button>
+        <button class="hidden pull-right" ng-if="!article.sticky" ng-click="pinArticle(article)" title="{{:: 'Pin' | translate }}" sd-tooltip="Pin" flow="left"><i class="icon-pin"></i></button>
+    </div>
+</div>

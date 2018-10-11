@@ -1,33 +1,32 @@
-<div class="paneContent__header">
-	<h3 class="pull-left" translate>Rule preview</h3>
-	<div class="pull-right">
-		<div ng-click="webPublisherSettings.togglePreviewRule()" class="close-filter">
-            <i class="icon-close-small"></i>
-        </div>
-	</div>
+<div class="side-panel__header side-panel__header--border-b">
+	<a class="icn-btn side-panel__close" ng-click="webPublisherSettings.togglePreviewRule()"><i class="icon-close-small"></i></a>
+	<h3 class="side-panel__heading">Rule preview</h3>
 </div>
-<div class="paneContent__content contentPadding">
-	<h3>{{webPublisherSettings.selectedRule.name}}</h3>
-	<p>{{webPublisherSettings.selectedRule.description}}</p>
-	<span class="label label--primary rightSpace"
-		ng-repeat="part in webPublisherSettings.makeExpressionReadable(webPublisherSettings.selectedRule.expression)">
-		{{part}}
-	</span>
-	<p class="codeBlock">
-		{{webPublisherSettings.selectedRule.expression}}
-	</p>
-	<p>Send to:</p>
-	<span class="label label--primary rightSpace"
-		ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations">
-		{{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
-	</span>
-	<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label label--success rightSpace" ng-class="{'label--hollow' : !webPublisherSettings.selectedRule.configuration.published}">
-		{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
-	</span>
-	<span ng-if="webPublisherSettings.selectedRule.configuration.paywallSecured" class="label label--red2 rightSpace">
-		Paywall Secured
-	</span>
-	<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
-		Facebook
-	</span>
+
+<div class="side-panel__content">
+	<div class="side-panel__content-block">
+		<h3>{{webPublisherSettings.selectedRule.name}}</h3>
+		<p>{{webPublisherSettings.selectedRule.description}}</p>
+		<span class="label label--primary margin--right"
+			ng-repeat="part in webPublisherSettings.makeExpressionReadable(webPublisherSettings.selectedRule.expression)">
+			{{part}}
+		</span>
+		<p class="codeBlock">
+			{{webPublisherSettings.selectedRule.expression}}
+		</p>
+		<p>Send to:</p>
+		<span class="label label--primary margin--right"
+			ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations">
+			{{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
+		</span>
+		<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label label--success margin--right" ng-class="{'label--hollow' : !webPublisherSettings.selectedRule.configuration.published}">
+			{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
+		</span>
+		<span ng-if="webPublisherSettings.selectedRule.configuration.paywallSecured" class="label label--red2 margin--right">
+			Paywall Secured
+		</span>
+		<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
+			Facebook
+		</span>
+	</div>
 </div>

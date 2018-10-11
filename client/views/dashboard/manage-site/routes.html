@@ -1,0 +1,91 @@
+<div class="sd-page__header sd-page__header--white padding--right0">
+    <ul class="filter-type filter-type--padded rightPadding">
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === ''}">
+            <a ng-click="webPublisher.changeRouteFilter('')" translate>all</a>
+        </li>
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === 'collection'}">
+            <a ng-click="webPublisher.changeRouteFilter('collection')" translate>collection</a>
+        </li>
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === 'content'}">
+            <a ng-click="webPublisher.changeRouteFilter('content')" translate>content</a>
+        </li>
+    </ul>
+    <span class="sd-page__element-grow"></span>
+    <button class="navbtn sd-create-btn" ng-click="webPublisher.toogleCreateRoute(true)">
+        <i class="icon-plus-large"></i>
+        <span class="circle"></span>
+    </button>
+</div>
+
+<div class="sd-page-content__content-block sd-page-content__content-block--main" ng-class="{'open-preview': webPublisher.routePaneOpen}" >
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column">
+            <ul class="treeList sd-list-item-group" dnd-list="routes.children" dnd-drop="webPublisher.reorderRoute(routes, item, index)">
+                <li ng-repeat="route in routes.children"
+                    dnd-draggable="route"
+                    dnd-dragstart="route.dragging = true"
+                    dnd-dragend="route.dragging = false"
+                    ng-hide="route.dragging"
+                    ng-include="'routes-tree.html'">
+                </li>
+            </ul>
+        </div>
+        <div class="sd-preview-panel">
+            <div class="side-panel side-panel--shadow-right">
+                <div class="side-panel__header side-panel__header--border-b">
+                    <a class="icn-btn side-panel__close" ng-click="webPublisher.toogleCreateRoute(false)"><i class="icon-close-small"></i></a>
+                    <h3 class="side-panel__heading" ng-if="webPublisher.isObjEmpty(webPublisher.selectedRoute)" translate>Add Route</h3>
+                    <h3 class="side-panel__heading" ng-if="!webPublisher.isObjEmpty(webPublisher.selectedRoute)" translate>Edit Route</h3>
+                </div>
+
+                <div class="side-panel__content">
+                    <div class="side-panel__content-block">
+                        <form name="webPublisher.routeForm" class="flat">
+                            <fieldset class="label-light">
+                                <div class="item">
+                                    <label for="routeName" translate>name</label>
+                                    <input type="text" class="line-input" id="routeName" ng-model="newRoute.name" required>
+                                </div>
+                                <div class="item">
+                                    <label for="routeType" translate>type</label>
+                                    <select class="dropdown__toggle line-input" id="routeType" ng-model="newRoute.type" required>
+                                            <option value="collection" translate>Collection</option>
+                                            <option value="content" translate>Content</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label for="routeParent" translate>parent</label>
+                                    <select id="routeParent" class="dropdown__toggle line-input" ng-model="newRoute.parent"
+                                        ng-options="route.id as route.name for route in routes.children | filter: {id: newRoute.id ? '!' + newRoute.id : ''}">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <span ng-model="newRoute.paywallSecured" sd-switch=""></span><label>Paywall secured</label>
+                                </div>
+                                <div class="item">
+                                    <label for="routeTemplate" translate>template name</label>
+                                    <input type="text" class="line-input" id="routeTemplate" ng-model="newRoute.templateName">
+                                </div>
+                                <div class="item">
+                                    <label for="articleTemplate" translate>article template name</label>
+                                    <input type="text" class="line-input" id="articleTemplate" ng-model="newRoute.articlesTemplateName">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="side-panel__footer side-panel__footer--button-box">
+                    <div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
+                        <a class="btn btn--hollow" ng-click="webPublisher.toogleCreateRoute(false)">Cancel</a>
+                        <button class="btn btn--primary"
+                            ng-disabled="webPublisher.routeForm.$invalid || !webPublisher.routeForm.$dirty"
+                            ng-click="webPublisher.saveRoute()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

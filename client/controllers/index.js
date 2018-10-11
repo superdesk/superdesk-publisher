@@ -1,4 +1,4 @@
-export {WebPublisherManagerController} from './WebPublisherManagerController';
-export {WebPublisherMonitoringController} from './WebPublisherMonitoringController';
+export {WebPublisherDashboardController} from './WebPublisherDashboardController';
+export {WebPublisherOutputController} from './WebPublisherOutputController';
 export {WebPublisherSettingsController} from './WebPublisherSettingsController';
 export {WebPublisherContentListsController} from './WebPublisherContentListsController';

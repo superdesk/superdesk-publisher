@@ -1,0 +1,138 @@
+<div class="sd-page__content" >
+    <form name="webPublisher.themeSettingsForm">
+        <div class="grid">
+            <div class="grid__item grid__item--col-12">
+                <h3 class="text--normal">Logos</h3>
+            </div>
+            <div class="grid__item grid__item--col-4 upload-media margin--top margin--bottom">
+                <h4 class="text--uppercase text--bold text--smallHeading inlineBlock">Main Logo</h4>
+                <div class="bottomMargin iconOnHover"
+                    ng-if="webPublisher.themeSettings.theme_logo.value && !webPublisher.replace_theme_logo"
+                    ng-click="webPublisher.replace_theme_logo = true">
+                    <i class="icon-pencil"></i>
+                    <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo.value}}" style="max-width:100%" />
+                </div>
+                <div class="wizardThemeBox wizardThemeBox--upload"
+                ng-if="!webPublisher.themeSettings.theme_logo.value || webPublisher.replace_theme_logo">
+                    <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo')"
+                        ngf-multiple="false" ng-class="{compact: items.length}">
+                        <div class="upload-error" ng-show="newThemeSettings.theme_logo.error">
+                            <span class="action">Something went wrong</span>
+                        </div>
+                        <div class="title" translate>Drop Your Logo Here</div>
+                        <div class="upload-manual">
+                            <div class="or-label" translate>or</div>
+                            <label class="btn" for="theme_logo">{{ 'Select from folder' | translate }}</label>
+                            <input id="theme_logo" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo')" class="hide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__item grid__item--col-4 upload-media margin--top margin--bottom">
+                <h4 class="text--uppercase text--bold text--smallHeading inlineBlock">Second Logo</h4>
+                <div class="bottomMargin iconOnHover"
+                    ng-if="webPublisher.themeSettings.theme_logo_second.value && !webPublisher.replace_theme_logo_second"
+                    ng-click="webPublisher.replace_theme_logo_second = true">
+                    <i class="icon-pencil"></i>
+                    <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo_second.value}}" style="max-width:100%" />
+                </div>
+                <div class="wizardThemeBox wizardThemeBox--upload"
+                    ng-if="!webPublisher.themeSettings.theme_logo_second.value || webPublisher.replace_theme_logo_second">
+                    <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo_second')"
+                        ngf-multiple="false" ng-class="{compact: items.length}">
+                        <div class="upload-error" ng-show="newThemeSettings.theme_logo_second.error">
+                            <span class="action">Something went wrong</span>
+                        </div>
+                        <div class="title" translate>Drop Your Logo Here</div>
+                        <div class="upload-manual">
+                            <div class="or-label" translate>or</div>
+                            <label class="btn" for="theme_logo_second">{{ 'Select from folder' | translate }}</label>
+                            <input id="theme_logo_second" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo_second')" class="hide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__item grid__item--col-4 upload-media margin--top margin--bottom">
+                <h4 class="text--uppercase text--bold text--smallHeading inlineBlock">Third Logo</h4>
+                <div class="bottomMargin iconOnHover"
+                    ng-if="webPublisher.themeSettings.theme_logo_third.value && !webPublisher.replace_theme_logo_third"
+                    ng-click="webPublisher.replace_theme_logo_third = true">
+                    <i class="icon-pencil"></i>
+                    <img ng-src="{{'https://' + newSite.subdomain + '.' + newSite.domainName + '/theme_logo/' + webPublisher.themeSettings.theme_logo_third.value}}" style="max-width:100%" />
+                </div>
+                <div class="wizardThemeBox wizardThemeBox--upload"
+                    ng-if="!webPublisher.themeSettings.theme_logo_third.value || webPublisher.replace_theme_logo_third">
+                    <div class="drag-area" ngf-drop="webPublisher.uploadThemeLogo($files, 'theme_logo_third')"
+                        ngf-multiple="false" ng-class="{compact: items.length}">
+                        <div class="upload-error" ng-show="newThemeSettings.theme_logo_third.error">
+                            <span class="action">Something went wrong</span>
+                        </div>
+                        <div class="title" translate>Drop Your Logo Here</div>
+                        <div class="upload-manual">
+                            <div class="or-label" translate>or</div>
+                            <label class="btn" for="theme_logo_third">{{ 'Select from folder' | translate }}</label>
+                            <input id="theme_logo_third" type="file" ngf-select="webPublisher.uploadThemeLogo($files, 'theme_logo_third')" class="hide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="grid__item grid__item--col-6">
+                <div class="grid">
+                    <div class="grid__item grid__item--col-12 margin--bottom">
+                        <h3 class="text--normal">Theme Settings</h3>
+                    </div>
+                    <div class="grid__item grid__item--col-6"
+                        ng-repeat="setting in newThemeSettings.settings">
+                        <div ng-switch="setting.type">
+                            <div ng-switch-when="boolean">
+                                <div class="sd-line-input">
+                                    <label class="sd-line-input__label">{{setting.label}}</label>
+                                    <span ng-model="setting.value" sd-switch=""></span>
+                                </div>
+                            </div>
+
+                            <div ng-switch-default>
+                                <div class="sd-line-input" ng-class="{'sd-line-input--is-select': setting.options}">
+                                    <label class="sd-line-input__label">{{setting.label}}</label>
+                                    <input class="sd-line-input__input" type="text"
+                                        ng-if="!setting.options"
+                                        ng-model="setting.value">
+                                    <input ng-if="!setting.options && setting.label.toLowerCase().indexOf('color') !== -1"
+                                        class="sd-line-input__color"
+                                        type="color"
+                                        ng-model="setting.value">
+
+                                    <select class="sd-line-input__select"
+                                        ng-if="setting.options"
+                                        ng-model="setting.value">
+                                        <option ng-repeat="option in setting.options" value="{{option.value}}">{{option.label}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="grid__item grid__item--col-6">
+                <div class="grid">
+                    <div class="grid__item grid__item--col-12">
+                        <h3 class="text--normal">Revert styles</h3>
+                    </div>
+                    <div class="grid__item grid__item--col-12 margin--top">Revert styles back to theme defaults:</div>
+                    <div class="grid__item grid__item--col-12 margin--top">
+                        <button class="btn btn--hollow btn--primary"
+                            ng-click="webPublisher.themeSettingsRevert()"
+                            ng-disabled="loading">
+                            <i class="icon-refresh" ng-class="{'animate--rotate': loading}"></i> Theme defaults
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
