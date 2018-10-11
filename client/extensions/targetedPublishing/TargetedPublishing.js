@@ -249,7 +249,6 @@ export class TargetedPublishing extends React.Component {
         }
 
         return (
-
             <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui" isOpen={true}>
                 {this.state.loading && <Loading />}
                 {siteRules}
