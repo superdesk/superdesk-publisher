@@ -46,14 +46,14 @@
                     <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                         <div class="sd-list-item__row">
                             <span class="sd-overflow-ellipsis sd-list-item__text-strong">{{destination.tenant.name}}</span>
-                            <a ng-if="destination.liveUrl && webPublisherOutput.publishedDestinations[site.code].route.id != destination.route.id"
+                            <a ng-if="destination.liveUrl && webPublisherOutput.publishedDestinations[destination.tenant.code].route.id === destination.route.id"
                                 ng-href="{{destination.liveUrl}}"
                                 target="_blank"
                                 class="icn-btn" sd-tooltip="Preview" flow="bottom">
                                 <i class="icon-external icon--full-opacity icon--white"></i>
                             </a>
 
-                            <a ng-if='destination.route.id && ( !destination.liveUrl || webPublisherOutput.publishedDestinations[site.code].route.id != destination.route.id) && destination.status != "unpublished"'
+                            <a ng-if='destination.route.id && ( !destination.liveUrl || webPublisherOutput.publishedDestinations[destination.tenant.code].route.id !== destination.route.id) && destination.status != "unpublished"'
                                 ng-click="webPublisherOutput.openArticlePreview(destination.route.id, destination.tenant)"
                                 class="icn-btn" sd-tooltip="Preview" flow="bottom">
                                 <i class="icon-external icon--full-opacity icon--white"></i>
