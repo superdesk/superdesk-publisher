@@ -288,7 +288,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
                 publisher.publishArticle(
                     {publish: {destinations: destinations}}, this.selectedArticle.id)
                     .then(() => {
-                        this.publishOpen = false;
+                        this.closePublish();
+                        this.closePreview();
                         $scope.$broadcast('refreshArticlesList');
                     })
                     .catch((err) => {
@@ -315,7 +316,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             publisher.unPublishArticle(
                 {unpublish: {tenants: tenants}}, this.selectedArticle.id)
                 .then(() => {
-                    this.publishOpen = false;
+                    this.closePublish();
+                    this.closePreview();
                     $scope.$broadcast('refreshArticlesList');
                 });
         }
