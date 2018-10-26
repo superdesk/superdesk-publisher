@@ -1,0 +1,105 @@
+<div class="sd-page-grid--basic">
+    <header class="sd-top-menu">
+        <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
+        <p class="sd-top-menu__header">Publisher</p>
+    </header>
+
+    <section class="sd-content sd-page-content--slide-in">
+        <div class="sd-loader" ng-if="loading"></div>
+        <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
+        <div class="sd-page-content__content-block">
+            <div class="subnav">
+                <a href="#/publisher/dashboard" class="navbtn navbtn--left">
+                    <i class="icon-arrow-left"></i>
+                </a>
+                <h3 class="subnav__page-title">Content Analytics</h3>
+            </div>
+            <div class="sd-column-box--3">
+                <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right overflow-auto">
+                    <div class="subnav subnav--padded subnav--lower-z-index">
+                        <h3 class="sd-content-nav-title">Website</h3>
+                    </div>
+                    <nav class="sd-content-nav">
+                        <ul>
+                            <li ng-repeat="site in webPublisherAnalytics.sites">
+                                <a href="" class="sd-content-nav__btn"
+                                    ng-click="webPublisherAnalytics.setTenant(site)"
+                                    ng-class="{'sd-content-nav__btn--active' : webPublisherAnalytics.selectedTenant.code === site.code}">
+                                    {{:: site.name }}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="sd-column-box__main-column sd-column-box__main-column--flex">
+                   <!-- <div class="subnav subnav--lower-z-index">
+                        <div class="subnav__content-bar">
+                            <div class="dropdown" dropdown="">
+                                <button class="dropdown__toggle dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">Last 7 days<span class="dropdown__caret"></span></button>
+                                <ul class="dropdown__menu dropdown__menu--scrollable">
+                                    <li><button>Today</button></li>
+                                    <li><button>Yesterday</button></li>
+                                    <li><button>This week</button></li>
+                                    <li><button>Last week</button></li>
+                                    <li><button>Last 7 days</button></li>
+                                    <li><button>Last 14 days</button></li>
+                                    <li><button>Last 28 days</button></li>
+                                    <li><button>Last 30 days</button></li>
+                                    <li><button>Last 90 days</button></li>
+                                    <li><button>Last 12 months</button></li>
+                                    <li><button>This year</button></li>
+                                    <li><button>Last year</button></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subnav__content-bar">
+                            <div class="dropdown" dropdown="">
+                                <button class="dropdown__toggle dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
+                                    Updated<span class="dropdown__caret"></span>
+                                </button>
+                                <ul class="dropdown__menu">
+                                    <li><button>Updated</button></li>
+                                    <li><button>Created</button></li>
+                                    <li><button>Urgency</button></li>
+                                    <li><button>Category</button></li>
+                                    <li><button>Slugline</button></li>
+                                    <li><button>Priority</button></li>
+                                    <li><button>Genre</button></li>
+                                </ul>
+                            </div>
+                            <a class="icn-btn ng-hide" sd-tooltip="Descending" flow="bottom" ng-click="sortDesc = !sortDesc" ng-hide="!sortDesc"><i class="icon-descending"></i></a>
+                            <a class="icn-btn" sd-tooltip="Ascending" flow="bottom" ng-click="sortDesc = !sortDesc" ng-show="!sortDesc"><i class="icon-ascending"></i></a>
+                        </div>
+                    </div>
+                    -->
+                    <div class="sd-column-box__main-column-inner relative" id="scrollContainer">
+                        <table class="sd-table sd-table--shadowed">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Page Views</th>
+                                    <th>Click Rate</th>
+                                    <th>Impressions</th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                ng-if="webPublisherAnalytics.tenantArticles"
+                                infinite-scroll="webPublisherAnalytics.loadMoreTenantArticles()"
+                                infinite-scroll-container="'#scrollContainer'">
+                                <tr ng-repeat="article in webPublisherAnalytics.tenantArticles.items">
+                                    <td><strong>{{article.title}}</strong><a ng-href="{{article._links.online[0].href}}" class="icn-btn" target="_blank"><i class="icon-external"></i></a></td>
+                                    <td>{{article.articleStatistics.pageViewsNumber}}</td>
+                                    <td>{{article.articleStatistics.internalClickRate}}</td>
+                                    <td>{{article.articleStatistics.impressionsNumber}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="webPublisherAnalytics.tenantArticles.loading" class="item-group__loading" style="margin: 10px auto; line-height: 38px; height: 38px; text-align: center;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bottom-bar ">
+    </footer>
+</div>

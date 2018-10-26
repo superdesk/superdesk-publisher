@@ -22,7 +22,7 @@
             <div class="big-number-block__text">Published<br/>items</div>
         </div>
         <div class="btn-icon-group" ng-if="!site.outputChannel">
-            <!-- <a class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Analytics" flow="down"><i class="icon-analytics"></i></a> -->
+            <a ng-href="#/publisher/analytics/{{site.code}}" class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Analytics" flow="down"><i class="icon-analytics"></i></a>
             <a ng-href="#/publisher/content_lists/{{site.code}}" class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Content lists" flow="down"><i class="icon-unordered-list"></i></a>
             <a ng-click="webPublisher.activateLiveSite(site)" class="btn btn--primary btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Livesite editor" flow="down"><i class="icon-pencil"></i></a>
         </div>

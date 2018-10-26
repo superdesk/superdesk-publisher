@@ -126,6 +126,22 @@ export default angular.module('superdesk-publisher', [
             template: require('./client/views/content-lists/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
+        .activity('/publisher/analytics', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherAnalyticsController,
+            controllerAs: 'webPublisherAnalytics',
+            template: require('./client/views/analytics/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
+        .activity('/publisher/analytics/:_tenant', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherAnalyticsController,
+            controllerAs: 'webPublisherAnalytics',
+            template: require('./client/views/analytics/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
         .activity('/publisher/settings', {
             label: gettext('Settings'),
             description: gettext('Settings'),
