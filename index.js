@@ -82,13 +82,11 @@ export default angular.module('superdesk-publisher', [
         extensionPoints.register('authoring:publish', TargetedPublishing, {session: session, config: config}, ['item']);
     }])
 
-.config(['superdeskProvider', function(superdesk) {
+.config(['superdeskProvider', 'workspaceMenuProvider', function(superdesk, workspaceMenuProvider) {
     superdesk
         .activity('/publisher/dashboard', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            category: superdesk.MENU_MAIN,
-            adminTools: false,
             controller: controllers.WebPublisherDashboardController,
             controllerAs: 'webPublisher',
             template: require('./client/views/dashboard/index.html'),
@@ -126,12 +124,38 @@ export default angular.module('superdesk-publisher', [
             template: require('./client/views/content-lists/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
+        .activity('/publisher/analytics', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherAnalyticsController,
+            controllerAs: 'webPublisherAnalytics',
+            template: require('./client/views/analytics/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
+        .activity('/publisher/analytics/:_tenant', {
+            label: gettext('Publisher'),
+            description: gettext('Publisher'),
+            controller: controllers.WebPublisherAnalyticsController,
+            controllerAs: 'webPublisherAnalytics',
+            template: require('./client/views/analytics/index.html'),
+            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        })
         .activity('/publisher/settings', {
-            label: gettext('Settings'),
+            label: gettext('Publisher Settings'),
+            category: superdesk.MENU_MAIN,
+            adminTools: true,
             description: gettext('Settings'),
             controller: controllers.WebPublisherSettingsController,
             controllerAs: 'webPublisherSettings',
             template: require('./client/views/settings/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        });
+
+        workspaceMenuProvider.item({
+            href: '/publisher/dashboard',
+            label: gettext('Publisher'),
+            icon: 'publisher',
+            order: 1100,
+            group: 'Planning'
         });
 }]);
