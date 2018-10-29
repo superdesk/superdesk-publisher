@@ -82,13 +82,11 @@ export default angular.module('superdesk-publisher', [
         extensionPoints.register('authoring:publish', TargetedPublishing, {session: session, config: config}, ['item']);
     }])
 
-.config(['superdeskProvider', function(superdesk) {
+.config(['superdeskProvider', 'workspaceMenuProvider', function(superdesk, workspaceMenuProvider) {
     superdesk
         .activity('/publisher/dashboard', {
             label: gettext('Publisher'),
             description: gettext('Publisher'),
-            category: superdesk.MENU_MAIN,
-            adminTools: false,
             controller: controllers.WebPublisherDashboardController,
             controllerAs: 'webPublisher',
             template: require('./client/views/dashboard/index.html'),
@@ -143,11 +141,21 @@ export default angular.module('superdesk-publisher', [
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
         })
         .activity('/publisher/settings', {
-            label: gettext('Settings'),
+            label: gettext('Publisher Settings'),
+            category: superdesk.MENU_MAIN,
+            adminTools: true,
             description: gettext('Settings'),
             controller: controllers.WebPublisherSettingsController,
             controllerAs: 'webPublisherSettings',
             template: require('./client/views/settings/index.html'),
             sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+        });
+
+        workspaceMenuProvider.item({
+            href: '/publisher/dashboard',
+            label: gettext('Publisher'),
+            icon: 'publisher',
+            order: 1100,
+            group: 'Planning'
         });
 }]);
