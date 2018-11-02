@@ -1,6 +1,50 @@
 
-<div class="sd-loader" ng-if="loading"></div>
-       <div class="sd-column-box--2">
+<div ng-class="{'open-preview': webPublisherSettings.rulePreviewOpen || webPublisherSettings.rulePaneOpen}" class="sd-page__main-content">
+    <div class="sd-page__header sd-page__header--white">
+        <h2 class="sd-page__page-heading" translate="">Publishing Rules</h2>
+    </div>
+    <div class="sd-page__header">
+        <div ng-init="listType = 'all'">
+            <sd-check ng-model="listType" type="radio" ng-value="all" label-position="inside">All</sd-check>
+            <sd-check ng-model="listType" type="radio" ng-value="organization" label-position="inside">Organization Rules</sd-check>
+            <sd-check ng-model="listType" type="radio" ng-value="tenant" label-position="inside">Tenant Rules</sd-check>
+        </div>
+        <span class="sd-page__element-grow"></span>
+        <div class="dropdown dropdown--align-right" dropdown="">
+            <button class="btn btn--primary ng-binding" dropdown__toggle="">
+                <i class="icon-plus-sign icon--white"></i>Add New
+            </button>
+            <ul class="dropdown__menu dropdown--align-right">
+                <li>
+                    <div class="dropdown__menu-label">Create new rule</div>
+                </li>
+                <li class="dropdown__menu-divider"></li>
+                <li><button ng-click="webPublisherSettings.toggleCreateRule('organization')">Organization Rule</button></li>
+                <li><button ng-click="webPublisherSettings.toggleCreateRule('tenant')" ng-disabled="!webPublisherSettings.organizationRules.length">Tenant Rule</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="sd-page-content__content-block sd-page-content__content-block--main relative">
+        <div class="sd-loader" ng-if="loading"></div>
+        <div class="sd-column-box--3">
+            <div ng-if="listType==='tenant'" class="sd-content-navigation-panel sd-content-navigation-panel--border-right overflow-auto">
+                    <nav class="sd-content-nav">
+                        <ul>
+                            <li>
+                                <a href="" class="sd-content-nav__btn"
+                                    ng-click="webPublisherSettings.selectedTenant=false"
+                                    ng-class="{'sd-content-nav__btn--active' : !webPublisherSettings.selectedTenant}"
+                                >All Websites</a>
+                            </li>
+                            <li ng-repeat="site in webPublisherSettings.sites">
+                                <a href="" class="sd-content-nav__btn"
+                                    ng-click="webPublisherSettings.selectedTenant=site.code"
+                                    ng-class="{'sd-content-nav__btn--active' : webPublisherSettings.selectedTenant === site.code}"
+                                >{{site.name}}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             <div class="sd-column-box__main-column sd-page__content padding--bottomBig">
                 <div class="panel-info" ng-if="!webPublisherSettings.organizationRules.length">
                     <div class="panel-info__icon">
@@ -10,14 +54,16 @@
                     <p class="panel-info__description">Be the first one...</p>
                 </div>
                 <div ng-if="webPublisherSettings.organizationRules.length">
-                    <div class="sd-list-header margin--none margin--topBig">
-                        <span class="sd-list-header__name">Organization Rules</span>
+                    <div ng-if="listType !=='tenant'">
+                        <div class="sd-list-header margin--none margin--topBig">
+                            <span class="sd-list-header__name">Organization Rules</span>
+                        </div>
+                        <div ng-repeat="rule in webPublisherSettings.organizationRules track by $index"
+                            ng-include="'settings/rule-item.html'">
+                        </div>
                     </div>
-                    <div ng-repeat="rule in webPublisherSettings.organizationRules track by $index"
-                        ng-include="'settings/rule-item.html'">
-                    </div>
-
-                    <div ng-repeat="(code, rules) in webPublisherSettings.tenantsRules">
+                    <div ng-if="listType !=='organization' && (!webPublisherSettings.selectedTenant || webPublisherSettings.selectedTenant===code)"
+                        ng-repeat="(code, rules) in webPublisherSettings.tenantsRules">
                         <div class="sd-list-header margin--none margin--topBig">
                             <span class="sd-list-header__name flexGrow">{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span>
                             <span class="text--uppercase text--blue text--smaller"
@@ -32,10 +78,9 @@
                 </div>
             </div>
             <div class="sd-preview-panel">
-                <div class="side-panel side-panel--shadow-right">
-                    <span ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></span>
-                    <span ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></span>
-                </div>
+                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></div>
+                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></div>
             </div>
         </div>
-
+    </div>
+</div>
