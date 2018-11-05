@@ -147,8 +147,7 @@ export default angular.module('superdesk-publisher', [
             description: gettext('Settings'),
             controller: controllers.WebPublisherSettingsController,
             controllerAs: 'webPublisherSettings',
-            template: require('./client/views/settings/index.html'),
-            sideTemplateUrl: 'scripts/apps/workspace/views/workspace-sidenav.html',
+            template: require('./client/views/settings/index.html')
         });
 
         workspaceMenuProvider.item({
