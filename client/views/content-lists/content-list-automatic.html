@@ -39,13 +39,15 @@
                                     data-label="Routes"
                                     data-items="routes"
                                     data-field="name"
-                                    data-freetext="false" >
+                                    data-freetext="false"
+                                    data-max-results-to-show=20 >
                                     <tags-input
                                         ng-model="model"
                                         add-from-autocomplete-only="{{items ? !freetext : false}}"
                                         show-button="{{!!items}}"
                                         display-property="{{field}}"
                                         use-strings="{{!field}}"
+                                        data-max-results-to-show=20
                                     ></tags-input>
                                 </sd-tag-input>
                             </div>
