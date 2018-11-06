@@ -219,7 +219,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
                 });
             }
 
-            publisher.queryRoutes().then((routes) => {
+            publisher.queryRoutes({type: 'collection'}).then((routes) => {
                 $scope.routes = routes;
                 if ($scope.newList.filters.route && $scope.newList.filters.route.length > 0) {
                     routes.forEach((item) => {

@@ -22,29 +22,11 @@ export class TargetedPublishing extends React.Component {
                 code: item.qcode
             };
         });
-        let filteredItem =  {
-            guid: item.guid,
-            language: item.language,
-            body_html: item.body_html,
-            byline: item.byline,
-            keywords: item.keywords,
-            priority: item.priority,
-            urgency: item.urgency,
-            headline: item.headline,
-            description_html: item.abstract,
-            pubstatus: item.pubstatus,
-            authors: item.authors,
-            extra: item.extra,
-            source: item.source,
-            service: service
-        };
-
-        filteredItem = _(filteredItem).omitBy(_.isNil).omitBy(_.isEmpty).value();
 
         this.state = {
             config: config,
             session: session,
-            item: filteredItem,
+            item: null,
             apiUrl: `${protocol}://${subdomain}${domainName}/api/v1/`,
             apiHeader: null,
             sites: [],
@@ -53,6 +35,36 @@ export class TargetedPublishing extends React.Component {
             newSite: {},
             loading: true
         };
+    }
+
+    componentDidMount() {
+        const {api, item, urls} = this.props;
+
+        api.query('subscribers')
+            .then((res) => {
+                let subscriber_id = (res['_items'])[0] ? (res['_items'])[0]._id : null;
+                let formatterUrl = urls.item('format-document-for-preview')
+                    + `?subscriber_id=${subscriber_id}&formatter=ninjs&document_id=${item._id}`;
+
+                fetch(formatterUrl).then((response) => response.text()
+                    .then((responseText) => {
+                        let json = JSON.parse(responseText);
+                        this.setState({item: json});
+                        this.prepare();
+                    }));
+            });
+    }
+
+    prepare() {
+        this.authorize()
+            .then((res) => {
+                this.setState(
+                    {apiHeader: {Authorization: 'Basic ' + res.data.token.api_key}},
+                    () => {
+                        this.evaluate();
+                        this.getSites();
+                    });
+            });
     }
 
     authorize() {
@@ -109,20 +121,6 @@ export class TargetedPublishing extends React.Component {
         this.cancelNewDestinationHandler();
         this.evaluate();
     }
-
-    componentDidMount() {
-        this.authorize()
-            .then((res) => {
-                this.setState(
-                    {apiHeader: {Authorization: 'Basic ' + res.data.token.api_key}},
-                    () => {
-                        this.evaluate();
-                        this.getSites();
-                    });
-            });
-    }
-
-
 
     render() {
         let styles = {
@@ -208,7 +206,7 @@ export class TargetedPublishing extends React.Component {
 
         if (remainingSites.length && !this.state.loading) {
             addButton = (
-                <button class="btn btn--primary btn--icon-only-circle" onClick={this.addButtonHandler.bind(this)}>
+                <button className="btn btn--primary btn--icon-only-circle" onClick={this.addButtonHandler.bind(this)}>
                     <i className="icon-plus-large"></i>
                 </button>
             );
