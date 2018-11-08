@@ -15,7 +15,7 @@ export default class NewDestination extends Component {
 
         const destination = {
             "tenant": site.code,
-            "fbia": false,
+            "isPublishedFbia": false,
             "published": true,
             "paywallSecured": false,
             "packageGuid": item.guid
@@ -58,7 +58,7 @@ export default class NewDestination extends Component {
 
     fbiaCheckboxHandler(e) {
         const dest = {...this.state.destination};
-        dest.fbia = e.target.value;
+        dest.isPublishedFbia = e.target.value;
         this.setState({
             destination: dest
         });
@@ -172,7 +172,7 @@ export default class NewDestination extends Component {
                         {routesSelect}
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
-                        <Checkbox label="Publish to facebook" value={this.state.destination.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        <Checkbox label="Publish to facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
                         <span style={paywalSecuredStyle}>
                             <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>
