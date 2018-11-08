@@ -72,7 +72,7 @@ export default class Tenant extends Component {
 
     fbiaCheckboxHandler(e) {
         const rule = {...this.state.newRule};
-        rule.fbia = e.target.value;
+        rule.isPublishedFbia = e.target.value;
         this.setState({
             newRule: rule
         });
@@ -125,7 +125,7 @@ export default class Tenant extends Component {
             "publish_destination":{
                 "tenant": this.state.newRule.tenant.code,
                 "route": this.state.newRule.route ? this.state.newRule.route.id : null ,
-                "fbia": this.state.newRule.fbia,
+                "isPublishedFbia": this.state.newRule.isPublishedFbia,
                 "published": this.state.newRule.published,
                 "paywallSecured": this.state.newRule.paywallSecured,
                 "packageGuid": this.state.item.guid
@@ -148,7 +148,7 @@ export default class Tenant extends Component {
         if (newRule.tenant.outputChannel) {
             publishRoute = newRule.tenant.outputChannel.type;
         } else {
-            publishRoute = newRule.fbia ? newRule.route.name + ', Facebook' : newRule.route.name;
+            publishRoute = newRule.isPublishedFbia ? newRule.route.name + ', Facebook' : newRule.route.name;
         }
 
         const header = (
@@ -241,7 +241,7 @@ export default class Tenant extends Component {
                             {routesSelect}
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
-                        <Checkbox label="Publish to facebook" value={newRule.fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        <Checkbox label="Publish to facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
                         <span style={paywalSecuredStyle}>
                             <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>
