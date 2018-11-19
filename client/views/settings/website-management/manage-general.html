@@ -1,0 +1,39 @@
+<div class="grid grid--margin">
+    <form name="webPublisherSettings.siteForm" class="grid__item gi-xsmall-12 gi-xlarge-8">
+        <div class="form__row">
+            <div class="sd-line-input">
+                <label class="sd-line-input__label">Website name</label>
+                <input class="sd-line-input__input sd-line-input--required" type="text" ng-model="newSite.name" required>
+            </div>
+        </div>
+        <div class="form__row">
+            <div class="sd-line-input">
+                <label class="sd-line-input__label">Domain name</label>
+                <input class="sd-line-input__input sd-line-input--required" type="text" ng-trim="false" ng-change="newSite.domainName = newSite.domainName.split(' ').join('')" ng-model="newSite.domainName" required>
+            </div>
+        </div>
+        <div class="form__row">
+            <div class="sd-line-input">
+                <label class="sd-line-input__label">Subdomain name</label>
+                <input class="sd-line-input__input" type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" ng-model="newSite.subdomain" >
+            </div>
+        </div>
+        <div class="form__row">
+            <span ng-model="newSite.ampEnabled" sd-switch=""></span><label>Enable AMP</label>
+        </div>
+        <div ng-if="newSite.outputChannel">
+            <div class="form__row">
+                <h4 class="text--light text--uppercase">{{newSite.outputChannel.type}} settings</h4>
+            </div>
+            <div class="form__row"
+                ng-repeat="(name, value) in newSite.outputChannel.config" >
+                <div class="form__row-item">
+                    <div class="sd-line-input sd-line-input--required">
+                        <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
+                        <input class="sd-line-input__input" type="text" ng-model="newSite.outputChannel.config[name]" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

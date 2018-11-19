@@ -59,7 +59,7 @@
                             <span class="sd-list-header__name">Organization Rules</span>
                         </div>
                         <div ng-repeat="rule in webPublisherSettings.organizationRules track by $index"
-                            ng-include="'settings/rule-item.html'">
+                            ng-include="'settings/rules/rule-item.html'">
                         </div>
                     </div>
                     <div ng-if="listType !=='organization' && (!webPublisherSettings.selectedTenant || webPublisherSettings.selectedTenant===code)"
@@ -72,14 +72,14 @@
                             </span>
                         </div>
                         <div ng-repeat="rule in rules track by $index"
-                            ng-include="'settings/rule-item.html'">
+                            ng-include="'settings/rules/rule-item.html'">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="sd-preview-panel">
-                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></div>
-                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></div>
+                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rules/rule-preview.html'" ng-if="webPublisherSettings.rulePreviewOpen"></div>
+                <div class="side-panel side-panel--shadow-right" ng-include="'settings/rules/rule-add.html'" ng-if="webPublisherSettings.rulePaneOpen"></div>
             </div>
         </div>
     </div>

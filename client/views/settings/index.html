@@ -1,12 +1,32 @@
 <div class="sd-page">
     <nav class="sd-page__sidebar sd-left-nav">
         <ul>
-            <li><a href="#/publisher/settings" class="sd-left-nav__btn sd-left-nav__btn--active">Publishing Rules</a></li>
+            <li><a href="" class="sd-left-nav__btn"
+                ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'tenant'}"
+                ng-click="webPublisherSettings.changePanel('tenant')"
+                >Website Management</a></li>
+            <li><a href="" class="sd-left-nav__btn"
+                ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'rules'}"
+                ng-click="webPublisherSettings.changePanel('rules')"
+                >Publishing Rules</a></li>
         </ul>
     </nav>
+    <div class="sd-loader" ng-if="mainLoading"></div>
+    <section class="sd-page__main-content" ng-if="webPublisherSettings.activePanel === 'rules'"
+        ng-include="'settings/rules/index.html'"></section>
 
-    <section class="sd-page__main-content">
-        <div ng-include="'settings/rules.html'"></div>
-    </section>
+    <section class="sd-page__main-content"
+        ng-if="webPublisherSettings.activePanel === 'tenant' && !webPublisherSettings.openSiteEdit"
+        ng-include="'settings/website-management/tenant-list.html'"></section>
+
+    <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
+        ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
+        ng-include="'settings/website-management/manage-nav.html'"></div>
+    <section  class="sd-page__main-content sd-page__main-content--double-left-nav"
+        ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
+        ng-include="'settings/website-management/manage.html'"></section>
+
+
+
     <footer class="bottom-bar "></footer>
 </div>

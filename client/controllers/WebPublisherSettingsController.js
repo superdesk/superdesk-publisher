@@ -11,12 +11,14 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
     class WebPublisherSettings {
         constructor() {
             this.TEMPLATES_DIR = 'scripts/apps/web-publisher/views';
-            this.selectedRule = {};
-            $scope.loading = true;
+            $scope.mainLoading = true;
+            this.siteWizardActive = false;
+
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
                     this.sites = sites;
+                    $scope.mainLoading = false;
                     // loading routes
                     angular.forEach(this.sites, (siteObj, key) => {
                         publisher.setTenant(siteObj);
@@ -24,18 +26,607 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                             siteObj.routes = routes;
                         });
                     });
-                    this._refreshRules();
+                    // rules panel is default
+                    this.changePanel('tenant');
                 });
         }
 
         /**
          * @ngdoc method
-         * @name WebPublisherSettingsController#changeTab
+         * @name WebPublisherSettingsController#changePanel
+         * @param {String} newPanelName - name of the new active panel
+         * @description Sets the active panel name to the given value
+         */
+        changePanel(newPanelName) {
+            this.activePanel = newPanelName;
+            this._prepareData(newPanelName);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_prepareData
+         * @private
+         * @param {String} panelName - name of selected panel
+         * @description Prepares data dependent on selected panel
+         */
+        _prepareData(panelName) {
+            switch (panelName) {
+            case 'rules':
+                this.selectedRule = {};
+                this._refreshRules();
+                break;
+            case 'tenant':
+                this.openSiteEdit = false;
+                this._loadThemes().then(this._refreshSites);
+                break;
+            }
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toggleSiteWizard
+         * @param {String} outputChannelType - channel type (eg wordpress, drupal)
+         * @description Toggles site creation wizard
+         */
+        toggleSiteWizard(outputChannelType) {
+            if(this.siteWizardActive) {
+               this._refreshSites();
+            }
+            this.siteWizardOutputChannelType = outputChannelType ? outputChannelType : null;
+            this.siteWizardActive = !this.siteWizardActive;
+            publisher.setTenant();
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#changeManageTab
          * @param {String} newTabName - name of the new active tab
          * @description Sets the active tab name to the given value
          */
-        changeTab(newTabName) {
-            this.activeTab = newTabName;
+        changeManageTab(newTabName) {
+            this.manageTab = newTabName;
+            switch (newTabName) {
+                case 'routes':
+                    this.changeRouteFilter('');
+                    this._refreshRoutes();
+                    break;
+                case 'navigation':
+                    this._refreshMenus();
+                    break;
+                }
+        }
+
+        // -------------------------------- ROUTES
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toogleCreateRoute
+         * @param {Boolean} paneOpen - should pane be open
+         * @description Opens window for creating new route
+         */
+        toogleCreateRoute(paneOpen) {
+            this.selectedRoute = {};
+            $scope.newRoute = {};
+            this.routePaneOpen = paneOpen;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editRoute
+         * @param {Object} route - route which is edited
+         * @description Opens window for editing route
+         */
+        editRoute(route) {
+            this.routeForm.$setPristine();
+            this.selectedRoute = route;
+            $scope.newRoute = angular.copy(route);
+            // we never edit list of children
+            delete $scope.newRoute.children;
+            this.routePaneOpen = true;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#saveRoute
+         * @description Saving route
+         */
+        saveRoute() {
+            let updatedKeys = this._updatedKeys($scope.newRoute, this.selectedRoute);
+
+            // only for updating, parent is received as object but for update id is needed
+            if ($scope.newRoute.parent && $scope.newRoute.parent.id) {
+                $scope.newRoute.parent = $scope.newRoute.parent.id;
+            }
+
+            publisher.manageRoute({route: _.pick($scope.newRoute, updatedKeys)}, this.selectedRoute.id)
+                .then((route) => {
+                    this.routePaneOpen = false;
+                    this._refreshRoutes();
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#deleteRoute
+         * @param {String} id - id of route which is deleted
+         * @description Deleting route
+         */
+        deleteRoute(id) {
+            modal.confirm(gettext('Please confirm you want to delete route.'))
+                .then(() => publisher.removeRoute(id).then(() => { this._refreshRoutes() }))
+                .catch(err => {
+                    let message = err.data.message ? err.data.message : 'Something went wrong. Try again.';
+                    modal.confirm(message);
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#changeRouteFilter
+         * @param {String} type - type of routes
+         * @description Sets type for routes
+         */
+        changeRouteFilter(type) {
+            this.routeType = type;
+            this._refreshRoutes();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#reorderRoute
+         * @param {Object} list - object where list of route items is
+         * @param {Object} item - object which is moved
+         * @param {Number} index - index where item would be moved
+         * @description Move route to different position
+         */
+        reorderRoute(list, item, index) {
+            if (index !== -1) {
+                let removedItem = _.find(list.children, {id: item.id});
+
+                if (removedItem) {
+                    removedItem.removed = true;
+                } else if (item.parent) {
+                    // item was a subroute and was moved to other list
+                    let parent = _.find(list.children, {id: item.parent});
+                    removedItem = _.find(parent.children, {id: item.id});
+
+                    if (removedItem) {
+                        removedItem.removed = true;
+                        parent.children = parent.children.filter((item) => !item.removed);
+                    }
+                } else if (!item.parent) {
+                    // item was top level and was moved to other list
+                    removedItem = _.find($scope.routes.children, {id: item.id});
+
+                    if (removedItem) {
+                        removedItem.removed = true;
+                        $scope.routes.children = $scope.routes.children.filter((item) => !item.removed);
+                    }
+                }
+
+                list.children = list.children.slice(0, index)
+                    .concat(item)
+                    .concat(list.children.slice(index))
+                    .filter((item) => !item.removed);
+
+
+                let parentId = list.children[0].parent;
+                let newPosition = list.children.indexOf(item);
+                // when new item was placed on position 0
+                if (newPosition === 0) {
+                    parentId = list.children[list.children.length-1].parent;
+                }
+
+                if (newPosition !== item.position || parentId !== item.parent) {
+                    list.children[newPosition].position = newPosition;
+
+                    publisher.reorderRoute({route: {parent: parentId, position: newPosition}}, item.id)
+                        .then(this._refreshRoutes.bind(this));
+                }
+            }
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshRoutes
+         * @private
+         * @description Loads list of routes
+         */
+        _refreshRoutes() {
+            $scope.loading = true;
+            publisher.queryRoutes().then((routes) => {
+                $scope.loading = false;
+                let filteredRoutes = {children: null};
+
+                if (this.routeType === 'content'){
+                    filteredRoutes.children = routes.filter((item) => item.type === 'content');
+                }
+                else if (this.routeType === 'collection') {
+                    filteredRoutes.children = routes.filter((item) => item.type === 'collection').filter((item) => !item.parent);
+                } else {
+                    filteredRoutes.children = routes.filter((item) => !item.parent);
+                }
+                $scope.routes = filteredRoutes;
+            });
+        }
+
+        // ---------------------------------- NAVIGATION
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#createMenuCard
+         * @description Creates a new unsaved menu card in navigation.
+         */
+        createMenuCard() {
+            this.selectedMenu = {};
+            $scope.newMenu = {};
+            $scope.menus.push($scope.newMenu);
+            this.menuAdd = true;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editMenuCard
+         * @param {Object} menu - menu card which is edited
+         * @description Edit menu card in navigation.
+         */
+        editMenuCard(menu) {
+            this.selectedMenu = menu;
+            $scope.newMenu = angular.copy(menu);
+            this.menuAdd = true;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#cancelEditMenuCard
+         * @description Canceling update of menu card
+         */
+        cancelEditMenuCard() {
+            $scope.newMenu = angular.copy(this.selectedMenu);
+            this.menuAdd = false;
+            if (!this.selectedMenu.id) {
+                $scope.menus.pop();
+            }
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#saveMenu
+         * @param {Function} refreshList - refreshing proper list after save
+         * @description Creates menu in navigation or in menu tree
+         */
+        saveMenu(refreshList) {
+            let updatedKeys = this._updatedKeys($scope.newMenu, this.selectedMenu);
+
+            publisher.manageMenu({menu: _.pick($scope.newMenu, updatedKeys)}, this.selectedMenu.id)
+                .then(refreshList.bind(this));
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#deleteMenu
+         * @param {String} id - id of menu which is deleted
+         * @description Deleting menu
+         */
+        deleteMenu(id) {
+            modal.confirm(gettext('Please confirm you want to delete menu.'))
+                .then(() => {
+                    publisher.removeMenu(id).then(this._refreshMenus.bind(this));
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editMenuTree
+         * @param {Object} menu - root menu object for the tree
+         * @description Opens the menu tree edit page.
+         */
+        editMenuTree(menu) {
+            $scope.menu = menu;
+            $scope.menusInTree = this._flattenTree(menu);
+            publisher.queryRoutes().then((routes) => {
+                $scope.routes = routes;
+            });
+            this.changeManageTab('navigation-menu');
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_flattenTree
+         * @private
+         * @param {Object} tree
+         * @returns {Array}
+         * @description Returns all children objects from tree
+         */
+        _flattenTree(tree, flattened = []) {
+            flattened.push(tree);
+
+            if (tree.children.length) {
+                for (let node of tree.children) {
+                    this._flattenTree(node, flattened);
+                }
+            }
+
+            return flattened;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toogleCreateMenu
+         * @param {Boolean} paneOpen - should pane be open
+         * @description Creates a new menu
+         */
+        toogleCreateMenu(paneOpen) {
+            this.selectedMenu = {};
+            $scope.newMenu = {};
+            this.menuPaneOpen = paneOpen;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editMenu
+         * @param {Object} menu - menu which is edited
+         * @description Edit menu in tree
+         */
+        editMenu(menu) {
+            this.menuForm.$setPristine();
+            this.selectedMenu = menu;
+            $scope.newMenu = angular.copy(menu);
+            this.menuPaneOpen = true;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#removeMenu
+         * @param {Object} menu - menu object to remove
+         * @description Removes this menu from the site.
+         */
+        removeMenu(menu) {
+            modal.confirm(gettext('Please confirm you want to delete menu.'))
+                .then(() => {
+                    publisher.removeMenu(menu.id).then(this._refreshCurrentMenu.bind(this));
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#reorderMenu
+         * @param {Object} list - object where list of menu items is
+         * @param {Object} item - object which is moved
+         * @param {Number} index - index where item would be moved
+         * @description Move menu to different position
+         */
+        reorderMenu(list, item, index) {
+            if (index !== -1) {
+                let parentId = list.children[0].parent;
+                let removedItem = _.find(list.children, {id: item.id});
+
+                if (removedItem) {
+                    removedItem.removed = true;
+                }
+
+                list.children = list.children.slice(0, index)
+                    .concat(item)
+                    .concat(list.children.slice(index))
+                    .filter((item) => !item.removed);
+
+                let menuPosition = list.children.indexOf(item);
+
+                if (menuPosition !== item.position || parentId !== item.parent) {
+                    list.children[menuPosition].position = menuPosition;
+
+                    publisher.reorderMenu({menu_move: {parent: parentId, position: menuPosition}}, item.id)
+                        .then(this._refreshCurrentMenu.bind(this));
+                }
+            }
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshCurrentMenu
+         * @private
+         * @description Loads child menus for selected menu
+         */
+        _refreshCurrentMenu() {
+            this.menuPaneOpen = false;
+            publisher.getMenu($scope.menu.id).then((menu) => {
+                $scope.menu = menu;
+                $scope.menusInTree = this._flattenTree(menu);
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshMenus
+         * @private
+         * @description Loads list of menus
+         */
+        _refreshMenus() {
+            $scope.loading = true;
+            this.menuAdd = false;
+            this.menuPaneOpen = false;
+            publisher.queryMenus().then((menus) => {
+                $scope.loading = false;
+                $scope.menus = menus;
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_editMode
+         * @private
+         * @param {Object} card - card for which to check mode
+         * @param {Object} selected - selected card(for edit)
+         * @param {Boolean} addFlag - is card added
+         * @returns {Boolean}
+         * @description Checking if card is in edit mode
+         */
+        _editMode(card, selected, addFlag) {
+            return !card.id || selected && card.id === selected.id && addFlag;
+        }
+
+
+        // ---------------------------------- SITE
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editSite
+         * @param {Object} site - site which is edited
+         * @param {String} tab - name of active tab
+         * @description Opens modal window for editing site
+         */
+        editSite(site, tab = 'general') {
+            this.selectedSite = site;
+            $scope.newSite = angular.copy(site);
+            this.openSiteEdit = true;
+            publisher.setTenant(site);
+            this.changeManageTab(tab);
+            this._refreshThemeSettings();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#cancelEditSite
+         * @description Canceles changes to site
+         */
+        cancelEditSite() {
+            $scope.newSite = angular.copy(this.selectedSite);
+            this.siteForm.$setPristine();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toggleEditSite
+         * @description Toggles modal window for editing site
+         */
+        toggleEditSite() {
+            this.openSiteEdit = !this.openSiteEdit;
+            this.selectedSite = {};
+            $scope.newSite = {};
+            publisher.setTenant();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#saveSite
+         * @description Saving site
+         */
+        saveSite() {
+            let updatedKeys = this._updatedKeys($scope.newSite, this.selectedSite);
+            this.loading = true;
+            publisher.manageSite({tenant: _.pick($scope.newSite, updatedKeys)}, this.selectedSite.code)
+                .then((site) => {
+                    this.siteForm.$setPristine();
+                    this.selectedSite = site;
+                    this.loading = false;
+                    publisher.setTenant(site);
+                    this._refreshSites();
+                }).catch(err => {
+                    console.log(err);
+                    $scope.newSite = angular.copy(this.selectedSite);
+                    this.loading = false;
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#deleteSite
+         * @param {String} code - code of site which is deleted
+         * @description Deleting site
+         */
+        deleteSite(code) {
+            modal.confirm(gettext('Please confirm you want to delete website.')).then(
+                () => publisher.removeSite(code)
+                .then(() => {
+                    publisher.setTenant();
+                    this._refreshSites();
+                })
+                .catch((err) => {
+                    if(err.status === 409) {
+                        modal.confirm(gettext(err.data.message + ' Are you sure you want to delete?')).then(
+                            () => publisher.removeSite(code, {force: true})
+                            .then(() => {
+                                publisher.setTenant();
+                                this._refreshSites();
+                            })
+                        )
+                    }
+                })
+            );
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#themeActivatedCallback
+         * @description Fires when theme got activated in theme manager directive
+         */
+        themeActivatedCallback() {
+            this._refreshThemeSettings();
+        };
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#themeSettingsRevert
+         * @description Reverts theme settings to default values
+         */
+        themeSettingsRevert() {
+            $scope.loading = true;
+            publisher.settingsRevert('theme').then( () => {
+                this._refreshThemeSettings().then( () => {
+                    $scope.loading = false;
+                })
+            });
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#cancelEditThemeSettings
+         * @description Reverts theme settings to default values
+         */
+        cancelEditThemeSettings() {
+            $scope.newThemeSettings = angular.copy(this.themeSettings);
+            this.themeSettingsForm.$setPristine();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#saveThemeSettings
+         * @description Saving theme settings and logo
+         */
+        saveThemeSettings() {
+            let settingsToSave = _.map($scope.newThemeSettings.settings, (value) => {
+                return _.pick(value, ['name', 'value']);
+            });
+            publisher.saveSettings({settings: {bulk: settingsToSave}})
+                .then((settings) => {
+                    this.themeSettingsForm.$setPristine();
+                });
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#uploadThemeLogo
+         * @param {Array} files - selected files
+         * @param {String}  type - type of logo (theme_logo, theme_logo_second etc)
+         * @description Uploads new theme logo
+         */
+        uploadThemeLogo(files, type) {
+            $scope.newThemeSettings[type].error = false;
+
+            if (files && files.length) {
+                let logoFile = files[0];
+                if (!logoFile.$error) {
+                    publisher.uploadThemeLogo({'logo': logoFile}, type)
+                        .then((response) => {
+                           this.themeSettings[type] = response.data;
+                           let flagName = 'replace_' + type;
+                           this[flagName] = false;
+                        })
+                        .catch((err) => {
+                            $scope.newThemeSettings[type].error = true;
+                        });
+                }
+            }
         }
 
         /**
@@ -371,6 +962,15 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
         }
 
         /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toggleInfoCarousel
+         * @description Toggles info carousel
+         */
+        toggleInfoCarousel() {
+            this.infoCarouselActive = !this.infoCarouselActive;
+        }
+
+        /**
          * @ngdoc filter
          * @name WebPublisherSettingsController#sitesFilter
          * @param {Object} site - site from ng-repeat
@@ -391,6 +991,70 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          */
         isObjEmpty(value) {
             return angular.equals({}, value);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_loadThemes
+         * @private
+         * @description Loads list of all themes
+         */
+
+        _loadThemes() {
+            $scope.loading = true;
+            return publisher.getOrganizationThemes().then((response) => {
+                $scope.loading = false;
+                $scope.organizationThemes = response._embedded._items;
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshSites
+         * @private
+         * @description Loads list of sites
+         */
+        _refreshSites() {
+            $scope.loading = true;
+            return publisher.querySites().then((sites) => {
+                // assigning theme to site
+                angular.forEach(sites, (site) => {
+                    site.theme = $scope.organizationThemes.find(theme => site.themeName == theme.name);
+                });
+                $scope.sites = sites;
+                $scope.loading = false;
+                if(!$scope.sites.length) {
+                    this.toggleInfoCarousel();
+                }
+            });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshThemeSettings
+         * @private
+         * @description Loads theme settings
+         */
+        _refreshThemeSettings() {
+            return publisher.getThemeSettings().then((settings) => {
+                this.themeSettings = {};
+                this.themeSettings.theme_logo = _.find(settings, { 'name': 'theme_logo' });
+                this.themeSettings.theme_logo_second = _.find(settings, { 'name': 'theme_logo_second' });
+                this.themeSettings.theme_logo_third = _.find(settings, { 'name': 'theme_logo_third' });
+                _.remove(settings, (setting) => {
+                    return (setting.name.includes('theme_logo')) ? true : false;
+                });
+                // little hack to make ng-select work properly
+                this.themeSettings.settings = settings
+                    .map(setting => {
+                        if (setting.options) {
+                            setting.value = setting.value.toString();
+                        }
+                        return setting;
+                    }
+                );
+                $scope.newThemeSettings = angular.copy(this.themeSettings);
+            });
         }
 
         /**

@@ -30,26 +30,31 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('content-bucket.html', require('./client/views/content-lists/content-bucket.html'));
     $templateCache.put('list-box.html', require('./client/views/content-lists/list-box.html'));
 
-    $templateCache.put('general.html', require('./client/views/dashboard/manage-site/general.html'));
-    $templateCache.put('routes.html', require('./client/views/dashboard/manage-site/routes.html'));
-    $templateCache.put('routes-tree.html', require('./client/views/dashboard/manage-site/routes-tree.html'));
-    $templateCache.put('navigation.html', require('./client/views/dashboard/manage-site/navigation.html'));
-    $templateCache.put('navigation-menu-tree.html', require('./client/views/dashboard/manage-site/navigation-menu-tree.html'));
-    $templateCache.put('navigation-tree-renderer.html', require('./client/views/dashboard/manage-site/navigation-tree-renderer.html'));
-    $templateCache.put('theme-settings.html', require('./client/views/dashboard/manage-site/theme-settings.html'));
-
     $templateCache.put('themeManager-details.html', require('./client/directives/themeManager/themeManager-details.html'));
     $templateCache.put('manage-site.html', require('./client/views/dashboard/manage-site/manage-site.html'));
 
     $templateCache.put('tenant.html', require('./client/views/dashboard/tenant.html'));
-    $templateCache.put('info-carousel.html', require('./client/views/dashboard/info-carousel/info-carousel.html'));
 
-    $templateCache.put('settings/rules.html', require('./client/views/settings/rules.html'));
-    $templateCache.put('settings/rule-item.html', require('./client/views/settings/rule-item.html'));
-    $templateCache.put('settings/rule-preview.html', require('./client/views/settings/rule-preview.html'));
-    $templateCache.put('settings/rule-add.html', require('./client/views/settings/rule-add.html'));
-    $templateCache.put('settings/rule-add-organization.html', require('./client/views/settings/rule-add-organization.html'));
-    $templateCache.put('settings/rule-add-tenant.html', require('./client/views/settings/rule-add-tenant.html'));
+    $templateCache.put('settings/rules/index.html', require('./client/views/settings/rules/index.html'));
+    $templateCache.put('settings/rules/rule-item.html', require('./client/views/settings/rules/rule-item.html'));
+    $templateCache.put('settings/rules/rule-preview.html', require('./client/views/settings/rules/rule-preview.html'));
+    $templateCache.put('settings/rules/rule-add.html', require('./client/views/settings/rules/rule-add.html'));
+    $templateCache.put('settings/rules/rule-add-organization.html', require('./client/views/settings/rules/rule-add-organization.html'));
+    $templateCache.put('settings/rules/rule-add-tenant.html', require('./client/views/settings/rules/rule-add-tenant.html'));
+
+    $templateCache.put('settings/website-management/manage.html', require('./client/views/settings/website-management/manage.html'));
+    $templateCache.put('settings/website-management/manage-nav.html', require('./client/views/settings/website-management/manage-nav.html'));
+    $templateCache.put('settings/website-management/tenant-list.html', require('./client/views/settings/website-management/tenant-list.html'));
+    $templateCache.put('settings/website-management/info-carousel/info-carousel.html', require('./client/views/settings/website-management/info-carousel/info-carousel.html'));
+    $templateCache.put('settings/website-management/partials/tenant.html', require('./client/views/settings/website-management/partials/tenant.html'));
+    $templateCache.put('settings/website-management/manage-general.html', require('./client/views/settings/website-management/manage-general.html'));
+    $templateCache.put('settings/website-management/manage-routes.html', require('./client/views/settings/website-management/manage-routes.html'));
+    $templateCache.put('settings/website-management/partials/routes-tree.html', require('./client/views/settings/website-management/partials/routes-tree.html'));
+    $templateCache.put('settings/website-management/manage-navigation.html', require('./client/views/settings/website-management/manage-navigation.html'));
+    $templateCache.put('settings/website-management/manage-navigation-menu.html', require('./client/views/settings/website-management/manage-navigation-menu.html'));
+    $templateCache.put('settings/website-management/partials/navigation-tree-renderer.html', require('./client/views/settings/website-management/partials/navigation-tree-renderer.html'));
+    $templateCache.put('settings/website-management/manage-theme-settings.html', require('./client/views/settings/website-management/manage-theme-settings.html'));
+
 }
 
 /**
@@ -65,7 +70,6 @@ export default angular.module('superdesk-publisher', [
     'ngFileUpload'
 ])
 
-.directive('sdSiteRoutes', directive.SiteRoutesDirective)
 .directive('sdPublishRoutes', directive.PublishRoutesDirective)
 .directive('sdListArticles', directive.ListArticlesDirective)
 .directive('sdListContentLists', directive.ListContentListsDirective)

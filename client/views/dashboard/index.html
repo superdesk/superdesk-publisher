@@ -8,22 +8,7 @@
         <div class="sd-page-content__content-block">
             <div class="subnav">
                 <h3 class="subnav__page-title">Publisher Dashboard</h3>
-                <div class="dropdown dropdown--align-right" dropdown="">
-                    <button class="navbtn dropdown sd-create-btn dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-plus-large"></i>
-                        <span class="circle"></span>
-                    </button>
-                    <ul class="dropdown__menu dropdown--align-right">
-                        <li>
-                            <div class="dropdown__menu-label">Create new site</div>
-                        </li>
-                        <li class="dropdown__menu-divider"></li>
-                        <li><button ng-click="webPublisher.toggleSiteWizard()">Superdesk Publisher</button></li>
-                        <li><button ng-click="webPublisher.toggleSiteWizard('Wordpress')">Wordpress</button></li>
-                    </ul>
-                </div>
             </div>
-            <a class="btn btn--sd-green btn--icon-only-circle btn--large sd-shadow--z4 absPosition absPosition--bottomRight" style="z-index:1" ng-click="webPublisher.toggleInfoCarousel()"><i class="icon-info-large"></i></a>
             <div class="sd-column-box--3">
                 <div class="sd-column-box__main-column">
                     <div class="sd-grid-list sd-grid-list--large">
@@ -38,16 +23,11 @@
                             <i class="big-icon--add-to-list"></i>
                         </div>
                         <h3 class="panel-info__heading">No tenants so far.</h3>
-                        <p class="panel-info__description">To create a site click on the plus button to top right.</p>
+                        <p class="panel-info__description">To create a site go to Publisher Settings</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div sd-site-wizard data-active="webPublisher.siteWizardActive" data-output-channel-type="webPublisher.siteWizardOutputChannelType" data-manager-controller="webPublisher"></div>
-        <div ng-include="'info-carousel.html'"></div>
-        <div ng-include="'manage-site.html'" ng-if="webPublisher.openSiteModal"></div>
-
-
     </section>
     <footer class="bottom-bar ">
     </footer>

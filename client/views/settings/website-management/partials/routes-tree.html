@@ -12,19 +12,20 @@
     <div class="listElement__right">
         <i ng-if="route.paywallSecured" class="icon-lock icon--blue"></i>
         <div class="dropdown dropdown--align-right" dropdown>
-            <button class="dropdown__toggle" dropdown__toggle>
+            <button class="dropdown__toggle dropdown--toggle" dropdown__toggle>
                 <i class="icon-dots-vertical"></i>
             </button>
             <ul class="dropdown__menu">
-                <li><button ng-click="webPublisher.editRoute(route)"><i class="icon-pencil"></i>{{:: 'Edit'| translate}}</button></li>
-                <li><button ng-click="webPublisher.deleteRoute(route.id)"><i class="icon-trash"></i>{{:: 'Delete'| translate}}</button></li>
+                <li><button ng-click="webPublisherSettings.editRoute(route)"><i class="icon-pencil"></i>{{:: 'Edit'| translate}}</button></li>
+                <li><button ng-click="webPublisherSettings.deleteRoute(route.id)"><i class="icon-trash"></i>{{:: 'Delete'| translate}}</button></li>
             </ul>
         </div>
     </div>
 </div>
-<ul ng-show="route.children.length && !route.closed" dnd-list="route.children" dnd-drop="webPublisher.reorderRoute(route, item, index)">
+
+<ul ng-show="route.children.length && !route.closed" dnd-list="route.children" dnd-drop="webPublisherSettings.reorderRoute(route, item, index)">
     <li ng-repeat="route in route.children"
-        ng-include="'routes-tree.html'"
+        ng-include="'settings/website-management/partials/routes-tree.html'"
         dnd-draggable="route"
         dnd-dragstart="route.dragging = true"
         dnd-dragend="route.dragging = false"

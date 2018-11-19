@@ -87,7 +87,13 @@
                                 infinite-scroll="webPublisherAnalytics.loadMoreTenantArticles()"
                                 infinite-scroll-container="'#scrollContainer'">
                                 <tr ng-repeat="article in webPublisherAnalytics.tenantArticles.items">
-                                    <td><strong>{{article.title}}</strong><a ng-href="{{article._links.online[0].href}}" class="icn-btn" target="_blank"><i class="icon-external"></i></a></td>
+                                    <td>
+                                        <strong>{{article.title}}</strong>
+                                        <a ng-if="article._links.online.href"
+                                            ng-href="{{article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName + article._links.online.href : 'http://' + article.tenant.domainName + article._links.online.href}}" class="icn-btn" target="_blank">
+                                            <i class="icon-external"></i>
+                                        </a>
+                                    </td>
                                     <td>{{article.articleStatistics.pageViewsNumber}}</td>
                                     <td>{{article.articleStatistics.internalClickRate}}</td>
                                     <td>{{article.articleStatistics.impressionsNumber}}</td>
