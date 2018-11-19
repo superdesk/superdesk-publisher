@@ -31,8 +31,6 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('list-box.html', require('./client/views/content-lists/list-box.html'));
 
     $templateCache.put('themeManager-details.html', require('./client/directives/themeManager/themeManager-details.html'));
-    $templateCache.put('manage-site.html', require('./client/views/dashboard/manage-site/manage-site.html'));
-
     $templateCache.put('tenant.html', require('./client/views/dashboard/tenant.html'));
 
     $templateCache.put('settings/rules/index.html', require('./client/views/settings/rules/index.html'));
