@@ -16,9 +16,12 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             this.filterOpen = $window.localStorage.getItem('swpOutputFilterOpen') ? JSON.parse($window.localStorage.getItem('swpOutputFilterOpen' )) : false;
             this.routes = [];
             this.advancedFilters = {};
+            // flag to make sure that setToken was fired. Used to control directives that do requests on their own.
+            this.loading = true;
 
             publisher.setToken().then(publisher.querySites)
                 .then((sites) => {
+                    this.loading = false;
                     this.sites = sites;
                     // loading routes for filter pane
                     angular.forEach(sites, (siteObj, key) => {
