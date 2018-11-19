@@ -29,12 +29,12 @@
                 <i class="icon-dots-vertical"></i>
             </button>
             <ul class="dropdown__menu">
-                <li><button ng-click="webPublisher.editMenu(data)"><i class="icon-pencil"></i>{{:: 'Edit'| translate}}</button></li>
-                <li><button ng-click="webPublisher.removeMenu(data)"><i class="icon-trash"></i>{{:: 'Delete'| translate}}</button></li>
+                <li><button ng-click="webPublisherSettings.editMenu(data)"><i class="icon-pencil"></i>{{:: 'Edit'| translate}}</button></li>
+                <li><button ng-click="webPublisherSettings.removeMenu(data)"><i class="icon-trash"></i>{{:: 'Delete'| translate}}</button></li>
             </ul>
         </div>
     </div>
 </div>
-<ul ng-show="data.children.length && !data.closed" dnd-list dnd-drop="webPublisher.reorderMenu(data, item, index)">
-    <li ng-repeat="data in data.children | orderBy: 'position'" ng-include="'navigation-tree-renderer.html'"></li>
+<ul ng-show="data.children.length && !data.closed" dnd-list dnd-drop="webPublisherSettings.reorderMenu(data, item, index)">
+    <li ng-repeat="data in data.children | orderBy: 'position'" ng-include="'settings/website-management/partials/navigation-tree-renderer.html'"></li>
 </ul>

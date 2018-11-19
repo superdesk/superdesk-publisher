@@ -1,0 +1,14 @@
+<div class="subnav subnav--padded subnav--lower-z-index">
+    <h3 class="sd-content-nav-title">Website</h3>
+</div>
+<nav class="sd-content-nav">
+    <ul>
+        <li ng-repeat="site in sites | orderBy: 'name'">
+            <a href="" ng-click="webPublisherSettings.editSite(site)"
+                class="sd-content-nav__btn"
+                ng-class="{'sd-content-nav__btn--active': site.code === webPublisherSettings.selectedSite.code}">
+                {{ site.name }}
+            </a>
+        </li>
+    </ul>
+</nav>

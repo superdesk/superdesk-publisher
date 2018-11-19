@@ -1,46 +1,44 @@
-<div class="sd-page__header sd-page__header--white padding--right0">
+<div class="sd-page__header">
     <ul class="filter-type filter-type--padded rightPadding">
-        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === ''}">
-            <a ng-click="webPublisher.changeRouteFilter('')" translate>all</a>
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisherSettings.routeType === ''}">
+            <a ng-click="webPublisherSettings.changeRouteFilter('')" translate>all</a>
         </li>
-        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === 'collection'}">
-            <a ng-click="webPublisher.changeRouteFilter('collection')" translate>collection</a>
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisherSettings.routeType === 'collection'}">
+            <a ng-click="webPublisherSettings.changeRouteFilter('collection')" translate>collection</a>
         </li>
-        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisher.routeType === 'content'}">
-            <a ng-click="webPublisher.changeRouteFilter('content')" translate>content</a>
+        <li class="filter-type__item" ng-class="{'filter-type__item--active': webPublisherSettings.routeType === 'content'}">
+            <a ng-click="webPublisherSettings.changeRouteFilter('content')" translate>content</a>
         </li>
     </ul>
     <span class="sd-page__element-grow"></span>
-    <button class="navbtn sd-create-btn" ng-click="webPublisher.toogleCreateRoute(true)">
-        <i class="icon-plus-large"></i>
-        <span class="circle"></span>
-    </button>
+    <a href="" ng-click="webPublisherSettings.toogleCreateRoute(true)" class="btn btn--primary"><i class="icon-plus-sign"></i>Add new</a>
 </div>
 
-<div class="sd-page-content__content-block sd-page-content__content-block--main" ng-class="{'open-preview': webPublisher.routePaneOpen}" >
+<div class="sd-page-content__content-block sd-page-content__content-block--main relative" ng-class="{'open-preview': webPublisherSettings.routePaneOpen}" >
+    <div class="sd-loader" ng-if="loading"></div>
     <div class="sd-column-box--3">
         <div class="sd-column-box__main-column">
-            <ul class="treeList sd-list-item-group" dnd-list="routes.children" dnd-drop="webPublisher.reorderRoute(routes, item, index)">
+            <ul class="treeList sd-list-item-group" dnd-list="routes.children" dnd-drop="webPublisherSettings.reorderRoute(routes, item, index)">
                 <li ng-repeat="route in routes.children"
                     dnd-draggable="route"
                     dnd-dragstart="route.dragging = true"
                     dnd-dragend="route.dragging = false"
                     ng-hide="route.dragging"
-                    ng-include="'routes-tree.html'">
+                    ng-include="'settings/website-management/partials/routes-tree.html'">
                 </li>
             </ul>
         </div>
         <div class="sd-preview-panel">
             <div class="side-panel side-panel--shadow-right">
                 <div class="side-panel__header side-panel__header--border-b">
-                    <a class="icn-btn side-panel__close" ng-click="webPublisher.toogleCreateRoute(false)"><i class="icon-close-small"></i></a>
-                    <h3 class="side-panel__heading" ng-if="webPublisher.isObjEmpty(webPublisher.selectedRoute)" translate>Add Route</h3>
-                    <h3 class="side-panel__heading" ng-if="!webPublisher.isObjEmpty(webPublisher.selectedRoute)" translate>Edit Route</h3>
+                    <a class="icn-btn side-panel__close" ng-click="webPublisherSettings.toogleCreateRoute(false)"><i class="icon-close-small"></i></a>
+                    <h3 class="side-panel__heading" ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)" translate>Add Route</h3>
+                    <h3 class="side-panel__heading" ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)" translate>Edit Route</h3>
                 </div>
 
                 <div class="side-panel__content">
                     <div class="side-panel__content-block">
-                        <form name="webPublisher.routeForm" class="flat">
+                        <form name="webPublisherSettings.routeForm" class="flat">
                             <fieldset class="label-light">
                                 <div class="item">
                                     <label for="routeName" translate>name</label>
@@ -77,10 +75,10 @@
                 </div>
                 <div class="side-panel__footer side-panel__footer--button-box">
                     <div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
-                        <a class="btn btn--hollow" ng-click="webPublisher.toogleCreateRoute(false)">Cancel</a>
+                        <a class="btn btn--hollow" ng-click="webPublisherSettings.toogleCreateRoute(false)">Cancel</a>
                         <button class="btn btn--primary"
-                            ng-disabled="webPublisher.routeForm.$invalid || !webPublisher.routeForm.$dirty"
-                            ng-click="webPublisher.saveRoute()">
+                            ng-disabled="webPublisherSettings.routeForm.$invalid || !webPublisherSettings.routeForm.$dirty"
+                            ng-click="webPublisherSettings.saveRoute()">
                             Save
                         </button>
                     </div>

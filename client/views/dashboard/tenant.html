@@ -1,18 +1,9 @@
 <div class="sd-grid-item-header">
     <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
-        <a ng-href="{{site.outputChannel ? site.outputChannel.config.url : 'http://' + site.subdomain + '.' + site.domainName}}" target="_blank">
+        <a ng-href="{{site.outputChannel ? site.outputChannel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domainName: 'http://' + site.domainName}}" flow="down">
             <span>{{ site.name }}</span><i class="icon-external"></i>
         </a>
     </h3>
-    <div class="dropdown dropdown--align-right" dropdown="">
-        <button class="dropdown__toggle icn-btn" dropdown__toggle="">
-            <i class="icon-dots"></i>
-        </button>
-        <ul class="dropdown__menu">
-            <li><button ng-click="webPublisher.editSite(site)"><i class="icon-settings"></i>Manage</button></li>
-            <li><button ng-click="webPublisher.deleteSite(site.code)"><i class="icon-trash"></i>Delete</button></li>
-        </ul>
-    </div>
 </div>
 <div class="sd-card sd-card--flex-grow">
     <div class="dashboard-content-header sd-shadow--z1">

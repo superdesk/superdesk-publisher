@@ -45,6 +45,7 @@ export function WebPublisherAnalyticsController($scope, publisher, modal, $route
                 params: {},
                 loading: false
             };
+            this.loadMoreTenantArticles();
         }
 
         /**

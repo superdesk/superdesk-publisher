@@ -1,4 +1,3 @@
-export {SiteRoutesDirective} from './siteRoutes/SiteRoutesDirective';
 export {PublishRoutesDirective} from './publishRoutes/PublishRoutesDirective';
 export {ListArticlesDirective} from './listArticles/ListArticlesDirective';
 export {CardInputFocusDirective} from './CardInputFocusDirective';

@@ -1,51 +1,51 @@
-<div class="sd-page__header sd-page__header--white padding--right0">
+<div class="sd-page__header">
     <h2 class="sd-page__page-heading">Navigation</h2>
     <span class="sd-page__element-grow"></span>
-    <button class="navbtn sd-create-btn" ng-disabled="webPublisher.menuAdd" ng-click="webPublisher.createMenuCard()">
-        <i class="icon-plus-large"></i>
-        <span class="circle"></span>
-    </button>
+    <a href="" ng-disabled="webPublisherSettings.menuAdd"
+        ng-click="webPublisherSettings.createMenuCard()"
+        class="btn btn--primary"><i class="icon-plus-sign"></i>Add new</a>
 </div>
 
 <div class="sd-page__content">
-    <div class="flex-grid box wrap-items small-1 medium-2 large-3 xlarge-4">
+    <div class="flex-grid box wrap-items small-1 medium-1 large-2 xlarge-3">
         <div class="flex-item card-box" ng-repeat="menu in menus | orderBy: 'id' track by menu.id">
             <div class="card-box__header">
-                <div ng-if="!webPublisher._editMode(menu, webPublisher.selectedMenu, webPublisher.menuAdd)" class="dropdown dropdown--align-right" dropdown>
+                <div ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="dropdown dropdown--align-right" dropdown>
                     <button class="dropdown__toggle" dropdown__toggle>
                         <i class="icon-dots-vertical"></i>
                     </button>
                     <ul class="dropdown__menu">
                         <li>
-                            <button ng-click="webPublisher.editMenuTree(menu)" title="{{:: 'Edit menu'| translate }}">
+                            <button ng-click="webPublisherSettings.editMenuTree(menu)" title="{{:: 'Edit menu'| translate }}">
                                 <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
                             </button>
                         </li>
                         <li>
-                            <button ng-click="webPublisher.deleteMenu(menu.id)" title="{{:: 'Remove menu'| translate }}">
+                            <button ng-click="webPublisherSettings.deleteMenu(menu.id)" title="{{:: 'Remove menu'| translate }}">
                                 <i class="icon-trash"></i>{{:: 'Remove'| translate}}
                             </button>
                         </li>
                     </ul>
                 </div>
-                <div ng-if="webPublisher._editMode(menu, webPublisher.selectedMenu, webPublisher.menuAdd)" class="card-box__btn-group card-box__btn-group--right">
-                    <button ng-click="webPublisher.cancelEditMenuCard()" class="btn">
+                <div ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="card-box__btn-group card-box__btn-group--right">
+                    <button ng-click="webPublisherSettings.cancelEditMenuCard()" class="btn">
                         <i class="icon-close-small"></i>
                     </button>
-                    <button ng-click="webPublisher.saveMenu(webPublisher._refreshMenus)" class="btn">
+                    <button ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshMenus)" class="btn">
                         <i class="icon-ok"></i>
                     </button>
                 </div>
-                <div ng-if="!webPublisher._editMode(menu, webPublisher.selectedMenu, webPublisher.menuAdd)"
-                    ng-click="webPublisher.editMenuCard(menu)"
+                <div ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
+                    ng-click="webPublisherSettings.editMenuCard(menu)"
                     class="card-box__heading card-box__heading--editable">
                     <div>{{ menu.name }}</div>
                 </div>
-                <div ng-if="webPublisher._editMode(menu, webPublisher.selectedMenu, webPublisher.menuAdd)" class="card-box__heading card-box__heading--editable">
+                <div ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="card-box__heading card-box__heading--editable">
                     <input type="text" ng-model="newMenu.name" class="line-input line-input--alt" required sd-card-input-focus>
                 </div>
             </div>
-            <div class="card-box__content card-box__content--scrollable">
+            <div class="card-box__content card-box__content--scrollable relative">
+                <div class="sd-loader" ng-if="loading"></div>
                 <ul class="card-box__content-list">
                     <li ng-repeat="child in menu.children | orderBy: 'position' track by child.id" class="card-box__content-list-item--small card-box__content-list-item--border-bottom">
                         <h4 class="card-box__h4--normal-case">{{ child.name }}<span class="label">{{ child.children.length }}</span></h4>
