@@ -71,7 +71,10 @@
 
 <div class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column">
     <div class="subnav subnav--lower-z-index">
-        <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'navbtn--active': webPublisherContentLists.filterOpen}">
+        <button class="navbtn navbtn--left navbtn--darker"
+            ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen"
+            ng-class="{'navbtn--active': webPublisherContentLists.filterOpen}"
+            sd-tooltip="Filter" flow="right">
             <i class="icon-filter-large"></i>
         </button>
         <div sd-search-handler data-label="Search" ng-model='newList.filters.term'></div>

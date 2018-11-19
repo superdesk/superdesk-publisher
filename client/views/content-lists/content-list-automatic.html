@@ -4,7 +4,10 @@
         <button class="navbtn navbtn--left" ng-click="webPublisherContentLists.changeView('content-lists', false)">
             <i class="icon-th"></i>
         </button>
-        <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen" ng-class="{'navbtn--active': webPublisherContentLists.filterOpen}">
+        <button class="navbtn navbtn--left navbtn--darker"
+            ng-click="webPublisherContentLists.filterOpen = !webPublisherContentLists.filterOpen"
+            ng-class="{'navbtn--active': webPublisherContentLists.filterOpen}"
+            sd-tooltip="Filter" flow="right">
             <i class="icon-filter-large"></i>
         </button>
         <div class="dropdown" dropdown="">

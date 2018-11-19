@@ -9,11 +9,11 @@
         <div class="sd-page-content__content-block"
             ng-class="{'sd-page-content__content-block--double-sidebar': webPublisherContentLists.activeView!='content-lists', 'open-filters': webPublisherContentLists.filterOpen}">
             <div class="subnav">
-                <a href="#/publisher/dashboard" class="navbtn navbtn--left">
+                <a href="#/publisher/dashboard" class="navbtn navbtn--left" sd-tooltip="Dashboard" flow="right">
                     <i class="icon-arrow-left"></i>
                 </a>
                 <h3 class="subnav__page-title">Content Lists</h3>
-                <div class="dropdown dropdown--align-right" dropdown="">
+                <div class="dropdown dropdown--align-right" dropdown="" sd-tooltip="Create new list" flow="left">
                     <button class="navbtn dropdown sd-create-btn dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
                         <i class="icon-plus-large"></i>
                         <span class="circle"></span>

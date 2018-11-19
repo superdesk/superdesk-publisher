@@ -4,13 +4,16 @@
         <p class="sd-top-menu__header">Publisher</p>
     </header>
 
-    <section class="sd-content sd-page-content--slide-in" ng-class="{
-            'sd-page-content--slide-in--open' : editorOpen}">
+    <section class="sd-content sd-page-content--slide-in"
+        ng-class="{'sd-page-content--slide-in--open' : editorOpen}">
         <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
         <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
             ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
             <div class="subnav">
-                <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherOutput.toggleFilterPane()" ng-class="{'navbtn--active': webPublisherOutput.filterOpen}">
+                <button class="navbtn navbtn--left navbtn--darker"
+                    ng-click="webPublisherOutput.toggleFilterPane()"
+                    ng-class="{'navbtn--active': webPublisherOutput.filterOpen}"
+                    sd-tooltip="Filter" flow="right">
                     <i class="icon-filter-large"></i>
                 </button>
                 <div sd-search-handler data-title="Search" ng-model='webPublisherOutput.advancedFilters.term'></div>
