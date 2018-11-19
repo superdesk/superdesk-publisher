@@ -170,6 +170,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
         openPreview(article) {
             this.previewOpen = true;
             this.selectedArticle = article;
+            if (this.publishOpen) {
+                this.openPublish(this.selectedArticle);
+            }
             this.bodyHtml = $sce.trustAsHtml(article.body_html);
         }
 
@@ -215,7 +218,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
          * @param {String} action
          * @description Open publish pane for publish/unpulbish
          */
-        openPublish(article, action) {
+        openPublish(article, action = 'publish') {
             this.publishedDestinations = {};
             this.publishFilter = 'all';
             this.publishOpen = true;
