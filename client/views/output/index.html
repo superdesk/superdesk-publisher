@@ -4,21 +4,28 @@
         <p class="sd-top-menu__header">Publisher</p>
     </header>
 
-    <section class="sd-content sd-page-content--slide-in" ng-class="{
-            'sd-page-content--slide-in--open' : editorOpen}">
+    <section class="sd-content sd-page-content--slide-in"
+        ng-class="{'sd-page-content--slide-in--open' : editorOpen}">
         <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
-        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar" ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
+        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
+            ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
             <div class="subnav">
-                <button class="navbtn navbtn--left navbtn--darker" ng-click="webPublisherOutput.toggleFilterPane()" ng-class="{'navbtn--active': webPublisherOutput.filterOpen}">
+                <button class="navbtn navbtn--left navbtn--darker"
+                    ng-click="webPublisherOutput.toggleFilterPane()"
+                    ng-class="{'navbtn--active': webPublisherOutput.filterOpen}"
+                    sd-tooltip="Filter" flow="right">
                     <i class="icon-filter-large"></i>
                 </button>
                 <div sd-search-handler data-title="Search" ng-model='webPublisherOutput.advancedFilters.term'></div>
                 <h3 class="subnav__page-title">Output Control</h3>
             </div>
             <div class="subnav subnav--padded subnav--lower-z-index" ng-init="listType = 'incoming'">
-                <sd-check ng-model="listType" type="radio" ng-value="incoming" label-position="inside" ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
-                <sd-check ng-model="listType" type="radio" ng-value="published" label-position="inside" ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
+                <sd-check ng-model="listType" type="radio" ng-value="incoming" label-position="inside"
+                    ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
+                <sd-check ng-model="listType" type="radio" ng-value="published" label-position="inside"
+                    ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
             </div>
+            <div class="sd-loader" ng-if="webPublisherOutput.loading"></div>
             <div class="sd-column-box--3">
                 <div class="sd-filters-panel sd-filters-panel--border-right">
                     <div class="side-panel side-panel--transparent side-panel--shadow-right"
@@ -26,8 +33,19 @@
                     </div>
                 </div>
                 <div class="sd-column-box__main-column relative"
+                    ng-if="!webPublisherOutput.loading"
+                    ng-show="listType == 'incoming'"
                     sd-group-article
-                    data-root-type="{{listType}}"
+                    data-root-type="incoming"
+                    data-web-publisher-output="webPublisherOutput"
+                    data-filters="webPublisherOutput.advancedFilters">
+                </div><!-- end main -->
+
+                <div class="sd-column-box__main-column relative"
+                    ng-if="!webPublisherOutput.loading"
+                    ng-show="listType == 'published'"
+                    sd-group-article
+                    data-root-type="published"
                     data-web-publisher-output="webPublisherOutput"
                     data-filters="webPublisherOutput.advancedFilters">
                 </div><!-- end main -->

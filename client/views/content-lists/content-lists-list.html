@@ -7,7 +7,7 @@
 <div class="sd-grid-list sd-grid-list--large">
     <div
         ng-if="list.type !== 'bucket'"
-        ng-repeat="list in lists | filter: {type: webPublisherContentLists.listType} | orderBy: 'id' track by list.id"
+        ng-repeat="list in lists | filter: {type: webPublisherContentLists.listType} | orderBy: 'id'"
         ng-include="'list-box.html'"
     ></div>
 </div>

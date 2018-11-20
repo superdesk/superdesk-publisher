@@ -16,9 +16,12 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             this.filterOpen = $window.localStorage.getItem('swpOutputFilterOpen') ? JSON.parse($window.localStorage.getItem('swpOutputFilterOpen' )) : false;
             this.routes = [];
             this.advancedFilters = {};
+            // flag to make sure that setToken was fired. Used to control directives that do requests on their own.
+            this.loading = true;
 
             publisher.setToken().then(publisher.querySites)
                 .then((sites) => {
+                    this.loading = false;
                     this.sites = sites;
                     // loading routes for filter pane
                     angular.forEach(sites, (siteObj, key) => {
@@ -167,6 +170,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
         openPreview(article) {
             this.previewOpen = true;
             this.selectedArticle = article;
+            if (this.publishOpen) {
+                this.openPublish(this.selectedArticle);
+            }
             this.bodyHtml = $sce.trustAsHtml(article.body_html);
         }
 
@@ -212,7 +218,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
          * @param {String} action
          * @description Open publish pane for publish/unpulbish
          */
-        openPublish(article, action) {
+        openPublish(article, action = 'publish') {
             this.publishedDestinations = {};
             this.publishFilter = 'all';
             this.publishOpen = true;

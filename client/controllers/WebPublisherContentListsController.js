@@ -54,9 +54,11 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             this.filterOpen = newViewName === 'content-list-automatic' ? true : false;
 
             if (newViewName === 'content-lists') {
-                $location.path('/publisher/content_lists', false);
                 this.listChangeFlag = false;
-                if (refresh) this._refreshLists();
+                if (refresh) {
+                    $location.path('/publisher/content_lists', false);
+                    this._refreshLists();
+                }
             }
         }
 
