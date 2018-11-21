@@ -22,6 +22,19 @@
     }
 }
 
+.fixedPosition {
+    position: fixed;
+
+    &--bottomRight {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    &--top {
+        top: 0;
+    }
+}
+
 .margin {
     &--none {
         margin: 0!important;
