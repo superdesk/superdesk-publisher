@@ -89,6 +89,10 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
          */
         createListCard(listType) {
             this.changeView('content-lists', false);
+            // update filtering
+            if(this.listType && this.listType != listType) {
+                this.listType = '';
+            }
             this.selectedList = {};
             $scope.newList = {type: listType, cacheLifeTime: 0};
             $scope.lists.push($scope.newList);
