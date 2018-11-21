@@ -29,19 +29,22 @@ apps: [
     'superdesk-publisher'
 ],
 publisher: {
-    protocol: 'http',
-    tenant: 'tenant-1',
-    domain: 'website.com',
-    base: 'api/v1',
-    wsDomain: 'WebSocketDomain.com',
-    wsPath: '/ws',
-    wsPort: '8080'
+    protocol: 'http',                /* http or https */
+    tenant: 'tenant-1',              /* tenant - semantically subdomain, '' is allowed */
+    domain: 'website.com',           /* domainname for the publisher */
+    base: 'api/v1',                  /* api base path */
+
+    wsProtocol: 'wss',                /* ws or wss (websocket), '' or  unspecified defaults to 'wss' */
+    wsDomain: 'WebSocketDomain.com',  /* domain name (usually domain as above) */
+    wsPath: '/ws',                    /* path to websocket root dir */
+    wsPort: '8080'                    /* default 443 */
 },
 ```
 
 publisher.tenant - publisher tenant name
 publisher.domain - publisher domain
 publisher.base - publisher base url
+
 publisher.wsDomain - publisher websocket domain address
 publisher.wsPort - publisher websocket path
 publisher.wsPort - publisher websocket port
