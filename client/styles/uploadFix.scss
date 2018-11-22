@@ -1,0 +1,43 @@
+.drag-area { //start screen on modal show
+    position: absolute;
+    top:5px;
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+    border: 3px dashed $background-main;
+    overflow-y: auto;
+    @include user-select(none);
+    &.dragover {
+        border-color: #e7e7e7;
+    }
+
+    .title {
+        position: absolute;
+        height: 120px; width: 400px;
+        @include box-sizing(border-box);
+        top: 50%; left: 50%;
+        margin-top: -120px;
+        margin-left: -200px;
+        padding-top: 100px;
+        text-align: center;
+        color: #a0a0a0;
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .upload-manual {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 240px;
+        margin-top: 20px;
+        margin-left: -120px;
+        text-align: center;
+        .or-label {
+            margin-bottom: 20px;
+        }
+        .btn {
+            height: auto;
+            line-height: 140%;
+        }
+    }
+}

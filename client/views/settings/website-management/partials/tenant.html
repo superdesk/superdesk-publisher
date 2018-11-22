@@ -27,7 +27,10 @@
             </div>
             <div class="dashboard-thumbnail-block__meta">
                 <span class="dashboard-thumbnail-block__label">Active theme:</span>
-                <h4 class="dashboard-thumbnail-block__heading"><i class="icon-amp" ng-class="{'icon--green': site.ampEnabled, 'icon--disabled': !site.ampEnabled}"></i> {{site.theme.title ? site.theme.title : 'No Theme' }}</h4>
+                <h4 class="dashboard-thumbnail-block__heading" sd-tooltip="AMP {{ site.ampEnabled ? 'enabled' : 'disabled'}}" flow="left">
+                    <i class="icon-amp" ng-class="{'icon--green': site.ampEnabled, 'icon--disabled': !site.ampEnabled}"></i>
+                     {{site.theme.title ? site.theme.title : 'No Theme' }}
+                </h4>
                 <span ng-if="site.theme.settings"><a href="" ng-click="webPublisherSettings.editSite(site, 'theme-settings')" class="dashboard-thumbnail-block__link">customize theme</a></span>
             </div>
         </div>

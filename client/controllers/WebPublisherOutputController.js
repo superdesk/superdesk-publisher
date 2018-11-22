@@ -186,7 +186,6 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             if (!this.publishOpen) this.selectedArticle = null;
         }
 
-
         publishingAddDestination(site) {
             const tenant = _.find(this.sites, t => t.code === site.code);
 
@@ -418,6 +417,17 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
          */
         _updatedKeys(a, b) {
             return _.reduce(a, (result, value, key) => _.isEqual(value, b[key]) ? result : result.concat(key), []);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#_isEmpty
+         * @param {Object} item
+         * @returns {Boolean}
+         * @description checks if item is empty
+         */
+        _isEmpty(item) {
+            return _.isEmpty(item);
         }
     }
     return new WebPublisherOutput();

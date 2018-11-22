@@ -70,10 +70,12 @@
     </div>
     <div class="side-panel__footer side-panel__footer--button-box-large" ng-if="!webPublisherOutput.activePublishPane || webPublisherOutput.activePublishPane === 'publish'">
         <button class="btn btn--large btn--success btn--expanded"
+            ng-disabled="webPublisherOutput._isEmpty(webPublisherOutput.newDestinations)"
             ng-click="webPublisherOutput.publishArticle()">Publish</button>
     </div>
     <div class="side-panel__footer side-panel__footer--button-box-large" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">
         <button class="btn btn--large btn--alert btn--expanded"
+            ng-disabled="webPublisherOutput._isEmpty(webPublisherOutput.newDestinations)"
             ng-click="webPublisherOutput.unPublishArticle()">Unpublish</button>
     </div>
 </div>
