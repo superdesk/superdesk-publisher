@@ -33,7 +33,7 @@
             translate>Save</button>
     </div>
 </div>
-<div class="sd-page__content sd-page__content--d-flex-column no-padding">
+<div class="sd-page__content sd-display-flex-column sd-page__content--d-flex-column no-padding">
     <ul class="nav-tabs">
         <li ng-class="{'nav-tabs__tab--active': !webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'}" class="nav-tabs__tab">
             <button ng-click="webPublisherSettings.changeManageTab('general')"
@@ -62,19 +62,19 @@
                 class="nav-tabs__link"><span translate="">Theme Customization</span></button>
         </li>
     </ul>
-    <div class="nav-tabs__content no-padding relative">
-            <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
+    <div class="nav-tabs__content no-padding relative sd-display-flex-column">
+        <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
         <div ng-if="!webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'"
             class="nav-tabs__pane nav-tabs__pane--padding"
             ng-include="'settings/website-management/manage-general.html'">
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane"
+        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column"
             ng-include="'settings/website-management/manage-routes.html'">
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane"
+        <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane sd-display-flex-column"
             ng-include="'settings/website-management/manage-navigation.html'">
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane"
+        <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane sd-display-flex-column"
             ng-include="'settings/website-management/manage-navigation-menu.html'">
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'theme-settings'" class="nav-tabs__pane"
