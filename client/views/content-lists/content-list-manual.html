@@ -208,8 +208,9 @@
                     </div>
                 </div>
                 <div class="side-panel__footer side-panel__footer--button-box">
-                    <div class="flex-grid flex-grid--boxed-small flex-grid--small-1">
-                        <a ng-click="webPublisherContentLists.filterArticles()" class="btn btn--primary btn--large">Filter</a>
+                    <div class="flex-grid flex-grid--boxed-small flex-grid--small-2">
+                        <a class="btn btn--hollow" ng-click="newList.filters = {}; webPublisherContentLists.selectedRoutes = []" >Clear</a>
+                        <a class="btn btn--primary" ng-click="webPublisherContentLists.filterArticles()" >Filter</a>
                     </div>
                 </div>
             </div>
