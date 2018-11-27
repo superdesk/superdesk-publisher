@@ -99,7 +99,7 @@ export function ThemeManagerDirective(publisher) {
                                 });
                             })
                             .catch((err) => {
-                                scope.uploadError = err.data.errors.errors[0] ? err.data.errors.errors[0] : true;
+                                scope.uploadError = err.data && err.data.errors && err.data.errors.errors && err.data.errors.errors[0] ? err.data.errors.errors[0] : true;
                                 scope.uploading = false;
                             });
                     }
