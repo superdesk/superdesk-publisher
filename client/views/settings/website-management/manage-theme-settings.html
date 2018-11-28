@@ -10,7 +10,7 @@
                     ng-if="webPublisherSettings.themeSettings.theme_logo.value && !webPublisherSettings.replace_theme_logo"
                     ng-click="webPublisherSettings.replace_theme_logo = true">
                     <i class="icon-pencil"></i>
-                    <img ng-src="http://{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : '' + newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo.value}}" style="max-width:100%" />
+                    <img ng-src="//{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : ''}}{{newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo.value}}" style="max-width:100%" />
                 </div>
                 <div class="wizardThemeBox wizardThemeBox--upload"
                 ng-if="!webPublisherSettings.themeSettings.theme_logo.value || webPublisherSettings.replace_theme_logo">
@@ -34,7 +34,7 @@
                     ng-if="webPublisherSettings.themeSettings.theme_logo_second.value && !webPublisherSettings.replace_theme_logo_second"
                     ng-click="webPublisherSettings.replace_theme_logo_second = true">
                     <i class="icon-pencil"></i>
-                     <img ng-src="http://{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : '' + newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo_second.value}}" style="max-width:100%" />
+                     <img ng-src="//{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : ''}}{{newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo_second.value}}" style="max-width:100%" />
                 </div>
                 <div class="wizardThemeBox wizardThemeBox--upload"
                     ng-if="!webPublisherSettings.themeSettings.theme_logo_second.value || webPublisherSettings.replace_theme_logo_second">
@@ -58,7 +58,7 @@
                     ng-if="webPublisherSettings.themeSettings.theme_logo_third.value && !webPublisherSettings.replace_theme_logo_third"
                     ng-click="webPublisherSettings.replace_theme_logo_third = true">
                     <i class="icon-pencil"></i>
-                    <img ng-src="http://{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : '' + newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo_third.value}}" style="max-width:100%" />
+                    <img ng-src="//{{newSite.subdomain && newSite.subdomain.length > 0 ? newSite.subdomain + '.' : ''}}{{newSite.domainName + '/theme_logo/' + webPublisherSettings.themeSettings.theme_logo_third.value}}" style="max-width:100%" />
                 </div>
                 <div class="wizardThemeBox wizardThemeBox--upload"
                     ng-if="!webPublisherSettings.themeSettings.theme_logo_third.value || webPublisherSettings.replace_theme_logo_third">
