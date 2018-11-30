@@ -203,10 +203,20 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
             this.metadataList = [];
             this.selectedRoutes = [];
             $scope.routes = null;
-            this.tenantArticles = {
-                page: 0,
-                params: {}
-            };
+
+            if (list.type === 'manual' && this.tenantArticles && this.tenantArticles.items) {
+                this.tenantArticles = {
+                    page: 0,
+                    params: {}
+                };
+                this.loadMoreTenantArticles();
+            } else {
+                this.tenantArticles = {
+                    page: 0,
+                    params: {}
+                };
+            }
+
             if (!$scope.newList.filters) {
                 $scope.newList.filters = {};
             }
@@ -215,7 +225,7 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
                 this.filterOpen = true;
             }
 
-            if (list.type == 'manual') {
+            if (list.type === 'manual') {
                 this._queryList();
             }
 
