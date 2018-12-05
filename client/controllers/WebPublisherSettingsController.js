@@ -85,6 +85,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          */
         changeManageTab(newTabName) {
             this.manageTab = newTabName;
+
             switch (newTabName) {
                 case 'routes':
                     this.changeRouteFilter('');
@@ -92,6 +93,12 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     break;
                 case 'navigation':
                     this._refreshMenus();
+                    break;
+                case 'theme-settings':
+                    // reseting logo replacement flags
+                    this.replace_theme_logo = false;
+                    this.replace_theme_logo_second = false;
+                    this.replace_theme_logo_third = false;
                     break;
                 }
         }
