@@ -281,7 +281,11 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
              * @description event is thrown when criteria is updated
              */
             publisher.manageList({content_list: {filters: updatedFilters}}, this.selectedList.id)
-                .then(() => {
+                .then((response) => {
+                    let index = $scope.lists.findIndex(el => el.id === response.id );
+                    if (index > -1) {
+                        $scope.lists[index] = response;
+                    }
                     $scope.loading = false;
                     $scope.$broadcast('refreshListArticles', $scope.newList)
                 });
