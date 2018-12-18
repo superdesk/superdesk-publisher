@@ -77,6 +77,7 @@ export default angular.module('superdesk-publisher', [
 .directive('sdThemeManager', directive.ThemeManagerDirective)
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
+.factory('publisherHelpers', services.PublisherHelpersFactory)
 
 .run(['extensionPoints', 'session', 'config', '$templateCache', 'urls', 'api', (extensionPoints, session, config, $templateCache, urls, api) => {
         cacheIncludedTemplates($templateCache);

@@ -50,12 +50,12 @@
                         </div>
                         <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
-                            <img ng-src="{{article.content.tenant.subdomain ? 'http://' + article.content.tenant.subdomain + '.' + article.content.tenant.domainName + article.content.featureMedia._links.download.href : 'http://' + article.content.tenant.domainName + article.content.featureMedia._links.download.href}}"
+                            <img ng-src="{{webPublisherContentLists.getThumbnail(article.content)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
                         <div ng-if="!article.duplicate && article.featureMedia && article.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
-                            <img ng-src="{{article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName + article.featureMedia._links.download.href : 'http://' + article.tenant.domainName + article.featureMedia._links.download.href}}"
+                            <img ng-src="{{webPublisherContentLists.getThumbnail(article)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
                         <div class="sd-list-item__column sd-list-item__column--grow">
@@ -115,12 +115,12 @@
                         </div>
                         <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
-                            <img ng-src="{{article.content.tenant.subdomain ? 'http://' + article.content.tenant.subdomain + '.' + article.content.tenant.domainName + article.content.featureMedia._links.download.href : 'http://' + article.content.tenant.domainName + article.content.featureMedia._links.download.href}}"
+                            <img ng-src="{{webPublisherContentLists.getThumbnail(article.content)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
                         <div ng-if="!article.duplicate && article.featureMedia && article.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
-                            <img ng-src="{{article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName + article.featureMedia._links.download.href : 'http://' + article.tenant.domainName + article.featureMedia._links.download.href}}"
+                            <img ng-src="{{webPublisherContentLists.getThumbnail(article)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
                         <div class="sd-list-item__column sd-list-item__column--grow">

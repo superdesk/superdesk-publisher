@@ -7,8 +7,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherContentListsController holds a set of functions used for web publisher content listis
  */
-WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'modal', '$timeout', '$route', '$location'];
-export function WebPublisherContentListsController($scope, publisher, modal, $timeout, $route, $location) {
+WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'publisherHelpers', 'modal', '$timeout', '$route', '$location'];
+export function WebPublisherContentListsController($scope, publisher, publisherHelpers, modal, $timeout, $route, $location) {
     class WebPublisherContentLists {
         constructor() {
             $scope.loading = true;
@@ -41,6 +41,17 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
                 }
             });
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#getThumbnail
+         * @param {Object} article - article content object
+         * @description Sets the active view name to the given value
+         */
+        getThumbnail(article) {
+            return publisherHelpers.getThumbnail(article);
+        }
+
 
         /**
          * @ngdoc method

@@ -5,8 +5,8 @@
  * @requires publisher
  * @description Directive to handle listing articles in web lists
  */
-ListArticlesDirective.$inject = ['publisher'];
-export function ListArticlesDirective(publisher) {
+ListArticlesDirective.$inject = ['publisher', 'publisherHelpers'];
+export function ListArticlesDirective(publisher, publisherHelpers) {
     class ListArticles {
         constructor() {
             this.scope = {list: '=list', type: '@', listChangeFlag: '=listchangeflag'};
@@ -36,6 +36,17 @@ export function ListArticlesDirective(publisher) {
                 case 'detail':
                     return 'list-articles-detail.html';
                 }
+            };
+
+            /**
+             * @ngdoc method
+             * @name sdListArticles#getThumbnail
+             * @param {Object} article
+             * @returns {String}
+             * @description Returns template url dependent on type
+             */
+            scope.getThumbnail = function(article) {
+                return publisherHelpers.getThumbnail(article);
             };
 
             /**
