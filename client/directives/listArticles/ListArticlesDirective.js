@@ -40,6 +40,21 @@ export function ListArticlesDirective(publisher) {
 
             /**
              * @ngdoc method
+             * @name sdListArticles#getThumbnail
+             * @param {Object} article
+             * @returns {String}
+             * @description Returns template url dependent on type
+             */
+            scope.getThumbnail = function(article) {
+                let base = article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName : 'http://' + article.tenant.domainName;
+                let mediaEl = article.media.find(el => el.id === article.featureMedia.id);
+                let rendition = mediaEl.renditions.find(el => el.name === 'thumbnail');
+
+                return base + '/media/' + rendition.image.assetId + '.' + rendition.image.fileExtension;
+            };
+
+            /**
+             * @ngdoc method
              * @name sdListArticles#pinArticle
              * @param {Object} article
              * @description Pins article

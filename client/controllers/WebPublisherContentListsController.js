@@ -44,6 +44,21 @@ export function WebPublisherContentListsController($scope, publisher, modal, $ti
 
         /**
          * @ngdoc method
+         * @name WebPublisherContentListsController#getThumbnail
+         * @param {Object} article - article content object
+         * @description Sets the active view name to the given value
+         */
+        getThumbnail(article) {
+            let base = article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName : 'http://' + article.tenant.domainName;
+            let mediaEl = article.media.find(el => el.id === article.featureMedia.id);
+            let rendition = mediaEl.renditions.find(el => el.name === 'thumbnail');
+
+            return base + '/media/' + rendition.image.assetId + '.' + rendition.image.fileExtension;
+        }
+
+
+        /**
+         * @ngdoc method
          * @name WebPublisherContentListsController#changeTab
          * @param {String} newViewName - name of the active view
          * @param {Bool} refresh - refresh lists flag
