@@ -5,8 +5,8 @@
  * @requires publisher
  * @description Directive to handle listing articles in web lists
  */
-ListArticlesDirective.$inject = ['publisher'];
-export function ListArticlesDirective(publisher) {
+ListArticlesDirective.$inject = ['publisher', 'publisherHelpers'];
+export function ListArticlesDirective(publisher, publisherHelpers) {
     class ListArticles {
         constructor() {
             this.scope = {list: '=list', type: '@', listChangeFlag: '=listchangeflag'};
@@ -46,11 +46,7 @@ export function ListArticlesDirective(publisher) {
              * @description Returns template url dependent on type
              */
             scope.getThumbnail = function(article) {
-                let base = article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName : 'http://' + article.tenant.domainName;
-                let mediaEl = article.media.find(el => el.id === article.featureMedia.id);
-                let rendition = mediaEl.renditions.find(el => el.name === 'thumbnail');
-
-                return base + '/media/' + rendition.image.assetId + '.' + rendition.image.fileExtension;
+                return publisherHelpers.getThumbnail(article);
             };
 
             /**
