@@ -7,6 +7,7 @@
 
 export function PublisherHelpersFactory() {
     class PublisherHelpers {
+
         /**
          * @ngdoc method
          * @name PublisherHelpers#getThumbnail
