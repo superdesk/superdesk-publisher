@@ -14,7 +14,7 @@
                     <time ng-if="!webPublisherOutput.selectedArticle.updatedAt" title="{{webPublisherOutput.selectedArticle.createdAt}}">{{webPublisherOutput.selectedArticle.createdAt | reldate}}</time>
                 </p>
                 <span class="btn-icon-group">
-                    <button class="icn-btn" ng-click="webPublisherOutput.editArticle(webPublisherOutput.selectedArticle); $event.stopPropagation();"><i class="icon-pencil"></i></button>
+                    <button class="icn-btn" ng-click="webPublisherOutput.correctArticle(webPublisherOutput.selectedArticle); $event.stopPropagation();"><i class="icon-pencil"></i></button>
                     <button class="icn-btn" ng-click="webPublisherOutput.openPublish(webPublisherOutput.selectedArticle, 'publish'); $event.stopPropagation();"><i class="icon-expand-thin"></i></button>
                 </span>
             </div>
