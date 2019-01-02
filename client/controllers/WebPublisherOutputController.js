@@ -71,11 +71,13 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
         websocketOpen() {
             let pubConfig = config.publisher || {};
 
-            let domain = pubConfig.wsDomain ? pubConfig.wsDomain : `${pubConfig.tenant}.${pubConfig.domain}`;
+            let protocol = (pubConfig.wsProtocol && pubConfig.wsProtocol.length > 0) ? `${pubConfig.wsProtocol}` : 'wss';
+            let domain = pubConfig.wsDomain;
             let port = pubConfig.wsPort ? `:${pubConfig.wsPort}` : '';
             let path = pubConfig.wsPath ? pubConfig.wsPath : '';
 
-            this.ws = new WebSocket(`wss://${domain}${port}${path}?token=` + publisher.getToken());
+            this.ws = new WebSocket(`${protocol}://${domain}${port}${path}?token=`
+                                    + publisher.getToken());
             this.websocketBindEvents();
         };
 
