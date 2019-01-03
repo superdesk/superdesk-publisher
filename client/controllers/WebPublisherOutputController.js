@@ -140,15 +140,15 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
 
         /**
          * @ngdoc method
-         * @name WebPublisherOutputController#editArticle
+         * @name WebPublisherOutputController#correctArticle
          * @param {Object} article
-         * @description Open article in new tab for editing
+         * @description Open article in new tab for correction
          */
-        editArticle(article) {
+        correctArticle(article) {
             let item = {};
 
             item._id = article.guid;
-            authoringWorkspace.popup(item, 'edit');
+            authoringWorkspace.popup(item, 'correct');
         }
 
         /**
