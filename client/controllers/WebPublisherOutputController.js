@@ -188,6 +188,38 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             if (!this.publishOpen) this.selectedArticle = null;
         }
 
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#countPageViews
+         * @param {Array} articles
+         * @description Counts total page views
+         */
+        countPageViews(articles = []) {
+           let count = 0;
+
+           articles.forEach(art => {
+               count += parseInt(art.articleStatistics.pageViewsNumber);
+           })
+
+           return count;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#countComments
+         * @param {Array} articles
+         * @description Counts total comments
+         */
+        countComments(articles = []) {
+            let count = 0;
+
+            articles.forEach(art => {
+                count += parseInt(art.commentsCount);
+            })
+
+            return count;
+         }
+
         publishingAddDestination(site) {
             const tenant = _.find(this.sites, t => t.code === site.code);
 
