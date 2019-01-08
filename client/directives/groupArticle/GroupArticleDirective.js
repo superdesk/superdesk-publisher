@@ -109,6 +109,7 @@ export function GroupArticleDirective(publisher) {
                     }
                     scope.totalArticles.total += 1;
                     scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
                }
 
             });
@@ -147,6 +148,7 @@ export function GroupArticleDirective(publisher) {
                     scope.articlesList = scope.articlesList.concat(articles._embedded._items);
                     scope.loadingArticles = false;
                     scope.webPublisherOutput.loadingArticles = false;
+                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
                 })
                 .catch((err) => {
                     scope.loadingArticles = false;

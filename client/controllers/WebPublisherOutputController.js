@@ -18,6 +18,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
             this.advancedFilters = {};
             // flag to make sure that setToken was fired. Used to control directives that do requests on their own.
             this.loading = true;
+            this.articlesCount = {incoming: 0, published: 0};
 
             publisher.setToken().then(publisher.querySites)
                 .then((sites) => {
