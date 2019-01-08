@@ -328,9 +328,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
                 publisher.publishArticle(
                     {publish: {destinations: destinations}}, this.selectedArticle.id)
                     .then(() => {
+                        $scope.$broadcast('removeFromArticlesList', this.selectedArticle.id);
                         this.closePublish();
                         this.closePreview();
-                        $scope.$broadcast('refreshArticlesList');
                     })
                     .catch((err) => {
                         notify.error('Publishing failed!');
