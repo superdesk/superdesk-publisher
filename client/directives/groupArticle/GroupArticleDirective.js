@@ -114,6 +114,19 @@ export function GroupArticleDirective(publisher) {
 
             });
 
+            scope.$on('removeFromArticlesList', (e, itemId) => {
+                if (!itemId) return;
+
+                let index = scope.articlesList.findIndex((el) => el.id === itemId);
+
+                if (index > -1) {
+                    scope.articlesList.splice(index, 1);
+                    scope.totalArticles.total -= 1;
+                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                }
+            });
+
             scope.$on('refreshArticlesList', (e, filters) => {
                 if (filters) {
                     scope.filters = filters;
