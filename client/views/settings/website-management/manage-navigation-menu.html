@@ -48,7 +48,8 @@
                                     <select id="menuRoute" class="dropdown__toggle line-input" ng-model="newMenu.route"
                                         ng-options="route.id as route.name for route in routes"
                                         ng-required="!(newMenu.uri.length || newMenu.route)"
-                                        ng-disabled="newMenu.uri.length">
+                                        ng-change="webPublisherSettings.navigationMenuSetUri()"
+                                    >
                                         <option value=""></option>
                                     </select>
                                 </div>

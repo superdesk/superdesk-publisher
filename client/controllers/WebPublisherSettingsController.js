@@ -384,6 +384,19 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
         /**
          * @ngdoc method
+         * @name WebPublisherSettingsController#navigationMenuSetUri
+         * @description Sets proper uri/slug for selected route
+         */
+        navigationMenuSetUri() {
+            if ($scope.newMenu.route) {
+                let route = $scope.routes.find(route => route.id === $scope.newMenu.route);
+
+                $scope.newMenu.uri = route.staticPrefix;
+            }
+        }
+
+        /**
+         * @ngdoc method
          * @name WebPublisherSettingsController#removeMenu
          * @param {Object} menu - menu object to remove
          * @description Removes this menu from the site.
