@@ -1,0 +1,52 @@
+<div class="sd-list-item sd-shadow--z1"
+    ng-class="{'sd-list-item--activated': webPublisherSettings.selectedWebhook.id==webhook.id}"
+>
+    <div class="sd-list-item__border"></div>
+    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+        <div class="sd-list-item__row">
+            <div class="sd-overflow-ellipsis sd-list-item--element-grow"><strong>{{webhook.url}}</strong></div>
+        </div>
+        <div class="sd-list-item__row">
+            <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                <span class="label label--primary"
+                    ng-repeat="event in webhook.events">
+                    {{event}}
+                </span>
+            </span>
+
+
+            <span ng-if="webhook.enabled" class="label label--success">
+                enabled
+            </span>
+            <span ng-if="!webhook.enabled" class="label label--red2">
+                disabled
+            </span>
+        </div>
+    </div>
+    <div class="sd-list-item__action-menu">
+        <div class="dropdown" dropdown dropdown-append-to-body>
+            <button class="dropdown__toggle" dropdown__toggle ng-click="$event.stopPropagation()">
+                <i class="icon-dots-vertical"></i>
+            </button>
+            <ul class="dropdown__menu">
+                <li>
+                    <div class="dropdown__menu-label">
+                        Actions
+                        <button class="dropdown__menu-close"><i class="icon-close-small"></i></button>
+                    </div>
+                </li>
+                <li class="dropdown__menu-divider"></li>
+                <li>
+                    <button ng-click="webPublisherSettings.editWebhook(webhook)">
+                        <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+                    </button>
+                </li>
+                <li>
+                    <button ng-click="webPublisherSettings.deleteWebhook(webhook.id)">
+                        <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

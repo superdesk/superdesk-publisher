@@ -10,7 +10,7 @@
         <span ng-class="{'listElement--bold': route.type == 'collection'}">{{route.name}}</span>
     </div>
     <div class="listElement__right">
-        <i ng-if="route.paywallSecured" class="icon-lock icon--blue"></i>
+        <span sd-tooltip="Paywall secured" flow="left" ng-if="route.paywallSecured"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
         <div class="dropdown dropdown--align-right" dropdown>
             <button class="dropdown__toggle dropdown--toggle" dropdown__toggle>
                 <i class="icon-dots-vertical"></i>

@@ -490,6 +490,44 @@ export function PublisherFactory(pubapi) {
         settingsRevert(scope) {
             return pubapi.post('settings/revert', scope);
         }
+
+        /**
+         * @ngdoc method
+         * @name publisher#getWebhooks
+         * @returns {Promise}
+         * @description List all webhooks
+         */
+        getWebhooks() {
+            let params = {
+                limit: 9999
+            };
+
+            return pubapi.query('webhooks', params);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#manageWebhook
+         * @param {Object} webhook - webhook which is edited
+         * @param {String} id - id of webhook which is edited
+         * @returns {Promise}
+         * @description Add or edit tenant rule
+         */
+        manageWebhook(webhook, id) {
+            return pubapi.save('webhooks', webhook, id);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#removeWebhook
+         * @param {String} id - id of webhook which is deleted
+         * @param {Object} params
+         * @returns {Promise}
+         * @description Delete webhook
+         */
+        removeWebhook(id, params) {
+            return pubapi.remove('webhooks', id, params);
+        }
     }
 
     return new Publisher();

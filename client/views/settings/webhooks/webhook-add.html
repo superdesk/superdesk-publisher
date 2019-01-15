@@ -1,0 +1,66 @@
+<div class="side-panel__header side-panel__header--border-b">
+	<a class="icn-btn side-panel__close" ng-click="webPublisherSettings.toggleCreateWebhook(false)"><i class="icon-close-small"></i></a>
+	<h3 class="side-panel__heading" ng-if="!newWebhook.id" translate>Add Webhook</h3>
+	<h3 class="side-panel__heading" ng-if="newWebhook.id" translate>Edit Webhook</h3>
+</div>
+
+<div class="side-panel__content">
+	<div class="side-panel__content-block">
+		<form name="webPublisherSettings.webhookForm" class="flat">
+			<div class="form__row">
+				<sd-tag-input
+					ng-model="newWebhook.events"
+					data-label="Events"
+					data-items="[
+						'article[created]',
+						'article[updated]',
+						'article[published]',
+						'article[unpublished]',
+						'article[canceled]',
+						'menu[created]',
+						'menu[updated]',
+						'menu[deleted]',
+						'route[created]',
+						'route[updated]',
+						'route[deleted]',
+						'package[created]',
+						'package[updated]',
+						'package[processed]'
+					]"
+					data-freetext="false"
+					data-max-results-to-show=20 >
+					<tags-input
+						ng-model="model"
+						add-from-autocomplete-only="{{items ? !freetext : false}}"
+						show-button="{{!!items}}"
+						display-property="{{field}}"
+						use-strings="{{!field}}"
+						data-max-results-to-show=20
+					></tags-input>
+				</sd-tag-input>
+			</div>
+			<div class="form__row">
+				<div class="sd-line-input">
+					<label class="sd-line-input__label">URL</label>
+					<input class="sd-line-input__input" type="text" ng-model="newWebhook.url">
+				</div>
+			</div>
+			<div class="form__row">
+				<div class="sd-line-input">
+						<span ng-model="newWebhook.enabled" sd-switch=""></span><label ng-if="newWebhook.enabled">Enabled</label><label ng-if="!newWebhook.enabled">Disabled</label>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="side-panel__footer side-panel__footer--button-box">
+	<div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
+		<a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateWebhook()">Cancel</a>
+		<button class="btn btn--primary"
+			ng-disabled="webPublisherSettings.webhookForm.$invalid || !webPublisherSettings.webhookForm.$dirty"
+			ng-click="webPublisherSettings.saveWebhook()">
+			Save
+		</button>
+	</div>
+</div>

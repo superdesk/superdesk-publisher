@@ -52,6 +52,10 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('settings/website-management/partials/navigation-tree-renderer.html', require('./client/views/settings/website-management/partials/navigation-tree-renderer.html'));
     $templateCache.put('settings/website-management/manage-theme-settings.html', require('./client/views/settings/website-management/manage-theme-settings.html'));
 
+    $templateCache.put('settings/webhooks/index.html', require('./client/views/settings/webhooks/index.html'));
+    $templateCache.put('settings/webhooks/webhook-item.html', require('./client/views/settings/webhooks/webhook-item.html'));
+    $templateCache.put('settings/webhooks/webhook-add.html', require('./client/views/settings/webhooks/webhook-add.html'));
+
 }
 
 /**

@@ -1,0 +1,33 @@
+
+<div ng-class="{'open-preview': webPublisherSettings.webhookPaneOpen}" class="sd-page__main-content">
+    <div class="sd-page__header sd-page__header--white">
+        <h2 class="sd-page__page-heading" translate="">Webhooks</h2>
+        <span class="sd-page__element-grow"></span>
+        <button class="btn btn--primary ng-binding" ng-click="webPublisherSettings.toggleCreateWebhook(true)">
+            <i class="icon-plus-sign icon--white"></i>Add New
+        </button>
+    </div>
+    <div class="sd-page-content__content-block sd-page-content__content-block--main relative">
+        <div class="sd-loader" ng-if="loading"></div>
+        <div class="sd-column-box--2">
+            <div class="sd-column-box__main-column sd-page__content padding--bottomBig">
+                <div class="panel-info" ng-if="!webPublisherSettings.webhooks.length">
+                    <div class="panel-info__icon">
+                        <i class="big-icon--publisher"></i>
+                    </div>
+                    <h3 class="panel-info__heading">No webhooks so far.</h3>
+                    <p class="panel-info__description">Be the first one...</p>
+                </div>
+                <div ng-if="webPublisherSettings.webhooks.length">
+                    <div ng-repeat="webhook in webPublisherSettings.webhooks track by $index"
+                        ng-include="'settings/webhooks/webhook-item.html'">
+                    </div>
+
+                </div>
+            </div>
+            <div class="sd-preview-panel">
+                <div class="side-panel side-panel--shadow-right" ng-include="'settings/webhooks/webhook-add.html'" ng-show="webPublisherSettings.webhookPaneOpen"></div>
+            </div>
+        </div>
+    </div>
+</div>

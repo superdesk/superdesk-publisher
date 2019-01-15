@@ -116,11 +116,10 @@
                     </div>
                 </div>
                 <div class="side-panel__footer side-panel__footer--button-box">
-                    <div class="flex-grid flex-grid--boxed-small flex-grid--small-1">
-                        <a class="btn btn--primary btn--large"
-                        ng-click="webPublisherContentLists.saveListCriteria()"
-                        ng-disabled="loading"
-                        >Update Criteria</a>
+                    <div class="flex-grid flex-grid--boxed-small flex-grid--small-2">
+                        <a class="btn btn--hollow" ng-click="newList.filters = {}; webPublisherContentLists.selectedRoutes = []" >Clear</a>
+                        <a class="btn btn--primary" ng-click="webPublisherContentLists.saveListCriteria()"
+                        ng-disabled="loading">Update Criteria</a>
                     </div>
                 </div>
             </div>
