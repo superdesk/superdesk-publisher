@@ -423,7 +423,6 @@ export function WebPublisherContentListsController($scope, publisher, publisherH
                     this.updatePositions(list);
                 }, 500);
             }
-
             return item;
         };
 
@@ -436,7 +435,7 @@ export function WebPublisherContentListsController($scope, publisher, publisherH
          */
         onMoved(list, index) {
             list.items.splice(index, 1);
-            //this.updatePositions(list);
+            this.updatePositions(list);
         };
 
         /**

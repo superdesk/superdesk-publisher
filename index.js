@@ -2,7 +2,7 @@ import 'ng-infinite-scroll';
 import 'ng-file-upload';
 import './client/styles/_publisher.scss';
 
-import 'angular-drag-and-drop-lists/angular-drag-and-drop-lists';
+import 'angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists';
 
 import * as controllers from './client/controllers';
 import * as services from './client/services';
