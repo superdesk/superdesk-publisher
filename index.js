@@ -2,7 +2,7 @@ import 'ng-infinite-scroll';
 import 'ng-file-upload';
 import './client/styles/_publisher.scss';
 
-import 'angular-drag-and-drop-lists/angular-drag-and-drop-lists';
+import 'angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists';
 
 import * as controllers from './client/controllers';
 import * as services from './client/services';
@@ -51,6 +51,10 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('settings/website-management/manage-navigation-menu.html', require('./client/views/settings/website-management/manage-navigation-menu.html'));
     $templateCache.put('settings/website-management/partials/navigation-tree-renderer.html', require('./client/views/settings/website-management/partials/navigation-tree-renderer.html'));
     $templateCache.put('settings/website-management/manage-theme-settings.html', require('./client/views/settings/website-management/manage-theme-settings.html'));
+
+    $templateCache.put('settings/webhooks/index.html', require('./client/views/settings/webhooks/index.html'));
+    $templateCache.put('settings/webhooks/webhook-item.html', require('./client/views/settings/webhooks/webhook-item.html'));
+    $templateCache.put('settings/webhooks/webhook-add.html', require('./client/views/settings/webhooks/webhook-add.html'));
 
 }
 

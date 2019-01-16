@@ -59,6 +59,10 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 this.openSiteEdit = false;
                 this._loadThemes().then(this._refreshSites);
                 break;
+            case 'webhooks':
+                this.selectedWebhook = {};
+                this._refreshWebhooks();
+                break;
             }
         }
 
@@ -101,6 +105,80 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     this.replace_theme_logo_third = false;
                     break;
                 }
+        }
+
+        // -------------------------------- WEBHOOKS
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#toggleCreateWebhook
+         * @param {Boolean} paneOpen - should pane be open
+         * @description Opens window for creating new webhook
+         */
+        toggleCreateWebhook(paneOpen) {
+            this.selectedWebhook = {};
+            $scope.newWebhook = {enabled: true};
+            this.webhookPaneOpen = paneOpen;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#editWebhook
+         * @param {Object} webhook - webhook which is edited
+         * @description Opens window for editing webhook
+         */
+        editWebhook(webhook) {
+            this.selectedWebhook = webhook;
+            $scope.newWebhook = angular.copy(webhook);
+            this.webhookPaneOpen = true;
+            this.webhookForm.$setPristine();
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#saveWebhook
+         * @description Saving webhook
+         */
+        saveWebhook() {
+            let newWebhook= $scope.newWebhook;
+            let updatedKeys = this._updatedKeys(newWebhook, this.selectedWebhook);
+            $scope.loading = true;
+
+            publisher.manageWebhook({webhook: _.pick(newWebhook, updatedKeys)}, this.selectedWebhook.id)
+                .then((webhook) => {
+                    this.webhookPaneOpen = false;
+                    this.selectedWebhook = {};
+                    this._refreshWebhooks();
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#deleteWebhook
+         * @param {String} id - id of webhook which is deleted
+         * @description Deleting webhook
+         */
+        deleteWebhook(id) {
+            modal.confirm(gettext('Please confirm you want to delete webhook.'))
+                .then(() => publisher.removeWebhook(id).then(() => { this._refreshWebhooks() }))
+                .catch(err => {
+                    let message = err.data.message ? err.data.message : 'Something went wrong. Try again.';
+                    modal.confirm(message);
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherSettingsController#_refreshWebhooks
+         * @description Loads webhooks
+         */
+        _refreshWebhooks() {
+            $scope.loading = true;
+            publisher.getWebhooks()
+                .then((webhooks) => {
+                    this.webhooks = webhooks;
+                    $scope.loading = false;
+                });
         }
 
         // -------------------------------- ROUTES
@@ -542,7 +620,6 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     publisher.setTenant(site);
                     this._refreshSites();
                 }).catch(err => {
-                    console.log(err);
                     $scope.newSite = angular.copy(this.selectedSite);
                     this.loading = false;
                 });

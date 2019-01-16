@@ -241,7 +241,9 @@ export default class Tenant extends Component {
                             {routesSelect}
                     </div>
                     <div className="form__row" ng-init="contentChanged0 = true">
-                        <Checkbox label="Publish to facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        <span sd-tooltip="Publish to facebook">
+                            <Checkbox label="Facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        </span>
                         <span style={paywalSecuredStyle}>
                             <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>

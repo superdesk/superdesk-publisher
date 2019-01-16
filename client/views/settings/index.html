@@ -9,11 +9,17 @@
                 ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'rules'}"
                 ng-click="webPublisherSettings.changePanel('rules')"
                 >Publishing Rules</a></li>
+            <li><a href="" class="sd-left-nav__btn"
+                ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'webhooks'}"
+                ng-click="webPublisherSettings.changePanel('webhooks')"
+                >Webhooks</a></li>
         </ul>
     </nav>
     <div class="sd-loader" ng-if="mainLoading"></div>
     <section class="sd-page__main-content" ng-if="webPublisherSettings.activePanel === 'rules'"
         ng-include="'settings/rules/index.html'"></section>
+    <section class="sd-page__main-content" ng-if="webPublisherSettings.activePanel === 'webhooks'"
+        ng-include="'settings/webhooks/index.html'"></section>
 
     <section class="sd-page__main-content"
         ng-if="webPublisherSettings.activePanel === 'tenant' && !webPublisherSettings.openSiteEdit"
@@ -25,8 +31,6 @@
     <section  class="sd-page__main-content sd-page__main-content--double-left-nav"
         ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
         ng-include="'settings/website-management/manage.html'"></section>
-
-
 
     <footer class="bottom-bar "></footer>
 </div>

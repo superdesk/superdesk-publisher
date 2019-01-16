@@ -171,8 +171,10 @@ export default class NewDestination extends Component {
                     <div className="form__row">
                         {routesSelect}
                     </div>
-                    <div className="form__row" ng-init="contentChanged0 = true">
-                        <Checkbox label="Publish to facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                    <div className="form__row">
+                        <span sd-tooltip="Publish to facebook">
+                            <Checkbox label="Facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        </span>
                         <span style={paywalSecuredStyle}>
                             <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>
