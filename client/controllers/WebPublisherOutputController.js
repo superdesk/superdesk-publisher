@@ -8,8 +8,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherOutputController holds a set of functions used for web publisher monitoring
  */
-WebPublisherOutputController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'authoringWorkspace', '$window', 'notify', '$interval', 'config'];
-export function WebPublisherOutputController($scope, $sce, modal, publisher, authoringWorkspace, $window, notify, $interval, config) {
+WebPublisherOutputController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'publisherHelpers', 'authoringWorkspace', '$window', 'notify', '$interval', 'config'];
+export function WebPublisherOutputController($scope, $sce, modal, publisher, publisherHelpers, authoringWorkspace, $window, notify, $interval, config) {
     class WebPublisherOutput {
         constructor() {
             this.filterButtonAllActive = true;
@@ -187,6 +187,16 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, aut
         closePreview() {
             this.previewOpen = false;
             if (!this.publishOpen) this.selectedArticle = null;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#getThumbnail
+         * @param {Object} article - article content object
+         * @description Sets the active view name to the given value
+         */
+        getViewImage(article) {
+            return publisherHelpers.getRenditionUrl(article, 'viewImage');
         }
 
         /**
