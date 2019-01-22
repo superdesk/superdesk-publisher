@@ -52,6 +52,9 @@
 
         <div class="side-panel__content-block">
             <h3 class="side-panel__content-block-heading">{{webPublisherOutput.selectedArticle.headline}}</h3>
+            <img ng-if="webPublisherOutput.selectedArticle.articles[0].featureMedia && webPublisherOutput.selectedArticle.articles[0].featureMedia.image"
+                ng-src="{{webPublisherOutput.getViewImage(webPublisherOutput.selectedArticle.articles[0])}}"
+                style="max-width:100%">
             <div class="side-panel__content-block-text" ng-bind-html="webPublisherOutput.bodyHtml"></div>
         </div>
     </div>

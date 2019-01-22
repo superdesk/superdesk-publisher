@@ -44,6 +44,11 @@
                                     <label for="routeName" translate>name</label>
                                     <input type="text" class="line-input" id="routeName" ng-model="newRoute.name" required>
                                 </div>
+                                <div class="item" ng-class="{'sd-line-input sd-line-input--invalid': newRoute.id}">
+                                        <label for="routeSlug" translate>slug</label>
+                                        <input type="text" class="line-input" id="routeSlug" ng-model="newRoute.slug">
+                                        <div ng-if="newRoute.id" class="sd-line-input__message">Beware than changing slug will affect article urls and may cause SEO issues.</div>
+                                    </div>
                                 <div class="item">
                                     <label for="routeType" translate>type</label>
                                     <select class="dropdown__toggle line-input" id="routeType" ng-model="newRoute.type" required>

@@ -39,11 +39,18 @@
             </div>
         </div>
         <div class="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
-            <button class="icn-btn" ng-if="rootType === 'incoming'" ng-click="webPublisherOutput.removeArticle(i); $event.stopPropagation();"><i class="icon-trash"></i></button>
-            <button class="icn-btn" ng-click="webPublisherOutput.correctArticle(i); $event.stopPropagation();"><i class="icon-pencil"></i></button>
-            <button class="icn-btn" ng-click="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"><i class="icon-expand-thin"></i></button>
+            <button sd-tooltip="Remove" class="icn-btn" ng-if="rootType === 'incoming'" ng-click="webPublisherOutput.removeArticle(i); $event.stopPropagation();"><i class="icon-trash"></i></button>
+            <button sd-tooltip="Correct" class="icn-btn" ng-click="webPublisherOutput.correctArticle(i); $event.stopPropagation();"><i class="icon-pencil"></i></button>
+            <button sd-tooltip="Publish" class="icn-btn" ng-click="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"><i class="icon-expand-thin"></i></button>
         </div>
     </div>
 
     <div ng-if="loadingArticles" class="item-group__loading" style="margin-left: auto; margin-right: auto; line-height: 38px; height: 38px; text-align: center;"></div>
+</div>
+
+<div class="panel-info" ng-if="!loadingArticles && !articlesList.length">
+    <div class="panel-info__icon">
+        <i class="big-icon--text"></i>
+    </div>
+    <h3 class="panel-info__heading">No {{rootType}} articles.</h3>
 </div>

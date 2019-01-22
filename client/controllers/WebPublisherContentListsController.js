@@ -49,9 +49,8 @@ export function WebPublisherContentListsController($scope, publisher, publisherH
          * @description Sets the active view name to the given value
          */
         getThumbnail(article) {
-            return publisherHelpers.getThumbnail(article);
+            return publisherHelpers.getRenditionUrl(article, 'thumbnail');
         }
-
 
         /**
          * @ngdoc method

@@ -10,15 +10,16 @@ export function PublisherHelpersFactory() {
 
         /**
          * @ngdoc method
-         * @name PublisherHelpers#getThumbnail
+         * @name PublisherHelpers#getRenditionUrl
          * @param {Object} article
+         * @param {String} type
          * @returns {String}
-         * @description Returns template url dependent on type
+         * @description Returns image rendition url
          */
-        getThumbnail(article) {
+        getRenditionUrl(article, type = 'thumbnail') {
             let base = article.tenant.subdomain ? '//' + article.tenant.subdomain + '.' + article.tenant.domainName : '//' + article.tenant.domainName;
             let mediaEl = article.media.find(el => el.id === article.featureMedia.id);
-            let rendition = mediaEl.renditions.find(el => el.name === 'thumbnail');
+            let rendition = mediaEl.renditions.find(el => el.name === type);
 
             return base + '/media/' + rendition.image.assetId + '.' + rendition.image.fileExtension;
         };
