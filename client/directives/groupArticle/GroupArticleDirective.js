@@ -115,7 +115,7 @@ export function GroupArticleDirective(publisher) {
             });
 
             scope.$on('removeFromArticlesList', (e, itemId) => {
-                if (!itemId) return;
+                if (!itemId || scope.rootType === 'published') return;
 
                 let index = scope.articlesList.findIndex((el) => el.id === itemId);
 
