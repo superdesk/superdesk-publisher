@@ -191,7 +191,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
 
         /**
          * @ngdoc method
-         * @name WebPublisherOutputController#getThumbnail
+         * @name WebPublisherOutputController#getViewImage
          * @param {Object} article - article content object
          * @description Sets the active view name to the given value
          */

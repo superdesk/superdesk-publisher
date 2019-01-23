@@ -46,7 +46,7 @@ export function ListArticlesDirective(publisher, publisherHelpers) {
              * @description Returns template url dependent on type
              */
             scope.getThumbnail = function(article) {
-                return publisherHelpers.getThumbnail(article);
+                return publisherHelpers.getRenditionUrl(article, 'thumbnail');
             };
 
             /**
