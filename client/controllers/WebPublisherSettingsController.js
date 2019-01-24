@@ -59,10 +59,6 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 this.openSiteEdit = false;
                 this._loadThemes().then(this._refreshSites);
                 break;
-            case 'webhooks':
-                this.selectedWebhook = {};
-                this._refreshWebhooks();
-                break;
             }
         }
 
@@ -103,6 +99,10 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     this.replace_theme_logo = false;
                     this.replace_theme_logo_second = false;
                     this.replace_theme_logo_third = false;
+                    break;
+                case 'webhooks':
+                    this.selectedWebhook = {};
+                    this._refreshWebhooks();
                     break;
                 }
         }

@@ -50,6 +50,11 @@
                 ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
                 class="nav-tabs__link"><span translate="">Navigation</span></button>
         </li>
+        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'webhooks'}" class="nav-tabs__tab">
+            <button ng-click="webPublisherSettings.changeManageTab('webhooks')"
+                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                class="nav-tabs__link"><span translate="">Webhooks</span></button>
+        </li>
         <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme'}" class="nav-tabs__tab">
             <button ng-click="webPublisherSettings.changeManageTab('theme')"
                 ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
@@ -62,13 +67,13 @@
                 class="nav-tabs__link"><span translate="">Theme Customization</span></button>
         </li>
     </ul>
-    <div class="nav-tabs__content no-padding relative sd-display-flex-column">
+    <div class="nav-tabs__content no-padding relative sd-display-flex-column flexGrow">
         <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
         <div ng-if="!webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'"
             class="nav-tabs__pane nav-tabs__pane--padding"
             ng-include="'settings/website-management/manage-general.html'">
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column"
+        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column flexGrow"
             ng-include="'settings/website-management/manage-routes.html'">
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane sd-display-flex-column"
@@ -76,6 +81,9 @@
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane sd-display-flex-column"
             ng-include="'settings/website-management/manage-navigation-menu.html'">
+        </div>
+        <div ng-if="webPublisherSettings.manageTab === 'webhooks'" class="nav-tabs__pane sd-display-flex-column flexGrow"
+            ng-include="'settings/website-management/webhooks/index.html'">
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'theme-settings'" class="nav-tabs__pane"
             ng-include="'settings/website-management/manage-theme-settings.html'">

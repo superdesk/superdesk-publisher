@@ -212,3 +212,7 @@
 option:disabled, select[disabled] > option{
     color: gray;
 }
+
+.flexGrow{
+    flex-grow: 1;
+}
