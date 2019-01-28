@@ -10,6 +10,11 @@
                 ng-click="webPublisherSettings.changePanel('rules')"
                 >Publishing Rules</a></li>
         </ul>
+        <div class="sp-manage-overlay"
+            ng-if="webPublisherSettings.activePanel === 'tenant'
+                && webPublisherSettings.openSiteEdit
+                && (webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty)">
+        </div>
     </nav>
     <div class="sd-loader" ng-if="mainLoading"></div>
     <section class="sd-page__main-content" ng-if="webPublisherSettings.activePanel === 'rules'"
@@ -17,9 +22,10 @@
 
     <section class="sd-page__main-content"
         ng-if="webPublisherSettings.activePanel === 'tenant' && !webPublisherSettings.openSiteEdit"
-        ng-include="'settings/website-management/tenant-list.html'"></section>
+        ng-include="'settings/website-management/tenant-list.html'">
+    </section>
 
-    <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
+    <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right relative"
         ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
         ng-include="'settings/website-management/manage-nav.html'"></div>
     <section  class="sd-page__main-content sd-page__main-content--double-left-nav"
