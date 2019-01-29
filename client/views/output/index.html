@@ -7,7 +7,7 @@
     <section class="sd-content sd-page-content--slide-in"
         ng-class="{'sd-page-content--slide-in--open' : editorOpen}">
         <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
-        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
+        <div class="sd-page-content__content-block"
             ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
             <div class="subnav">
                 <button class="navbtn navbtn--left navbtn--darker"
@@ -27,7 +27,7 @@
                         ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
                 </div>
                 <div class="subnav__spacer subnav__spacer--no-margin"></div>
-                <div class="subnav__content-bar">
+                <div class="subnav__content-bar sd-flex-wrap">
                     <span>Incoming:</span> <span class="badge" style="margin: 0 10px 0 6px;">{{webPublisherOutput.articlesCount.incoming}}</span>
                     <span>Published:</span> <span class="badge" style="margin: 0 10px 0 6px;">{{webPublisherOutput.articlesCount.published}}</span>
                 </div>
