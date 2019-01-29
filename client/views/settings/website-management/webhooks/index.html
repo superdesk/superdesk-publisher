@@ -1,0 +1,30 @@
+<div class="sd-page__header">
+    <span class="sd-page__element-grow"></span>
+    <a href="" ng-click="webPublisherSettings.toggleCreateWebhook(true)" class="btn btn--primary"><i class="icon-plus-sign"></i>Add new</a>
+</div>
+
+<div class="sd-page-content__content-block sd-page-content__content-block--main relative flexGrow" ng-class="{'open-preview': webPublisherSettings.webhookPaneOpen}" >
+    <div class="sd-loader" ng-if="loading"></div>
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column">
+            <div class="panel-info" ng-if="!webPublisherSettings.webhooks.length">
+                <div class="panel-info__icon">
+                    <i class="big-icon--publisher"></i>
+                </div>
+                <h3 class="panel-info__heading">No webhooks so far.</h3>
+                <p class="panel-info__description">Be the first one...</p>
+            </div>
+            <div ng-if="webPublisherSettings.webhooks.length">
+                <div ng-repeat="webhook in webPublisherSettings.webhooks track by $index"
+                    ng-include="'settings/website-management/webhooks/webhook-item.html'">
+                </div>
+
+            </div>
+        </div>
+        <div class="sd-preview-panel">
+            <div class="side-panel side-panel--shadow-right"
+                ng-include="'settings/website-management/webhooks/webhook-add.html'">
+            </div>
+        </div>
+    </div>
+</div>

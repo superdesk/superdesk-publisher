@@ -12,3 +12,8 @@
         </li>
     </ul>
 </nav>
+<div class="sp-manage-overlay"
+    ng-if="webPublisherSettings.activePanel === 'tenant'
+        && webPublisherSettings.openSiteEdit
+        && (webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty)">
+</div>

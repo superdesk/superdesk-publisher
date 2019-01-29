@@ -5,35 +5,25 @@
             ng-href="{{webPublisherSettings.selectedSite.subdomain ? 'http://' + webPublisherSettings.selectedSite.subdomain + '.' + webPublisherSettings.selectedSite.domainName: 'http://' + webPublisherSettings.selectedSite.domainName}}">
             <i class="icon-globe"></i> Open website
         </a>
-        <button class="btn" ng-click="webPublisherSettings.toggleEditSite()" translate>Close</button>
-        <button
-            class="btn"
-            ng-disabled="webPublisherSettings.siteForm.$invalid || !webPublisherSettings.siteForm.$dirty"
-            ng-show="webPublisherSettings.manageTab === 'general'"
-            ng-click="webPublisherSettings.cancelEditSite()"
-            translate>Cancel</button>
-        <button
-            class="btn btn--primary"
-            ng-disabled="webPublisherSettings.siteForm.$invalid || !webPublisherSettings.siteForm.$dirty"
-            ng-show="webPublisherSettings.manageTab === 'general'"
-            ng-click="webPublisherSettings.saveSite()"
-            translate>Save</button>
-
-        <button
-            class="btn"
-            ng-disabled="webPublisherSettings.themeSettingsForm.$invalid || !webPublisherSettings.themeSettingsForm.$dirty"
-            ng-show="webPublisherSettings.manageTab === 'theme-settings'"
-            ng-click="webPublisherSettings.cancelEditThemeSettings()"
-            translate>Cancel</button>
-        <button
-            class="btn btn--primary"
-            ng-disabled="webPublisherSettings.themeSettingsForm.$invalid || !webPublisherSettings.themeSettingsForm.$dirty"
-            ng-show="webPublisherSettings.manageTab === 'theme-settings'"
-            ng-click="webPublisherSettings.saveThemeSettings()"
-            translate>Save</button>
     </div>
 </div>
-<div class="sd-page__content sd-display-flex-column sd-page__content--d-flex-column no-padding">
+<div class="sd-page__content sd-display-flex-column sd-page__content--d-flex-column no-padding relative">
+    <div class="sd-collapse-box__sliding-toolbar"
+        style="height: 5rem"
+        ng-if="webPublisherSettings.manageTab === 'general'"
+        ng-show="webPublisherSettings.siteForm.$dirty">
+        <div class="sliding-toolbar__inner"></div>
+        <a class="btn" ng-click="webPublisherSettings.cancelEditSite()">Cancel</a>
+        <a class="btn btn--primary" ng-click="webPublisherSettings.saveSite()">Save</a>
+    </div>
+    <div class="sd-collapse-box__sliding-toolbar"
+        style="height: 5rem"
+        ng-if="webPublisherSettings.manageTab === 'theme-settings'"
+        ng-show="webPublisherSettings.themeSettingsForm.$dirty">
+        <div class="sliding-toolbar__inner"></div>
+        <a class="btn"  ng-click="webPublisherSettings.cancelEditThemeSettings()">Cancel</a>
+        <a class="btn btn--primary" ng-click="webPublisherSettings.saveThemeSettings()">Save</a>
+    </div>
     <ul class="nav-tabs">
         <li ng-class="{'nav-tabs__tab--active': !webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'}" class="nav-tabs__tab">
             <button ng-click="webPublisherSettings.changeManageTab('general')"
@@ -50,6 +40,11 @@
                 ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
                 class="nav-tabs__link"><span translate="">Navigation</span></button>
         </li>
+        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'webhooks'}" class="nav-tabs__tab">
+            <button ng-click="webPublisherSettings.changeManageTab('webhooks')"
+                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                class="nav-tabs__link"><span translate="">Webhooks</span></button>
+        </li>
         <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme'}" class="nav-tabs__tab">
             <button ng-click="webPublisherSettings.changeManageTab('theme')"
                 ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
@@ -62,13 +57,13 @@
                 class="nav-tabs__link"><span translate="">Theme Customization</span></button>
         </li>
     </ul>
-    <div class="nav-tabs__content no-padding relative sd-display-flex-column">
+    <div class="nav-tabs__content no-padding relative sd-display-flex-column flexGrow">
         <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
         <div ng-if="!webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'"
             class="nav-tabs__pane nav-tabs__pane--padding"
             ng-include="'settings/website-management/manage-general.html'">
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column"
+        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column flexGrow"
             ng-include="'settings/website-management/manage-routes.html'">
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane sd-display-flex-column"
@@ -76,6 +71,9 @@
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane sd-display-flex-column"
             ng-include="'settings/website-management/manage-navigation-menu.html'">
+        </div>
+        <div ng-if="webPublisherSettings.manageTab === 'webhooks'" class="nav-tabs__pane sd-display-flex-column flexGrow"
+            ng-include="'settings/website-management/webhooks/index.html'">
         </div>
         <div ng-if="webPublisherSettings.manageTab === 'theme-settings'" class="nav-tabs__pane"
             ng-include="'settings/website-management/manage-theme-settings.html'">
