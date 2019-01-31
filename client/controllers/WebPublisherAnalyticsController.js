@@ -71,7 +71,7 @@ export function WebPublisherAnalyticsController($scope, publisher, modal, $route
         _queryArticles() {
             this.tenantArticles.loading = true;
             this.tenantArticles.params.limit = 20;
-            this.tenantArticles.params['sorting[updatedAt]'] = 'desc';
+            this.tenantArticles.params['sorting[publishedAt]'] = 'desc';
             this.tenantArticles.params.status = 'published';
 
             publisher.queryTenantArticles(this.tenantArticles.params).then((response) => {
