@@ -9,6 +9,7 @@
         ng-if="list.type !== 'bucket'"
         ng-repeat="list in lists | filter: {type: webPublisherContentLists.listType} | orderBy: 'id'"
         ng-include="'list-box.html'"
+        class="sd-display-flex-column overflow-initial"
     ></div>
 </div>
 <div class="panel-info" ng-if="!lists.length">
