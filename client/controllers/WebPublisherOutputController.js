@@ -231,6 +231,20 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             return count;
          }
 
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#getRouteNameById
+         * @param {Int} routeId
+         * @param {Array} routes
+         * @description returns route name with given id
+         */
+        getRouteNameById(routeId, routes) {
+            if (!routeId) return '';
+            let route = routes.find(el => el.id === routeId);
+
+            return route ? route.name : '';
+        }
+
         publishingAddDestination(site) {
             const tenant = _.find(this.sites, t => t.code === site.code);
 
