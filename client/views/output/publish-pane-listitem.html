@@ -18,7 +18,7 @@
                         </a>
                 </div>
                 <div class="sd-list-item__row">
-                    <span class="sd-overflow-ellipsis label label--success">{{destination.route.name}}</span>
+                    <span class="sd-overflow-ellipsis label label--success">{{destination.route.name || webPublisherOutput.getRouteNameById(destination.route.id, destination.tenant.routes)}}</span>
                     <span class="sd-list-item__inline-text sd-list-item--element-grow no-line-height" ng-if="destination.isPublishedFbia">
                         <i class="icon-facebook icon--blue icon--full-opacity"></i>
                     </span>

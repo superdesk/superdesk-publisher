@@ -11,8 +11,6 @@ export function GroupArticleDirective(publisher) {
         constructor() {
             this.scope = {
                 rootType: '@',
-                site: '=site',
-                route: '=route',
                 webPublisherOutput: '=webPublisherOutput',
                 initialFilters: '=filters'
             };
@@ -90,6 +88,7 @@ export function GroupArticleDirective(publisher) {
             };
 
             scope.$on('newPackage', (e, item, state) => {
+                console.log(item, state);
                if (!this._isNewPackageInteresting(item, scope)) {
                    return false;
                }
@@ -97,9 +96,8 @@ export function GroupArticleDirective(publisher) {
                if (state === 'update') {
                     //update
                     let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
-                    if (elIndex != -1) {
+                    if (elIndex !== -1) {
                         scope.articlesList[elIndex] = item;
-                        scope.$apply();
                     }
                } else {
                     //new article
@@ -111,6 +109,8 @@ export function GroupArticleDirective(publisher) {
                     scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
                     scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
                }
+
+               scope.$apply();
 
             });
 
@@ -174,28 +174,11 @@ export function GroupArticleDirective(publisher) {
 
 
             if ( scope.rootType &&
-                (scope.rootType == 'incoming' && item.status == 'published' ||
-                scope.rootType == 'published' && item.status == 'new') ) {
+                (scope.rootType === 'incoming' && item.status === 'published' ||
+                scope.rootType === 'published' && item.status === 'new') ) {
                 return false;
             }
-            // if site is defined check if matches tenants from incoming package
-            if (scope.site && scope.site.code ) {
-                let siteFlag = null;
-                item.articles.forEach((article) => {
-                    siteFlag = article.status != 'new' && article.tenant.code === scope.site.code ? true : false;
-                });
 
-                if (siteFlag === false) return false;
-            }
-            // if site and route is defined check if matches routes from incoming package
-            if (scope.route && scope.route.id ) {
-                let routeFlag = null;
-                item.articles.forEach((article) => {
-                    routeFlag = article.route.id === scope.route.id ? true : false;
-                });
-
-                if (routeFlag === false) return false;
-            }
             // return true if everything passes checks
             return true;
         };
