@@ -18,7 +18,7 @@
                 <select class="sd-line-input__select"
                     required
                     ng-model="newRule.action.tenant"
-                    ng-options="tenant as tenant.name disable when !webPublisherSettings.availableTenants.includes(tenant.code) for tenant in webPublisherSettings.sites"
+                    ng-options="tenant as tenant.name for tenant in webPublisherSettings.availableTenants"
                     >
                     <option value=""></option>
                 </select>

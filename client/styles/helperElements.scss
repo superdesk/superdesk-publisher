@@ -213,7 +213,7 @@
 }
 
 option:disabled, select[disabled] > option{
-    color: gray;
+    color: rgb(180, 180, 180);
 }
 
 .flexGrow{
@@ -229,3 +229,15 @@ option:disabled, select[disabled] > option{
     background: rgba(255, 255, 255, 0.85);
     z-index: 1000;
 }
+
+.draggable {
+    cursor: move !important; /* fallback if grab cursor is unsupported */
+    cursor: grab !important;
+    cursor: -moz-grab !important;
+    cursor: -webkit-grab !important;
+}
+
+.dndDragging .draggable {
+    cursor: move;
+}
+
