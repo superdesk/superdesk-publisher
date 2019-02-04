@@ -59,6 +59,15 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                     }, true);
                 });
 
+
+            $scope.$watch(authoringWorkspace.getState, (state) => {
+                this.editorOpen = state && state.item ? true : false;
+                if (this.editorOpen) {
+                    this.closePreview();
+                    this.closePublish();
+                }
+            });
+
             $scope.$on('$destroy', () => {
                 this.websocketClose();
             });
@@ -149,7 +158,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             let item = {};
 
             item._id = article.guid;
-            authoringWorkspace.popup(item, 'correct');
+            authoringWorkspace.edit(item, 'correct');
         }
 
         /**
@@ -174,7 +183,11 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.previewOpen = true;
             this.selectedArticle = article;
             if (this.publishOpen) {
-                this.openPublish(this.selectedArticle);
+                if (this.editorOpen) {
+                    this.closePublish();
+                } else {
+                    this.openPublish(this.selectedArticle);
+                }
             }
             this.bodyHtml = $sce.trustAsHtml(article.body_html);
         }
@@ -284,6 +297,10 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.activePublishPane = action;
             this.selectedArticle = article;
             this.publishingAvailableSites = [];
+
+            if (this.editorOpen) {
+                this.closePreview();
+            }
 
             angular.forEach(this.sites, (site, key) => {
                 this.publishingAvailableSites.push({code: site.code, name: site.name});
