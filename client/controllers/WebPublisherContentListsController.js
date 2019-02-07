@@ -7,8 +7,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherContentListsController holds a set of functions used for web publisher content listis
  */
-WebPublisherContentListsController.$inject = ['$scope', 'publisher', 'publisherHelpers', 'modal', '$timeout', '$route', '$location'];
-export function WebPublisherContentListsController($scope, publisher, publisherHelpers, modal, $timeout, $route, $location) {
+WebPublisherContentListsController.$inject = ['$scope', '$sce', 'publisher', 'publisherHelpers', 'modal', '$timeout', '$route', '$location'];
+export function WebPublisherContentListsController($scope, $sce, publisher, publisherHelpers, modal, $timeout, $route, $location) {
     class WebPublisherContentLists {
         constructor() {
             $scope.loading = true;
@@ -40,6 +40,8 @@ export function WebPublisherContentListsController($scope, publisher, publisherH
                     }, 1000);
                 }
             });
+
+            this.selectedArticle = null;
         }
 
         /**
@@ -51,6 +53,62 @@ export function WebPublisherContentListsController($scope, publisher, publisherH
         getThumbnail(article) {
             return publisherHelpers.getRenditionUrl(article, 'thumbnail');
         }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#openPreview
+         * @param {Object} article
+         * @description Open article preview pane
+         */
+        openPreview(article) {
+            let art = article;
+
+            if (article.content) art = article.content;
+            this.previewOpen = true;
+            this.selectedArticle = art;
+            this.bodyHtml = $sce.trustAsHtml(art.body);
+        }
+
+         /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#closePreview
+         * @description Close article preview pane
+         */
+        closePreview() {
+            this.previewOpen = false;
+            if (!this.publishOpen) this.selectedArticle = null;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#getViewImage
+         * @param {Object} article - article content object
+         * @description Sets the active view name to the given value
+         */
+        getViewImage(article) {
+            return publisherHelpers.getRenditionUrl(article, 'viewImage');
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#countPageViews
+         * @param {Array} articles
+         * @description Counts total page views
+         */
+        countPageViews(articles = []) {
+            return publisherHelpers.countPageViews(articles);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#countComments
+         * @param {Array} articles
+         * @description Counts total comments
+         */
+        countComments(articles = []) {
+            return publisherHelpers.countComments(articles);
+        }
+
 
         /**
          * @ngdoc method

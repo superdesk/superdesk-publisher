@@ -7,7 +7,10 @@
 
 
 <div class="sd-list-item"
-    ng-if="!loading && articles.length" ng-repeat="article in articles">
+    ng-class="{'sd-list-item--activated' : controller.selectedArticle.id === article.id}"
+    ng-click="controller.openPreview(article); $event.stopPropagation();"
+    ng-if="!loading && articles.length"
+    ng-repeat="article in articles">
     <div class="sd-list-item__column" ng-if="article.duplicate" sd-tooltip="duplicate">
         <i class="icon-warning-sign icon--red"></i>
     </div>

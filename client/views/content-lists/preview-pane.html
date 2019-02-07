@@ -1,0 +1,49 @@
+<div class="side-panel side-panel--shadow-right">
+    <div class="side-panel__header side-panel__header--border-bottom">
+        <div class="side-panel__tools">
+            <a class="icn-btn" sd-tooltip="Close details" flow="top" ng-click="webPublisherContentLists.closePreview()"><i class="icon-close-small"></i></a>
+        </div>
+        <h3 class="side-panel__heading">Item preview</h3>
+    </div>
+
+    <div class="side-panel__content">
+        <div class="side-panel-collapsible-header" ng-class="{'active': collapsibleHeaderOpen}" ng-init="collapsibleHeaderOpen = true">
+            <div class="side-panel-collapsible-header__fixed">
+                <p class="sd-text__date-and-author">
+                    <time ng-if="webPublisherContentLists.selectedArticle.updatedAt" title="{{webPublisherContentLists.selectedArticle.updatedAt}}">{{webPublisherContentLists.selectedArticle.updatedAt | reldate}}</time>
+                    <time ng-if="!webPublisherContentLists.selectedArticle.updatedAt" title="{{webPublisherContentLists.selectedArticle.createdAt}}">{{webPublisherContentLists.selectedArticle.createdAt | reldate}}</time>
+                </p>
+            </div>
+            <div class="side-panel-collapsible-header__collapsible">
+                <div class="form__row"
+                    ng-if="webPublisherContentLists.selectedArticle.articles[0] && webPublisherContentLists.selectedArticle.articles[0].paywallSecured"
+                >
+                    <span class="label-icon label-icon--warning"><i class="icon-paywall"></i> Paywall secured</span>
+                </div>
+                <div ng-if="webPublisherContentLists.selectedArticle.status !== 'new'" class="form__row form__row--small-padding">
+                    <div class="flex-grid flex-grid--wrap-items flex-grid--small-2">
+                        <div class="flex-grid__item">
+                            <label class="form-label form-label--light">Page views</label>
+                            <p>{{webPublisherContentLists.countPageViews(webPublisherContentLists.selectedArticle.articles)}}</p>
+                        </div>
+                        <div class="flex-grid__item">
+                            <label class="form-label form-label--light">Comments</label>
+                            <p>{{webPublisherContentLists.countComments(webPublisherContentLists.selectedArticle.articles)}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="side-panel-collapsible-header__toggle active" ng-class="{'active': collapsibleHeaderOpen}" ng-click="collapsibleHeaderOpen = !collapsibleHeaderOpen">
+                <i class="icon-chevron-down-thin"></i>
+            </button>
+        </div>
+
+        <div class="side-panel__content-block">
+            <h3 class="side-panel__content-block-heading">{{webPublisherContentLists.selectedArticle.title}}</h3>
+            <img ng-if="webPublisherContentLists.selectedArticle.featureMedia && webPublisherContentLists.selectedArticle.featureMedia.image"
+                ng-src="{{webPublisherContentLists.getViewImage(webPublisherContentLists.selectedArticle)}}"
+                style="max-width:100%; margin-bottom: 1em">
+            <div class="side-panel__content-block-text" ng-bind-html="webPublisherContentLists.bodyHtml"></div>
+        </div>
+    </div>
+</div>

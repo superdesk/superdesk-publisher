@@ -7,7 +7,7 @@
     <section class="sd-content sd-page-content--slide-in">
         <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
         <div class="sd-page-content__content-block"
-            ng-class="{'sd-page-content__content-block--double-sidebar': webPublisherContentLists.activeView!='content-lists', 'open-filters': webPublisherContentLists.filterOpen}">
+            ng-class="{'sd-page-content__content-block--double-sidebar': webPublisherContentLists.activeView!='content-lists', 'open-filters': webPublisherContentLists.filterOpen, 'open-preview': webPublisherContentLists.previewOpen,}">
             <div class="subnav">
                 <a href="#/publisher/dashboard" class="navbtn navbtn--left" sd-tooltip="Dashboard" flow="right">
                     <i class="icon-arrow-left"></i>
@@ -53,6 +53,10 @@
                 <div class="flex-grid flex-grid--grow flex-grid--small-2"
                     ng-include="'content-list-manual.html'"
                     ng-if="webPublisherContentLists.activeView==='content-list-manual'"></div>
+                <!-- start preview -->
+                <div class="sd-preview-panel"
+                    ng-include="'content-lists/preview-pane.html'">
+                </div><!-- end preview -->
             </div>
         </div>
     </section>

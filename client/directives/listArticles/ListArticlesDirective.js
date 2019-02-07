@@ -9,7 +9,7 @@ ListArticlesDirective.$inject = ['publisher', 'publisherHelpers'];
 export function ListArticlesDirective(publisher, publisherHelpers) {
     class ListArticles {
         constructor() {
-            this.scope = {list: '=list', type: '@', listChangeFlag: '=listchangeflag'};
+            this.scope = {list: '=list', type: '@', listChangeFlag: '=listchangeflag', controller: '=controller'};
             this.template = '<ng-include src="getTemplateUrl()"/>';
         }
 

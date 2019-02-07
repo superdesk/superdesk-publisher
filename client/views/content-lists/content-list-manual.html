@@ -42,7 +42,9 @@
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="sd-list-item draggable">
+                    <div class="sd-list-item draggable"
+                        ng-class="{'sd-list-item--activated' : webPublisherContentLists.selectedArticle.id === article.id}"
+                        ng-click="webPublisherContentLists.openPreview(article); $event.stopPropagation();">
                         <div class="sd-list-item__column" ng-if="article.duplicate">
                             <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
                                 <i class="icon-warning-sign"></i>
@@ -107,7 +109,9 @@
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="sd-list-item draggable">
+                    <div class="sd-list-item draggable"
+                        ng-class="{'sd-list-item--activated':webPublisherContentLists.selectedArticle.id === article.id}"
+                        ng-click="webPublisherContentLists.openPreview(article); $event.stopPropagation();">
                         <div class="sd-list-item__column" ng-if="article.duplicate">
                             <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
                                 <i class="icon-warning-sign"></i>
