@@ -1198,7 +1198,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
 
                     if (tenant) {
                         publisher.setTenant(tenant);
-                        this.availableTenants.push(tenant.code);
+                        this.availableTenants.push(tenant);
                         this._loadTenantRules().then((rules) => {
                             this.tenantsRules[tenant.code] = rules;
                         });

@@ -182,6 +182,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
         openPreview(article) {
             this.previewOpen = true;
             this.selectedArticle = article;
+
             if (this.publishOpen) {
                 if (this.editorOpen) {
                     this.closePublish();
@@ -219,13 +220,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          * @description Counts total page views
          */
         countPageViews(articles = []) {
-           let count = 0;
-
-           articles.forEach(art => {
-               count += parseInt(art.articleStatistics.pageViewsNumber);
-           })
-
-           return count;
+            return publisherHelpers.countPageViews(articles);
         }
 
         /**
@@ -235,14 +230,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          * @description Counts total comments
          */
         countComments(articles = []) {
-            let count = 0;
-
-            articles.forEach(art => {
-                count += parseInt(art.commentsCount);
-            })
-
-            return count;
-         }
+            return publisherHelpers.countComments(articles);
+        }
 
         /**
          * @ngdoc method

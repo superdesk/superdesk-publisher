@@ -28,6 +28,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('content-list-manual.html', require('./client/views/content-lists/content-list-manual.html'));
     $templateCache.put('content-lists-list.html', require('./client/views/content-lists/content-lists-list.html'));
     $templateCache.put('list-box.html', require('./client/views/content-lists/list-box.html'));
+    $templateCache.put('content-lists/preview-pane.html', require('./client/views/content-lists/preview-pane.html'));
 
     $templateCache.put('themeManager-details.html', require('./client/directives/themeManager/themeManager-details.html'));
     $templateCache.put('tenant.html', require('./client/views/dashboard/tenant.html'));

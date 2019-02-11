@@ -42,11 +42,16 @@
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="sd-list-item">
+                    <div class="sd-list-item draggable"
+                        ng-class="{'sd-list-item--activated' : webPublisherContentLists.selectedArticle.id === article.id}"
+                        ng-click="webPublisherContentLists.openPreview(article); $event.stopPropagation();">
                         <div class="sd-list-item__column" ng-if="article.duplicate">
                             <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
                                 <i class="icon-warning-sign"></i>
                             </a>
+                        </div>
+                        <div ng-if="!article.duplicate" class="sd-list-item__column">
+                            <span class="sd-list-item__serial-number" ng-class="{'sp-listSerialNumberMinWidth': newList.items.length > 9}" >{{$index + 1}}</span>
                         </div>
                         <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
@@ -107,7 +112,9 @@
                     dnd-type="article.type"
                     dnd-effect-allowed="move"
                 >
-                    <div class="sd-list-item sd-list-item--draggable">
+                    <div class="sd-list-item draggable"
+                        ng-class="{'sd-list-item--activated':webPublisherContentLists.selectedArticle.id === article.id}"
+                        ng-click="webPublisherContentLists.openPreview(article); $event.stopPropagation();">
                         <div class="sd-list-item__column" ng-if="article.duplicate">
                             <a class="btn btn--alert btn--small btn--icon-only btn--hollow">
                                 <i class="icon-warning-sign"></i>

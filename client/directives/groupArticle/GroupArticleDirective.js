@@ -88,7 +88,6 @@ export function GroupArticleDirective(publisher) {
             };
 
             scope.$on('newPackage', (e, item, state) => {
-                console.log(item, state);
                if (!this._isNewPackageInteresting(item, scope)) {
                    return false;
                }
