@@ -182,7 +182,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
         openPreview(article) {
             this.previewOpen = true;
             this.selectedArticle = article;
-            console.log(article);
+
             if (this.publishOpen) {
                 if (this.editorOpen) {
                     this.closePublish();

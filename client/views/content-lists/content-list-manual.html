@@ -50,6 +50,9 @@
                                 <i class="icon-warning-sign"></i>
                             </a>
                         </div>
+                        <div ng-if="!article.duplicate" class="sd-list-item__column">
+                            <span class="sd-list-item__serial-number" ng-class="{'sp-listSerialNumberMinWidth': newList.items.length > 9}" >{{$index + 1}}</span>
+                        </div>
                         <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
                             <img ng-src="{{webPublisherContentLists.getThumbnail(article.content)}}"

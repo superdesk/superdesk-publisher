@@ -241,3 +241,7 @@ option:disabled, select[disabled] > option{
     cursor: move;
 }
 
+.sp-listSerialNumberMinWidth {
+    min-width: 1.2em;
+    text-align: center;
+}
