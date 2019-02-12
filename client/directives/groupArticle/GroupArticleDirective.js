@@ -20,6 +20,7 @@ export function GroupArticleDirective(publisher) {
 
         link(scope) {
             scope.loadingArticles = false;
+            scope.listenerAttached = false;
             scope.articlesList = [];
             scope.articlesLimit = 20;
             scope.filters = scope.initialFilters ? scope.initialFilters : {};
@@ -32,6 +33,40 @@ export function GroupArticleDirective(publisher) {
                 });
             });
 
+            scope.$watch(() => scope.webPublisherOutput.selectedArticle, (newVal, oldVal) => {
+                if (newVal && !scope.listenerAttached) {
+                    window.addEventListener('keydown', scope.keyPressedHandler);
+                    scope.listenerAttached = true;
+                } else if (!newVal && scope.listenerAttached) {
+                    window.removeEventListener('keydown', scope.keyPressedHandler);
+                    scope.listenerAttached = false;
+                }
+            }, true);
+
+            scope.$on('$destroy', () => {
+                window.removeEventListener('keydown', scope.keyPressedHandler);
+            });
+
+
+
+            scope.keyPressedHandler = (e) => {
+                let articleIndex = scope.articlesList.findIndex(el => el.id === scope.webPublisherOutput.selectedArticle.id );
+
+                if (articleIndex < 0) return;
+
+                e = e || window.event;
+                if (e.keyCode == '38') {
+                    articleIndex = articleIndex - 1;
+                }
+                else if (e.keyCode == '40') {
+                    articleIndex = articleIndex + 1;
+                }
+                if (scope.articlesList[articleIndex]) {
+                    scope.webPublisherOutput.openPreview(scope.articlesList[articleIndex]);
+                }
+
+            };
+
             scope.buildRouteParams = () => {
                 let route = [];
 
@@ -42,6 +77,8 @@ export function GroupArticleDirective(publisher) {
                 }
                 return route;
             };
+
+
 
             scope.buildUniversalParams = () => {
                 let universalParams = {};

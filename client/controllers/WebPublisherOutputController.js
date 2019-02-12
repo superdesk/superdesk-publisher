@@ -59,6 +59,10 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                     }, true);
                 });
 
+            $scope.$watch('listType', (newVal, oldVal) => {
+                this.closePreview();
+                this.closePublish();
+            }, true);
 
             $scope.$watch(authoringWorkspace.getState, (state) => {
                 this.editorOpen = state && state.item ? true : false;
@@ -191,9 +195,10 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                 }
             }
             this.bodyHtml = $sce.trustAsHtml(article.body_html);
+            if (!$scope.$$phase) $scope.$digest();
         }
 
-         /**
+        /**
          * @ngdoc method
          * @name WebPublisherOutputController#closePreview
          * @description Close article preview pane
