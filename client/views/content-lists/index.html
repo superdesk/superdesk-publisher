@@ -28,10 +28,24 @@
                     </ul>
                 </div>
             </div>
-            <div class="sd-column-box--3">
-                <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right overflow-auto">
+            <div class="sd-column-box--3" 
+                ng-class="{'content-nav-closed' : closedContentNav}">
+                <div class="nav-tabs-vertical" 
+                    ng-class="{'nav-tabs-vertical--closed' : !closedContentNav }">
+                    <ul class="nav-tabs-vertical__list">
+                        <li class="nav-tabs-vertical__tab">
+                            <button class="nav-tabs-vertical__link" 
+                                ng-click="closedContentNav = !closedContentNav">Website</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right">
                     <div class="subnav subnav--padded subnav--lower-z-index">
-                        <h3 class="sd-content-nav-title">Website</h3>
+                        <h3 class="sd-content-nav-title sd-content-nav-title--uppercase">Website</h3>
+                        <a class="icn-btn ml-auto" 
+                            ng-click="closedContentNav = !closedContentNav" 
+                            ng-init="closedContentNav = false">
+                            <i class="icon-close-small"></i></a>
                     </div>
                     <nav class="sd-content-nav">
                         <ul>
