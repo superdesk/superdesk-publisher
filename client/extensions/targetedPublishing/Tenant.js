@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import axios from 'axios';
 import Checkbox from './components/Checkbox.jsx';
+import ContentLists from './ContentLists';
 
 export default class Tenant extends Component {
     constructor(props) {
@@ -15,8 +16,9 @@ export default class Tenant extends Component {
         this.state = {
             isOpen: false,
             routes: [],
-            rule: rule,
-            newRule: rule,
+            contentLists: [],
+            rule: JSON.parse(JSON.stringify(rule)),
+            newRule: JSON.parse(JSON.stringify(rule)),
             item: item,
             previewUrl: null,
             apiHeader: apiHeader,
@@ -26,14 +28,15 @@ export default class Tenant extends Component {
 
     componentDidMount() {
         this.getRoutes();
+        this.getContentLists();
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.rule) {
             const rule = nextProps.rule;
             this.setState({
-                rule: rule,
-                newRule: rule
+                rule: JSON.parse(JSON.stringify(rule)),
+                newRule: JSON.parse(JSON.stringify(rule))
             });
         }
     }
@@ -43,6 +46,18 @@ export default class Tenant extends Component {
             .then(res => {
                 this.setState({
                     routes: res.data._embedded._items
+                });
+                return res;
+            });
+    }
+
+    getContentLists() {
+        return axios.get(this.state.apiUrl + 'content/lists/', {headers: this.state.apiHeader, params: {limit: 1000}})
+            .then(res => {
+                let manualLists = res.data._embedded._items.filter(el => el.type === 'manual');
+
+                this.setState({
+                    contentLists: manualLists
                 });
                 return res;
             });
@@ -71,27 +86,21 @@ export default class Tenant extends Component {
     }
 
     fbiaCheckboxHandler(e) {
-        const rule = {...this.state.newRule};
-        rule.isPublishedFbia = e.target.value;
-        this.setState({
-            newRule: rule
-        });
+        const newRule = {...this.state.newRule};
+        newRule.isPublishedFbia = e.target.value;
+        this.setState({newRule});
     }
 
     paywallSecuredCheckboxHandler(e) {
-        const rule = {...this.state.newRule};
-        rule.paywallSecured = e.target.value;
-        this.setState({
-            newRule: rule
-        });
+        const newRule = {...this.state.newRule};
+        newRule.paywallSecured = e.target.value;
+        this.setState({newRule});
     }
 
     publishedCheckboxHandler(e) {
-        const rule = {...this.state.newRule};
-        rule.published = !rule.published;
-        this.setState({
-            newRule: rule
-        });
+        const newRule = {...this.state.newRule};
+        newRule.published = !newRule.published;
+        this.setState({newRule});
     }
 
     cancelHandler() {
@@ -120,6 +129,27 @@ export default class Tenant extends Component {
 
     }
 
+    saveContentListsHandler = (data) => {
+        let newRule = {...this.state.newRule};
+        newRule.contentLists = data;
+        this.setState({newRule: newRule});
+    }
+
+    addContentList = () => {
+        let newRule = {...this.state.newRule};
+
+        if (!newRule.contentLists) newRule.contentLists = [];
+        newRule.contentLists.push({id: '', position: 0});
+
+        this.setState({newRule});
+    }
+
+    removeContentList = (index) => {
+        let newRule = {...this.state.newRule};
+        newRule.contentLists.splice(index, 1);
+        this.setState({newRule});
+    }
+
     saveHandler() {
         const destination = {
             "publish_destination":{
@@ -128,7 +158,8 @@ export default class Tenant extends Component {
                 "isPublishedFbia": this.state.newRule.isPublishedFbia,
                 "published": this.state.newRule.published,
                 "paywallSecured": this.state.newRule.paywallSecured,
-                "packageGuid": this.state.item.guid
+                "packageGuid": this.state.item.guid,
+                "contentLists": this.state.newRule.contentLists ? this.state.newRule.contentLists : null
             }
         };
 
@@ -141,7 +172,7 @@ export default class Tenant extends Component {
     }
 
     render() {
-        const newRule = this.state.newRule;
+        const {newRule} = this.state;
         let siteDomain = newRule.tenant.subdomain ? newRule.tenant.subdomain + '.' + newRule.tenant.domainName : newRule.tenant.domainName;
         let publishRoute = null;
 
@@ -149,6 +180,15 @@ export default class Tenant extends Component {
             publishRoute = newRule.tenant.outputChannel.type;
         } else {
             publishRoute = newRule.isPublishedFbia ? newRule.route.name + ', Facebook' : newRule.route.name;
+        }
+
+        let contentListsNames = '';
+
+        if (newRule.contentLists && newRule.contentLists.length) {
+            newRule.contentLists.forEach(list => {
+                let list = this.state.contentLists.find(el => el.id === list.id);
+                if (list) contentListsNames += contentListsNames ? ', ' + list.name : list.name;
+            });
         }
 
         const header = (
@@ -172,6 +212,11 @@ export default class Tenant extends Component {
                                 <span className="sd-overflow-ellipsis">{publishRoute}</span>
                             </div>
                         }
+                        {contentListsNames && newRule.published &&
+                            <div className="sd-list-item__row">
+                                <span className="sd-list-item__text-label">Content lists:</span><span className="sd-overflow-ellipsis">Home page, Economy</span>
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -179,6 +224,7 @@ export default class Tenant extends Component {
         );
 
         let saveBar = null;
+
         if (!_.isEqual(this.state.rule, this.state.newRule)){
             saveBar = (
                 <div className="sd-collapse-box__sliding-toolbar-wrapper">
@@ -234,13 +280,19 @@ export default class Tenant extends Component {
                                 <div className="sd-list-item__row">
                                     <span className="sd-list-item__text-label sd-overflow-ellipsis">Automatically:</span><span className="sd-overflow-ellipsis">{publishRoute}</span>
                                 </div>
+                                {contentListsNames ? (
+                                    <div className="sd-list-item__row">
+                                        <span className="sd-list-item__text-label">Content lists:</span><span className="sd-overflow-ellipsis">{contentListsNames}</span>
+                                    </div>
+                                ) : null}
+
                             </div>
                         </div>
                     </div>
                     <div className="form__row">
                             {routesSelect}
                     </div>
-                    <div className="form__row" ng-init="contentChanged0 = true">
+                    <div className="form__row">
                         <span sd-tooltip="Publish to facebook">
                             <Checkbox label="Facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
                         </span>
@@ -251,6 +303,15 @@ export default class Tenant extends Component {
                     <div className="form__row">
                         <Checkbox label="Do not publish" value={!newRule.published} onChange={this.publishedCheckboxHandler.bind(this)}/>
                     </div>
+                    {this.state.contentLists.length ?
+                        <ContentLists
+                            ruleLists={newRule.contentLists ? newRule.contentLists : []}
+                            contentLists={this.state.contentLists}
+                            save={this.saveContentListsHandler}
+                            addList={this.addContentList}
+                            removeList={this.removeContentList}
+                        />
+                    : null}
             </div>
         </div>
         );

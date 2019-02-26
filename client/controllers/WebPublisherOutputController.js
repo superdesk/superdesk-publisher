@@ -359,6 +359,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                 });
             });
 
+            console.log(updatedKeys, destinations);
+
             if (destinations.length) {
                 publisher.publishArticle(
                     {publish: {destinations: destinations}}, this.selectedArticle.id)

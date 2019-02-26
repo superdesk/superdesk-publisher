@@ -175,8 +175,7 @@ export class TargetedPublishing extends React.Component {
                         <span style={{fontWeight: '500'}}>Publisher > Output Control > Incoming list</span>
                     </div>
                 }
-                {this.state.rules.map((rule, index) => {
-                    return (
+                {this.state.rules.map((rule, index) =>
                         <Tenant
                             rule={rule}
                             key={rule.tenant.code}
@@ -185,8 +184,7 @@ export class TargetedPublishing extends React.Component {
                             item={this.state.item}
                             done={this.reload.bind(this)}
                         />
-                    );
-                })}
+                )}
             </div>
         );
 

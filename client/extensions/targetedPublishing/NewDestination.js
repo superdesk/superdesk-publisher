@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import axios from 'axios';
 import Checkbox from './components/Checkbox.jsx';
-
-
+import ContentLists from './ContentLists';
 export default class NewDestination extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +17,8 @@ export default class NewDestination extends Component {
             "isPublishedFbia": false,
             "published": true,
             "paywallSecured": false,
-            "packageGuid": item.guid
+            "packageGuid": item.guid,
+            "contentLists": []
         };
 
         this.state = {
@@ -26,6 +26,7 @@ export default class NewDestination extends Component {
             site: site,
             destination: destination,
             routes: [],
+            contentLists: [],
             previewUrl: null,
             apiHeader: apiHeader,
             apiUrl: `${protocol}://${subdomain}${domainName}/api/v1/`
@@ -34,6 +35,7 @@ export default class NewDestination extends Component {
 
     componentDidMount() {
         this.getRoutes();
+        this.getContentLists();
     }
 
     setPreview() {
@@ -41,6 +43,17 @@ export default class NewDestination extends Component {
             .then(res => {
                 this.setState({
                     previewUrl: res.data.preview_url
+                });
+                return res;
+            });
+    }
+    getContentLists() {
+        return axios.get(this.state.apiUrl + 'content/lists/', {headers: this.state.apiHeader, params: {limit: 1000}})
+            .then(res => {
+                let manualLists = res.data._embedded._items.filter(el => el.type === 'manual');
+
+                this.setState({
+                    contentLists: manualLists
                 });
                 return res;
             });
@@ -91,6 +104,24 @@ export default class NewDestination extends Component {
 
     }
 
+    saveContentListsHandler = (data) => {
+        let destination = {...this.state.destination};
+        destination.contentLists = data;
+        this.setState({destination});
+    }
+
+    addContentList = () => {
+        let destination = {...this.state.destination};
+        destination.contentLists.push({id: '', position: 0});
+        this.setState({destination});
+    }
+
+    removeContentList = (index) => {
+        let destination = {...this.state.destination};
+        destination.contentLists.splice(index, 1);
+        this.setState({destination});
+    }
+
     saveHandler() {
         const destination = {
             "publish_destination": this.state.destination
@@ -108,6 +139,14 @@ export default class NewDestination extends Component {
 
         const destination = {...this.state.destination};
         let disableSave = !this.state.destination.route && !this.state.site.outputChannel ? true : false;
+        let contentListsNames = '';
+
+        if (destination.contentLists && destination.contentLists.length) {
+            destination.contentLists.forEach(list => {
+                let list = this.state.contentLists.find(el => el.id === list.id);
+                if (list) contentListsNames += contentListsNames ? ', ' + list.name : list.name;
+            });
+        }
 
         const saveBar = (
             <div className="sd-collapse-box__sliding-toolbar-wrapper">
@@ -165,6 +204,11 @@ export default class NewDestination extends Component {
                                 <div className="sd-list-item__row">
                                     <span className="sd-list-item__text-label sd-overflow-ellipsis">Manual</span>
                                 </div>
+                                {contentListsNames ? (
+                                    <div className="sd-list-item__row">
+                                        <span className="sd-list-item__text-label">Content lists:</span><span className="sd-overflow-ellipsis">{contentListsNames}</span>
+                                    </div>
+                                ) : null}
                             </div>
                         </div>
                     </div>
@@ -179,6 +223,15 @@ export default class NewDestination extends Component {
                             <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>
                     </div>
+                    {this.state.contentLists.length ?
+                        <ContentLists
+                            ruleLists={destination.contentLists}
+                            contentLists={this.state.contentLists}
+                            save={this.saveContentListsHandler}
+                            addList={this.addContentList}
+                            removeList={this.removeContentList}
+                        />
+                    : null}
                 </div>
             </div>
         );
