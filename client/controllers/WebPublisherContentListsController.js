@@ -12,9 +12,11 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
     class WebPublisherContentLists {
         constructor() {
             $scope.loading = true;
+
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
+                    if (sites.length < 2) this.closedContentNav = true;
                     this.sites = sites;
                     this.activeView = 'content-lists';
                     $scope.loading = false;

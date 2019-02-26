@@ -12,7 +12,9 @@
                 <a href="#/publisher/dashboard" class="navbtn navbtn--left" sd-tooltip="Dashboard" flow="right">
                     <i class="icon-arrow-left"></i>
                 </a>
-                <h3 class="subnav__page-title">Content Lists</h3>
+                <h3 class="subnav__page-title">Content Lists
+                    <span ng-if="webPublisherContentLists.selectedTenant.name">/ {{webPublisherContentLists.selectedTenant.name}}</span>
+                </h3>
                 <div class="dropdown dropdown--align-right" dropdown="" sd-tooltip="Create new list" flow="left">
                     <button class="navbtn dropdown sd-create-btn dropdown-toggle" dropdown__toggle="" aria-haspopup="true" aria-expanded="false">
                         <i class="icon-plus-large"></i>
@@ -28,23 +30,23 @@
                     </ul>
                 </div>
             </div>
-            <div class="sd-column-box--3" 
-                ng-class="{'content-nav-closed' : closedContentNav}">
-                <div class="nav-tabs-vertical" 
-                    ng-class="{'nav-tabs-vertical--closed' : !closedContentNav }">
+            <div class="sd-column-box--3"
+                ng-class="{'content-nav-closed' : webPublisherContentLists.closedContentNav}">
+                <div class="nav-tabs-vertical"
+                    ng-class="{'nav-tabs-vertical--closed' : !webPublisherContentLists.closedContentNav }">
                     <ul class="nav-tabs-vertical__list">
                         <li class="nav-tabs-vertical__tab">
-                            <button class="nav-tabs-vertical__link" 
-                                ng-click="closedContentNav = !closedContentNav">Website</button>
+                            <button class="nav-tabs-vertical__link"
+                                ng-click="webPublisherContentLists.closedContentNav = !webPublisherContentLists.closedContentNav">Website</button>
                         </li>
                     </ul>
                 </div>
                 <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right">
                     <div class="subnav subnav--padded subnav--lower-z-index">
                         <h3 class="sd-content-nav-title sd-content-nav-title--uppercase">Website</h3>
-                        <a class="icn-btn ml-auto" 
-                            ng-click="closedContentNav = !closedContentNav" 
-                            ng-init="closedContentNav = false">
+                        <a class="icn-btn ml-auto"
+                            ng-click="webPublisherContentLists.closedContentNav = !webPublisherContentLists.closedContentNav"
+                            ng-init="webPublisherContentLists.closedContentNav = false">
                             <i class="icon-close-small"></i></a>
                     </div>
                     <nav class="sd-content-nav">
