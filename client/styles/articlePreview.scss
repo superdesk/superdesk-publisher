@@ -76,3 +76,12 @@
         opacity: 0.8;
     }
 }
+
+// Font size fix
+.side-panel__content-block-text p {
+    font-size: 1.5rem;
+    line-height: 140%;
+    font-weight: 300;
+    word-wrap: break-word;
+    padding-bottom: 1rem;
+}
