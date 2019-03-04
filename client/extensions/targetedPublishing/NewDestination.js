@@ -107,6 +107,7 @@ export default class NewDestination extends Component {
     saveContentListsHandler = (data) => {
         let destination = {...this.state.destination};
         destination.contentLists = data;
+
         this.setState({destination});
     }
 

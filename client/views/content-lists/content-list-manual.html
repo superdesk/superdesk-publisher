@@ -9,7 +9,7 @@
             <button class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle" dropdown-toggle="">{{webPublisherContentLists.selectedList.name}}
                 <span class="dropdown__caret"></span>
             </button>
-            <ul class="dropdown__menu scrollable">
+            <ul class="dropdown__menu dropdown__menu--scrollable">
                 <li><div class="dropdown__menu-label">Content lists</div></li>
                 <li ng-repeat="list in lists | orderBy: 'id' track by list.id">
                     <button ng-click="webPublisherContentLists.openListCriteria(list)">{{list.name}}</button>

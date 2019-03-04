@@ -14,6 +14,19 @@ const ContentLists = (props) => {
         props.save(newRuleLists);
     }
 
+    const createPositionOptions = list => {
+        if (!Number.isInteger(list.id)) return null;
+
+
+        let listObj = allContentLists.find(al => al.id === list.id);
+        let count = listObj.contentListItemsCount;
+        let table = []
+
+        for (let i = 0; i < count; i++) {
+          table.push(<option key={'optionelement' + list.id + '' + i} value={i}>{i+1}</option>)
+        }
+        return table
+    };
 
     let ruleLists = [...props.ruleLists];
     let allContentLists = [...props.contentLists]
@@ -36,6 +49,8 @@ const ContentLists = (props) => {
         );
     }
 
+
+
     return (
         <div style={{margin: '1em 0'}}>
             <label className="form-label">Content lists</label>
@@ -56,11 +71,7 @@ const ContentLists = (props) => {
                             <span className="sd-margin-r--1">Set order</span>
                             <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
                                 <select className="sd-line-input__select" value={list.position} name="position" onChange={(e) => contentListChangeHandler(e, index)}>
-                                    <option value="0">1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">4</option>
-                                    <option value="4">5</option>
+                                  {createPositionOptions(list)}
                                 </select>
                             </div>
                         </div>
