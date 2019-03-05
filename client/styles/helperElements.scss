@@ -245,3 +245,7 @@ option:disabled, select[disabled] > option{
     min-width: 1.2em;
     text-align: center;
 }
+
+.sp-imageMaxWidth-wrapper img {
+    max-width: 100%;
+}
