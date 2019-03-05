@@ -7,8 +7,8 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherContentListsController holds a set of functions used for web publisher content listis
  */
-WebPublisherContentListsController.$inject = ['$scope', '$sce', 'publisher', 'publisherHelpers', 'modal', '$timeout', '$route', '$location'];
-export function WebPublisherContentListsController($scope, $sce, publisher, publisherHelpers, modal, $timeout, $route, $location) {
+WebPublisherContentListsController.$inject = ['$scope', '$sce', 'publisher', 'publisherHelpers', 'modal', '$timeout', '$route', '$location', 'notify'];
+export function WebPublisherContentListsController($scope, $sce, publisher, publisherHelpers, modal, $timeout, $route, $location, notify) {
     class WebPublisherContentLists {
         constructor() {
             $scope.loading = true;
@@ -227,7 +227,17 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
 
             $scope.loading = true;
             publisher.manageList({content_list: _.pick($scope.newList, updatedKeys)}, this.selectedList.id)
-                .then(this._refreshLists.bind(this));
+                .then(this._refreshLists.bind(this))
+                .catch(err => {
+                    if(err.status === 409) {
+                        notify.error('Cannot save. List has been already modified by another user');
+                        $scope.loading = false;
+                        this._refreshLists.bind(this);
+                    } else {
+                        notify.error('Something went wrong. Try again.');
+                        $scope.loading = false;
+                    }
+                });
         }
 
         /**
@@ -240,11 +250,24 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
 
             publisher.saveManualList(
                 {content_list: {items: $scope.newList.updatedItems, updated_at: $scope.newList.updatedAt}},
-                $scope.newList.id).then((savedList) => {
+                $scope.newList.id
+                )
+                .then((savedList) => {
                     $scope.newList.updatedAt = savedList.updatedAt;
                     $scope.newList.updatedItems = [];
                     this._queryList();
                     this.listChangeFlag = false;
+                })
+                .catch(err => {
+                    if(err.status === 409) {
+                        notify.error('Cannot save. List has been already modified by another user');
+                        this._queryList();
+                        this.listChangeFlag = false;
+                        $scope.newList.updatedItems = [];
+                    } else {
+                        notify.error('Something went wrong. Try again.');
+                        $scope.loading = false;
+                    }
                 });
         }
 
