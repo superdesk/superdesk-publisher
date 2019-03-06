@@ -17,15 +17,19 @@ const ContentLists = (props) => {
     const createPositionOptions = list => {
         if (!Number.isInteger(list.id)) return null;
 
-
         let listObj = allContentLists.find(al => al.id === list.id);
         let count = listObj.contentListItemsCount;
-        let table = []
+        let options = [];
 
         for (let i = 0; i < count; i++) {
-          table.push(<option key={'optionelement' + list.id + '' + i} value={i}>{i+1}</option>)
+            options.push(<option key={'optionelement' + list.id + '' + i} value={i}>{i+1}</option>)
         }
-        return table
+
+        if (!count) {
+            options.push(<option key={'optionelement' + list.id + '0'} value={0}>{1}</option>)
+        }
+
+        return options
     };
 
     let ruleLists = [...props.ruleLists];
