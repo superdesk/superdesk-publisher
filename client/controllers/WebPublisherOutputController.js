@@ -24,7 +24,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                 .then((sites) => {
                     this.loading = false;
                     this.sites = sites;
-                    // loading routes for filter pane
+                    // loading routes and content lists
                     angular.forEach(sites, (siteObj, key) => {
                         publisher.setTenant(siteObj);
                         publisher.queryRoutes({type: 'collection'}).then((routes) => {
@@ -33,6 +33,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                                 route.name = siteObj.name + '/' + route.name;
                             });
                             this.routes = this.routes.concat(routes);
+                        });
+                        publisher.queryLists().then((lists) => {
+                            siteObj.contentLists = lists;
                         });
                     });
 
@@ -249,9 +252,18 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             if (!routeId) return '';
             let route = routes.find(el => el.id === routeId);
 
+            if (route && route.name.indexOf('/')) {
+                return route.name.substring(route.name.indexOf('/') + 1);
+            }
             return route ? route.name : '';
         }
 
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#publishingAddDestination
+         * @param {Object} site
+         * @description Adds destination
+         */
         publishingAddDestination(site) {
             const tenant = _.find(this.sites, t => t.code === site.code);
 
@@ -265,15 +277,54 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                 isPublishedFbia: false,
                 paywallSecured: false,
                 status: "new",
+                contentLists: [],
                 isOpen: true
             };
-
             this.newDestinations = {...temp, ...this.newDestinations};
         }
 
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#publishingRemoveDestination
+         * @param {Object} destination
+         * @description Removes destination
+         */
         publishingRemoveDestination(destination) {
             delete this.newDestinations[destination.tenant.code];
             this.publishingAvailableSites.push({code: destination.tenant.code, name: destination.tenant.name});
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#contentListPositionRange
+         * @param {Number} listId
+         * @param {Array} lists - tenant content lists
+         * @description Content list set order helper. Creates an array to ng-repeat through
+         */
+        contentListPositionRange(listId, lists) {
+            let list = lists.find(l => l.id === listId);
+            let max = 0;
+            let arr = [];
+
+            if (list) max = list.contentListItemsCount;
+            for (let i = 0; i <= max; i++) {
+                arr.push(i);
+            }
+            return arr;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#getContentListName
+         * @param {Object} list
+         * @param {Array} lists - tenant content lists
+         * @description Content list set order helper. Creates an array to ng-repeat through
+         */
+        getContentListName(list, lists) {
+            if (list.name) return list.name;
+
+            let theList = lists.find(l => l.id === list.id);
+            return theList ? theList.name : '';
         }
 
         /**
@@ -302,7 +353,6 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
 
             angular.forEach(article.articles, (item) => {
                 if (item.route){
-
                     _.remove(this.publishingAvailableSites, el => el.code === item.tenant.code);
 
                     this.publishedDestinations[item.tenant.code] =
@@ -312,7 +362,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                         isPublishedFbia: item.isPublishedFbia,
                         status: item.status,
                         updatedAt: item.updatedAt,
-                        paywallSecured: item.paywallSecured
+                        paywallSecured: item.paywallSecured,
+                        contentLists: item.contentLists
                     };
 
                     if (item.status == 'published') {
@@ -340,8 +391,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          * @description Publish article to all selected routes
          */
         publishArticle() {
+            // forcing predefined destinations pass through _updatedKeys filtering
             angular.forEach(this.newDestinations, (item) => {
-                if (item.status == 'new') {
+                if (item.status === 'new') {
                     item.forcePublishing = true;
                 }
             });
@@ -350,13 +402,20 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             let updatedKeys = this._updatedKeys(this.newDestinations, this.publishedDestinations);
 
             angular.forEach(updatedKeys, (item) => {
-                destinations.push({
+
+                let destination = {
                     tenant: item,
                     route: this.newDestinations[item].route && this.newDestinations[item].route.id ? this.newDestinations[item].route.id : null,
                     isPublishedFbia: this.newDestinations[item] && this.newDestinations[item].isPublishedFbia === true,
                     published: this.newDestinations[item].route && this.newDestinations[item].route.id ? true : false,
                     paywallSecured: this.newDestinations[item] && this.newDestinations[item].paywallSecured === true
-                });
+                };
+
+                if (this.newDestinations[item].status === 'new' && this.newDestinations[item].contentLists.length) {
+                    destination.contentLists = this.newDestinations[item].contentLists;
+                }
+
+                destinations.push(destination);
             });
 
             if (destinations.length) {

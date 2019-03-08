@@ -4,12 +4,13 @@
     <sd-check ng-model="webPublisherContentLists.listType" type="radio" ng-value="automatic" label-position="inside">Automatic</sd-check>
     <sd-check ng-model="webPublisherContentLists.listType" type="radio" ng-value="manual" label-position="inside">Manual</sd-check>
 </div>
-<div class="sd-display-flex-column">
+<div class="sd-display-flex-column" viewport>
     <div class="sd-grid-list sd-grid-list--large">
         <div
             ng-if="list.type !== 'bucket'"
             ng-repeat="list in lists | filter: {type: webPublisherContentLists.listType} | orderBy: 'id'"
             ng-include="'list-box.html'"
+            viewport-enter="list.visible = true"
             class="sd-display-flex-column overflow-initial"
         ></div>
     </div>

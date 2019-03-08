@@ -26,6 +26,14 @@
                         <i class="icon-paywall icon--full-opacity icon--orange"></i>
                     </span>
                 </div>
+                <div class="sd-list-item__row" ng-if="destination.contentLists.length">
+                    <span class="sd-list-item__text-label">Content lists:</span>
+                    <span class="sd-overflow-ellipsis">
+                        <span ng-repeat="list in destination.contentLists">
+                            {{webPublisherOutput.getContentListName(list, destination.tenant.contentLists)}}<span ng-show="$index !== destination.contentLists.length - 1">, </span>
+                        </span>
+                    </span>
+                </div>
             </div>
         </div>
         <!-- END list item  -->
@@ -58,8 +66,6 @@
                                 class="icn-btn" sd-tooltip="Preview" flow="bottom">
                                 <i class="icon-external icon--full-opacity icon--white"></i>
                             </a>
-
-
                         </div>
                     </div>
                 </div>
@@ -72,11 +78,44 @@
                     ></div>
                 </div>
             </div>
-            <div class="form__row" ng-init="contentChanged0 = true">
+            <div class="form__row">
                 <sd-check ng-model="destination.isPublishedFbia"><i class="icon-facebook icon--blue"></i> Publish to facebook</sd-check>
             </div>
             <div class="form__row">
                 <sd-check ng-model="destination.paywallSecured"><i class="icon-paywall icon--orange"></i> Paywall secured</sd-check>
+            </div>
+
+            <label ng-if="destination.contentLists.length" class="form-label">Content lists</label>
+            <div ng-if="destination.status !== 'new' && destination.contentLists.length">
+                <span class="text--lighter text--italic" ng-repeat="list in destination.contentLists">
+                    {{list.name}}<span ng-show="$index !== destination.contentLists.length - 1">, </span>
+                </span>
+            </div>
+            <div ng-if="destination.status === 'new'">
+                <div class="sd-list-item sd-list-item--no-hover sd-margin-b--1" ng-repeat="list in destination.contentLists">
+                    <div class="sd-list-item__column sd-list-item__column--grow">
+                        <div class="sd-list-item__row sd-list-item__row--only-child">
+                            <span class="sd-margin-r--1">Choose list</span>
+                            <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin">
+                                <select class="sd-line-input__select" ng-model="list.id"
+                                    ng-options="list.id as list.name for list in destination.tenant.contentLists | filter:{type:'manual'}">
+                                </select>
+                            </div>
+                            <a class="icn-btn disabled" sd-tooltip="Remove list" flow="left" ng-click="destination.contentLists.splice($index, 1)"><i class="icon-trash"></i></a>
+                        </div>
+                        <div class="sd-list-item__row sd-margin-b--1">
+                            <span class="sd-margin-r--1">Set order</span>
+                            <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
+                                <select class="sd-line-input__select" ng-model="list.position">
+                                    <option ng-repeat="n in webPublisherOutput.contentListPositionRange(list.id, destination.tenant.contentLists)" value="{{n}}">{{n + 1}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form__row" ng-if="destination.status === 'new'">
+                <button class="btn btn--hollow btn--expanded btn--primary" ng-click="destination.contentLists.push({id: null, position: 0})">Add to content list</button>
             </div>
         </div>
     </div>
