@@ -16,6 +16,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.filterOpen = $window.localStorage.getItem('swpOutputFilterOpen') ? JSON.parse($window.localStorage.getItem('swpOutputFilterOpen' )) : false;
             this.routes = [];
             this.advancedFilters = {};
+            this.listType = $window.localStorage.getItem('swpOutputListType') ? $window.localStorage.getItem('swpOutputListType') : 'incoming';
             // flag to make sure that setToken was fired. Used to control directives that do requests on their own.
             this.loading = true;
             this.articlesCount = {incoming: 0, published: 0};
@@ -62,7 +63,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                     }, true);
                 });
 
-            $scope.$watch('listType', (newVal, oldVal) => {
+            $scope.$watch(() => this.listType, (newVal, oldVal) => {
+                $window.localStorage.setItem('swpOutputListType', newVal);
                 this.closePreview();
                 this.closePublish();
             }, true);
