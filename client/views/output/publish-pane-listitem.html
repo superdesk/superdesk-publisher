@@ -5,7 +5,7 @@
         <!-- list item  -->
         <div class="sd-list-item">
             <div class="sd-list-item__border"
-            ng-class="{'sd-list-item__border--success': destination.status === 'published', 'sd-list-item__border--locked': destination.status === 'unpublished'}"></div>
+            ng-class="{'sd-list-item__border--success': !webPublisherOutput.shouldItemMarkedUnpublished(destination), 'sd-list-item__border--locked': webPublisherOutput.shouldItemMarkedUnpublished(destination)}"></div>
             <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                 <div class="sd-list-item__row">
                     <span class="sd-overflow-ellipsis sd-list-item--element-grow">
@@ -18,7 +18,8 @@
                         </a>
                 </div>
                 <div class="sd-list-item__row">
-                    <span class="sd-overflow-ellipsis label label--success">{{destination.route.name || webPublisherOutput.getRouteNameById(destination.route.id, destination.tenant.routes)}}</span>
+                    <span ng-if="!webPublisherOutput.shouldItemMarkedUnpublished(destination)" class="sd-overflow-ellipsis label label--success">{{webPublisherOutput.getRouteNameById(destination.route.id, destination.tenant.code)}}</span>
+                    <span ng-if="webPublisherOutput.shouldItemMarkedUnpublished(destination)" class="sd-overflow-ellipsis label">unpublished</span>
                     <span class="sd-list-item__inline-text sd-list-item--element-grow no-line-height" ng-if="destination.isPublishedFbia">
                         <i class="icon-facebook icon--blue icon--full-opacity"></i>
                     </span>

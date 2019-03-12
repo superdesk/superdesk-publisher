@@ -247,17 +247,32 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          * @ngdoc method
          * @name WebPublisherOutputController#getRouteNameById
          * @param {Int} routeId
-         * @param {Array} routes
+         * @param {String} tenantCode
          * @description returns route name with given id
          */
-        getRouteNameById(routeId, routes) {
+        getRouteNameById(routeId, tenantCode) {
             if (!routeId) return '';
-            let route = routes.find(el => el.id === routeId);
+
+            const tenant = _.find(this.sites, t => t.code === tenantCode);
+            let route = tenant.routes.find(el => el.id === routeId);
 
             if (route && route.name.indexOf('/')) {
                 return route.name.substring(route.name.indexOf('/') + 1);
             }
             return route ? route.name : '';
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#shouldItemMarkedUnpublished
+         * @param {Object} destination
+         * @description returns true if item should be marked as unpublished (red border etc)
+         */
+        shouldItemMarkedUnpublished(destination) {
+            if (destination.status !== 'unpublished') return false;
+
+            // checking if route changed
+            return this.publishedDestinations[destination.tenant.code].route.id === this.newDestinations[destination.tenant.code].route.id;
         }
 
         /**
