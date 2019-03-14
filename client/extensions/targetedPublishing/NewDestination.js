@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
 import axios from 'axios';
-import Checkbox from './components/Checkbox.jsx';
+import Checkbox from '../helperComponents/Checkbox.jsx';
 import ContentLists from './ContentLists';
 export default class NewDestination extends Component {
     constructor(props) {

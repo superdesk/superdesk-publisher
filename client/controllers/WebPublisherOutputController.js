@@ -360,6 +360,11 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.selectedArticle = article;
             this.publishingAvailableSites = [];
 
+            publisher.queryRelatedArticlesStatus(article.id)
+                .then(response => {
+                    console.log(response);
+                });
+
             if (this.editorOpen) {
                 this.closePreview();
             }

@@ -1,2 +1,1 @@
-export {TargetedPublishing} from './targetedPublishing/TargetedPublishing';
-
+export {TargetedPublishing} from './TargetedPublishing/TargetedPublishing';
