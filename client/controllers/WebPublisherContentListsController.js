@@ -229,14 +229,8 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
             publisher.manageList({content_list: _.pick($scope.newList, updatedKeys)}, this.selectedList.id)
                 .then(this._refreshLists.bind(this))
                 .catch(err => {
-                    if(err.status === 409) {
-                        notify.error('Cannot save. List has been already modified by another user');
-                        $scope.loading = false;
-                        this._refreshLists.bind(this);
-                    } else {
-                        notify.error('Something went wrong. Try again.');
-                        $scope.loading = false;
-                    }
+                    notify.error('Something went wrong. Try again.');
+                    $scope.loading = false;
                 });
         }
 
@@ -261,9 +255,8 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
                 .catch(err => {
                     if(err.status === 409) {
                         notify.error('Cannot save. List has been already modified by another user');
-                        this._queryList();
+                        this.reloadSelectedList();
                         this.listChangeFlag = false;
-                        $scope.newList.updatedItems = [];
                     } else {
                         notify.error('Something went wrong. Try again.');
                         $scope.loading = false;
@@ -381,6 +374,30 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
                     }
                     $scope.loading = false;
                     $scope.$broadcast('refreshListArticles', $scope.newList)
+                })
+                .catch(err => {
+                    if(err.status === 409) {
+                        notify.error('Cannot save. List has been already modified by another user');
+                        this.reloadSelectedList();
+                        this.listChangeFlag = false;
+                    } else {
+                        notify.error('Something went wrong. Try again.');
+                        $scope.loading = false;
+                    }
+                });
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherContentListsController#reloadSelectedList
+         * @description reloads all lists, resets currently edited list
+         */
+        reloadSelectedList() {
+            this._refreshLists()
+                .then(() => {
+                    let currentList = $scope.lists.find(list => list.id === $scope.newList.id);
+
+                    if (currentList) this.openListCriteria(currentList);
                 });
         }
 

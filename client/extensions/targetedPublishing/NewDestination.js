@@ -47,6 +47,7 @@ export default class NewDestination extends Component {
                 return res;
             });
     }
+
     getContentLists() {
         return axios.get(this.state.apiUrl + 'content/lists/', {headers: this.state.apiHeader, params: {limit: 1000}})
             .then(res => {

@@ -20,10 +20,10 @@
                 <h3 class="subnav__page-title">Output Control</h3>
             </div>
             <div class="subnav subnav--lower-z-index">
-                <div class="subnav__stretch-bar" ng-init="listType = 'incoming'">
-                    <sd-check ng-model="listType" type="radio" ng-value="incoming" label-position="inside"
+                <div class="subnav__stretch-bar">
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="incoming" label-position="inside"
                         ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
-                    <sd-check ng-model="listType" type="radio" ng-value="published" label-position="inside"
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="published" label-position="inside"
                         ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
                 </div>
                 <div class="subnav__spacer subnav__spacer--no-margin"></div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="sd-column-box__main-column relative"
                     ng-if="!webPublisherOutput.loading"
-                    ng-show="listType == 'incoming'"
+                    ng-show="webPublisherOutput.listType == 'incoming'"
                     sd-group-article
                     data-root-type="incoming"
                     data-web-publisher-output="webPublisherOutput"
@@ -50,7 +50,7 @@
 
                 <div class="sd-column-box__main-column relative"
                     ng-if="!webPublisherOutput.loading"
-                    ng-show="listType == 'published'"
+                    ng-show="webPublisherOutput.listType == 'published'"
                     sd-group-article
                     data-root-type="published"
                     data-web-publisher-output="webPublisherOutput"
