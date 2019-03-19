@@ -359,10 +359,13 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.activePublishPane = action;
             this.selectedArticle = article;
             this.publishingAvailableSites = [];
+            this.relatedArticles = [];
+            this.relatedArticlesLoading = true;
 
             publisher.queryRelatedArticlesStatus(article.id)
                 .then(response => {
-                    console.log(response);
+                    this.relatedArticles = response.relatedArticleItems;
+                    this.relatedArticlesLoading = false;
                 });
 
             if (this.editorOpen) {
@@ -579,6 +582,19 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          */
         _isEmpty(item) {
             return _.isEmpty(item);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#_isTenantWithinTenants
+         * @param {String} tenantCode
+         * @param {Array} tenantsList
+         * @returns {Boolean}
+         * @description checks if tenant is available in tenantsList
+         */
+        _isTenantWithinTenants(tenantCode, tenantsList) {
+            let index = tenantsList.findIndex(t => t.code === tenantCode);
+            return index > -1;
         }
     }
     return new WebPublisherOutput();

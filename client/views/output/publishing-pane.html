@@ -46,26 +46,15 @@
             <div ng-repeat="destination in webPublisherOutput.newDestinations" ng-include="'publish-pane-listitem.html'"></div>
         </div>
         <!-- Related items -->
-        <div class="side-panel__content-block">
-            <div sd-toggle-box data-title="Related articles" data-open="false" data-style="circle">
+        <div class="side-panel__content-block" ng-hide="!webPublisherOutput.relatedArticles.length && !webPublisherOutput.relatedArticlesLoading">
+            <div sd-toggle-box data-title="Related articles" data-open="true" data-style="circle">
+                <div class="sd-loader" ng-if="webPublisherOutput.relatedArticlesLoading"></div>
                 <ul class="simple-list simple-list--dotted simple-list--no-padding">
-                    <li class="simple-list__item">
-                        <p>J.P. Morgan to settle allegations of violating sanctions: U.S. Treasury</p>
-                        <span class="label-icon label-icon--success" ng-hide="deleteTenant0"><i class="icon-globe"></i> www.sourcefabric.org</span>
-                        <span class="label-icon label-icon--success" ng-hide="deleteTenant1"><i class="icon-globe"></i> www.bbc.co.uk</span>
-                        <span class="label-icon" ng-hide="deleteTenant2"><i class="icon-globe"></i> sp-magazine.s-lab.sourcefabric.org</span>
-                    </li>
-                    <li class="simple-list__item">
-                        <p>Republican Senator Murkowski says has not decided final Kavanaugh vote</p>
-                        <span class="label-icon" ng-hide="deleteTenant0"><i class="icon-globe"></i> www.sourcefabric.org</span>
-                        <span class="label-icon label-icon--success" ng-hide="deleteTenant1"><i class="icon-globe"></i> www.bbc.co.uk</span>
-                        <span class="label-icon" ng-hide="deleteTenant2"><i class="icon-globe"></i> sp-magazine.s-lab.sourcefabric.org</span>
-                    </li>
-                    <li class="simple-list__item">
-                        <p>China bet big on quantum computing. Now the US races to keep up.</p>
-                        <span class="label-icon" ng-hide="deleteTenant0"><i class="icon-globe"></i> www.sourcefabric.org</span>
-                        <span class="label-icon" ng-hide="deleteTenant1"><i class="icon-globe"></i> www.bbc.co.uk</span>
-                        <span class="label-icon label-icon--success" ng-hide="deleteTenant2"><i class="icon-globe"></i> sp-magazine.s-lab.sourcefabric.org</span>
+                    <li class="simple-list__item" ng-repeat="article in webPublisherOutput.relatedArticles">
+                        <p>{{article.title}}</p>
+                        <span ng-repeat="destination in webPublisherOutput.newDestinations" class="label-icon" ng-class="{'label-icon--success': webPublisherOutput._isTenantWithinTenants(destination.tenant.code, article.tenants)}">
+                            <i class="icon-globe"></i> {{destination.tenant.name}}
+                        </span>
                     </li>
                 </ul>
             </div>

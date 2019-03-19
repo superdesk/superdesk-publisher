@@ -322,7 +322,7 @@ export function PublisherFactory(pubapi) {
          * @description List availability of related articles to given article/package
          */
         queryRelatedArticlesStatus(articleId) {
-            return pubapi.get('content/articles/' + articleId + '/related');
+            return pubapi.get('packages/' + articleId + '/related/');
         }
 
         /**
