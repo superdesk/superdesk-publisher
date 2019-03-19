@@ -2,10 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import classNames from 'classnames';
-import {ToggleBox} from './components/ToggleBox.jsx';
+import {ToggleBox} from '../helperComponents/ToggleBox.jsx';
 import Tenant from './Tenant';
 import NewDestination from './NewDestination';
-import Loading from './components/Loading.jsx';
+import RelatedArticlesStatus from './RelatedArticlesStatus';
+import Loading from '../helperComponents/Loading.jsx';
 
 export class TargetedPublishing extends React.Component {
     constructor(props) {
@@ -245,13 +246,16 @@ export class TargetedPublishing extends React.Component {
         }
 
         return (
-            <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui" isOpen={true}>
-                {this.state.loading && <Loading />}
-                {siteRules}
-                {addButton}
-                {addWebsite}
-                {newRuleForm}
-            </ToggleBox>
+            <React.Fragment>
+                <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui" isOpen={true}>
+                    {this.state.loading && <Loading />}
+                    {siteRules}
+                    {addButton}
+                    {addWebsite}
+                    {newRuleForm}
+                </ToggleBox>
+                {!this.state.loading && <RelatedArticlesStatus rules={this.state.rules} apiUrl={this.state.apiUrl} apiHeader={this.state.apiHeader} item={this.state.item}/>}
+            </React.Fragment>
           );
     }
 }

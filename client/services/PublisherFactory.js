@@ -316,6 +316,17 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher#queryRelatedArticlesStatus
+         * @param {Number} articleId
+         * @returns {Promise}
+         * @description List availability of related articles to given article/package
+         */
+        queryRelatedArticlesStatus(articleId) {
+            return pubapi.get('packages/' + articleId + '/related/');
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher#removeArticle
          * @param {Object} update - contains status of article
          * @param {String} articleId - id of article

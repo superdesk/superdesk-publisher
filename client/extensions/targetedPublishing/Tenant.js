@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
 import axios from 'axios';
-import Checkbox from './components/Checkbox.jsx';
+import Checkbox from '../helperComponents/Checkbox.jsx';
 import ContentLists from './ContentLists';
 
 export default class Tenant extends Component {
@@ -214,7 +214,7 @@ export default class Tenant extends Component {
                         }
                         {contentListsNames && newRule.published &&
                             <div className="sd-list-item__row">
-                                <span className="sd-list-item__text-label">Content lists:</span><span className="sd-overflow-ellipsis">Home page, Economy</span>
+                                <span className="sd-list-item__text-label">Content lists:</span><span className="sd-overflow-ellipsis">{contentListsNames}</span>
                             </div>
                         }
                     </div>

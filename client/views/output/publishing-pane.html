@@ -45,6 +45,20 @@
         <div class="side-panel__content-block side-panel__content-block--pad-small">
             <div ng-repeat="destination in webPublisherOutput.newDestinations" ng-include="'publish-pane-listitem.html'"></div>
         </div>
+        <!-- Related items -->
+        <div class="side-panel__content-block" ng-hide="!webPublisherOutput.relatedArticles.length && !webPublisherOutput.relatedArticlesLoading">
+            <div sd-toggle-box data-title="Related articles" data-open="true" data-style="circle">
+                <div class="sd-loader" ng-if="webPublisherOutput.relatedArticlesLoading"></div>
+                <ul class="simple-list simple-list--dotted simple-list--no-padding">
+                    <li class="simple-list__item" ng-repeat="article in webPublisherOutput.relatedArticles">
+                        <p>{{article.title}}</p>
+                        <span ng-repeat="destination in webPublisherOutput.newDestinations" class="label-icon" ng-class="{'label-icon--success': webPublisherOutput._isTenantWithinTenants(destination.tenant.code, article.tenants)}">
+                            <i class="icon-globe"></i> {{destination.tenant.name}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <!-- UNPUBLISH **************************************************** -->
     <div class="side-panel__content" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">
