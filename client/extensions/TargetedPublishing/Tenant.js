@@ -159,7 +159,7 @@ export default class Tenant extends Component {
                 "published": this.state.newRule.published,
                 "paywallSecured": this.state.newRule.paywallSecured,
                 "packageGuid": this.state.item.guid,
-                "contentLists": this.state.newRule.contentLists ? this.state.newRule.contentLists : null
+                "contentLists": this.state.newRule.contentLists ? this.state.newRule.contentLists : []
             }
         };
 
