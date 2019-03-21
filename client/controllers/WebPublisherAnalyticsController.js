@@ -16,6 +16,8 @@ export function WebPublisherAnalyticsController($scope, publisher, modal, $route
             publisher.setToken()
                 .then(publisher.querySites)
                 .then((sites) => {
+                    if (sites.length < 2) this.closedContentNav = true;
+
                     this.sites = sites;
                     $scope.loading = false;
                     // set first tenant automatically

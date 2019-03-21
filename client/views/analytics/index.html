@@ -13,12 +13,27 @@
                     sd-tooltip="Dashboard" flow="right">
                     <i class="icon-arrow-left"></i>
                 </a>
-                <h3 class="subnav__page-title">Content Analytics</h3>
+                <h3 class="subnav__page-title">Content Analytics
+                        <span ng-if="webPublisherAnalytics.selectedTenant.name">/ {{webPublisherAnalytics.selectedTenant.name}}</span>
+                </h3>
             </div>
-            <div class="sd-column-box--3">
-                <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right overflow-auto">
+            <div class="sd-column-box--3" ng-class="{'content-nav-closed' : webPublisherAnalytics.closedContentNav}">
+                    <div class="nav-tabs-vertical"
+                    ng-class="{'nav-tabs-vertical--closed' : !webPublisherAnalytics.closedContentNav }">
+                    <ul class="nav-tabs-vertical__list">
+                        <li class="nav-tabs-vertical__tab">
+                            <button class="nav-tabs-vertical__link"
+                                ng-click="webPublisherAnalytics.closedContentNav = !webPublisherAnalytics.closedContentNav">Website</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right">
                     <div class="subnav subnav--padded subnav--lower-z-index">
-                        <h3 class="sd-content-nav-title">Website</h3>
+                        <h3 class="sd-content-nav-title sd-content-nav-title--uppercase">Website</h3>
+                        <a class="icn-btn ml-auto"
+                            ng-click="webPublisherAnalytics.closedContentNav = !webPublisherAnalytics.closedContentNav"
+                            ng-init="webPublisherAnalytics.closedContentNav = false">
+                            <i class="icon-close-small"></i></a>
                     </div>
                     <nav class="sd-content-nav">
                         <ul>
@@ -32,7 +47,7 @@
                     </nav>
                 </div>
                 <div class="sd-column-box__main-column sd-column-box__main-column--flex">
-                   <!-- <div class="subnav subnav--lower-z-index">
+                   <div class="subnav subnav--lower-z-index">
                         <div class="subnav__content-bar">
                             <div class="dropdown" dropdown="">
                                 <button class="dropdown__toggle dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">Last 7 days<span class="dropdown__caret"></span></button>
@@ -72,7 +87,6 @@
                             <a class="icn-btn" sd-tooltip="Ascending" flow="bottom" ng-click="sortDesc = !sortDesc" ng-show="!sortDesc"><i class="icon-ascending"></i></a>
                         </div>
                     </div>
-                    -->
                     <div class="sd-column-box__main-column-inner relative" id="scrollContainer">
                         <table class="sd-table sd-table--shadowed">
                             <thead>
