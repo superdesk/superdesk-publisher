@@ -158,7 +158,7 @@ export default class Tenant extends Component {
                 "isPublishedFbia": this.state.newRule.isPublishedFbia,
                 "published": this.state.newRule.published,
                 "paywallSecured": this.state.newRule.paywallSecured,
-                "packageGuid": this.state.item.guid,
+                "packageGuid": this.state.item.evolvedfrom ? this.state.item.evolvedfrom : this.state.item.guid,
                 "contentLists": this.state.newRule.contentLists ? this.state.newRule.contentLists : []
             }
         };

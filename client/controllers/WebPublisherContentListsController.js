@@ -223,6 +223,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
          * @description Creates content list
          */
         saveList() {
+            delete $scope.newList.visible;
             let updatedKeys = this._updatedKeys($scope.newList, this.selectedList);
 
             $scope.loading = true;

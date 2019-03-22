@@ -17,7 +17,7 @@ export default class NewDestination extends Component {
             "isPublishedFbia": false,
             "published": true,
             "paywallSecured": false,
-            "packageGuid": item.guid,
+            "packageGuid": item.evolvedfrom ? item.evolvedfrom : item.guid,
             "contentLists": []
         };
 
