@@ -10,24 +10,23 @@
         ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
         ng-repeat="i in articlesList">
         <div class="sd-list-item__border"></div>
-        <div class="sd-list-item__column">
-            <i ng-if="i.type == 'text'" class="filetype-icon-text"></i>
-            <i ng-if="i.type != 'text'" class="filetype-icon-picture"></i>
-        </div>
-        <div class="sd-list-item__column">
-            <span class="badge badge--success badge--square">{{i.priority}}</span>
-            <span class="badge badge--light">{{i.urgency}}</span>
-        </div>
         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
             <div class="sd-list-item__row">
-                <span class="sd-overflow-ellipsis">{{i.headline}}</span>
+                <span class="sd-overflow-ellipsis sd-list-item__headline">{{i.headline}}</span>
                 <time ng-if="i.updatedAt" title="{{i.updatedAt}}">{{i.updatedAt | reldate}}</time>
                 <time ng-if="!i.updatedAt" title="{{i.createdAt}}">{{i.createdAt | reldate}}</time>
             </div>
             <div class="sd-list-item__row sd-list-item__row--wrap">
+                <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
+                    <i class="icon-slideshow sd-opacity--40"></i>{{item.items.length}}
+                </span>
                 <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
-                <span class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
-                <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                <span ng-if="i.version > 1" class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
+                <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                    <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label sd-margin-l--1">pageviews:</span><span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
+                    <span ng-if="rootType === 'published' && i.commentsCount" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.commentsCount">{{i.commentsCount}}</span>
+                </span>
                 <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
                 <span class="label"
                     ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3"

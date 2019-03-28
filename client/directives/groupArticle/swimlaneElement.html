@@ -1,0 +1,48 @@
+<div class="sd-kanban-list__board-header">
+    <div class="sd-list-header">
+        <span class="sd-list-header__name">{{site.name}}</span>
+        <span ng-if="totalArticles.total" class="sd-list-header__number badge">{{totalArticles.total}}</span>
+    </div>
+</div>
+<div class="sd-kanban-list__board-content"
+    infinite-scroll="loadArticles()"
+    infinite-scroll-disabled="!loadedFilters">
+    <div class="sd-list-item-group sd-shadow--z1">
+        <!-- list item -->
+        <div class="sd-list-item"
+            ng-class="{'sd-list-item--activated':webPublisherOutput.selectedArticle.id === i.id, 'fadeElement' : i.animate}"
+            ng-click="webPublisherOutput.openPreview(i); $event.stopPropagation();"
+            ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
+            ng-repeat="i in articlesList">
+            <div class="sd-list-item__border" ng-class="{'sd-list-item__border--success' : i.status === 'published', 'sd-list-item__border--locked': i.status === 'unpublished' }"></div>
+            <div class="sd-list-item__column" ng-if="hasGalleries(i.extra_items)">
+                <div class="sd-list-item__row">
+                    <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
+                        <i class="icon-slideshow sd-opacity--40"></i>{{item.items.length}}
+                    </span>
+                </div>
+            </div>
+            <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                <div class="sd-list-item__row">
+                    <span class="sd-overflow-ellipsis sd-list-item__headline sd-list-item--element-grow" title="{{i.headline}}">{{i.headline}}</span>
+                    <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
+                    <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                    <time ng-if="i.updatedAt" title="{{i.updatedAt}}" class="no-padding">{{i.updatedAt | reldate}}</time>
+                    <time ng-if="!i.updatedAt" title="{{i.createdAt}}" class="no-padding">{{i.createdAt | reldate}}</time>
+                </div>
+            </div>
+            <div class="sd-list-item__action-menu">
+                <!--dropdown-->
+                <div class="dropdown dropdown--align-right" dropdown="" dropdown-append-to-body="">
+                    <button class="icn-btn dropdown__toggle" dropdown__toggle="" ng-click="$event.stopPropagation();"><i class="icon-dots-vertical"></i></button>
+                    <ul class="dropdown__menu">
+                        <li><button ng-click="webPublisherOutput.correctArticle(i)"><i class="icon-pencil"></i>Correct</button></li>
+                        <li><button ng-click="webPublisherOutput.openPublish(i, 'publish')"><i class="icon-expand-thin"></i>Publish</button></li>
+                    </ul>
+                </div>
+                <!--end dropdown-->
+            </div>
+        </div>
+        <div ng-if="loadingArticles" class="item-group__loading" style="margin-left: auto; margin-right: auto; line-height: 38px; height: 38px; text-align: center;"></div>
+    </div>
+</div>

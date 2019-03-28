@@ -5,17 +5,19 @@
  * @requires publisher
  * @description Directive list articles by group in monitoring
  */
-GroupArticleDirective.$inject = ['publisher'];
-export function GroupArticleDirective(publisher) {
+GroupArticleDirective.$inject = ['publisher', 'publisherHelpers'];
+export function GroupArticleDirective(publisher, publisherHelpers) {
     class GroupArticle {
         constructor() {
             this.scope = {
                 rootType: '@',
                 webPublisherOutput: '=webPublisherOutput',
-                initialFilters: '=filters'
+                initialFilters: '=filters',
+                site: '=site',
+                type: '=type'
             };
 
-            this.template = require('./view.html');
+            this.template = '<ng-include src="getTemplateUrl()"/>';
         }
 
         link(scope) {
@@ -29,6 +31,10 @@ export function GroupArticleDirective(publisher) {
                 scope.loadArticles(true);
 
                 scope.$watch('rootType', () => {
+                    scope.loadArticles(true);
+                });
+
+                scope.$watch('site', () => {
                     scope.loadArticles(true);
                 });
             });
@@ -47,7 +53,23 @@ export function GroupArticleDirective(publisher) {
                 window.removeEventListener('keydown', scope.keyPressedHandler);
             });
 
+            scope.getTemplateUrl = () => {
+                switch (scope.type) {
+                case 'swimlane':
+                    return 'groupArticle/swimlaneElement.html';
+                default:
+                    return 'groupArticle/view.html';
+                }
+            };
 
+            scope.hasGalleries = (items) => {
+                let isFlag = false;
+                angular.forEach(items, i => {
+                    if (i.type === 'media') isFlag = true;
+                });
+
+                return isFlag;
+            };
 
             scope.keyPressedHandler = (e) => {
                 let articleIndex = scope.articlesList.findIndex(el => el.id === scope.webPublisherOutput.selectedArticle.id );
@@ -67,6 +89,16 @@ export function GroupArticleDirective(publisher) {
 
             };
 
+            scope.buildTenantParams = () => {
+                let tenant = [];
+
+                if (scope.site) {
+                    tenant.push(scope.site.code);
+                }
+
+                return tenant;
+            };
+
             scope.buildRouteParams = () => {
                 let route = [];
 
@@ -77,8 +109,6 @@ export function GroupArticleDirective(publisher) {
                 }
                 return route;
             };
-
-
 
             scope.buildUniversalParams = () => {
                 let universalParams = {};
@@ -108,6 +138,7 @@ export function GroupArticleDirective(publisher) {
                 };
 
                 let route = scope.buildRouteParams();
+                let tenant = scope.buildTenantParams();
                 let universal = scope.buildUniversalParams();
 
                 queryParams = Object.assign(queryParams, universal);
@@ -117,6 +148,7 @@ export function GroupArticleDirective(publisher) {
                     queryParams['status[]'] = ['new'];
                 } else {
                     queryParams['status[]'] = ['published', 'unpublished'];
+                    queryParams['tenant[]'] = tenant.length ? tenant : undefined;
                     queryParams['route[]'] = route.length ? route : undefined;
                     queryParams.publishedBefore = scope.filters.publishedBefore;
                     queryParams.publishedAfter = scope.filters.publishedAfter;
@@ -194,10 +226,27 @@ export function GroupArticleDirective(publisher) {
 
                 publisher.queryMonitoringArticles(queryParams).then((articles) => {
                     scope.totalArticles = articles;
+                    let newArticles = articles._embedded._items;
+
+                    if (scope.rootType === 'published') {
+                        angular.forEach(newArticles, (item) => {
+                            item.commentsCount = publisherHelpers.countComments(item.articles);
+                            item.pageviewsCount = publisherHelpers.countPageViews(item.articles);
+                            angular.forEach(item.articles, (item) => {
+                                if (item.route && item.status == 'published'){
+                                    let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domainName : item.tenant.domainName;
+                                    item.liveUrl = 'http://' + tenantUrl + item._links.online.href;
+                                }
+                            });
+                        });
+                    }
                     scope.articlesList = scope.articlesList.concat(articles._embedded._items);
                     scope.loadingArticles = false;
                     scope.webPublisherOutput.loadingArticles = false;
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+
+                    if (scope.type !== 'swimlane') {
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
                 })
                 .catch((err) => {
                     scope.loadingArticles = false;
@@ -208,7 +257,8 @@ export function GroupArticleDirective(publisher) {
 
         _isNewPackageInteresting(item, scope) {
 
-
+            console.log(item);
+            // it is interesting in incoming. we have to remove it
             if ( scope.rootType &&
                 (scope.rootType === 'incoming' && item.status === 'published' ||
                 scope.rootType === 'published' && item.status === 'new') ) {
