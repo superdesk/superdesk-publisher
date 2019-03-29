@@ -610,7 +610,10 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description Saving site
          */
         saveSite() {
-            let updatedKeys = this._updatedKeys($scope.newSite, this.selectedSite);
+            let filteredNewSite = {...$scope.newSite};
+            delete filteredNewSite.updatedAt;
+
+            let updatedKeys = this._updatedKeys(filteredNewSite, this.selectedSite);
             this.loading = true;
             publisher.manageSite({tenant: _.pick($scope.newSite, updatedKeys)}, this.selectedSite.code)
                 .then((site) => {
