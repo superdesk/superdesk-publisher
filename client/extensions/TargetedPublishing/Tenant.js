@@ -42,7 +42,6 @@ export default class Tenant extends Component {
     }
 
     getRoutes() {
-        console.log(this.state.apiUrl);
         return axios.get(this.state.apiUrl + 'content/routes/', {headers: this.state.apiHeader, params: {limit: 1000, type: 'collection'}})
             .then(res => {
                 this.setState({

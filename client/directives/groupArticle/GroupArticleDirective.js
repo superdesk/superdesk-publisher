@@ -17,7 +17,7 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                 type: '=type'
             };
 
-            this.template = '<ng-include src="getTemplateUrl()"/>';
+           this.template = require('./view.html');
         }
 
         link(scope) {
@@ -52,15 +52,6 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
             scope.$on('$destroy', () => {
                 window.removeEventListener('keydown', scope.keyPressedHandler);
             });
-
-            scope.getTemplateUrl = () => {
-                switch (scope.type) {
-                case 'swimlane':
-                    return 'groupArticle/swimlaneElement.html';
-                default:
-                    return 'groupArticle/view.html';
-                }
-            };
 
             scope.hasGalleries = (items) => {
                 let isFlag = false;
