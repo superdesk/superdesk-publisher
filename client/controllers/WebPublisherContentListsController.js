@@ -17,6 +17,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
                 .then(publisher.querySites)
                 .then((sites) => {
                     if (sites.length < 2) this.closedContentNav = true;
+
                     this.sites = sites;
                     this.activeView = 'content-lists';
                     $scope.loading = false;
@@ -165,6 +166,12 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
             }
             this.selectedList = {};
             $scope.newList = {type: listType, cacheLifeTime: 0};
+
+            //replacing unsaved list with new one
+            if (this.listAdd) {
+                $scope.lists.pop();
+            }
+
             $scope.lists.push($scope.newList);
             this.listAdd = true;
         }
@@ -274,6 +281,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
         deleteList(id) {
             modal.confirm(gettext('Please confirm you want to delete list.'))
                 .then(() => {
+                    $scope.loading = true;
                     publisher.removeList(id).then(this._refreshLists.bind(this));
                 });
         }
