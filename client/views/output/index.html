@@ -82,7 +82,7 @@
 
                 <!-- Published swimlane -->
                 <div class="sd-column-box__main-column"
-                    ng-show="webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView"
+                    ng-if="webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView"
                     ng-include="'output/swimlane.html'">
 
                 </div>

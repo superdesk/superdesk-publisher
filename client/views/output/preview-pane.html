@@ -28,7 +28,7 @@
                     <label>Published to:</label>
                     <div>
                         <a ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'published' } : true"
-                            ng-href="{{item.liveUrl}}" target="_blank"
+                            ng-href="{{item.liveUrl}}" target="_blank" style="margin-right: .6em"
                             class="label label--success cursorPointer">{{item.tenant.name}}</a>
                     </div>
                 </div>
@@ -36,14 +36,14 @@
                     <label>Sent to:</label>
                     <div>
                         <span ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'new' } : true"
-                            class="label">{{item.tenant.name}}</span>
+                            class="label" style="margin-right: .6em">{{item.tenant.name}}</span>
                     </div>
                 </div>
                 <div class="form__row form__row--small-padding" ng-if="(webPublisherOutput.selectedArticle.articles|filter:{status: 'unpublished'} : true).length">
                     <label>Unpublished from:</label>
                     <div>
                         <span ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'unpublished' } : true"
-                            class="label label--alert" >{{item.tenant.name}}</span>
+                            class="label label--alert" style="margin-right: .6em">{{item.tenant.name}}</span>
                     </div>
                 </div>
                 <div ng-if="webPublisherOutput.selectedArticle.status !== 'new'" class="form__row form__row--small-padding">

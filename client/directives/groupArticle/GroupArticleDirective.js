@@ -148,42 +148,31 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
             };
 
             scope.$on('newPackage', (e, item, state) => {
-               if (!this._isNewPackageInteresting(item, scope)) {
-                   return false;
-               }
-               item.animate = true;
-               if (state === 'update') {
-                    //update
-                    let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
-                    if (elIndex !== -1) {
-                        scope.articlesList[elIndex] = item;
-                    }
-               } else {
-                    //new article
-                    scope.articlesList = [item].concat(scope.articlesList);
-                    if (scope.articlesList.length % scope.articlesLimit === 0) {
-                        scope.articlesList.splice(-1,1)
-                    }
-                    scope.totalArticles.total += 1;
-                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
-               }
+                if (scope.rootType === 'incoming' && item.status === 'published') {
+                    scope.removeArticle(item.id);
+                }
 
-               scope.$apply();
+                if (scope.rootType === 'incoming' && item.status === 'new') {
+                    scope.addUpdateArticle(item, state);
+                }
+
+
+                if (scope.rootType === 'published' && !scope.site && (item.status === 'published' || item.status === 'unpublished')) {
+                    scope.addUpdateArticle(item, state);
+                }
+
+                if (scope.site && (item.status === 'published' || item.status === 'unpublished')) {
+                    angular.forEach(item.articles, (article) => {
+                        if (article.tenant.code === scope.site.code) {
+                            scope.addUpdateArticle(item, state);
+                        }
+                    });
+                }
 
             });
 
             scope.$on('removeFromArticlesList', (e, itemId) => {
-                if (!itemId || scope.rootType === 'published') return;
-
-                let index = scope.articlesList.findIndex((el) => el.id === itemId);
-
-                if (index > -1) {
-                    scope.articlesList.splice(index, 1);
-                    scope.totalArticles.total -= 1;
-                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
-                }
+                scope.removeArticle(itemId);
             });
 
             scope.$on('refreshArticlesList', (e, filters) => {
@@ -195,6 +184,46 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                     scope.loadArticles(true);
                 }
             });
+
+            scope.removeArticle = (ItemId) => {
+                if (!itemId || scope.rootType === 'published') return;
+
+                let index = scope.articlesList.findIndex((el) => el.id === itemId);
+
+                if (index > -1) {
+                    scope.articlesList.splice(index, 1);
+                    if (scope.type !== 'swimlane') {
+                        scope.totalArticles.total -= 1;
+                        scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
+                    scope.$apply();
+                }
+            }
+
+            scope.addUpdateArticle = (item, state) => {
+                item.animate = true;
+                if (state === 'update') {
+                    //update
+                    let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
+                    if (elIndex !== -1) {
+                        scope.articlesList[elIndex] = item;
+                    }
+                } else {
+                    //new article
+                    scope.articlesList = [item].concat(scope.articlesList);
+                    if (scope.articlesList.length % scope.articlesLimit === 0) {
+                        scope.articlesList.splice(-1,1)
+                    }
+                    if (scope.type !== 'swimlane') {
+                        scope.totalArticles.total += 1;
+                        scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
+                }
+
+               scope.$apply();
+            };
 
             scope.loadArticles = (reset) => {
 
@@ -245,20 +274,6 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                 });
             };
         }
-
-        _isNewPackageInteresting(item, scope) {
-
-            console.log(item);
-            // it is interesting in incoming. we have to remove it
-            if ( scope.rootType &&
-                (scope.rootType === 'incoming' && item.status === 'published' ||
-                scope.rootType === 'published' && item.status === 'new') ) {
-                return false;
-            }
-
-            // return true if everything passes checks
-            return true;
-        };
     }
 
     return new GroupArticle();

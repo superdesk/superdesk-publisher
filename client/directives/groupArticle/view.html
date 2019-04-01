@@ -29,12 +29,23 @@
                     <span ng-if="rootType === 'published' && i.commentsCount" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.commentsCount">{{i.commentsCount}}</span>
                 </span>
                 <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-                <span class="label"
-                    ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3"
-                    ng-class="{'label--success': item.status == 'published', 'label--alert': item.status == 'unpublished'}"
-                >
-                    {{item.tenant.name}}
+                <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3">
+                    <a class="label label--success cursorPointer"
+                        ng-if="item.status === 'published'"
+                        ng-href="{{item.tenant.subdomain ? 'http://' + item.tenant.subdomain + '.'  + item.tenant.domainName + item._links.online.href: 'http://' + item.tenant.domainName + item._links.online.href}}" target="_blank"
+                        ng-click="$event.stopPropagation()"
+                    >
+                        {{item.tenant.name}}
+                    </a>
+
+                    <span class="label"
+                        ng-if="item.status !== 'published'"
+                        ng-class="{'label--alert': item.status == 'unpublished'}"
+                    >
+                        {{item.tenant.name}}
+                    </span>
                 </span>
+
                 <span ng-if="i.articles.length - 3 > 0">+{{i.articles.length - 3}} more</span>
             </div>
         </div>
