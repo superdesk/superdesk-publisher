@@ -3,6 +3,7 @@
     infinite-scroll="loadArticles()"
     infinite-scroll-disabled="!loadedFilters"
     infinite-scroll-parent="true"
+    ng-if="type !=='swimlane'"
 >
     <div class="sd-list-item"
         ng-class="{'sd-list-item--activated':webPublisherOutput.selectedArticle.id === i.id, 'fadeElement' : i.animate}"
@@ -10,31 +11,41 @@
         ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
         ng-repeat="i in articlesList">
         <div class="sd-list-item__border"></div>
-        <div class="sd-list-item__column">
-            <i ng-if="i.type == 'text'" class="filetype-icon-text"></i>
-            <i ng-if="i.type != 'text'" class="filetype-icon-picture"></i>
-        </div>
-        <div class="sd-list-item__column">
-            <span class="badge badge--success badge--square">{{i.priority}}</span>
-            <span class="badge badge--light">{{i.urgency}}</span>
-        </div>
         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
             <div class="sd-list-item__row">
-                <span class="sd-overflow-ellipsis">{{i.headline}}</span>
+                <span class="sd-overflow-ellipsis sd-list-item__headline">{{i.headline}}</span>
                 <time ng-if="i.updatedAt" title="{{i.updatedAt}}">{{i.updatedAt | reldate}}</time>
                 <time ng-if="!i.updatedAt" title="{{i.createdAt}}">{{i.createdAt | reldate}}</time>
             </div>
             <div class="sd-list-item__row sd-list-item__row--wrap">
-                <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
-                <span class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
-                <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
-                <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-                <span class="label"
-                    ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3"
-                    ng-class="{'label--success': item.status == 'published', 'label--alert': item.status == 'unpublished'}"
-                >
-                    {{item.tenant.name}}
+                <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
+                    <i class="icon-slideshow sd-opacity--40"></i>{{item.items.length}}
                 </span>
+                <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
+                <span ng-if="i.version > 1" class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
+                <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                    <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label sd-margin-l--1">pageviews:</span><span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
+                    <span ng-if="rootType === 'published' && i.commentsCount" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.commentsCount">{{i.commentsCount}}</span>
+                </span>
+                <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3">
+                    <a class="label label--success cursorPointer"
+                        ng-if="item.status === 'published'"
+                        ng-href="{{item.tenant.subdomain ? 'http://' + item.tenant.subdomain + '.'  + item.tenant.domainName + item._links.online.href: 'http://' + item.tenant.domainName + item._links.online.href}}" target="_blank"
+                        ng-click="$event.stopPropagation()"
+                    >
+                        {{item.tenant.name}}
+                    </a>
+
+                    <span class="label"
+                        ng-if="item.status !== 'published'"
+                        ng-class="{'label--alert': item.status == 'unpublished'}"
+                    >
+                        {{item.tenant.name}}
+                    </span>
+                </span>
+
                 <span ng-if="i.articles.length - 3 > 0">+{{i.articles.length - 3}} more</span>
             </div>
         </div>
@@ -48,9 +59,61 @@
     <div ng-if="loadingArticles" class="item-group__loading" style="margin-left: auto; margin-right: auto; line-height: 38px; height: 38px; text-align: center;"></div>
 </div>
 
-<div class="panel-info" ng-if="!loadingArticles && !articlesList.length">
+<div class="panel-info" ng-if="type !== 'swimlane' && !loadingArticles && !articlesList.length">
     <div class="panel-info__icon">
         <i class="big-icon--text"></i>
     </div>
     <h3 class="panel-info__heading">No {{rootType}} articles.</h3>
+</div>
+
+<!-- SWIMLANE ---------------------------------------------------------- -->
+
+<div class="sd-kanban-list__board-header" ng-if="type === 'swimlane'">
+    <div class="sd-list-header">
+        <span class="sd-list-header__name">{{site.name}}</span>
+        <span ng-if="totalArticles.total" class="sd-list-header__number badge">{{totalArticles.total}}</span>
+    </div>
+</div>
+<div class="sd-kanban-list__board-content" ng-if="type === 'swimlane'">
+    <div class="sd-list-item-group sd-shadow--z1"
+        infinite-scroll="loadArticles()"
+        infinite-scroll-disabled="!loadedFilters"
+        infinite-scroll-parent="true">
+        <!-- list item -->
+        <div class="sd-list-item"
+            ng-class="{'sd-list-item--activated':webPublisherOutput.selectedArticle.id === i.id, 'fadeElement' : i.animate}"
+            ng-click="webPublisherOutput.openPreview(i); $event.stopPropagation();"
+            ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
+            ng-repeat="i in articlesList">
+            <div class="sd-list-item__border" ng-class="{'sd-list-item__border--success' : i.status === 'published', 'sd-list-item__border--locked': i.status === 'unpublished' }"></div>
+            <div class="sd-list-item__column" ng-if="hasGalleries(i.extra_items)">
+                <div class="sd-list-item__row">
+                    <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
+                        <i class="icon-slideshow sd-opacity--40"></i>{{item.items.length}}
+                    </span>
+                </div>
+            </div>
+            <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                <div class="sd-list-item__row">
+                    <span class="sd-overflow-ellipsis sd-list-item__headline sd-list-item--element-grow" title="{{i.headline}}">{{i.headline}}</span>
+                    <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
+                    <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                    <time ng-if="i.updatedAt" title="{{i.updatedAt}}" class="no-padding">{{i.updatedAt | reldate}}</time>
+                    <time ng-if="!i.updatedAt" title="{{i.createdAt}}" class="no-padding">{{i.createdAt | reldate}}</time>
+                </div>
+            </div>
+            <div class="sd-list-item__action-menu">
+                <!--dropdown-->
+                <div class="dropdown dropdown--align-right" dropdown="" dropdown-append-to-body="">
+                    <button class="icn-btn dropdown__toggle" dropdown__toggle="" ng-click="$event.stopPropagation();"><i class="icon-dots-vertical"></i></button>
+                    <ul class="dropdown__menu">
+                        <li><button ng-click="webPublisherOutput.correctArticle(i)"><i class="icon-pencil"></i>Correct</button></li>
+                        <li><button ng-click="webPublisherOutput.openPublish(i, 'publish')"><i class="icon-expand-thin"></i>Publish</button></li>
+                    </ul>
+                </div>
+                <!--end dropdown-->
+            </div>
+        </div>
+        <div ng-if="loadingArticles" class="item-group__loading" style="margin-left: auto; margin-right: auto; line-height: 38px; height: 38px; text-align: center;"></div>
+    </div>
 </div>

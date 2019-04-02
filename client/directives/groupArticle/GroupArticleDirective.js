@@ -5,17 +5,19 @@
  * @requires publisher
  * @description Directive list articles by group in monitoring
  */
-GroupArticleDirective.$inject = ['publisher'];
-export function GroupArticleDirective(publisher) {
+GroupArticleDirective.$inject = ['publisher', 'publisherHelpers'];
+export function GroupArticleDirective(publisher, publisherHelpers) {
     class GroupArticle {
         constructor() {
             this.scope = {
                 rootType: '@',
                 webPublisherOutput: '=webPublisherOutput',
-                initialFilters: '=filters'
+                initialFilters: '=filters',
+                site: '=site',
+                type: '=type'
             };
 
-            this.template = require('./view.html');
+           this.template = require('./view.html');
         }
 
         link(scope) {
@@ -29,6 +31,10 @@ export function GroupArticleDirective(publisher) {
                 scope.loadArticles(true);
 
                 scope.$watch('rootType', () => {
+                    scope.loadArticles(true);
+                });
+
+                scope.$watch('site', () => {
                     scope.loadArticles(true);
                 });
             });
@@ -47,7 +53,14 @@ export function GroupArticleDirective(publisher) {
                 window.removeEventListener('keydown', scope.keyPressedHandler);
             });
 
+            scope.hasGalleries = (items) => {
+                let isFlag = false;
+                angular.forEach(items, i => {
+                    if (i.type === 'media') isFlag = true;
+                });
 
+                return isFlag;
+            };
 
             scope.keyPressedHandler = (e) => {
                 let articleIndex = scope.articlesList.findIndex(el => el.id === scope.webPublisherOutput.selectedArticle.id );
@@ -67,6 +80,16 @@ export function GroupArticleDirective(publisher) {
 
             };
 
+            scope.buildTenantParams = () => {
+                let tenant = [];
+
+                if (scope.site) {
+                    tenant.push(scope.site.code);
+                }
+
+                return tenant;
+            };
+
             scope.buildRouteParams = () => {
                 let route = [];
 
@@ -77,8 +100,6 @@ export function GroupArticleDirective(publisher) {
                 }
                 return route;
             };
-
-
 
             scope.buildUniversalParams = () => {
                 let universalParams = {};
@@ -108,6 +129,7 @@ export function GroupArticleDirective(publisher) {
                 };
 
                 let route = scope.buildRouteParams();
+                let tenant = scope.buildTenantParams();
                 let universal = scope.buildUniversalParams();
 
                 queryParams = Object.assign(queryParams, universal);
@@ -117,6 +139,7 @@ export function GroupArticleDirective(publisher) {
                     queryParams['status[]'] = ['new'];
                 } else {
                     queryParams['status[]'] = ['published', 'unpublished'];
+                    queryParams['tenant[]'] = tenant.length ? tenant : undefined;
                     queryParams['route[]'] = route.length ? route : undefined;
                     queryParams.publishedBefore = scope.filters.publishedBefore;
                     queryParams.publishedAfter = scope.filters.publishedAfter;
@@ -125,42 +148,31 @@ export function GroupArticleDirective(publisher) {
             };
 
             scope.$on('newPackage', (e, item, state) => {
-               if (!this._isNewPackageInteresting(item, scope)) {
-                   return false;
-               }
-               item.animate = true;
-               if (state === 'update') {
-                    //update
-                    let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
-                    if (elIndex !== -1) {
-                        scope.articlesList[elIndex] = item;
-                    }
-               } else {
-                    //new article
-                    scope.articlesList = [item].concat(scope.articlesList);
-                    if (scope.articlesList.length % scope.articlesLimit === 0) {
-                        scope.articlesList.splice(-1,1)
-                    }
-                    scope.totalArticles.total += 1;
-                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
-               }
+                if (scope.rootType === 'incoming' && item.status === 'published') {
+                    scope.removeArticle(item.id);
+                }
 
-               scope.$apply();
+                if (scope.rootType === 'incoming' && item.status === 'new') {
+                    scope.addUpdateArticle(item, state);
+                }
+
+
+                if (scope.rootType === 'published' && !scope.site && (item.status === 'published' || item.status === 'unpublished')) {
+                    scope.addUpdateArticle(item, state);
+                }
+
+                if (scope.site && (item.status === 'published' || item.status === 'unpublished')) {
+                    angular.forEach(item.articles, (article) => {
+                        if (article.tenant.code === scope.site.code) {
+                            scope.addUpdateArticle(item, state);
+                        }
+                    });
+                }
 
             });
 
             scope.$on('removeFromArticlesList', (e, itemId) => {
-                if (!itemId || scope.rootType === 'published') return;
-
-                let index = scope.articlesList.findIndex((el) => el.id === itemId);
-
-                if (index > -1) {
-                    scope.articlesList.splice(index, 1);
-                    scope.totalArticles.total -= 1;
-                    scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
-                }
+                scope.removeArticle(itemId);
             });
 
             scope.$on('refreshArticlesList', (e, filters) => {
@@ -172,6 +184,46 @@ export function GroupArticleDirective(publisher) {
                     scope.loadArticles(true);
                 }
             });
+
+            scope.removeArticle = (ItemId) => {
+                if (!itemId || scope.rootType === 'published') return;
+
+                let index = scope.articlesList.findIndex((el) => el.id === itemId);
+
+                if (index > -1) {
+                    scope.articlesList.splice(index, 1);
+                    if (scope.type !== 'swimlane') {
+                        scope.totalArticles.total -= 1;
+                        scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
+                    scope.$apply();
+                }
+            }
+
+            scope.addUpdateArticle = (item, state) => {
+                item.animate = true;
+                if (state === 'update') {
+                    //update
+                    let elIndex = scope.articlesList.findIndex(el => el.guid === item.guid);
+                    if (elIndex !== -1) {
+                        scope.articlesList[elIndex] = item;
+                    }
+                } else {
+                    //new article
+                    scope.articlesList = [item].concat(scope.articlesList);
+                    if (scope.articlesList.length % scope.articlesLimit === 0) {
+                        scope.articlesList.splice(-1,1)
+                    }
+                    if (scope.type !== 'swimlane') {
+                        scope.totalArticles.total += 1;
+                        scope.totalArticles.pages = Math.ceil(scope.totalArticles.total/scope.articlesLimit);
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
+                }
+
+               scope.$apply();
+            };
 
             scope.loadArticles = (reset) => {
 
@@ -194,10 +246,27 @@ export function GroupArticleDirective(publisher) {
 
                 publisher.queryMonitoringArticles(queryParams).then((articles) => {
                     scope.totalArticles = articles;
+                    let newArticles = articles._embedded._items;
+
+                    if (scope.rootType === 'published') {
+                        angular.forEach(newArticles, (item) => {
+                            item.commentsCount = publisherHelpers.countComments(item.articles);
+                            item.pageviewsCount = publisherHelpers.countPageViews(item.articles);
+                            angular.forEach(item.articles, (item) => {
+                                if (item.route && item.status == 'published'){
+                                    let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domainName : item.tenant.domainName;
+                                    item.liveUrl = 'http://' + tenantUrl + item._links.online.href;
+                                }
+                            });
+                        });
+                    }
                     scope.articlesList = scope.articlesList.concat(articles._embedded._items);
                     scope.loadingArticles = false;
                     scope.webPublisherOutput.loadingArticles = false;
-                    scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+
+                    if (scope.type !== 'swimlane') {
+                        scope.webPublisherOutput.articlesCount[scope.rootType] = scope.totalArticles.total;
+                    }
                 })
                 .catch((err) => {
                     scope.loadingArticles = false;
@@ -205,19 +274,6 @@ export function GroupArticleDirective(publisher) {
                 });
             };
         }
-
-        _isNewPackageInteresting(item, scope) {
-
-
-            if ( scope.rootType &&
-                (scope.rootType === 'incoming' && item.status === 'published' ||
-                scope.rootType === 'published' && item.status === 'new') ) {
-                return false;
-            }
-
-            // return true if everything passes checks
-            return true;
-        };
     }
 
     return new GroupArticle();

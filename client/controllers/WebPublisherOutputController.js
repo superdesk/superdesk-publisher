@@ -225,26 +225,6 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
 
         /**
          * @ngdoc method
-         * @name WebPublisherOutputController#countPageViews
-         * @param {Array} articles
-         * @description Counts total page views
-         */
-        countPageViews(articles = []) {
-            return publisherHelpers.countPageViews(articles);
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherOutputController#countComments
-         * @param {Array} articles
-         * @description Counts total comments
-         */
-        countComments(articles = []) {
-            return publisherHelpers.countComments(articles);
-        }
-
-        /**
-         * @ngdoc method
          * @name WebPublisherOutputController#getRouteNameById
          * @param {Int} routeId
          * @param {String} tenantCode
@@ -353,11 +333,11 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          */
         openPublish(article, action = 'publish') {
             this.publishedDestinations = {};
-            this.publishFilter = 'all';
             this.publishOpen = true;
             this.unpublishSelectAll = false;
             this.activePublishPane = action;
             this.selectedArticle = article;
+            this.publishFilter = 'all';
             this.publishingAvailableSites = [];
             this.relatedArticles = [];
             this.relatedArticlesLoading = true;

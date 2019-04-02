@@ -24,23 +24,37 @@
                 >
                     <span class="label-icon label-icon--warning"><i class="icon-paywall"></i> Paywall secured</span>
                 </div>
-                <div class="form__row">
-                    <span class="label"
-                        ng-repeat="item in webPublisherOutput.selectedArticle.articles | orderBy:'-status'"
-                        ng-class="{'label--success': item.status == 'published', 'label--alert': item.status == 'unpublished'}"
-                    >
-                        {{item.tenant.name}}
-                    </span>
+                <div class="form__row form__row--small-padding" ng-if="(webPublisherOutput.selectedArticle.articles|filter:{status: 'published'} : true).length">
+                    <label>Published to:</label>
+                    <div>
+                        <a ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'published' } : true"
+                            ng-href="{{item.liveUrl}}" target="_blank" style="margin-right: .6em"
+                            class="label label--success cursorPointer">{{item.tenant.name}}</a>
+                    </div>
+                </div>
+                <div class="form__row form__row--small-padding" ng-if="(webPublisherOutput.selectedArticle.articles|filter:{status: 'new'} : true).length">
+                    <label>Sent to:</label>
+                    <div>
+                        <span ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'new' } : true"
+                            class="label" style="margin-right: .6em">{{item.tenant.name}}</span>
+                    </div>
+                </div>
+                <div class="form__row form__row--small-padding" ng-if="(webPublisherOutput.selectedArticle.articles|filter:{status: 'unpublished'} : true).length">
+                    <label>Unpublished from:</label>
+                    <div>
+                        <span ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'unpublished' } : true"
+                            class="label label--alert" style="margin-right: .6em">{{item.tenant.name}}</span>
+                    </div>
                 </div>
                 <div ng-if="webPublisherOutput.selectedArticle.status !== 'new'" class="form__row form__row--small-padding">
                     <div class="flex-grid flex-grid--wrap-items flex-grid--small-2">
                         <div class="flex-grid__item">
                             <label class="form-label form-label--light">Page views</label>
-                            <p>{{webPublisherOutput.countPageViews(webPublisherOutput.selectedArticle.articles)}}</p>
+                            <p>{{webPublisherOutput.selectedArticle.pageviewsCount}}</p>
                         </div>
                         <div class="flex-grid__item">
                             <label class="form-label form-label--light">Comments</label>
-                            <p>{{webPublisherOutput.countComments(webPublisherOutput.selectedArticle.articles)}}</p>
+                            <p>{{webPublisherOutput.selectedArticle.commentsCount}}</p>
                         </div>
                     </div>
                 </div>
