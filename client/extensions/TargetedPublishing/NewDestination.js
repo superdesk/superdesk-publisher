@@ -160,6 +160,31 @@ export default class NewDestination extends Component {
             </div>
         );
 
+        let paywalSecuredStyle = {};
+
+        if (this.state.site.paywallEnabled && this.state.site.fbiaEnabled) {
+            paywalSecuredStyle = {marginLeft: '2em'};
+        }
+
+        let optionsSwitches = null;
+        if(this.state.site.paywallEnabled || this.state.site.fbiaEnabled) {
+            optionsSwitches = (
+                <div className="form__row">
+                    {this.state.site.fbiaEnabled ? (
+                        <span sd-tooltip="Publish to facebook">
+                            <Checkbox label="Facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+
+                    {this.state.site.paywallEnabled ? (
+                        <span style={paywalSecuredStyle}>
+                            <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+                </div>
+            );
+        }
+
         let routesSelect = null;
 
         if (!this.state.site.outputChannel) {
@@ -189,9 +214,6 @@ export default class NewDestination extends Component {
             preview = <a href={this.state.previewUrl} target="_blank" className="icn-btn" sd-tooltip="Preview" flow="left"><i className="icon-external"></i></a>;
         }
 
-        const paywalSecuredStyle = {
-            marginLeft: '2em'
-        };
         const newDestinationForm = (
              <div className="sd-collapse-box__content-wraper">
                 <div className="sd-collapse-box__content">
@@ -217,14 +239,7 @@ export default class NewDestination extends Component {
                     <div className="form__row">
                         {routesSelect}
                     </div>
-                    <div className="form__row">
-                        <span sd-tooltip="Publish to facebook">
-                            <Checkbox label="Facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
-                        </span>
-                        <span style={paywalSecuredStyle}>
-                            <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
-                        </span>
-                    </div>
+                    {optionsSwitches}
                     {this.state.contentLists.length ?
                         <ContentLists
                             ruleLists={destination.contentLists}
