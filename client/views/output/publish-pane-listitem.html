@@ -79,10 +79,10 @@
                     ></div>
                 </div>
             </div>
-            <div class="form__row">
+            <div class="form__row" ng-if="destination.tenant.fbiaEnabled">
                 <sd-check ng-model="destination.isPublishedFbia"><i class="icon-facebook icon--blue"></i> Publish to facebook</sd-check>
             </div>
-            <div class="form__row">
+            <div class="form__row" ng-if="destination.tenant.paywallEnabled">
                 <sd-check ng-model="destination.paywallSecured"><i class="icon-paywall icon--orange"></i> Paywall secured</sd-check>
             </div>
 

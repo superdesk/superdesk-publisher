@@ -237,6 +237,31 @@ export default class Tenant extends Component {
             );
         }
 
+        let paywalSecuredStyle = {};
+
+        if (newRule.tenant.paywallEnabled && newRule.tenant.fbiaEnabled) {
+            paywalSecuredStyle = {marginLeft: '2em'};
+        }
+
+        let optionsSwitches = null;
+        if(newRule.tenant.paywallEnabled || newRule.tenant.fbiaEnabled) {
+            optionsSwitches = (
+                <div className="form__row">
+                    {newRule.tenant.fbiaEnabled ? (
+                        <span sd-tooltip="Publish to facebook">
+                            <Checkbox label="Facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+
+                    {newRule.tenant.paywallEnabled ? (
+                        <span style={paywalSecuredStyle}>
+                            <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+                </div>
+            );
+        }
+
         let routesSelect = null;
         if (!newRule.tenant.outputChannel) {
             routesSelect = (
@@ -256,10 +281,6 @@ export default class Tenant extends Component {
         if (this.state.previewUrl) {
             preview = <a href={this.state.previewUrl} className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank"><i className="icon-external"></i></a>;
         }
-
-        const paywalSecuredStyle = {
-            marginLeft: '2em'
-        };
 
         const content = (
             <div className="sd-collapse-box__content-wraper">
@@ -290,16 +311,9 @@ export default class Tenant extends Component {
                         </div>
                     </div>
                     <div className="form__row">
-                            {routesSelect}
+                        {routesSelect}
                     </div>
-                    <div className="form__row">
-                        <span sd-tooltip="Publish to facebook">
-                            <Checkbox label="Facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
-                        </span>
-                        <span style={paywalSecuredStyle}>
-                            <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
-                        </span>
-                    </div>
+                    {optionsSwitches}
                     <div className="form__row">
                         <Checkbox label="Do not publish" value={!newRule.published} onChange={this.publishedCheckboxHandler.bind(this)}/>
                     </div>
