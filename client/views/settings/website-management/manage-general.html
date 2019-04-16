@@ -9,7 +9,7 @@
         <div class="form__row">
             <div class="sd-line-input">
                 <label class="sd-line-input__label">Domain name</label>
-                <input class="sd-line-input__input sd-line-input--required" type="text" ng-trim="false" ng-change="newSite.domainName = newSite.domainName.split(' ').join('')" ng-model="newSite.domainName" required>
+                <input class="sd-line-input__input sd-line-input--required" type="text" ng-trim="false" ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')" ng-model="newSite.domain_name" required>
             </div>
         </div>
         <div class="form__row">
@@ -19,20 +19,20 @@
             </div>
         </div>
         <div class="form__row">
-            <span ng-model="newSite.ampEnabled" sd-switch=""></span><label>Enable AMP</label>
-            <span ng-model="newSite.fbiaEnabled" sd-switch=""></span><label>Enable FBIA</label>
-            <span ng-model="newSite.paywallEnabled" sd-switch=""></span><label>Enable Paywall</label>
+            <span ng-model="newSite.amp_enabled" sd-switch=""></span><label>Enable AMP</label>
+            <span ng-model="newSite.fbia_enabled" sd-switch=""></span><label>Enable FBIA</label>
+            <span ng-model="newSite.paywall_enabled" sd-switch=""></span><label>Enable Paywall</label>
         </div>
-        <div ng-if="newSite.outputChannel">
+        <div ng-if="newSite.output_channel">
             <div class="form__row">
-                <h4 class="text--light text--uppercase">{{newSite.outputChannel.type}} settings</h4>
+                <h4 class="text--light text--uppercase">{{newSite.output_channel.type}} settings</h4>
             </div>
             <div class="form__row"
-                ng-repeat="(name, value) in newSite.outputChannel.config" >
+                ng-repeat="(name, value) in newSite.output_channel.config" >
                 <div class="form__row-item">
                     <div class="sd-line-input sd-line-input--required">
                         <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
-                        <input class="sd-line-input__input" type="text" ng-model="newSite.outputChannel.config[name]" required>
+                        <input class="sd-line-input__input" type="text" ng-model="newSite.output_channel.config[name]" required>
                     </div>
                 </div>
             </div>

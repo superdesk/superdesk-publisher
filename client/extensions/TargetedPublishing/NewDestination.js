@@ -10,15 +10,15 @@ export default class NewDestination extends Component {
         const {site, config, apiHeader, item} = this.props;
         const protocol = config.publisher.protocol || 'https';
         const subdomain = site.subdomain ? `${site.subdomain}.` : '';
-        const domainName = site.domainName;
+        const domainName = site.domain_name;
 
         const destination = {
             "tenant": site.code,
-            "isPublishedFbia": false,
+            "is_published_fbia": false,
             "published": true,
-            "paywallSecured": false,
-            "packageGuid": item.evolvedfrom ? item.evolvedfrom : item.guid,
-            "contentLists": []
+            "paywall_secured": false,
+            "package_guid": item.evolvedfrom ? item.evolvedfrom : item.guid,
+            "content_lists": []
         };
 
         this.state = {
@@ -72,7 +72,7 @@ export default class NewDestination extends Component {
 
     fbiaCheckboxHandler(e) {
         const dest = {...this.state.destination};
-        dest.isPublishedFbia = e.target.value;
+        dest.is_published_fbia = e.target.value;
         this.setState({
             destination: dest
         });
@@ -80,7 +80,7 @@ export default class NewDestination extends Component {
 
     paywallSecuredCheckboxHandler(e) {
         const dest = {...this.state.destination};
-        dest.paywallSecured = e.target.value;
+        dest.paywall_secured = e.target.value;
         this.setState({
             destination: dest
         });
@@ -107,29 +107,25 @@ export default class NewDestination extends Component {
 
     saveContentListsHandler = (data) => {
         let destination = {...this.state.destination};
-        destination.contentLists = data;
+        destination.content_lists = data;
 
         this.setState({destination});
     }
 
     addContentList = () => {
         let destination = {...this.state.destination};
-        destination.contentLists.push({id: '', position: 0});
+        destination.content_lists.push({id: '', position: 0});
         this.setState({destination});
     }
 
     removeContentList = (index) => {
         let destination = {...this.state.destination};
-        destination.contentLists.splice(index, 1);
+        destination.content_lists.splice(index, 1);
         this.setState({destination});
     }
 
     saveHandler() {
-        const destination = {
-            "publish_destination": this.state.destination
-        };
-
-        return axios.post(this.state.apiUrl + 'organization/destinations/', destination, {headers: this.state.apiHeader})
+        return axios.post(this.state.apiUrl + 'organization/destinations/', this.state.destination, {headers: this.state.apiHeader})
             .then(res => {
                 this.props.done();
                 return res;
@@ -137,14 +133,14 @@ export default class NewDestination extends Component {
     }
 
     render() {
-        let siteDomain = this.state.site.subdomain ? this.state.site.subdomain + '.' + this.state.site.domainName : this.state.site.domainName;
+        let siteDomain = this.state.site.subdomain ? this.state.site.subdomain + '.' + this.state.site.domain_name : this.state.site.domain_name;
 
         const destination = {...this.state.destination};
-        let disableSave = !this.state.destination.route && !this.state.site.outputChannel ? true : false;
+        let disableSave = !this.state.destination.route && !this.state.site.output_channel ? true : false;
         let contentListsNames = '';
 
-        if (destination.contentLists && destination.contentLists.length) {
-            destination.contentLists.forEach(list => {
+        if (destination.content_lists && destination.content_lists.length) {
+            destination.content_lists.forEach(list => {
                 let list = this.state.contentLists.find(el => el.id === list.id);
                 if (list) contentListsNames += contentListsNames ? ', ' + list.name : list.name;
             });
@@ -162,23 +158,23 @@ export default class NewDestination extends Component {
 
         let paywalSecuredStyle = {};
 
-        if (this.state.site.paywallEnabled && this.state.site.fbiaEnabled) {
+        if (this.state.site.paywall_enabled && this.state.site.fbia_enabled) {
             paywalSecuredStyle = {marginLeft: '2em'};
         }
 
         let optionsSwitches = null;
-        if(this.state.site.paywallEnabled || this.state.site.fbiaEnabled) {
+        if(this.state.site.paywall_enabled || this.state.site.fbia_enabled) {
             optionsSwitches = (
                 <div className="form__row">
-                    {this.state.site.fbiaEnabled ? (
+                    {this.state.site.fbia_enabled ? (
                         <span sd-tooltip="Publish to facebook">
-                            <Checkbox label="Facebook" value={this.state.destination.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                            <Checkbox label="Facebook" value={this.state.destination.is_published_fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
                         </span>
                     ) : null}
 
-                    {this.state.site.paywallEnabled ? (
+                    {this.state.site.paywall_enabled ? (
                         <span style={paywalSecuredStyle}>
-                            <Checkbox label="Paywall Secured" value={this.state.destination.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                            <Checkbox label="Paywall Secured" value={this.state.destination.paywall_secured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
                         </span>
                     ) : null}
                 </div>
@@ -187,7 +183,7 @@ export default class NewDestination extends Component {
 
         let routesSelect = null;
 
-        if (!this.state.site.outputChannel) {
+        if (!this.state.site.output_channel) {
             routesSelect = (
                 <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
                     <label className="sd-line-input__label">Route</label>
@@ -242,7 +238,7 @@ export default class NewDestination extends Component {
                     {optionsSwitches}
                     {this.state.contentLists.length ?
                         <ContentLists
-                            ruleLists={destination.contentLists}
+                            ruleLists={destination.content_lists}
                             contentLists={this.state.contentLists}
                             save={this.saveContentListsHandler}
                             addList={this.addContentList}

@@ -18,7 +18,7 @@ export function ArticlesDirective(publisher) {
                 limit: 20,
                 status: 'published',
                 page: 1,
-                'sorting[createdAt]': 'desc'
+                'sorting[created_at]': 'desc'
             };
 
             scope.list = {
