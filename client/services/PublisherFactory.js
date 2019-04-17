@@ -53,16 +53,6 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
-         * @name publisher#activateLiveSite
-         * @returns {Promise}
-         * @description Open tenant with livesite editor in new tab
-         */
-        activateLiveSite() {
-            return pubapi.save('livesite/auth/livesite_editor');
-        }
-
-        /**
-         * @ngdoc method
          * @name publisher#manageSite
          * @param {Object} site - site which is edited
          * @param {String} code - code of site which is edited

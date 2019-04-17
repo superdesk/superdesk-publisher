@@ -20,7 +20,7 @@ describe('pubapi', () => {
     }));
 
     it('can build a custom tenant resource url', inject((pubapi) => {
-        pubapi.setTenant({domainName: 'test.com', subdomain: 'custom'});
+        pubapi.setTenant({domain_name: 'test.com', subdomain: 'custom'});
         let url = pubapi.resourceURL('menus');
 
         expect(url).toBe('http://custom.test.com/api/v1/menus/');

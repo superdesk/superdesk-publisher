@@ -31,7 +31,7 @@ apps: [
 publisher: {
     protocol: 'http',                /* http or https */
     tenant: 'tenant-1',              /* tenant - semantically subdomain, '' is allowed */
-    domain: 'website.com',           /* domainname for the publisher */
+    domain: 'website.com',           /* domain name for the publisher */
     base: 'api/v1',                  /* api base path */
 
     wsProtocol: 'wss',                /* ws or wss (websocket); if unspecified or '' defaults to 'wss' */

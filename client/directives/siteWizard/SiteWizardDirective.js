@@ -29,8 +29,8 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                 scope.newSite = {};
 
                 if (scope.outputChannelType) {
-                    scope.newSite.outputChannel = {
-                        type: scope.outputChannelType.toLowerCase(),
+                    scope.newSite.output_channel = {
+                        type: scope.output_channelType.toLowerCase(),
                         config: {
                             url: '',
                             authorization_key: ''
@@ -59,7 +59,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
              */
             scope.saveSite = () => {
                 scope.wizard.busy = true;
-                let newUrl = scope.newSite.subdomain + '.' + scope.newSite.domainName;
+                let newUrl = scope.newSite.subdomain + '.' + scope.newSite.domain_name;
 
                 publisher.checkIfPublisher(newUrl).then(isPublisher => {
                     if (!isPublisher) {
@@ -75,7 +75,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                             publisher.setTenant(site);
                             scope.managerController._refreshSites();
                             scope.wizard.busy = false;
-                            if (scope.wizard.site.outputChannel) {
+                            if (scope.wizard.site.output_channel) {
                                 scope.managerController.toggleSiteWizard();
                             } else {
                                 WizardHandler.wizard('siteWizard').next();

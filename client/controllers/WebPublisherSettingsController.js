@@ -611,11 +611,11 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          */
         saveSite() {
             let filteredNewSite = {...$scope.newSite};
-            delete filteredNewSite.updatedAt;
+            delete filteredNewSite.updated_at;
 
             let updatedKeys = this._updatedKeys(filteredNewSite, this.selectedSite);
             this.loading = true;
-            publisher.manageSite({tenant: _.pick($scope.newSite, updatedKeys)}, this.selectedSite.code)
+            publisher.manageSite(_.pick($scope.newSite, updatedKeys), this.selectedSite.code)
                 .then((site) => {
                     this.siteForm.$setPristine();
                     this.selectedSite = site;
@@ -772,7 +772,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 return site.code == code;
             });
 
-            return tenant && tenant.outputChannel ? tenant.outputChannel.type : null;
+            return tenant && tenant.output_channel ? tenant.output_channel.type : null;
         }
 
         /**
@@ -786,7 +786,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 return site.code == code;
             });
 
-            return tenant ? tenant.subdomain + '.' + tenant.domainName : null;
+            return tenant ? tenant.subdomain + '.' + tenant.domain_name : null;
         }
 
         /**
@@ -948,7 +948,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 }
                 $scope.newRule.action.published = $scope.newRule.configuration.published ? true : false;
                 $scope.newRule.action.fbia = $scope.newRule.configuration.fbia ? true : false;
-                $scope.newRule.action.paywallSecured = $scope.newRule.configuration.paywallSecured ? true : false;
+                $scope.newRule.action.paywall_secured = $scope.newRule.configuration.paywall_secured ? true : false;
             } else {
                  // organization rule
                  $scope.newRule.destinations = [];
@@ -1008,8 +1008,8 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     newRule.configuration.push({key: 'fbia', value: true});
                 }
 
-                if ($scope.newRule.action.paywallSecured ) {
-                    newRule.configuration.push({key: 'paywallSecured', value: true});
+                if ($scope.newRule.action.paywall_secured ) {
+                    newRule.configuration.push({key: 'paywall_secured', value: true});
                 }
             }
             if ($scope.newRule.catchAll) {
@@ -1043,7 +1043,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let updatedKeys = this._updatedKeys(newRule, this.selectedRule);
 
             if ($scope.newRule.type == 'organization') {
-                publisher.manageOrganizationRule({rule: _.pick(newRule, updatedKeys)}, this.selectedRule.id)
+                publisher.manageOrganizationRule(_.pick(newRule, updatedKeys), this.selectedRule.id)
                     .then((rule) => {
                         this.rulePaneOpen = false;
                         this.selectedRule = {};
@@ -1051,7 +1051,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     });
             } else {
                 publisher.setTenant($scope.newRule.action.tenant);
-                publisher.manageTenantRule({rule: _.pick(newRule, updatedKeys)}, this.selectedRule.id)
+                publisher.manageTenantRule(_.pick(newRule, updatedKeys), this.selectedRule.id)
                     .then((rule) => {
                         this.rulePaneOpen = false;
                         this.selectedRule = {};
@@ -1119,7 +1119,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             return publisher.querySites().then((sites) => {
                 // assigning theme to site
                 angular.forEach(sites, (site) => {
-                    site.theme = $scope.organizationThemes.find(theme => site.themeName == theme.name);
+                    site.theme = $scope.organizationThemes.find(theme => site.theme_name == theme.name);
                 });
                 $scope.sites = sites;
                 $scope.loading = false;

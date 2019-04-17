@@ -69,7 +69,7 @@ export class TargetedPublishing extends React.Component {
     }
 
     authorize() {
-        return axios.post(this.state.apiUrl + 'auth/superdesk/', {auth_superdesk: {session_id: this.state.session.sessionId, token: this.state.session.token}});
+        return axios.post(this.state.apiUrl + 'auth/superdesk/', {session_id: this.state.session.sessionId, token: this.state.session.token});
     }
 
     evaluate() {

@@ -17,13 +17,13 @@ export function PublisherHelpersFactory() {
          * @description Returns image rendition url
          */
         getRenditionUrl(article, type = 'thumbnail') {
-            let base = article.tenant.subdomain ? '//' + article.tenant.subdomain + '.' + article.tenant.domainName : '//' + article.tenant.domainName;
+            let base = article.tenant.subdomain ? '//' + article.tenant.subdomain + '.' + article.tenant.domain_name : '//' + article.tenant.domain_name;
             let mediaEl = article.media.find(el => el.id === article.featureMedia.id);
             let rendition = mediaEl.renditions.find(el => el.name === type);
 
             if (!rendition) rendition = mediaEl.renditions.find(el => el.name === 'original');
 
-            return base + '/media/' + rendition.image.assetId + '.' + rendition.image.fileExtension;
+            return base + '/media/' + rendition.image.asset_id + '.' + rendition.image.fileExtension;
         };
 
         /**
@@ -36,7 +36,7 @@ export function PublisherHelpersFactory() {
             let count = 0;
 
             articles.forEach(art => {
-                count += parseInt(art.articleStatistics.pageViewsNumber);
+                count += parseInt(art.article_statistics.page_views_number);
             })
 
             return count;
@@ -52,7 +52,7 @@ export function PublisherHelpersFactory() {
             let count = 0;
 
             articles.forEach(art => {
-                count += parseInt(art.commentsCount);
+                count += parseInt(art.comments_count);
             })
 
             return count;

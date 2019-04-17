@@ -10,13 +10,13 @@
         <div class="side-panel-collapsible-header" ng-class="{'active': collapsibleHeaderOpen}" ng-init="collapsibleHeaderOpen = true">
             <div class="side-panel-collapsible-header__fixed">
                 <p class="sd-text__date-and-author">
-                    <time ng-if="webPublisherContentLists.selectedArticle.updatedAt" title="{{webPublisherContentLists.selectedArticle.updatedAt}}">{{webPublisherContentLists.selectedArticle.updatedAt | reldate}}</time>
-                    <time ng-if="!webPublisherContentLists.selectedArticle.updatedAt" title="{{webPublisherContentLists.selectedArticle.createdAt}}">{{webPublisherContentLists.selectedArticle.createdAt | reldate}}</time>
+                    <time ng-if="webPublisherContentLists.selectedArticle.updated_at" title="{{webPublisherContentLists.selectedArticle.updated_at}}">{{webPublisherContentLists.selectedArticle.updated_at | reldate}}</time>
+                    <time ng-if="!webPublisherContentLists.selectedArticle.updated_at" title="{{webPublisherContentLists.selectedArticle.created_at}}">{{webPublisherContentLists.selectedArticle.created_at | reldate}}</time>
                 </p>
             </div>
             <div class="side-panel-collapsible-header__collapsible">
                 <div class="form__row"
-                    ng-if="webPublisherContentLists.selectedArticle.articles[0] && webPublisherContentLists.selectedArticle.articles[0].paywallSecured"
+                    ng-if="webPublisherContentLists.selectedArticle.articles[0] && webPublisherContentLists.selectedArticle.articles[0].paywall_secured"
                 >
                     <span class="label-icon label-icon--warning"><i class="icon-paywall"></i> Paywall secured</span>
                 </div>

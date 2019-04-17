@@ -30,7 +30,7 @@ export default class RelatedArticlesStatus extends React.Component {
         return axios.post(this.state.apiUrl + 'organization/articles/related/', this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 this.setState({
-                    relatedArticlesData: res.data.relatedArticleItems,
+                    relatedArticlesData: res.data.related_article_items,
                     loading: false
                 });
                 return res;
@@ -50,7 +50,7 @@ export default class RelatedArticlesStatus extends React.Component {
                             <p>{article.title}</p>
                             {this.state.rules.map(rule => {
                                 let index = article.tenants.findIndex(t => t.code === rule.tenant.code);
-                                let siteDomain = rule.tenant.subdomain ? rule.tenant.subdomain + '.' + rule.tenant.domainName : rule.tenant.domainName;
+                                let siteDomain = rule.tenant.subdomain ? rule.tenant.subdomain + '.' + rule.tenant.domain_name : rule.tenant.domain_name;
 
                                 if (index >= 0) {
                                     return <span key={'site' + rule.tenant.code} className="label-icon label-icon--success"><i className="icon-globe"></i> {siteDomain}</span>

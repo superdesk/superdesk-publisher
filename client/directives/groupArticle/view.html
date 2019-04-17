@@ -14,8 +14,8 @@
         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
             <div class="sd-list-item__row">
                 <span class="sd-overflow-ellipsis sd-list-item__headline">{{i.headline}}</span>
-                <time ng-if="i.updatedAt" title="{{i.updatedAt}}">{{i.updatedAt | reldate}}</time>
-                <time ng-if="!i.updatedAt" title="{{i.createdAt}}">{{i.createdAt | reldate}}</time>
+                <time ng-if="i.updated_at" title="{{i.updated_at}}">{{i.updated_at | reldate}}</time>
+                <time ng-if="!i.updated_at" title="{{i.created_at}}">{{i.created_at | reldate}}</time>
             </div>
             <div class="sd-list-item__row sd-list-item__row--wrap">
                 <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
@@ -26,13 +26,13 @@
                 <span class="sd-overflow-ellipsis sd-list-item--element-grow">
                     <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
                     <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label sd-margin-l--1">pageviews:</span><span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
-                    <span ng-if="rootType === 'published' && i.commentsCount" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.commentsCount">{{i.commentsCount}}</span>
+                    <span ng-if="rootType === 'published' && i.comments_count" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.comments_count">{{i.comments_count}}</span>
                 </span>
-                <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                <span ng-if="i.articles[0] && i.articles[0].paywall_secured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
                 <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3">
                     <a class="label label--success cursorPointer"
                         ng-if="item.status === 'published'"
-                        ng-href="{{item.tenant.subdomain ? 'http://' + item.tenant.subdomain + '.'  + item.tenant.domainName + item._links.online.href: 'http://' + item.tenant.domainName + item._links.online.href}}" target="_blank"
+                        ng-href="{{item.tenant.subdomain ? 'http://' + item.tenant.subdomain + '.'  + item.tenant.domain_name + item._links.online.href: 'http://' + item.tenant.domain_name + item._links.online.href}}" target="_blank"
                         ng-click="$event.stopPropagation()"
                     >
                         {{item.tenant.name}}
@@ -97,9 +97,9 @@
                 <div class="sd-list-item__row">
                     <span class="sd-overflow-ellipsis sd-list-item__headline sd-list-item--element-grow" title="{{i.headline}}">{{i.headline}}</span>
                     <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
-                    <span ng-if="i.articles[0] && i.articles[0].paywallSecured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-                    <time ng-if="i.updatedAt" title="{{i.updatedAt}}" class="no-padding">{{i.updatedAt | reldate}}</time>
-                    <time ng-if="!i.updatedAt" title="{{i.createdAt}}" class="no-padding">{{i.createdAt | reldate}}</time>
+                    <span ng-if="i.articles[0] && i.articles[0].paywall_secured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                    <time ng-if="i.updated_at" title="{{i.updated_at}}" class="no-padding">{{i.updated_at | reldate}}</time>
+                    <time ng-if="!i.updated_at" title="{{i.created_at}}" class="no-padding">{{i.created_at | reldate}}</time>
                 </div>
             </div>
             <div class="sd-list-item__action-menu">

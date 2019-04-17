@@ -1,6 +1,6 @@
 <div class="sd-grid-item-header">
     <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
-        <a target="_blank" ng-href="{{site.outputChannel ? site.outputChannel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domainName: 'http://' + site.domainName}}" flow="down">
+        <a target="_blank" ng-href="{{site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}" flow="down">
             <span>{{ site.name }}</span><i class="icon-external"></i>
         </a>
     </h3>
@@ -8,16 +8,15 @@
 <div class="sd-card sd-card--flex-grow">
     <div class="dashboard-content-header sd-shadow--z1">
         <div class="big-number-block big-number-block--grow big-number-block--center">
-            <div class="big-number-block__number">{{site.articlesCount}}
+            <div class="big-number-block__number">{{site.articles_count}}
             </div>
             <div class="big-number-block__text">Published<br/>items</div>
         </div>
-        <div class="btn-icon-group" ng-if="!site.outputChannel">
+        <div class="btn-icon-group" ng-if="!site.output_channel">
             <a ng-href="#/publisher/analytics/{{site.code}}" class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Analytics" flow="down"><i class="icon-analytics"></i></a>
             <a ng-href="#/publisher/content_lists/{{site.code}}" class="btn btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Content lists" flow="down"><i class="icon-unordered-list"></i></a>
-            <a ng-click="webPublisher.activateLiveSite(site)" class="btn btn--primary btn--icon-only-circle btn--large btn--hollow" sd-tooltip="Livesite editor" flow="down"><i class="icon-pencil"></i></a>
         </div>
-        <i ng-if="site.outputChannel" class="sp-logo-wordpress" sd-tooltip="Wordpress" flow="left"></i>
+        <i ng-if="site.output_channel" class="sp-logo-wordpress" sd-tooltip="Wordpress" flow="left"></i>
     </div>
     <div class="sd-card__content" sd-list-content-lists data-site="site"></div>
 </div>

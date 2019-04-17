@@ -29,7 +29,7 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
          * @description Sets token
          */
         setToken() {
-            return this.save('auth/superdesk', {auth_superdesk: {session_id: session.sessionId, token: session.token}})
+            return this.save('auth/superdesk', {session_id: session.sessionId, token: session.token})
                 .then((response) => {
                     this._token = response.token.api_key;
                     return response;
@@ -50,8 +50,8 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
                 if (site.subdomain) {
                     subdomain = `${site.subdomain}.`;
                 }
-                if (site.domainName) {
-                    domainName = site.domainName;
+                if (site.domain_name) {
+                    domainName = site.domain_name;
                 }
             }
 

@@ -17,7 +17,6 @@ export function WebPublisherDashboardController($scope, publisher, modal, privil
             publisher.setToken().then(() => {
                 this._refreshSites();
             });
-            this.livesitePermission = privileges.userHasPrivileges({livesite: 1});
         }
 
         /**
@@ -28,19 +27,6 @@ export function WebPublisherDashboardController($scope, publisher, modal, privil
          */
         changeListFilter(type) {
             this.listType = type;
-        }
-
-        /**
-         * @ngdoc method
-         * @name WebPublisherDashboardController#activateLiveSite
-         * @param {Object} site - site which is edited
-         * @description Opens site in new tab with live site activated
-         */
-        activateLiveSite(site) {
-            publisher.setTenant(site);
-            publisher.activateLiveSite().then((response) => {
-                $window.open(response.url, '_blank');
-            });
         }
 
         /**

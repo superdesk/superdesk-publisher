@@ -36,7 +36,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                             this.routes = this.routes.concat(routes);
                         });
                         publisher.queryLists().then((lists) => {
-                            siteObj.contentLists = lists;
+                            siteObj.content_lists = lists;
                         });
                     });
 
@@ -271,10 +271,10 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             temp[tenant.code] = {
                 tenant: tenant,
                 route: null,
-                isPublishedFbia: false,
-                paywallSecured: false,
+                is_published_fbia: false,
+                paywall_secured: false,
                 status: "new",
-                contentLists: [],
+                content_lists: [],
                 isOpen: true
             };
             this.newDestinations = {...temp, ...this.newDestinations};
@@ -364,16 +364,16 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                     {
                         tenant: item.tenant,
                         route: item.route,
-                        isPublishedFbia: item.isPublishedFbia,
+                        is_published_fbia: item.is_published_fbia,
                         status: item.status,
-                        updatedAt: item.updatedAt,
-                        paywallSecured: item.paywallSecured,
-                        contentLists: item.contentLists
+                        updated_at: item.updated_at,
+                        paywall_secured: item.paywall_secured,
+                        content_lists: item.content_lists
                     };
 
                     if (item.status == 'published') {
-                        let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domainName : item.tenant.domainName;
-                        this.publishedDestinations[item.tenant.code].liveUrl = 'http://' + tenantUrl + item._links.online.href;
+                        let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domain_name : item.tenant.domain_name;
+                        this.publishedDestinations[item.tenant.code].live_url = 'http://' + tenantUrl + item._links.online.href;
                     }
                 }
             });
@@ -411,13 +411,13 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                 let destination = {
                     tenant: item,
                     route: this.newDestinations[item].route && this.newDestinations[item].route.id ? this.newDestinations[item].route.id : null,
-                    isPublishedFbia: this.newDestinations[item] && this.newDestinations[item].isPublishedFbia === true,
+                    is_published_fbia: this.newDestinations[item] && this.newDestinations[item].is_published_fbia === true,
                     published: this.newDestinations[item].route && this.newDestinations[item].route.id ? true : false,
-                    paywallSecured: this.newDestinations[item] && this.newDestinations[item].paywallSecured === true
+                    paywall_secured: this.newDestinations[item] && this.newDestinations[item].paywall_secured === true
                 };
 
-                if (this.newDestinations[item].status === 'new' && this.newDestinations[item].contentLists.length) {
-                    destination.contentLists = this.newDestinations[item].contentLists;
+                if (this.newDestinations[item].status === 'new' && this.newDestinations[item].content_lists.length) {
+                    destination.content_lists = this.newDestinations[item].content_lists;
                 }
 
                 destinations.push(destination);
@@ -425,7 +425,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
 
             if (destinations.length) {
                 publisher.publishArticle(
-                    {publish: {destinations: destinations}}, this.selectedArticle.id)
+                    {destinations: destinations}, this.selectedArticle.id)
                     .then(() => {
                         $scope.$broadcast('removeFromArticlesList', this.selectedArticle.id);
                         this.closePublish();
@@ -453,7 +453,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             });
 
             publisher.unPublishArticle(
-                {unpublish: {tenants: tenants}}, this.selectedArticle.id)
+                {tenants: tenants}, this.selectedArticle.id)
                 .then(() => {
                     this.closePublish();
                     this.closePreview();
@@ -486,7 +486,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             let token = publisher.getToken();
 
             let tenantUrl = site.subdomain ? site.subdomain + '.'
-            + site.domainName : site.domainName;
+            + site.domain_name : site.domain_name;
 
             this.previewArticleUrls = {
                 regular: '//' + tenantUrl + '/preview/package/' + routeId

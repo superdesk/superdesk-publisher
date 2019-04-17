@@ -125,7 +125,7 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                     page: page,
                     limit: scope.articlesLimit,
                     'status[]': [],
-                    'sorting[updatedAt]': 'desc'
+                    'sorting[updated_at]': 'desc'
                 };
 
                 let route = scope.buildRouteParams();
@@ -185,7 +185,7 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                 }
             });
 
-            scope.removeArticle = (ItemId) => {
+            scope.removeArticle = (itemId) => {
                 if (!itemId || scope.rootType === 'published') return;
 
                 let index = scope.articlesList.findIndex((el) => el.id === itemId);
@@ -250,12 +250,12 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
 
                     if (scope.rootType === 'published') {
                         angular.forEach(newArticles, (item) => {
-                            item.commentsCount = publisherHelpers.countComments(item.articles);
+                            item.comments_count = publisherHelpers.countComments(item.articles);
                             item.pageviewsCount = publisherHelpers.countPageViews(item.articles);
                             angular.forEach(item.articles, (item) => {
                                 if (item.route && item.status == 'published'){
-                                    let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domainName : item.tenant.domainName;
-                                    item.liveUrl = 'http://' + tenantUrl + item._links.online.href;
+                                    let tenantUrl = item.tenant.subdomain ? item.tenant.subdomain + '.'  + item.tenant.domain_name : item.tenant.domain_name;
+                                    item.live_url = 'http://' + tenantUrl + item._links.online.href;
                                 }
                             });
                         });

@@ -10,8 +10,8 @@
         <div class="side-panel-collapsible-header" ng-class="{'active': collapsibleHeaderOpen}" ng-init="collapsibleHeaderOpen = true">
             <div class="side-panel-collapsible-header__fixed">
                 <p class="sd-text__date-and-author">
-                    <time ng-if="webPublisherOutput.selectedArticle.updatedAt" title="{{webPublisherOutput.selectedArticle.updatedAt}}">{{webPublisherOutput.selectedArticle.updatedAt | reldate}}</time>
-                    <time ng-if="!webPublisherOutput.selectedArticle.updatedAt" title="{{webPublisherOutput.selectedArticle.createdAt}}">{{webPublisherOutput.selectedArticle.createdAt | reldate}}</time>
+                    <time ng-if="webPublisherOutput.selectedArticle.updated_at" title="{{webPublisherOutput.selectedArticle.updated_at}}">{{webPublisherOutput.selectedArticle.updated_at | reldate}}</time>
+                    <time ng-if="!webPublisherOutput.selectedArticle.updated_at" title="{{webPublisherOutput.selectedArticle.created_at}}">{{webPublisherOutput.selectedArticle.created_at | reldate}}</time>
                 </p>
                 <span class="btn-icon-group">
                     <button sd-tooltip="Correct" flow="down" class="icn-btn" ng-click="webPublisherOutput.correctArticle(webPublisherOutput.selectedArticle); $event.stopPropagation();"><i class="icon-pencil"></i></button>
@@ -20,7 +20,7 @@
             </div>
             <div class="side-panel-collapsible-header__collapsible">
                 <div class="form__row"
-                    ng-if="webPublisherOutput.selectedArticle.articles[0] && webPublisherOutput.selectedArticle.articles[0].paywallSecured"
+                    ng-if="webPublisherOutput.selectedArticle.articles[0] && webPublisherOutput.selectedArticle.articles[0].paywall_secured"
                 >
                     <span class="label-icon label-icon--warning"><i class="icon-paywall"></i> Paywall secured</span>
                 </div>
@@ -28,7 +28,7 @@
                     <label>Published to:</label>
                     <div>
                         <a ng-repeat="item in webPublisherOutput.selectedArticle.articles | filter: { status: 'published' } : true"
-                            ng-href="{{item.liveUrl}}" target="_blank" style="margin-right: .6em"
+                            ng-href="{{item.live_url}}" target="_blank" style="margin-right: .6em"
                             class="label label--success cursorPointer">{{item.tenant.name}}</a>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="flex-grid__item">
                             <label class="form-label form-label--light">Comments</label>
-                            <p>{{webPublisherOutput.selectedArticle.commentsCount}}</p>
+                            <p>{{webPublisherOutput.selectedArticle.comments_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,12 @@
                 ng-src="{{webPublisherOutput.getViewImage(webPublisherOutput.selectedArticle.articles[0])}}"
                 style="max-width:100%">
             <div class="side-panel__content-block-text sp-imageMaxWidth-wrapper" ng-bind-html="webPublisherOutput.bodyHtml"></div>
+            <div
+                ng-repeat="item in webPublisherOutput.selectedArticle.extra_items" ng-if="item.type==='media'"
+                sd-gallery
+                data-items="item.items"
+                >
+            </div>
         </div>
     </div>
 </div>

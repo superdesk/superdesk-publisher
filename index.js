@@ -81,6 +81,7 @@ export default angular.module('superdesk-publisher', [
 .directive('sdArticles', directive.ArticlesDirective)
 .directive('sdSiteWizard', directive.SiteWizardDirective)
 .directive('sdThemeManager', directive.ThemeManagerDirective)
+.directive('sdGallery', directive.GalleryDirective)
 .factory('publisher', services.PublisherFactory)
 .factory('pubapi', services.PubAPIFactory)
 .factory('publisherHelpers', services.PublisherHelpersFactory)

@@ -1,6 +1,6 @@
 <div class="sd-grid-item-header">
     <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
-        <a target="_blank" ng-href="{{site.outputChannel ? site.outputChannel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domainName: 'http://' + site.domainName}}" flow="down">
+        <a target="_blank" ng-href="{{site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}" flow="down">
             <span>{{ site.name }}</span><i class="icon-external"></i>
         </a>
     </h3>
@@ -27,8 +27,8 @@
             </div>
             <div class="dashboard-thumbnail-block__meta">
                 <span class="dashboard-thumbnail-block__label">Active theme:</span>
-                <h4 class="dashboard-thumbnail-block__heading" sd-tooltip="AMP {{ site.ampEnabled ? 'enabled' : 'disabled'}}" flow="left">
-                    <i class="icon-amp" ng-class="{'icon--green': site.ampEnabled, 'icon--disabled': !site.ampEnabled}"></i>
+                <h4 class="dashboard-thumbnail-block__heading" sd-tooltip="AMP {{ site.amp_enabled ? 'enabled' : 'disabled'}}" flow="left">
+                    <i class="icon-amp" ng-class="{'icon--green': site.amp_enabled, 'icon--disabled': !site.amp_enabled}"></i>
                      {{site.theme.title ? site.theme.title : 'No Theme' }}
                 </h4>
                 <span ng-if="site.theme.settings"><a href="" ng-click="webPublisherSettings.editSite(site, 'theme-settings')" class="dashboard-thumbnail-block__link">customize theme</a></span>
