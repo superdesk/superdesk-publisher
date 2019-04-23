@@ -30,7 +30,7 @@
             <span class="sd-overflow-ellipsis sd-list-item__text-strong">{{ :: article.title || article.content.title}}</span>
         </div>
         <div class="sd-list-item__row">
-            <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{article.content.updatedAt || article.content.publishedAt || article.content.createdAt | reldate}}</span>
+            <span class="sd-overflow-ellipsis sd-list-item--element-grow">{{article.content.updated_at || article.content.publishedAt || article.content.created_at | reldate}}</span>
             <span class="label"
                 ng-class="{'label--success label--hollow': (article.status === 'published' || article.content.status === 'published'), 'label--alert': (article.status === 'unpublished' || article.content.status === 'unpublished'), 'label--yellow2': (article.status === 'new' || article.content.status === 'new') }"
                 >{{article.route.name || article.content.route.name}}</span>

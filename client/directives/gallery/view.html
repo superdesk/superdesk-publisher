@@ -1,0 +1,17 @@
+<div class="sp-media-carousel" ng-if="items.length">
+    <div class="sd-media-carousel__dialog">
+
+        <a ng-click="navPrev()" class="sd-media-carousel__nav-button sd-media-carousel__nav-button--prev-inner" style="top: calc(50% - 1.8rem); opacity: 1"></a>
+        <a ng-click="navNext()" class="sd-media-carousel__nav-button sd-media-carousel__nav-button--next-inner" style="top: calc(50% - 1.8rem); opacity: 1"></a>
+
+        <div class="sd-media-carousel__content owl-carousel" style="max-height:250px">
+            <div class="sd-media-carousel__page" ng-repeat="item in items">
+                <figure style="width:100%">
+                    <div class="item-association__image-container">
+                        <img ng-src="{{ item.renditions[0].href}}" style="max-width:100%">
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>

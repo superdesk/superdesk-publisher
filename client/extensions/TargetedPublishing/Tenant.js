@@ -11,7 +11,7 @@ export default class Tenant extends Component {
         const {rule, config, apiHeader, item} = this.props;
         const protocol = config.publisher.protocol || 'https';
         const subdomain = rule.tenant.subdomain ? `${rule.tenant.subdomain}.` : '';
-        const domainName = rule.tenant.domainName;
+        const domainName = rule.tenant.domain_name;
 
         this.state = {
             isOpen: false,
@@ -87,13 +87,13 @@ export default class Tenant extends Component {
 
     fbiaCheckboxHandler(e) {
         const newRule = {...this.state.newRule};
-        newRule.isPublishedFbia = e.target.value;
+        newRule.is_published_fbia = e.target.value;
         this.setState({newRule});
     }
 
     paywallSecuredCheckboxHandler(e) {
         const newRule = {...this.state.newRule};
-        newRule.paywallSecured = e.target.value;
+        newRule.paywall_secured = e.target.value;
         this.setState({newRule});
     }
 
@@ -131,36 +131,34 @@ export default class Tenant extends Component {
 
     saveContentListsHandler = (data) => {
         let newRule = {...this.state.newRule};
-        newRule.contentLists = data;
+        newRule.content_lists = data;
         this.setState({newRule: newRule});
     }
 
     addContentList = () => {
         let newRule = {...this.state.newRule};
 
-        if (!newRule.contentLists) newRule.contentLists = [];
-        newRule.contentLists.push({id: '', position: 0});
+        if (!newRule.content_lists) newRule.content_lists = [];
+        newRule.content_lists.push({id: '', position: 0});
 
         this.setState({newRule});
     }
 
     removeContentList = (index) => {
         let newRule = {...this.state.newRule};
-        newRule.contentLists.splice(index, 1);
+        newRule.content_lists.splice(index, 1);
         this.setState({newRule});
     }
 
     saveHandler() {
         const destination = {
-            "publish_destination":{
-                "tenant": this.state.newRule.tenant.code,
-                "route": this.state.newRule.route ? this.state.newRule.route.id : null ,
-                "isPublishedFbia": this.state.newRule.isPublishedFbia,
-                "published": this.state.newRule.published,
-                "paywallSecured": this.state.newRule.paywallSecured,
-                "packageGuid": this.state.item.guid,
-                "contentLists": this.state.newRule.contentLists ? this.state.newRule.contentLists : null
-            }
+            "tenant": this.state.newRule.tenant.code,
+            "route": this.state.newRule.route ? this.state.newRule.route.id : null ,
+            "is_published_fbia": this.state.newRule.is_published_fbia,
+            "published": this.state.newRule.published,
+            "paywall_secured": this.state.newRule.paywall_secured,
+            "package_guid": this.state.item.evolvedfrom ? this.state.item.evolvedfrom : this.state.item.guid,
+            "content_lists": this.state.newRule.content_lists ? this.state.newRule.content_lists : []
         };
 
         return axios.post(this.state.apiUrl + 'organization/destinations/', destination, {headers: this.state.apiHeader})
@@ -173,19 +171,19 @@ export default class Tenant extends Component {
 
     render() {
         const {newRule} = this.state;
-        let siteDomain = newRule.tenant.subdomain ? newRule.tenant.subdomain + '.' + newRule.tenant.domainName : newRule.tenant.domainName;
+        let siteDomain = newRule.tenant.subdomain ? newRule.tenant.subdomain + '.' + newRule.tenant.domain_name : newRule.tenant.domain_name;
         let publishRoute = null;
 
-        if (newRule.tenant.outputChannel) {
-            publishRoute = newRule.tenant.outputChannel.type;
+        if (newRule.tenant.output_channel) {
+            publishRoute = newRule.tenant.output_channel.type;
         } else {
-            publishRoute = newRule.isPublishedFbia ? newRule.route.name + ', Facebook' : newRule.route.name;
+            publishRoute = newRule.is_published_fbia ? newRule.route.name + ', Facebook' : newRule.route.name;
         }
 
         let contentListsNames = '';
 
-        if (newRule.contentLists && newRule.contentLists.length) {
-            newRule.contentLists.forEach(list => {
+        if (newRule.content_lists && newRule.content_lists.length) {
+            newRule.content_lists.forEach(list => {
                 let list = this.state.contentLists.find(el => el.id === list.id);
                 if (list) contentListsNames += contentListsNames ? ', ' + list.name : list.name;
             });
@@ -237,8 +235,33 @@ export default class Tenant extends Component {
             );
         }
 
+        let paywalSecuredStyle = {};
+
+        if (newRule.tenant.paywall_enabled && newRule.tenant.fbia_enabled) {
+            paywalSecuredStyle = {marginLeft: '2em'};
+        }
+
+        let optionsSwitches = null;
+        if(newRule.tenant.paywall_enabled || newRule.tenant.fbia_enabled) {
+            optionsSwitches = (
+                <div className="form__row">
+                    {newRule.tenant.fbia_enabled ? (
+                        <span sd-tooltip="Publish to facebook">
+                            <Checkbox label="Facebook" value={newRule.is_published_fbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+
+                    {newRule.tenant.paywall_enabled ? (
+                        <span style={paywalSecuredStyle}>
+                            <Checkbox label="Paywall Secured" value={newRule.paywall_secured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
+                        </span>
+                    ) : null}
+                </div>
+            );
+        }
+
         let routesSelect = null;
-        if (!newRule.tenant.outputChannel) {
+        if (!newRule.tenant.output_channel) {
             routesSelect = (
                 <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
                     <label className="sd-line-input__label">Route</label>
@@ -256,10 +279,6 @@ export default class Tenant extends Component {
         if (this.state.previewUrl) {
             preview = <a href={this.state.previewUrl} className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank"><i className="icon-external"></i></a>;
         }
-
-        const paywalSecuredStyle = {
-            marginLeft: '2em'
-        };
 
         const content = (
             <div className="sd-collapse-box__content-wraper">
@@ -290,22 +309,15 @@ export default class Tenant extends Component {
                         </div>
                     </div>
                     <div className="form__row">
-                            {routesSelect}
+                        {routesSelect}
                     </div>
-                    <div className="form__row">
-                        <span sd-tooltip="Publish to facebook">
-                            <Checkbox label="Facebook" value={newRule.isPublishedFbia} onChange={this.fbiaCheckboxHandler.bind(this)}/>
-                        </span>
-                        <span style={paywalSecuredStyle}>
-                            <Checkbox label="Paywall Secured" value={newRule.paywallSecured} onChange={this.paywallSecuredCheckboxHandler.bind(this)}/>
-                        </span>
-                    </div>
+                    {optionsSwitches}
                     <div className="form__row">
                         <Checkbox label="Do not publish" value={!newRule.published} onChange={this.publishedCheckboxHandler.bind(this)}/>
                     </div>
                     {this.state.contentLists.length ?
                         <ContentLists
-                            ruleLists={newRule.contentLists ? newRule.contentLists : []}
+                            ruleLists={newRule.content_lists ? newRule.content_lists : []}
                             contentLists={this.state.contentLists}
                             save={this.saveContentListsHandler}
                             addList={this.addContentList}

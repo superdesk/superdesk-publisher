@@ -42,14 +42,14 @@
         </div>
     </div>
     <div class="sd-card__content sd-card__content--scrollable relative">
-        <ul class="sd-card__content-list" ng-if="list.visible">
+        <ul class="sd-card__content-list" ng-if="list.visible && list.id">
             <div sd-list-articles data-list="list" data-type="card"></div>
         </ul>
     </div>
     <div class="sd-card__footer sd-card__footer--spread">
         <div>
             <span class="sd-text__info">Last modified: </span>
-            <span>{{ list.updatedAt | reldate}}</span>
+            <span>{{ list.updated_at | reldate}}</span>
         </div>
         <span class="label label--success label--hollow" ng-show="list.enabled">active</span>
     </div>

@@ -7,7 +7,7 @@
     <section class="sd-content sd-page-content--slide-in"
         ng-class="{'sd-page-content--slide-in--open' : editorOpen}">
         <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
-        <div class="sd-page-content__content-block"
+        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
             ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
             <div class="subnav">
                 <button class="navbtn navbtn--left navbtn--darker"
@@ -20,25 +20,46 @@
                 <h3 class="subnav__page-title">Output Control</h3>
             </div>
             <div class="subnav subnav--lower-z-index">
-                <div class="subnav__stretch-bar">
+                <div class="subnav__content-bar">
                     <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="incoming" label-position="inside"
                         ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
                     <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="published" label-position="inside"
                         ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
                 </div>
                 <div class="subnav__spacer subnav__spacer--no-margin"></div>
+                <div class="subnav__stretch-bar"></div>
+                <div class="subnav__spacer subnav__spacer--no-margin"></div>
                 <div class="subnav__content-bar sd-flex-wrap">
-                    <span>Incoming:</span> <span class="badge" style="margin: 0 10px 0 6px;">{{webPublisherOutput.articlesCount.incoming}}</span>
-                    <span>Published:</span> <span class="badge" style="margin: 0 10px 0 6px;">{{webPublisherOutput.articlesCount.published}}</span>
+                    <span>Incoming:</span><span class="badge sd-margin-l--1">{{webPublisherOutput.articlesCount.incoming}}</span>
+                    <span class="sd-margin-l--2">Published:</span><span class="badge sd-margin-l--1">{{webPublisherOutput.articlesCount.published}}</span>
                 </div>
+                <div class="subnav__spacer subnav__spacer--no-margin" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView"></div>
+                <div class="subnav__content-bar" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView">
+                    <div class="dropdown" dropdown="" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView">
+                        <button class="dropdown__toggle dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">{{webPublisherOutput.filterByTenant.name || 'All Tenants'}}<span class="dropdown__caret"></span></button>
+                        <ul class="dropdown__menu dropdown__menu--scrollable">
+                            <li><button ng-click="webPublisherOutput.filterByTenant=null">All Tenants</button></li>
+                            <li class="dropdown__menu-divider"></li>
+                            <li ng-repeat="tenant in webPublisherOutput.sites">
+                                <button ng-click="webPublisherOutput.filterByTenant=tenant">{{tenant.name}}</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="navbtn" ng-click="webPublisherOutput.swimlaneView = !webPublisherOutput.swimlaneView; webPublisherOutput.leftFilterOpen = false" ng-show="webPublisherOutput.listType == 'published'">
+                    <i class="icon-kanban-view ng-hide" ng-show="webPublisherOutput.swimlaneView"></i>
+                    <i class="icon-list-view" ng-hide="webPublisherOutput.swimlaneView"></i>
+                </button>
             </div>
             <div class="sd-loader" ng-if="webPublisherOutput.loading"></div>
             <div class="sd-column-box--3">
-                <div class="sd-filters-panel sd-filters-panel--border-right">
+                <div class="sd-filters-panel sd-filters-panel--border-right" ng-class="{'sd-flex-no-shrink': webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView}">
                     <div class="side-panel side-panel--transparent side-panel--shadow-right"
                         ng-include="'filter-pane.html'">
                     </div>
                 </div>
+
+                <!-- Incoming list -->
                 <div class="sd-column-box__main-column relative"
                     ng-if="!webPublisherOutput.loading"
                     ng-show="webPublisherOutput.listType == 'incoming'"
@@ -46,20 +67,28 @@
                     data-root-type="incoming"
                     data-web-publisher-output="webPublisherOutput"
                     data-filters="webPublisherOutput.advancedFilters">
-                </div><!-- end main -->
+                </div><!-- end incoming list -->
 
+                <!-- Published list -->
                 <div class="sd-column-box__main-column relative"
                     ng-if="!webPublisherOutput.loading"
-                    ng-show="webPublisherOutput.listType == 'published'"
+                    ng-show="webPublisherOutput.listType == 'published'  && !webPublisherOutput.swimlaneView"
                     sd-group-article
                     data-root-type="published"
+                    data-site="webPublisherOutput.filterByTenant"
                     data-web-publisher-output="webPublisherOutput"
                     data-filters="webPublisherOutput.advancedFilters">
-                </div><!-- end main -->
+                </div><!-- end published list -->
+
+                <!-- Published swimlane -->
+                <div class="sd-column-box__main-column"
+                    ng-if="webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView"
+                    ng-include="'output/swimlane.html'">
+
+                </div>
 
                 <!-- start preview -->
-                <div class="sd-preview-panel"
-                    ng-include="'preview-pane.html'">
+                <div class="sd-preview-panel" ng-include="'preview-pane.html'">
                 </div><!-- end preview -->
 
                 <!-- start publish -->
@@ -68,11 +97,8 @@
                 </div>
             </div>
         </div>
-
-
-
     </section>
     <footer class="bottom-bar ">
-        This is the optional footer.
+       superdesk publisher
     </footer>
 </div>

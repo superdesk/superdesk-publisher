@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="flex-grid__item" ng-repeat="item in organizationThemes">
-        <div class="wizardThemeBox sd-shadow--z1" ng-class="{'wizardThemeBox--active': site.themeName == item.name}">
+        <div class="wizardThemeBox sd-shadow--z1" ng-class="{'wizardThemeBox--active': site.theme_name == item.name}">
             <div class="wizardThemeBox__image" ng-if="!item.screenshots[0] || !item.screenshots[0].url">
                 <img src="./no-theme-preview.png" />
             </div>

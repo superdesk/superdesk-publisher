@@ -63,13 +63,13 @@ export function ThemeManagerDirective(publisher) {
              */
             scope.activateTheme = () => {
                 scope.busy = true;
-                publisher.manageSite({tenant: {themeName: scope.theme.name}}, scope.site.code)
+                publisher.manageSite({tenant: {theme_name: scope.theme.name}}, scope.site.code)
                     .then(() => {
                         scope.themeDetailsActive = false;
                         scope.step = 'details';
                         scope.busy = false;
                         scope.activatedCallback();
-                        scope.site.themeName = scope.theme.name;
+                        scope.site.theme_name = scope.theme.name;
                     })
                     .catch(err => {
                         scope.busy = false;

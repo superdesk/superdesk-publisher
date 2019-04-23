@@ -17,6 +17,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
                 .then(publisher.querySites)
                 .then((sites) => {
                     if (sites.length < 2) this.closedContentNav = true;
+
                     this.sites = sites;
                     this.activeView = 'content-lists';
                     $scope.loading = false;
@@ -165,6 +166,12 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
             }
             this.selectedList = {};
             $scope.newList = {type: listType, cacheLifeTime: 0};
+
+            //replacing unsaved list with new one
+            if (this.listAdd) {
+                $scope.lists.pop();
+            }
+
             $scope.lists.push($scope.newList);
             this.listAdd = true;
         }
@@ -223,10 +230,11 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
          * @description Creates content list
          */
         saveList() {
+            delete $scope.newList.visible;
             let updatedKeys = this._updatedKeys($scope.newList, this.selectedList);
 
             $scope.loading = true;
-            publisher.manageList({content_list: _.pick($scope.newList, updatedKeys)}, this.selectedList.id)
+            publisher.manageList(_.pick($scope.newList, updatedKeys), this.selectedList.id)
                 .then(this._refreshLists.bind(this))
                 .catch(err => {
                     notify.error('Something went wrong. Try again.');
@@ -243,11 +251,11 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
             $scope.loading = true;
 
             publisher.saveManualList(
-                {content_list: {items: $scope.newList.updatedItems, updated_at: $scope.newList.updatedAt}},
+                {items: $scope.newList.updatedItems, updated_at: $scope.newList.updated_at},
                 $scope.newList.id
                 )
                 .then((savedList) => {
-                    $scope.newList.updatedAt = savedList.updatedAt;
+                    $scope.newList.updated_at = savedList.updated_at;
                     $scope.newList.updatedItems = [];
                     this._queryList();
                     this.listChangeFlag = false;
@@ -273,6 +281,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
         deleteList(id) {
             modal.confirm(gettext('Please confirm you want to delete list.'))
                 .then(() => {
+                    $scope.loading = true;
                     publisher.removeList(id).then(this._refreshLists.bind(this));
                 });
         }
@@ -366,7 +375,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
              * @param {Object} $scope.newList - list which will refresf articles
              * @description event is thrown when criteria is updated
              */
-            publisher.manageList({content_list: {filters: updatedFilters}}, this.selectedList.id)
+            publisher.manageList({filters: updatedFilters}, this.selectedList.id)
                 .then((response) => {
                     let index = $scope.lists.findIndex(el => el.id === response.id );
                     if (index > -1) {
@@ -605,7 +614,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
         _queryArticles() {
             this.tenantArticles.loading = true;
             this.tenantArticles.params.limit = 20;
-            this.tenantArticles.params['sorting[updatedAt]'] = 'desc';
+            this.tenantArticles.params['sorting[updated_at]'] = 'desc';
             this.tenantArticles.params.status = 'published';
 
             publisher.queryTenantArticles(this.tenantArticles.params).then((response) => {

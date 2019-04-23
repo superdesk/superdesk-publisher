@@ -1,7 +1,7 @@
 <div sd-modal data-model="active" class="modal--tabs modal--large sd-wizard">
     <div class="modal__header">
         <a href="" class="close" ng-click="managerController.toggleSiteWizard()"><i class="icon-close-small"></i></a>
-        <h3 class="modal__heading" translate>Create Site Wizard <span ng-if="newSite.outputChannel">- {{newSite.outputChannel.type.charAt(0).toUpperCase() + newSite.outputChannel.type.slice(1)}}</span></h3>
+        <h3 class="modal__heading" translate>Create Site Wizard <span ng-if="newSite.output_channel">- {{newSite.output_channel.type.charAt(0).toUpperCase() + newSite.output_channel.type.slice(1)}}</span></h3>
     </div>
 
     <div class="modal__body" sd-wizard data-name="siteWizard" data-current-step="step.current" data-finish="managerController.toogleSiteWizard()">
@@ -11,7 +11,7 @@
                     {{wizard.errorMessage}}
                 </div>
                 <fieldset>
-                    <div ng-if="newSite.outputChannel" class="form__row form__row--flex">
+                    <div ng-if="newSite.output_channel" class="form__row form__row--flex">
                             <h4 class="text--light text--thin text--uppercase">Superdesk Publisher tenant settings</h4>
                     </div>
                     <div class="form__row form__row--flex">
@@ -28,9 +28,9 @@
                                 <label class="sd-line-input__label" translate>Domain name</label>
                                 <input class="sd-line-input__input" type="text"
                                     ng-trim="false"
-                                    ng-change="newSite.domainName = newSite.domainName.split(' ').join('')"
-                                    name="domainName"
-                                    ng-model="newSite.domainName"
+                                    ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')"
+                                    name="domain_name"
+                                    ng-model="newSite.domain_name"
                                 required>
                             </div>
                         </div>
@@ -48,16 +48,16 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="newSite.outputChannel" class="form__row form__row--flex">
-                            <h4 class="text--light text--thin text--uppercase">{{newSite.outputChannel.type}} settings</h4>
+                    <div ng-if="newSite.output_channel" class="form__row form__row--flex">
+                            <h4 class="text--light text--thin text--uppercase">{{newSite.output_channel.type}} settings</h4>
                     </div>
                     <div class="form__row form__row--flex"
-                        ng-if="newSite.outputChannel"
-                        ng-repeat="(name, value) in newSite.outputChannel.config" >
+                        ng-if="newSite.output_channel"
+                        ng-repeat="(name, value) in newSite.output_channel.config" >
                             <div class="form__row-item">
                                 <div class="sd-line-input sd-line-input--required">
                                     <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
-                                    <input class="sd-line-input__input" type="text" ng-model="newSite.outputChannel.config[name]" required>
+                                    <input class="sd-line-input__input" type="text" ng-model="newSite.output_channel.config[name]" required>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
             </div>
         </div>
         <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}"
-            ng-if="!newSite.outputChannel"
+            ng-if="!newSite.output_channel"
             data-code="installTheme"
             data-disabled="true">
             <div class="content">

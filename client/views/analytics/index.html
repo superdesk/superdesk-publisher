@@ -105,13 +105,13 @@
                                     <td>
                                         <strong>{{article.title}}</strong>
                                         <a ng-if="article._links.online.href"
-                                            ng-href="{{article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domainName + article._links.online.href : 'http://' + article.tenant.domainName + article._links.online.href}}" class="icn-btn" target="_blank">
+                                            ng-href="{{article.tenant.subdomain ? 'http://' + article.tenant.subdomain + '.' + article.tenant.domain_name + article._links.online.href : 'http://' + article.tenant.domain_name + article._links.online.href}}" class="icn-btn" target="_blank">
                                             <i class="icon-external"></i>
                                         </a>
                                     </td>
-                                    <td>{{article.articleStatistics.pageViewsNumber}}</td>
-                                    <td>{{article.articleStatistics.internalClickRate}}</td>
-                                    <td>{{article.articleStatistics.impressionsNumber}}</td>
+                                    <td>{{article.article_statistics.page_views_number}}</td>
+                                    <td>{{article.article_statistics.internal_click_rate}}</td>
+                                    <td>{{article.article_statistics.impressions_number}}</td>
                                 </tr>
                             </tbody>
                         </table>
