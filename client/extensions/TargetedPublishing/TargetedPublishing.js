@@ -34,7 +34,8 @@ export class TargetedPublishing extends React.Component {
             rules: [],
             addWebsiteOpen: false,
             newSite: {},
-            loading: true
+            loading: true,
+            ninjsError: false
         };
     }
 
@@ -50,8 +51,12 @@ export class TargetedPublishing extends React.Component {
                 fetch(formatterUrl).then((response) => response.text()
                     .then((responseText) => {
                         let json = JSON.parse(responseText);
-                        this.setState({item: json});
-                        this.prepare();
+                        if (!json.guid) {
+                            this.setState({ninjsError: json.message, loading: false});
+                        } else {
+                            this.setState({item: json});
+                            this.prepare();
+                        }
                     }));
             });
     }
@@ -170,7 +175,12 @@ export class TargetedPublishing extends React.Component {
 
         const siteRules = (
             <div>
-                {!this.state.rules.length && !this.state.loading &&
+                {this.state.ninjsError &&
+                    <div style={styles.alert}>
+                        <span style={{fontWeight: '500'}}>Error: </span>{this.state.ninjsError}
+                    </div>
+                }
+                {!this.state.rules.length && !this.state.loading && !this.state.ninjsError &&
                     <div style={styles.alert}>
                         No websites have been set, this article won't show up on any website. It will go to: <br />
                         <span style={{fontWeight: '500'}}>Publisher > Output Control > Incoming list</span>
