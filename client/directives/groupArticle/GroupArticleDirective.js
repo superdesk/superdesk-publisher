@@ -141,8 +141,8 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
                     queryParams['status[]'] = ['published', 'unpublished'];
                     queryParams['tenant[]'] = tenant.length ? tenant : undefined;
                     queryParams['route[]'] = route.length ? route : undefined;
-                    queryParams.publishedBefore = scope.filters.publishedBefore;
-                    queryParams.publishedAfter = scope.filters.publishedAfter;
+                    queryParams.published_before = scope.filters.publishedBefore;
+                    queryParams.published_after = scope.filters.publishedAfter;
                 }
                 return queryParams;
             };
