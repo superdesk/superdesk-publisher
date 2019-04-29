@@ -57,6 +57,7 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('settings/website-management/webhooks/webhook-item.html', require('./client/views/settings/website-management/webhooks/webhook-item.html'));
     $templateCache.put('settings/website-management/webhooks/webhook-add.html', require('./client/views/settings/website-management/webhooks/webhook-add.html'));
 
+    $templateCache.put('analytics/filter-pane.html', require('./client/views/analytics/filter-pane.html'));
 }
 
 /**
