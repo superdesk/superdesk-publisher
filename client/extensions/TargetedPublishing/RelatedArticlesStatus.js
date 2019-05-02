@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 import {ToggleBox} from '../helperComponents/ToggleBox.jsx';
 import Loading from '../helperComponents/Loading.jsx';
 
@@ -26,7 +27,7 @@ export default class RelatedArticlesStatus extends React.Component {
         this.setState({rules});
     }
 
-    getRelatedArticlesData() {
+    getRelatedArticlesData = () => {
         return axios.post(this.state.apiUrl + 'organization/articles/related/', this.state.item, {headers: this.state.apiHeader})
             .then(res => {
                 this.setState({
@@ -52,11 +53,7 @@ export default class RelatedArticlesStatus extends React.Component {
                                 let index = article.tenants.findIndex(t => t.code === rule.tenant.code);
                                 let siteDomain = rule.tenant.subdomain ? rule.tenant.subdomain + '.' + rule.tenant.domain_name : rule.tenant.domain_name;
 
-                                if (index >= 0) {
-                                    return <span key={'site' + rule.tenant.code} className="label-icon label-icon--success"><i className="icon-globe"></i> {siteDomain}</span>
-                                }
-
-                                return <span key={'site' + rule.tenant.code} className="label-icon"><i className="icon-globe"></i> {siteDomain}</span>
+                                return <span key={'site' + rule.tenant.code} className={classNames('label-icon', { 'label-icon--success': index >= 0})} className=""><i className="icon-globe"></i> {siteDomain}</span>
 
                             })}
                         </li>

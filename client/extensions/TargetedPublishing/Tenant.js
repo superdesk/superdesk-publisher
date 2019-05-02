@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import axios from 'axios';
 import Checkbox from '../helperComponents/Checkbox.jsx';
-import ContentLists from './ContentLists';
+import ContentLists from './ContentLists.jsx';
 
 export default class Tenant extends Component {
     constructor(props) {
