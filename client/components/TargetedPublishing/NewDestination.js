@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import axios from 'axios';
-import Checkbox from '../helperComponents/Checkbox.jsx';
+import Checkbox from '../UI/Checkbox.jsx';
 import ContentLists from './ContentLists.jsx';
 export default class NewDestination extends Component {
     constructor(props) {

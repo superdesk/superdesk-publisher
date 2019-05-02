@@ -2,13 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import classNames from 'classnames';
-import {ToggleBox} from '../helperComponents/ToggleBox.jsx';
-import Tenant from './Tenant';
-import NewDestination from './NewDestination';
-import RelatedArticlesStatus from './RelatedArticlesStatus';
-import Loading from '../helperComponents/Loading.jsx';
+import {ToggleBox} from '../components/UI/ToggleBox.jsx';
+import Tenant from '../components/TargetedPublishing/Tenant';
+import NewDestination from '../components/TargetedPublishing/NewDestination';
+import RelatedArticlesStatus from '../components/TargetedPublishing/RelatedArticlesStatus';
+import Loading from '../components/UI/Loading/Loading.jsx';
 
-export class TargetedPublishing extends React.Component {
+export default class TargetedPublishing extends React.Component {
     constructor(props) {
         super(props);
         const {item, session, config} = this.props;
@@ -16,13 +16,6 @@ export class TargetedPublishing extends React.Component {
         const protocol = pubConfig.protocol || 'https';
         const subdomain = pubConfig.tenant ? `${pubConfig.tenant}.` : '';
         const domainName = pubConfig.domain;
-
-        let service = item.anpa_category.map( item => {
-            return {
-                name: item.name,
-                code: item.qcode
-            };
-        });
 
         this.state = {
             config: config,

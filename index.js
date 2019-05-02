@@ -8,7 +8,7 @@ import * as controllers from './client/controllers';
 import * as services from './client/services';
 import * as directive from './client/directives';
 
-import {TargetedPublishing} from './client/extensions';
+import TargetedPublishing from './client/extensions/TargetedPublishing';
 
 cacheIncludedTemplates.$inject = ['$templateCache'];
 function cacheIncludedTemplates($templateCache) {

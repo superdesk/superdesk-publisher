@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ButtonWide from './__components/ButtonWide';
-import ContentListElement from './__components/ContentListElement';
+import ButtonWide from '../UI/ButtonWide';
+import ContentListElement from './ContentListElement';
 
 const ContentLists = (props) => {
 

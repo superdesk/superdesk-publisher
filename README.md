@@ -69,20 +69,3 @@ npm install
 npm link ../../superdesk-publisher
 cd ../..
 ```
-
-## Running Tests
-
-### Client
-Code Style
-```
-cd superdesk-publisher
-npm run hint
-cd ..
-```
-
-Unit Tests
-```
-cd superdesk-publisher
-npm run unit_test
-cd ..
-```
