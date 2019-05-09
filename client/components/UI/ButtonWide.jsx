@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function ButtonWide({ onClick, label }) {
+const ButtonWide = ({ onClick, label }) => {
     return <button className="btn btn--hollow btn--expanded btn--primary" onClick={onClick}>{label}</button>
 }
 

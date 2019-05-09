@@ -22,6 +22,7 @@ const ContentLists = (props) => {
             <label className="form-label">Content lists</label>
             {ruleLists.map( (list, index) => (
                 <ContentListElement key={'list_el' + index}
+                    ruleLists={props.ruleLists}
                     removeList={props.removeList}
                     index={index}
                     list={list}

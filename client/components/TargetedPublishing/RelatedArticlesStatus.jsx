@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {ToggleBox} from '../UI/ToggleBox.jsx';
-import Loading from '../UI/Loading/Loading.jsx';
+import {ToggleBox} from '../UI/ToggleBox';
+import Loading from '../UI/Loading/Loading';
 
-export default class RelatedArticlesStatus extends React.Component {
+class RelatedArticlesStatus extends React.Component {
     constructor(props) {
         super(props);
 
@@ -59,3 +60,13 @@ export default class RelatedArticlesStatus extends React.Component {
           );
     }
 }
+
+
+RelatedArticlesStatus.propTypes = {
+    rules: PropTypes.array.isRequired,
+    apiUrl: PropTypes.string.isRequired,
+    apiHeader: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired
+}
+
+export default RelatedArticlesStatus;

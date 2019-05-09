@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function ContentListElement(props) {
+const ContentListElement = (props) => {
 
     const createPositionOptions = list => {
         if (!Number.isInteger(list.id)) return null;
@@ -60,11 +60,12 @@ function ContentListElement(props) {
 }
 
 ContentListElement.propTypes = {
-    removeList: PropTypes.func,
+    ruleLists: PropTypes.array.isRequired,
+    removeList: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     list: PropTypes.object.isRequired,
     allContentLists: PropTypes.array.isRequired,
-    save: PropTypes.func,
+    save: PropTypes.func.isRequired,
 }
 
 export default ContentListElement

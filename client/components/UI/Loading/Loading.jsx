@@ -2,7 +2,7 @@
 import React from 'react'
 import './Loading.css';
 
-function Loading() {
+const Loading = () => {
     return (
         <div className="spinner">
             <div className="bounce1"></div>
