@@ -8,7 +8,7 @@ import * as controllers from './client/controllers';
 import * as services from './client/services';
 import * as directive from './client/directives';
 
-import {TargetedPublishing} from './client/extensions';
+import Publishing from './client/extensions/Publishing';
 
 cacheIncludedTemplates.$inject = ['$templateCache'];
 function cacheIncludedTemplates($templateCache) {
@@ -89,7 +89,7 @@ export default angular.module('superdesk-publisher', [
 
 .run(['extensionPoints', 'session', 'config', '$templateCache', 'urls', 'api', (extensionPoints, session, config, $templateCache, urls, api) => {
         cacheIncludedTemplates($templateCache);
-        extensionPoints.register('authoring:publish', TargetedPublishing, {session: session, config: config, urls: urls, api: api}, ['item']);
+        extensionPoints.register('authoring:publish', Publishing, {session: session, config: config, urls: urls, api: api}, ['item']);
     }])
 
 .config(['superdeskProvider', 'workspaceMenuProvider', function(superdesk, workspaceMenuProvider) {
