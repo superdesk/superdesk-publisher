@@ -178,7 +178,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          */
         removeArticle(article) {
             modal.confirm(gettext('Please confirm you want to remove article from incoming list.'))
-                .then(() => publisher.removeArticle({update: {pubStatus: 'canceled'}}, article.id)
+                .then(() => publisher.removeArticle({pub_status: 'canceled'}, article.id)
                 .then(() => $scope.$broadcast('refreshArticlesList')));
         }
 
