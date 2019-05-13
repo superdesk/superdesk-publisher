@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 import TargetedPublishing from '../components/TargetedPublishing/TargetedPublishing';
 import RelatedArticlesStatus from '../components/TargetedPublishing/RelatedArticlesStatus.jsx';
-import Loading from '../components/UI/Loading/Loading.jsx';
+import SocialMedia from '../components/TargetedPublishing/SocialMedia';
+import Loading from '../components/UI/Loading/Loading';
 
 import './Publishing.css';
 
@@ -99,6 +100,11 @@ class Publishing extends React.Component {
                 {!this.state.loading && !this.state.ninjsError &&
                     <RelatedArticlesStatus
                         rules={this.state.rules}
+                        apiUrl={this.state.apiUrl}
+                        apiHeader={this.state.apiHeader}
+                        item={this.state.item}/>}
+                {!this.state.loading && !this.state.ninjsError &&
+                    <SocialMedia
                         apiUrl={this.state.apiUrl}
                         apiHeader={this.state.apiHeader}
                         item={this.state.item}/>}

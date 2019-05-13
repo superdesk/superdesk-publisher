@@ -30,7 +30,7 @@ class TargetedPublishing extends React.Component {
 
     render() {
         return (
-            <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui" isOpen={true}>
+            <ToggleBox title="Web publishing" style="toggle-box--dark sp--dark-ui toggle-box--circle" isOpen={true}>
                 {!this.props.rules.length &&
                     <div className="tp-alert">
                         No websites have been set, this article won't show up on any website. It will go to: <br />

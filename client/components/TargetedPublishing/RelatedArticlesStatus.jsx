@@ -41,7 +41,7 @@ class RelatedArticlesStatus extends React.Component {
         }
 
         return (
-            <ToggleBox title="Related Articles" style="toggle-box--dark sp--dark-ui" isOpen={true}>
+            <ToggleBox title="Related Articles" style="toggle-box--dark sp--dark-ui toggle-box--circle" isOpen={true}>
                 {this.state.loading && <Loading />}
                 <ul className="simple-list simple-list--dotted simple-list--no-padding">
                     {this.state.relatedArticles.map(article =>
