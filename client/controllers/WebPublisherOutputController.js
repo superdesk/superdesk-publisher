@@ -566,6 +566,17 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
 
         /**
          * @ngdoc method
+         * @name WebPublisherOutputController#_isAnythingToUnpublish
+         * @returns {Boolean}
+         * @description checks if there are any published destinations left
+         */
+        _isAnythingToUnpublish() {
+            let destinations = _.pickBy(this.newDestinations, (value, key) => value.unpublish);
+            return _.isEmpty(destinations);
+        }
+
+        /**
+         * @ngdoc method
          * @name WebPublisherOutputController#_isTenantWithinTenants
          * @param {String} tenantCode
          * @param {Array} tenantsList
