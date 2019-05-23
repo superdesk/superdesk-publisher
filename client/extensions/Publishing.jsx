@@ -20,7 +20,7 @@ class Publishing extends React.Component {
         const domainName = pubConfig.domain;
 
         this.state = {
-            apiUrl: `${protocol}://${subdomain}${domainName}/api/v1/`,
+            apiUrl: `${protocol}://${subdomain}${domainName}/api/v2/`,
             apiHeader: null,
             item: null,
             rules: [],
