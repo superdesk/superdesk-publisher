@@ -303,7 +303,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             let max = 0;
             let arr = [];
 
-            if (list) max = list.contentListItemsCount;
+            if (list) max = list.content_list_items_count;
             for (let i = 0; i <= max; i++) {
                 arr.push(i);
             }
