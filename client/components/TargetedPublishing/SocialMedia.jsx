@@ -57,13 +57,7 @@ class SocialMedia extends Component {
 
         delete metaData._links;
 
-        return axios.patch(this.props.apiUrl + 'seo/' + this.props.item.guid, metaData, {headers: this.props.apiHeader})
-            .catch(err => {
-                if (err.response.status === 404) {
-                    metaData.package_guid = this.props.item.guid;
-                    axios.post(this.props.apiUrl + 'seo/', metaData, {headers: this.props.apiHeader});
-                }
-            });
+        return axios.put(this.props.apiUrl + 'seo/' + this.props.item.guid, metaData, {headers: this.props.apiHeader});
     }
 
     debouncedSave = _.debounce(this.saveMetaData, 2000, { 'maxWait': 5000 });
@@ -73,23 +67,23 @@ class SocialMedia extends Component {
         const name = e.target.name;
         let formData = new FormData();
 
-        formData.append('packageGuid', this.props.item.guid);
         formData.append(name, files[0]);
 
         let headers = {...this.props.apiHeader, 'Content-Type': 'multipart/form-data'};
 
         this.setState({isUploadingInProgress: true});
-        axios.post(this.props.apiUrl + 'seo/', formData, {headers: headers})
+        axios.put(this.props.apiUrl + 'packages/seo/upload/' + this.props.item.guid, formData, {headers: headers})
             .then(res => {
-                if (res.data._links) {
-                    let metaData = {...this.state.metaData};
+                console.log(res.data);
+                // if (res.data._links) {
+                //     let metaData = {...this.state.metaData};
 
-                    metaData._links = res.data._links;
-                    this.setState({metaData});
-                    // sending patch to update values overwritten by post with image
-                    this.saveMetaData()
-                        .then(res => this.setState({isUploadingInProgress: false}));
-                }
+                //     metaData._links = res.data._links;
+                //     this.setState({metaData});
+                //     // sending patch to update values overwritten by post with image
+                //     this.saveMetaData()
+                //         .then(res => this.setState({isUploadingInProgress: false}));
+                // }
             });
     }
 
