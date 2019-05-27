@@ -25,7 +25,7 @@ class SocialMedia extends Component {
     }
 
     getMetaData = () => {
-        axios.get(this.props.apiUrl + 'seo/' + this.props.item.guid, {headers: this.props.apiHeader})
+        axios.get(this.props.apiUrl + 'packages/seo/' + this.props.item.guid, {headers: this.props.apiHeader})
             .then(res => {
                 this.setState({
                     metaData: res.data
@@ -57,7 +57,7 @@ class SocialMedia extends Component {
 
         delete metaData._links;
 
-        return axios.put(this.props.apiUrl + 'seo/' + this.props.item.guid, metaData, {headers: this.props.apiHeader});
+        return axios.put(this.props.apiUrl + 'packages/seo/' + this.props.item.guid, metaData, {headers: this.props.apiHeader});
     }
 
     debouncedSave = _.debounce(this.saveMetaData, 2000, { 'maxWait': 5000 });
@@ -72,18 +72,14 @@ class SocialMedia extends Component {
         let headers = {...this.props.apiHeader, 'Content-Type': 'multipart/form-data'};
 
         this.setState({isUploadingInProgress: true});
-        axios.put(this.props.apiUrl + 'packages/seo/upload/' + this.props.item.guid, formData, {headers: headers})
+        axios.post(this.props.apiUrl + 'packages/seo/upload/' + this.props.item.guid, formData, {headers: headers})
             .then(res => {
-                console.log(res.data);
-                // if (res.data._links) {
-                //     let metaData = {...this.state.metaData};
+                if (res.data._links) {
+                    let metaData = {...this.state.metaData};
 
-                //     metaData._links = res.data._links;
-                //     this.setState({metaData});
-                //     // sending patch to update values overwritten by post with image
-                //     this.saveMetaData()
-                //         .then(res => this.setState({isUploadingInProgress: false}));
-                // }
+                    metaData._links = res.data._links;
+                    this.setState({metaData, isUploadingInProgress: false});
+                }
             });
     }
 
