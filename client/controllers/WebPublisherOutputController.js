@@ -178,8 +178,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          */
         removeArticle(article) {
             modal.confirm(gettext('Please confirm you want to remove article from incoming list.'))
-                .then(() => publisher.removeArticle({update: {pubStatus: 'canceled'}}, article.id)
-                .then(() => $scope.$broadcast('refreshArticlesList')));
+                .then(() => publisher.removeArticle({pub_status: 'canceled'}, article.id)
+                .then(() => $scope.$broadcast('removeFromArticlesList', article.id)));
         }
 
         /**
@@ -303,7 +303,7 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             let max = 0;
             let arr = [];
 
-            if (list) max = list.contentListItemsCount;
+            if (list) max = list.content_list_items_count;
             for (let i = 0; i <= max; i++) {
                 arr.push(i);
             }
@@ -562,6 +562,17 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
          */
         _isEmpty(item) {
             return _.isEmpty(item);
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#_isAnythingToUnpublish
+         * @returns {Boolean}
+         * @description checks if there are any published destinations left
+         */
+        _isAnythingToUnpublish() {
+            let destinations = _.pickBy(this.newDestinations, (value, key) => value.unpublish);
+            return _.isEmpty(destinations);
         }
 
         /**
