@@ -16,7 +16,8 @@
             </div>
             <div ng-if="webPublisherSettings.webhooks.length">
                 <div ng-repeat="webhook in webPublisherSettings.webhooks track by $index"
-                    ng-include="'settings/website-management/webhooks/webhook-item.html'">
+                    ng-include="'settings/website-management/webhooks/webhook-item.html'"
+                    class="sd-list-item-group">
                 </div>
 
             </div>
