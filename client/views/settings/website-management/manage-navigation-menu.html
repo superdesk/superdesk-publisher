@@ -39,7 +39,7 @@
                                 <div class="item">
                                     <label for="menuParent" translate>parent</label>
                                     <select id="menuParent" class="dropdown__toggle line-input" ng-model="newMenu.parent"
-                                        ng-options="parent.id as parent.name for parent in menusInTree | filter: {id: (newMenu.id ? '!' + newMenu.id : '')}">
+                                        ng-options="parent.id as parent.name for parent in menusInTree | filter: {id: (menu.id ? '!' + menu.id : '')}">
                                     </select>
                                 </div>
 

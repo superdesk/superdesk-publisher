@@ -144,7 +144,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let updatedKeys = this._updatedKeys(newWebhook, this.selectedWebhook);
             $scope.loading = true;
 
-            publisher.manageWebhook({webhook: _.pick(newWebhook, updatedKeys)}, this.selectedWebhook.id)
+            publisher.manageWebhook(_.pick(newWebhook, updatedKeys), this.selectedWebhook.id)
                 .then((webhook) => {
                     this.webhookPaneOpen = false;
                     this.selectedWebhook = {};
@@ -223,7 +223,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 $scope.newRoute.parent = $scope.newRoute.parent.id;
             }
 
-            publisher.manageRoute({route: _.pick($scope.newRoute, updatedKeys)}, this.selectedRoute.id)
+            publisher.manageRoute(_.pick($scope.newRoute, updatedKeys), this.selectedRoute.id)
                 .then((route) => {
                     this.routePaneOpen = false;
                     this._refreshRoutes();
@@ -305,7 +305,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 if (newPosition !== item.position || parentId !== item.parent) {
                     list.children[newPosition].position = newPosition;
 
-                    publisher.reorderRoute({route: {parent: parentId, position: newPosition}}, item.id)
+                    publisher.reorderRoute({parent: parentId, position: newPosition}, item.id)
                         .then(this._refreshRoutes.bind(this));
                 }
             }
@@ -381,9 +381,14 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
          * @description Creates menu in navigation or in menu tree
          */
         saveMenu(refreshList) {
+            // when no parent was set but you add a menu item
+            if ($scope.menu.id && !$scope.newMenu.parent) {
+                $scope.newMenu.parent = $scope.menu.id;
+            }
+
             let updatedKeys = this._updatedKeys($scope.newMenu, this.selectedMenu);
 
-            publisher.manageMenu({menu: _.pick($scope.newMenu, updatedKeys)}, this.selectedMenu.id)
+            publisher.manageMenu(_.pick($scope.newMenu, updatedKeys), this.selectedMenu.id)
                 .then(refreshList.bind(this));
         }
 
@@ -513,7 +518,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 if (menuPosition !== item.position || parentId !== item.parent) {
                     list.children[menuPosition].position = menuPosition;
 
-                    publisher.reorderMenu({menu_move: {parent: parentId, position: menuPosition}}, item.id)
+                    publisher.reorderMenu({parent: parentId, position: menuPosition}, item.id)
                         .then(this._refreshCurrentMenu.bind(this));
                 }
             }
