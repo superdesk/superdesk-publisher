@@ -305,7 +305,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                 if (newPosition !== item.position || parentId !== item.parent) {
                     list.children[newPosition].position = newPosition;
 
-                    publisher.reorderRoute({route: {parent: parentId, position: newPosition}}, item.id)
+                    publisher.reorderRoute({parent: parentId, position: newPosition}, item.id)
                         .then(this._refreshRoutes.bind(this));
                 }
             }
