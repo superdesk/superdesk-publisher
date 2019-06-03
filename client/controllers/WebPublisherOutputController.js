@@ -540,6 +540,19 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             }
         }
 
+        // ----- social media/seo
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#toggleSmOverlay
+         * @param {String} type - type of data (Facebook, Twitter, SEO)
+         * @description Toggles social media editor
+         */
+        toggleSmOverlay(type) {
+            this.smOverlayOpen = !this.smOverlayOpen;
+            if (this.smOverlayOpen) this.smOverlayType = type;
+        }
+
         /**
          * @ngdoc method
          * @name WebPublisherOutputController#_updatedKeys

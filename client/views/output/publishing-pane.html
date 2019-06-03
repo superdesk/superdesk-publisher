@@ -61,7 +61,7 @@
             <!-- Social media -->
             <div sd-toggle-box data-title="Social media" data-open="true" data-style="circle">
                 <div class="sd-list-item-group sd-shadow--z1 no-margin">
-                    <div class="sd-list-item" ng-click="webPublisherOutput.smOverlayOpen = !webPublisherOutput.smOverlayOpen">
+                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('Facebook')">
                         <div class="sd-list-item__border"></div>
                         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                             <div class="sd-list-item__row">
@@ -72,7 +72,7 @@
                             <i class="icon-chevron-right-thin"></i>
                         </div>
                     </div>
-                    <div class="sd-list-item" ng-click="webPublisherOutput.smOverlayOpen = !webPublisherOutput.smOverlayOpen">
+                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('Twitter')">
                         <div class="sd-list-item__border"></div>
                         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                             <div class="sd-list-item__row">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="sd-list-item" ng-click="webPublisherOutput.smOverlayOpen = !webPublisherOutput.smOverlayOpen">
+                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('SEO')">
                         <div class="sd-list-item__border"></div>
                         <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                             <div class="sd-list-item__row">
@@ -99,92 +99,10 @@
             </div>
         </div>
     </div>
-    <div class="side-panel__content-block-overlay-grid" ng-class="{'side-panel__content-block-overlay-grid--open' : webPublisherOutput.smOverlayOpen}" ng-if="webPublisherOutput.activePublishPane === 'publish'">
-        <div class="side-panel">
-            <div class="side-panel__header">
-                <a class="icn-btn sd-margin-l--1" ng-click="webPublisherOutput.smOverlayOpen = !webPublisherOutput.smOverlayOpen" sd-tooltip="Back" flow="right"><i class="icon-arrow-left"></i></a>
-                <h3 class="side-panel__heading side-panel__heading--big">Facebook</h3>
-            </div>
-            <div class="side-panel__content">
-                    <div class="side-panel__content-block">
-                        <div class="form__row">
-                            <div class="sd-line-input">
-                                <label class="sd-line-input__label">Post image</label>
-                                <div class="sd-overlay-block sd-overlay-block--no-image">
-                                    <div class="sd-overlay-block__overlay">
-                                        <div class="sd-overlay-block__overlay-action-group">
-                                            <a class="sd-overlay-block__overlay-action" sd-tooltip="Upload image"><i class="icon-upload"></i></a>
-                                            <span class="sd-overlay-block__overlay-message">No image has been set so far.</span>
-                                        </div>
-                                    </div>
-                                    <img src="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form__row">
-                            <div class="sd-line-input sd-line-input--required sd-line-input--dark-ui sd-line-input--boxed">
-                                <label class="sd-line-input__label">Headline</label>
-                                <input class="sd-line-input__input" type="text" value="Article headline here.">
-                            </div>
-                        </div>
-                        <div class="form__row">
-                            <sd-tag-input
-                                ng-model="tags"
-                                data-label="Tags"
-                                data-items="[
-                                { text: 'Audi' },
-                                { text: 'BMW' },
-                                { text: 'Hyundai' },
-                                { text: 'Opel' },
-                                { text: 'Audi2' },
-                                { text: 'BMW2' },
-                                { text: 'Hyundai2' },
-                                { text: 'Opel2' },
-                                { text: 'Audi3' },
-                                { text: 'BMW3' },
-                                { text: 'Hyundai3' },
-                                { text: 'Opel3' },
-                                { text: 'Audi4' },
-                                { text: 'BMW4' },
-                                { text: 'Hyundai4' },
-                                { text: 'Opel4' },
-                                { text: 'Audi5' },
-                                { text: 'BMW5' },
-                                { text: 'Hyundai5' },
-                                { text: 'Opel5' },
-                                { text: 'Audi6' },
-                                { text: 'BMW6' },
-                                { text: 'Hyundai6' },
-                                { text: 'Opel6' }
-                                ]"
-                                data-field="text"
-                                data-freetext="false">
-                            </sd-tag-input>
-                        </div>
-                        <div class="form__row">
-                            <div class="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
-                                <label class="sd-line-input__label">Text body</label>
-                                <textarea class="sd-line-input__input"></textarea>
-                            </div>
-                        </div>
-                        <div class="form__row">
-                            <sd-tag-input
-                                ng-model="authors"
-                                data-label="Authors"
-                                data-items="[
-                                { text: 'Author 1' },
-                                { text: 'Author 2' },
-                                { text: 'Author 3' },
-                                { text: 'Author 4' },
-                                { text: 'Author 5' }
-                                ]"
-                                data-field="text"
-                                data-freetext="false">
-                            </sd-tag-input>
-                        </div>
-                    </div>
-            </div>
-        </div>
+    <div class="side-panel__content-block-overlay-grid"
+        ng-class="{'side-panel__content-block-overlay-grid--open' : webPublisherOutput.smOverlayOpen}"
+        ng-if="webPublisherOutput.activePublishPane === 'publish'"
+        ng-include="'output/socialMediaOverlay.html'">
     </div>
     <!-- UNPUBLISH **************************************************** -->
     <div class="side-panel__content" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">
