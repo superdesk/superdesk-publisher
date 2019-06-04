@@ -15,20 +15,20 @@ class SocialMediaOverlay extends Component {
 
     render() {
 
-        let imageFieldName = "ogMediaFile";
+        let imageFieldName = "og_media_file";
         let titleFieldName = "og_title";
         let descriptionFieldName = "og_description";
         let imageHref = this.props.metaData._links && this.props.metaData._links.og_media_url ? this.props.metaData._links.og_media_url.href : '';
 
         if (this.props.type === 'Twitter') {
-            imageFieldName = "twitterMediaFile";
+            imageFieldName = "twitter_media_file";
             titleFieldName = "twitter_title";
             descriptionFieldName = "twitter_description";
             imageHref = this.props.metaData._links && this.props.metaData._links.twitter_media_url ? this.props.metaData._links.twitter_media_url.href : '';
         }
 
         if (this.props.type === 'SEO') {
-            imageFieldName = "metaMediaFile";
+            imageFieldName = "meta_media_file";
             titleFieldName = "meta_title";
             descriptionFieldName = "meta_description";
             imageHref = this.props.metaData._links && this.props.metaData._links.meta_media_url ? this.props.metaData._links.meta_media_url.href : '';
