@@ -2,7 +2,7 @@
 
 import 'owl.carousel';
 import _ from 'lodash';
-import {waitForImagesToLoad} from 'core/helpers/waitForMediaToBeReady';
+import {waitForMediaToLoad} from 'core/helpers/waitForMediaToBeReady';
 
 const carouselContainerSelector = '.owl-carousel';
 
@@ -46,7 +46,7 @@ export function GalleryDirective() {
                         return;
                     }
 
-                    waitForImagesToLoad(carouselImages).then(scope.initCarousel);
+                    waitForMediaToLoad(carouselImages).then(scope.initCarousel);
                 });
             });
 
