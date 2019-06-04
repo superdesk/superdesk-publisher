@@ -69,3 +69,12 @@ npm install
 npm link ../../superdesk-publisher
 cd ../..
 ```
+
+### Testing
+Running the following will run tests:
+```
+npm run test // single run
+npm run test:watch // runs every time content of files changes
+npm run test:debug // runs in debug mode
+npm run test:updateSnapshot // updates component snapshots
+```
