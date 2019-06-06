@@ -2,17 +2,19 @@ import React from 'react'
 import Checkbox from '../../../components/UI/Checkbox'
 import { render, fireEvent } from '@testing-library/react'
 
-it('UI/Checkbox renders correctly', () => {
-   const {container} = render(<Checkbox/>)
+describe('UI/Checkbox', () => {
+    it('renders correctly', () => {
+    const {container} = render(<Checkbox/>)
 
-   expect(container.firstChild).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
+    })
+
+    it('onChange function fired', () => {
+        const onChange = jest.fn()
+        const { container } = render(<Checkbox onChange={onChange}/>)
+        const button = container.querySelector('.sd-checkbox')
+
+        fireEvent.click(button)
+        expect(onChange).toHaveBeenCalled()
+    })
 })
-
-it('UI/Checkbox onChange function fired', () => {
-    const onChange = jest.fn()
-    const { container } = render(<Checkbox onChange={onChange}/>)
-    const button = container.querySelector('.sd-checkbox')
-
-    fireEvent.click(button)
-    expect(onChange).toHaveBeenCalled()
- })
