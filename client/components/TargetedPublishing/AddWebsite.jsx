@@ -72,7 +72,7 @@ class AddWebsite extends React.Component {
         return (
             <React.Fragment>
                 {!!remainingSites.length && <ButtonPlus onClick={() => this.toggleSitesDropdown()}/>}
-                <div style={styles.addWebsiteDropdown}>
+                <div style={styles.addWebsiteDropdown} data-testid="dropdown">
                     <div style={{padding: '1.5rem'}}>
                         <h3 className="tp-dropdown-heading">Add Website</h3>
                         <ul className='simple-list--dotted simple-list'>
