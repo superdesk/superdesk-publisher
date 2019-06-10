@@ -58,51 +58,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- Social media -->
-            <div sd-toggle-box data-title="Social media" data-open="true" data-style="circle">
-                <div class="sd-list-item-group sd-shadow--z1 no-margin">
-                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('Facebook')">
-                        <div class="sd-list-item__border"></div>
-                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                            <div class="sd-list-item__row">
-                                <span class="sd-overflow-ellipsis">Facebook</span>
-                            </div>
-                        </div>
-                        <div class="sd-list-item__action-menu">
-                            <i class="icon-chevron-right-thin"></i>
-                        </div>
-                    </div>
-                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('Twitter')">
-                        <div class="sd-list-item__border"></div>
-                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                            <div class="sd-list-item__row">
-                                <span class="sd-overflow-ellipsis">Twitter</span>
-                            </div>
-                        </div>
-                        <div class="sd-list-item__action-menu">
-                            <i class="icon-chevron-right-thin"></i>
-                        </div>
-                    </div>
-
-                    <div class="sd-list-item" ng-click="webPublisherOutput.toggleSmOverlay('SEO')">
-                        <div class="sd-list-item__border"></div>
-                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                            <div class="sd-list-item__row">
-                                <span class="sd-overflow-ellipsis">SEO / Meta Tags</span>
-                            </div>
-                        </div>
-                        <div class="sd-list-item__action-menu">
-                            <i class="icon-chevron-right-thin"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="side-panel__content-block-overlay-grid"
-        ng-class="{'side-panel__content-block-overlay-grid--open' : webPublisherOutput.smOverlayOpen}"
-        ng-if="webPublisherOutput.activePublishPane === 'publish'"
-        ng-include="'output/socialMediaOverlay.html'">
     </div>
     <!-- UNPUBLISH **************************************************** -->
     <div class="side-panel__content" ng-if="webPublisherOutput.activePublishPane === 'unpublish'">

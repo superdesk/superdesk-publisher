@@ -1,29 +1,141 @@
-<div class="sd-collapse-box sd-shadow--z2 sd-collapse-box--lighter sd-collapse-box--margin-small"
+
+
+
+
+
+        <!-- website 1 -->
+        <div class="sd-collapse-box sd-shadow--z2" ng-class="{'sd-collapse-box--open' : isOpen0}" ng-hide="deleteTenant0">
+                <div class="sd-collapse-box__header" ng-click="isOpen0 = !isOpen0">
+                    <!-- list item  -->
+                    <div class="sd-list-item">
+                        <div class="sd-list-item__dot sd-list-item__dot--success"></div>
+                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                            <div class="sd-list-item__row">
+                                <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+                                    <span class="sd-list-item__text-strong">www.sourcefabric.org</span>
+                                </span>
+                                <a class="icn-btn disabled" sd-tooltip="Remove tenant" flow="left" ng-click="deleteTenant0 = !deleteTenant0; $event.stopPropagation();"><i class="icon-trash"></i></a>
+                            </div>
+                            <div class="sd-list-item__row">
+                                <span class="sd-overflow-ellipsis label label--success">news</span>
+                                <span class="sd-list-item__inline-text sd-list-item--element-grow no-line-height">
+                                    <i class="icon-facebook icon--blue icon--full-opacity"></i>
+                                </span>
+                                <span class="sd-list-item__inline-text no-line-height">
+                                    <i class="icon-paywall icon--full-opacity icon--orange"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END list item  -->
+                </div>
+                <div class="sd-collapse-box__content-wraper">
+                    <div class="sd-collapse-box__content">
+                        <div class="sd-list-item__dot sd-list-item__dot--success"></div>
+                        <div class="sd-collapse-box__tools sd-collapse-box__tools--flex">
+                            <a class="sd-collapse-box__collapse-btn" href="" ng-click="isOpen0 = false">
+                                <span class="icn-btn"><i class="icon-chevron-up-thin"></i></span>
+                            </a>
+                            <a class="icn-btn" sd-tooltip="Remove tenant" flow="left"><i class="icon-trash"></i></a>
+                        </div>
+                        <div class="sd-collapse-box__content-block sd-collapse-box__content-block--top">
+                            <div class="sd-list-item sd-list-item--no-bg sd-list-item--no-hover">
+                                <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                                    <div class="sd-list-item__row">
+                                        <span class="sd-overflow-ellipsis sd-list-item__text-strong">www.sourcefabric.org</span>
+                                        <a class="icn-btn" sd-tooltip="Preview" flow="bottom"><i class="icon-external icon--full-opacity icon--white"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__row">
+                            <div class="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
+                                <label class="sd-line-input__label">Route</label>
+                                <select class="sd-line-input__select">
+                                    <option value="single">News</option>
+                                    <option value="time">Politics</option>
+                                    <option value="bananas">Lifestyle</option>
+                                    <option value="indefinite">Culture</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form__row" ng-init="contentChanged0 = true">
+                            <sd-check ng-model="contentChanged0" ng-checked="false"><i class="icon-facebook icon--blue"></i> Publish to facebook</sd-check>
+                        </div>
+                        <div class="form__row">
+                            <sd-check ng-model="dnp0" ng-checked="true"><i class="icon-paywall icon--orange"></i> Paywall secured</sd-check>
+                        </div>
+                        <div class="form__row">
+                            <!-- Social media -->
+                            <div sd-toggle-box data-title="Social media override" data-open="false" data-style="circle">
+                                <div class="sd-list-item-group sd-shadow--z1 no-margin">
+                                    <div class="sd-list-item" ng-click="$root.overlayPaneOpen = !$root.overlayPaneOpen">
+                                        <div class="sd-list-item__border"></div>
+                                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                                            <div class="sd-list-item__row">
+                                                <span class="sd-overflow-ellipsis">Facebook</span>
+                                            </div>
+                                        </div>
+                                        <div class="sd-list-item__action-menu">
+                                            <i class="icon-chevron-right-thin"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sd-list-item" ng-click="$root.overlayPaneOpen = !$root.overlayPaneOpen">
+                                        <div class="sd-list-item__border"></div>
+                                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                                            <div class="sd-list-item__row">
+                                                <span class="sd-overflow-ellipsis">Twitter</span>
+                                            </div>
+                                        </div>
+                                        <div class="sd-list-item__action-menu">
+                                            <i class="icon-chevron-right-thin"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="sd-list-item" ng-click="$root.overlayPaneOpen = !$root.overlayPaneOpen">
+                                        <div class="sd-list-item__border"></div>
+                                        <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
+                                            <div class="sd-list-item__row">
+                                                <span class="sd-overflow-ellipsis">SEO / Meta Tags</span>
+                                            </div>
+                                        </div>
+                                        <div class="sd-list-item__action-menu">
+                                            <i class="icon-chevron-right-thin"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<div class="sd-collapse-box sd-shadow--z2"
     ng-class="{'sd-collapse-box--open' : destination.isOpen}"
     ng-show="webPublisherOutput.publishFilter == 'all' || destination.status == webPublisherOutput.publishFilter">
     <div class="sd-collapse-box__header" ng-click="destination.isOpen = !destination.isOpen">
-        <!-- list item  -->
+        <!-- folded list item  -->
         <div class="sd-list-item">
-            <div class="sd-list-item__border"
-            ng-class="{'sd-list-item__border--success': !webPublisherOutput.shouldItemMarkedUnpublished(destination), 'sd-list-item__border--locked': webPublisherOutput.shouldItemMarkedUnpublished(destination)}"></div>
+            <div class="sd-list-item__dot"  ng-class="{'sd-list-item__dot--success': !webPublisherOutput.shouldItemMarkedUnpublished(destination), 'sd-list-item__dot--locked': webPublisherOutput.shouldItemMarkedUnpublished(destination)}"></div>
             <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                 <div class="sd-list-item__row">
                     <span class="sd-overflow-ellipsis sd-list-item--element-grow">
                         <span class="sd-list-item__text-strong">{{destination.tenant.name}}</span>
                     </span>
-                    <a class="icn-btn " sd-tooltip="Remove tenant" flow="left"
+                    <a class="icn-btn disabled" sd-tooltip="Remove tenant" flow="left"
                         ng-if="destination.status === 'new'"
                         ng-click="webPublisherOutput.publishingRemoveDestination(destination); $event.stopPropagation();">
-                            <i class="icon-trash"></i>
-                        </a>
+                        <i class="icon-trash"></i></a>
                 </div>
                 <div class="sd-list-item__row">
                     <span ng-if="!webPublisherOutput.shouldItemMarkedUnpublished(destination)" class="sd-overflow-ellipsis label label--success">{{webPublisherOutput.getRouteNameById(destination.route.id, destination.tenant.code)}}</span>
                     <span ng-if="webPublisherOutput.shouldItemMarkedUnpublished(destination)" class="sd-overflow-ellipsis label">unpublished</span>
-                    <span class="sd-list-item__inline-text sd-list-item--element-grow no-line-height" ng-if="destination.is_published_fbia">
+                    <span ng-if="destination.is_published_fbia" class="sd-list-item__inline-text sd-list-item--element-grow no-line-height">
                         <i class="icon-facebook icon--blue icon--full-opacity"></i>
                     </span>
-                    <span class="sd-list-item__inline-text no-line-height" ng-if="destination.paywall_secured">
+                    <span  ng-if="destination.paywall_secured" class="sd-list-item__inline-text no-line-height">
                         <i class="icon-paywall icon--full-opacity icon--orange"></i>
                     </span>
                 </div>
@@ -37,10 +149,11 @@
                 </div>
             </div>
         </div>
-        <!-- END list item  -->
+        <!-- END folded list item  -->
     </div>
     <div class="sd-collapse-box__content-wraper">
-        <div class="sd-collapse-box__content sd-collapse-box__content--border-success">
+        <div class="sd-collapse-box__content">
+            <div class="sd-list-item__dot sd-list-item__dot--success"></div>
             <div class="sd-collapse-box__tools sd-collapse-box__tools--flex">
                 <a class="sd-collapse-box__collapse-btn" href="" ng-click="destination.isOpen = false">
                     <span class="icn-btn"><i class="icon-chevron-up-thin"></i></span>
@@ -86,38 +199,7 @@
                 <sd-check ng-model="destination.paywall_secured"><i class="icon-paywall icon--orange"></i> Paywall secured</sd-check>
             </div>
 
-            <label ng-if="destination.content_lists.length" class="form-label">Content lists</label>
-            <div ng-if="destination.status !== 'new' && destination.content_lists.length">
-                <span class="text--lighter text--italic" ng-repeat="list in destination.content_lists">
-                    {{list.name}}<span ng-show="$index !== destination.content_lists.length - 1">, </span>
-                </span>
-            </div>
-            <div ng-if="destination.status === 'new'">
-                <div class="sd-list-item sd-list-item--no-hover sd-margin-b--1" ng-repeat="list in destination.content_lists">
-                    <div class="sd-list-item__column sd-list-item__column--grow">
-                        <div class="sd-list-item__row sd-list-item__row--only-child">
-                            <span class="sd-margin-r--1">Choose list</span>
-                            <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin">
-                                <select class="sd-line-input__select" ng-model="list.id"
-                                    ng-options="list.id as list.name for list in destination.tenant.content_lists | filter:{type:'manual'}">
-                                </select>
-                            </div>
-                            <a class="icn-btn disabled" sd-tooltip="Remove list" flow="left" ng-click="destination.content_lists.splice($index, 1)"><i class="icon-trash"></i></a>
-                        </div>
-                        <div class="sd-list-item__row sd-margin-b--1">
-                            <span class="sd-margin-r--1">Set order</span>
-                            <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
-                                <select class="sd-line-input__select" ng-model="list.position">
-                                    <option ng-repeat="n in webPublisherOutput.contentListPositionRange(list.id, destination.tenant.content_lists)" value="{{n}}">{{n + 1}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form__row" ng-if="destination.status === 'new'">
-                <button class="btn btn--hollow btn--expanded btn--primary" ng-click="destination.content_lists.push({id: null, position: 0})">Add to content list</button>
-            </div>
+           <div ng-include="'output/publish-pane-listItem-contentLists.html'"></div>
         </div>
     </div>
 </div>
