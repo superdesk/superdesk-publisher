@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import ImageUpload from '../UI/ImageUpload';
-class SocialMediaOverlay extends Component {
+class MetaDataOverlay extends Component {
 
     handleInputChange = (e, a) => {
         let {name, value} = e.target;
@@ -80,7 +80,7 @@ class SocialMediaOverlay extends Component {
 
 }
 
-SocialMediaOverlay.propTypes = {
+MetaDataOverlay.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
@@ -90,4 +90,4 @@ SocialMediaOverlay.propTypes = {
     isUploadingInProgress: PropTypes.bool
 };
 
-export default SocialMediaOverlay;
+export default MetaDataOverlay;

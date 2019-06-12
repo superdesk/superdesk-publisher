@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import TargetedPublishing from '../components/TargetedPublishing/TargetedPublishing';
 import RelatedArticlesStatus from '../components/TargetedPublishing/RelatedArticlesStatus.jsx';
-import SocialMedia from '../components/TargetedPublishing/SocialMedia';
+import MetaData from '../components/TargetedPublishing/MetaData';
 import Loading from '../components/UI/Loading/Loading';
 
 import './Publishing.css';
@@ -104,7 +104,7 @@ class Publishing extends React.Component {
                         apiHeader={this.state.apiHeader}
                         item={this.state.item}/>}
                 {!this.state.loading && !this.state.ninjsError &&
-                    <SocialMedia
+                    <MetaData
                         apiUrl={this.state.apiUrl}
                         apiHeader={this.state.apiHeader}
                         item={this.state.item}/>}

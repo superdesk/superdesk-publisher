@@ -8,6 +8,7 @@
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
  * @description WebPublisherOutputController holds a set of functions used for web publisher monitoring
  */
+
 WebPublisherOutputController.$inject = ['$scope', '$sce', 'modal', 'publisher', 'publisherHelpers', 'authoringWorkspace', '$window', 'notify', '$interval', 'config'];
 export function WebPublisherOutputController($scope, $sce, modal, publisher, publisherHelpers, authoringWorkspace, $window, notify, $interval, config) {
     class WebPublisherOutput {
@@ -192,12 +193,8 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             this.previewOpen = true;
             this.selectedArticle = article;
 
-            if (this.publishOpen) {
-                if (this.editorOpen) {
+            if (this.publishOpen && this.editorOpen) {
                     this.closePublish();
-                } else {
-                    this.openPublish(this.selectedArticle);
-                }
             }
             this.bodyHtml = $sce.trustAsHtml(article.body_html);
             if (!$scope.$$phase) $scope.$digest();
@@ -368,7 +365,9 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
                         status: item.status,
                         updated_at: item.updated_at,
                         paywall_secured: item.paywall_secured,
-                        content_lists: item.content_lists
+                        content_lists: item.content_lists,
+                        seo_metadata: item.seo_metadata,
+                        slug: item.slug
                     };
 
                     if (item.status == 'published') {
@@ -540,17 +539,61 @@ export function WebPublisherOutputController($scope, $sce, modal, publisher, pub
             }
         }
 
-        // ----- social media/seo
+        // ----- meta data/seo
 
         /**
          * @ngdoc method
-         * @name WebPublisherOutputController#toggleSmOverlay
-         * @param {String} type - type of data (Facebook, Twitter, SEO)
-         * @description Toggles social media editor
+         * @name WebPublisherOutputController#toggleMetaDataOverlay
+         * @param {String} type - Facebook, Twitter, SEO
+         * @param {Object} destination
+         * @description Toggles meta data editor
          */
-        toggleSmOverlay(type) {
-            this.smOverlayOpen = !this.smOverlayOpen;
-            if (this.smOverlayOpen) this.smOverlayType = type;
+        toggleMetaDataOverlay(type, destination = {}) {
+            this.metaDataOverlayOpen = !this.metaDataOverlayOpen;
+            this.metaDataSelectedDestination = destination;
+            if (this.metaDataOverlayOpen) this.metaDataOverlayType = type;
+        }
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#saveMetaData
+         * @description Saves meta data for selected article
+         */
+        saveMetaData() {
+            let metadata = {...this.metaDataSelectedDestination.seo_metadata};
+            delete metadata._links;
+
+            publisher.setTenant(this.metaDataSelectedDestination.tenant);
+            publisher.saveArticleMetaData(metadata, this.metaDataSelectedDestination.slug);
+        }
+
+        debouncedSaveMetadata = _.debounce(this.saveMetaData, 2000, { 'maxWait': 5000 });
+
+        /**
+         * @ngdoc method
+         * @name WebPublisherOutputController#uploadMetaImage
+         * @param {Array} files
+         * @param {String} key - field name
+         * @description Uploads metadata image
+         */
+        uploadMetaImage(files, key = 'meta_media_file') {
+            if (files && files.length) {
+                let metaFile = files[0];
+                if (!metaFile.$error) {
+                    this.metaMediaUploading = true;
+                    let data = {};
+                    data[key] = metaFile;
+
+                    publisher.uploadMetaImage(data, this.metaDataSelectedDestination.slug)
+                        .then((response) => {
+                            this.metaMediaUploading = false;
+                            this.metaDataSelectedDestination.seo_metadata = response.data;
+                        })
+                        .catch((err) => {
+                            this.metaMediaUploading = false;
+                        });
+                }
+            }
         }
 
         /**

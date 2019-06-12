@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import {ToggleBox} from '../UI/ToggleBox';
 import ButtonListItem from '../UI/ButtonListItem';
-import SocialMediaOverlay from './SocialMediaOverlay';
+import MetaDataOverlay from './MetaDataOverlay';
 
-class SocialMedia extends Component {
+class MetaData extends Component {
     constructor(props) {
         super(props);
 
@@ -20,13 +20,13 @@ class SocialMedia extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.item.associations) return;
         this.getMetaData();
     }
 
     getMetaData = () => {
         axios.get(this.props.apiUrl + 'packages/seo/' + this.props.item.guid, {headers: this.props.apiHeader})
             .then(res => {
+                console.log(res.data)
                 this.setState({
                     metaData: res.data
                 });
@@ -102,14 +102,14 @@ class SocialMedia extends Component {
     render() {
         return (
             <React.Fragment>
-                <ToggleBox title="Social media" style="toggle-box--dark sp--dark-ui toggle-box--circle" isOpen={true}>
+                <ToggleBox title="Meta data" style="toggle-box--dark sp--dark-ui toggle-box--circle" isOpen={true}>
                     <div className="sd-list-item-group sd-shadow--z1">
                         <ButtonListItem onClick={() => this.toggleOverlay('Facebook')} label="Facebook"/>
                         <ButtonListItem onClick={() => this.toggleOverlay('Twitter')} label="Twitter"/>
                         <ButtonListItem onClick={() => this.toggleOverlay('SEO')} label="SEO"/>
                     </div>
                 </ToggleBox>
-                <SocialMediaOverlay
+                <MetaDataOverlay
                     isOpen={this.state.overlayOpen}
                     toggle={() => this.toggleOverlay('')}
                     type={this.state.overlayType}
@@ -124,11 +124,11 @@ class SocialMedia extends Component {
 
 }
 
-SocialMedia.propTypes = {
+MetaData.propTypes = {
     apiUrl: PropTypes.string.isRequired,
     apiHeader: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired
 }
 
 
-export default SocialMedia;
+export default MetaData;
