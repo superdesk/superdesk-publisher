@@ -702,7 +702,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let settingsToSave = _.map($scope.newThemeSettings.settings, (value) => {
                 return _.pick(value, ['name', 'value']);
             });
-            publisher.saveSettings({settings: {bulk: settingsToSave}})
+            publisher.saveSettings({bulk: settingsToSave})
                 .then((settings) => {
                     this.themeSettingsForm.$setPristine();
                 });
