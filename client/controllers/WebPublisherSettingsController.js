@@ -92,6 +92,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     this._refreshRoutes();
                     break;
                 case 'navigation':
+                    $scope.menu = {};
                     this._refreshMenus();
                     break;
                 case 'theme-settings':
