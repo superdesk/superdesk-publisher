@@ -23,9 +23,9 @@ describe('TargetedPublishing/AddWebsite', () => {
 
     it('filters tenants with rules - should render one tenant only', async () => {
         const { getByText, queryByText } = render(<AddWebsite setNewDestination={jest.fn()}
-                                        apiUrl="example.com/"
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        rules={[{tenant: {id: 2}}]}/>)
+                                                    apiUrl="example.com/"
+                                                    apiHeader={{Authrization: 'Basic 1234567'}}
+                                                    rules={[{tenant: {id: 2}}]}/>)
         await wait(() =>
             expect(getByText("tenant1.sourcefabric.org")).toBeInTheDocument()
         )

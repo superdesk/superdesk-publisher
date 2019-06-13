@@ -7,7 +7,7 @@ const ContentListElement = (props) => {
         if (!Number.isInteger(list.id)) return null;
 
         let listObj = props.allContentLists.find(l => l.id === list.id);
-        let count = listObj.contentListItemsCount;
+        let count = listObj.content_list_items_count;
         let options = [];
 
         for (let i = 0; i < count; i++) {
