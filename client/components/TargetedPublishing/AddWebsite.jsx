@@ -59,13 +59,11 @@ class AddWebsite extends React.Component {
 
         const remainingSites = [...this.state.sites];
         const rules = [...this.props.rules];
-        let index = -1;
 
         rules.forEach(rule => {
-            index = remainingSites.findIndex(site => rule.tenant.id === site.id);
-            if (index => 0 ) {
+            let index = remainingSites.findIndex(site => rule.tenant.id === site.id);
+            if (index >= 0 ) {
                 remainingSites.splice(index,1);
-                index = -1;
             }
         });
 

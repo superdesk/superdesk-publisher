@@ -12,7 +12,7 @@ const ContentLists = (props) => {
 
     ruleLists.forEach(list => {
         let index = remainingLists.findIndex(rlist => list.id === rlist.id);
-        if (index => 0 ) {
+        if (index >= 0 ) {
             remainingLists.splice(index,1);
         }
     });

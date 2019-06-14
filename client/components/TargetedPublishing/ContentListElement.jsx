@@ -31,6 +31,16 @@ const ContentListElement = (props) => {
         props.save(newRuleLists);
     }
 
+    let remainingLists = [...props.allContentLists];
+
+    props.ruleLists.forEach(list => {
+        let index = remainingLists.findIndex(rlist => list.id === rlist.id && rlist.id !== props.list.id);
+
+        if (index >= 0) {
+            remainingLists.splice(index,1);
+        }
+    });
+
     return (
         <div className="sd-list-item sd-list-item--no-hover sd-margin-b--1"  >
             <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--large-padding">
@@ -40,9 +50,9 @@ const ContentListElement = (props) => {
                 <div className="sd-list-item__row">
                     <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow">
                         <label className="sd-line-input__label">Choose list</label>
-                        <select className="sd-line-input__select" value={props.list.id} name="id" onChange={(e) => contentListChangeHandler(e, props.index)}>
+                        <select className="sd-line-input__select" value={props.list.id ? props.list.id : ''} name="id" onChange={(e) => contentListChangeHandler(e, props.index)}>
                             <option value=""></option>
-                            {props.allContentLists.map(rl => <option value={rl.id} key={'select' + props.list.id + '-' + rl.id}>{rl.name}</option>)}
+                            {remainingLists.map(rl => <option value={rl.id} key={'select' + props.list.id + '-' + rl.id}>{rl.name}</option>)}
                         </select>
                     </div>
                 </div>
