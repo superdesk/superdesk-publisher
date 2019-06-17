@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import ContentLists from './ContentLists';
 import RouteSelect from './RouteSelect';
@@ -14,23 +15,23 @@ class Destination extends Component {
     constructor(props) {
         super(props);
 
-        if (props.rule || props.site) {
+        let destination = {};
+        const pubConfig = props.config.publisher || {};
+        const protocol = pubConfig.protocol || 'https';
+        let subdomain = null;
+        let domainName = null;
+        let hasOutputChannel = false;
+        let hasFbiaEnabled = false;
+        let hasPaywallEnabled = false;
 
-            let destination = {
+        if (props.rule || props.site) {
+            destination = {
                 "is_published_fbia": false,
                 "published": true,
                 "paywall_secured": false,
                 "package_guid": props.item.evolvedfrom ? props.item.evolvedfrom : props.item.guid,
                 "content_lists": []
             };
-
-            const pubConfig = props.config.publisher || {};
-            const protocol = pubConfig.protocol || 'https';
-            let subdomain = null;
-            let domainName = null;
-            let hasOutputChannel = false;
-            let hasFbiaEnabled = false;
-            let hasPaywallEnabled = false;
 
             if (props.site) {
                 destination.tenant = props.site.code;
@@ -60,14 +61,14 @@ class Destination extends Component {
         this.state = {
             contentLists: [],
             previewUrl: null,
-            originalDestination: destination,
-            destination: JSON.parse(JSON.stringify(destination)),
-            apiUrl: `${protocol}://${subdomain}.${domainName}/api/v1/`,
-            subdomain: subdomain,
-            domainName: domainName,
-            hasOutputChannel: hasOutputChannel,
-            hasPaywallEnabled: hasPaywallEnabled,
-            hasFbiaEnabled: hasFbiaEnabled,
+            originalDestination: destination ? destination : {},
+            destination: destination ? JSON.parse(JSON.stringify(destination)) : {},
+            apiUrl: protocol ? `${protocol}://${subdomain}.${domainName}/api/v1/` : '',
+            subdomain: subdomain ? subdomain : '',
+            domainName: domainName ? domainName : '',
+            hasOutputChannel: hasOutputChannel ? hasOutputChannel : false,
+            hasPaywallEnabled: hasPaywallEnabled ? hasPaywallEnabled : false,
+            hasFbiaEnabled: hasFbiaEnabled ? hasFbiaEnabled : false,
             isOpen: props.isOpen,
             deleted: false
         };

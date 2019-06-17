@@ -112,7 +112,8 @@ Publishing.propTypes = {
     config: PropTypes.object.isRequired,
     api: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
-    urls: PropTypes.object.isRequired
+    urls: PropTypes.object.isRequired,
+    session: PropTypes.object.isRequired
 }
 
 export default Publishing

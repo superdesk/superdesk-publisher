@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set" and add website component 1`] = `
+exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set" and AdddWebsite component 1`] = `
 <div
   class="toggle-box toggle-box--dark sp--dark-ui"
 >

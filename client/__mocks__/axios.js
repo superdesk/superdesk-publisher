@@ -16,7 +16,7 @@ module.exports = {
   get: (url) => {
     let data = {}
 
-    if (url.includes('example.com/tenants')) {
+    if (url.includes('tenants')) {
         data = {
             _embedded: {_items: [
                 {
@@ -65,7 +65,7 @@ module.exports = {
         }
     }
 
-    if (url.includes('example.com/content/routes')) {
+    if (url.includes('content/routes')) {
         data = {
             _embedded: {_items: [
                 {
@@ -80,6 +80,23 @@ module.exports = {
         }
     }
 
+    if (url.includes('content/lists')) {
+        data = {
+            _embedded: {_items: [
+                {
+                    id: 1,
+                    name: 'content list 1',
+                    type: 'manual'
+                },
+                {
+                    id: 2,
+                    name: 'content list 2',
+                    type: 'manual'
+                },
+            ]}
+        }
+    }
+
 
     console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
     return Promise.resolve({data: data})
@@ -88,7 +105,7 @@ module.exports = {
   post: (url) => {
     let data = {}
 
-    if (url.includes('example.com/organization/articles/related')) {
+    if (url.includes('organization/articles/related')) {
         data = {
             related_article_items: [
                 {tenants: [], title: 'test related 1'},
@@ -103,6 +120,14 @@ module.exports = {
             ]
         }
     }
+
+    if (url.includes('auth/superdesk')) {
+        data = {
+            token: { api_key: 'asdfasdf'}
+        }
+    }
+
+
 
 
     console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
