@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set" and add website component 1`] = `
+<div
+  class="toggle-box toggle-box--dark sp--dark-ui"
+>
+  <div
+    class="toggle-box__header"
+  >
+    <div
+      class="toggle-box__chevron"
+    >
+      <i
+        class="icon-chevron-right-thin"
+      />
+    </div>
+    <div
+      class="toggle-box__label"
+    >
+      Web publishing
+    </div>
+    <div
+      class="toggle-box__line"
+    />
+  </div>
+  <div
+    class="toggle-box__content-wraper"
+  >
+    <div
+      class="toggle-box__content"
+    >
+      <div
+        class="tp-alert"
+      >
+        No websites have been set, this article won't show up on any website. It will go to: 
+        <br />
+        <span
+          style="font-weight: 500;"
+        >
+          Publisher &gt; Output Control &gt; Incoming list
+        </span>
+      </div>
+      <div
+        data-testid="dropdown"
+        style="box-sizing: border-box; background: rgb(255, 255, 255); margin-top: 10px; max-height: 0; overflow: hidden; transition: all ease-in-out .4s;"
+      >
+        <div
+          style="padding: 1.5rem;"
+        >
+          <h3
+            class="tp-dropdown-heading"
+          >
+            Add Website
+          </h3>
+          <ul
+            class="simple-list--dotted simple-list"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

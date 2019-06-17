@@ -81,7 +81,7 @@ describe('TargetedPublishing/ContentLists', () => {
                                         ruleLists={ruleLists}
                                         contentLists={contentLists}/>)
 
-        const button = await waitForElement(() => getByText('Add to content list'));
+        const button = await waitForElement(() => getByText('Add to content list'))
 
         fireEvent.click(button)
 

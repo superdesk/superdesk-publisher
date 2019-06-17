@@ -237,8 +237,8 @@ class Destination extends Component {
 
         if (destination.content_lists && destination.content_lists.length) {
             destination.content_lists.forEach(list => {
-                let list = this.state.contentLists.find(el => el.id === list.id);
-                if (list) contentListsNames += contentListsNames ? ', ' + list.name : list.name;
+                let theList = this.state.contentLists.find(el => el.id === list.id);
+                if (theList) contentListsNames += contentListsNames ? ', ' + theList.name : theList.name;
             });
         }
 

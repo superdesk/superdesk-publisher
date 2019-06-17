@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import {ToggleBox} from '../UI/ToggleBox';
-import Tenant from './Tenant';
 import Destination from './Destination';
 import AddWebsite from './AddWebsite';
 

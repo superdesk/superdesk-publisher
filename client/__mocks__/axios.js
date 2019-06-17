@@ -65,6 +65,45 @@ module.exports = {
         }
     }
 
+    if (url.includes('example.com/content/routes')) {
+        data = {
+            _embedded: {_items: [
+                {
+                    id: 1,
+                    name: 'route1'
+                },
+                {
+                    id: 2,
+                    name: 'route2'
+                },
+            ]}
+        }
+    }
+
+
+    console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
+    return Promise.resolve({data: data})
+  },
+
+  post: (url) => {
+    let data = {}
+
+    if (url.includes('example.com/organization/articles/related')) {
+        data = {
+            related_article_items: [
+                {tenants: [], title: 'test related 1'},
+                {tenants:
+                    [
+                        {
+                            "code": "eif0ca"
+                        }
+                    ],
+                    title: 'test related 2'
+                }
+            ]
+        }
+    }
+
 
     console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
     return Promise.resolve({data: data})

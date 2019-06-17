@@ -20,10 +20,6 @@ class RelatedArticlesStatus extends React.Component {
         this.getRelatedArticles();
     }
 
-    componentWillReceiveProps({rules}) {
-        this.setState({rules});
-    }
-
     getRelatedArticles = () => {
         return axios.post(this.props.apiUrl + 'organization/articles/related/', this.props.item, {headers: this.props.apiHeader})
             .then(res => {
