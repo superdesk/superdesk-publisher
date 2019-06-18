@@ -11,6 +11,7 @@ exports[`TargetedPublishing/RouteSelect renders correctly 1`] = `
   </label>
   <select
     class="sd-line-input__select"
+    name="routeId"
   >
     <option
       disabled=""

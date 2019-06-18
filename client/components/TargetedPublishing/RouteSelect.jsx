@@ -30,7 +30,7 @@ class RouteSelect extends Component {
         return (
             <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
                 <label className="sd-line-input__label">Route</label>
-                <select className="sd-line-input__select" value={this.props.selectedRouteId} onChange={this.props.onChange}>
+                <select name="routeId" className="sd-line-input__select" value={this.props.selectedRouteId} onChange={this.props.onChange}>
                     {this.state.loading &&
                         <option value="" disabled>Loading...</option>
                     }

@@ -27,7 +27,7 @@ describe('TargetedPublishing/RouteSelect', () => {
                                         onChange={onChange}
                                         selectedRouteId={2}/>)
 
-        const select = container.querySelector('select')
+        const select = container.querySelector('select[name="routeId"]')
 
         fireEvent.change(select, {target: {value: 1}})
         expect(onChange).toHaveBeenCalled()

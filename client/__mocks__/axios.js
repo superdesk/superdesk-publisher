@@ -98,7 +98,7 @@ module.exports = {
     }
 
 
-    console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
+    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
     return Promise.resolve({data: data})
   },
 
@@ -127,10 +127,17 @@ module.exports = {
         }
     }
 
+    if (url.includes('preview/package/generate_token')) {
+        data = {
+            preview_url: 'https://sourcefabric.org/preview'
+        }
+    }
 
+    if (url.includes('organization/destinations')) {
+        data = {}
+    }
 
-
-    console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
+    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
     return Promise.resolve({data: data})
   }
 };

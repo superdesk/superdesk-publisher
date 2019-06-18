@@ -146,6 +146,7 @@ class Destination extends Component {
     }
 
     setPreview = () => {
+
         return axios.post(this.state.apiUrl + 'preview/package/generate_token/' + this.state.destination.route, this.props.item, {headers: this.props.apiHeader})
             .then(res => {
                 this.setState({

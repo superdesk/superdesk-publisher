@@ -47,7 +47,7 @@ describe('TargetedPublishing/ContentLists', () => {
                                         contentLists={contentLists}/>)
 
 
-        await waitForElement(() => getByText('Add to content list'));
+        await waitForElement(() => getByText('Add to content list'))
     })
 
     it('hides add button when there are no content lists left', async () => {
