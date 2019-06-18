@@ -66,7 +66,7 @@ describe('TargetedPublishing/OptionSwitches', () => {
                                         destination={destination}
                                         onChange={onChange}/>)
 
-        const checkbox = await waitForElement(() => container.querySelector('.sd-checkbox'));
+        const checkbox = await waitForElement(() => container.querySelector('.sd-checkbox'))
 
         fireEvent.click(checkbox)
 

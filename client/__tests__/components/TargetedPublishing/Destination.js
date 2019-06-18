@@ -1,6 +1,6 @@
 import React from 'react'
 import Destination from '../../../components/TargetedPublishing/Destination'
-import { render, fireEvent, waitForElement, wait } from '@testing-library/react'
+import { render, fireEvent, waitForElement, wait, getByLabelText } from '@testing-library/react'
 
 
 describe('TargetedPublishing/Destination', () => {
@@ -20,7 +20,7 @@ describe('TargetedPublishing/Destination', () => {
             code: "eif0ca",
             subdomain: 'tenant1',
             domain_name: 'sourcefabric.org',
-            fbia_enabled: false,
+            fbia_enabled: true,
             paywall_enabled: false,
             output_channel: false,
 
@@ -118,29 +118,4 @@ describe('TargetedPublishing/Destination', () => {
 
         expect(cancel).toHaveBeenCalled()
     })
-
-    it('changes route, saves destination and fires done', async () => {
-        const done = jest.fn()
-        const { container, getByText } = render(<Destination
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        config={config}
-                                        site={site}
-                                        item={item}
-                                        rule={rule}
-                                        cancel={jest.fn()}
-                                        done={done}
-                                        isOpen={true}/>)
-
-        const select = container.querySelector('select[name="routeId"]')
-
-        fireEvent.change(select, {target: {value: 2}})
-
-        const saveButton = getByText('Save')
-
-        fireEvent.click(saveButton)
-
-        expect(done).toHaveBeenCalled()
-    })
-
-
 })

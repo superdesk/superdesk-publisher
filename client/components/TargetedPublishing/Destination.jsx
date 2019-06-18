@@ -212,6 +212,7 @@ class Destination extends Component {
     }
 
     save = () => {
+        console.log("CHUJ-------------------------------------------------------------------------------")
         axios.post(this.state.apiUrl + 'organization/destinations/', this.state.destination, {headers: this.props.apiHeader})
             .then(res => {
                 this.props.done();

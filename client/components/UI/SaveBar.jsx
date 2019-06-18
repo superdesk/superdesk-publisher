@@ -8,7 +8,7 @@ const SaveBar = ({ save, cancel, isDisabled }) => {
             <div className="sd-collapse-box__sliding-toolbar">
                 <div className="sliding-toolbar__inner"></div>
                 <a className="btn btn--hollow btn--ui-dark" onClick={cancel}>Cancel</a>
-                <button className={classNames('btn btn--primary', { 'btn--disabled': isDisabled})} onClick={save} disabled={isDisabled} >Save</button>
+                <button className={classNames('btn btn--primary', { 'btn--disabled': isDisabled})} onClick={save} disabled={isDisabled} data-testid="save-button">Save</button>
             </div>
         </div>
     )

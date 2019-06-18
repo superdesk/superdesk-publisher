@@ -17,6 +17,7 @@ exports[`UI/SaveBar renders correctly 1`] = `
     </a>
     <button
       class="btn btn--primary"
+      data-testid="save-button"
     >
       Save
     </button>
