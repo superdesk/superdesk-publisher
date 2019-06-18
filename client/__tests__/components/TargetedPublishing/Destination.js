@@ -1,121 +1,138 @@
-import React from 'react'
-import Destination from '../../../components/TargetedPublishing/Destination'
-import { render, fireEvent, waitForElement, wait, getByLabelText } from '@testing-library/react'
+import React from "react";
+import Destination from "../../../components/TargetedPublishing/Destination";
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  wait,
+  getByLabelText
+} from "@testing-library/react";
 
+describe("TargetedPublishing/Destination", () => {
+  const item = {
+    guid: "asdfasdf87876876"
+  };
 
-describe('TargetedPublishing/Destination', () => {
-
-    const item = {
-        guid: 'asdfasdf87876876'
+  const config = {
+    publisher: {
+      protocol: "https"
     }
+  };
 
-    const config = {
-        publisher: {
-            protocol: 'https',
-        }
-    }
+  const rule = {
+    tenant: {
+      code: "eif0ca",
+      subdomain: "tenant1",
+      domain_name: "sourcefabric.org",
+      fbia_enabled: true,
+      paywall_enabled: false,
+      output_channel: false
+    },
+    route: {
+      name: "route",
+      id: 1
+    },
+    is_published_fbia: false,
+    published: true,
+    paywall_secured: false
+  };
 
-    const rule = {
-        tenant: {
-            code: "eif0ca",
-            subdomain: 'tenant1',
-            domain_name: 'sourcefabric.org',
-            fbia_enabled: true,
-            paywall_enabled: false,
-            output_channel: false,
+  const site = {
+    code: "ml2woe",
+    domain_name: "sourcefabric.org",
+    fbia_enabled: true,
+    id: 1,
+    name: "tenant 1",
+    output_channel: null,
+    paywall_enabled: true,
+    subdomain: "tenant-1"
+  };
 
-        },
-        route: {
-            name: 'route',
-            id: 1
+  it("renders correctly", async () => {
+    const { container } = render(
+      <Destination
+        apiHeader={{ Authrization: "Basic 1234567" }}
+        config={config}
+        site={site}
+        item={item}
+        rule={rule}
+        cancel={jest.fn()}
+        done={jest.fn()}
+        isOpen={false}
+      />
+    );
 
-        },
-        is_published_fbia: false,
-        published: true,
-        paywall_secured: false
-    }
+    expect(container.firstChild).toMatchSnapshot();
+  });
 
-    const site = {
-        code: "ml2woe",
-        domain_name: "sourcefabric.org",
-        fbia_enabled: true,
-        id: 1,
-        name: "tenant 1",
-        output_channel: null,
-        paywall_enabled: true,
-        subdomain: "tenant-1"
-    }
+  it("renders SaveBar with disabled save when new destination", async () => {
+    // no rule prop
+    const { getByText } = render(
+      <Destination
+        apiHeader={{ Authrization: "Basic 1234567" }}
+        config={config}
+        site={site}
+        item={item}
+        cancel={jest.fn()}
+        done={jest.fn()}
+        isOpen={true}
+      />
+    );
 
-    it('renders correctly', async () => {
-        const { container } = render(<Destination
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        config={config}
-                                        site={site}
-                                        item={item}
-                                        rule={rule}
-                                        cancel={jest.fn()}
-                                        done={jest.fn()}
-                                        isOpen={false}/>)
+    const saveButton = getByText("Save");
 
-        expect(container.firstChild).toMatchSnapshot()
-    })
+    expect(saveButton.disabled).toBeTruthy();
+  });
 
-    it('renders SaveBar with disabled save when new destination', async () => {
-        // no rule prop
-        const { getByText } = render(<Destination
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        config={config}
-                                        site={site}
-                                        item={item}
-                                        cancel={jest.fn()}
-                                        done={jest.fn()}
-                                        isOpen={true}/>)
+  it("rerenders preview", async () => {
+    const { container, getByText } = render(
+      <Destination
+        apiHeader={{ Authrization: "Basic 1234567" }}
+        config={config}
+        site={site}
+        item={item}
+        rule={rule}
+        cancel={jest.fn()}
+        done={jest.fn()}
+        isOpen={false}
+      />
+    );
 
-        const saveButton = getByText('Save')
+    const select = container.querySelector('select[name="routeId"]');
 
-        expect(saveButton.disabled).toBeTruthy()
-    })
+    fireEvent.change(select, { target: { value: 2 } });
 
-    it('rerenders preview', async () => {
-        const { container, getByText } = render(<Destination
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        config={config}
-                                        site={site}
-                                        item={item}
-                                        rule={rule}
-                                        cancel={jest.fn()}
-                                        done={jest.fn()}
-                                        isOpen={false}/>)
+    const previewButton = await waitForElement(() =>
+      container.querySelector('a[sd-tooltip="Preview"]')
+    );
 
-        const select = container.querySelector('select[name="routeId"]')
+    expect(previewButton).toHaveAttribute(
+      "href",
+      "https://sourcefabric.org/preview"
+    );
+  });
 
-        fireEvent.change(select, {target: {value: 2}})
+  it("changes route, shows SaveBar and fires cancel", async () => {
+    const cancel = jest.fn();
+    const { container, getByText } = render(
+      <Destination
+        apiHeader={{ Authrization: "Basic 1234567" }}
+        config={config}
+        site={site}
+        item={item}
+        rule={rule}
+        cancel={cancel}
+        done={jest.fn()}
+        isOpen={false}
+      />
+    );
 
-        const previewButton = await waitForElement(() => container.querySelector('a[sd-tooltip="Preview"]'))
+    const select = container.querySelector('select[name="routeId"]');
+    fireEvent.change(select, { target: { value: 2 } });
 
-        expect(previewButton).toHaveAttribute('href', 'https://sourcefabric.org/preview')
-    })
+    const cancelButton = getByText("Cancel");
+    fireEvent.click(cancelButton);
 
-    it('changes route, shows SaveBar and fires cancel', async () => {
-        const cancel = jest.fn()
-        const { container, getByText } = render(<Destination
-                                        apiHeader={{Authrization: 'Basic 1234567'}}
-                                        config={config}
-                                        site={site}
-                                        item={item}
-                                        rule={rule}
-                                        cancel={cancel}
-                                        done={jest.fn()}
-                                        isOpen={false}/>)
-
-        const select = container.querySelector('select[name="routeId"]')
-
-        fireEvent.change(select, {target: {value: 2}})
-
-        const cancelButton = getByText('Cancel')
-
-        fireEvent.click(cancelButton)
-
-        expect(cancel).toHaveBeenCalled()
-    })
-})
+    expect(cancel).toHaveBeenCalled();
+  });
+});

@@ -83,18 +83,19 @@
                     <div class="grid__item grid__item--col-12 margin--bottom">
                         <h3 class="text--normal">Theme Settings</h3>
                     </div>
-                    <div class="grid__item grid__item--col-6"
-                        ng-repeat="setting in newThemeSettings.settings">
+                    <div class="grid__item"
+                        ng-repeat="setting in newThemeSettings.settings"
+                        ng-class="{'grid__item--col-12': setting.type === 'boolean', 'grid__item--col-6': setting.type !== 'boolean'}">
                         <div ng-switch="setting.type">
                             <div ng-switch-when="boolean">
                                 <div class="sd-line-input">
-                                    <label class="sd-line-input__label">{{setting.label}}</label>
-                                    <span ng-model="setting.value" sd-switch=""></span>
+                                    <span ng-model="setting.value" sd-switch="" class="sd-margin-r--1"></span>
+                                    <label class="no-margin">{{setting.label}}</label>
                                 </div>
                             </div>
 
                             <div ng-switch-default>
-                                <div class="sd-line-input" ng-class="{'sd-line-input--is-select': setting.options}">
+                                <div class="sd-line-input sd-margin-t--1" ng-class="{'sd-line-input--is-select': setting.options}">
                                     <label class="sd-line-input__label">{{setting.label}}</label>
                                     <input class="sd-line-input__input" type="text"
                                         ng-if="!setting.options"

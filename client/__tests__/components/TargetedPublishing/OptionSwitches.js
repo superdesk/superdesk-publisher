@@ -1,75 +1,93 @@
-import React from 'react'
-import OptionSwitches from '../../../components/TargetedPublishing/OptionSwitches'
-import { render, fireEvent, waitForElement, wait } from '@testing-library/react'
+import React from "react";
+import OptionSwitches from "../../../components/TargetedPublishing/OptionSwitches";
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  wait
+} from "@testing-library/react";
 
+describe("TargetedPublishing/OptionSwitches", () => {
+  const destination = {
+    is_published_fbia: true,
+    paywall_secured: true
+  };
 
-describe('TargetedPublishing/OptionSwitches', () => {
+  it("returns null when both options are disabled", () => {
+    const { container } = render(
+      <OptionSwitches
+        fbiaEnabled={false}
+        paywallEnabled={false}
+        destination={destination}
+        onChange={jest.fn()}
+      />
+    );
 
-    const destination = {
-        is_published_fbia: true,
-        paywall_secured: true
-    }
+    expect(container.firstChild).toBe(null);
+  });
 
-    it('returns null when both options are disabled', () => {
-        const { container } = render(<OptionSwitches
-                                        fbiaEnabled={false}
-                                        paywallEnabled={false}
-                                        destination={destination}
-                                        onChange={jest.fn()}/>)
+  it("renders both switches", async () => {
+    const { getByText } = render(
+      <OptionSwitches
+        fbiaEnabled={true}
+        paywallEnabled={true}
+        destination={destination}
+        onChange={jest.fn()}
+      />
+    );
 
-        expect(container.firstChild).toBe(null)
-    })
+    await waitForElement(() => getByText("Facebook"));
+    await waitForElement(() => getByText("Paywall Secured"));
+  });
 
-    it('renders both switches', async () => {
-        const { getByText } = render(<OptionSwitches
-                                        fbiaEnabled={true}
-                                        paywallEnabled={true}
-                                        destination={destination}
-                                        onChange={jest.fn()}/>)
+  it("renders facebook switch only", async () => {
+    const { getByText, queryByText } = render(
+      <OptionSwitches
+        fbiaEnabled={true}
+        paywallEnabled={false}
+        destination={destination}
+        onChange={jest.fn()}
+      />
+    );
 
-        await waitForElement(() => getByText('Facebook'))
-        await waitForElement(() => getByText('Paywall Secured'))
-    })
+    await waitForElement(() => getByText("Facebook"));
+    await wait(() =>
+      expect(queryByText("Paywall Secured")).not.toBeInTheDocument()
+    );
+  });
 
-    it('renders facebook switch only', async () => {
-        const { getByText, queryByText } = render(<OptionSwitches
-                                        fbiaEnabled={true}
-                                        paywallEnabled={false}
-                                        destination={destination}
-                                        onChange={jest.fn()}/>)
+  it("renders paywall switch only", async () => {
+    const { getByText, queryByText } = render(
+      <OptionSwitches
+        fbiaEnabled={false}
+        paywallEnabled={true}
+        destination={destination}
+        onChange={jest.fn()}
+      />
+    );
 
-        await waitForElement(() => getByText('Facebook'))
-        await wait(() =>
-            expect(queryByText('Paywall Secured')).not.toBeInTheDocument()
-        )
-    })
+    await waitForElement(() => getByText("Paywall Secured"));
+    await wait(() => expect(queryByText("Facebook")).not.toBeInTheDocument());
+  });
 
-    it('renders paywall switch only', async () => {
-        const { getByText, queryByText } = render(<OptionSwitches
-                                        fbiaEnabled={false}
-                                        paywallEnabled={true}
-                                        destination={destination}
-                                        onChange={jest.fn()}/>)
+  it("fires onChange", async () => {
+    const onChange = jest.fn();
 
-        await waitForElement(() => getByText('Paywall Secured'))
-        await wait(() =>
-            expect(queryByText('Facebook')).not.toBeInTheDocument()
-        )
-    })
+    const { container } = render(
+      <OptionSwitches
+        fbiaEnabled={true}
+        paywallEnabled={true}
+        destination={destination}
+        onChange={onChange}
+      />
+    );
 
-    it('fires onChange', async () => {
-        const onChange = jest.fn()
+    const checkbox = await waitForElement(() =>
+      container.querySelector(".sd-checkbox")
+    );
 
-        const { container } = render(<OptionSwitches
-                                        fbiaEnabled={true}
-                                        paywallEnabled={true}
-                                        destination={destination}
-                                        onChange={onChange}/>)
+    fireEvent.click(checkbox);
 
-        const checkbox = await waitForElement(() => container.querySelector('.sd-checkbox'))
-
-        fireEvent.click(checkbox)
-
-        expect(onChange).toHaveBeenCalled()
-    })
-})
+    expect(onChange).toHaveBeenCalled();
+  });
+});
