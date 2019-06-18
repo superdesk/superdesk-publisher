@@ -54,6 +54,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "superdesk-code-style": "^1.0.0",
-    "superdesk-core": "superdesk/superdesk-client-core#f4cf590"
+    "superdesk-core": "superdesk/superdesk-client-core#63d0db4"
   }
 }
