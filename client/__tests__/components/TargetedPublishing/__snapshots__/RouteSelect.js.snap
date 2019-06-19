@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetedPublishing/RouteSelect renders correctly 1`] = `
+<div
+  class="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin"
+>
+  <label
+    class="sd-line-input__label"
+  >
+    Route
+  </label>
+  <select
+    class="sd-line-input__select"
+    name="routeId"
+  >
+    <option
+      disabled=""
+      value=""
+    >
+      Select a route
+    </option>
+    <option
+      value="1"
+    >
+      route1
+    </option>
+    <option
+      value="2"
+    >
+      route2
+    </option>
+  </select>
+</div>
+`;

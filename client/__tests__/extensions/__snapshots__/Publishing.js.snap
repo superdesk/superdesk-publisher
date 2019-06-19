@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UI/Loading enders correctly 1`] = `
+exports[`extensions/Publishing renders properly 1`] = `
 <div
   class="spinner"
 >

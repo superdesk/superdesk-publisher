@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetedPublishing/Destination renders correctly 1`] = `
+<div
+  class="sd-collapse-box sd-shadow--z2"
+>
+  <div
+    class="sd-collapse-box__header"
+  >
+    <div
+      class="sd-list-item"
+    >
+      <div
+        class="sd-list-item__border"
+      />
+      <div
+        class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+      >
+        <div
+          class="sd-list-item__row"
+        >
+          <span
+            class="sd-overflow-ellipsis sd-list-item--element-grow"
+          >
+            <span
+              class="sd-list-item__text-strong"
+            >
+              tenant-1.sourcefabric.org
+            </span>
+          </span>
+        </div>
+        <div
+          class="sd-list-item__row"
+        >
+          <span
+            class="sd-list-item__text-label"
+          >
+            Publish to:
+          </span>
+          <span
+            class="sd-overflow-ellipsis"
+          >
+            route
+          </span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div
+    class="sd-collapse-box__content-wraper"
+  >
+    <div
+      class="sd-collapse-box__content"
+    >
+      <div
+        class="sd-collapse-box__tools sd-collapse-box__tools--flex"
+      >
+        <a
+          class="sd-collapse-box__collapse-btn"
+        >
+          <span
+            class="icn-btn"
+          >
+            <i
+              class="icon-chevron-up-thin"
+            />
+          </span>
+        </a>
+        <a>
+          <span
+            class="icn-btn"
+          >
+            <i
+              class="icon-trash"
+            />
+          </span>
+        </a>
+      </div>
+      <div
+        class="sd-collapse-box__content-block sd-collapse-box__content-block--top"
+      >
+        <div
+          class="sd-list-item sd-list-item--no-bg sd-list-item--no-hover"
+        >
+          <div
+            class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+          >
+            <div
+              class="sd-list-item__row"
+            >
+              <span
+                class="sd-overflow-ellipsis sd-list-item--element-grow sd-list-item__text-strong"
+              >
+                tenant-1.sourcefabric.org
+              </span>
+              <a
+                class="icn-btn"
+                flow="left"
+                sd-tooltip="Preview"
+                target="_blank"
+              />
+            </div>
+            <div
+              class="sd-list-item__row"
+            >
+              <span
+                class="sd-list-item__text-label sd-overflow-ellipsis"
+              >
+                Automatically:
+              </span>
+              <span
+                class="sd-overflow-ellipsis"
+              >
+                route
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form__row"
+      >
+        <div
+          class="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin"
+        >
+          <label
+            class="sd-line-input__label"
+          >
+            Route
+          </label>
+          <select
+            class="sd-line-input__select"
+            name="routeId"
+          >
+            <option
+              disabled=""
+              value=""
+            >
+              Loading...
+            </option>
+            0
+          </select>
+        </div>
+      </div>
+      <div
+        class="form__row"
+      >
+        <span
+          sd-tooltip="Publish to facebook"
+        >
+          <span
+            class="sd-check__wrapper"
+          >
+            <span
+              class="sd-checkbox"
+            />
+            <label
+              class=""
+              style="color: rgb(255, 255, 255);"
+            >
+              Facebook
+            </label>
+          </span>
+        </span>
+        <span
+          style="margin-left: 2em;"
+        >
+          <span
+            class="sd-check__wrapper"
+          >
+            <span
+              class="sd-checkbox"
+            />
+            <label
+              class=""
+              style="color: rgb(255, 255, 255);"
+            >
+              Paywall Secured
+            </label>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
