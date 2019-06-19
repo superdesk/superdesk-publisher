@@ -29,7 +29,7 @@ const OptionSwitches = ({
         )}
 
         {paywallEnabled && (
-          <span style={paywalSecuredStyle}>
+          <span style={paywalSecuredStyle} sd-tooltip="Enable Paywall">
             <Checkbox
               label="Paywall Secured"
               value={destination.paywall_secured}

@@ -103,7 +103,18 @@ module.exports = {
       };
     }
 
-    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
+    if (url.includes("packages/seo")) {
+      data = {
+        meta_title: null,
+        meta_description: null,
+        og_title: null,
+        og_description: null,
+        twitter_title: null,
+        twitter_description: null
+      };
+    }
+
+    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url);
     return Promise.resolve({ data: data });
   },
 
@@ -142,7 +153,7 @@ module.exports = {
       data = {};
     }
 
-    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url)
+    // console.log("\x1b[44m\x1b[37m%s\x1b[0m", "API URL: " + url);
     return Promise.resolve({ data: data });
   }
 };

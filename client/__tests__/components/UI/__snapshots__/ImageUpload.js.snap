@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/ImageUpload renders Loading indicator 1`] = `
+<div
+  class="sd-line-input"
+>
+  <label
+    class="sd-line-input__label"
+  >
+    Post image
+  </label>
+  <div
+    class="sd-overlay-block sd-overlay-block--no-image"
+  >
+    <div
+      class="sd-overlay-block__overlay"
+    >
+      <div
+        class="sd-overlay-block__overlay-action-group"
+      >
+        <label
+          class="sd-overlay-block__overlay-action"
+          for="test"
+          sd-tooltip="Upload image"
+        >
+          <i
+            class="icon-upload"
+          />
+        </label>
+        <span
+          class="sd-overlay-block__overlay-message"
+        >
+          No image has been set so far.
+        </span>
+      </div>
+    </div>
+    <div
+      style="position: absolute; display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5);"
+    >
+      <div
+        class="spinner"
+      >
+        <div
+          class="bounce1"
+        />
+        <div
+          class="bounce2"
+        />
+        <div
+          class="bounce3"
+        />
+      </div>
+    </div>
+  </div>
+  <input
+    id="test"
+    name="test"
+    style="opacity: 0; position: absolute; width: 1px; height: 1px;"
+    type="file"
+  />
+</div>
+`;
+
+exports[`UI/ImageUpload renders correctly 1`] = `
+<div
+  class="sd-line-input"
+>
+  <label
+    class="sd-line-input__label"
+  >
+    Post image
+  </label>
+  <div
+    class="sd-overlay-block sd-overlay-block--no-image"
+  >
+    <div
+      class="sd-overlay-block__overlay"
+    >
+      <div
+        class="sd-overlay-block__overlay-action-group"
+      >
+        <label
+          class="sd-overlay-block__overlay-action"
+          for="test"
+          sd-tooltip="Upload image"
+        >
+          <i
+            class="icon-upload"
+          />
+        </label>
+        <span
+          class="sd-overlay-block__overlay-message"
+        >
+          No image has been set so far.
+        </span>
+      </div>
+    </div>
+  </div>
+  <input
+    id="test"
+    name="test"
+    style="opacity: 0; position: absolute; width: 1px; height: 1px;"
+    type="file"
+  />
+</div>
+`;
