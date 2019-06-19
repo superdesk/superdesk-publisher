@@ -92,6 +92,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
                     this._refreshRoutes();
                     break;
                 case 'navigation':
+                    $scope.menu = {};
                     this._refreshMenus();
                     break;
                 case 'theme-settings':
@@ -702,7 +703,7 @@ export function WebPublisherSettingsController($scope, publisher, modal, vocabul
             let settingsToSave = _.map($scope.newThemeSettings.settings, (value) => {
                 return _.pick(value, ['name', 'value']);
             });
-            publisher.saveSettings({settings: {bulk: settingsToSave}})
+            publisher.saveSettings({bulk: settingsToSave})
                 .then((settings) => {
                     this.themeSettingsForm.$setPristine();
                 });

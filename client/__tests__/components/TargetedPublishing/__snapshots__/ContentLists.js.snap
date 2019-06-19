@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
+<div
+  style="margin: 1em 0px;"
+>
+  <label
+    class="form-label"
+  >
+    Content lists
+  </label>
+  <div
+    class="sd-list-item sd-list-item--no-hover sd-margin-b--1"
+  >
+    <div
+      class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--large-padding"
+    >
+      <div
+        class="sd-list-item__row no-margin sd-flex-justify-end"
+      >
+        <a
+          class="icn-btn disabled"
+          flow="left"
+          sd-tooltip="Remove list"
+        >
+          <i
+            class="icon-trash"
+          />
+        </a>
+      </div>
+      <div
+        class="sd-list-item__row"
+      >
+        <div
+          class="sd-line-input sd-line-input--is-select sd-list-item--element-grow"
+        >
+          <label
+            class="sd-line-input__label"
+          >
+            Choose list
+          </label>
+          <select
+            class="sd-line-input__select"
+            name="id"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="1"
+            >
+              test1
+            </option>
+            <option
+              value="2"
+            >
+              test2
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="sd-list-item__row"
+      >
+        <div
+          class="sd-line-input sd-line-input--is-select sd-list-item--element-grow"
+        >
+          <label
+            class="sd-line-input__label"
+          >
+            Set order
+          </label>
+          <select
+            class="sd-line-input__select"
+            name="position"
+          >
+            <option
+              value="0"
+            >
+              1
+            </option>
+            <option
+              value="1"
+            >
+              2
+            </option>
+            <option
+              value="2"
+            >
+              3
+            </option>
+            <option
+              value="3"
+            >
+              4
+            </option>
+            <option
+              value="4"
+            >
+              5
+            </option>
+            <option
+              value="5"
+            >
+              6
+            </option>
+            <option
+              value="6"
+            >
+              7
+            </option>
+            <option
+              value="7"
+            >
+              8
+            </option>
+            <option
+              value="8"
+            >
+              9
+            </option>
+            <option
+              value="9"
+            >
+              10
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    class="btn btn--hollow btn--expanded btn--primary"
+  >
+    Add to content list
+  </button>
+</div>
+`;

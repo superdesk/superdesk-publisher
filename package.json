@@ -4,10 +4,32 @@
   "license": "AGPL-3.0",
   "description": "Superdesk Publisher component",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:debug": "jest --debug",
+    "test:updateSnapshot": "jest --updateSnapshot"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/superdesk/superdesk-publisher.git"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/flow",
+      "@babel/react"
+    ]
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/client/__mocks__/styleMock.js"
+    }
   },
   "dependencies": {
     "angular-drag-and-drop-lists-spiria": "latest",
@@ -17,7 +39,23 @@
     "ng-infinite-scroll": "^1.3.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@testing-library/react": "^8.0.1",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "jest": "^24.8.0",
+    "jest-dom": "^3.4.0",
+    "jest-transform-css": "^2.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "superdesk-code-style": "^1.0.0",
-    "superdesk-core": "superdesk/superdesk-client-core#f4cf590"
+    "superdesk-core": "superdesk/superdesk-client-core#63d0db4"
   }
 }

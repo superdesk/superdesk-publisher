@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/SaveBar renders correctly 1`] = `
+<div
+  class="sd-collapse-box__sliding-toolbar-wrapper"
+>
+  <div
+    class="sd-collapse-box__sliding-toolbar"
+  >
+    <div
+      class="sliding-toolbar__inner"
+    />
+    <a
+      class="btn btn--hollow btn--ui-dark"
+    >
+      Cancel
+    </a>
+    <button
+      class="btn btn--primary"
+      data-testid="save-button"
+    >
+      Save
+    </button>
+  </div>
+</div>
+`;
