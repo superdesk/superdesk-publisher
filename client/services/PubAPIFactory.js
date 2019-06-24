@@ -187,6 +187,26 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
 
         /**
          * @ngdoc method
+         * @name pubapi#put
+         * @param {String} resource
+         * @param {String} id - id of item which is updated
+         * @param {Object} item - item which is saved
+         * @returns {Promise}
+         * @description patches an item
+         */
+        put(resource, id, item) {
+            return this.req({
+                url: this.resourceURL(resource, id),
+                method: 'PUT',
+                data: item
+            }).then((response) => {
+                angular.extend(item, response);
+                return response;
+            });
+        }
+
+        /**
+         * @ngdoc method
          * @name pubapi#remove
          * @param {String} resource
          * @param {String} id - id of item which is deleted

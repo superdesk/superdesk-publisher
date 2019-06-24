@@ -460,6 +460,18 @@ export function PublisherFactory(pubapi) {
 
         /**
          * @ngdoc method
+         * @name publisher# uploadMetaImage
+         * @param {Object}  imageUpload - object with file
+         * @param {String}  slug - article slug
+         * @returns {Promise}
+         * @description Uploads meta data image
+         */
+        uploadMetaImage(imageUpload, slug) {
+            return pubapi.upload('upload/seo_image', imageUpload, slug);
+        }
+
+        /**
+         * @ngdoc method
          * @name publisher# uploadThemeLogo
          * @param {Object}  logoUpload - object with file
          * @param {String}  type - type of logo (theme_logo, theme_logo_second etc)
@@ -528,6 +540,18 @@ export function PublisherFactory(pubapi) {
          */
         removeWebhook(id, params) {
             return pubapi.remove('webhooks', id, params);
+        }
+
+        /**
+         * @ngdoc method
+         * @name publisher#manageOrganizationRule
+         * @param {Object} data - meta data which is edited
+         * @param {String} slug - article slug
+         * @returns {Promise}
+         * @description Save article meta data
+         */
+        saveArticleMetaData(data, slug) {
+            return pubapi.save('content/articles', {seo_metadata: data}, slug);
         }
     }
 

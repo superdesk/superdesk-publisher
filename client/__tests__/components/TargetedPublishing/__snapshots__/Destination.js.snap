@@ -67,7 +67,9 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
             />
           </span>
         </a>
-        <a>
+        <a
+          sd-tooltip="Remove"
+        >
           <span
             class="icn-btn"
           >
@@ -164,6 +166,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
           </span>
         </span>
         <span
+          sd-tooltip="Enable Paywall"
           style="margin-left: 2em;"
         >
           <span

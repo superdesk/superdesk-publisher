@@ -237,9 +237,6 @@ class Destination extends Component {
   };
 
   save = () => {
-    console.log(
-      "CHUJ-------------------------------------------------------------------------------"
-    );
     axios
       .post(
         this.state.apiUrl + "organization/destinations/",
@@ -372,7 +369,7 @@ class Destination extends Component {
                 </span>
               </a>
               {this.props.rule && (
-                <a onClick={this.delete}>
+                <a onClick={this.delete} sd-tooltip="Remove">
                   <span className="icn-btn">
                     <i className="icon-trash" />
                   </span>

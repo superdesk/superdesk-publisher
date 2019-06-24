@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 
 import TargetedPublishing from "../components/TargetedPublishing/TargetedPublishing";
 import RelatedArticlesStatus from "../components/TargetedPublishing/RelatedArticlesStatus.jsx";
-import Loading from "../components/UI/Loading/Loading.jsx";
+import MetaData from "../components/TargetedPublishing/MetaData";
+import Loading from "../components/UI/Loading/Loading";
 
 import "./Publishing.css";
 
@@ -19,7 +20,7 @@ class Publishing extends React.Component {
     const domainName = pubConfig.domain;
 
     this.state = {
-      apiUrl: `${protocol}://${subdomain}${domainName}/api/v1/`,
+      apiUrl: `${protocol}://${subdomain}${domainName}/api/v2/`,
       apiHeader: null,
       item: null,
       rules: [],
@@ -113,6 +114,13 @@ class Publishing extends React.Component {
         {!this.state.loading && !this.state.ninjsError && (
           <RelatedArticlesStatus
             rules={this.state.rules}
+            apiUrl={this.state.apiUrl}
+            apiHeader={this.state.apiHeader}
+            item={this.state.item}
+          />
+        )}
+        {!this.state.loading && !this.state.ninjsError && (
+          <MetaData
             apiUrl={this.state.apiUrl}
             apiHeader={this.state.apiHeader}
             item={this.state.item}

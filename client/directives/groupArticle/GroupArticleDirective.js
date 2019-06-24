@@ -64,10 +64,10 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
 
             scope.keyPressedHandler = (e) => {
                 let articleIndex = scope.articlesList.findIndex(el => el.id === scope.webPublisherOutput.selectedArticle.id );
-
-                if (articleIndex < 0) return;
-
                 e = e || window.event;
+
+                if (articleIndex < 0 || (e.keyCode !== '38' && e.keyCode !== '40')) return;
+
                 if (e.keyCode == '38') {
                     articleIndex = articleIndex - 1;
                 }

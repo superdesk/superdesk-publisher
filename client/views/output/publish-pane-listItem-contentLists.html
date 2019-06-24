@@ -1,0 +1,32 @@
+<label ng-if="destination.content_lists.length" class="form-label">Content lists</label>
+<div ng-if="destination.status !== 'new' && destination.content_lists.length">
+    <span class="text--lighter text--italic" ng-repeat="list in destination.content_lists">
+        {{list.name}}<span ng-show="$index !== destination.content_lists.length - 1">, </span>
+    </span>
+</div>
+<div ng-if="destination.status === 'new'">
+    <div class="sd-list-item sd-list-item--no-hover sd-margin-b--1" ng-repeat="list in destination.content_lists">
+        <div class="sd-list-item__column sd-list-item__column--grow">
+            <div class="sd-list-item__row sd-list-item__row--only-child">
+                <span class="sd-margin-r--1">Choose list</span>
+                <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin">
+                    <select class="sd-line-input__select" ng-model="list.id"
+                        ng-options="list.id as list.name for list in destination.tenant.content_lists | filter:{type:'manual'}">
+                    </select>
+                </div>
+                <a class="icn-btn disabled" sd-tooltip="Remove list" flow="left" ng-click="destination.content_lists.splice($index, 1)"><i class="icon-trash"></i></a>
+            </div>
+            <div class="sd-list-item__row sd-margin-b--1">
+                <span class="sd-margin-r--1">Set order</span>
+                <div class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
+                    <select class="sd-line-input__select" ng-model="list.position">
+                        <option ng-repeat="n in webPublisherOutput.contentListPositionRange(list.id, destination.tenant.content_lists)" value="{{n}}">{{n + 1}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form__row" ng-if="destination.status === 'new'">
+    <button class="btn btn--hollow btn--expanded btn--primary" ng-click="destination.content_lists.push({id: null, position: 0})">Add to content list</button>
+</div>
