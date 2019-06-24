@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetedPublishing/MetaData renders correctly 1`] = `
+<div
+  class="toggle-box toggle-box--dark sp--dark-ui toggle-box--circle"
+>
+  <div
+    class="toggle-box__header"
+  >
+    <div
+      class="toggle-box__chevron"
+    >
+      <i
+        class="icon-chevron-right-thin"
+      />
+    </div>
+    <div
+      class="toggle-box__label"
+    >
+      Meta data
+    </div>
+    <div
+      class="toggle-box__line"
+    />
+  </div>
+  <div
+    class="toggle-box__content-wraper"
+  >
+    <div
+      class="toggle-box__content"
+    >
+      <div
+        class="sd-list-item-group sd-shadow--z1"
+      >
+        <div
+          class="sd-list-item"
+        >
+          <div
+            class="sd-list-item__border"
+          />
+          <div
+            class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+          >
+            <div
+              class="sd-list-item__row"
+            >
+              <span
+                class="sd-overflow-ellipsis"
+              >
+                Facebook
+              </span>
+            </div>
+          </div>
+          <div
+            class="sd-list-item__action-menu"
+          >
+            <i
+              class="icon-chevron-right-thin"
+            />
+          </div>
+        </div>
+        <div
+          class="sd-list-item"
+        >
+          <div
+            class="sd-list-item__border"
+          />
+          <div
+            class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+          >
+            <div
+              class="sd-list-item__row"
+            >
+              <span
+                class="sd-overflow-ellipsis"
+              >
+                Twitter
+              </span>
+            </div>
+          </div>
+          <div
+            class="sd-list-item__action-menu"
+          >
+            <i
+              class="icon-chevron-right-thin"
+            />
+          </div>
+        </div>
+        <div
+          class="sd-list-item"
+        >
+          <div
+            class="sd-list-item__border"
+          />
+          <div
+            class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+          >
+            <div
+              class="sd-list-item__row"
+            >
+              <span
+                class="sd-overflow-ellipsis"
+              >
+                SEO
+              </span>
+            </div>
+          </div>
+          <div
+            class="sd-list-item__action-menu"
+          >
+            <i
+              class="icon-chevron-right-thin"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

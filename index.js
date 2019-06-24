@@ -20,6 +20,9 @@ function cacheIncludedTemplates($templateCache) {
     $templateCache.put('preview-pane.html', require('./client/views/output/preview-pane.html'));
     $templateCache.put('article-preview.html', require('./client/views/output/article-preview.html'));
     $templateCache.put('output/swimlane.html', require('./client/views/output/swimlane.html'));
+    $templateCache.put('output/publish-pane-listItem-contentLists.html', require('./client/views/output/publish-pane-listItem-contentLists.html'));
+    $templateCache.put('output/metaDataOverlay.html', require('./client/views/output/metaDataOverlay.html'));
+
 
     $templateCache.put('list-articles-card.html', require('./client/directives/listArticles/list-articles-card.html'));
     $templateCache.put('list-articles-detail.html', require('./client/directives/listArticles/list-articles-detail.html'));

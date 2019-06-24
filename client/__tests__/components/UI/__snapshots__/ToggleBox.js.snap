@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/ToggleBox renders correctly 1`] = `
+<div
+  class="toggle-box"
+>
+  <div
+    class="toggle-box__header"
+  >
+    <div
+      class="toggle-box__chevron"
+    >
+      <i
+        class="icon-chevron-right-thin"
+      />
+    </div>
+    <div
+      class="toggle-box__label"
+    >
+      test
+    </div>
+    <div
+      class="toggle-box__line"
+    />
+  </div>
+  <div
+    class="toggle-box__content-wraper"
+  >
+    <div
+      class="toggle-box__content"
+    />
+  </div>
+</div>
+`;

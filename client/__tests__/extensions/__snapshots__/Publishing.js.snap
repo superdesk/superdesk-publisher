@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extensions/Publishing renders properly 1`] = `
+<div
+  class="spinner"
+>
+  <div
+    class="bounce1"
+  />
+  <div
+    class="bounce2"
+  />
+  <div
+    class="bounce3"
+  />
+</div>
+`;
