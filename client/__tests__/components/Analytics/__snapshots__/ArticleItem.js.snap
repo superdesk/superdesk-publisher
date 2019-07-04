@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics/ArticleItem renders correctly 1`] = `
+<div
+  class="sd-flex-table__row"
+>
+  <div
+    class="sd-flex-table__cell sd-flex-grow"
+  >
+    <div
+      class="sd-text__strong"
+    >
+      <strong>
+        test
+        .
+      </strong>
+    </div>
+    <div>
+      <span
+        class="sd-text__date-time sd-text__italic"
+      >
+        Category: 
+      </span>
+      <span
+        class="sd-text__normal sd-margin-r--1"
+      >
+        route
+      </span>
+      <span
+        class="sd-text__date-time sd-text__italic"
+      >
+        Authors:
+         
+      </span>
+      <span
+        class="sd-text__normal sd-margin-r--1"
+      >
+        <span>
+          author
+           
+        </span>
+      </span>
+      <span
+        class="sd-text__date-time sd-text__italic "
+      >
+        Published:
+         
+      </span>
+      <time>
+        2017.07.26, 15:43
+      </time>
+    </div>
+  </div>
+  <div
+    class="sd-flex-table__cell sd-text__center"
+  />
+  <div
+    class="sd-flex-table__cell"
+  >
+    10
+  </div>
+  <div
+    class="sd-flex-table__cell"
+  >
+    5
+  </div>
+  <div
+    class="sd-flex-table__cell"
+  >
+    15
+  </div>
+</div>
+`;

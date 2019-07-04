@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generic/VirtualizedList renders correctly 1`] = `
+<div
+  style="width: 500px; height: 500px;"
+>
+  <div
+    style="overflow: visible; height: 0px; width: 0px;"
+  />
+  <div
+    class="resize-triggers"
+  >
+    <div
+      class="expand-trigger"
+    >
+      <div
+        style="width: 1px; height: 1px;"
+      />
+    </div>
+    <div
+      class="contract-trigger"
+    />
+  </div>
+</div>
+`;

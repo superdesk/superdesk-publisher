@@ -1,11 +1,6 @@
 import React from "react";
 import SitesSideNav from "../../../components/generic/SitesSideNav";
-import {
-  render,
-  fireEvent,
-  wait,
-  waitForElement
-} from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 const sites = [
   {
@@ -69,5 +64,25 @@ describe("generic/SitesSideNav", () => {
 
     fireEvent.click(button);
     expect(toggle).toHaveBeenCalled();
+  });
+
+  it("fires setTenant", async () => {
+    const setTenant = jest.fn();
+
+    const { getByText } = render(
+      <SitesSideNav
+        toggle={jest.fn()}
+        setTenant={setTenant}
+        open={false}
+        sites={sites}
+        selectedSite={selectedSite}
+      />
+    );
+
+    const button = getByText("site1");
+
+    fireEvent.click(button);
+    expect(setTenant).toHaveBeenCalled();
+    expect(setTenant).toHaveBeenCalledWith(sites[0]);
   });
 });

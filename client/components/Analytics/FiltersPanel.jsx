@@ -121,12 +121,14 @@ class FiltersPanel extends React.Component {
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
               <a
                 className="btn btn--hollow"
+                data-testid="filterClear"
                 onClick={() => this.props.setFilters({})}
               >
                 Clear
               </a>
               <a
                 className="btn btn--primary"
+                data-testid="filterSave"
                 onClick={() => this.props.setFilters(this.state.filters)}
               >
                 Filter
