@@ -1,255 +1,263 @@
-
-
 .sp-logo-wordpress {
-    display: block;
-    float: right;
-    margin-right: 1rem;
-    width: 30px;
-    height: 30px;
-    background: transparent url(../images/wordpress-icon.svg) center center no-repeat;
+  display: block;
+  float: right;
+  margin-right: 1rem;
+  width: 30px;
+  height: 30px;
+  background: transparent url(../images/wordpress-icon.svg) center center
+    no-repeat;
 }
 
 .absPosition {
-    position: absolute;
+  position: absolute;
 
-    &--bottomRight {
-        bottom: 1rem;
-        right: 1rem;
-    }
+  &--bottomRight {
+    bottom: 1rem;
+    right: 1rem;
+  }
 
-    &--top {
-        top: 0;
-    }
+  &--top {
+    top: 0;
+  }
 }
 
 .fixedPosition {
-    position: fixed;
+  position: fixed;
 
-    &--bottomRight {
-        bottom: 1rem;
-        right: 1rem;
-    }
+  &--bottomRight {
+    bottom: 1rem;
+    right: 1rem;
+  }
 
-    &--top {
-        top: 0;
-    }
+  &--top {
+    top: 0;
+  }
 }
 
 .margin {
-    &--none {
-        margin: 0!important;
-    }
+  &--none {
+    margin: 0 !important;
+  }
 
-    &--top {
-        margin-top: 1em;
-    }
+  &--top {
+    margin-top: 1em;
+  }
 
-    &--top0 {
-        margin-top: 0 !important;
-    }
+  &--top0 {
+    margin-top: 0 !important;
+  }
 
-    &--topBig {
-        margin-top: 2rem!important;
-    }
+  &--topBig {
+    margin-top: 2rem !important;
+  }
 
-    &--bottom {
-        margin-bottom: 1em;
-    }
+  &--bottom {
+    margin-bottom: 1em;
+  }
 
-    &--bottomHalf {
-        margin-bottom: .5em;
-    }
+  &--bottomHalf {
+    margin-bottom: 0.5em;
+  }
 
-    &--bottom0 {
-        margin-bottom: 0;
-    }
+  &--bottom0 {
+    margin-bottom: 0;
+  }
 
-    &--right {
-        margin-right: 1em;
-    }
+  &--right {
+    margin-right: 1em;
+  }
 
-    &--left {
-        margin-left: 1em;
-    }
+  &--left {
+    margin-left: 1em;
+  }
 }
 
 .padding {
-    &--right0 {
-        padding-right: 0;
-    }
-    &--bottomBig {
-        padding-bottom: 4rem !important;
-    }
+  &--right0 {
+    padding-right: 0;
+  }
+  &--bottomBig {
+    padding-bottom: 4rem !important;
+  }
 }
 
 .text {
-    &--white {
-        color: $white !important;
-    }
-    &--light {
-        color: $gray;
-    }
+  &--white {
+    color: $white !important;
+  }
+  &--light {
+    color: $gray;
+  }
 
-    &--lighter {
-        color: $grayLight;
-    }
+  &--lighter {
+    color: $grayLight;
+  }
 
-    &--dark {
-        color: $grayDarker;
-    }
+  &--dark {
+    color: $grayDarker;
+  }
 
-    &--green {
-        color: $green;
-    }
+  &--green {
+    color: $green;
+  }
 
-    &--red {
-        color: $red;
-    }
+  &--red {
+    color: $red;
+  }
 
-    &--italic {
-        font-style: italic;
-    }
+  &--italic {
+    font-style: italic;
+  }
 
-    &--bold {
-        font-weight: 500;
-    }
+  &--bold {
+    font-weight: 500;
+  }
 
-    &--bolder {
-        font-weight: 700;
-    }
+  &--bolder {
+    font-weight: 700;
+  }
 
-    &--thin {
-        font-weight: 300;
-    }
+  &--thin {
+    font-weight: 300;
+  }
 
-    &--normal {
-        font-weight: 400;
-    }
+  &--normal {
+    font-weight: 400;
+  }
 
-    &--uppercase {
-        text-transform: uppercase;
-    }
+  &--uppercase {
+    text-transform: uppercase;
+  }
 
-    &--small {
-        font-size: .9em;
-    }
+  &--small {
+    font-size: 0.9em;
+  }
 
-    &--smallish {
-        font-size: .8em;
-    }
+  &--smallish {
+    font-size: 0.8em;
+  }
 
-    &--smaller {
-        font-size: 9px;
-    }
+  &--smaller {
+    font-size: 9px;
+  }
 
-    &--smallHeading {
-        font-size: 12px;
-        line-height: 1em;
-        margin-bottom: .8em;
-        color: $gray;
-    }
+  &--smallHeading {
+    font-size: 12px;
+    line-height: 1em;
+    margin-bottom: 0.8em;
+    color: $gray;
+  }
 
-    &--strikethrough {
-        text-decoration: line-through;
-    }
+  &--strikethrough {
+    text-decoration: line-through;
+  }
 
-    &--verticalMiddle {
-        vertical-align: middle;
-    }
+  &--verticalMiddle {
+    vertical-align: middle;
+  }
 
-    &--blue {
-        color: $sd-blue;
-    }
+  &--blue {
+    color: $sd-blue;
+  }
 
-    &--keyword {
-        color: $sd-keyword;
-    }
+  &--keyword {
+    color: $sd-keyword;
+  }
 
-    &--center {
-        text-align: center;
-    }
+  &--center {
+    text-align: center;
+  }
 
-    &--left {
-        text-align: left !important;
-    }
+  &--left {
+    text-align: left !important;
+  }
 
-    &--right {
-        text-align: right !important;
-    }
+  &--right {
+    text-align: right !important;
+  }
 }
 
 .inlineBlock {
-    display: inline-block;
+  display: inline-block;
 }
 
-.cursorPointer{
-    cursor: pointer;
+.cursorPointer {
+  cursor: pointer;
 }
 
 .iconButton {
-    border: none;
-    background: none;
-    padding: 0;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
 
 .overflow-auto {
-    overflow: auto;
+  overflow: auto;
 }
 .overflow-initial {
-    overflow: initial;
+  overflow: initial;
 }
 
 .fadeElement {
-    animation-name: fadeOpacity;
-    animation-duration: 2s;
-    animation-iteration-count:1;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode:forwards;
+  animation-name: fadeOpacity;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeOpacity {
-    from {opacity:0}
-    to {opacity: 1}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-option:disabled, select[disabled] > option{
-    color: rgb(180, 180, 180);
+option:disabled,
+select[disabled] > option {
+  color: rgb(180, 180, 180);
 }
 
-.flexGrow{
-    flex-grow: 1;
+.flexGrow {
+  flex-grow: 1;
 }
 
 .sp-manage-overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.85);
-    z-index: 1000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 1000;
 }
 
 .draggable {
-    cursor: move !important; /* fallback if grab cursor is unsupported */
-    cursor: grab !important;
-    cursor: -moz-grab !important;
-    cursor: -webkit-grab !important;
+  cursor: move !important; /* fallback if grab cursor is unsupported */
+  cursor: grab !important;
+  cursor: -moz-grab !important;
+  cursor: -webkit-grab !important;
 }
 
 .dndDragging .draggable {
-    cursor: move;
+  cursor: move;
 }
 
 .sp-listSerialNumberMinWidth {
-    min-width: 1.2em;
-    text-align: center;
+  min-width: 1.2em;
+  text-align: center;
 }
 
 .sp-imageMaxWidth-wrapper img {
-    max-width: 100%;
+  max-width: 100%;
+}
+
+.sp-bottomBarMargin {
+  margin-bottom: 3rem;
 }

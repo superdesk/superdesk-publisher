@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generic/SitesSideNav renders correctly closed 1`] = `
+<div
+  class="nav-tabs-vertical"
+>
+  <ul
+    class="nav-tabs-vertical__list"
+  >
+    <li
+      class="nav-tabs-vertical__tab"
+    >
+      <button
+        class="nav-tabs-vertical__link"
+      >
+        Website
+      </button>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`generic/SitesSideNav renders correctly open 1`] = `
+<div
+  class="nav-tabs-vertical nav-tabs-vertical--closed"
+>
+  <ul
+    class="nav-tabs-vertical__list"
+  >
+    <li
+      class="nav-tabs-vertical__tab"
+    >
+      <button
+        class="nav-tabs-vertical__link"
+      >
+        Website
+      </button>
+    </li>
+  </ul>
+</div>
+`;
