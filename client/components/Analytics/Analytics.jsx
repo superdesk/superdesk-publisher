@@ -11,6 +11,8 @@ class Analytics extends React.Component {
   constructor(props) {
     super(props);
 
+    this._isMounted = false;
+
     this.state = {
       loading: true,
       tenantsNavOpen: false,
@@ -21,21 +23,29 @@ class Analytics extends React.Component {
       selectedSite: null,
       articles: {}
     };
+  }
 
-    props.publisher
+  componentDidMount() {
+    this._isMounted = true;
+
+    this.props.publisher
       .setToken()
-      .then(props.publisher.querySites)
+      .then(this.props.publisher.querySites)
       .then(sites => {
         let tenantsNavOpen = sites.length > 1 ? true : false;
         this.setState({ sites, tenantsNavOpen });
 
-        if (props.tenant) {
-          let site = sites.find(site => site.code === props.tenant);
+        if (this.props.tenant) {
+          let site = sites.find(site => site.code === this.props.tenant);
           if (site) this.setTenant(site);
         } else if (sites[0]) {
           this.setTenant(sites[0]);
         }
       });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   setTenant = site => {
@@ -58,7 +68,7 @@ class Analytics extends React.Component {
 
   _queryRoutes = () => {
     this.props.publisher.queryRoutes({ type: "collection" }).then(routes => {
-      this.setState({ routes });
+      if (this._isMounted) this.setState({ routes });
     });
   };
 
@@ -102,7 +112,7 @@ class Analytics extends React.Component {
           loading: false,
           itemSize: this.state.articles.itemSize
         };
-        this.setState({ articles });
+        if (this._isMounted) this.setState({ articles });
       });
     });
   };

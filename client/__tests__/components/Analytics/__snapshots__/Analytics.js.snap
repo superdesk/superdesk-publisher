@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics/Analytics renders correctly 1`] = `
+<div
+  class="sd-page-content__content-block"
+>
+  <div
+    class="subnav"
+  >
+    <a
+      class="navbtn navbtn--left"
+      flow="right"
+      href="#/publisher/dashboard"
+      sd-tooltip="Dashboard"
+    >
+      <i
+        class="icon-arrow-left"
+      />
+    </a>
+    <h3
+      class="subnav__page-title"
+    >
+      Content Analytics
+      <span>
+         / 
+        Site1
+      </span>
+    </h3>
+  </div>
+  <div
+    class="sd-column-box--3"
+  >
+    <div
+      class="nav-tabs-vertical nav-tabs-vertical--closed"
+    >
+      <ul
+        class="nav-tabs-vertical__list"
+      >
+        <li
+          class="nav-tabs-vertical__tab"
+        >
+          <button
+            class="nav-tabs-vertical__link"
+          >
+            Website
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
+    >
+      <div
+        class="subnav subnav--padded subnav--lower-z-index"
+      >
+        <h3
+          class="sd-content-nav-title sd-content-nav-title--uppercase"
+        >
+          Website
+        </h3>
+        <a
+          class="icn-btn ml-auto"
+        >
+          <i
+            class="icon-close-small"
+          />
+        </a>
+      </div>
+      <nav
+        class="sd-content-nav"
+      >
+        <ul>
+          <li>
+            <a
+              class="sd-content-nav__btn sd-content-nav__btn--active"
+              style="cursor: pointer;"
+            >
+              Site1
+            </a>
+          </li>
+          <li>
+            <a
+              class="sd-content-nav__btn"
+              style="cursor: pointer;"
+            >
+              Site2
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div
+      class="flex-grid flex-grid--grow flex-grid--small-1"
+    >
+      <div
+        class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column"
+      >
+        <div
+          class="subnav subnav--lower-z-index"
+        >
+          <button
+            class="navbtn navbtn--left navbtn--darker"
+          >
+            <i
+              class="icon-filter-large"
+            />
+          </button>
+        </div>
+        <div
+          class="sd-column-box--3"
+        >
+          <div
+            class="sd-filters-panel sd-filters-panel--border-right"
+          >
+            <div
+              class="side-panel side-panel--transparent side-panel--shadow-right"
+            >
+              <div
+                class="side-panel__header side-panel__header--border-b"
+              >
+                <a
+                  class="icn-btn side-panel__close"
+                  flow="left"
+                  sd-tooltip="Close filters"
+                >
+                  <i
+                    class="icon-close-small"
+                  />
+                </a>
+                <h3
+                  class="side-panel__heading side-panel__heading--big"
+                >
+                  Filter
+                </h3>
+              </div>
+              <div
+                class="side-panel__content"
+              >
+                <div
+                  class="side-panel__content-block"
+                >
+                  <div
+                    class="form__row"
+                  >
+                    <div
+                      class="sd-line-input sd-line-input--no-margin sd-line-input--is-select"
+                    >
+                      <label
+                        class="sd-line-input__label"
+                      >
+                        Category
+                      </label>
+                      <select
+                        class="sd-line-input__select"
+                        name="route"
+                      >
+                        <option
+                          value=""
+                        />
+                        <option
+                          value="1"
+                        >
+                          route1
+                        </option>
+                        <option
+                          value="2"
+                        >
+                          route2
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    class="form__row"
+                  >
+                    <div
+                      class="sd-line-input sd-line-input--no-margin"
+                    >
+                      <label
+                        class="sd-line-input__label"
+                      >
+                        Author
+                      </label>
+                      <input
+                        class="sd-line-input__input"
+                        name="author"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="form__row form__row--flex"
+                  >
+                    <div
+                      class="sd-line-input sd-line-input--no-margin"
+                    >
+                      <label
+                        class="sd-line-input__label"
+                      >
+                        Published after
+                      </label>
+                      <input
+                        class="sd-line-input__input"
+                        name="published_after"
+                        type="date"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="form__row form__row--flex"
+                  >
+                    <div
+                      class="sd-line-input sd-line-input--no-margin"
+                    >
+                      <label
+                        class="sd-line-input__label"
+                      >
+                        Published before
+                      </label>
+                      <input
+                        class="sd-line-input__input"
+                        name="published_before"
+                        type="date"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="side-panel__footer side-panel__footer--button-box"
+              >
+                <div
+                  class="flex-grid flex-grid--boxed-small flex-grid--small-2"
+                >
+                  <a
+                    class="btn btn--hollow"
+                    data-testid="filterClear"
+                  >
+                    Clear
+                  </a>
+                  <a
+                    class="btn btn--primary"
+                    data-testid="filterSave"
+                  >
+                    Filter
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="sd-column-box__main-column-inner sd-d-flex"
+          >
+            <div
+              class="sd-flex-table sd-table--shadowed sd-table--action-hover"
+              style="flex-grow: 1; position: relative;"
+            >
+              <div
+                class="sd-flex-table__row sd-flex-table--head"
+              >
+                <div
+                  class="sd-flex-table__cell sd-flex-grow"
+                >
+                  <div>
+                    Title
+                  </div>
+                </div>
+                <div
+                  class="sd-flex-table__cell"
+                >
+                   
+                </div>
+                <div
+                  class="sd-flex-table__cell"
+                >
+                  <div>
+                    Page Views
+                  </div>
+                </div>
+                <div
+                  class="sd-flex-table__cell"
+                >
+                  <div>
+                    Click Rate
+                  </div>
+                </div>
+                <div
+                  class="sd-flex-table__cell"
+                >
+                  <div>
+                    Impressions
+                  </div>
+                </div>
+              </div>
+              <div
+                style="overflow: visible; height: 0px; width: 0px;"
+              />
+              <div
+                class="resize-triggers"
+              >
+                <div
+                  class="expand-trigger"
+                >
+                  <div
+                    style="width: 1px; height: 1px;"
+                  />
+                </div>
+                <div
+                  class="contract-trigger"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
