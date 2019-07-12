@@ -6,6 +6,7 @@ import "angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists";
 import { reactToAngular1 } from "superdesk-ui-framework";
 
 import Analytics from "./client/components/Analytics/Analytics";
+import ContentLists from "./client/components/ContentLists/ContentLists";
 
 import * as controllers from "./client/controllers";
 import * as services from "./client/services";
@@ -212,6 +213,15 @@ export default angular
     reactToAngular1(
       Analytics,
       ["tenant", "publisher"],
+      [],
+      "display: flex; flex-direction: column; flex-grow: 1; overflow-x: hidden;"
+    )
+  )
+  .component(
+    "spContentLists",
+    reactToAngular1(
+      ContentLists,
+      ["tenant", "list", "publisher"],
       [],
       "display: flex; flex-direction: column; flex-grow: 1; overflow-x: hidden;"
     )
