@@ -20,7 +20,7 @@ class RouteSelect extends Component {
     axios
       .get(this.props.apiUrl + "content/routes/", {
         headers: this.props.apiHeader,
-        params: { limit: 1000, type: "collection" }
+        params: { limit: 1000 }
       })
       .then(res => {
         this.setState({
@@ -31,6 +31,16 @@ class RouteSelect extends Component {
   };
 
   render() {
+    let collectionRoutes = this.state.routes.filter(
+      route => route.type === "collection"
+    );
+    let contentnRoutes = this.state.routes.filter(
+      route => route.type === "content"
+    );
+    let customRoutes = this.state.routes.filter(
+      route => route.type != "content" && route.type != "collection"
+    );
+
     return (
       <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
         <label className="sd-line-input__label">Route</label>
@@ -55,11 +65,36 @@ class RouteSelect extends Component {
               No routes defined
             </option>
           )}
-          {this.state.routes.map((route, index) => (
-            <option value={route.id} key={route.id}>
-              {route.name}
-            </option>
-          ))}
+
+          {collectionRoutes.length && (
+            <optgroup label="Collection">
+              {collectionRoutes.map((route, index) => (
+                <option value={route.id} key={route.id}>
+                  {route.name}
+                </option>
+              ))}
+            </optgroup>
+          )}
+
+          {contentnRoutes.length && (
+            <optgroup label="Content">
+              {contentnRoutes.map((route, index) => (
+                <option value={route.id} key={route.id}>
+                  {route.name}
+                </option>
+              ))}
+            </optgroup>
+          )}
+
+          {customRoutes.length && (
+            <optgroup label="Custom">
+              {customRoutes.map((route, index) => (
+                <option value={route.id} key={route.id}>
+                  {route.name}
+                </option>
+              ))}
+            </optgroup>
+          )}
         </select>
       </div>
     );

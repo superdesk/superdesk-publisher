@@ -19,16 +19,22 @@ exports[`TargetedPublishing/RouteSelect renders correctly 1`] = `
     >
       Select a route
     </option>
-    <option
-      value="1"
+    0
+    0
+    <optgroup
+      label="Custom"
     >
-      route1
-    </option>
-    <option
-      value="2"
-    >
-      route2
-    </option>
+      <option
+        value="1"
+      >
+        route1
+      </option>
+      <option
+        value="2"
+      >
+        route2
+      </option>
+    </optgroup>
   </select>
 </div>
 `;
