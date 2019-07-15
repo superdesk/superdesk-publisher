@@ -19,8 +19,6 @@ exports[`TargetedPublishing/RouteSelect renders correctly 1`] = `
     >
       Select a route
     </option>
-    0
-    0
     <optgroup
       label="Custom"
     >

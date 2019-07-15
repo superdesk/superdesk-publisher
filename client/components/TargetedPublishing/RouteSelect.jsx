@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
+import OptGroup from "../UI/OptGroup";
+
 class RouteSelect extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class RouteSelect extends Component {
     let collectionRoutes = this.state.routes.filter(
       route => route.type === "collection"
     );
-    let contentnRoutes = this.state.routes.filter(
+    let contentRoutes = this.state.routes.filter(
       route => route.type === "content"
     );
     let customRoutes = this.state.routes.filter(
@@ -65,36 +67,24 @@ class RouteSelect extends Component {
               No routes defined
             </option>
           )}
-
-          {collectionRoutes.length && (
-            <optgroup label="Collection">
-              {collectionRoutes.map((route, index) => (
-                <option value={route.id} key={route.id}>
-                  {route.name}
-                </option>
-              ))}
-            </optgroup>
-          )}
-
-          {contentnRoutes.length && (
-            <optgroup label="Content">
-              {contentnRoutes.map((route, index) => (
-                <option value={route.id} key={route.id}>
-                  {route.name}
-                </option>
-              ))}
-            </optgroup>
-          )}
-
-          {customRoutes.length && (
-            <optgroup label="Custom">
-              {customRoutes.map((route, index) => (
-                <option value={route.id} key={route.id}>
-                  {route.name}
-                </option>
-              ))}
-            </optgroup>
-          )}
+          <OptGroup
+            list={collectionRoutes}
+            valueField="id"
+            nameField="name"
+            label="Collection"
+          />
+          <OptGroup
+            list={contentRoutes}
+            valueField="id"
+            nameField="name"
+            label="Content"
+          />
+          <OptGroup
+            list={customRoutes}
+            valueField="id"
+            nameField="name"
+            label="Custom"
+          />
         </select>
       </div>
     );
