@@ -418,7 +418,10 @@ export function WebPublisherContentListsController(
        * @description event is thrown when criteria is updated
        */
       publisher
-        .manageList({ filters: updatedFilters }, this.selectedList.id)
+        .manageList(
+          { filters: JSON.stringify(updatedFilters) },
+          this.selectedList.id
+        )
         .then(response => {
           let index = $scope.lists.findIndex(el => el.id === response.id);
           if (index > -1) {
