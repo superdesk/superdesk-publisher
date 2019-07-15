@@ -375,7 +375,7 @@ export function WebPublisherContentListsController($scope, $sce, publisher, publ
              * @param {Object} $scope.newList - list which will refresf articles
              * @description event is thrown when criteria is updated
              */
-            publisher.manageList({content_list: {filters: updatedFilters}}, this.selectedList.id)
+            publisher.manageList({content_list: {filters: JSON.stringify(updatedFilters)}}, this.selectedList.id)
                 .then((response) => {
                     let index = $scope.lists.findIndex(el => el.id === response.id );
                     if (index > -1) {
