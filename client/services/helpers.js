@@ -2,15 +2,13 @@ import _ from "lodash";
 
 const helpers = (() => {
   const getUpdatedValues = (a, b) => {
-    return _.reduce(
+    let updatedKeys = _.reduce(
       a,
-      function(result, value, key) {
-        return _.isEqual(value, b[key])
-          ? result
-          : result.concat({ [key]: value });
-      },
+      (result, value, key) =>
+        _.isEqual(value, b[key]) ? result : result.concat(key),
       []
     );
+    return _.pick(a, updatedKeys);
   };
 
   return {

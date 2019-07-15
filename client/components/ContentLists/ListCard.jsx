@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
 import helpers from "../../services/helpers.js";
+import _ from "lodash";
 
 import Dropdown from "../UI/Dropdown";
 import Modal from "../UI/Modal";
@@ -15,7 +16,7 @@ class ListCard extends React.Component {
 
     this.state = {
       list: { ...props.list },
-      isEditing: false,
+      isEditing: this.props.list.name ? false : true,
       loading: true,
       articles: [],
       modalType: null
@@ -48,14 +49,16 @@ class ListCard extends React.Component {
   };
 
   save = () => {
-    let updatedValues = helpers.getUpdatedValues(
-      this.state.list,
-      this.props.list
-    );
+    let list = this.state.list.id
+      ? helpers.getUpdatedValues(this.state.list, this.props.list)
+      : { ...this.state.list };
 
     this.props.publisher
-      .manageList(updatedValues, this.state.list.id)
-      .then(this.modalClose)
+      .manageList(list, this.state.list.id)
+      .then(() => {
+        this.modalClose();
+        this.editClose();
+      })
       .catch(err => {
         console.error(err);
       });
@@ -79,6 +82,18 @@ class ListCard extends React.Component {
 
     list[name] = value;
     this.setState({ list });
+  };
+
+  edit = () => {
+    this.setState({ isEditing: true });
+  };
+
+  editClose = () => {
+    this.setState({ isEditing: false });
+  };
+
+  cancelEditing = () => {
+    this.setState({ list: this.props.list, isEditing: false });
   };
 
   render() {
@@ -132,12 +147,9 @@ class ListCard extends React.Component {
             <button
               className="btn btn--primary"
               onClick={this.save}
-              disabled={
+              disabled={_.isEmpty(
                 helpers.getUpdatedValues(this.state.list, this.props.list)
-                  .length
-                  ? false
-                  : true
-              }
+              )}
             >
               Save
             </button>
@@ -155,7 +167,7 @@ class ListCard extends React.Component {
           <div className="modal__body ">
             Please confirm you want to delete list.
           </div>
-          <div className="modal__footer ng-scope">
+          <div className="modal__footer">
             <button className="btn" onClick={this.modalClose}>
               Cancel
             </button>
@@ -177,41 +189,31 @@ class ListCard extends React.Component {
           >
             {this.state.isEditing ? (
               <React.Fragment>
-                <div
-                  className="sd-card__heading"
-                  ng-if="webPublisherContentLists._editMode(list, webPublisherContentLists.selectedList, webPublisherContentLists.listAdd)"
-                >
+                <div className="sd-card__heading">
                   <input
                     type="text"
-                    ng-model="newList.name"
+                    name="name"
+                    onChange={this.handleInputChange}
+                    value={this.state.list.name}
                     className="line-input line-input--alt"
                     required
                   />
                 </div>
-                <div
-                  ng-if="webPublisherContentLists._editMode(list, webPublisherContentLists.selectedList, webPublisherContentLists.listAdd)"
-                  className="sd-card__btn-group sd-card__btn-group--right margin--top0"
-                >
+                <div className="sd-card__btn-group sd-card__btn-group--right margin--top0">
                   <button
-                    ng-click="webPublisherContentLists.cancelEditListCard()"
+                    onClick={this.cancelEditing}
                     className="btn btn--icon-only"
                   >
                     <i className="icon-close-small" />
                   </button>
-                  <button
-                    ng-click="webPublisherContentLists.saveList()"
-                    className="btn btn--icon-only"
-                  >
+                  <button onClick={this.save} className="btn btn--icon-only">
                     <i className="icon-ok" />
                   </button>
                 </div>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div
-                  className="sd-card__heading"
-                  ng-click="webPublisherContentLists.editListCard(list)"
-                >
+                <div className="sd-card__heading" onClick={this.edit}>
                   {list.name}
                 </div>
                 <div className="sd-card__actions-group">

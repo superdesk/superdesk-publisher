@@ -79,6 +79,16 @@ class ContentLists extends React.Component {
     this.setState({ tenantsNavOpen });
   };
 
+  addList = type => {
+    let list = {
+      name: "",
+      type: type,
+      cache_life_time: 0
+    };
+
+    this.setState({ lists: [...this.state.lists, list] });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -124,6 +134,7 @@ class ContentLists extends React.Component {
                 lists={this.state.lists}
                 publisher={this.props.publisher}
                 onListDelete={id => this.onListDelete(id)}
+                addList={type => this.addList(type)}
               />
             )}
           </div>

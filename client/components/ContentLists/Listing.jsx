@@ -17,6 +17,13 @@ class Listing extends React.Component {
 
   setFilter = kind => this.setState({ filter: kind });
 
+  addList = type => {
+    if (this.state.filter !== "all" && type !== this.state.filter) {
+      this.setState({ filter: "all" });
+    }
+    this.props.addList(type);
+  };
+
   render() {
     let lists = [...this.props.lists];
 
@@ -58,12 +65,12 @@ class Listing extends React.Component {
             </li>
             <li className="dropdown__menu-divider" />
             <li>
-              <button onClick={() => this.props.addList("automatic")}>
+              <button onClick={() => this.addList("automatic")}>
                 Automatic List
               </button>
             </li>
             <li>
-              <button onClick={() => this.props.addList("manual")}>
+              <button onClick={() => this.addList("manual")}>
                 Manual List
               </button>
             </li>
@@ -73,7 +80,7 @@ class Listing extends React.Component {
           <div className="sd-grid-list sd-grid-list--large">
             {lists.map(list => (
               <ListCard
-                key={list.id}
+                key={list.id + list.name + "sf"}
                 list={list}
                 publisher={this.props.publisher}
                 onListDelete={id => this.props.onListDelete(id)}
@@ -82,7 +89,7 @@ class Listing extends React.Component {
           </div>
         </div>
         {this.props.lists && !this.props.lists.length ? (
-          <div className="panel-info" ng-if="!lists.length">
+          <div className="panel-info">
             <div className="panel-info__icon">
               <i className="big-icon--add-to-list" />
             </div>
@@ -98,7 +105,8 @@ class Listing extends React.Component {
 Listing.propTypes = {
   lists: PropTypes.array.isRequired,
   publisher: PropTypes.object.isRequired,
-  onListDelete: PropTypes.func.isRequired
+  onListDelete: PropTypes.func.isRequired,
+  addList: PropTypes.func.isRequired
 };
 
 export default Listing;
