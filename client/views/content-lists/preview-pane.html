@@ -40,7 +40,7 @@
 
         <div class="side-panel__content-block">
             <h3 class="side-panel__content-block-heading">{{webPublisherContentLists.selectedArticle.title}}</h3>
-            <img ng-if="webPublisherContentLists.selectedArticle.featureMedia && webPublisherContentLists.selectedArticle.featureMedia.image"
+            <img ng-if="webPublisherContentLists.selectedArticle.feature_media && webPublisherContentLists.selectedArticle.feature_media.image"
                 ng-src="{{webPublisherContentLists.getViewImage(webPublisherContentLists.selectedArticle)}}"
                 style="max-width:100%; margin-bottom: 1em">
             <div class="side-panel__content-block-text sp-imageMaxWidth-wrapper" ng-bind-html="webPublisherContentLists.bodyHtml"></div>
