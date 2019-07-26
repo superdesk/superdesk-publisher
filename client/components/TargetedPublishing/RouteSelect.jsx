@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
+import OptGroup from "../UI/OptGroup";
+
 class RouteSelect extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class RouteSelect extends Component {
     axios
       .get(this.props.apiUrl + "content/routes/", {
         headers: this.props.apiHeader,
-        params: { limit: 1000, type: "collection" }
+        params: { limit: 1000 }
       })
       .then(res => {
         this.setState({
@@ -31,6 +33,16 @@ class RouteSelect extends Component {
   };
 
   render() {
+    let collectionRoutes = this.state.routes.filter(
+      route => route.type === "collection"
+    );
+    let contentRoutes = this.state.routes.filter(
+      route => route.type === "content"
+    );
+    let customRoutes = this.state.routes.filter(
+      route => route.type != "content" && route.type != "collection"
+    );
+
     return (
       <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
         <label className="sd-line-input__label">Route</label>
@@ -55,11 +67,24 @@ class RouteSelect extends Component {
               No routes defined
             </option>
           )}
-          {this.state.routes.map((route, index) => (
-            <option value={route.id} key={route.id}>
-              {route.name}
-            </option>
-          ))}
+          <OptGroup
+            list={collectionRoutes}
+            valueField="id"
+            nameField="name"
+            label="Collection"
+          />
+          <OptGroup
+            list={contentRoutes}
+            valueField="id"
+            nameField="name"
+            label="Content"
+          />
+          <OptGroup
+            list={customRoutes}
+            valueField="id"
+            nameField="name"
+            label="Custom"
+          />
         </select>
       </div>
     );

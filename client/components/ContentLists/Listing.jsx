@@ -27,6 +27,9 @@ class Listing extends React.Component {
   render() {
     let lists = [...this.props.lists];
 
+    if (this.state.filter !== "all")
+      lists = lists.filter(list => list.type === this.state.filter);
+
     return (
       <div className="sd-column-box__main-column relative sd-display-flex-column">
         <div
@@ -84,6 +87,7 @@ class Listing extends React.Component {
                 list={list}
                 publisher={this.props.publisher}
                 onListDelete={id => this.props.onListDelete(id)}
+                listEdit={list => this.props.listEdit(list)}
               />
             ))}
           </div>
@@ -106,7 +110,8 @@ Listing.propTypes = {
   lists: PropTypes.array.isRequired,
   publisher: PropTypes.object.isRequired,
   onListDelete: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired
+  addList: PropTypes.func.isRequired,
+  listEdit: PropTypes.func.isRequired
 };
 
 export default Listing;

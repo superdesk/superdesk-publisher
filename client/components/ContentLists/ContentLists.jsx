@@ -4,6 +4,11 @@ import classNames from "classnames";
 
 import SitesSideNav from "../generic/SitesSideNav";
 import Listing from "./Listing";
+import AutomaticList from "./Automatic/Automatic";
+import ManualList from "./Manual/Manual";
+import ArticlePreview from "../generic/ArticlePreview";
+
+import Dnd from "./Manual/DND";
 
 class ContentLists extends React.Component {
   constructor(props) {
@@ -17,7 +22,10 @@ class ContentLists extends React.Component {
       selectedSite: {},
       lists: [],
       tenantsNavOpen: true,
-      currentView: "list"
+      selectedList: null,
+      filtersOpen: false,
+      previewOpen: false,
+      previewItem: null
     };
   }
 
@@ -55,10 +63,37 @@ class ContentLists extends React.Component {
     );
   };
 
+  listEdit = list =>
+    this.setState({
+      selectedList: list,
+      filtersOpen: list.type === "automatic" ? true : false
+    });
+
+  cancelListEdit = () =>
+    this.setState({
+      selectedList: null,
+      filtersOpen: false,
+      previewOpen: false
+    });
+
   _getLists = () => {
     this.setState({ loading: true }, () => {
       return this.props.publisher.queryLists().then(lists => {
-        if (this._isMounted) this.setState({ lists, loading: false });
+        let selectedList = null;
+
+        if (this.props.list) {
+          let list = lists.find(l => l.id === parseInt(this.props.list));
+          if (list) selectedList = list;
+        }
+
+        if (this._isMounted)
+          this.setState({
+            lists,
+            loading: false,
+            selectedList,
+            filtersOpen:
+              selectedList && selectedList.type === "automatic" ? true : false
+          });
       });
     });
   };
@@ -74,10 +109,24 @@ class ContentLists extends React.Component {
     }
   };
 
-  toggleTenantsNav = () => {
-    let tenantsNavOpen = !this.state.tenantsNavOpen;
-    this.setState({ tenantsNavOpen });
+  onListUpdate = updatedList => {
+    let lists = [...this.state.lists];
+    let index = lists.findIndex(list => list.id === updatedList.id);
+
+    if (index > -1) {
+      lists[index] = updatedList;
+
+      this.setState({ lists });
+    }
   };
+
+  toggleTenantsNav = () =>
+    this.setState({ tenantsNavOpen: !this.state.tenantsNavOpen });
+
+  toggleFilters = () => this.setState({ filtersOpen: !this.state.filtersOpen });
+
+  openPreview = item => this.setState({ previewOpen: true, previewItem: item });
+  closePreview = () => this.setState({ previewOpen: false, previewItem: null });
 
   addList = type => {
     let list = {
@@ -95,9 +144,10 @@ class ContentLists extends React.Component {
         {this.state.loading && <div className="sd-loader" />}
         <div
           className={classNames("sd-page-content__content-block", {
-            "sd-page-content__content-block--double-sidebar": false, // activeView != content-lists ???
-            "open-filters": false, // wiadomo
-            "open-preview": false //wiadomo
+            "sd-page-content__content-block--double-sidebar": this.state
+              .selectedList,
+            "open-filters": this.state.filtersOpen,
+            "open-preview": this.state.previewOpen
           })}
         >
           <div className="subnav">
@@ -129,12 +179,59 @@ class ContentLists extends React.Component {
               open={this.state.tenantsNavOpen}
             />
 
-            {this.state.currentView === "list" && (
+            {!this.state.selectedList && (
               <Listing
                 lists={this.state.lists}
                 publisher={this.props.publisher}
                 onListDelete={id => this.onListDelete(id)}
                 addList={type => this.addList(type)}
+                listEdit={list => this.listEdit(list)}
+              />
+            )}
+
+            {this.state.selectedList &&
+              this.state.selectedList.type === "automatic" && (
+                <AutomaticList
+                  list={this.state.selectedList}
+                  lists={this.state.lists}
+                  publisher={this.props.publisher}
+                  listEdit={list => this.listEdit(list)}
+                  onEditCancel={this.cancelListEdit}
+                  onListUpdate={list => this.onListUpdate(list)}
+                  toggleFilters={this.toggleFilters}
+                  openPreview={item => this.openPreview(item)}
+                  previewItem={this.state.previewItem}
+                  filtersOpen={this.state.filtersOpen}
+                  api={this.props.api}
+                />
+              )}
+
+            {this.state.selectedList &&
+              this.state.selectedList.type === "manual" && (
+                // <ManualList
+                //   list={this.state.selectedList}
+                //   lists={this.state.lists}
+                //   publisher={this.props.publisher}
+                //   listEdit={list => this.listEdit(list)}
+                //   onEditCancel={this.cancelListEdit}
+                //   onListUpdate={list => this.onListUpdate(list)}
+                //   toggleFilters={this.toggleFilters}
+                //   openPreview={item => this.openPreview(item)}
+                //   previewItem={this.state.previewItem}
+                //   filtersOpen={this.state.filtersOpen}
+                //   api={this.props.api}
+                // />
+                <Dnd />
+              )}
+
+            {this.state.previewItem && (
+              <ArticlePreview
+                article={
+                  this.state.previewItem.content
+                    ? this.state.previewItem.content
+                    : this.state.previewItem
+                }
+                close={this.closePreview}
               />
             )}
           </div>
@@ -146,7 +243,9 @@ class ContentLists extends React.Component {
 
 ContentLists.propTypes = {
   tenant: PropTypes.string,
-  publisher: PropTypes.object.isRequired
+  list: PropTypes.string,
+  publisher: PropTypes.object.isRequired,
+  api: PropTypes.func.isRequired
 };
 
 export default ContentLists;

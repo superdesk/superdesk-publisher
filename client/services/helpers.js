@@ -11,8 +11,28 @@ const helpers = (() => {
     return _.pick(a, updatedKeys);
   };
 
+  const getRenditionUrl = (article, type = "thumbnail") => {
+    let base = article.tenant.subdomain
+      ? "//" + article.tenant.subdomain + "." + article.tenant.domain_name
+      : "//" + article.tenant.domain_name;
+    let mediaEl = article.media.find(el => el.id === article.feature_media.id);
+    let rendition = mediaEl.renditions.find(el => el.name === type);
+
+    if (!rendition)
+      rendition = mediaEl.renditions.find(el => el.name === "original");
+
+    return (
+      base +
+      "/media/" +
+      rendition.image.asset_id +
+      "." +
+      rendition.image.file_extension
+    );
+  };
+
   return {
-    getUpdatedValues: getUpdatedValues
+    getUpdatedValues: getUpdatedValues,
+    getRenditionUrl: getRenditionUrl
   };
 })();
 

@@ -18,7 +18,9 @@ class ListCard extends React.Component {
       list: { ...props.list },
       isEditing: this.props.list.name ? false : true,
       loading: true,
-      articles: [],
+      items: [],
+      moreItemsAmount: 0,
+
       modalType: null
     };
   }
@@ -26,14 +28,11 @@ class ListCard extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    this.props.publisher
-      .queryListArticles(this.props.list.id)
-      .then(articles => {
-        if (this._isMounted) this.setState({ articles, loading: false });
-      })
-      .catch(err => {
-        this.setState({ loading: false });
-      });
+    if (this.state.list.content_list_items_count) {
+      this._loadItems();
+    } else {
+      this.setState({ loading: false });
+    }
   }
 
   componentWillUnmount() {
@@ -96,6 +95,23 @@ class ListCard extends React.Component {
     this.setState({ list: this.props.list, isEditing: false });
   };
 
+  _loadItems = () => {
+    this.props.publisher
+      .queryListArticlesWithDetails(this.props.list.id, { limit: 20 })
+      .then(response => {
+        let items = response._embedded._items;
+        let moreItemsAmount = 0;
+
+        if (response.pages > 1) moreItemsAmount = parseInt(response.total) - 20;
+
+        if (this._isMounted)
+          this.setState({ items, moreItemsAmount, loading: false });
+      })
+      .catch(err => {
+        this.setState({ loading: false });
+      });
+  };
+
   render() {
     let { list, modalType } = this.state;
     let modalContent = "";
@@ -113,9 +129,7 @@ class ListCard extends React.Component {
             <form name="settingsForm">
               <fieldset>
                 <div className="field">
-                  <label for="listLimit" translate="">
-                    number of articles limit
-                  </label>
+                  <label for="listLimit">number of articles limit</label>
                   <input
                     type="number"
                     className="line-input"
@@ -219,7 +233,7 @@ class ListCard extends React.Component {
                 <div className="sd-card__actions-group">
                   <a
                     className="btn btn--small btn--hollow btn--ui-dark"
-                    ng-click="webPublisherContentLists.openListCriteria(list)"
+                    onClick={() => this.props.listEdit(list)}
                   >
                     Edit
                   </a>
@@ -250,13 +264,13 @@ class ListCard extends React.Component {
           <div className="sd-card__content sd-card__content--scrollable relative">
             <ul className="sd-card__content-list">
               {this.state.loading && <div className="sd-loader" />}
-              {!this.state.loading && !this.state.articles.length && (
+              {!this.state.loading && !this.state.items.length && (
                 <div className="sd-card__content-list-item sd-card__content-list-item--small">
-                  <span translate>No articles in this list</span>
+                  <span>No articles in this list</span>
                 </div>
               )}
-              {!this.state.loading && this.state.articles.length
-                ? this.state.articles.map(article => (
+              {!this.state.loading && this.state.items.length
+                ? this.state.items.map(article => (
                     <li
                       key={article.content.slug}
                       className="sd-card__content-list-item sd-card__content-list-item--small"
@@ -265,6 +279,17 @@ class ListCard extends React.Component {
                     </li>
                   ))
                 : null}
+              {!this.state.loading &&
+              this.state.items.length &&
+              this.state.moreItemsAmount ? (
+                <li
+                  key={"mat"}
+                  className="sd-card__content-list-item sd-card__content-list-item--small"
+                  style={{ fontStyle: "italic" }}
+                >
+                  {this.state.moreItemsAmount} more...
+                </li>
+              ) : null}
             </ul>
           </div>
           <div className="sd-card__footer sd-card__footer--spread">
@@ -288,7 +313,8 @@ class ListCard extends React.Component {
 
 ListCard.propTypes = {
   list: PropTypes.object.isRequired,
-  publisher: PropTypes.object.isRequired
+  publisher: PropTypes.object.isRequired,
+  listEdit: PropTypes.func.isRequired
 };
 
 export default ListCard;

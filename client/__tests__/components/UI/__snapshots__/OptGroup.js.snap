@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/OptGroup renders correctly 1`] = `
+<optgroup
+  label="Custom"
+>
+  <option
+    value="2"
+  >
+    el1
+  </option>
+  <option
+    value="3"
+  >
+    el2
+  </option>
+</optgroup>
+`;

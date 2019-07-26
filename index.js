@@ -221,7 +221,7 @@ export default angular
     "spContentLists",
     reactToAngular1(
       ContentLists,
-      ["tenant", "list", "publisher"],
+      ["tenant", "list", "publisher", "api"],
       [],
       "display: flex; flex-direction: column; flex-grow: 1; overflow-x: hidden;"
     )
