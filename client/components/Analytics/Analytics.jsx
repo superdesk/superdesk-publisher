@@ -138,7 +138,9 @@ class Analytics extends React.Component {
       itemSize: 100
     };
 
-    this.setState({ filters, articles });
+    this.setState({ loading: true }, () =>
+      this.setState({ filters, articles, loading: false })
+    );
   };
 
   render() {

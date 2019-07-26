@@ -53,12 +53,12 @@
                         <div ng-if="!article.duplicate" class="sd-list-item__column">
                             <span class="sd-list-item__serial-number" ng-class="{'sp-listSerialNumberMinWidth': newList.items.length > 9}" >{{$index + 1}}</span>
                         </div>
-                        <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
+                        <div ng-if="!article.duplicate && article.content && article.content.feature_media && article.content.feature_media.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
                             <img ng-src="{{webPublisherContentLists.getThumbnail(article.content)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
-                        <div ng-if="!article.duplicate && article.featureMedia && article.featureMedia.image"
+                        <div ng-if="!article.duplicate && article.feature_media && article.feature_media.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
                             <img ng-src="{{webPublisherContentLists.getThumbnail(article)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
@@ -120,12 +120,12 @@
                                 <i class="icon-warning-sign"></i>
                             </a>
                         </div>
-                        <div ng-if="!article.duplicate && article.content && article.content.featureMedia && article.content.featureMedia.image"
+                        <div ng-if="!article.duplicate && article.content && article.content.feature_media && article.content.feature_media.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
                             <img ng-src="{{webPublisherContentLists.getThumbnail(article.content)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
                         </div>
-                        <div ng-if="!article.duplicate && article.featureMedia && article.featureMedia.image"
+                        <div ng-if="!article.duplicate && article.feature_media && article.feature_media.image"
                             class="sd-list-item__column sd-list-item__column--no-border sd-list-item__column--no-right-padding">
                             <img ng-src="{{webPublisherContentLists.getThumbnail(article)}}"
                                 class="sd-list-item__thumbnail" style="max-width:60px">
