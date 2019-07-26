@@ -1,88 +1,169 @@
 <div sd-modal data-model="active" class="modal--tabs modal--large sd-wizard">
-    <div class="modal__header">
-        <a href="" class="close" ng-click="managerController.toggleSiteWizard()"><i class="icon-close-small"></i></a>
-        <h3 class="modal__heading" translate>Create Site Wizard <span ng-if="newSite.output_channel">- {{newSite.output_channel.type.charAt(0).toUpperCase() + newSite.output_channel.type.slice(1)}}</span></h3>
-    </div>
+  <div class="modal__header">
+    <a href="" class="close" ng-click="managerController.toggleSiteWizard()"
+      ><i class="icon-close-small"></i
+    ></a>
+    <h3 class="modal__heading" translate>
+      Create Site Wizard
+      <span ng-if="newSite.output_channel"
+        >-
+        {{
+          newSite.output_channel.type.charAt(0).toUpperCase() +
+            newSite.output_channel.type.slice(1)
+        }}</span
+      >
+    </h3>
+  </div>
 
-    <div class="modal__body" sd-wizard data-name="siteWizard" data-current-step="step.current" data-finish="managerController.toogleSiteWizard()">
-        <div sd-wizard-step data-title="{{ 'Add site' | translate }}" data-code="addSite" data-disabled="true">
-            <form name="generalStep" class="content">
-                <div class="sd-alert sd-alert--hollow sd-alert--alert" ng-if="wizard.errorMessage">
-                    {{wizard.errorMessage}}
-                </div>
-                <fieldset>
-                    <div ng-if="newSite.output_channel" class="form__row form__row--flex">
-                            <h4 class="text--light text--thin text--uppercase">Superdesk Publisher tenant settings</h4>
-                    </div>
-                    <div class="form__row form__row--flex">
-                        <div class="form__row-item">
-                            <div class="sd-line-input sd-line-input--required">
-                                <label class="sd-line-input__label" translate>Site name</label>
-                                <input class="sd-line-input__input" type="text" ng-model="newSite.name" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__row form__row--flex">
-                        <div class="form__row-item">
-                            <div class="sd-line-input sd-line-input--required">
-                                <label class="sd-line-input__label" translate>Domain name</label>
-                                <input class="sd-line-input__input" type="text"
-                                    ng-trim="false"
-                                    ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')"
-                                    name="domain_name"
-                                    ng-model="newSite.domain_name"
-                                required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__row form__row--flex">
-                        <div class="form__row-item">
-                            <div class="sd-line-input">
-                                <label class="sd-line-input__label" translate>Subdomain name</label>
-                                <input class="sd-line-input__input" type="text"
-                                    ng-trim="false"
-                                    ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')"
-                                    name="subdomain"
-                                    ng-model="newSite.subdomain"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="newSite.output_channel" class="form__row form__row--flex">
-                            <h4 class="text--light text--thin text--uppercase">{{newSite.output_channel.type}} settings</h4>
-                    </div>
-                    <div class="form__row form__row--flex"
-                        ng-if="newSite.output_channel"
-                        ng-repeat="(name, value) in newSite.output_channel.config" >
-                            <div class="form__row-item">
-                                <div class="sd-line-input sd-line-input--required">
-                                    <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
-                                    <input class="sd-line-input__input" type="text" ng-model="newSite.output_channel.config[name]" required>
-                                </div>
-                            </div>
-                        </div>
-                </fieldset>
-            </form>
-
-            <div class="modal__footer">
-                <button id="next-general"
-                        class="btn btn--primary"
-                        ng-click="saveSite()"
-                        ng-disabled="!generalStep.$valid || wizard.busy">Continue</button>
-            </div>
+  <div
+    class="modal__body"
+    sd-wizard
+    data-name="siteWizard"
+    data-current-step="step.current"
+    data-finish="managerController.toogleSiteWizard()"
+  >
+    <div
+      sd-wizard-step
+      data-title="{{ 'Add site' | translate }}"
+      data-code="addSite"
+      data-disabled="true"
+    >
+      <form name="generalStep" class="content">
+        <div
+          class="sd-alert sd-alert--hollow sd-alert--alert"
+          ng-if="wizard.errorMessage"
+        >
+          {{ wizard.errorMessage }}
         </div>
-        <div sd-wizard-step data-title="{{ :: 'Install theme' | translate }}"
-            ng-if="!newSite.output_channel"
-            data-code="installTheme"
-            data-disabled="true">
-            <div class="content">
-                <div sd-theme-manager data-site="wizard.site" activated-callback="themeActivatedCallback()" data-grid="2"></div>
+        <fieldset>
+          <div ng-if="newSite.output_channel" class="form__row form__row--flex">
+            <h4 class="text--light text--thin text--uppercase">
+              Superdesk Publisher tenant settings
+            </h4>
+          </div>
+          <div class="form__row form__row--flex">
+            <div class="form__row-item">
+              <div class="sd-line-input sd-line-input--required">
+                <label class="sd-line-input__label" translate>Site name</label>
+                <input
+                  class="sd-line-input__input"
+                  type="text"
+                  ng-model="newSite.name"
+                  required
+                />
+              </div>
             </div>
-            <div class="modal__footer">
-                <button class="btn btn--primary" ng-disabled="!wizard.ready"  ng-click="configureSite()">Configure your site</button>
-                <button class="btn btn--hollow  btn--primary" ng-disabled="!wizard.ready" ng-click="managerController.toggleSiteWizard()">Done</button>
+          </div>
+          <div class="form__row form__row--flex">
+            <div class="form__row-item">
+              <div class="sd-line-input sd-line-input--required">
+                <label class="sd-line-input__label" translate
+                  >Domain name</label
+                >
+                <input
+                  class="sd-line-input__input"
+                  type="text"
+                  ng-trim="false"
+                  ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')"
+                  name="domain_name"
+                  ng-model="newSite.domain_name"
+                  required
+                />
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="form__row form__row--flex">
+            <div class="form__row-item">
+              <div class="sd-line-input">
+                <label class="sd-line-input__label" translate
+                  >Subdomain name</label
+                >
+                <input
+                  class="sd-line-input__input"
+                  type="text"
+                  ng-trim="false"
+                  ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')"
+                  name="subdomain"
+                  ng-model="newSite.subdomain"
+                />
+              </div>
+            </div>
+          </div>
+          <div ng-if="newSite.output_channel" class="form__row form__row--flex">
+            <h4 class="text--light text--thin text--uppercase">
+              {{ newSite.output_channel.type }} settings
+            </h4>
+          </div>
+          <div
+            class="form__row form__row--flex"
+            ng-if="newSite.output_channel"
+            ng-repeat="(name, value) in newSite.output_channel.config"
+          >
+            <div class="form__row-item">
+              <div class="sd-line-input sd-line-input--required">
+                <label class="sd-line-input__label" translate>{{
+                  name.replace("_", " ")
+                }}</label>
+                <input
+                  class="sd-line-input__input"
+                  type="text"
+                  ng-model="newSite.output_channel.config[name]"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
 
+      <div class="modal__footer">
+        <button
+          class="btn btn--hollow"
+          ng-click="managerController.toggleSiteWizard()"
+        >
+          Cancel
+        </button>
+        <button
+          id="next-general"
+          class="btn btn--primary"
+          ng-click="saveSite()"
+          ng-disabled="!generalStep.$valid || wizard.busy"
+        >
+          Continue
+        </button>
+      </div>
     </div>
+    <div
+      sd-wizard-step
+      data-title="{{ :: 'Install theme' | translate }}"
+      ng-if="!newSite.output_channel"
+      data-code="installTheme"
+      data-disabled="true"
+    >
+      <div class="content">
+        <div
+          sd-theme-manager
+          data-site="wizard.site"
+          activated-callback="themeActivatedCallback()"
+          data-grid="2"
+        ></div>
+      </div>
+      <div class="modal__footer">
+        <button
+          class="btn btn--primary"
+          ng-disabled="!wizard.ready"
+          ng-click="configureSite()"
+        >
+          Configure your site
+        </button>
+        <button
+          class="btn btn--hollow  btn--primary"
+          ng-disabled="!wizard.ready"
+          ng-click="managerController.toggleSiteWizard()"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
