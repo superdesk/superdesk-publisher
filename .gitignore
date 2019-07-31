@@ -30,3 +30,5 @@ _build_html
 coverage/
 .coverage*
 htmlcov
+
+.idea
