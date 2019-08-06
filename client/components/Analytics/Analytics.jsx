@@ -138,7 +138,9 @@ class Analytics extends React.Component {
       itemSize: 100
     };
 
-    this.setState({ filters, articles });
+    this.setState({ loading: true }, () =>
+      this.setState({ filters, articles, loading: false })
+    );
   };
 
   render() {
@@ -220,6 +222,13 @@ class Analytics extends React.Component {
                           <div>Impressions</div>
                         </div>
                       </div>
+                      {!this.state.articles.loading &&
+                        this.state.articles.items &&
+                        !this.state.articles.items.length && (
+                          <p style={{ padding: "1em", textAlign: "center" }}>
+                            No results found
+                          </p>
+                        )}
                       {!this.state.loading && (
                         <VirtualizedList
                           hasNextPage={

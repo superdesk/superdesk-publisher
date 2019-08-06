@@ -258,6 +258,7 @@ export default angular
         href: "/publisher/dashboard",
         label: gettext("Publisher"),
         icon: "publisher",
+        shortcut: "alt+w",
         order: 1100,
         group: "Planning"
       });
