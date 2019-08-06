@@ -8,8 +8,6 @@ import AutomaticList from "./Automatic/Automatic";
 import ManualList from "./Manual/Manual";
 import ArticlePreview from "../generic/ArticlePreview";
 
-import Dnd from "./Manual/DND";
-
 class ContentLists extends React.Component {
   constructor(props) {
     super(props);
@@ -112,12 +110,16 @@ class ContentLists extends React.Component {
   onListUpdate = updatedList => {
     let lists = [...this.state.lists];
     let index = lists.findIndex(list => list.id === updatedList.id);
+    let selectedList = { ...this.state.selectedList };
+
+    if (selectedList.id === updatedList.id) {
+      selectedList = updatedList;
+    }
 
     if (index > -1) {
       lists[index] = updatedList;
-
-      this.setState({ lists });
     }
+    this.setState({ lists, selectedList });
   };
 
   toggleTenantsNav = () =>
@@ -208,32 +210,29 @@ class ContentLists extends React.Component {
 
             {this.state.selectedList &&
               this.state.selectedList.type === "manual" && (
-                // <ManualList
-                //   list={this.state.selectedList}
-                //   lists={this.state.lists}
-                //   publisher={this.props.publisher}
-                //   listEdit={list => this.listEdit(list)}
-                //   onEditCancel={this.cancelListEdit}
-                //   onListUpdate={list => this.onListUpdate(list)}
-                //   toggleFilters={this.toggleFilters}
-                //   openPreview={item => this.openPreview(item)}
-                //   previewItem={this.state.previewItem}
-                //   filtersOpen={this.state.filtersOpen}
-                //   api={this.props.api}
-                // />
-                <Dnd />
+                <ManualList
+                  list={this.state.selectedList}
+                  lists={this.state.lists}
+                  publisher={this.props.publisher}
+                  listEdit={list => this.listEdit(list)}
+                  onEditCancel={this.cancelListEdit}
+                  onListUpdate={list => this.onListUpdate(list)}
+                  toggleFilters={this.toggleFilters}
+                  openPreview={item => this.openPreview(item)}
+                  previewItem={this.state.previewItem}
+                  filtersOpen={this.state.filtersOpen}
+                  api={this.props.api}
+                />
               )}
 
-            {this.state.previewItem && (
-              <ArticlePreview
-                article={
-                  this.state.previewItem.content
-                    ? this.state.previewItem.content
-                    : this.state.previewItem
-                }
-                close={this.closePreview}
-              />
-            )}
+            <ArticlePreview
+              article={
+                this.state.previewItem && this.state.previewItem.content
+                  ? this.state.previewItem.content
+                  : this.state.previewItem
+              }
+              close={this.closePreview}
+            />
           </div>
         </div>
       </React.Fragment>

@@ -1,18 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import _ from "lodash";
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      value: this.props.value ? this.props.value : ""
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.value, prevProps.value)) {
+      this.setState({ value: this.props.value });
+    }
   }
 
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {});
+  };
+
+  debouncedChange = _.debounce(
+    () => this.props.onChange(this.state.value),
+    this.props.debounceTime ? this.props.debounceTime : 900
+  );
+
+  handleChange = e => {
+    this.setState({ value: e.target.value }, () => {
+      if (this.state.value.length > 2) this.debouncedChange();
+    });
   };
 
   render() {
@@ -29,7 +48,7 @@ class SearchBar extends React.Component {
       >
         <div className="search-handler" style={handlerStyle}>
           <label
-            for="search-input"
+            htmlFor="search-input"
             className="trigger-icon"
             onClick={this.toggle}
           >
@@ -39,8 +58,8 @@ class SearchBar extends React.Component {
             id="search-input"
             type="text"
             placeholder="Search"
-            value={this.props.value}
-            onChange={this.props.onChange}
+            value={this.state.value}
+            onChange={this.handleChange}
             style={inputStyle}
           />
         </div>
@@ -50,9 +69,10 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  style: PropTypes.string
+  style: PropTypes.string,
+  debounceTime: PropTypes.number
 };
 
 SearchBar.defaultProps = {

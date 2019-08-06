@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 
-import helpers from "../../../services/helpers.js";
-
-import MultiSelect from "../../UI/MultiSelect/MultiSelect";
+import MultiSelect from "../../UI/MultiSelect";
 
 class FilterPanel extends React.Component {
   constructor(props) {
@@ -16,7 +14,8 @@ class FilterPanel extends React.Component {
     this.state = {
       filters: { metadata: [], route: [], author: [] },
       routes: [],
-      authors: []
+      authors: [],
+      loading: true
     };
   }
 
@@ -29,7 +28,7 @@ class FilterPanel extends React.Component {
       }
     });
 
-    this.loadUsers();
+    this.loadAuthors();
   }
 
   componentWillUnmount() {
@@ -42,7 +41,7 @@ class FilterPanel extends React.Component {
     }
   }
 
-  loadUsers = (page = 1) => {
+  loadAuthors = (page = 1) => {
     this.props.api.users
       .query({
         max_results: 200,
@@ -61,7 +60,7 @@ class FilterPanel extends React.Component {
         if (this._isMounted && authors.length)
           this.setState({ authors: [...this.state.authors, ...authors] });
 
-        if (response._links.next) this.loadUsers(page + 1);
+        if (response._links.next) this.loadAuthors(page + 1);
       });
   };
 
@@ -69,11 +68,24 @@ class FilterPanel extends React.Component {
     let filters = { ...this.props.filters };
 
     let newRoute = [];
-    filters.route.map(id => {
-      let routeObj = this.state.routes.find(route => route.id === id);
-      if (routeObj) newRoute.push({ value: routeObj.id, label: routeObj.name });
-    });
+    if (filters.route) {
+      filters.route.map(id => {
+        let routeObj = this.state.routes.find(
+          route => parseInt(id) === parseInt(route.id)
+        );
+        if (routeObj)
+          newRoute.push({ value: parseInt(routeObj.id), label: routeObj.name });
+      });
+    }
     filters.route = newRoute;
+
+    let newAuthor = [];
+    if (filters.author) {
+      filters.author.map(authorName => {
+        newAuthor.push({ value: authorName, label: authorName });
+      });
+    }
+    filters.author = newAuthor;
 
     let newMetadata = [];
     Object.entries(filters.metadata).forEach(([key, value]) => {
@@ -83,46 +95,53 @@ class FilterPanel extends React.Component {
 
     if (!filters.author) filters.author = [];
 
-    this.setState({ filters });
+    this.setState({ filters, loading: false });
   };
 
   save = () => {
-    let updatedFilters = _.pickBy(this.state.filters, _.identity);
+    this.setState({ loading: true });
 
-    updatedFilters.metadata = {};
-    this.metadataList.forEach(item => {
-      if (item.metaName) {
-        updatedFilters.metadata[item.metaName] = item.metaValue;
+    let filters = _.pickBy({ ...this.state.filters }, _.identity);
+
+    let newMetadata = {};
+    filters.metadata.forEach(item => {
+      if (item.key) {
+        newMetadata[item.key] = item.value;
       }
     });
 
-    delete updatedFilters.route;
-    if (this.selectedRoutes.length > 0) {
-      updatedFilters.route = [];
-      this.selectedRoutes.forEach(item => {
-        updatedFilters.route.push(item.id);
-      });
-    }
-    $scope.loading = true;
+    filters.metadata = newMetadata;
 
-    publisher
-      .manageList({ filters: updatedFilters }, this.selectedList.id)
+    let newRoute = [];
+
+    filters.route.forEach(item => {
+      newRoute.push(item.value);
+    });
+
+    filters.route = newRoute;
+
+    let newAuthor = [];
+
+    filters.author.forEach(item => {
+      newAuthor.push(item.value);
+    });
+
+    filters.author = newAuthor;
+
+    this.props.publisher
+      .manageList({ filters: JSON.stringify(filters) }, this.props.list.id)
       .then(response => {
-        let index = $scope.lists.findIndex(el => el.id === response.id);
-        if (index > -1) {
-          $scope.lists[index] = response;
-        }
-        $scope.loading = false;
-        $scope.$broadcast("refreshListArticles", $scope.newList);
+        this.props.onFiltersSave(response);
+        this.setState({ loading: false });
       })
       .catch(err => {
+        this.setState({ loading: false });
         if (err.status === 409) {
-          notify.error("Cannot save. List has been modified by another user");
-          this.reloadSelectedList();
-          this.listChangeFlag = false;
+          this.props.api.notify.error(
+            "Cannot save. List has been modified by another user"
+          );
         } else {
-          notify.error("Something went wrong. Try again.");
-          $scope.loading = false;
+          this.props.api.notify.error("Something went wrong. Try again.");
         }
       });
   };
@@ -131,7 +150,7 @@ class FilterPanel extends React.Component {
     this.setState({ filters: { metadata: [], route: [], author: [] } });
   };
 
-  handleInputChange = (e, a) => {
+  handleInputChange = e => {
     let { name, value } = e.target;
     let filters = { ...this.state.filters };
 
@@ -139,35 +158,64 @@ class FilterPanel extends React.Component {
     this.setState({ filters });
   };
 
-  authorAdd = () => {
-    let author = [...this.state.filters.author];
-
-    author.push("");
-    this.setState({ filters: { ...this.state.filters, author: author } });
-  };
-
-  handleAuthorChange = index => evt => {
-    const newAuthor = this.state.filters.author.map((author, idx) => {
-      if (index !== idx) return author;
-      return evt.target.value;
-    });
-
+  handleAuthorChange = arr => {
     let filters = { ...this.state.filters };
 
-    filters.author = newAuthor;
+    filters.author = arr ? arr : [];
     this.setState({ filters });
   };
 
-  authorDelete = index => {
-    let author = [...this.state.filters.author];
+  handleRoutesChange = arr => {
+    let filters = { ...this.state.filters };
 
-    delete author[index];
-    this.setState({ filters: { ...this.state.filters, author: author } });
+    filters.route = arr ? arr : [];
+    this.setState({ filters });
+  };
+
+  addMetadata = () => {
+    let filters = { ...this.state.filters };
+
+    filters.metadata.push({ key: "", value: "" });
+    this.setState({ filters });
+  };
+
+  removeMetaData = index => {
+    let filters = { ...this.state.filters };
+
+    delete filters.metadata[index];
+    this.setState({ filters });
+  };
+
+  handleMetaDataChange = (e, index) => {
+    let { name, value } = e.target;
+    let filters = { ...this.state.filters };
+
+    filters.metadata[index][name] = value;
+    this.setState({ filters });
   };
 
   render() {
+    let routesOptions = [];
+
+    this.state.routes.map(route => {
+      routesOptions.push({
+        value: parseInt(route.id),
+        label: route.name
+      });
+    });
+
+    let authorsOptions = [];
+
+    this.state.authors.map(author => {
+      authorsOptions.push({
+        value: author.display_name,
+        label: author.display_name
+      });
+    });
+
     return (
-      <div className="sd-filters-panel sd-filters-panel--border-right">
+      <div className="sd-filters-panel sd-filters-panel--border-right relative">
+        {this.state.loading && <div className="sd-loader" />}
         <div className="side-panel side-panel--transparent side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-b">
             <a
@@ -183,60 +231,25 @@ class FilterPanel extends React.Component {
             </h3>
           </div>
           <div className="side-panel__content">
-            {/* <div className="sd-loader" ng-if="loading" /> */}
             <div className="side-panel__content-block">
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin sd-line-input--is-select">
+                <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Categories</label>
-                  {/* <MultiSelect
-                    onSelect={() => null}
-                    options={[]}
-                    selectedOptions={[]}
-                  /> */}
+                  <MultiSelect
+                    onSelect={values => this.handleRoutesChange(values)}
+                    options={routesOptions}
+                    selectedOptions={this.state.filters.route}
+                  />
                 </div>
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Author</label>
-                  {this.state.filters.author.map((value, index) => (
-                    <div
-                      className="grid"
-                      key={"author" + index}
-                      style={{ padding: "0" }}
-                    >
-                      <div
-                        className="grid__item grid__item--col-10"
-                        style={{ paddingLeft: "0" }}
-                      >
-                        <input
-                          className="sd-line-input__input"
-                          type="text"
-                          onChange={this.handleAuthorChange(index)}
-                          name={"author" + index}
-                          value={value}
-                        />
-                      </div>
-                      <div className="grid__item grid__item--col-2">
-                        <button
-                          type="button"
-                          className="btn btn--alert btn--small btn--icon-only btn--hollow"
-                          onClick={() => this.authorDelete(index)}
-                        >
-                          <i className="icon-close-small" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--icon-only margin--top"
-                    onClick={this.authorAdd}
-                    sd-tooltip="Add author"
-                    flow="right"
-                  >
-                    <i className="icon-plus-large" />
-                  </button>
+                  <MultiSelect
+                    onSelect={values => this.handleAuthorChange(values)}
+                    options={authorsOptions}
+                    selectedOptions={this.state.filters.author}
+                  />
                 </div>
               </div>
               <div className="form__row form__row--flex">
@@ -294,44 +307,45 @@ class FilterPanel extends React.Component {
               <div className="form__row form__row--flex">
                 <div className="sd-line-input">
                   <label className="sd-line-input__label">Metadata</label>
-                  <div
-                    ng-repeat="item in webPublisherContentLists.metadataList"
-                    className="grid"
-                  >
-                    <div className="grid__item grid__item--col-5">
-                      <input
-                        className="sd-line-input__input"
-                        type="text"
-                        ng-model="item.metaName"
-                        placeholder="Name"
-                      />
+                  {this.state.filters.metadata.map((meta, index) => (
+                    <div className="grid" key={"metadata" + index}>
+                      <div className="grid__item grid__item--col-5">
+                        <input
+                          className="sd-line-input__input"
+                          type="text"
+                          onChange={e => this.handleMetaDataChange(e, index)}
+                          name="key"
+                          value={meta.key ? meta.key : ""}
+                          placeholder="Name"
+                        />
+                      </div>
+                      <div className="grid__item grid__item--col-5">
+                        <input
+                          className="sd-line-input__input"
+                          type="text"
+                          onChange={e => this.handleMetaDataChange(e, index)}
+                          name="value"
+                          value={meta.value ? meta.value : ""}
+                          placeholder="Value"
+                        />
+                      </div>
+                      <div className="grid__item grid__item--col-2">
+                        <button
+                          type="button"
+                          className="btn btn--alert btn--small btn--icon-only btn--hollow"
+                          onClick={() => this.removeMetaData(index)}
+                          sd-tooltip="Remove"
+                        >
+                          <i className="icon-close-small" />
+                        </button>
+                      </div>
                     </div>
-                    <div className="grid__item grid__item--col-5">
-                      <input
-                        className="sd-line-input__input"
-                        type="text"
-                        ng-model="item.metaValue"
-                        placeholder="Value"
-                      />
-                    </div>
-                    <div className="grid__item grid__item--col-2">
-                      <button
-                        type="button"
-                        className="btn btn--alert btn--small btn--icon-only btn--hollow"
-                        ng-click="webPublisherContentLists.removeMetadata($index)"
-                        tooltip="{{:: 'Remove'|translate}}"
-                        tooltip-placement="bottom"
-                        tooltip-popup-delay="500"
-                      >
-                        <i className="icon-close-small" />
-                      </button>
-                    </div>
-                  </div>
+                  ))}
+
                   <button
                     type="button"
                     className="btn btn--primary btn--icon-only margin--top"
-                    ng-click="webPublisherContentLists.addMetadata()"
-                    sd-tooltip="{{:: 'Add metadata'|translate}}"
+                    onClick={this.addMetadata}
                     flow="right"
                   >
                     <i className="icon-plus-large" />
@@ -358,6 +372,7 @@ class FilterPanel extends React.Component {
 
 FilterPanel.propTypes = {
   toggle: PropTypes.func.isRequired,
+  list: PropTypes.object.isRequired,
   publisher: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   onFiltersSave: PropTypes.func,

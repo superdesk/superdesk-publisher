@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 const CheckButton = ({ onClick, label, isChecked }) => {
   return (
-    <span className="sd-check__wrapper ng-empty ng-valid" onClick={onClick}>
+    <span className="sd-check__wrapper" onClick={onClick}>
       <span
         className={classNames(
           "sd-checkbox sd-checkbox--button-style sd-checkbox--radio",

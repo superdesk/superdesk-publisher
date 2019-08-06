@@ -17,26 +17,13 @@ class ListCard extends React.Component {
     this.state = {
       list: { ...props.list },
       isEditing: this.props.list.name ? false : true,
-      loading: true,
-      items: [],
-      moreItemsAmount: 0,
-
+      loading: false,
+      moreItemsAmount:
+        props.list.content_list_items_count - 5 > 0
+          ? props.list.content_list_items_count - 5
+          : 0,
       modalType: null
     };
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-
-    if (this.state.list.content_list_items_count) {
-      this._loadItems();
-    } else {
-      this.setState({ loading: false });
-    }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   modalClose = () => {
@@ -93,23 +80,6 @@ class ListCard extends React.Component {
 
   cancelEditing = () => {
     this.setState({ list: this.props.list, isEditing: false });
-  };
-
-  _loadItems = () => {
-    this.props.publisher
-      .queryListArticlesWithDetails(this.props.list.id, { limit: 20 })
-      .then(response => {
-        let items = response._embedded._items;
-        let moreItemsAmount = 0;
-
-        if (response.pages > 1) moreItemsAmount = parseInt(response.total) - 20;
-
-        if (this._isMounted)
-          this.setState({ items, moreItemsAmount, loading: false });
-      })
-      .catch(err => {
-        this.setState({ loading: false });
-      });
   };
 
   render() {
@@ -264,13 +234,13 @@ class ListCard extends React.Component {
           <div className="sd-card__content sd-card__content--scrollable relative">
             <ul className="sd-card__content-list">
               {this.state.loading && <div className="sd-loader" />}
-              {!this.state.loading && !this.state.items.length && (
+              {!this.state.loading && !this.state.list.latest_items.length && (
                 <div className="sd-card__content-list-item sd-card__content-list-item--small">
                   <span>No articles in this list</span>
                 </div>
               )}
-              {!this.state.loading && this.state.items.length
-                ? this.state.items.map(article => (
+              {!this.state.loading && this.state.list.latest_items.length
+                ? this.state.list.latest_items.map(article => (
                     <li
                       key={article.content.slug}
                       className="sd-card__content-list-item sd-card__content-list-item--small"
@@ -280,7 +250,7 @@ class ListCard extends React.Component {
                   ))
                 : null}
               {!this.state.loading &&
-              this.state.items.length &&
+              this.state.list.latest_items.length &&
               this.state.moreItemsAmount ? (
                 <li
                   key={"mat"}

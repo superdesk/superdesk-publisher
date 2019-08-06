@@ -141,6 +141,7 @@ class Automatic extends React.Component {
 
           <div className="sd-column-box--3">
             <FilterPanel
+              list={this.props.list}
               toggle={this.props.toggleFilters}
               publisher={this.props.publisher}
               filters={this.props.list.filters}
