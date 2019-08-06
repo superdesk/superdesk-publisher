@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/Modal renders itself, children correcty 1`] = `
+<div
+  class="modal modal--double in"
+  data-backdrop="static"
+  style="z-index: 1050; display: block;"
+>
+  <div
+    class="modal__dialog"
+  >
+    <div
+      class="modal__content"
+    >
+      <span>
+        child
+      </span>
+    </div>
+  </div>
+</div>
+`;

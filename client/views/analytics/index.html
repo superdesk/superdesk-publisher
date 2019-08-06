@@ -7,16 +7,11 @@
   </header>
 
   <section class="sd-content sd-page-content--slide-in">
-    <div class="sd-loader" ng-if="loading"></div>
     <div
       class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs"
       ng-include="'sidebar-content.html'"
     ></div>
-    <sp-analytics
-      class="sd-page-content__content-block sp-bottomBarMargin"
-      tenant="webPublisherAnalytics.tenant"
-      publisher="webPublisherAnalytics.publisher"
-    ></sp-analytics>
+    <div id="sp-analytics-react-app" class="sd-page-content__content-block sp-bottomBarMargin"></div>
     <footer classname="bottom-bar "></footer>
   </section>
   <footer className="bottom-bar " />
