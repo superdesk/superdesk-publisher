@@ -372,7 +372,7 @@ export function WebPublisherContentListsController(
           $scope.newList.filters.route.length > 0
         ) {
           routes.forEach(item => {
-            if ($scope.newList.filters.route.indexOf(item.id + "") !== -1) {
+            if ($scope.newList.filters.route.indexOf(item.id) !== -1) {
               this.selectedRoutes.push(item);
             }
           });
