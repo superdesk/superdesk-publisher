@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/SearchBar renders correcty 1`] = `
+<div
+  class="flat-searchbar"
+>
+  <div
+    class="search-handler"
+  >
+    <label
+      class="trigger-icon"
+      for="search-input"
+    >
+      <i
+        class="icon-search"
+      />
+    </label>
+    <input
+      placeholder="Search"
+      type="text"
+      value="testvalue"
+    />
+  </div>
+</div>
+`;
