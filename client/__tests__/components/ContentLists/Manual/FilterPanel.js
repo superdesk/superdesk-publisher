@@ -4,6 +4,8 @@ import { render, fireEvent } from "@testing-library/react";
 
 import Publisher from "../../../../__mocks__/publisher";
 
+jest.mock("react-select", () => props => "div");
+
 const publisher = new Publisher();
 
 let lists = [];

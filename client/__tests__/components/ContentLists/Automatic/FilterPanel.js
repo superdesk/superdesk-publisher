@@ -6,6 +6,8 @@ import Publisher from "../../../../__mocks__/publisher";
 
 const publisher = new Publisher();
 
+jest.mock("react-select", () => props => "div");
+
 let lists = [];
 publisher.queryLists().then(items => (lists = items));
 

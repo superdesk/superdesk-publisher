@@ -11,6 +11,7 @@ let lists = [];
 publisher.queryLists().then(items => (lists = items));
 
 jest.mock("axios");
+jest.mock("react-select", () => props => "div");
 
 let api = () => {};
 
