@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
+<div
+  class="sd-list-item sd-list-item--activated"
+>
+  <div
+    class="sd-list-item__column"
+  >
+    <span
+      class="sd-list-item__serial-number sp-listSerialNumberMinWidth"
+    >
+      2
+    </span>
+  </div>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item__text-strong"
+      />
+    </div>
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item--element-grow"
+      >
+        a few seconds ago
+      </span>
+      <span
+        class="label label--success label--hollow"
+      />
+    </div>
+  </div>
+  <div
+    class="sd-list-item__action-menu"
+  >
+    <button
+      title="Remove"
+    >
+      <i
+        class="icon-trash"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ContentLists/Manual/ArticleItem renders correctly without extras 1`] = `
+<div
+  class="sd-list-item sd-list-item--activated"
+>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item__text-strong"
+      />
+    </div>
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item--element-grow"
+      >
+        a few seconds ago
+      </span>
+      <span
+        class="label label--success label--hollow"
+      />
+    </div>
+  </div>
+</div>
+`;
