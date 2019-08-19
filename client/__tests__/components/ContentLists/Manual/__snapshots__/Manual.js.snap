@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/Manual/Manual renders properly 1`] = `
+<div
+  class="flex-grid flex-grid--grow flex-grid--small-2"
+>
+  <div
+    class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column panel-border-right"
+  >
+    <div
+      class="subnav subnav--lower-z-index subnav--dark-blue-grey"
+    >
+      <button
+        class="navbtn navbtn--left"
+      >
+        <i
+          class="icon-th"
+        />
+      </button>
+      <div
+        class="flat-searchbar"
+      >
+        <div
+          class="search-handler"
+        >
+          <label
+            class="trigger-icon"
+            for="search-input"
+          >
+            <i
+              class="icon-search"
+              style="color: rgb(255, 255, 255);"
+            />
+          </label>
+          <input
+            placeholder="Search"
+            style="color: rgb(255, 255, 255);"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="dropdown"
+      >
+        <span>
+          <button
+            class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle"
+          >
+            Most shared
+            <span
+              class="dropdown__caret"
+            />
+          </button>
+        </span>
+        <ul
+          class="dropdown__menu dropdown__menu--scrollable"
+        >
+          <li>
+            <div
+              class="dropdown__menu-label"
+            />
+          </li>
+          <li>
+            <button>
+              Most shared
+            </button>
+          </li>
+          <li>
+            <button>
+              Top news
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="subnav__stretch-bar"
+      />
+      <button
+        class="btn btn--primary margin--right"
+        disabled=""
+      >
+        Save
+      </button>
+    </div>
+    <div
+      class="sd-column-box--3"
+    >
+      <div
+        class="sd-column-box__main-column relative dropZone"
+      >
+        <ul
+          class="sd-list-item-group sd-shadow--z2"
+        >
+          <li>
+            <div
+              class="spinner spinner--dark"
+            >
+              <div
+                class="bounce1"
+              />
+              <div
+                class="bounce2"
+              />
+              <div
+                class="bounce3"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-grid__item flex-grid__item--d-flex flex-grid__item--column"
+  >
+    <div
+      class="subnav subnav--lower-z-index"
+    >
+      <button
+        class="navbtn navbtn--left navbtn--darker"
+        flow="right"
+        sd-tooltip="Filter"
+      >
+        <i
+          class="icon-filter-large"
+        />
+      </button>
+      <div
+        class="flat-searchbar"
+      >
+        <div
+          class="search-handler"
+        >
+          <label
+            class="trigger-icon"
+            for="search-input"
+          >
+            <i
+              class="icon-search"
+            />
+          </label>
+          <input
+            placeholder="Search"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <h3
+        class="subnav__page-title"
+      >
+        All published articles
+      </h3>
+    </div>
+    <div
+      class="sd-column-box--3"
+    >
+      <div
+        class="sd-column-box__main-column relative"
+      >
+        <ul
+          class="sd-list-item-group sd-shadow--z2"
+        >
+          <li>
+            <div
+              class="spinner spinner--dark"
+            >
+              <div
+                class="bounce1"
+              />
+              <div
+                class="bounce2"
+              />
+              <div
+                class="bounce3"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="sd-filters-panel sd-filters-panel--border-left"
+      >
+        <div
+          class="side-panel side-panel--transparent side-panel--shadow-right"
+        >
+          <div
+            class="side-panel__header side-panel__header--border-b"
+          >
+            <a
+              class="icn-btn side-panel__close"
+              flow="left"
+              sd-tooltip="Close filters"
+            >
+              <i
+                class="icon-close-small"
+              />
+            </a>
+            <h3
+              class="side-panel__heading"
+            >
+              Advanced filters
+            </h3>
+          </div>
+          <div
+            class="side-panel__content"
+          >
+            <div
+              class="side-panel__content-block"
+            >
+              <div
+                class="form__row"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
+                >
+                  <label
+                    class="sd-line-input__label"
+                  >
+                    Categories
+                  </label>
+                  div
+                </div>
+              </div>
+              <div
+                class="form__row"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
+                >
+                  <label
+                    class="sd-line-input__label"
+                  >
+                    Author
+                  </label>
+                  div
+                </div>
+              </div>
+              <div
+                class="form__row form__row--flex"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin"
+                >
+                  <label
+                    class="sd-line-input__label"
+                  >
+                    Published date
+                  </label>
+                  <input
+                    class="sd-line-input__input"
+                    name="published_at"
+                    type="date"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="form__row form__row--flex"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin"
+                >
+                  <label
+                    class="sd-line-input__label"
+                  >
+                    Published after
+                  </label>
+                  <input
+                    class="sd-line-input__input"
+                    name="published_after"
+                    type="date"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="form__row form__row--flex"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin"
+                >
+                  <label
+                    class="sd-line-input__label"
+                  >
+                    Published before
+                  </label>
+                  <input
+                    class="sd-line-input__input"
+                    name="published_before"
+                    type="date"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="side-panel__footer side-panel__footer--button-box"
+          >
+            <div
+              class="flex-grid flex-grid--boxed-small flex-grid--small-2"
+            >
+              <a
+                class="btn btn--hollow"
+              >
+                Clear
+              </a>
+              <a
+                class="btn btn--primary"
+              >
+                Filter
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

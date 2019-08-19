@@ -199,7 +199,7 @@ Automatic.propTypes = {
   listEdit: PropTypes.func,
   onEditCancel: PropTypes.func,
   onListUpdate: PropTypes.func.isRequired,
-  toggleFilters: PropTypes.func,
+  toggleFilters: PropTypes.func.isRequired,
   openPreview: PropTypes.func,
   previewItem: PropTypes.object,
   filtersOpen: PropTypes.bool,

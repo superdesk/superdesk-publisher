@@ -29,6 +29,7 @@ class SearchBar extends React.Component {
   );
 
   handleChange = e => {
+    console.log("ehe");
     this.setState({ value: e.target.value }, () => {
       if (this.state.value.length > 2) this.debouncedChange();
     });
@@ -55,7 +56,6 @@ class SearchBar extends React.Component {
             <i className="icon-search" style={inputStyle} />
           </label>
           <input
-            id="search-input"
             type="text"
             placeholder="Search"
             value={this.state.value}
@@ -76,7 +76,7 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  style: "lights1"
+  style: "light"
 };
 
 export default SearchBar;

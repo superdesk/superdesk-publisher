@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/Listing renders correctly 1`] = `
+<div
+  class="sd-column-box__main-column relative sd-display-flex-column"
+>
+  <div
+    class="subnav subnav--padded subnav--lower-z-index"
+    style="padding-right: 0px;"
+  >
+    <span
+      class="sd-check__wrapper"
+    >
+      <span
+        class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+      >
+        <label>
+          All
+        </label>
+      </span>
+    </span>
+    <span
+      class="sd-check__wrapper"
+    >
+      <span
+        class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+      >
+        <label>
+          Automatic
+        </label>
+      </span>
+    </span>
+    <span
+      class="sd-check__wrapper"
+    >
+      <span
+        class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+      >
+        <label>
+          Manual
+        </label>
+      </span>
+    </span>
+    <div
+      class="subnav__stretch-bar"
+    />
+    <div
+      class="dropdown dropdown--align-right"
+      flow="left"
+    >
+      <span>
+        <button
+          class="navbtn dropdown sd-create-btn dropdown-toggle"
+          sd-tooltip="Create new list"
+        >
+          <i
+            class="icon-plus-large"
+          />
+          <span
+            class="circle"
+          />
+        </button>
+      </span>
+      <ul
+        class="dropdown__menu dropdown--align-right"
+      >
+        <li>
+          <div
+            class="dropdown__menu-label"
+          >
+            Create new list
+          </div>
+        </li>
+        <li
+          class="dropdown__menu-divider"
+        />
+        <li>
+          <button>
+            Automatic List
+          </button>
+        </li>
+        <li>
+          <button>
+            Manual List
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="sd-display-flex-column"
+  >
+    <div
+      class="sd-grid-list sd-grid-list--large"
+    >
+      <div
+        class="sd-card flexGrow"
+      >
+        <div
+          class="sd-card__header sd-card__header--padding sd-card__header--secondary-color"
+        >
+          <div
+            class="sd-card__heading"
+          >
+            Most shared
+          </div>
+          <div
+            class="sd-card__actions-group"
+          >
+            <a
+              class="btn btn--small btn--hollow btn--ui-dark"
+            >
+              Edit
+            </a>
+            <div
+              class="dropdown dropdown--align-right"
+              flow="left"
+            >
+              <span>
+                <button
+                  class="dropdown__toggle icn-btn"
+                >
+                  <i
+                    class="icon-dots-vertical"
+                  />
+                </button>
+              </span>
+              <ul
+                class="dropdown__menu dropdown--align-right"
+              >
+                <li>
+                  <button
+                    title="Settings"
+                  >
+                    <i
+                      class="icon-settings"
+                    />
+                    Settings
+                  </button>
+                </li>
+                <li>
+                  <button
+                    title="Remove list"
+                  >
+                    <i
+                      class="icon-trash"
+                    />
+                    Remove
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sd-card__content sd-card__content--scrollable relative"
+        >
+          <ul
+            class="sd-card__content-list"
+          >
+            <div
+              class="sd-card__content-list-item sd-card__content-list-item--small"
+            >
+              <span>
+                No articles in this list
+              </span>
+            </div>
+          </ul>
+        </div>
+        <div
+          class="sd-card__footer sd-card__footer--spread"
+        >
+          <div>
+            <span
+              class="sd-text__info"
+            >
+              Last modified: 
+            </span>
+            <span>
+              5 months ago
+            </span>
+          </div>
+          <span
+            class="label label--success label--hollow"
+          >
+            active
+          </span>
+        </div>
+      </div>
+      <div
+        class="modal modal--double"
+        data-backdrop="static"
+      >
+        <div
+          class="modal__dialog"
+        >
+          <div
+            class="modal__content"
+          />
+        </div>
+      </div>
+      <div
+        class="sd-card flexGrow"
+      >
+        <div
+          class="sd-card__header sd-card__header--padding"
+        >
+          <div
+            class="sd-card__heading"
+          >
+            Top news
+          </div>
+          <div
+            class="sd-card__actions-group"
+          >
+            <a
+              class="btn btn--small btn--hollow btn--ui-dark"
+            >
+              Edit
+            </a>
+            <div
+              class="dropdown dropdown--align-right"
+              flow="left"
+            >
+              <span>
+                <button
+                  class="dropdown__toggle icn-btn"
+                >
+                  <i
+                    class="icon-dots-vertical"
+                  />
+                </button>
+              </span>
+              <ul
+                class="dropdown__menu dropdown--align-right"
+              >
+                <li>
+                  <button
+                    title="Settings"
+                  >
+                    <i
+                      class="icon-settings"
+                    />
+                    Settings
+                  </button>
+                </li>
+                <li>
+                  <button
+                    title="Remove list"
+                  >
+                    <i
+                      class="icon-trash"
+                    />
+                    Remove
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sd-card__content sd-card__content--scrollable relative"
+        >
+          <ul
+            class="sd-card__content-list"
+          >
+            <li
+              class="sd-card__content-list-item sd-card__content-list-item--small"
+            >
+              seo test
+            </li>
+          </ul>
+        </div>
+        <div
+          class="sd-card__footer sd-card__footer--spread"
+        >
+          <div>
+            <span
+              class="sd-text__info"
+            >
+              Last modified: 
+            </span>
+            <span>
+              4 days ago
+            </span>
+          </div>
+          <span
+            class="label label--success label--hollow"
+          >
+            active
+          </span>
+        </div>
+      </div>
+      <div
+        class="modal modal--double"
+        data-backdrop="static"
+      >
+        <div
+          class="modal__dialog"
+        >
+          <div
+            class="modal__content"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

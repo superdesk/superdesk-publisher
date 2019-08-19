@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/Automatic/ArticleItem renders correctly 1`] = `
+<div
+  class="sd-list-item sd-list-item--activated"
+>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item__text-strong"
+      >
+        test
+      </span>
+    </div>
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item--element-grow"
+      >
+        2 years ago
+      </span>
+      <span
+        class="label"
+      >
+        route
+      </span>
+    </div>
+  </div>
+  <div
+    class="sd-list-item__action-menu"
+  >
+    <button
+      class="pull-right"
+      flow="left"
+      sd-tooltip="Pin"
+      title="Pin"
+    >
+      <i
+        class="icon-pin"
+      />
+    </button>
+  </div>
+</div>
+`;
