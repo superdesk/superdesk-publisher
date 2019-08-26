@@ -44,7 +44,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
             <time
               title="2019-08-05T09:17:25+00:00"
             >
-              4 days ago
+              21 days ago
             </time>
           </p>
         </div>

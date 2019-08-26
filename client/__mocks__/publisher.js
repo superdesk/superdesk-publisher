@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default class Publisher {
   setToken() {
     return Promise.resolve(true);
@@ -54,7 +56,9 @@ export default class Publisher {
       body:
         '<p>I adore simple pleasures," said Lord Henry. "They are the last refuge of the complex. But I don\'t like scenes, except on the stage. What absurd fellows you are, both of you! I wonder who it was defined man as a rational animal. It was the most premature definition ever given. Man is many things, but he is not rational. I am glad he is not, after all--though I wish you chaps would not squabble over the picture. You had much better let me have it, Basil. This silly boy doesn\'t really want it, and I really do."</p><p>"If you let any one have it but me, Basil, I shall never forgive you!" cried Dorian Gray; "and I don\'t allow people to call me a silly boy."</p><p>"You know the picture is yours, Dorian. I gave it to you before it existed."</p><p>"And you know you have been a little silly, Mr. Gray, and that you don\'t really object to being reminded that you are extremely young."</p><p>"I should have objected very strongly this morning, Lord Henry."</p><p>"Ah! this morning! You have lived since then."</p><p>There came a knock at the door, and the butler entered with a laden tea-tray and set it down upon a small Japanese table. There was a rattle of cups and saucers and the hissing of a fluted Georgian urn. Two globe-shaped china dishes were brought in by a page. Dorian Gray went over and poured out the tea. The two men sauntered languidly to the table and examined what was under the covers.</p><p>"Let us go to the theatre to-night," said Lord Henry. "There is sure to be something on, somewhere. I have promised to dine at White\'s, but it is only with an old friend, so I can send him a wire to say that I am ill, or that I am prevented from coming in consequence of a subsequent engagement. I think that would be a rather nice excuse: it would have all the surprise of candour."</p><p>"It is such a bore putting on one\'s dress-clothes," muttered Hallward. "And, when one has them on, they are so horrid.</p> ',
       slug: "if-you-let-any-one-have-it-but-me-basil-i-shall-never-forgive-you",
-      published_at: "2018-12-04T10:06:24+00:00",
+      published_at: moment()
+        .subtract(2, "days")
+        .format(),
       status: "published",
       route: {
         requirements: {
@@ -294,8 +298,12 @@ export default class Publisher {
           article_source: {
             id: 39,
             name: "",
-            created_at: "2017-10-13T09:24:26+00:00",
-            updated_at: "2017-10-13T09:24:26+00:00"
+            created_at: moment()
+              .subtract(2, "days")
+              .format(),
+            updated_at: moment()
+              .subtract(2, "days")
+              .format()
           }
         },
         {
@@ -303,15 +311,23 @@ export default class Publisher {
           article_source: {
             id: 38,
             name: "superdesk publisher",
-            created_at: "2017-10-13T09:24:26+00:00",
-            updated_at: "2017-10-13T09:24:26+00:00"
+            created_at: moment()
+              .subtract(2, "days")
+              .format(),
+            updated_at: moment()
+              .subtract(2, "days")
+              .format()
           }
         }
       ],
       extra: null,
       slideshows: [],
-      created_at: "2018-12-04T10:06:24+00:00",
-      updated_at: "2019-08-05T09:17:25+00:00",
+      created_at: moment()
+        .subtract(2, "days")
+        .format(),
+      updated_at: moment()
+        .subtract(2, "days")
+        .format(),
       authors: [
         {
           name: "Sarrah Staffwriter",
@@ -354,8 +370,12 @@ export default class Publisher {
         impressions_number: 0,
         page_views_number: 0,
         internal_click_rate: 0,
-        created_at: "2018-12-04T10:06:24+00:00",
-        updated_at: "2018-12-04T10:06:24+00:00"
+        created_at: moment()
+          .subtract(2, "days")
+          .format(),
+        updated_at: moment()
+          .subtract(2, "days")
+          .format()
       },
       external_article: null,
       comments_count: 0,
@@ -424,10 +444,16 @@ export default class Publisher {
         filters: {
           metadata: [],
           route: ["2", "1"],
-          published_at: "2018-12-14"
+          published_at: moment()
+            .subtract(2, "days")
+            .format()
         },
-        created_at: "2017-07-04T13:09:49+00:00",
-        updated_at: "2019-03-11T14:12:59+00:00",
+        created_at: moment()
+          .subtract(2, "days")
+          .format(),
+        updated_at: moment()
+          .subtract(2, "days")
+          .format(),
         enabled: true,
         content_list_items_updated_at: null,
         latest_items: [],
@@ -441,10 +467,16 @@ export default class Publisher {
         cache_life_time: 0,
         limit: null,
         filters: [],
-        created_at: "2017-07-10T09:19:07+00:00",
-        updated_at: "2019-08-05T10:17:06+00:00",
+        created_at: moment()
+          .subtract(2, "days")
+          .format(),
+        updated_at: moment()
+          .subtract(2, "days")
+          .format(),
         enabled: true,
-        content_list_items_updated_at: "2019-08-05T10:17:06+00:00",
+        content_list_items_updated_at: moment()
+          .subtract(2, "days")
+          .format(),
         latest_items: [
           {
             id: 2428,
@@ -453,7 +485,9 @@ export default class Publisher {
               title: "seo test",
               body: "<p>seo test</p>",
               slug: "seo-test",
-              published_at: "2019-06-18T11:06:15+00:00",
+              published_at: moment()
+                .subtract(2, "days")
+                .format(),
               status: "published",
               route: {
                 requirements: {
@@ -494,8 +528,12 @@ export default class Publisher {
                 test123: "seo test"
               },
               slideshows: [],
-              created_at: "2019-06-18T11:05:31+00:00",
-              updated_at: "2019-06-18T11:07:55+00:00",
+              created_at: moment()
+                .subtract(2, "days")
+                .format(),
+              updated_at: moment()
+                .subtract(2, "days")
+                .format(),
 
               tenant: {
                 id: 2,
@@ -517,8 +555,12 @@ export default class Publisher {
             },
             position: 7,
             sticky: false,
-            created_at: "2019-08-05T10:17:06+00:00",
-            updated_at: "2019-08-05T10:17:06+00:00",
+            created_at: moment()
+              .subtract(2, "days")
+              .format(),
+            updated_at: moment()
+              .subtract(2, "days")
+              .format(),
             enabled: true
           }
         ]
