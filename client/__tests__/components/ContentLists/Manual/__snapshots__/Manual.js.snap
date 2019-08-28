@@ -19,6 +19,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       </button>
       <div
         class="flat-searchbar"
+        style="background-color: transparent;"
       >
         <div
           class="search-handler"
@@ -128,6 +129,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       </button>
       <div
         class="flat-searchbar"
+        style="background-color: transparent;"
       >
         <div
           class="search-handler"

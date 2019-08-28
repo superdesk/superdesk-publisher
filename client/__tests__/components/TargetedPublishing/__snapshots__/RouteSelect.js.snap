@@ -21,6 +21,7 @@ exports[`TargetedPublishing/RouteSelect renders correctly 1`] = `
     </option>
     <optgroup
       label="Custom"
+      style="color: black;"
     >
       <option
         value="1"
