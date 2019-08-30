@@ -97,7 +97,7 @@ export function ThemeManagerDirective(publisher) {
           if (!themeFile.$error) {
             scope.uploading = true;
             publisher
-              .uploadOrganizationTheme({ "theme_upload[file]": themeFile })
+              .uploadOrganizationTheme({ file: themeFile })
               .then(response => {
                 this._loadThemes(scope)
                   .then(() => {

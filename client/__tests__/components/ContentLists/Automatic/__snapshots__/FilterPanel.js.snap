@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/Automatic/FilterPanel renders properly 1`] = `
+<div
+  class="sd-filters-panel sd-filters-panel--border-right relative"
+>
+  <div
+    class="sd-loader"
+  />
+  <div
+    class="side-panel side-panel--transparent side-panel--shadow-right"
+  >
+    <div
+      class="side-panel__header side-panel__header--border-b"
+    >
+      <a
+        class="icn-btn side-panel__close"
+        flow="left"
+        sd-tooltip="Close filters"
+      >
+        <i
+          class="icon-close-small"
+        />
+      </a>
+      <h3
+        class="side-panel__heading side-panel__heading--big"
+      >
+        Automatic List Criteria
+      </h3>
+    </div>
+    <div
+      class="side-panel__content"
+    >
+      <div
+        class="side-panel__content-block"
+      >
+        <div
+          class="form__row"
+        >
+          <div
+            class="sd-line-input sd-line-input--no-margin"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Categories
+            </label>
+            div
+          </div>
+        </div>
+        <div
+          class="form__row"
+        >
+          <div
+            class="sd-line-input sd-line-input--no-margin"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Author
+            </label>
+            div
+          </div>
+        </div>
+        <div
+          class="form__row form__row--flex"
+        >
+          <div
+            class="sd-line-input sd-line-input--no-margin"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Published date
+            </label>
+            <input
+              class="sd-line-input__input"
+              name="published_at"
+              type="date"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form__row form__row--flex"
+        >
+          <div
+            class="sd-line-input sd-line-input--no-margin"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Published after
+            </label>
+            <input
+              class="sd-line-input__input"
+              name="published_after"
+              type="date"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form__row form__row--flex"
+        >
+          <div
+            class="sd-line-input sd-line-input--no-margin"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Published before
+            </label>
+            <input
+              class="sd-line-input__input"
+              name="published_before"
+              type="date"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form__row form__row--flex"
+        >
+          <div
+            class="sd-line-input"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Metadata
+            </label>
+            <button
+              class="btn btn--primary btn--icon-only margin--top"
+              flow="right"
+              type="button"
+            >
+              <i
+                class="icon-plus-large"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="side-panel__footer side-panel__footer--button-box"
+    >
+      <div
+        class="flex-grid flex-grid--boxed-small flex-grid--small-2"
+      >
+        <a
+          class="btn btn--hollow"
+        >
+          Clear
+        </a>
+        <a
+          class="btn btn--primary"
+        >
+          Update Criteria
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

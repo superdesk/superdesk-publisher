@@ -81,7 +81,7 @@ exports[`TargetedPublishing/MetaDataOverlay renders correctly 1`] = `
           class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--required sd-line-input--dark-ui sd-line-input--boxed"
+            class="sd-line-input sd-line-input--dark-ui sd-line-input--boxed"
           >
             <label
               class="sd-line-input__label"
@@ -100,7 +100,7 @@ exports[`TargetedPublishing/MetaDataOverlay renders correctly 1`] = `
           class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--required sd-line-input--dark-ui sd-line-input--boxed"
+            class="sd-line-input sd-line-input--dark-ui sd-line-input--boxed"
           >
             <label
               class="sd-line-input__label"

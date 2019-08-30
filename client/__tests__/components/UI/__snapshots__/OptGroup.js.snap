@@ -3,6 +3,7 @@
 exports[`UI/OptGroup renders correctly 1`] = `
 <optgroup
   label="Custom"
+  style="color: black;"
 >
   <option
     value="2"

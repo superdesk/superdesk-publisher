@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
@@ -24,6 +23,7 @@ const VirtualizedList = ({
   itemSize = 50,
   // component that renders item
   ItemRenderer,
+  itemRendererProps,
   // height that will be subtracted. ex: wrapper is a table and there is an extra table head that takes space.
   heightSubtract = 0
 }) => {
@@ -56,7 +56,11 @@ const VirtualizedList = ({
             >
               {({ index, style }) =>
                 isItemLoaded(index) ? (
-                  <ItemRenderer item={items[index]} style={style} />
+                  <ItemRenderer
+                    item={items[index]}
+                    style={style}
+                    {...itemRendererProps}
+                  />
                 ) : (
                   <div style={style}>
                     <Loading dark={true} />
@@ -78,6 +82,7 @@ VirtualizedList.propTypes = {
   items: PropTypes.array.isRequired,
   itemSize: PropTypes.number,
   ItemRenderer: PropTypes.func.isRequired,
+  itemRendererProps: PropTypes.object,
   heightSubtract: PropTypes.number
 };
 

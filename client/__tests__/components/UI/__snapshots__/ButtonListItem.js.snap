@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/ButtonListItem renders correctly 1`] = `
+<div
+  class="sd-list-item"
+>
+  <div
+    class="sd-list-item__border"
+  />
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis"
+      >
+        testlabel
+      </span>
+    </div>
+  </div>
+  <div
+    class="sd-list-item__action-menu"
+  >
+    <i
+      class="icon-chevron-right-thin"
+    />
+  </div>
+</div>
+`;
