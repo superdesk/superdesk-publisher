@@ -29,10 +29,7 @@ class SearchBar extends React.Component {
   );
 
   handleChange = e => {
-    console.log("ehe");
-    this.setState({ value: e.target.value }, () => {
-      if (this.state.value.length > 2) this.debouncedChange();
-    });
+    this.setState({ value: e.target.value }, this.debouncedChange);
   };
 
   render() {
@@ -46,6 +43,7 @@ class SearchBar extends React.Component {
     return (
       <div
         className={classNames("flat-searchbar", { extended: this.state.open })}
+        style={{ backgroundColor: "transparent" }}
       >
         <div className="search-handler" style={handlerStyle}>
           <label

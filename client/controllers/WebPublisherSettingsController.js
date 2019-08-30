@@ -11,14 +11,16 @@ WebPublisherSettingsController.$inject = [
   "publisher",
   "modal",
   "vocabularies",
-  "$sce"
+  "$sce",
+  "notify"
 ];
 export function WebPublisherSettingsController(
   $scope,
   publisher,
   modal,
   vocabularies,
-  $sce
+  $sce,
+  notify
 ) {
   class WebPublisherSettings {
     constructor() {
@@ -1255,19 +1257,25 @@ export function WebPublisherSettingsController(
      */
     _refreshSites() {
       $scope.loading = true;
-      return publisher.querySites().then(sites => {
-        // assigning theme to site
-        angular.forEach(sites, site => {
-          site.theme = $scope.organizationThemes.find(
-            theme => site.theme_name == theme.name
-          );
+      return publisher
+        .querySites()
+        .then(sites => {
+          // assigning theme to site
+          angular.forEach(sites, site => {
+            site.theme = $scope.organizationThemes.find(
+              theme => site.theme_name == theme.name
+            );
+          });
+          $scope.sites = sites;
+          $scope.loading = false;
+          if (!$scope.sites.length) {
+            this.toggleInfoCarousel();
+          }
+        })
+        .catch(err => {
+          $scope.loading = false;
+          notify.error("Couldn't get list of tenants. Try again");
         });
-        $scope.sites = sites;
-        $scope.loading = false;
-        if (!$scope.sites.length) {
-          this.toggleInfoCarousel();
-        }
-      });
     }
 
     /**
