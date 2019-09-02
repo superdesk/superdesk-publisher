@@ -42,7 +42,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
             class="sd-text__date-and-author"
           >
             <time
-              title="2019-08-28T00:00:00+02:00"
+              title="2019-08-31T00:00:00+02:00"
             >
               3 days ago
             </time>
