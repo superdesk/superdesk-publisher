@@ -3,6 +3,8 @@ import ArticlePreview from "../../../components/generic/ArticlePreview";
 import { render } from "@testing-library/react";
 import moment from "moment";
 
+jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
+
 const article = {
   article_statistics: {
     impressions_number: 0,
@@ -11,19 +13,10 @@ const article = {
   },
   body:
     "<p>I adore simple pleasures, said Lord Henry. They are the last refuge of the complex. But I don't like scenes, except on the stage. What absurd fellows you are, bot</p>",
-  created_at: moment()
-    .subtract(2, "days")
-    .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-    .format(),
-  published_at: moment()
-    .subtract(2, "days")
-    .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-    .format(),
+  created_at: "2019–08–30T12:34:56+00:00",
+  published_at: "2019–08–30T12:34:56+00:00",
   title: "If you let any one have it but me, Basil, I shall never forgive you",
-  updated_at: moment()
-    .subtract(2, "days")
-    .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-    .format()
+  updated_at: "2019–08–30T12:34:56+00:00"
 };
 
 describe("generic/ArticlePreview", () => {

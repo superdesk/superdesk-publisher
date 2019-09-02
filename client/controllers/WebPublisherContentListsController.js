@@ -1,11 +1,11 @@
 /**
  * @ngdoc controller
  * @module superdesk.apps.web_publisher
- * @name WebPublisherAnalyticsController
+ * @name WebPublisherContentListsController
  * @requires publisher
  * @requires modal
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
- * @description WebPublisherAnalyticsController holds a set of functions used for web publisher analytics
+ * @description WebPublisherContentListsController holds a set of functions used for web publisher content lists management
  */
 import React from "react";
 import ReactDOM from "react-dom";
