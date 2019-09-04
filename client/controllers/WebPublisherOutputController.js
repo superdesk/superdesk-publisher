@@ -38,7 +38,7 @@ export function WebPublisherOutputController(
           publisher={publisher}
           notify={notify}
           config={config}
-          editorOpen={this.editorOpen}
+          isSuperdeskEditorOpen={this.editorOpen}
         />,
         document.getElementById("sp-output-react-app")
       );
