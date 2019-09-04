@@ -1,0 +1,112 @@
+<div class="sd-page-grid--basic">
+    <header class="sd-top-menu">
+        <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
+        <p class="sd-top-menu__header">Publisher</p>
+    </header>
+
+    <section class="sd-content sd-page-content--slide-in"
+        ng-class="{'sd-page-content--slide-in--open' : editorOpen}">
+        <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
+        <div class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
+            ng-class="{'open-filters': webPublisherOutput.filterOpen, 'open-preview': webPublisherOutput.previewOpen, 'open-publish': webPublisherOutput.publishOpen}">
+            <div class="subnav">
+                <button class="navbtn navbtn--left navbtn--darker"
+                    ng-click="webPublisherOutput.toggleFilterPane()"
+                    ng-class="{'navbtn--active': webPublisherOutput.filterOpen}"
+                    sd-tooltip="Filter" flow="right">
+                    <i class="icon-filter-large"></i>
+                </button>
+                <h3 class="subnav__page-title sd-flex-no-grow">Output Control</h3>
+                <sd-search-handler data-label="Search" ng-model='webPublisherOutput.advancedFilters.term' data-debounce="500" data-borderleft="true"></sd-search-handler>
+            </div>
+            <div class="subnav subnav--lower-z-index">
+                <div class="subnav__content-bar" ng-hide="superdesk.flags.authoring">
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="incoming" label-position="inside"
+                        ng-disabled="webPublisherOutput.loadingArticles">Incoming content</sd-check>
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="published" label-position="inside"
+                        ng-disabled="webPublisherOutput.loadingArticles">Published</sd-check>
+                </div>
+                <div class="subnav__content-bar" ng-show="superdesk.flags.authoring">
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="incoming" label-position="inside"
+                        ng-disabled="webPublisherOutput.loadingArticles" sd-tooltip="Incoming content" flow="right"><i class="icon-ingest"></i></sd-check>
+                    <sd-check ng-model="webPublisherOutput.listType" type="radio" ng-value="published" label-position="inside"
+                        ng-disabled="webPublisherOutput.loadingArticles" sd-tooltip="Published" flow="right"><i class="icon-expand-thin"></i></sd-check>
+                </div>
+                <div class="subnav__spacer subnav__spacer--no-margin"></div>
+                <div class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1" ng-class="{'sd-margin-r--1': superdesk.flags.authoring}">
+                    <div class="sd-margin-r--1">
+                        <span>Incoming:</span><span class="badge sd-margin-l--0-5">{{webPublisherOutput.articlesCount.incoming}}</span>
+                    </div>
+                    <div>
+                        <span>Published:</span><span class="badge sd-margin-l--0-5">{{webPublisherOutput.articlesCount.published}}</span>
+                    </div>
+                </div>
+                <div class="subnav__spacer subnav__spacer--no-margin" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView"></div>
+                <div class="subnav__content-bar sd-flex-no-shrink" ng-class="{'sd-margin-l--1 sd-margin-r--1': superdesk.flags.authoring}" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView">
+                    <div class="dropdown dropdown--align-right" dropdown="" ng-show="webPublisherOutput.listType == 'published' && !webPublisherOutput.swimlaneView">
+                        <button class="dropdown__toggle dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">{{webPublisherOutput.filterByTenant.name || 'All Tenants'}}<span class="dropdown__caret"></span></button>
+                        <ul class="dropdown__menu dropdown__menu--scrollable">
+                            <li><button ng-click="webPublisherOutput.filterByTenant=null">All Tenants</button></li>
+                            <li class="dropdown__menu-divider"></li>
+                            <li ng-repeat="tenant in webPublisherOutput.sites">
+                                <button ng-click="webPublisherOutput.filterByTenant=tenant">{{tenant.name}}</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="navbtn" ng-click="webPublisherOutput.swimlaneView = !webPublisherOutput.swimlaneView; webPublisherOutput.leftFilterOpen = false" ng-show="webPublisherOutput.listType == 'published'">
+                    <i class="icon-kanban-view ng-hide" ng-show="webPublisherOutput.swimlaneView"></i>
+                    <i class="icon-list-view" ng-hide="webPublisherOutput.swimlaneView"></i>
+                </button>
+            </div>
+            <div class="sd-loader" ng-if="webPublisherOutput.loading"></div>
+            <div class="sd-column-box--3">
+                <div class="sd-filters-panel sd-filters-panel--border-right" ng-class="{'sd-flex-no-shrink': webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView}">
+                    <div class="side-panel side-panel--transparent side-panel--shadow-right"
+                        ng-include="'filter-pane.html'">
+                    </div>
+                </div>
+
+                <!-- Incoming list -->
+                <div class="sd-column-box__main-column relative"
+                    ng-if="!webPublisherOutput.loading"
+                    ng-show="webPublisherOutput.listType == 'incoming'"
+                    sd-group-article
+                    data-root-type="incoming"
+                    data-web-publisher-output="webPublisherOutput"
+                    data-filters="webPublisherOutput.advancedFilters">
+                </div><!-- end incoming list -->
+
+                <!-- Published list -->
+                <div class="sd-column-box__main-column relative"
+                    ng-if="!webPublisherOutput.loading"
+                    ng-show="webPublisherOutput.listType == 'published'  && !webPublisherOutput.swimlaneView"
+                    sd-group-article
+                    data-root-type="published"
+                    data-site="webPublisherOutput.filterByTenant"
+                    data-web-publisher-output="webPublisherOutput"
+                    data-filters="webPublisherOutput.advancedFilters">
+                </div><!-- end published list -->
+
+                <!-- Published swimlane -->
+                <div class="sd-column-box__main-column"
+                    ng-if="webPublisherOutput.listType == 'published' && webPublisherOutput.swimlaneView"
+                    ng-include="'output/swimlane.html'">
+
+                </div>
+
+                <!-- start preview -->
+                <div class="sd-preview-panel" ng-include="'preview-pane.html'">
+                </div><!-- end preview -->
+
+                <!-- start publish -->
+                <div class="sd-publish-panel"
+                    ng-include="'publishing-pane.html'">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bottom-bar ">
+       superdesk publisher
+    </footer>
+</div>
