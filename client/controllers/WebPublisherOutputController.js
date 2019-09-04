@@ -50,7 +50,7 @@ export function WebPublisherOutputController(
 
       publisher
         .setToken()
-        .then(publisher.querySites)
+        .then(publisher.querySites(true, true))
         .then(sites => {
           this.loading = false;
           this.sites = sites;
