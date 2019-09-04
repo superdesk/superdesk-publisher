@@ -21,14 +21,9 @@
                 <span class="sd-text-icon sd-margin-r--1" ng-repeat="item in i.extra_items" ng-if="item.type==='media'">
                     <i class="icon-slideshow sd-opacity--40"></i>{{item.items.length}}
                 </span>
-                <span class="label label--hollow" ng-repeat="service in i.service">{{service.name}}</span>
-                <span ng-if="i.version > 1" class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
-                <span class="sd-overflow-ellipsis sd-list-item--element-grow">
-                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
-                    <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label sd-margin-l--1">pageviews:</span><span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
-                    <span ng-if="rootType === 'published' && i.comments_count" class="sd-list-item__text-label sd-margin-l--1">comments:</span><span ng-if="rootType === 'published' && i.comments_count">{{i.comments_count}}</span>
-                </span>
-                <span ng-if="i.articles[0] && i.articles[0].paywall_secured" class="sd-list-item__inline-text ml-auto no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
+                <span class="label label--hollow" ng-if="rootType === 'incoming'" ng-repeat="service in i.service">{{service.name}}</span>
+                <span ng-if="i.version > 1 && rootType === 'incoming'" class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
+                <span ng-if="i.articles[0] && i.articles[0].paywall_secured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
                 <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3">
                     <a class="label label--success cursorPointer"
                         ng-if="item.status === 'published'"
@@ -47,6 +42,11 @@
                 </span>
 
                 <span ng-if="i.articles.length - 3 > 0">+{{i.articles.length - 3}} more</span>
+                <span class="sd-overflow-ellipsis">
+                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                    <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label">pageviews:</span><span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
+                    <span ng-if="rootType === 'published' && i.comments_count" class="sd-list-item__text-label">comments:</span><span ng-if="rootType === 'published' && i.comments_count">{{i.comments_count}}</span>
+                </span>        
             </div>
         </div>
         <div class="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
