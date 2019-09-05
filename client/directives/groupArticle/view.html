@@ -24,7 +24,7 @@
                 <span class="label label--hollow" ng-if="rootType === 'incoming'" ng-repeat="service in i.service">{{service.name}}</span>
                 <span ng-if="i.version > 1 && rootType === 'incoming'" class="label label--darkBlue2 label--hollow">update {{i.version}}</span>
                 <span ng-if="i.articles[0] && i.articles[0].paywall_secured" class="sd-list-item__inline-text no-line-height" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-                <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3">
+                <span ng-repeat="item in i.articles | orderBy:'-status' | limitTo:3" class="sd-d-inline-flex">
                     <a class="label label--success cursorPointer"
                         ng-if="item.status === 'published'"
                         ng-href="{{item.tenant.subdomain ? 'http://' + item.tenant.subdomain + '.'  + item.tenant.domain_name + item._links.online.href: 'http://' + item.tenant.domain_name + item._links.online.href}}" target="_blank"
