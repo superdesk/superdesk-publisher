@@ -19,7 +19,7 @@ const CheckButton = ({ onClick, label, isChecked }) => {
 
 CheckButton.propTypes = {
   onClick: PropTypes.func,
-  label: PropTypes.string,
+  label: PropTypes.any,
   isChecked: PropTypes.bool
 };
 

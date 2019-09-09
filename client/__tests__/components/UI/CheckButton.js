@@ -1,11 +1,11 @@
 import React from "react";
-import Check from "../../../components/UI/Check";
+import CheckButton from "../../../components/UI/CheckButton";
 import { render, fireEvent, getByText } from "@testing-library/react";
 
-describe("UI/Check", () => {
+describe("UI/CheckButton", () => {
   it("renders correctly", () => {
     const { container, getByText } = render(
-      <Check label="testlabel" onClick={jest.fn()} isChecked={true} />
+      <CheckButton label="testlabel" onClick={jest.fn()} isChecked={true} />
     );
 
     expect(getByText("testlabel")).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe("UI/Check", () => {
   it("onClick function fired", () => {
     const onClick = jest.fn();
     const { container } = render(
-      <Check label="testlabel" onClick={onClick} isChecked={true} />
+      <CheckButton label="testlabel" onClick={onClick} isChecked={true} />
     );
     const button = container.querySelector(".sd-check__wrapper");
 
