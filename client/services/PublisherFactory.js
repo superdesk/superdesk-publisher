@@ -78,14 +78,19 @@ export function PublisherFactory(pubapi) {
     /**
      * @ngdoc method
      * @name publisher#querySites
+     * @param {Bool} withRoutes - should include routes
+     * @param {Bool} withContentLists - should include content lists
      * @returns {Promise}
      * @description List all sites in publisher
      */
-    querySites() {
+    querySites(withRoutes = false, withContentLists = false) {
       let params = {
         limit: 1000,
         "sorting[name]": "asc"
       };
+
+      if (withContentLists) params.withContentLists = true;
+      if (withRoutes) params.withRoutes = true;
 
       return pubapi.query("tenants", params);
     }
