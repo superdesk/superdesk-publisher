@@ -5,7 +5,7 @@
     </div>
     <div class="sd-page__header">
         <div ng-init="listType = 'all'">
-            <sd-check ng-model="listType" type="radio" ng-value="all" label-position="inside">All</sd-check>
+            <sd-check ng-model="listType" type="radio" ng-value="all" label-position="inside" ng-click="webPublisherSettings.selectedTenant=false">All</sd-check>
             <sd-check ng-model="listType" type="radio" ng-value="organization" label-position="inside">Organization Rules</sd-check>
             <sd-check ng-model="listType" type="radio" ng-value="tenant" label-position="inside">Tenant Rules</sd-check>
         </div>
