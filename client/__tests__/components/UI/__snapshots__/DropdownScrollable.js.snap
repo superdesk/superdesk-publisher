@@ -2,7 +2,7 @@
 
 exports[`UI/Dropdown renders itself, children and button correcty 1`] = `
 <div
-  class="dropdown"
+  class="dropdown undefined"
 >
   <span>
     <button>

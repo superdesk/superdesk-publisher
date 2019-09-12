@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import Store from "./Store";
@@ -19,8 +18,8 @@ const Subnav = props => {
                   store.isSuperdeskEditorOpen ? (
                     <i className="icon-ingest" />
                   ) : (
-                    "Incoming content"
-                  )
+                      "Incoming content"
+                    )
                 }
                 onClick={() => store.actions.setSelectedList("incoming")}
                 isChecked={store.selectedList === "incoming" ? true : false}
@@ -33,8 +32,8 @@ const Subnav = props => {
                   store.isSuperdeskEditorOpen ? (
                     <i className="icon-expand-thin" />
                   ) : (
-                    "Published"
-                  )
+                      "Published"
+                    )
                 }
                 onClick={() => store.actions.setSelectedList("published")}
                 isChecked={store.selectedList === "published" ? true : false}
@@ -52,21 +51,19 @@ const Subnav = props => {
             <div className="sd-margin-r--1">
               <span>Incoming:</span>
               <span className="badge sd-margin-l--0-5">
-                {props.articlesCount.incoming}
+                {store.articlesCounts.incoming}
               </span>
             </div>
             <div>
               <span>Published:</span>
               <span className="badge sd-margin-l--0-5">
-                {props.articlesCount.published}
+                {store.articlesCounts.published}
               </span>
             </div>
           </div>
           {store.selectedList === "published" &&
             store.listViewType !== "swimlane" && (
-              <TenantSelect
-                isSuperdeskEditorOpen={store.isSuperdeskEditorOpen}
-              />
+              <TenantSelect />
             )}
           {store.selectedList === "published" && (
             <button
@@ -76,8 +73,8 @@ const Subnav = props => {
               {store.listViewType === "normal" ? (
                 <i className="icon-kanban-view" />
               ) : (
-                <i className="icon-list-view" />
-              )}
+                  <i className="icon-list-view" />
+                )}
             </button>
           )}
         </div>

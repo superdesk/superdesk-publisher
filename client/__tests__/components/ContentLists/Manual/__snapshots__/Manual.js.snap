@@ -42,7 +42,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         </div>
       </div>
       <div
-        class="dropdown"
+        class="dropdown undefined"
       >
         <span>
           <button

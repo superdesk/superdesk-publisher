@@ -151,7 +151,7 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
           queryParams["route[]"] = route.length ? route : undefined;
           queryParams.published_before = scope.filters.publishedBefore;
           queryParams.published_after = scope.filters.publishedAfter;
-          queryParams["sorting[published_at]"] = "desc";
+          queryParams["sorting[updated_at]"] = "desc";
         }
         return queryParams;
       };

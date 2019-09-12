@@ -7,6 +7,7 @@ import Store from "./Store";
 import SearchBar from "../UI/SearchBar";
 import Subnav from "./Subnav";
 import FilterPane from "./FilterPane";
+import Listing from "./Listing";
 import ArticlePreview from "../generic/ArticlePreview";
 
 class Output extends React.Component {
@@ -17,10 +18,10 @@ class Output extends React.Component {
 
     this.state = {
       tenants: [],
-      loading: false, // should be true
-      articles: { incoming: [], published: [] },
-      articlesCount: { incoming: 0, published: 0 },
-      previewItem: null,
+      loading: true,
+
+      articlesCounts: { incoming: 0, published: 0 },
+      selectedItem: null,
       filters: {},
       selectedList: window.localStorage.getItem("swpOutputListType")
         ? window.localStorage.getItem("swpOutputListType")
@@ -36,10 +37,32 @@ class Output extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    this.props.publisher
+      .setToken()
+      .then(() => this.props.publisher.querySites(true, true))
+      .then(tenants => {
+        if (this._isMounted) this.setState({ tenants, loading: false });
+      });
   }
 
   componentWillUnmount() {
     this._isMounted = false;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isSuperdeskEditorOpen !== prevProps.isSuperdeskEditorOpen
+      && this.props.isSuperdeskEditorOpen) {
+      this.togglePreview(null);
+      this.togglePublish(null);
+    }
+  }
+
+  setFilters = filters => {
+    this.setState({ filters });
+  }
+
+  setArticlesCounts = articlesCounts => {
+    this.setState({ articlesCounts });
   }
 
   toggleFilterPane = () => {
@@ -53,17 +76,29 @@ class Output extends React.Component {
 
   togglePreview = item =>
     this.setState({
-      isPreviewPaneOpen: !this.state.isPreviewPaneOpen,
-      previewItem: item ? item : null
+      isPreviewPaneOpen: item ? !this.state.isPreviewPaneOpen : false,
+      selectedItem: item ? item : null
+    });
+
+  togglePublish = item =>
+    this.setState({
+      isPublishPaneOpen: item ? !this.state.isPublishPaneOpen : false,
+      selectedItem: item ? item : null
     });
 
   toggleListViewType = () => {
+    this.togglePreview(null);
+    this.togglePublish(null);
     this.setState({
       listViewType: this.state.listViewType === "normal" ? "swimlane" : "normal"
     });
   };
 
-  setSelectedList = listType => this.setState({ selectedList: listType });
+  setSelectedList = listType => {
+    this.togglePreview(null);
+    this.togglePublish(null);
+    this.setState({ selectedList: listType });
+  }
 
   render() {
     return (
@@ -75,10 +110,15 @@ class Output extends React.Component {
           config: this.props.config,
           selectedList: this.state.selectedList,
           listViewType: this.state.listViewType,
+          tenants: this.state.tenants,
+          filters: this.state.filters,
+          articlesCounts: this.state.articlesCounts,
           actions: {
             togglePreview: item => this.togglePreview(item),
             toggleListViewType: this.toggleListViewType,
-            setSelectedList: listType => this.setSelectedList(listType)
+            setSelectedList: listType => this.setSelectedList(listType),
+            setFilters: filters => this.setFilters(filters),
+            setArticlesCounts: counts => this.setArticlesCounts(counts)
           }
         }}
       >
@@ -108,46 +148,20 @@ class Output extends React.Component {
             </h3>
             <SearchBar leftBorder={true} onChange={() => null} />
           </div>
-          <Subnav articlesCount={this.state.articlesCount} />
+          <Subnav />
           {this.state.loading && <div className="sd-loader" />}
           <div className="sd-column-box--3">
             <FilterPane
               toggle={this.toggleFilterPane}
               isOpen={this.state.isFilterPaneOpen}
             />
-
-            {/* <div
-              className="sd-column-box__main-column relative"
-              ng-if="!webPublisherOutput.loading"
-              ng-show="webPublisherOutput.listType == 'incoming'"
-              sd-group-article
-              data-root-type="incoming"
-              data-web-publisher-output="webPublisherOutput"
-              data-filters="webPublisherOutput.advancedFilters"
-            />
-
-            <div
-              className="sd-column-box__main-column relative"
-              ng-if="!webPublisherOutput.loading"
-              ng-show="webPublisherOutput.listType == 'published'   !webPublisherOutput.swimlaneView"
-              sd-group-article
-              data-root-type="published"
-              data-site="webPublisherOutput.filterByTenant"
-              data-web-publisher-output="webPublisherOutput"
-              data-filters="webPublisherOutput.advancedFilters"
-            />
-
-            <div
-              className="sd-column-box__main-column"
-              ng-if="webPublisherOutput.listType == 'published' webPublisherOutput.swimlaneView"
-              ng-include="'output/swimlane.html'"
-            /> */}
-
+            <Listing type="incoming" show={this.state.selectedList === "incoming" ? true : false} />
+            <Listing type="published" show={this.state.selectedList === "published" ? true : false} />
             <ArticlePreview
               article={
-                this.state.previewItem && this.state.previewItem.content
-                  ? this.state.previewItem.content
-                  : this.state.previewItem
+                this.state.selectedItem && this.state.selectedItem.content
+                  ? this.state.selectedItem.content
+                  : this.state.selectedItem
               }
               close={this.togglePreview}
             />

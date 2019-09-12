@@ -2,46 +2,59 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import DropdownScrollable from "../UI/DropdownScrollable";
+import Store from "./Store";
+
+
 const TenantSelect = props => {
+  const store = React.useContext(Store);
+
+  const setTenant = (tenant) => {
+    let filters = { ...store.filters };
+
+    filters.tenant = tenant;
+    store.actions.setFilters(filters);
+  }
+
   return (
     <React.Fragment>
       <div className="subnav__spacer subnav__spacer--no-margin" />
       <div
         className={classNames("subnav__content-bar sd-flex-no-shrink", {
-          "sd-margin-l--1 sd-margin-r--1": props.isSuperdeskEditorOpen
+          "sd-margin-l--1 sd-margin-r--1": store.isSuperdeskEditorOpen
         })}
       >
-        <div className="dropdown dropdown--align-right" dropdown="">
-          <button
-            className="dropdown__toggle dropdown-toggle"
-            dropdown-toggle=""
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            webPublisherOutput.filterByTenant.name || 'All Tenants'
-            <span className="dropdown__caret" />
-          </button>
-          <ul className="dropdown__menu dropdown__menu--scrollable">
-            <li>
-              <button ng-click="webPublisherOutput.filterByTenant=null">
-                All Tenants
+        <DropdownScrollable
+          button={
+            <button className="dropdown__toggle navbtn navbtn--text-only dropdown-toggle">
+              {store.filters.tenant ? store.filters.tenant.name : 'All Tenants'}
+              <span className="dropdown__caret" />
+            </button>
+          }
+          classes="dropdown--align-right"
+        >
+          <li>
+            <button onClick={() => setTenant(null)}>
+              All Tenants
+            </button>
+          </li>
+          <li className="dropdown__menu-divider" />
+          {store.tenants.map(item => (
+            <li key={"tenantSelect" + item.code}>
+              <button onClick={() => setTenant(item)}>
+                {item.name}
               </button>
             </li>
-            <li className="dropdown__menu-divider" />
-            <li ng-repeat="tenant in webPublisherOutput.sites">
-              <button ng-click="webPublisherOutput.filterByTenant=tenant">
-                tenant.name
-              </button>
-            </li>
-          </ul>
-        </div>
+          ))}
+        </DropdownScrollable>
       </div>
     </React.Fragment>
+
   );
 };
 
 TenantSelect.propTypes = {
-  isSuperdeskEditorOpen: PropTypes.bool.isRequired
+
 };
 
 export default TenantSelect;
