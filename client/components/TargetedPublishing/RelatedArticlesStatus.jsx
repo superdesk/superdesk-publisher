@@ -54,7 +54,7 @@ class RelatedArticlesStatus extends React.Component {
               <p>{article.title}</p>
               {this.props.rules.map(rule => {
                 let index = article.tenants.findIndex(
-                  t => t.code === rule.tenant.code
+                  t => t && t.code === rule.tenant.code
                 );
                 let siteDomain = rule.tenant.subdomain
                   ? rule.tenant.subdomain + "." + rule.tenant.domain_name
