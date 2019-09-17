@@ -63,7 +63,7 @@
 }
 
 .aws-sld__startUp {
-  background-color: red;
+  background-color: var(--control-bullet-active-color);
   height: 100%;
   width: 100%;
 }

@@ -30,9 +30,31 @@ const helpers = (() => {
     );
   };
 
+  const countPageViews = (articles = []) => {
+    let count = 0;
+
+    articles.forEach(art => {
+      count += parseInt(art.article_statistics.page_views_number);
+    });
+
+    return count;
+  };
+
+  const countComments = (articles = []) => {
+    let count = 0;
+
+    articles.forEach(art => {
+      count += parseInt(art.comments_count);
+    });
+
+    return count;
+  };
+
   return {
     getUpdatedValues: getUpdatedValues,
-    getRenditionUrl: getRenditionUrl
+    getRenditionUrl: getRenditionUrl,
+    countPageViews: countPageViews,
+    countComments: countComments
   };
 })();
 

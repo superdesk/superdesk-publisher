@@ -466,7 +466,9 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                     >
                       Comments
                     </label>
-                    <p />
+                    <p>
+                      0
+                    </p>
                   </div>
                 </div>
               </div>

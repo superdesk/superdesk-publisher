@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import CheckButton from "../UI/CheckButton";
 import ListCard from "./ListCard";

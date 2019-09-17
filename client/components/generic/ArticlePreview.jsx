@@ -6,6 +6,7 @@ import moment from "moment";
 import helpers from "../../services/helpers";
 
 import Slideshow from "../UI/Slideshow/Slideshow";
+import PreviewStatusLabels from "./PreviewStatusLabels";
 
 class ArticlePreview extends React.Component {
   constructor(props) {
@@ -84,6 +85,10 @@ class ArticlePreview extends React.Component {
                   </div>
                 )}
 
+                {article.articles && article.articles.length ? (
+                  <PreviewStatusLabels articles={article.articles} />
+                ) : null}
+
                 {article.status !== "new" ? (
                   <div className="form__row form__row--small-padding">
                     <div className="flex-grid flex-grid--wrap-items flex-grid--small-2">
@@ -91,13 +96,19 @@ class ArticlePreview extends React.Component {
                         <label className="form-label form-label--light">
                           Page views
                         </label>
-                        <p>{article.article_statistics.page_views_number}</p>
+                        <p>
+                          {article.article_statistics
+                            ? article.article_statistics.page_views_number
+                            : 0}
+                        </p>
                       </div>
                       <div className="flex-grid__item">
                         <label className="form-label form-label--light">
                           Comments
                         </label>
-                        <p>{article.comments_count}</p>
+                        <p>
+                          {article.comments_count ? article.comments_count : 0}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -133,6 +144,7 @@ class ArticlePreview extends React.Component {
                       key={"slideshow" + slideshow.id}
                       items={slideshow.items}
                       tenant={article.tenant}
+                      source={article.source ? article.source : "article"}
                     />
                   ))
                 : null}

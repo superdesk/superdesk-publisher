@@ -25,7 +25,8 @@ const VirtualizedList = ({
   ItemRenderer,
   itemRendererProps,
   // height that will be subtracted. ex: wrapper is a table and there is an extra table head that takes space.
-  heightSubtract = 0
+  heightSubtract = 0,
+  innerElementType = "div"
 }) => {
   // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const itemCount = hasNextPage ? items.length + 1 : items.length;
@@ -51,6 +52,7 @@ const VirtualizedList = ({
               itemCount={itemCount}
               itemSize={itemSize}
               onItemsRendered={onItemsRendered}
+              innerElementType={innerElementType}
               ref={ref}
               width={width}
             >
