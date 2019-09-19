@@ -261,3 +261,14 @@ select[disabled] > option {
 .sp-bottomBarMargin {
   margin-bottom: 3rem;
 }
+.codeBlock {
+  padding: 4px 9px;
+  margin: 2rem 0;
+  font-size: 13px;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f2f2f2;
+  border-radius: 3px;
+  line-height: 140%;
+  font-family: 'Courier New', Courier, monospace;
+}

@@ -1,0 +1,497 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/ContentLists renders properly 1`] = `
+<div
+  class="sd-page-content__content-block"
+>
+  <div
+    class="subnav"
+  >
+    <a
+      class="navbtn navbtn--left"
+      flow="right"
+      href="#/publisher/dashboard"
+      sd-tooltip="Dashboard"
+    >
+      <i
+        class="icon-arrow-left"
+      />
+    </a>
+    <h3
+      class="subnav__page-title"
+    >
+      Content Lists
+      <span>
+         / 
+        Site1
+      </span>
+    </h3>
+  </div>
+  <div
+    class="sd-column-box--3"
+  >
+    <div
+      class="nav-tabs-vertical nav-tabs-vertical--closed"
+    >
+      <ul
+        class="nav-tabs-vertical__list"
+      >
+        <li
+          class="nav-tabs-vertical__tab"
+        >
+          <button
+            class="nav-tabs-vertical__link"
+          >
+            Website
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
+    >
+      <div
+        class="subnav subnav--padded subnav--lower-z-index"
+      >
+        <h3
+          class="sd-content-nav-title sd-content-nav-title--uppercase"
+        >
+          Website
+        </h3>
+        <a
+          class="icn-btn ml-auto"
+        >
+          <i
+            class="icon-close-small"
+          />
+        </a>
+      </div>
+      <nav
+        class="sd-content-nav"
+      >
+        <ul>
+          <li>
+            <a
+              class="sd-content-nav__btn sd-content-nav__btn--active"
+              style="cursor: pointer;"
+            >
+              Site1
+            </a>
+          </li>
+          <li>
+            <a
+              class="sd-content-nav__btn"
+              style="cursor: pointer;"
+            >
+              Site2
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div
+      class="sd-column-box__main-column relative sd-display-flex-column"
+    >
+      <div
+        class="subnav subnav--padded subnav--lower-z-index"
+        style="padding-right: 0px;"
+      >
+        <span
+          class="sd-check__wrapper"
+        >
+          <span
+            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+          >
+            <label>
+              All
+            </label>
+          </span>
+        </span>
+        <span
+          class="sd-check__wrapper"
+        >
+          <span
+            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+          >
+            <label>
+              Automatic
+            </label>
+          </span>
+        </span>
+        <span
+          class="sd-check__wrapper"
+        >
+          <span
+            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+          >
+            <label>
+              Manual
+            </label>
+          </span>
+        </span>
+        <div
+          class="subnav__stretch-bar"
+        />
+        <div
+          class="dropdown dropdown--align-right"
+          flow="left"
+        >
+          <span>
+            <button
+              class="navbtn dropdown sd-create-btn dropdown-toggle"
+              sd-tooltip="Create new list"
+            >
+              <i
+                class="icon-plus-large"
+              />
+              <span
+                class="circle"
+              />
+            </button>
+          </span>
+          <ul
+            class="dropdown__menu dropdown--align-right"
+          >
+            <li>
+              <div
+                class="dropdown__menu-label"
+              >
+                Create new list
+              </div>
+            </li>
+            <li
+              class="dropdown__menu-divider"
+            />
+            <li>
+              <button>
+                Automatic List
+              </button>
+            </li>
+            <li>
+              <button>
+                Manual List
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="sd-display-flex-column"
+      >
+        <div
+          class="sd-grid-list sd-grid-list--large"
+        >
+          <div
+            class="sd-card flexGrow"
+          >
+            <div
+              class="sd-card__header sd-card__header--padding sd-card__header--secondary-color"
+            >
+              <div
+                class="sd-card__heading"
+              >
+                Most shared
+              </div>
+              <div
+                class="sd-card__actions-group"
+              >
+                <a
+                  class="btn btn--small btn--hollow btn--ui-dark"
+                >
+                  Edit
+                </a>
+                <div
+                  class="dropdown dropdown--align-right"
+                  flow="left"
+                >
+                  <span>
+                    <button
+                      class="dropdown__toggle icn-btn"
+                    >
+                      <i
+                        class="icon-dots-vertical"
+                      />
+                    </button>
+                  </span>
+                  <ul
+                    class="dropdown__menu dropdown--align-right"
+                  >
+                    <li>
+                      <button
+                        title="Settings"
+                      >
+                        <i
+                          class="icon-settings"
+                        />
+                        Settings
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        title="Remove list"
+                      >
+                        <i
+                          class="icon-trash"
+                        />
+                        Remove
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="sd-card__content sd-card__content--scrollable relative"
+            >
+              <ul
+                class="sd-card__content-list"
+              >
+                <div
+                  class="sd-card__content-list-item sd-card__content-list-item--small"
+                >
+                  <span>
+                    No articles in this list
+                  </span>
+                </div>
+              </ul>
+            </div>
+            <div
+              class="sd-card__footer sd-card__footer--spread"
+            >
+              <div>
+                <span
+                  class="sd-text__info"
+                >
+                  Last modified: 
+                </span>
+                <span>
+                  2 days ago
+                </span>
+              </div>
+              <span
+                class="label label--success label--hollow"
+              >
+                active
+              </span>
+            </div>
+          </div>
+          <div
+            class="modal modal--double"
+            data-backdrop="static"
+          >
+            <div
+              class="modal__dialog"
+            >
+              <div
+                class="modal__content"
+              />
+            </div>
+          </div>
+          <div
+            class="sd-card flexGrow"
+          >
+            <div
+              class="sd-card__header sd-card__header--padding"
+            >
+              <div
+                class="sd-card__heading"
+              >
+                Top news
+              </div>
+              <div
+                class="sd-card__actions-group"
+              >
+                <a
+                  class="btn btn--small btn--hollow btn--ui-dark"
+                >
+                  Edit
+                </a>
+                <div
+                  class="dropdown dropdown--align-right"
+                  flow="left"
+                >
+                  <span>
+                    <button
+                      class="dropdown__toggle icn-btn"
+                    >
+                      <i
+                        class="icon-dots-vertical"
+                      />
+                    </button>
+                  </span>
+                  <ul
+                    class="dropdown__menu dropdown--align-right"
+                  >
+                    <li>
+                      <button
+                        title="Settings"
+                      >
+                        <i
+                          class="icon-settings"
+                        />
+                        Settings
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        title="Remove list"
+                      >
+                        <i
+                          class="icon-trash"
+                        />
+                        Remove
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="sd-card__content sd-card__content--scrollable relative"
+            >
+              <ul
+                class="sd-card__content-list"
+              >
+                <li
+                  class="sd-card__content-list-item sd-card__content-list-item--small"
+                >
+                  seo test
+                </li>
+              </ul>
+            </div>
+            <div
+              class="sd-card__footer sd-card__footer--spread"
+            >
+              <div>
+                <span
+                  class="sd-text__info"
+                >
+                  Last modified: 
+                </span>
+                <span>
+                  2 days ago
+                </span>
+              </div>
+              <span
+                class="label label--success label--hollow"
+              >
+                active
+              </span>
+            </div>
+          </div>
+          <div
+            class="modal modal--double"
+            data-backdrop="static"
+          >
+            <div
+              class="modal__dialog"
+            >
+              <div
+                class="modal__content"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sd-preview-panel"
+    >
+      <div
+        class="side-panel side-panel--shadow-right"
+      >
+        <div
+          class="side-panel__header side-panel__header--border-bottom"
+        >
+          <div
+            class="side-panel__tools"
+          >
+            <a
+              class="icn-btn"
+              flow="top"
+              sd-tooltip="Close"
+            >
+              <i
+                class="icon-close-small"
+              />
+            </a>
+          </div>
+          <h3
+            class="side-panel__heading"
+          >
+            Item preview
+          </h3>
+        </div>
+        <div
+          class="side-panel__content"
+        >
+          <div
+            class="side-panel-collapsible-header active"
+          >
+            <div
+              class="side-panel-collapsible-header__fixed"
+            >
+              <p
+                class="sd-text__date-and-author"
+              >
+                <time>
+                  a few seconds ago
+                </time>
+              </p>
+            </div>
+            <div
+              class="side-panel-collapsible-header__collapsible"
+            >
+              <div
+                class="form__row form__row--small-padding"
+              >
+                <div
+                  class="flex-grid flex-grid--wrap-items flex-grid--small-2"
+                >
+                  <div
+                    class="flex-grid__item"
+                  >
+                    <label
+                      class="form-label form-label--light"
+                    >
+                      Page views
+                    </label>
+                    <p />
+                  </div>
+                  <div
+                    class="flex-grid__item"
+                  >
+                    <label
+                      class="form-label form-label--light"
+                    >
+                      Comments
+                    </label>
+                    <p />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="side-panel-collapsible-header__toggle active"
+            >
+              <i
+                class="icon-chevron-down-thin"
+              />
+            </button>
+          </div>
+          <div
+            class="side-panel__content-block"
+          >
+            <h3
+              class="side-panel__content-block-heading"
+            />
+            <div
+              class="side-panel__content-block-text sp-imageMaxWidth-wrapper"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -73,7 +73,7 @@ class MetaDataOverlay extends Component {
                 />
               </div>
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--required sd-line-input--dark-ui sd-line-input--boxed">
+                <div className="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
                   <label className="sd-line-input__label">Title</label>
                   <input
                     className="sd-line-input__input"
@@ -89,7 +89,7 @@ class MetaDataOverlay extends Component {
                 </div>
               </div>
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--required sd-line-input--dark-ui sd-line-input--boxed">
+                <div className="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
                   <label className="sd-line-input__label">Description</label>
                   <textarea
                     className="sd-line-input__input"

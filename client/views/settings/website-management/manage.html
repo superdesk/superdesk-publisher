@@ -1,89 +1,95 @@
-<div class="sd-page__header sd-page__header--white sd-page__header--justify-space-between">
-    <h2 class="sd-page__page-heading">{{webPublisherSettings.selectedSite.name}}</h2>
-    <div class="pull-right">
+<div class="subnav">
+    <a ng-click="webPublisherSettings.changePanel('tenant')" class="navbtn navbtn--left" sd-tooltip="Dashboard" flow="right"><i class="icon-arrow-left"></i></a>
+    <h3 class="subnav__page-title">{{webPublisherSettings.selectedSite.name}}</h3>
+    <div class="pull-right sd-margin-r--2">
         <a class="btn btn--text-only" target="_blank"
             ng-href="{{webPublisherSettings.selectedSite.subdomain ? 'http://' + webPublisherSettings.selectedSite.subdomain + '.' + webPublisherSettings.selectedSite.domain_name: 'http://' + webPublisherSettings.selectedSite.domain_name}}">
             <i class="icon-globe"></i> Open website
         </a>
     </div>
 </div>
-<div class="sd-page__content sd-display-flex-column sd-page__content--d-flex-column no-padding relative">
-    <div class="sd-collapse-box__sliding-toolbar"
-        style="height: 5rem"
-        ng-if="webPublisherSettings.manageTab === 'general'"
-        ng-show="webPublisherSettings.siteForm.$dirty">
-        <div class="sliding-toolbar__inner"></div>
-        <a class="btn" ng-click="webPublisherSettings.cancelEditSite()">Cancel</a>
-        <a class="btn btn--primary" ng-click="webPublisherSettings.saveSite()">Save</a>
-    </div>
-    <div class="sd-collapse-box__sliding-toolbar"
-        style="height: 5rem"
-        ng-if="webPublisherSettings.manageTab === 'theme-settings'"
-        ng-show="webPublisherSettings.themeSettingsForm.$dirty">
-        <div class="sliding-toolbar__inner"></div>
-        <a class="btn"  ng-click="webPublisherSettings.cancelEditThemeSettings()">Cancel</a>
-        <a class="btn btn--primary" ng-click="webPublisherSettings.saveThemeSettings()">Save</a>
-    </div>
-    <ul class="nav-tabs">
-        <li ng-class="{'nav-tabs__tab--active': !webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'}" class="nav-tabs__tab">
-            <button ng-click="webPublisherSettings.changeManageTab('general')"
-                ng-disabled="webPublisherSettings.themeSettingsForm.$dirty"
-                class="nav-tabs__link"><span translate="">General</span></button>
-        </li>
-        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'routes'}" class="nav-tabs__tab">
-            <button ng-click="webPublisherSettings.changeManageTab('routes')"
-                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
-                class="nav-tabs__link"><span translate="">Routes</span></button>
-        </li>
-        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'navigation' || webPublisherSettings.manageTab === 'navigation-menu'}" class="nav-tabs__tab">
-            <button ng-click="webPublisherSettings.changeManageTab('navigation')"
-                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
-                class="nav-tabs__link"><span translate="">Navigation</span></button>
-        </li>
-        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'webhooks'}" class="nav-tabs__tab">
-            <button ng-click="webPublisherSettings.changeManageTab('webhooks')"
-                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
-                class="nav-tabs__link"><span translate="">Webhooks</span></button>
-        </li>
-        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme'}" class="nav-tabs__tab">
-            <button ng-click="webPublisherSettings.changeManageTab('theme')"
-                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
-                class="nav-tabs__link"><span translate="">Theme</span></button>
-        </li>
-        <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme-settings'}" class="nav-tabs__tab"
-            ng-if="!webPublisherSettings.selectedSite.output_channel && webPublisherSettings.themeSettings.settings.length">
-            <button ng-click="webPublisherSettings.changeManageTab('theme-settings')"
-                ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty"
-                class="nav-tabs__link"><span translate="">Theme Customization</span></button>
-        </li>
-    </ul>
-    <div class="nav-tabs__content no-padding relative sd-display-flex-column flexGrow">
-        <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
-        <div ng-if="!webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'"
-            class="nav-tabs__pane nav-tabs__pane--padding"
-            ng-include="'settings/website-management/manage-general.html'">
+<div class="sd-column-box--3">
+    <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
+    ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
+    ng-include="'settings/website-management/manage-nav.html'"></div>
+    <div class="sd-page__content sd-display-flex-column sd-page__content--d-flex-column no-padding relative">
+        <div class="sd-collapse-box__sliding-toolbar"
+            style="height: 5rem"
+            ng-if="webPublisherSettings.manageTab === 'general'"
+            ng-show="webPublisherSettings.siteForm.$dirty">
+            <div class="sliding-toolbar__inner"></div>
+            <a class="btn" ng-click="webPublisherSettings.cancelEditSite()">Cancel</a>
+            <a class="btn btn--primary" ng-click="webPublisherSettings.saveSite()">Save</a>
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column flexGrow"
-            ng-include="'settings/website-management/manage-routes.html'">
+        <div class="sd-collapse-box__sliding-toolbar"
+            style="height: 5rem"
+            ng-if="webPublisherSettings.manageTab === 'theme-settings'"
+            ng-show="webPublisherSettings.themeSettingsForm.$dirty">
+            <div class="sliding-toolbar__inner"></div>
+            <a class="btn"  ng-click="webPublisherSettings.cancelEditThemeSettings()">Cancel</a>
+            <a class="btn btn--primary" ng-click="webPublisherSettings.saveThemeSettings()">Save</a>
         </div>
-        <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane sd-display-flex-column"
-            ng-include="'settings/website-management/manage-navigation.html'">
-        </div>
-        <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane sd-display-flex-column"
-            ng-include="'settings/website-management/manage-navigation-menu.html'">
-        </div>
-        <div ng-if="webPublisherSettings.manageTab === 'webhooks'" class="nav-tabs__pane sd-display-flex-column flexGrow"
-            ng-include="'settings/website-management/webhooks/index.html'">
-        </div>
-        <div ng-if="webPublisherSettings.manageTab === 'theme-settings'" class="nav-tabs__pane"
-            ng-include="'settings/website-management/manage-theme-settings.html'">
-        </div>
-        <div ng-if="webPublisherSettings.manageTab === 'theme'" class="nav-tabs__pane">
-            <div sd-theme-manager
-                data-site="webPublisherSettings.selectedSite"
-                activated-callback="webPublisherSettings.themeActivatedCallback()"
-                data-grid="2"
-                class="sd-page__content"></div>
+        <ul class="nav-tabs">
+            <li ng-class="{'nav-tabs__tab--active': !webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherSettings.changeManageTab('general')"
+                    ng-disabled="webPublisherSettings.themeSettingsForm.$dirty"
+                    class="nav-tabs__link"><span translate="">General</span></button>
+            </li>
+            <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'routes'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherSettings.changeManageTab('routes')"
+                    ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                    class="nav-tabs__link"><span translate="">Routes</span></button>
+            </li>
+            <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'navigation' || webPublisherSettings.manageTab === 'navigation-menu'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherSettings.changeManageTab('navigation')"
+                    ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                    class="nav-tabs__link"><span translate="">Navigation</span></button>
+            </li>
+            <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'webhooks'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherSettings.changeManageTab('webhooks')"
+                    ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                    class="nav-tabs__link"><span translate="">Webhooks</span></button>
+            </li>
+            <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme'}" class="nav-tabs__tab">
+                <button ng-click="webPublisherSettings.changeManageTab('theme')"
+                    ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
+                    class="nav-tabs__link"><span translate="">Theme</span></button>
+            </li>
+            <li ng-class="{'nav-tabs__tab--active': webPublisherSettings.manageTab === 'theme-settings'}" class="nav-tabs__tab"
+                ng-if="!webPublisherSettings.selectedSite.output_channel && webPublisherSettings.themeSettings.settings.length">
+                <button ng-click="webPublisherSettings.changeManageTab('theme-settings')"
+                    ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty"
+                    class="nav-tabs__link"><span translate="">Theme Customization</span></button>
+            </li>
+        </ul>
+        <div class="nav-tabs__content no-padding relative sd-display-flex-column flexGrow">
+            <div class="sd-loader" ng-if="webPublisherSettings.loading"></div>
+            <div ng-if="!webPublisherSettings.manageTab || webPublisherSettings.manageTab === 'general'"
+                class="nav-tabs__pane nav-tabs__pane--padding"
+                ng-include="'settings/website-management/manage-general.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'routes'" class="nav-tabs__pane sd-display-flex-column flexGrow"
+                ng-include="'settings/website-management/manage-routes.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'navigation'" class="nav-tabs__pane sd-display-flex-column"
+                ng-include="'settings/website-management/manage-navigation.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'navigation-menu'" class="nav-tabs__pane sd-display-flex-column"
+                ng-include="'settings/website-management/manage-navigation-menu.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'webhooks'" class="nav-tabs__pane sd-display-flex-column flexGrow"
+                ng-include="'settings/website-management/webhooks/index.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'theme-settings'" class="nav-tabs__pane"
+                ng-include="'settings/website-management/manage-theme-settings.html'">
+            </div>
+            <div ng-if="webPublisherSettings.manageTab === 'theme'" class="nav-tabs__pane">
+                <div sd-theme-manager
+                    data-site="webPublisherSettings.selectedSite"
+                    activated-callback="webPublisherSettings.themeActivatedCallback()"
+                    data-grid="2"
+                    class="sd-page__content"></div>
+            </div>
         </div>
     </div>
 </div>

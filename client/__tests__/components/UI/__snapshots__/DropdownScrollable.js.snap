@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/Dropdown renders itself, children and button correcty 1`] = `
+<div
+  class="dropdown"
+>
+  <span>
+    <button>
+      button
+    </button>
+  </span>
+  <ul
+    class="dropdown__menu dropdown__menu--scrollable"
+  >
+    <span>
+      child
+    </span>
+  </ul>
+</div>
+`;

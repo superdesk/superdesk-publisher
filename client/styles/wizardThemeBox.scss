@@ -47,21 +47,33 @@
         border-radius: 3px;
         .drag-area {
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
 
             &.dragover{
                 border: none;
                 background-color: rgba(255,255,255,.7);
             }
             .title {
-                width: 240px;
-                margin-left: -120px;
-                margin-right: 0;
-                margin-top: -50px;
+                width: auto;
+                height: auto;
+                position: initial;
+                margin: 0;
                 background: none;
                 padding: 0;
+                line-height: 120%;
             }
             .upload-manual {
-                margin-top: 0;
+                position: initial;
+                margin-top: 2rem;
+                margin-left: 0;
+
+                .btn {
+                    height: 3.2rem;
+                }
             }
         }
     }

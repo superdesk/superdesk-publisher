@@ -7,7 +7,7 @@
                 >Website Management</a></li>
             <li><a href="" class="sd-left-nav__btn"
                 ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'rules'}"
-                ng-click="webPublisherSettings.changePanel('rules')"
+                ng-click="webPublisherSettings.changePanel('rules'); webPublisherSettings.togglePreviewRule()"
                 >Publishing Rules</a></li>
         </ul>
         <div class="sp-manage-overlay"
@@ -25,9 +25,6 @@
         ng-include="'settings/website-management/tenant-list.html'">
     </section>
 
-    <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right relative"
-        ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
-        ng-include="'settings/website-management/manage-nav.html'"></div>
     <section  class="sd-page__main-content sd-page__main-content--double-left-nav"
         ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
         ng-include="'settings/website-management/manage.html'"></section>

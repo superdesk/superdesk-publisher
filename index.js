@@ -3,9 +3,6 @@ import "ng-file-upload";
 import "./client/styles/_publisher.scss";
 import "angular-in-viewport";
 import "angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists";
-import { reactToAngular1 } from "superdesk-ui-framework";
-
-import Analytics from "./client/components/Analytics/Analytics";
 
 import * as controllers from "./client/controllers";
 import * as services from "./client/services";
@@ -60,27 +57,6 @@ function cacheIncludedTemplates($templateCache) {
   $templateCache.put(
     "list-articles-detail.html",
     require("./client/directives/listArticles/list-articles-detail.html")
-  );
-
-  $templateCache.put(
-    "content-list-automatic.html",
-    require("./client/views/content-lists/content-list-automatic.html")
-  );
-  $templateCache.put(
-    "content-list-manual.html",
-    require("./client/views/content-lists/content-list-manual.html")
-  );
-  $templateCache.put(
-    "content-lists-list.html",
-    require("./client/views/content-lists/content-lists-list.html")
-  );
-  $templateCache.put(
-    "list-box.html",
-    require("./client/views/content-lists/list-box.html")
-  );
-  $templateCache.put(
-    "content-lists/preview-pane.html",
-    require("./client/views/content-lists/preview-pane.html")
   );
 
   $templateCache.put(
@@ -207,22 +183,12 @@ export default angular
   .factory("publisher", services.PublisherFactory)
   .factory("pubapi", services.PubAPIFactory)
   .factory("publisherHelpers", services.PublisherHelpersFactory)
-  .component(
-    "spAnalytics",
-    reactToAngular1(
-      Analytics,
-      ["tenant", "publisher"],
-      [],
-      "display: flex; flex-direction: column; flex-grow: 1; overflow-x: hidden;"
-    )
-  )
-
   .config([
     "superdeskProvider",
     "workspaceMenuProvider",
-    function(superdesk, workspaceMenuProvider) {
+    function (superdesk, workspaceMenuProvider) {
       superdesk
-        .activity("/publisher/dashboard", {
+        .activity("/publisher", {
           label: gettext("Publisher"),
           description: gettext("Publisher"),
           controller: controllers.WebPublisherDashboardController,
@@ -290,9 +256,10 @@ export default angular
 
       workspaceMenuProvider.item({
         if: 'privileges.publisher_dashboard',
-        href: "/publisher/dashboard",
+        href: "/publisher",
         label: gettext("Publisher"),
         icon: "publisher",
+        shortcut: "alt+w",
         order: 1100,
         group: "Planning"
       });

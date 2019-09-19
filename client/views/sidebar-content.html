@@ -1,19 +1,11 @@
 <ul>
   <li sd-tooltip="Dashboard" flow="right">
-    <a
-      href="#/publisher/dashboard"
-      class="sd-sidebar-menu__btn"
-      ng-class="{'sd-sidebar-menu__btn--active': currentRoute.href === '/publisher/dashboard'}"
-    >
+    <a href="#/publisher" class="sd-sidebar-menu__btn" ng-class="{'sd-sidebar-menu__btn--active': superdesk.currentRoute.href === '/publisher'}">
       <i class="sd-sidebar-menu__main-icon big-icon--dashboard-alt"></i>
     </a>
   </li>
   <li sd-tooltip="Output Control" flow="right">
-    <a
-      href="#/publisher/output-control"
-      class="sd-sidebar-menu__btn"
-      ng-class="{'sd-sidebar-menu__btn--active': currentRoute.href === '/publisher/output-control'}"
-    >
+    <a href="#/publisher/output-control" class="sd-sidebar-menu__btn" ng-class="{'sd-sidebar-menu__btn--active': superdesk.currentRoute.href === '/publisher/output-control'}">
       <i class="sd-sidebar-menu__main-icon big-icon--web"></i>
     </a>
   </li>

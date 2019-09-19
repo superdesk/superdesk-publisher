@@ -48,10 +48,8 @@ export function ThemeManagerDirective(publisher) {
         publisher.setTenant(scope.site);
         publisher
           .installTenantTheme({
-            theme_install: {
-              name: theme.name,
-              processGeneratedData: theme.processGeneratedData
-            }
+            name: theme.name,
+            processGeneratedData: theme.processGeneratedData
           })
           .then(() => {
             scope.busy = false;
@@ -97,7 +95,7 @@ export function ThemeManagerDirective(publisher) {
           if (!themeFile.$error) {
             scope.uploading = true;
             publisher
-              .uploadOrganizationTheme({ "theme_upload[file]": themeFile })
+              .uploadOrganizationTheme({ file: themeFile })
               .then(response => {
                 this._loadThemes(scope)
                   .then(() => {

@@ -50,22 +50,16 @@ export function WebPublisherOutputController(
 
       publisher
         .setToken()
-        .then(publisher.querySites)
+        .then(() => publisher.querySites(true, true))
         .then(sites => {
           this.loading = false;
           this.sites = sites;
-          // loading routes and content lists
+          // creating global routes array
           angular.forEach(sites, (siteObj, key) => {
-            publisher.setTenant(siteObj);
-            publisher.queryRoutes({ type: "collection" }).then(routes => {
-              siteObj.routes = routes;
-              angular.forEach(routes, (route, key) => {
-                route.name = siteObj.name + "/" + route.name;
-              });
-              this.routes = this.routes.concat(routes);
-            });
-            publisher.queryLists().then(lists => {
-              siteObj.content_lists = lists;
+            angular.forEach(siteObj.routes, (route, key) => {
+              let tempRoute = { ...route };
+              tempRoute.name = siteObj.name + "/" + tempRoute.name;
+              this.routes.push(tempRoute);
             });
           });
 
@@ -479,7 +473,7 @@ export function WebPublisherOutputController(
           tenant: item,
           route:
             this.newDestinations[item].route &&
-            this.newDestinations[item].route.id
+              this.newDestinations[item].route.id
               ? this.newDestinations[item].route.id
               : null,
           is_published_fbia:
@@ -487,7 +481,7 @@ export function WebPublisherOutputController(
             this.newDestinations[item].is_published_fbia === true,
           published:
             this.newDestinations[item].route &&
-            this.newDestinations[item].route.id
+              this.newDestinations[item].route.id
               ? true
               : false,
           paywall_secured:

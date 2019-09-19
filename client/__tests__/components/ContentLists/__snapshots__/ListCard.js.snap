@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLists/ListCard renders correctly 1`] = `
+<div
+  class="sd-card flexGrow"
+>
+  <div
+    class="sd-card__header sd-card__header--padding sd-card__header--secondary-color"
+  >
+    <div
+      class="sd-card__heading"
+    >
+      Most shared
+    </div>
+    <div
+      class="sd-card__actions-group"
+    >
+      <a
+        class="btn btn--small btn--hollow btn--ui-dark"
+      >
+        Edit
+      </a>
+      <div
+        class="dropdown dropdown--align-right"
+        flow="left"
+      >
+        <span>
+          <button
+            class="dropdown__toggle icn-btn"
+          >
+            <i
+              class="icon-dots-vertical"
+            />
+          </button>
+        </span>
+        <ul
+          class="dropdown__menu dropdown--align-right"
+        >
+          <li>
+            <button
+              title="Settings"
+            >
+              <i
+                class="icon-settings"
+              />
+              Settings
+            </button>
+          </li>
+          <li>
+            <button
+              title="Remove list"
+            >
+              <i
+                class="icon-trash"
+              />
+              Remove
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sd-card__content sd-card__content--scrollable relative"
+  >
+    <ul
+      class="sd-card__content-list"
+    >
+      <div
+        class="sd-card__content-list-item sd-card__content-list-item--small"
+      >
+        <span>
+          No articles in this list
+        </span>
+      </div>
+    </ul>
+  </div>
+  <div
+    class="sd-card__footer sd-card__footer--spread"
+  >
+    <div>
+      <span
+        class="sd-text__info"
+      >
+        Last modified: 
+      </span>
+      <span>
+        2 days ago
+      </span>
+    </div>
+    <span
+      class="label label--success label--hollow"
+    >
+      active
+    </span>
+  </div>
+</div>
+`;
