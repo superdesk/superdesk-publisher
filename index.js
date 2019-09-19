@@ -186,9 +186,9 @@ export default angular
   .config([
     "superdeskProvider",
     "workspaceMenuProvider",
-    function(superdesk, workspaceMenuProvider) {
+    function (superdesk, workspaceMenuProvider) {
       superdesk
-        .activity("/publisher/dashboard", {
+        .activity("/publisher", {
           label: gettext("Publisher"),
           description: gettext("Publisher"),
           controller: controllers.WebPublisherDashboardController,
@@ -255,7 +255,7 @@ export default angular
         });
 
       workspaceMenuProvider.item({
-        href: "/publisher/dashboard",
+        href: "/publisher",
         label: gettext("Publisher"),
         icon: "publisher",
         shortcut: "alt+w",

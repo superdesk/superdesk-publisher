@@ -1,14 +1,14 @@
 <div class="sd-list-item sd-shadow--z1"
     ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
-    ng-click="webPublisherSettings.togglePreviewRule(rule, code)">
+    ng-click="webPublisherSettings.toggleCreateRule(); webPublisherSettings.togglePreviewRule(rule, code)">
     <div class="sd-list-item__border"></div>
     <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
         <div class="sd-list-item__row">
-            <div class="sd-overflow-ellipsis sd-list-item--element-grow"><strong>{{rule.name}}</strong> <span class="sd-list-item__text-label margin--left">{{rule.description}}</span></div>
+            <div class="sd-overflow-ellipsis sd-list-item--element-grow"><strong>{{rule.name}}</strong> <span class="margin--left">{{rule.description}}</span></div>
         </div>
         <div class="sd-list-item__row">
             <span class="sd-overflow-ellipsis sd-list-item--element-grow">
-                <span class="label label--primary"
+                <span class="label label--primary label--hollow"
                     ng-repeat="part in webPublisherSettings.makeExpressionReadable(rule.expression)">
                     {{part}}
                 </span>
@@ -19,7 +19,7 @@
                 {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
             </span>
             <span ng-if="rule.configuration.destinations.length - 6 > 0">+{{rule.configuration.destinations.length - 6}} more</span>
-            <span ng-if="rule.configuration.route" class="label label--success" ng-class="{'label--hollow' : !rule.configuration.published}">
+            <span ng-if="rule.configuration.route" class="label" ng-class="{'label--success' : rule.configuration.published}">
                 {{webPublisherSettings.getRouteNameByTenantAndId(code , rule.configuration.route)}}
             </span>
             <span ng-if="!rule.configuration.route && rule.configuration.published" class="label label--success">
@@ -45,7 +45,7 @@
                 </li>
                 <li class="dropdown__menu-divider"></li>
                 <li>
-                    <button ng-click="webPublisherSettings.editRule(rule, code)">
+                    <button ng-click="webPublisherSettings.editRule(rule, code); webPublisherSettings.togglePreviewRule()">
                         <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
                     </button>
                 </li>
