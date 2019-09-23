@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import _ from "lodash";
 
 import SitesSideNav from "../generic/SitesSideNav";
 import Listing from "./Listing";
@@ -83,6 +84,8 @@ class ContentLists extends React.Component {
           let list = lists.find(l => l.id === parseInt(this.props.list));
           if (list) selectedList = list;
         }
+
+        lists = _.orderBy(lists, "name", "asc");
 
         if (this._isMounted)
           this.setState({
