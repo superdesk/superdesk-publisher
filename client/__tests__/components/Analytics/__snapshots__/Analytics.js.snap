@@ -10,7 +10,7 @@ exports[`Analytics/Analytics renders correctly 1`] = `
     <a
       class="navbtn navbtn--left"
       flow="right"
-      href="#/publisher/dashboard"
+      href="#/publisher"
       sd-tooltip="Dashboard"
     >
       <i
