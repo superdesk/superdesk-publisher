@@ -211,7 +211,7 @@ class Manual extends React.Component {
       let params = _.pickBy({ ...this.state.articlesFilters }, _.identity);
       params.limit = 20;
       params.page = this.state.articles.page + 1;
-      params["sorting[updated_at]"] = "desc";
+      params["sorting[published_at]"] = "desc";
       params.status = "published";
 
       this.props.publisher.queryTenantArticles(params).then(response => {
