@@ -157,7 +157,7 @@ class ContentLists extends React.Component {
         >
           <div className="subnav">
             <a
-              href="#/publisher/dashboard"
+              href="#/publisher"
               className="navbtn navbtn--left"
               sd-tooltip="Dashboard"
               flow="right"
