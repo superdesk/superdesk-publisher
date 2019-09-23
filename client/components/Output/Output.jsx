@@ -19,9 +19,9 @@ class Output extends React.Component {
     this.state = {
       tenants: [],
       loading: true,
-
       articlesCounts: { incoming: 0, published: 0 },
       selectedItem: null,
+      isSuperdeskEditorOpen: false,
       filters: {},
       selectedList: window.localStorage.getItem("swpOutputListType")
         ? window.localStorage.getItem("swpOutputListType")
@@ -37,30 +37,36 @@ class Output extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+
     this.props.publisher
       .setToken()
       .then(() => this.props.publisher.querySites(true, true))
       .then(tenants => {
         if (this._isMounted) this.setState({ tenants, loading: false });
       });
+
+    document.addEventListener(
+      "isSuperdeskEditorOpen",
+      this.handleEditorOpenChange,
+      false
+    );
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.isSuperdeskEditorOpen !== prevProps.isSuperdeskEditorOpen &&
-      this.props.isSuperdeskEditorOpen
-    ) {
+  handleEditorOpenChange = e => {
+    if (this.state.isSuperdeskEditorOpen !== e.detail && e.detail) {
       this.togglePreview(null);
       this.togglePublish(null);
     }
+    this.setState({ isSuperdeskEditorOpen: e.detail });
+  };
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener("isSuperdeskEditorOpen");
   }
 
   setFilters = filters => {
-    this.setState({ filters });
+    this.setState({ filters: { ...this.state.filters, ...filters } });
   };
 
   setArticlesCounts = articlesCounts => {
@@ -103,18 +109,6 @@ class Output extends React.Component {
     this.setState({ selectedList: listType });
   };
 
-  removePackage = item => {
-    modal
-      .confirm(
-        gettext("Please confirm you want to remove article from incoming list.")
-      )
-      .then(() =>
-        publisher
-          .removeArticle({ pub_status: "canceled" }, article.id)
-          .then(() => $scope.$broadcast("removeFromArticlesList", article.id))
-      );
-  };
-
   correctPackage = item => {
     let newItem = {};
 
@@ -136,18 +130,13 @@ class Output extends React.Component {
       });
     }
 
-    <div
-      ng-repeat="item in webPublisherOutput.selectedArticle.extra_items"
-      ng-if="item.type==='media'"
-      sd-gallery
-      data-items="item.items"
-    ></div>;
     return (
       <Store.Provider
         value={{
           publisher: this.props.publisher,
           notify: this.props.notify,
-          isSuperdeskEditorOpen: this.props.isSuperdeskEditorOpen,
+          api: this.props.api,
+          isSuperdeskEditorOpen: this.state.isSuperdeskEditorOpen,
           config: this.props.config,
           selectedList: this.state.selectedList,
           selectedItem: this.state.selectedItem,
@@ -162,8 +151,7 @@ class Output extends React.Component {
             setSelectedList: listType => this.setSelectedList(listType),
             setFilters: filters => this.setFilters(filters),
             setArticlesCounts: counts => this.setArticlesCounts(counts),
-            correctPackage: item => this.correctPackage(item),
-            removePackage: item => this.removePackage(item)
+            correctPackage: item => this.correctPackage(item)
           }
         }}
       >
@@ -221,7 +209,7 @@ class Output extends React.Component {
                         this.state.selectedItem.articles[0] &&
                         this.state.selectedItem.articles[0].media
                           ? this.state.selectedItem.articles[0].media
-                          : {},
+                          : null,
                       tenant: this.state.selectedItem.articles[0]
                         ? this.state.selectedItem.articles[0].tenant
                         : null,
@@ -259,9 +247,9 @@ class Output extends React.Component {
 Output.propTypes = {
   publisher: PropTypes.object.isRequired,
   notify: PropTypes.object.isRequired,
-  isSuperdeskEditorOpen: PropTypes.bool.isRequired,
   config: PropTypes.object.isRequired,
-  authoringWorkspace: PropTypes.object.isRequired
+  authoringWorkspace: PropTypes.object.isRequired,
+  api: PropTypes.func.isRequired
 };
 
 export default Output;

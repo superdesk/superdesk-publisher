@@ -15,6 +15,11 @@ const helpers = (() => {
     let base = article.tenant.subdomain
       ? "//" + article.tenant.subdomain + "." + article.tenant.domain_name
       : "//" + article.tenant.domain_name;
+
+    if (!article.media) {
+      return base + article.feature_media._links.download.href;
+    }
+
     let mediaEl = article.media.find(el => el.id === article.feature_media.id);
     let rendition = mediaEl.renditions.find(el => el.name === type);
 

@@ -16,14 +16,16 @@ WebPublisherOutputController.$inject = [
   "publisher",
   "authoringWorkspace",
   "notify",
-  "config"
+  "config",
+  "api"
 ];
 export function WebPublisherOutputController(
   $scope,
   publisher,
   authoringWorkspace,
   notify,
-  config
+  config,
+  api
 ) {
   class WebPublisherOutput {
     constructor() {
@@ -31,16 +33,20 @@ export function WebPublisherOutputController(
 
       $scope.$watch(authoringWorkspace.getState, state => {
         this.editorOpen = state && state.item ? true : false;
+        let event = new CustomEvent("isSuperdeskEditorOpen", {
+          detail: this.editorOpen
+        });
+        document.dispatchEvent(event);
       });
 
       ReactDOM.render(
-        <Output
-          publisher={publisher}
-          notify={notify}
-          config={config}
-          isSuperdeskEditorOpen={this.editorOpen}
-          authoringWorkspace={authoringWorkspace}
-        />,
+        React.createElement(Output, {
+          publisher: publisher,
+          notify: notify,
+          config: config,
+          authoringWorkspace: authoringWorkspace,
+          api: api
+        }),
         document.getElementById("sp-output-react-app")
       );
     }

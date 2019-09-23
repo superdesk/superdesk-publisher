@@ -6,9 +6,56 @@ import _ from "lodash";
 
 import Store from "./Store";
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
+import Modal from "../UI/Modal";
 
-const ArticleItem = ({ item, style }) => {
+const ArticleItem = ({ item, style, onRemove }) => {
   const store = React.useContext(Store);
+  const [state, setState] = React.useState({ confirm: false });
+
+  const removeConfirm = () => setState({ confirm: true });
+
+  const removeCancel = () => setState({ confirm: false });
+
+  const remove = () => {
+    store.publisher
+      .removeArticle({ pub_status: "canceled" }, item.id)
+      .then(() => onRemove(item.id))
+      .catch(e => store.notify.error("Cannot remove article"));
+  };
+
+  let modalContent = null;
+  if (state.confirm) {
+    modalContent = (
+      <React.Fragment>
+        <div className="modal__header ">
+          <h3>Confirm</h3>
+        </div>
+        <div className="modal__body ">
+          Please confirm you want to remove article from incoming list.
+        </div>
+        <div className="modal__footer">
+          <button
+            className="btn"
+            onClick={e => {
+              e.stopPropagation();
+              removeCancel();
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn--primary"
+            onClick={e => {
+              e.stopPropagation();
+              remove();
+            }}
+          >
+            Remove
+          </button>
+        </div>
+      </React.Fragment>
+    );
+  }
 
   return (
     <div
@@ -17,12 +64,7 @@ const ArticleItem = ({ item, style }) => {
           store.selectedItem && store.selectedItem.id === item.id,
         fadeElement: item.animate
       })}
-      style={{
-        ...style,
-        width: "calc(100% - 4.8rem)",
-        marginLeft: "2.4rem",
-        top: `${parseFloat(style.top) + 24}px`
-      }}
+      style={style}
       onClick={() => store.actions.togglePreview(item)}
     >
       <div className="sd-list-item__border"></div>
@@ -54,16 +96,17 @@ const ArticleItem = ({ item, style }) => {
                 </span>
               )
           )}
-          {item.service.map(service =>
-            store.selectedList === "incoming" ? (
-              <span
-                key={"articleService" + item.id + "-" + service.name}
-                className="label label--hollow"
-              >
-                {service.name}
-              </span>
-            ) : null
-          )}
+          {item.service &&
+            item.service.map(service =>
+              store.selectedList === "incoming" ? (
+                <span
+                  key={"articleService" + item.id + "-" + service.name}
+                  className="label label--hollow"
+                >
+                  {service.name}
+                </span>
+              ) : null
+            )}
 
           {item.version > 1 && store.selectedList === "incoming" && (
             <span className="label label--darkBlue2 label--hollow">
@@ -132,10 +175,11 @@ const ArticleItem = ({ item, style }) => {
         {store.selectedList === "incoming" && (
           <button
             sd-tooltip="Remove"
+            flow="left"
             className="icn-btn"
             onClick={e => {
               e.stopPropagation();
-              store.actions.removePackage(item);
+              removeConfirm();
             }}
           >
             <i className="icon-trash"></i>
@@ -143,6 +187,7 @@ const ArticleItem = ({ item, style }) => {
         )}
         <button
           sd-tooltip="Correct"
+          flow="left"
           className="icn-btn"
           onClick={e => {
             e.stopPropagation();
@@ -153,6 +198,7 @@ const ArticleItem = ({ item, style }) => {
         </button>
         <button
           sd-tooltip="Publish"
+          flow="left"
           className="icn-btn"
           onClick={e => {
             e.stopPropagation();
@@ -162,13 +208,15 @@ const ArticleItem = ({ item, style }) => {
           <i className="icon-expand-thin"></i>
         </button>
       </div>
+      <Modal isOpen={state.confirm ? true : false}>{modalContent}</Modal>
     </div>
   );
 };
 
 ArticleItem.propTypes = {
   item: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
+  onRemove: PropTypes.func.isRequired
 };
 
 export default ArticleItem;
