@@ -27,6 +27,10 @@ export function PublisherHelpersFactory() {
             let rendition = mediaEl.renditions.find(el => el.name === type);
 
             if (!rendition) rendition = mediaEl.renditions.find(el => el.name === 'original');
+            
+            if (!rendition) {
+                return base + article.feature_media._links.download.href;
+            }
 
             return base + '/media/' + rendition.image.asset_id + '.' + rendition.image.file_extension;
         };
