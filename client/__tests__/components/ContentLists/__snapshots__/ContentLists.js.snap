@@ -10,7 +10,7 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
     <a
       class="navbtn navbtn--left"
       flow="right"
-      href="#/publisher/dashboard"
+      href="#/publisher"
       sd-tooltip="Dashboard"
     >
       <i

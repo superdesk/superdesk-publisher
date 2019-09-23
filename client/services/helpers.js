@@ -12,7 +12,7 @@ const helpers = (() => {
   };
 
   const getRenditionUrl = (article, type = "thumbnail") => {
-     let base = article.tenant.subdomain
+    let base = article.tenant.subdomain
       ? "//" + article.tenant.subdomain + "." + article.tenant.domain_name
       : "//" + article.tenant.domain_name;
 
