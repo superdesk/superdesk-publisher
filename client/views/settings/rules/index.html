@@ -19,8 +19,8 @@
                     <div class="dropdown__menu-label">Create new rule</div>
                 </li>
                 <li class="dropdown__menu-divider"></li>
-                <li><button ng-click="webPublisherSettings.toggleCreateRule('organization')">Organization Rule</button></li>
-                <li><button ng-click="webPublisherSettings.toggleCreateRule('tenant')" ng-disabled="!webPublisherSettings.organizationRules.length">Tenant Rule</button></li>
+                <li><button ng-click="webPublisherSettings.toggleCreateRule('organization'); webPublisherSettings.togglePreviewRule()">Organization Rule</button></li>
+                <li><button ng-click="webPublisherSettings.toggleCreateRule('tenant'); webPublisherSettings.togglePreviewRule()" ng-disabled="!webPublisherSettings.organizationRules.length">Tenant Rule</button></li>
             </ul>
         </div>
     </div>
