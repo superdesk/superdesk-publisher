@@ -33,13 +33,13 @@
                     </span>
                 </span>
 
-                <span ng-if="i.articles.length - 3 > 0">+{{i.articles.length - 3}} more</span>
+                <span ng-if="i.articles.length - 3 > 0" class="sd-margin-r--1">+{{i.articles.length - 3}} more</span>
                 <span class="sd-overflow-ellipsis">
-                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow">{{i.byline}}</span>
+                    <span ng-if="rootType === 'incoming'" class="sd-overflow-ellipsis sd-list-item--element-grow sd-margin-r--1">{{i.byline}}</span>
                     <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-list-item__text-label">pageviews:</span>
-                    <span ng-if="rootType === 'published' && i.pageviewsCount">{{i.pageviewsCount}}</span>
+                    <span ng-if="rootType === 'published' && i.pageviewsCount" class="sd-margin-r--1">{{i.pageviewsCount}}</span>
                     <span ng-if="rootType === 'published' && i.comments_count" class="sd-list-item__text-label">comments:</span>
-                    <span ng-if="rootType === 'published' && i.comments_count">{{i.comments_count}}</span>
+                    <span ng-if="rootType === 'published' && i.comments_count" class="sd-margin-r--1">{{i.comments_count}}</span>
                 </span>
             </div>
         </div>

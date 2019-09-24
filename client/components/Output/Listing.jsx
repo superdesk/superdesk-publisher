@@ -100,7 +100,6 @@ class Listing extends React.Component {
 
     if (this.props.type === "incoming") {
       queryParams["status[]"] = ["new"];
-      queryParams["sorting[created_at]"] = "desc";
     } else {
       queryParams["status[]"] = ["published", "unpublished"];
       queryParams["tenant[]"] = tenant.length ? tenant : null;
@@ -111,8 +110,8 @@ class Listing extends React.Component {
       queryParams.published_after = this.state.filters.publishedAfter
         ? this.state.filters.publishedAfter
         : null;
-      queryParams["sorting[updated_at]"] = "desc";
     }
+    queryParams["sorting[updatedAt]"] = "desc";
 
     return _.pickBy(queryParams, _.identity);
   };
