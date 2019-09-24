@@ -144,14 +144,14 @@ export function GroupArticleDirective(publisher, publisherHelpers) {
         // building query params for both cases
         if (scope.rootType && scope.rootType === "incoming") {
           queryParams["status[]"] = ["new"];
-          queryParams["sorting[created_at]"] = "desc";
+          queryParams["sorting[updatedAt]"] = "desc";
         } else {
           queryParams["status[]"] = ["published", "unpublished"];
           queryParams["tenant[]"] = tenant.length ? tenant : undefined;
           queryParams["route[]"] = route.length ? route : undefined;
           queryParams.published_before = scope.filters.publishedBefore;
           queryParams.published_after = scope.filters.publishedAfter;
-          queryParams["sorting[updated_at]"] = "desc";
+          queryParams["sorting[updatedAt]"] = "desc";
         }
         return queryParams;
       };
