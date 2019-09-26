@@ -76,7 +76,7 @@
             <img ng-if="webPublisherOutput.selectedArticle.articles[0].feature_media && webPublisherOutput.selectedArticle.articles[0].feature_media.image"
                 ng-src="{{webPublisherOutput.getViewImage(webPublisherOutput.selectedArticle.articles[0])}}" style="max-width:100%">
             <div class="side-panel__content-block-text sp-imageMaxWidth-wrapper" ng-bind-html="webPublisherOutput.bodyHtml"></div>
-            <div ng-repeat="item in webPublisherOutput.selectedArticle.extra_items" ng-if="item.type==='media'" sd-gallery data-items="item.items">
+            <!-- <div ng-repeat="item in webPublisherOutput.selectedArticle.extra_items" ng-if="item.type==='media'" sd-gallery data-items="item.items"> -->
             </div>
         </div>
     </div>
