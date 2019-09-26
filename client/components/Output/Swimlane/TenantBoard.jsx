@@ -2,12 +2,12 @@ import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-import helpers from "../../services/helpers.js";
-import VirtualizedList from "../generic/VirtualizedList";
-import ArticleItem from "./ArticleItem";
-import Store from "./Store";
+import helpers from "../../../services/helpers.js";
+import VirtualizedList from "../../generic/VirtualizedList";
 
-class Listing extends React.Component {
+import Store from "../Store";
+
+class TenantBoard extends React.Component {
   static contextType = Store;
 
   constructor(props) {
@@ -158,73 +158,30 @@ class Listing extends React.Component {
       });
   };
 
-  handleRemove = id => {
-    let articles = { ...this.state.articles };
-    articles.items = [...this.state.articles.items];
-    let index = articles.items.findIndex(item => item.id === id);
-
-    if (index) {
-      articles.items = [
-        ...articles.items.slice(0, index),
-        ...articles.items.slice(index + 1, articles.items.length)
-      ];
-    }
-    this.setState({ articles });
-  };
-
   render() {
-    if (this.props.hide) return null;
-
     return (
-      <div
-        className="sd-column-box__main-column relative"
-        style={this.state.articles.items.length ? { display: "flex" } : {}}
-      >
-        {this.state.articles.items.length && !this.state.loading ? (
-          <div
-            className="sd-list-item-group sd-shadow--z2"
-            style={{ flexGrow: "1" }}
-          >
-            <VirtualizedList
-              hasNextPage={
-                this.state.articles.totalPages > this.state.articles.page
-                  ? true
-                  : false
-              }
-              isNextPageLoading={this.state.articles.loading}
-              loadNextPage={this._queryArticles}
-              items={this.state.articles.items}
-              itemSize={this.state.articles.itemSize}
-              ItemRenderer={ArticleItem}
-              itemRendererProps={{
-                onRemove: id => this.handleRemove(id)
-              }}
-            />
+      <div className="sd-kanban-list__board sd-kanban-list__board--wide">
+        <div className="sd-kanban-list__board-header">
+          <div className="sd-list-header">
+            <span className="sd-list-header__name">site.name</span>
+            <span
+              ng-if="totalArticles.total"
+              className="sd-list-header__number badge"
+            >
+              totalArticles.total
+            </span>
           </div>
-        ) : null}
-
-        {!this.state.articles.items.length &&
-        !this.state.loading &&
-        !this.state.articles.loading ? (
-          <div className="panel-info">
-            <div className="panel-info__icon">
-              <i className="big-icon--text"></i>
-            </div>
-            <h3 className="panel-info__heading">
-              No {this.props.type} articles.
-            </h3>
-          </div>
-        ) : null}
-
-        {this.state.loading && <div className="sd-loader" />}
+        </div>
+        <div className="sd-kanban-list__board-content">
+          <div className="sd-list-item-group sd-shadow--z1"></div>
+        </div>
       </div>
     );
   }
 }
 
-Listing.propTypes = {
-  type: PropTypes.string.isRequired,
-  hide: PropTypes.bool
+TenantBoard.propTypes = {
+  tenant: PropTypes.object.isRequired
 };
 
-export default Listing;
+export default TenantBoard;

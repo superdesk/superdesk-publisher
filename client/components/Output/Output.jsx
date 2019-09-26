@@ -9,6 +9,7 @@ import Subnav from "./Subnav";
 import FilterPane from "./FilterPane";
 import Listing from "./Listing";
 import ArticlePreview from "../generic/ArticlePreview";
+import Swimlane from "./Swimlane/Swimlane";
 
 class Output extends React.Component {
   constructor(props) {
@@ -179,7 +180,10 @@ class Output extends React.Component {
             <h3 className="subnav__page-title sd-flex-no-grow">
               Output Control
             </h3>
-            <SearchBar leftBorder={true} onChange={() => null} />
+            <SearchBar
+              leftBorder={true}
+              onChange={term => this.setFilters({ term: term })}
+            />
           </div>
           <Subnav />
           {this.state.loading && <div className="sd-loader" />}
@@ -194,8 +198,17 @@ class Output extends React.Component {
             />
             <Listing
               type="published"
-              hide={this.state.selectedList === "published" ? false : true}
+              hide={
+                this.state.selectedList === "published" &&
+                this.state.listViewType !== "swimlane"
+                  ? false
+                  : true
+              }
             />
+
+            {this.state.selectedList === "published" &&
+              this.state.listViewType === "swimlane" && <Swimlane />}
+
             <ArticlePreview
               article={
                 this.state.selectedItem

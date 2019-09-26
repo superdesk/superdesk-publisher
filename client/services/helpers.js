@@ -33,10 +33,6 @@ const helpers = (() => {
       return base + article.feature_media._links.download.href;
     }
 
-    if (!rendition) {
-      return base + article.feature_media._links.download.href;
-    }
-
     return (
       base +
       "/media/" +
