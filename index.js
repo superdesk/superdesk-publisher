@@ -255,6 +255,7 @@ export default angular
         });
 
       workspaceMenuProvider.item({
+        if: 'privileges.publisher_dashboard',
         href: "/publisher",
         label: gettext("Publisher"),
         icon: "publisher",

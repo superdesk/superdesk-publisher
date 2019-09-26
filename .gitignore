@@ -19,6 +19,7 @@ dist/
 *.pyc
 src/
 yarn.lock
+build
 
 # VIM related files
 *.swo
