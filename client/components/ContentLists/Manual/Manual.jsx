@@ -365,23 +365,7 @@ class Manual extends React.Component {
     if (action === "delete") delete change.position;
 
     changesRecord.push(change);
-    changesRecord = this.updatePositions(changesRecord, list);
     this.setState({ changesRecord });
-  };
-
-  updatePositions = (changesRecord, list) => {
-    for (let i = 0; i < changesRecord.length; i++) {
-      let itemIndex = list.findIndex(item => {
-        let itemId = item.content ? item.content.id : item.id;
-        return itemId === changesRecord[i].content_id;
-      });
-
-      if (changesRecord[i].action !== "delete") {
-        changesRecord[i].position = itemIndex;
-      }
-    }
-
-    return changesRecord;
   };
 
   markDuplicates = list => {
