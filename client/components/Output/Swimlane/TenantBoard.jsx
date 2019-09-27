@@ -4,8 +4,9 @@ import _ from "lodash";
 
 import helpers from "../../../services/helpers.js";
 import VirtualizedList from "../../generic/VirtualizedList";
-
 import Store from "../Store";
+
+import ArticleItem from "./ArticleItem";
 
 class TenantBoard extends React.Component {
   static contextType = Store;
@@ -24,7 +25,8 @@ class TenantBoard extends React.Component {
         totalPages: 1,
         loading: true,
         itemSize: 56
-      }
+      },
+      totalArticles: ""
     };
   }
 
@@ -63,17 +65,15 @@ class TenantBoard extends React.Component {
       "status[]": []
     };
 
-    // tenant
-    let tenant = [];
-    if (this.state.filters.tenant) {
-      tenant.push(this.state.filters.tenant.code);
-    }
-
     // route
     let route = [];
     if (this.state.filters.route) {
       this.state.filters.route.forEach(routeObj => {
-        route.push(routeObj.value);
+        let checkIfRouteFromCurrentTenant = this.props.tenant.routes.find(
+          route => route.id === routeObj.value
+        );
+
+        if (checkIfRouteFromCurrentTenant) route.push(routeObj.value);
       });
     }
 
@@ -95,19 +95,16 @@ class TenantBoard extends React.Component {
       queryParams.term = this.state.filters.term;
     }
 
-    if (this.props.type === "incoming") {
-      queryParams["status[]"] = ["new"];
-    } else {
-      queryParams["status[]"] = ["published", "unpublished"];
-      queryParams["tenant[]"] = tenant.length ? tenant : null;
-      queryParams["route[]"] = route.length ? route : null;
-      queryParams.published_before = this.state.filters.publishedBefore
-        ? this.state.filters.publishedBefore
-        : null;
-      queryParams.published_after = this.state.filters.publishedAfter
-        ? this.state.filters.publishedAfter
-        : null;
-    }
+    queryParams["status[]"] = ["published", "unpublished"];
+    queryParams["tenant[]"] = [this.props.tenant.code];
+    queryParams["route[]"] = route.length ? route : null;
+    queryParams.published_before = this.state.filters.publishedBefore
+      ? this.state.filters.publishedBefore
+      : null;
+    queryParams.published_after = this.state.filters.publishedAfter
+      ? this.state.filters.publishedAfter
+      : null;
+
     queryParams["sorting[updatedAt]"] = "desc";
 
     return _.pickBy(queryParams, _.identity);
@@ -125,31 +122,29 @@ class TenantBoard extends React.Component {
       .then(response => {
         let newArticles = response._embedded._items;
 
-        if (this.context.selectedList === "published") {
-          newArticles.forEach(item => {
-            item.comments_count = helpers.countComments(item.articles);
-            item.page_views_count = helpers.countPageViews(item.articles);
-            item.articles.forEach(item => {
-              if (item.route && item.status == "published" && item.tenant) {
-                let tenantUrl = item.tenant.subdomain
-                  ? item.tenant.subdomain + "." + item.tenant.domain_name
-                  : item.tenant.domain_name;
-                item.live_url = "http://" + tenantUrl + item._links.online.href;
-              }
-            });
+        newArticles.forEach(item => {
+          item.comments_count = helpers.countComments(item.articles);
+          item.page_views_count = helpers.countPageViews(item.articles);
+          item.articles.forEach(item => {
+            if (item.route && item.status == "published" && item.tenant) {
+              let tenantUrl = item.tenant.subdomain
+                ? item.tenant.subdomain + "." + item.tenant.domain_name
+                : item.tenant.domain_name;
+              item.live_url = "http://" + tenantUrl + item._links.online.href;
+            }
           });
-        }
-
-        let articlesCounts = { ...this.context.articlesCounts };
-        articlesCounts[this.props.type] = response.total;
-        this.context.actions.setArticlesCounts(articlesCounts);
+        });
 
         articles.items = [...articles.items, ...newArticles];
         articles.loading = false;
         articles.page = response.page;
         articles.totalPages = response.pages;
 
-        this.setState({ articles, loading: false });
+        this.setState({
+          articles,
+          loading: false,
+          totalArticles: response.total
+        });
       })
       .catch(err => {
         articles.loading = false;
@@ -163,17 +158,38 @@ class TenantBoard extends React.Component {
       <div className="sd-kanban-list__board sd-kanban-list__board--wide">
         <div className="sd-kanban-list__board-header">
           <div className="sd-list-header">
-            <span className="sd-list-header__name">site.name</span>
-            <span
-              ng-if="totalArticles.total"
-              className="sd-list-header__number badge"
-            >
-              totalArticles.total
+            <span className="sd-list-header__name">
+              {this.props.tenant.name}
+            </span>
+            <span className="sd-list-header__number badge">
+              {this.state.totalArticles}
             </span>
           </div>
         </div>
-        <div className="sd-kanban-list__board-content">
-          <div className="sd-list-item-group sd-shadow--z1"></div>
+        <div
+          className="sd-kanban-list__board-content relative"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          {this.state.loading && <div className="sd-loader" />}
+          {this.state.articles.items.length && !this.state.loading ? (
+            <div
+              className="sd-list-item-group sd-shadow--z2"
+              style={{ flexGrow: "1" }}
+            >
+              <VirtualizedList
+                hasNextPage={
+                  this.state.articles.totalPages > this.state.articles.page
+                    ? true
+                    : false
+                }
+                isNextPageLoading={this.state.articles.loading}
+                loadNextPage={this._queryArticles}
+                items={this.state.articles.items}
+                itemSize={this.state.articles.itemSize}
+                ItemRenderer={ArticleItem}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     );

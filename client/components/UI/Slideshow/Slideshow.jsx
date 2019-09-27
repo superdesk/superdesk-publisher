@@ -38,12 +38,13 @@ const Slideshow = ({
     });
   } else {
     items.forEach(item => {
-      if (item.type === "picture") {
+      if (item.type === "picture" && item.renditions) {
         let rendition = item.renditions.find(el => el.name === type);
 
-        if (!rendition)
+        if (!rendition && item.renditions)
           rendition = item.renditions.find(el => el.name === "original");
-        images.push(rendition.href);
+
+        if (rendition) images.push(rendition.href);
       }
     });
   }

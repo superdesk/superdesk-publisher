@@ -4,99 +4,115 @@ import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
 
-import Store from "./Store";
-import ArticleStatusLabel from "../UI/ArticleStatusLabel";
+import Store from "../Store";
+import ArticleStatusLabel from "../../UI/ArticleStatusLabel";
 
-const ArticleItem = ({ item, style, onRemove }) => {
+const ArticleItem = ({ item, style }) => {
   const store = React.useContext(Store);
+
+  let galleries = null;
+  let galleriesFlag = false;
+  item.extra_items.forEach(i => {
+    if (i.type === "media") galleriesFlag = true;
+  });
+
+  if (galleriesFlag) {
+    galleries = (
+      <div className="sd-list-item__column" ng-if="hasGalleries(i.extra_items)">
+        <div className="sd-list-item__row">
+          {item.extra_items.map(
+            (i, index) =>
+              i.type === "media" && (
+                <span
+                  key={"articleGallery" + item.id + "-" + index}
+                  className="sd-text-icon sd-margin-r--1"
+                >
+                  <i className="icon-slideshow sd-opacity--40"></i>
+                  {i.items.length}
+                </span>
+              )
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
-      className="sd-list-item"
-      ng-className="{'sd-list-item--activated':webPublisherOutput.selectedArticle.id === i.id, 'fadeElement' : i.animate}"
-      ng-click="webPublisherOutput.openPreview(i); $event.stopPropagation();"
-      ng-dblclick="webPublisherOutput.openPublish(i, 'publish'); $event.stopPropagation();"
-      ng-repeat="i in articlesList"
+      className={classNames("sd-list-item", {
+        "sd-list-item--activated":
+          store.selectedItem && store.selectedItem.id === item.id
+      })}
+      style={style}
+      onClick={() => store.actions.togglePreview(item)}
     >
       <div
-        className="sd-list-item__border"
-        ng-className="{'sd-list-item__border--success' : i.status === 'published', 'sd-list-item__border--locked': i.status === 'unpublished' }"
+        className={classNames("sd-list-item__border", {
+          "sd-list-item__border--success": item.status === "published",
+          "sd-list-item__border--locked": item.status === "unpublished"
+        })}
       ></div>
-      <div className="sd-list-item__column" ng-if="hasGalleries(i.extra_items)">
-        <div className="sd-list-item__row">
-          <span
-            className="sd-text-icon sd-margin-r--1"
-            ng-repeat="item in i.extra_items"
-            ng-if="item.type==='media'"
-          >
-            <i className="icon-slideshow sd-opacity--40"></i>item.items.length
-          </span>
-        </div>
-      </div>
+
+      {galleries}
       <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
         <div className="sd-list-item__row">
-          <span
-            className="sd-overflow-ellipsis sd-list-item__headline sd-list-item--element-grow"
-            title="{{i.headline}}"
-          >
-            i.headline
+          <span className="sd-overflow-ellipsis sd-list-item__headline sd-list-item--element-grow">
+            {item.headline}
           </span>
-          <span
-            className="label label--hollow"
-            ng-repeat="service in i.service"
-          >
-            service.name
-          </span>
-          <span
-            ng-if="i.articles[0] && i.articles[0].paywall_secured"
-            className="sd-list-item__inline-text no-line-height"
-            sd-tooltip="Paywall secured"
-            flow="left"
-          >
-            <i className="icon-paywall icon--orange icon--full-opacity"></i>
-          </span>
-          <time
-            ng-if="i.updated_at"
-            title="{{i.updated_at}}"
-            className="no-padding"
-          >
-            i.updated_at
-          </time>
-          <time
-            ng-if="!i.updated_at"
-            title="{{i.created_at}}"
-            className="no-padding"
-          >
-            i.created_at{" "}
-          </time>
+          {item.service &&
+            item.service.map(service =>
+              store.selectedList === "incoming" ? (
+                <span
+                  key={"articleService" + item.id + "-" + service.name}
+                  className="label label--hollow"
+                >
+                  {service.name}
+                </span>
+              ) : null
+            )}
+          {item.articles[0] && item.articles[0].paywall_secured && (
+            <span
+              className="sd-list-item__inline-text no-line-height"
+              sd-tooltip="Paywall secured"
+              flow="left"
+            >
+              <i className="icon-paywall icon--orange icon--full-opacity"></i>
+            </span>
+          )}
+          {item.updated_at ? (
+            <time title={moment(item.updated_at).format()}>
+              {moment(item.updated_at).fromNow()}
+            </time>
+          ) : (
+            <time title={moment(item.created_at).format()}>
+              {moment(item.created_at).fromNow()}
+            </time>
+          )}
         </div>
       </div>
-      <div className="sd-list-item__action-menu">
-        <div
-          className="dropdown dropdown--align-right"
-          dropdown=""
-          dropdown-append-to-body=""
+      <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
+        <button
+          sd-tooltip="Correct"
+          flow="left"
+          className="icn-btn"
+          onClick={e => {
+            e.stopPropagation();
+            store.actions.correctPackage(item);
+          }}
         >
-          <button
-            className="icn-btn dropdown__toggle"
-            dropdown__toggle=""
-            ng-click="$event.stopPropagation();"
-          >
-            <i className="icon-dots-vertical"></i>
-          </button>
-          <ul className="dropdown__menu">
-            <li>
-              <button ng-click="webPublisherOutput.correctArticle(i)">
-                <i className="icon-pencil"></i>Correct
-              </button>
-            </li>
-            <li>
-              <button ng-click="webPublisherOutput.openPublish(i, 'publish')">
-                <i className="icon-expand-thin"></i>Publish
-              </button>
-            </li>
-          </ul>
-        </div>
+          <i className="icon-pencil"></i>
+        </button>
+        <button
+          sd-tooltip="Publish"
+          flow="left"
+          className="icn-btn"
+          onClick={e => {
+            e.stopPropagation();
+            store.actions.togglePublish(item);
+          }}
+        >
+          <i className="icon-expand-thin"></i>
+        </button>
       </div>
     </div>
   );
@@ -104,8 +120,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
 
 ArticleItem.propTypes = {
   item: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired,
-  onRemove: PropTypes.func.isRequired
+  style: PropTypes.object.isRequired
 };
 
 export default ArticleItem;
