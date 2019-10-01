@@ -215,12 +215,12 @@ class Analytics extends React.Component {
                         <div className="sd-flex-table__cell">
                           <div>Page Views</div>
                         </div>
-                        <div className="sd-flex-table__cell">
+                        {/* <div className="sd-flex-table__cell">
                           <div>Click Rate</div>
                         </div>
                         <div className="sd-flex-table__cell">
                           <div>Impressions</div>
-                        </div>
+                        </div> */}
                       </div>
                       {!this.state.articles.loading &&
                         this.state.articles.items &&

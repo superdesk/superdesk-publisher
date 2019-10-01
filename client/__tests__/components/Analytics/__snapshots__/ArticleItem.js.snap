@@ -59,15 +59,5 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
   >
     10
   </div>
-  <div
-    class="sd-flex-table__cell"
-  >
-    5
-  </div>
-  <div
-    class="sd-flex-table__cell"
-  >
-    15
-  </div>
 </div>
 `;

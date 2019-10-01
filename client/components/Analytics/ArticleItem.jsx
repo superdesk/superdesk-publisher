@@ -59,12 +59,12 @@ const ArticleItem = ({ item, style }) => {
       <div className="sd-flex-table__cell">
         {item.article_statistics.page_views_number}
       </div>
-      <div className="sd-flex-table__cell">
+      {/* <div className="sd-flex-table__cell">
         {item.article_statistics.internal_click_rate}
       </div>
       <div className="sd-flex-table__cell">
         {item.article_statistics.impressions_number}
-      </div>
+      </div> */}
     </div>
   );
 };
