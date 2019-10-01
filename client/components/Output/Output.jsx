@@ -11,6 +11,8 @@ import Listing from "./Listing";
 import ArticlePreview from "../generic/ArticlePreview";
 import Swimlane from "./Swimlane/Swimlane";
 
+import Websocket from "../../services/websocket";
+
 class Output extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +53,27 @@ class Output extends React.Component {
       this.handleEditorOpenChange,
       false
     );
+
+    this.websocket = new Websocket(
+      this.props.config,
+      this.props.publisher,
+      (newPackage, state) => this.newPackageEventHandler(newPackage, state)
+    );
+    this.websocket.open();
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener("isSuperdeskEditorOpen");
+    this.websocket.close();
+  }
+
+  newPackageEventHandler = (newPackage, state) => {
+    let event = new CustomEvent("newPackage", {
+      detail: { newPackage: newPackage, state: state }
+    });
+    document.dispatchEvent(event);
+  };
 
   handleEditorOpenChange = e => {
     if (this.state.isSuperdeskEditorOpen !== e.detail && e.detail) {
@@ -60,11 +82,6 @@ class Output extends React.Component {
     }
     this.setState({ isSuperdeskEditorOpen: e.detail });
   };
-
-  componentWillUnmount() {
-    this._isMounted = false;
-    document.removeEventListener("isSuperdeskEditorOpen");
-  }
 
   setFilters = filters => {
     this.setState({ filters: { ...this.state.filters, ...filters } });
@@ -205,10 +222,8 @@ class Output extends React.Component {
                   : true
               }
             />
-
             {this.state.selectedList === "published" &&
               this.state.listViewType === "swimlane" && <Swimlane />}
-
             <ArticlePreview
               article={
                 this.state.selectedItem

@@ -31,10 +31,13 @@ class Listing extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.context.publisher.setToken().then(this._queryArticles);
+
+    document.addEventListener("newPackage", this.handleNewPackageEvent, false);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
+    document.removeEventListener("newPackage");
   }
 
   componentDidUpdate() {
@@ -55,6 +58,66 @@ class Listing extends React.Component {
       );
     }
   }
+
+  handleNewPackageEvent = e => {
+    let item = e.detail.newPackage;
+    let state = e.detail.state;
+
+    if (this.props.type === "incoming" && item.status === "published") {
+      this.removeArticle(item.id);
+    }
+
+    if (this.props.type === "incoming" && item.status === "new") {
+      this.addUpdateArticle(item, state);
+    }
+
+    if (
+      this.props.type === "published" &&
+      (item.status === "published" || item.status === "unpublished")
+    ) {
+      this.addUpdateArticle(item, state);
+    }
+  };
+
+  removeArticle = itemId => {
+    let articles = [...this.state.articles];
+
+    let index = articles.items.findIndex(el => el.id === itemId);
+
+    if (index > -1) {
+      articles.items.splice(index, 1);
+      this.setState({ articles });
+
+      let articlesCounts = { ...this.context.articlesCounts };
+      articlesCounts[this.props.type] = articlesCounts[this.props.type] - 1;
+      this.context.actions.setArticlesCounts(articlesCounts);
+    }
+  };
+
+  addUpdateArticle = (item, state) => {
+    item.animate = true;
+
+    let articles = [...this.state.articles];
+
+    if (state === "update") {
+      //update
+      let elIndex = articles.items.findIndex(el => el.guid === item.guid);
+      if (elIndex !== -1) {
+        articles.items[elIndex] = item;
+      }
+    } else {
+      //new article
+      articles.items = [item, ...articles.items];
+      if (articles.items.length % this.queryLimit === 0) {
+        articles.items.splice(-1, 1);
+      }
+      let articlesCounts = { ...this.context.articlesCounts };
+      articlesCounts[this.props.type] = articlesCounts[this.props.type] + 1;
+      this.context.actions.setArticlesCounts(articlesCounts);
+    }
+
+    this.setState({ articles });
+  };
 
   buildQueryParams = () => {
     let queryParams = {
