@@ -7,7 +7,7 @@ const Swimlane = props => {
   return (
     <Store.Consumer>
       {store => (
-        <div className="sd-kanban-list sd-d-inline-flex">
+        <div className="sd-kanban-list sd-d-inline-flex sd-flex-grow">
           {store.tenants.map(tenant => (
             <TenantBoard
               key={"tenantBoard" + tenant.code}

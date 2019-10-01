@@ -17,3 +17,6 @@
 .sd-list-item-group li + li .sd-list-item {
     border-top: 1px solid rgba(123, 123, 123, 0.2);
 }
+.sd-kanban-list__board--wide {
+    max-width: 40rem;
+}
