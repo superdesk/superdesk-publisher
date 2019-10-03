@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import Check from "../UI/Check";
 import ListCard from "./ListCard";
 import Dropdown from "../UI/Dropdown";
+
+import SearchBar from "../UI/SearchBar";
 
 class Listing extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      filter: "all"
+      filter: "all",
+      search: ""
     };
   }
 
@@ -30,12 +32,19 @@ class Listing extends React.Component {
     if (this.state.filter !== "all")
       lists = lists.filter(list => list.type === this.state.filter);
 
+    if (this.state.search)
+      lists = lists.filter(list =>
+        list.name.toLowerCase().includes(this.state.search)
+      );
+
     return (
       <div className="sd-column-box__main-column relative sd-display-flex-column">
-        <div
-          className="subnav subnav--padded subnav--lower-z-index"
-          style={{ paddingRight: "0px" }}
-        >
+        <div className="subnav subnav--lower-z-index">
+          <SearchBar
+            value={this.state.search}
+            onChange={value => this.setState({ search: value.toLowerCase() })}
+            debounceTime={1}
+          />
           <Check
             label="All"
             isChecked={this.state.filter === "all"}
@@ -51,6 +60,7 @@ class Listing extends React.Component {
             isChecked={this.state.filter === "manual"}
             onClick={() => this.setFilter("manual")}
           />
+
           <div className="subnav__stretch-bar" />
           <Dropdown
             button={

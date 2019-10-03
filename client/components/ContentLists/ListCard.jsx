@@ -240,12 +240,13 @@ class ListCard extends React.Component {
                 </div>
               )}
               {!this.state.loading && this.state.list.latest_items.length
-                ? this.state.list.latest_items.map(article => (
+                ? this.state.list.latest_items.map((article, index) => (
                     <li
                       key={
                         "listElement" +
                         article.content.id +
-                        article.content.slug
+                        this.state.list.id +
+                        index
                       }
                       className="sd-card__content-list-item sd-card__content-list-item--small"
                     >
