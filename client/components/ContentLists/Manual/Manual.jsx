@@ -339,6 +339,16 @@ class Manual extends React.Component {
       let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
+      if (
+        this.props.list.limit &&
+        this.props.list.limit < result.contentList.length
+      ) {
+        this.props.api.notify.error(
+          "This list is limited to " + this.props.list.limit + " articles"
+        );
+        return null;
+      }
+
       list.items = result.contentList;
       articles.items = result.articles;
       this.recordChange("add", destination.index, [...list.items]);
