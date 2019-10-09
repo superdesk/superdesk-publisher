@@ -7,6 +7,7 @@ import Store from "./Store";
 import SearchBar from "../UI/SearchBar";
 import Subnav from "./Subnav";
 import FilterPane from "./FilterPane";
+import PublishPane from "./PublishPane/PublishPane";
 import Listing from "./Listing";
 import ArticlePreview from "../generic/ArticlePreview";
 import Swimlane from "./Swimlane/Swimlane";
@@ -64,7 +65,11 @@ class Output extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    document.removeEventListener("isSuperdeskEditorOpen");
+    document.removeEventListener(
+      "isSuperdeskEditorOpen",
+      this.handleEditorOpenChange,
+      false
+    );
     this.websocket.close();
   }
 
@@ -100,17 +105,31 @@ class Output extends React.Component {
     });
   };
 
-  togglePreview = item =>
-    this.setState({
-      isPreviewPaneOpen: item ? true : false,
-      selectedItem: item ? item : null
-    });
+  togglePreview = (item = null) => {
+    this.setState(
+      {
+        isPreviewPaneOpen: item ? true : false
+      },
+      () => this.setSelectedItem(item)
+    );
+  };
 
-  togglePublish = item =>
-    this.setState({
-      isPublishPaneOpen: item ? true : false,
-      selectedItem: item ? item : null
-    });
+  togglePublish = (item = null) => {
+    this.setState(
+      {
+        isPublishPaneOpen: item ? true : false
+      },
+      () => this.setSelectedItem(item)
+    );
+  };
+
+  setSelectedItem = item => {
+    if (item) {
+      this.setState({ selectedItem: item });
+    } else if (!this.state.isPreviewPaneOpen && !this.state.isPublishPaneOpen) {
+      this.setState({ selectedItem: null });
+    }
+  };
 
   toggleListViewType = () => {
     this.togglePreview(null);
@@ -137,7 +156,7 @@ class Output extends React.Component {
   render() {
     let selectedItemSlideshows = [];
 
-    if (this.state.selectedItem) {
+    if (this.state.selectedItem && this.state.selectedItem.extra_items) {
       this.state.selectedItem.extra_items.forEach((element, index) => {
         if (element.type === "media") {
           selectedItemSlideshows.push({
@@ -261,10 +280,8 @@ class Output extends React.Component {
               }
               close={() => this.togglePreview(null)}
             />
-            <div
-              className="sd-publish-panel"
-              ng-include="'publishing-pane.html'"
-            />
+
+            <PublishPane isOpen={this.state.isPublishPaneOpen} />
           </div>
         </div>
       </Store.Provider>

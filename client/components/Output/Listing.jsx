@@ -33,31 +33,42 @@ class Listing extends React.Component {
     this.context.publisher.setToken().then(this._queryArticles);
 
     document.addEventListener("newPackage", this.handleNewPackageEvent, false);
+    document.addEventListener("refreshOutputLists", this.resetList, false);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
-    document.removeEventListener("newPackage");
+
+    document.removeEventListener(
+      "newPackage",
+      this.handleNewPackageEvent,
+      false
+    );
+    document.removeEventListener("refreshOutputLists", this.resetList, false);
   }
 
   componentDidUpdate() {
     if (!_.isEqual(this.context.filters, this.state.filters)) {
-      this.setState(
-        {
-          filters: this.context.filters,
-          loading: true,
-          articles: {
-            items: [],
-            page: 0,
-            totalPages: 1,
-            loading: true,
-            itemSize: 56
-          }
-        },
-        this._queryArticles
-      );
+      this.resetList();
     }
   }
+
+  resetList = () => {
+    this.setState(
+      {
+        filters: this.context.filters,
+        loading: true,
+        articles: {
+          items: [],
+          page: 0,
+          totalPages: 1,
+          loading: true,
+          itemSize: 56
+        }
+      },
+      this._queryArticles
+    );
+  };
 
   handleNewPackageEvent = e => {
     let item = e.detail.newPackage;
