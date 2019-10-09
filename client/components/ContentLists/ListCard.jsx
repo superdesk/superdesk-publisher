@@ -99,7 +99,7 @@ class ListCard extends React.Component {
             <form name="settingsForm">
               <fieldset>
                 <div className="field">
-                  <label for="listLimit">number of articles limit</label>
+                  <label htmlFor="listLimit">number of articles limit</label>
                   <input
                     type="number"
                     className="line-input"
@@ -110,7 +110,7 @@ class ListCard extends React.Component {
                   />
                 </div>
                 <div className="field">
-                  <label for="listCacheLifeTime">cache lifetime</label>
+                  <label htmlFor="listCacheLifeTime">cache lifetime</label>
                   <input
                     type="number"
                     className="line-input"
