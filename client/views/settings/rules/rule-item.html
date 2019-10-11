@@ -13,6 +13,7 @@
                     {{part}}
                 </span>
             </span>
+            <span ng-if="rule.configuration.paywall_secured" class="sd-margin-r--1" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
             <span class="label label--darkBlue2"
                 ng-repeat="dest in rule.configuration.destinations | limitTo:6 "
                 sd-tooltip="{{webPublisherSettings.getTenantUrlByCode(dest.tenant)}}" flow="left">
@@ -27,8 +28,7 @@
             </span>
             <span ng-if="rule.configuration.fbia" class="label label--primary">
                 Facebook
-            </span>
-            <i ng-if="rule.configuration.paywall_secured" class="icon-lock icon--blue"></i>
+            </span>            
         </div>
     </div>
     <div class="sd-list-item__action-menu">
