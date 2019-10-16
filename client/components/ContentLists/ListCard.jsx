@@ -234,12 +234,16 @@ class ListCard extends React.Component {
           <div className="sd-card__content sd-card__content--scrollable relative">
             <ul className="sd-card__content-list">
               {this.state.loading && <div className="sd-loader" />}
-              {!this.state.loading && !this.state.list.latest_items.length && (
-                <div className="sd-card__content-list-item sd-card__content-list-item--small">
-                  <span>No articles in this list</span>
-                </div>
-              )}
-              {!this.state.loading && this.state.list.latest_items.length
+              {!this.state.loading &&
+                (!this.state.list.latest_items ||
+                  !this.state.list.latest_items.length) && (
+                  <div className="sd-card__content-list-item sd-card__content-list-item--small">
+                    <span>No articles in this list</span>
+                  </div>
+                )}
+              {!this.state.loading &&
+              this.state.list.latest_items &&
+              this.state.list.latest_items.length
                 ? this.state.list.latest_items.map((article, index) => (
                     <li
                       key={
@@ -255,6 +259,7 @@ class ListCard extends React.Component {
                   ))
                 : null}
               {!this.state.loading &&
+              this.state.list.latest_items &&
               this.state.list.latest_items.length &&
               this.state.moreItemsAmount ? (
                 <li
