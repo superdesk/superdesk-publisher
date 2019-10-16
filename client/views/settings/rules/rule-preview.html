@@ -17,19 +17,23 @@
 		<p class="codeBlock">
 			{{webPublisherSettings.selectedRule.expression}}
 		</p>
-		<p class="form-label sd-d-block">Send to:</p>
-		<span class="label label--darkBlue2 margin--right"
-			ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations">
-			{{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
-		</span>
-		<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label margin--right" ng-class="{'label--success' : webPublisherSettings.selectedRule.configuration.published}">
-			{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
-		</span>
-		<span ng-if="webPublisherSettings.selectedRule.configuration.paywall_secured" class="label label--red2 margin--right">
-			Paywall Secured
-		</span>
-		<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
-			Facebook
-		</span>
+		<div class="form__row">
+			<p class="form-label sd-d-block">Send to:</p>
+			<span class="label label--darkBlue2 margin--right"
+				ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations">
+				{{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
+			</span>
+			<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label margin--right" ng-class="{'label--success' : webPublisherSettings.selectedRule.configuration.published}">
+				{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
+			</span>		
+			<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
+				Facebook
+			</span>
+		</div>
+		<div class="form__row">
+			<span ng-if="webPublisherSettings.selectedRule.configuration.paywall_secured" class="label-icon label-icon--warning">
+				<i class="icon-paywall"></i> Paywall Secured
+			</span>
+		</div>
 	</div>
 </div>
