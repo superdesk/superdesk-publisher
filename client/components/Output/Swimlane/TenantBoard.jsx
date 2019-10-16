@@ -140,16 +140,20 @@ class TenantBoard extends React.Component {
         articles.page = response.page;
         articles.totalPages = response.pages;
 
-        this.setState({
-          articles,
-          loading: false,
-          totalArticles: response.total
-        });
+        if (this._isMounted) {
+          this.setState({
+            articles,
+            loading: false,
+            totalArticles: response.total
+          });
+        }
       })
       .catch(err => {
-        articles.loading = false;
-        this.setState({ articles, loading: false });
-        this.context.notify.error("Cannot load articles");
+        if (this._isMounted) {
+          articles.loading = false;
+          this.setState({ articles, loading: false });
+          this.context.notify.error("Cannot load articles");
+        }
       });
   };
 

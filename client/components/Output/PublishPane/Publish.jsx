@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import _ from "lodash";
 
+import CheckButton from "../../UI/CheckButton";
+import RelatedArticles from "./RelatedArticles";
+import Destination from "./Destination";
 import Store from "../Store";
 
 class Publish extends React.Component {
@@ -10,18 +13,21 @@ class Publish extends React.Component {
   constructor(props) {
     super(props);
 
-    this._isMounted = false;
-
-    this.state = {};
+    this.state = {
+      filter: "all",
+      newDestinations: []
+    };
   }
 
-  componentDidMount() {
-    this._isMounted = true;
+  componentDidUpdate() {
+    if (!_.isEqual(this.props.destinations, this.state.newDestinations)) {
+      this.setNewDestinations(this.props.destinations);
+    }
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
+  setNewDestinations = newDestinations => this.setState({ newDestinations });
+
+  setFilter = filter => this.setState({ filter: filter });
 
   render() {
     if (!this.context.selectedItem) return null;
@@ -51,68 +57,41 @@ class Publish extends React.Component {
                 </li>
               </ul>
             </div>
-            <div ng-init="webPublisherOutput.publishFilter = 'all'">
-              <sd-check
-                ng-model="webPublisherOutput.publishFilter"
-                type="radio"
-                ng-value="all"
-                label-position="inside"
-              >
-                All
-              </sd-check>
-              <sd-check
-                ng-model="webPublisherOutput.publishFilter"
-                type="radio"
-                ng-value="published"
-                label-position="inside"
-              >
-                Published
-              </sd-check>
-              <sd-check
-                ng-model="webPublisherOutput.publishFilter"
-                type="radio"
-                ng-value="unpublished"
-                label-position="inside"
-              >
-                Unpublished
-              </sd-check>
+            <div>
+              <CheckButton
+                label="All"
+                onClick={() => this.setFilter("all")}
+                isChecked={this.state.filter === "all" ? true : false}
+              />
+
+              <CheckButton
+                label="Published"
+                onClick={() => this.setFilter("published")}
+                isChecked={this.state.filter === "published" ? true : false}
+              />
+              <CheckButton
+                label="Unpublished"
+                onClick={() => this.setFilter("unpublished")}
+                isChecked={this.state.filter === "unpublished" ? true : false}
+              />
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--pad-small">
-            <div
-              ng-repeat="destination in webPublisherOutput.newDestinations"
-              ng-include="'publish-pane-listitem.html'"
-            ></div>
+            {this.state.newDestinations.map(destination =>
+              this.state.filter === "all" ||
+              this.state.filter === destination.status ? (
+                <Destination
+                  destination={destination}
+                  originalDestination={this.props.destinations.find(
+                    dest => dest.tenant.code === destination.tenant.code
+                  )}
+                  key={"destination" + destination.tenant.code}
+                />
+              ) : null
+            )}
           </div>
 
-          <div className="side-panel__content-block">
-            <div
-              data-title="Related articles"
-              data-open="true"
-              data-style="circle"
-              ng-hide="!webPublisherOutput.relatedArticles.length && !webPublisherOutput.relatedArticlesLoading"
-            >
-              {/* <div
-                    className="sd-loader"
-                    ng-if="webPublisherOutput.relatedArticlesLoading"
-                  ></div> */}
-              <ul className="simple-list simple-list--dotted simple-list--no-padding">
-                <li
-                  className="simple-list__item"
-                  ng-repeat="article in webPublisherOutput.relatedArticles"
-                >
-                  <p>article.title</p>
-                  <span
-                    ng-repeat="destination in webPublisherOutput.newDestinations"
-                    className="label-icon"
-                    ng-class="{'label-icon--success': webPublisherOutput._isTenantWithinTenants(destination.tenant.code, article.tenants)}"
-                  >
-                    <i className="icon-globe"></i> destination.tenant.name
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <RelatedArticles destinations={this.props.destinations} />
         </div>
         <div
           className="side-panel__content-block-overlay-grid"
@@ -120,10 +99,7 @@ class Publish extends React.Component {
           ng-if="webPublisherOutput.activePublishPane === 'publish'"
           ng-include="'output/metaDataOverlay.html'"
         ></div>
-        <div
-          className="side-panel__footer side-panel__footer--button-box-large"
-          ng-if="!webPublisherOutput.activePublishPane || webPublisherOutput.activePublishPane === 'publish'"
-        >
+        <div className="side-panel__footer side-panel__footer--button-box-large">
           <button
             className="btn btn--large btn--success btn--expanded"
             ng-disabled="webPublisherOutput._isEmpty(webPublisherOutput.newDestinations)"
@@ -137,6 +113,8 @@ class Publish extends React.Component {
   }
 }
 
-Publish.propTypes = {};
+Publish.propTypes = {
+  destinations: PropTypes.array.isRequired
+};
 
 export default Publish;
