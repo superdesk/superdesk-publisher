@@ -5,9 +5,29 @@ exports[`ContentLists/Listing renders correctly 1`] = `
   class="sd-column-box__main-column relative sd-display-flex-column"
 >
   <div
-    class="subnav subnav--padded subnav--lower-z-index"
-    style="padding-right: 0px;"
+    class="subnav subnav--lower-z-index"
   >
+    <div
+      class="flat-searchbar"
+    >
+      <div
+        class="search-handler"
+      >
+        <label
+          class="trigger-icon"
+          for="search-input"
+        >
+          <i
+            class="icon-search"
+          />
+        </label>
+        <input
+          placeholder="Search"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
     <span
       class="sd-check__wrapper"
     >

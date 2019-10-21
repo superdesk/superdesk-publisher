@@ -272,3 +272,10 @@ select[disabled] > option {
   line-height: 140%;
   font-family: 'Courier New', Courier, monospace;
 }
+.authoring {
+  .ui-responsive-medium {
+    .if-authoring--d-none {
+      display: none;
+    }
+  }
+}

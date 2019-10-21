@@ -99,7 +99,7 @@ class ListCard extends React.Component {
             <form name="settingsForm">
               <fieldset>
                 <div className="field">
-                  <label for="listLimit">number of articles limit</label>
+                  <label htmlFor="listLimit">number of articles limit</label>
                   <input
                     type="number"
                     className="line-input"
@@ -110,7 +110,7 @@ class ListCard extends React.Component {
                   />
                 </div>
                 <div className="field">
-                  <label for="listCacheLifeTime">cache lifetime</label>
+                  <label htmlFor="listCacheLifeTime">cache lifetime</label>
                   <input
                     type="number"
                     className="line-input"
@@ -234,18 +234,23 @@ class ListCard extends React.Component {
           <div className="sd-card__content sd-card__content--scrollable relative">
             <ul className="sd-card__content-list">
               {this.state.loading && <div className="sd-loader" />}
-              {!this.state.loading && !this.state.list.latest_items.length && (
-                <div className="sd-card__content-list-item sd-card__content-list-item--small">
-                  <span>No articles in this list</span>
-                </div>
-              )}
-              {!this.state.loading && this.state.list.latest_items.length
-                ? this.state.list.latest_items.map(article => (
+              {!this.state.loading &&
+                (!this.state.list.latest_items ||
+                  !this.state.list.latest_items.length) && (
+                  <div className="sd-card__content-list-item sd-card__content-list-item--small">
+                    <span>No articles in this list</span>
+                  </div>
+                )}
+              {!this.state.loading &&
+              this.state.list.latest_items &&
+              this.state.list.latest_items.length
+                ? this.state.list.latest_items.map((article, index) => (
                     <li
                       key={
                         "listElement" +
                         article.content.id +
-                        article.content.slug
+                        this.state.list.id +
+                        index
                       }
                       className="sd-card__content-list-item sd-card__content-list-item--small"
                     >
@@ -254,6 +259,7 @@ class ListCard extends React.Component {
                   ))
                 : null}
               {!this.state.loading &&
+              this.state.list.latest_items &&
               this.state.list.latest_items.length &&
               this.state.moreItemsAmount ? (
                 <li

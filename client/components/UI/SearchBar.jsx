@@ -20,8 +20,12 @@ class SearchBar extends React.Component {
   }
 
   toggle = () => {
-    this.setState({ open: !this.state.open }, () => {});
+    this.setState({ open: !this.state.open }, () => {
+      if (this.state.open) this.input.focus();
+    });
   };
+
+  clear = () => this.setState({ value: "" }, this.debouncedChange);
 
   debouncedChange = _.debounce(
     () => this.props.onChange(this.state.value),
@@ -69,7 +73,19 @@ class SearchBar extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}
             style={inputStyle}
+            ref={input => {
+              this.input = input;
+            }}
           />
+          {this.state.value.length ? (
+            <button
+              className="search-close visible"
+              style={{ display: "flex" }}
+              onClick={this.clear}
+            >
+              <i className="icon-remove-sign"></i>
+            </button>
+          ) : null}
         </div>
       </div>
     );

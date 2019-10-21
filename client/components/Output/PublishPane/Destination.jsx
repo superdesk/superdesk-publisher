@@ -1,11 +1,9 @@
-import React from "react";
-import PropTypes, { object } from "prop-types";
 import classNames from "classnames";
-import _ from "lodash";
-
+import PropTypes from "prop-types";
+import React from "react";
 import Store from "../Store";
-import RouteSelect from "./RouteSelect";
 import OptionSwitches from "./OptionSwitches";
+import RouteSelect from "./RouteSelect";
 
 class Destination extends React.Component {
   static contextType = Store;
@@ -16,8 +14,7 @@ class Destination extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      isOpen: false,
-      newDestination: props.destination
+      isOpen: false
     };
   }
 
@@ -30,6 +27,21 @@ class Destination extends React.Component {
   }
 
   toggle = () => this.setState({ isOpen: !this.state.isOpen });
+
+  handleRouteChange = e => {
+    const routeId = parseInt(e.target.value);
+    let dest = { ...this.props.destination };
+    let tenantRoutes = this.getTenantRoutes();
+
+    dest.route = tenantRoutes.find(r => r.id === routeId);
+    this.props.update(dest);
+  };
+
+  handleSwitchChange = (value, fieldName) => {
+    const dest = { ...this.props.destination };
+    dest[fieldName] = value;
+    this.props.update(dest);
+  };
 
   shouldItemMarkedUnpublished = () => {
     if (this.props.destination.status !== "unpublished") return false;
@@ -44,9 +56,25 @@ class Destination extends React.Component {
     );
   };
 
+  getTenant = () =>
+    this.context.tenants.find(
+      tenant => tenant.code === this.props.destination.tenant.code
+    );
+
+  getTenantRoutes = () => {
+    const tenant = this.getTenant();
+
+    return tenant.routes.map(route => {
+      route.name = route.name.replace(tenant.name + " / ", "");
+      return route;
+    });
+  };
+
   render() {
     const { destination } = this.props;
     let shouldItemMarkedUnpublished = this.shouldItemMarkedUnpublished();
+    let tenant = this.getTenant();
+    let tenantRoutes = this.getTenantRoutes();
 
     return (
       <div
@@ -75,9 +103,7 @@ class Destination extends React.Component {
                     sd-tooltip="Remove tenant"
                     flow="left"
                     onClick={event => {
-                      webPublisherOutput.publishingRemoveDestination(
-                        destination
-                      );
+                      this.props.remove();
                       event.stopPropagation();
                     }}
                   >
@@ -152,7 +178,10 @@ class Destination extends React.Component {
                   className="icn-btn"
                   sd-tooltip="Remove tenant"
                   flow="left"
-                  ng-click="webPublisherOutput.publishingRemoveDestination(destination); $event.stopPropagation();"
+                  onClick={event => {
+                    this.props.remove();
+                    event.stopPropagation();
+                  }}
                 >
                   <i className="icon-trash"></i>
                 </a>
@@ -165,48 +194,58 @@ class Destination extends React.Component {
                     <span className="sd-overflow-ellipsis sd-list-item__text-strong">
                       {destination.tenant.name}
                     </span>
-                    <a
-                      ng-if="destination.live_url && webPublisherOutput.publishedDestinations[destination.tenant.code].route.id === destination.route.id"
-                      ng-href="{{destination.live_url}}"
-                      target="_blank"
-                      className="icn-btn"
-                      sd-tooltip="Preview"
-                      flow="bottom"
-                    >
-                      <i className="icon-external icon--full-opacity icon--white"></i>
-                    </a>
+                    {destination.live_url &&
+                    this.props.originalDestination &&
+                    this.props.originalDestination.route.id ===
+                      destination.route.id ? (
+                      <a
+                        href={destination.live_url}
+                        target="_blank"
+                        className="icn-btn"
+                        sd-tooltip="Preview"
+                        flow="bottom"
+                      >
+                        <i className="icon-external icon--full-opacity icon--white"></i>
+                      </a>
+                    ) : null}
 
-                    <a
-                      ng-if='destination.route.id && ( !destination.live_url || webPublisherOutput.publishedDestinations[destination.tenant.code].route.id !== destination.route.id) && destination.status != "unpublished"'
-                      ng-click="webPublisherOutput.openArticlePreview(destination.route.id, destination.tenant)"
-                      className="icn-btn"
-                      sd-tooltip="Preview"
-                      flow="bottom"
-                    >
-                      <i className="icon-external icon--full-opacity icon--white"></i>
-                    </a>
+                    {destination.route.id &&
+                    this.props.originalDestination &&
+                    (!destination.live_url ||
+                      this.props.originalDestination.route.id !==
+                        destination.route.id) &&
+                    destination.status != "unpublished" ? (
+                      <a
+                        ng-click="webPublisherOutput.openArticlePreview(destination.route.id, destination.tenant)"
+                        className="icn-btn"
+                        sd-tooltip="Preview"
+                        flow="bottom"
+                      >
+                        <i className="icon-external icon--full-opacity icon--white"></i>
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </div>
             </div>
-            {!this.state.newDestination.tenant.output_channel && (
+            {!this.props.destination.tenant.output_channel && (
               <div className="form__row">
                 <RouteSelect
-                  routes={[]}
+                  routes={tenantRoutes}
                   onChange={e => this.handleRouteChange(e)}
                   selectedRouteId={
-                    this.state.newDestination.route &&
-                    this.state.newDestination.route.id
-                      ? this.state.newDestination.route.id
+                    this.props.destination.route &&
+                    this.props.destination.route.id
+                      ? this.props.destination.route.id
                       : ""
                   }
                 />
               </div>
             )}
             <OptionSwitches
-              fbiaEnabled={this.state.newDestination.tenant.paywall_enabled}
-              paywallEnabled={this.state.newDestination.tenant.fbia_enabled}
-              destination={this.state.newDestination}
+              fbiaEnabled={tenant.paywall_enabled}
+              paywallEnabled={tenant.fbia_enabled}
+              destination={this.props.destination}
               onChange={(value, fieldName) =>
                 this.handleSwitchChange(value, fieldName)
               }
@@ -281,7 +320,9 @@ class Destination extends React.Component {
 
 Destination.propTypes = {
   destination: PropTypes.object.isRequired,
-  originalDestination: PropTypes.object
+  originalDestination: PropTypes.object,
+  update: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };
 
 export default Destination;

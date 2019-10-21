@@ -21,12 +21,11 @@ const RouteSelect = props => {
         value={props.selectedRouteId}
         onChange={props.onChange}
       >
-        {props.routes.length &&
-          !props.selectedRouteId(
-            <option value="" disabled>
-              Select a route
-            </option>
-          )}
+        {props.routes.length && !props.selectedRouteId && (
+          <option value="" disabled>
+            Select a route
+          </option>
+        )}
 
         {!props.routes.length && (
           <option value="" disabled>

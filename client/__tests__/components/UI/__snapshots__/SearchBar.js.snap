@@ -20,6 +20,14 @@ exports[`UI/SearchBar renders correcty 1`] = `
       type="text"
       value="testvalue"
     />
+    <button
+      class="search-close visible"
+      style="display: flex;"
+    >
+      <i
+        class="icon-remove-sign"
+      />
+    </button>
   </div>
 </div>
 `;

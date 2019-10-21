@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import helpers from "../../../services/helpers";
 
 import CheckButton from "../../UI/CheckButton";
 import RelatedArticles from "./RelatedArticles";
@@ -19,15 +20,96 @@ class Publish extends React.Component {
     };
   }
 
-  componentDidUpdate() {
-    if (!_.isEqual(this.props.destinations, this.state.newDestinations)) {
-      this.setNewDestinations(this.props.destinations);
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.destinations, prevProps.destinations)) {
+      this.setState({ newDestinations: this.props.destinations });
     }
   }
 
-  setNewDestinations = newDestinations => this.setState({ newDestinations });
-
   setFilter = filter => this.setState({ filter: filter });
+
+  updateDestination = (destination, index) => {
+    let newDestinations = [...this.state.newDestinations];
+
+    newDestinations[index] = destination;
+    this.setState({ newDestinations });
+  };
+
+  removeDestination = index => {
+    let newDestinations = [...this.state.newDestinations];
+
+    newDestinations.splice(index, 1);
+    this.setState({ newDestinations });
+  };
+
+  publish = () => {
+    let newDestinations = [...this.state.newDestinations];
+
+    // forcing predefined destinations pass through _updatedKeys filtering
+    newDestinations.forEach(item => {
+      if (item.status === "new") {
+        item.forcePublishing = true;
+      }
+    });
+
+    let updated = helpers.getUpdatedValues(
+      newDestinations,
+      this.props.destinations
+    );
+
+    let destinations = [];
+
+    updated.map(item => {
+      console.log(item);
+      // let destination = {
+      //   tenant: item,
+      //   route:
+      //     this.newDestinations[item].route &&
+      //     this.newDestinations[item].route.id
+      //       ? this.newDestinations[item].route.id
+      //       : null,
+      //   is_published_fbia:
+      //     this.newDestinations[item] &&
+      //     this.newDestinations[item].is_published_fbia === true,
+      //   published:
+      //     this.newDestinations[item].route &&
+      //     this.newDestinations[item].route.id
+      //       ? true
+      //       : false,
+      //   paywall_secured:
+      //     this.newDestinations[item] &&
+      //     this.newDestinations[item].paywall_secured === true
+      // };
+
+      // if (
+      //   this.newDestinations[item].status === "new" &&
+      //   this.newDestinations[item].content_lists.length
+      // ) {
+      //   destination.content_lists = this.newDestinations[item].content_lists;
+      // }
+
+      // destinations.push(destination);
+    });
+
+    // if (destinations.length) {
+    //   publisher
+    //     .publishArticle(
+    //       { destinations: destinations },
+    //       this.selectedArticle.id
+    //     )
+    //     .then(() => {
+    //       $scope.$broadcast(
+    //         "removeFromArticlesList",
+    //         this.selectedArticle.id
+    //       );
+    //       this.closePublish();
+    //       this.closePreview();
+    //     })
+    //     .catch(err => {
+    //       notify.error("Publishing failed!");
+    //     });
+    // }
+  };
 
   render() {
     if (!this.context.selectedItem) return null;
@@ -77,7 +159,7 @@ class Publish extends React.Component {
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--pad-small">
-            {this.state.newDestinations.map(destination =>
+            {this.state.newDestinations.map((destination, index) =>
               this.state.filter === "all" ||
               this.state.filter === destination.status ? (
                 <Destination
@@ -85,6 +167,10 @@ class Publish extends React.Component {
                   originalDestination={this.props.destinations.find(
                     dest => dest.tenant.code === destination.tenant.code
                   )}
+                  update={destination =>
+                    this.updateDestination(destination, index)
+                  }
+                  remove={() => this.removeDestination(index)}
                   key={"destination" + destination.tenant.code}
                 />
               ) : null
@@ -102,8 +188,7 @@ class Publish extends React.Component {
         <div className="side-panel__footer side-panel__footer--button-box-large">
           <button
             className="btn btn--large btn--success btn--expanded"
-            ng-disabled="webPublisherOutput._isEmpty(webPublisherOutput.newDestinations)"
-            ng-click="webPublisherOutput.publishArticle()"
+            onClick={this.publish}
           >
             Publish
           </button>
