@@ -88,12 +88,12 @@ class FilterPanel extends React.Component {
     filters.author = newAuthor;
 
     let newMetadata = [];
-    Object.entries(filters.metadata).forEach(([key, value]) => {
-      newMetadata.push({ key: key, value: value });
-    });
+    if (filters && filters.metadata) {
+      Object.entries(filters.metadata).forEach(([key, value]) => {
+        newMetadata.push({ key: key, value: value });
+      });
+    }
     filters.metadata = newMetadata;
-
-    if (!filters.author) filters.author = [];
 
     this.setState({ filters, loading: false });
   };
