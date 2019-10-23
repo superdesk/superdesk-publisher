@@ -144,7 +144,7 @@ class Automatic extends React.Component {
               list={this.props.list}
               toggle={this.props.toggleFilters}
               publisher={this.props.publisher}
-              filters={this.props.list.filters}
+              filters={this.props.list.filters ? this.props.list.filters : {}}
               onFiltersSave={list => this.onFiltersSave(list)}
               api={this.props.api}
             />

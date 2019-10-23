@@ -473,7 +473,7 @@ export function WebPublisherOutputController(
           tenant: item,
           route:
             this.newDestinations[item].route &&
-              this.newDestinations[item].route.id
+            this.newDestinations[item].route.id
               ? this.newDestinations[item].route.id
               : null,
           is_published_fbia:
@@ -481,7 +481,7 @@ export function WebPublisherOutputController(
             this.newDestinations[item].is_published_fbia === true,
           published:
             this.newDestinations[item].route &&
-              this.newDestinations[item].route.id
+            this.newDestinations[item].route.id
               ? true
               : false,
           paywall_secured:
@@ -491,6 +491,7 @@ export function WebPublisherOutputController(
 
         if (
           this.newDestinations[item].status === "new" &&
+          this.newDestinations[item].content_lists &&
           this.newDestinations[item].content_lists.length
         ) {
           destination.content_lists = this.newDestinations[item].content_lists;
