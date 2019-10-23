@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import helpers from "../../../services/helpers";
-
+import DropdownScrollable from "../../UI/DropdownScrollable";
 import CheckButton from "../../UI/CheckButton";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
@@ -16,15 +16,24 @@ class Publish extends React.Component {
 
     this.state = {
       filter: "all",
-      newDestinations: []
+      newDestinations: [],
+      availableTenants: []
     };
   }
 
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.destinations, prevProps.destinations)) {
-      this.setState({ newDestinations: this.props.destinations });
+      this.setState(
+        { newDestinations: this.props.destinations },
+        this.setAvailableTenants
+      );
     }
   }
+
+  setAvailableTenants = () => {
+    let availableTenants = this.context.tenants;
+    this.setState({ availableTenants });
+  };
 
   setFilter = filter => this.setState({ filter: filter });
 
@@ -42,73 +51,91 @@ class Publish extends React.Component {
     this.setState({ newDestinations });
   };
 
+  addDestination = tenant => {
+    let newDestinations = [...this.state.newDestinations];
+    let destination = {
+      tenant: tenant,
+      route: {},
+      is_published_fbia: false,
+      paywall_secured: false,
+      status: "new",
+      content_lists: []
+    };
+
+    newDestinations.unshift(destination);
+    this.setState({ newDestinations });
+  };
+
+  convertDestination = item => {
+    let destination = {
+      tenant: item.tenant.code,
+      route: item.route && item.route.id ? item.route.id : null,
+      is_published_fbia: item.is_published_fbia,
+      published: item.route && item.route.id ? true : false,
+      paywall_secured: item.paywall_secured
+    };
+
+    if (
+      item.status === "new" &&
+      item.content_lists &&
+      item.content_lists.length
+    ) {
+      destination.content_lists = item.content_lists;
+    }
+
+    return destination;
+  };
+
   publish = () => {
     let newDestinations = [...this.state.newDestinations];
+    let destinations = [];
 
-    // forcing predefined destinations pass through _updatedKeys filtering
     newDestinations.forEach(item => {
       if (item.status === "new") {
-        item.forcePublishing = true;
+        destinations.push(this.convertDestination(item));
+      } else {
+        let originalItem = this.props.destinations.find(
+          i => i.tenant.code === item.tenant.code
+        );
+
+        if (!originalItem) {
+          destinations.push(this.convertDestination(item));
+        } else {
+          let updatedValues = helpers.getUpdatedValues(item, originalItem);
+
+          if (!_.isEmpty(updatedValues, true)) {
+            destinations.push(this.convertDestination(item));
+          }
+        }
       }
     });
 
+    if (destinations.length) {
+      this.context.publisher
+        .publishArticle(
+          { destinations: destinations },
+          this.context.selectedItem.id
+        )
+        .then(() => {
+          // $scope.$broadcast( todo
+          //   "removeFromArticlesList",
+          //   this.selectedArticle.id
+          // );
+          this.context.actions.togglePublish(null);
+          this.context.actions.togglePreview(null);
+        })
+        .catch(err => {
+          this.context.notify.error("Publishing failed!");
+        });
+    }
+  };
+
+  isChanged = () => {
     let updated = helpers.getUpdatedValues(
-      newDestinations,
+      this.state.newDestinations,
       this.props.destinations
     );
-
-    let destinations = [];
-
-    updated.map(item => {
-      console.log(item);
-      // let destination = {
-      //   tenant: item,
-      //   route:
-      //     this.newDestinations[item].route &&
-      //     this.newDestinations[item].route.id
-      //       ? this.newDestinations[item].route.id
-      //       : null,
-      //   is_published_fbia:
-      //     this.newDestinations[item] &&
-      //     this.newDestinations[item].is_published_fbia === true,
-      //   published:
-      //     this.newDestinations[item].route &&
-      //     this.newDestinations[item].route.id
-      //       ? true
-      //       : false,
-      //   paywall_secured:
-      //     this.newDestinations[item] &&
-      //     this.newDestinations[item].paywall_secured === true
-      // };
-
-      // if (
-      //   this.newDestinations[item].status === "new" &&
-      //   this.newDestinations[item].content_lists.length
-      // ) {
-      //   destination.content_lists = this.newDestinations[item].content_lists;
-      // }
-
-      // destinations.push(destination);
-    });
-
-    // if (destinations.length) {
-    //   publisher
-    //     .publishArticle(
-    //       { destinations: destinations },
-    //       this.selectedArticle.id
-    //     )
-    //     .then(() => {
-    //       $scope.$broadcast(
-    //         "removeFromArticlesList",
-    //         this.selectedArticle.id
-    //       );
-    //       this.closePublish();
-    //       this.closePreview();
-    //     })
-    //     .catch(err => {
-    //       notify.error("Publishing failed!");
-    //     });
-    // }
+    return Object.keys(updated).length ? true : false;
   };
 
   render() {
@@ -122,23 +149,25 @@ class Publish extends React.Component {
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--flex side-panel__content-block--space-between">
-            <div className="dropdown" dropdown="">
-              <button
-                className="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
-                sd-tooltip="Add destination"
-                flow="right"
-                dropdown__toggle=""
-              >
-                <i className="icon-plus-large"></i>
-              </button>
-              <ul className="dropdown__menu">
-                <li ng-repeat="site in webPublisherOutput.publishingAvailableSites">
-                  <button ng-click="webPublisherOutput.publishingAddDestination(site)">
-                    site.name
+            <DropdownScrollable
+              button={
+                <button
+                  className="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
+                  sd-tooltip="Add destination"
+                  flow="right"
+                >
+                  <i className="icon-plus-large"></i>
+                </button>
+              }
+            >
+              {this.state.availableTenants.map(tenant => (
+                <li key={"availableTenants" + tenant.code}>
+                  <button onClick={() => this.addDestination(tenant)}>
+                    {tenant.name}
                   </button>
                 </li>
-              </ul>
-            </div>
+              ))}
+            </DropdownScrollable>
             <div>
               <CheckButton
                 label="All"
@@ -189,6 +218,7 @@ class Publish extends React.Component {
           <button
             className="btn btn--large btn--success btn--expanded"
             onClick={this.publish}
+            disabled={this.isChanged() ? false : true}
           >
             Publish
           </button>

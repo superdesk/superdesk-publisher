@@ -14,7 +14,7 @@ class Destination extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      isOpen: false
+      isOpen: this.props.destination.status === "new" ? true : false
     };
   }
 
@@ -137,7 +137,7 @@ class Destination extends React.Component {
                 )}
               </div>
 
-              {destination.content_lists && destination.content_lists.length && (
+              {destination.content_lists && destination.content_lists.length ? (
                 <div className="sd-list-item__row">
                   <span className="sd-list-item__text-label">
                     Content lists:
@@ -152,7 +152,7 @@ class Destination extends React.Component {
                     </span>
                   </span>
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
