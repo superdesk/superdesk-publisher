@@ -184,6 +184,7 @@ class Output extends React.Component {
           actions: {
             togglePreview: item => this.togglePreview(item),
             togglePublish: item => this.togglePublish(item),
+
             toggleListViewType: () => this.toggleListViewType(),
             setSelectedList: listType => this.setSelectedList(listType),
             setFilters: filters => this.setFilters(filters),

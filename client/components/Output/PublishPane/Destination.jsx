@@ -4,6 +4,7 @@ import React from "react";
 import Store from "../Store";
 import OptionSwitches from "./OptionSwitches";
 import RouteSelect from "./RouteSelect";
+import MetadataButtons from "./MetadataButtons";
 
 class Destination extends React.Component {
   static contextType = Store;
@@ -216,7 +217,7 @@ class Destination extends React.Component {
                         destination.route.id) &&
                     destination.status != "unpublished" ? (
                       <a
-                        ng-click="webPublisherOutput.openArticlePreview(destination.route.id, destination.tenant)"
+                        onClick={() => this.props.openPreview(destination)}
                         className="icn-btn"
                         sd-tooltip="Preview"
                         flow="bottom"
@@ -228,7 +229,7 @@ class Destination extends React.Component {
                 </div>
               </div>
             </div>
-            {!this.props.destination.tenant.output_channel && (
+            {!destination.tenant.output_channel && (
               <div className="form__row">
                 <RouteSelect
                   routes={tenantRoutes}
@@ -255,62 +256,16 @@ class Destination extends React.Component {
               className="form__row"
               ng-include="'output/publish-pane-listItem-contentLists.html'"
             ></div>
-            <div className="form__row" ng-if="destination.status !== 'new'">
-              <div
-                sd-toggle-box
-                data-title="Meta data"
-                data-open="false"
-                data-style="circle"
-              >
-                <div className="sd-list-item-group sd-shadow--z1 no-margin">
-                  <div
-                    className="sd-list-item"
-                    ng-click="webPublisherOutput.toggleMetaDataOverlay('Facebook', destination)"
-                  >
-                    <div className="sd-list-item__border"></div>
-                    <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                      <div className="sd-list-item__row">
-                        <span className="sd-overflow-ellipsis">Facebook</span>
-                      </div>
-                    </div>
-                    <div className="sd-list-item__action-menu">
-                      <i className="icon-chevron-right-thin"></i>
-                    </div>
-                  </div>
-                  <div
-                    className="sd-list-item"
-                    ng-click="webPublisherOutput.toggleMetaDataOverlay('Twitter', destination)"
-                  >
-                    <div className="sd-list-item__border"></div>
-                    <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                      <div className="sd-list-item__row">
-                        <span className="sd-overflow-ellipsis">Twitter</span>
-                      </div>
-                    </div>
-                    <div className="sd-list-item__action-menu">
-                      <i className="icon-chevron-right-thin"></i>
-                    </div>
-                  </div>
 
-                  <div
-                    className="sd-list-item"
-                    ng-click="webPublisherOutput.toggleMetaDataOverlay('SEO', destination)"
-                  >
-                    <div className="sd-list-item__border"></div>
-                    <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-                      <div className="sd-list-item__row">
-                        <span className="sd-overflow-ellipsis">
-                          SEO / Meta Tags
-                        </span>
-                      </div>
-                    </div>
-                    <div className="sd-list-item__action-menu">
-                      <i className="icon-chevron-right-thin"></i>
-                    </div>
-                  </div>
-                </div>
+            {!destination.status !== "new" ? (
+              <div className="form__row" ng-if="destination.status !== 'new'">
+                <MetadataButtons
+                  open={type =>
+                    this.props.openMetadataEditor(this.props.destination, type)
+                  }
+                />
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -322,7 +277,9 @@ Destination.propTypes = {
   destination: PropTypes.object.isRequired,
   originalDestination: PropTypes.object,
   update: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired
+  remove: PropTypes.func.isRequired,
+  openMetadataEditor: PropTypes.func.isRequired,
+  openPreview: PropTypes.func.isRequired
 };
 
 export default Destination;

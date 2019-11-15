@@ -1,15 +1,22 @@
 <div class="sd-page-grid--basic">
   <header class="sd-top-menu">
-      <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
-      <p class="sd-top-menu__header">Publisher</p>
+    <a href="" class="sd-top-menu__collapse-nav"
+      ><i class="icon-collapse icon--white"></i
+    ></a>
+    <p class="sd-top-menu__header">Publisher</p>
   </header>
-  <section class="sd-content sd-page-content--slide-in"
-      ng-class="{'sd-page-content--slide-in--open' : webPublisherOutput.editorOpen}">
+  <section
+    class="sd-content sd-page-content--slide-in"
+    ng-class="{'sd-page-content--slide-in--open' : webPublisherOutput.editorOpen}"
+  >
     <div
       class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs"
       ng-include="'sidebar-content.html'"
     ></div>
-    <div id="sp-output-react-app" class="sd-page-content__content-block sp-bottomBarMargin"></div>
+    <div
+      id="sp-output-react-app"
+      class="sd-page-content__content-block sp-bottomBarMargin"
+    ></div>
     <footer classname="bottom-bar "></footer>
   </section>
   <footer className="bottom-bar " />

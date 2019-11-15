@@ -11,28 +11,26 @@ class Unpublish extends React.Component {
   constructor(props) {
     super(props);
 
-    this._isMounted = false;
-
-    this.state = {};
+    this.state = {
+      newDestinations: props.destinations
+    };
   }
 
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.destinations, prevProps.destinations)) {
+      this.setState({ newDestinations: this.props.destinations });
+    }
   }
 
   toggleUnpublishFlag = (item, index) => {
-    let destinations = [...this.props.destinations];
+    let destinations = [...this.state.newDestinations];
     destinations[index] = { ...item, unpublish: item.unpublish ? false : true };
 
-    this.props.setDestinations(destinations);
+    this.setState({ newDestinations: destinations });
   };
 
   unpublish = () => {
-    let tenants = this.props.destinations
+    let tenants = this.state.newDestinations
       .filter(item => item.unpublish)
       .map(item => item.tenant.code);
 
@@ -61,7 +59,7 @@ class Unpublish extends React.Component {
           <div className="side-panel__content-block">
             <div className="form__row form__row--small-padding">
               <div className="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-1">
-                {this.props.destinations.map((item, index) => {
+                {this.state.newDestinations.map((item, index) => {
                   if (item.status === "published") {
                     return (
                       <button
@@ -85,7 +83,7 @@ class Unpublish extends React.Component {
           <button
             className="btn btn--large btn--alert btn--expanded"
             disabled={
-              !this.props.destinations.filter(item => item.unpublish).length
+              !this.state.newDestinations.filter(item => item.unpublish).length
             }
             onClick={this.unpublish}
           >
@@ -98,8 +96,7 @@ class Unpublish extends React.Component {
 }
 
 Unpublish.propTypes = {
-  destinations: PropTypes.array.isRequired,
-  setDestinations: PropTypes.func.isRequired
+  destinations: PropTypes.array.isRequired
 };
 
 export default Unpublish;

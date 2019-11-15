@@ -327,6 +327,17 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
+     * @name publisher#getPackage
+     * @param {String} packageId - id of package
+     * @returns {Promise}
+     * @description List all articles for monitoring view
+     */
+    getPackage(packageId) {
+      return pubapi.get("packages/" + packageId);
+    }
+
+    /**
+     * @ngdoc method
      * @name publisher#queryRelatedArticlesStatus
      * @param {Number} articleId
      * @returns {Promise}

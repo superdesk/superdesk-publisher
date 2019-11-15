@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import _ from "lodash";
 import helpers from "../../../services/helpers";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import CheckButton from "../../UI/CheckButton";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
+import MetadataEditor from "./MetadataEditor";
 import Store from "../Store";
 
 class Publish extends React.Component {
@@ -16,26 +18,59 @@ class Publish extends React.Component {
 
     this.state = {
       filter: "all",
-      newDestinations: [],
-      availableTenants: []
+      newDestinations: props.destinations,
+      availableTenants: [],
+      metadataEditor: {
+        isOpen: false,
+        destination: null,
+        type: "facebook"
+      }
     };
   }
 
+  componentDidMount() {
+    this.setAvailableTenants();
+  }
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.destinations, prevProps.destinations)) {
       this.setState(
-        { newDestinations: this.props.destinations },
+        {
+          newDestinations: this.props.destinations,
+          metadataEditor: { isOpen: false, destination: null, type: "Facebook" }
+        },
         this.setAvailableTenants
       );
     }
   }
 
   setAvailableTenants = () => {
-    let availableTenants = this.context.tenants;
+    let availableTenants = [...this.context.tenants];
+    let newDestinations = [...this.state.newDestinations];
+
+    newDestinations.map(dest => {
+      let tenantIndex = availableTenants.findIndex(
+        tenant => tenant.code === dest.tenant.code
+      );
+
+      if (tenantIndex >= 0) {
+        availableTenants.splice(tenantIndex, 1);
+      }
+    });
+
     this.setState({ availableTenants });
   };
 
   setFilter = filter => this.setState({ filter: filter });
+
+  toggleMetadataEditor = (destination, type) => {
+    this.setState({
+      metadataEditor: {
+        isOpen: !this.state.metadataEditor.isOpen,
+        destination: destination,
+        type: type
+      }
+    });
+  };
 
   updateDestination = (destination, index) => {
     let newDestinations = [...this.state.newDestinations];
@@ -48,7 +83,7 @@ class Publish extends React.Component {
     let newDestinations = [...this.state.newDestinations];
 
     newDestinations.splice(index, 1);
-    this.setState({ newDestinations });
+    this.setState({ newDestinations }, this.setAvailableTenants);
   };
 
   addDestination = tenant => {
@@ -63,7 +98,7 @@ class Publish extends React.Component {
     };
 
     newDestinations.unshift(destination);
-    this.setState({ newDestinations });
+    this.setState({ newDestinations }, this.setAvailableTenants);
   };
 
   convertDestination = item => {
@@ -117,10 +152,10 @@ class Publish extends React.Component {
           this.context.selectedItem.id
         )
         .then(() => {
-          // $scope.$broadcast( todo
-          //   "removeFromArticlesList",
-          //   this.selectedArticle.id
-          // );
+          let event = new CustomEvent("refreshOutputLists", {
+            detail: true
+          });
+          document.dispatchEvent(event);
           this.context.actions.togglePublish(null);
           this.context.actions.togglePreview(null);
         })
@@ -155,6 +190,7 @@ class Publish extends React.Component {
                   className="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
                   sd-tooltip="Add destination"
                   flow="right"
+                  disabled={this.state.availableTenants.length ? false : true}
                 >
                   <i className="icon-plus-large"></i>
                 </button>
@@ -199,7 +235,11 @@ class Publish extends React.Component {
                   update={destination =>
                     this.updateDestination(destination, index)
                   }
+                  openMetadataEditor={(destination, type) =>
+                    this.toggleMetadataEditor(destination, type)
+                  }
                   remove={() => this.removeDestination(index)}
+                  openPreview={item => this.props.openPreview(item)}
                   key={"destination" + destination.tenant.code}
                 />
               ) : null
@@ -208,12 +248,16 @@ class Publish extends React.Component {
 
           <RelatedArticles destinations={this.props.destinations} />
         </div>
-        <div
-          className="side-panel__content-block-overlay-grid"
-          ng-class="{'side-panel__content-block-overlay-grid--open' : webPublisherOutput.metaDataOverlayOpen}"
-          ng-if="webPublisherOutput.activePublishPane === 'publish'"
-          ng-include="'output/metaDataOverlay.html'"
-        ></div>
+
+        <MetadataEditor
+          isOpen={this.state.metadataEditor.isOpen}
+          destination={this.state.metadataEditor.destination}
+          type={this.state.metadataEditor.type}
+          close={() =>
+            this.toggleMetadataEditor(null, this.state.metadataEditor.type)
+          }
+        />
+
         <div className="side-panel__footer side-panel__footer--button-box-large">
           <button
             className="btn btn--large btn--success btn--expanded"
@@ -229,7 +273,8 @@ class Publish extends React.Component {
 }
 
 Publish.propTypes = {
-  destinations: PropTypes.array.isRequired
+  destinations: PropTypes.array.isRequired,
+  openPreview: PropTypes.func.isRequired
 };
 
 export default Publish;

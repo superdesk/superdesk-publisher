@@ -145,7 +145,9 @@ const ArticleItem = ({ item, style, onRemove }) => {
               ))}
           </span>
           {item.articles.length - 3 > 0 && (
-            <span>+{item.articles.length - 3} more</span>
+            <span className="sd-margin-r--1">
+              +{item.articles.length - 3} more
+            </span>
           )}
 
           <span className="sd-overflow-ellipsis">

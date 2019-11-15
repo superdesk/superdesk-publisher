@@ -48,6 +48,7 @@ const ImageUpload = ({ upload, href, fieldName, isUploadingInProgress }) => {
       </div>
       <input
         type="file"
+        accept="image/*"
         id={fieldName}
         name={fieldName}
         onChange={upload}

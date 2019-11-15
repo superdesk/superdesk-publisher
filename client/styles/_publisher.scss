@@ -2,21 +2,46 @@
 // Styling for the web publisher module
 // ----------------------------------------------------------------------------------------
 
-@import '~mixins.scss';
-@import '~variables.scss';
-@import 'uploadFix.scss';
-@import 'treeList.scss';
-@import 'listElement.scss';
-@import 'helperElements.scss';
-@import 'dragNdrop.scss';
-@import 'articlePreview.scss';
-@import 'wizardThemeBox.scss';
-@import 'wizardThemeDetails.scss';
-@import 'iconOnHover.scss';
+@import "~mixins.scss";
+@import "~variables.scss";
+@import "uploadFix.scss";
+@import "treeList.scss";
+@import "listElement.scss";
+@import "helperElements.scss";
+@import "dragNdrop.scss";
+@import "articlePreview.scss";
+@import "wizardThemeBox.scss";
+@import "wizardThemeDetails.scss";
+@import "iconOnHover.scss";
 
 .sd-list-item-group li + li .sd-list-item {
-    border-top: 1px solid rgba(123, 123, 123, 0.2);
+  border-top: 1px solid rgba(123, 123, 123, 0.2);
 }
 .sd-kanban-list__board--wide {
-    max-width: 40rem;
+  max-width: 40rem;
+}
+
+.modal--kindafullscreen {
+  position: fixed;
+  left: 48px;
+  right: 0px;
+  top: 49px;
+  bottom: 32px;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1050;
+  display: none;
+}
+
+.modal--kindafullscreen .modal__dialog {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+.modal--kindafullscreen .modal__content {
+  margin: 0;
+}
+.modal--kindafullscreen .modal__content .modal__body {
+  max-width: 100%;
 }

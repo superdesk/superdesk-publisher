@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 import Publish from "./Publish";
 import Unpublish from "./Unpublish";
+import Preview from "./Preview";
 import Store from "../Store";
 
 class PublishPane extends React.Component {
@@ -17,6 +18,8 @@ class PublishPane extends React.Component {
     this.state = {
       tab: "publish",
       isMetadataOpen: false,
+      isPreviewOpen: false,
+      previewItem: null,
       destinations: [],
       package: {}
     };
@@ -39,38 +42,47 @@ class PublishPane extends React.Component {
       // build destinations
       let destinations = [];
 
-      this.context.selectedItem.articles.forEach(item => {
-        if (item.route) {
-          let tenantUrl = item.tenant.subdomain
-            ? item.tenant.subdomain + "." + item.tenant.domain_name
-            : item.tenant.domain_name;
+      this.context.publisher
+        .getPackage(this.context.selectedItem.id)
+        .then(response => {
+          response.articles.forEach(item => {
+            if (item.route) {
+              let tenantUrl = item.tenant.subdomain
+                ? item.tenant.subdomain + "." + item.tenant.domain_name
+                : item.tenant.domain_name;
 
-          destinations.push({
-            tenant: item.tenant,
-            route: item.route,
-            is_published_fbia: item.is_published_fbia,
-            status: item.status,
-            updated_at: item.updated_at,
-            paywall_secured: item.paywall_secured,
-            content_lists: item.content_lists,
-            seo_metadata: item.seo_metadata,
-            slug: item.slug,
-            live_url:
-              item.status === "published"
-                ? "http://" + tenantUrl + item._links.online.href
-                : null
+              destinations.push({
+                tenant: item.tenant,
+                route: item.route,
+                is_published_fbia: item.is_published_fbia,
+                status: item.status,
+                updated_at: item.updated_at,
+                paywall_secured: item.paywall_secured,
+                content_lists: item.content_lists,
+                seo_metadata: item.seo_metadata,
+                slug: item.slug,
+                live_url:
+                  item.status === "published"
+                    ? "http://" + tenantUrl + item._links.online.href
+                    : null
+              });
+            }
           });
-        }
-      });
 
-      this.setState({
-        destinations,
-        package: this.context.selectedItem
-      });
+          this.setState({
+            destinations,
+            package: response
+          });
+        });
     }
   }
 
-  setDestinations = destinations => this.setState({ destinations });
+  togglePreview = item => {
+    this.setState({
+      isPreviewOpen: item ? true : false,
+      previewItem: item ? item : null
+    });
+  };
 
   switchTab = type => this.setState({ tab: type, isMetadataOpen: false });
 
@@ -100,8 +112,7 @@ class PublishPane extends React.Component {
                   <span>Publish</span>
                 </button>
               </li>
-              {this.context.selectedItem &&
-              this.context.selectedItem.status !== "new" ? (
+              {this.state.package && this.state.package.status !== "new" ? (
                 <li
                   className={classNames("nav-tabs__tab", {
                     "nav-tabs__tab--active": this.state.tab === "unpublish"
@@ -118,21 +129,20 @@ class PublishPane extends React.Component {
             </ul>
           </div>
           {this.state.tab === "publish" ? (
-            <Publish destinations={this.state.destinations} />
-          ) : (
-            <Unpublish
+            <Publish
               destinations={this.state.destinations}
-              setDestinations={destinations =>
-                this.setDestinations(destinations)
-              }
+              openPreview={item => this.togglePreview(item)}
             />
+          ) : (
+            <Unpublish destinations={this.state.destinations} />
           )}
         </div>
 
-        <div
-          ng-include="'article-preview.html'"
-          ng-if="webPublisherOutput.openArticlePreviewModal"
-        ></div>
+        <Preview
+          isOpen={this.state.isPreviewOpen}
+          close={this.togglePreview}
+          item={this.state.previewItem}
+        ></Preview>
       </div>
     );
   }
