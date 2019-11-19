@@ -87,6 +87,8 @@ class PublishPane extends React.Component {
   switchTab = type => this.setState({ tab: type, isMetadataOpen: false });
 
   render() {
+    if (!this.props.isOpen) return null;
+
     return (
       <div className="sd-publish-panel">
         <div className="side-panel side-panel--shadow-right side-panel--dark-ui">

@@ -6,7 +6,16 @@ exports[`generic/VirtualizedList renders correctly 1`] = `
 >
   <div
     style="overflow: visible; height: 0px; width: 0px;"
-  />
+  >
+    <div
+      aria-label="grid"
+      aria-readonly="true"
+      class="ReactVirtualized__Grid ReactVirtualized__List"
+      role="grid"
+      style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
+      tabindex="0"
+    />
+  </div>
   <div
     class="resize-triggers"
   >

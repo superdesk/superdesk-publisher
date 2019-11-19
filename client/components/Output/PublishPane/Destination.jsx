@@ -5,6 +5,7 @@ import Store from "../Store";
 import OptionSwitches from "./OptionSwitches";
 import RouteSelect from "./RouteSelect";
 import MetadataButtons from "./MetadataButtons";
+import ContentListPicker from "./ContentListPicker";
 
 class Destination extends React.Component {
   static contextType = Store;
@@ -144,13 +145,9 @@ class Destination extends React.Component {
                     Content lists:
                   </span>
                   <span className="sd-overflow-ellipsis">
-                    <span ng-repeat="list in destination.content_lists">
-                      webPublisherOutput.getContentListName(list,
-                      destination.tenant.content_lists)
-                      <span ng-show="$index !== destination.content_lists.length - 1">
-                        ,{" "}
-                      </span>
-                    </span>
+                    {destination.content_lists.map((list, index) =>
+                      index > 0 ? ", " + list.name : list.name
+                    )}
                   </span>
                 </div>
               ) : null}
@@ -252,10 +249,30 @@ class Destination extends React.Component {
               }
             />
 
-            <div
-              className="form__row"
-              ng-include="'output/publish-pane-listItem-contentLists.html'"
-            ></div>
+            {destination.content_lists &&
+            destination.content_lists.length &&
+            destination.status !== "new" ? (
+              <div className="form__row">
+                <label className="form-label">Content lists</label>
+                <div>
+                  {destination.content_lists.map((list, index) => (
+                    <span
+                      className="text--lighter text--italic"
+                      key={"contentlistsdestinationdeep" + list.id + "" + index}
+                    >
+                      {index > 0 ? ", " + list.name : list.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {destination.status === "new" && (
+              <ContentListPicker
+                destination={this.props.destination}
+                update={this.props.update}
+              />
+            )}
 
             {!destination.status !== "new" ? (
               <div className="form__row" ng-if="destination.status !== 'new'">

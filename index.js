@@ -18,39 +18,6 @@ function cacheIncludedTemplates($templateCache) {
   );
 
   $templateCache.put(
-    "filter-pane.html",
-    require("./client/views/output/filter-pane.html")
-  );
-  $templateCache.put(
-    "publishing-pane.html",
-    require("./client/views/output/publishing-pane.html")
-  );
-  $templateCache.put(
-    "publish-pane-listitem.html",
-    require("./client/views/output/publish-pane-listitem.html")
-  );
-  $templateCache.put(
-    "preview-pane.html",
-    require("./client/views/output/preview-pane.html")
-  );
-  $templateCache.put(
-    "article-preview.html",
-    require("./client/views/output/article-preview.html")
-  );
-  $templateCache.put(
-    "output/swimlane.html",
-    require("./client/views/output/swimlane.html")
-  );
-  $templateCache.put(
-    "output/publish-pane-listItem-contentLists.html",
-    require("./client/views/output/publish-pane-listItem-contentLists.html")
-  );
-  $templateCache.put(
-    "output/metaDataOverlay.html",
-    require("./client/views/output/metaDataOverlay.html")
-  );
-
-  $templateCache.put(
     "list-articles-card.html",
     require("./client/directives/listArticles/list-articles-card.html")
   );
