@@ -69,7 +69,9 @@ class Destination extends Component {
       originalDestination: destination ? destination : {},
       destination: destination ? JSON.parse(JSON.stringify(destination)) : {},
       apiUrl: protocol
-        ? `${protocol}://${subdomain}.${domainName}/api/v1/`
+        ? `${protocol}://${
+            subdomain ? subdomain + "." : ""
+          }${domainName}/api/v1/`
         : "",
       subdomain: subdomain ? subdomain : "",
       domainName: domainName ? domainName : "",
@@ -136,7 +138,9 @@ class Destination extends Component {
         {
           originalDestination: destination,
           destination: JSON.parse(JSON.stringify(destination)),
-          apiUrl: `${protocol}://${subdomain}.${domainName}/api/v1/`,
+          apiUrl: `${protocol}://${
+            subdomain ? subdomain + "." : ""
+          }.${domainName}/api/v1/`,
           subdomain: subdomain,
           domainName: domainName,
           hasOutputChannel: hasOutputChannel,
