@@ -60,7 +60,7 @@
     "jest-dom": "^3.4.0",
     "jest-transform-css": "^2.0.0",
     "superdesk-code-style": "^1.0.0",
-    "superdesk-core": "superdesk/superdesk-client-core#eede9f1",
+    "superdesk-core": "superdesk/superdesk-client-core#2d4ce24",
     "wait-for-expect": "^1.2.0"
   }
 }

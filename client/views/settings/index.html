@@ -1,33 +1,44 @@
 <div class="sd-page">
-    <nav class="sd-page__sidebar sd-left-nav">
-        <ul>
-            <li><a href="" class="sd-left-nav__btn"
-                ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'tenant'}"
-                ng-click="webPublisherSettings.changePanel('tenant')"
-                >Website Management</a></li>
-            <li><a href="" class="sd-left-nav__btn"
-                ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'rules'}"
-                ng-click="webPublisherSettings.changePanel('rules'); webPublisherSettings.togglePreviewRule()"
-                >Publishing Rules</a></li>
-        </ul>
-        <div class="sp-manage-overlay"
-            ng-if="webPublisherSettings.activePanel === 'tenant'
-                && webPublisherSettings.openSiteEdit
-                && (webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty)">
-        </div>
-    </nav>
-    <div class="sd-loader" ng-if="mainLoading"></div>
-    <section class="sd-page__main-content" ng-if="webPublisherSettings.activePanel === 'rules'"
-        ng-include="'settings/rules/index.html'"></section>
+  <nav class="sd-page__sidebar sd-left-nav">
+    <ul>
+      <li>
+        <a
+          href=""
+          class="sd-left-nav__btn"
+          ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'tenant'}"
+          ng-click="webPublisherSettings.changePanel('tenant')"
+          >Website Management</a
+        >
+      </li>
+      <li>
+        <a
+          href=""
+          class="sd-left-nav__btn"
+          ng-class="{'sd-left-nav__btn--active': webPublisherSettings.activePanel === 'rules'}"
+          ng-click="webPublisherSettings.changePanel('rules'); webPublisherSettings.togglePreviewRule()"
+          >Publishing Rules</a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div class="sd-loader" ng-if="mainLoading"></div>
+  <section
+    class="sd-page__main-content"
+    ng-if="webPublisherSettings.activePanel === 'rules'"
+    ng-include="'settings/rules/index.html'"
+  ></section>
 
-    <section class="sd-page__main-content"
-        ng-if="webPublisherSettings.activePanel === 'tenant' && !webPublisherSettings.openSiteEdit"
-        ng-include="'settings/website-management/tenant-list.html'">
-    </section>
+  <section
+    class="sd-page__main-content"
+    ng-if="webPublisherSettings.activePanel === 'tenant' && !webPublisherSettings.openSiteEdit"
+    ng-include="'settings/website-management/tenant-list.html'"
+  ></section>
 
-    <section  class="sd-page__main-content sd-page__main-content--double-left-nav"
-        ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
-        ng-include="'settings/website-management/manage.html'"></section>
+  <section
+    class="sd-page__main-content sd-page__main-content--double-left-nav"
+    ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
+    ng-include="'settings/website-management/manage.html'"
+  ></section>
 
-    <footer class="bottom-bar "></footer>
+  <footer class="bottom-bar "></footer>
 </div>
