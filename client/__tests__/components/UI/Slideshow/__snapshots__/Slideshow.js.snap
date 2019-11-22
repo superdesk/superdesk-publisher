@@ -2,53 +2,50 @@
 
 exports[`UI/Slideshow renders correcty 1`] = `
 <div
-  class="aws-sld aws-sld--organic-arrows"
+  class="awssld awssld--organic-arrows"
+  style="margin-top: 1em; margin-bottom: 2em;"
 >
   <div
-    class="aws-sld__wrapper"
+    class="awssld__wrapper"
   >
     <div
-      class="aws-sld__container"
+      class="awssld__container"
     >
       <div
-        class="aws-sld__box aws-sld--active"
+        class="awssld__box awssld--active"
       >
         <div
-          class="aws-sld__content"
-        >
-          <img
-            src="https://test.sourcefabric.org/media/2019020713028_aac0d4a7f9a46fc7f22d7e6cb0487092b6db9b7cd3091029d01e5a1be58bde45.jpg"
-          />
-        </div>
+          class="awssld__content"
+        />
       </div>
       <div
-        class="aws-sld__box"
+        class="awssld__box"
       />
     </div>
     <div
-      class="aws-sld__controls"
+      class="awssld__controls"
     >
       <button
-        class="aws-sld__next"
+        class="awssld__next"
       >
         <span
-          class="aws-sld__controls__arrow-right"
+          class="awssld__controls__arrow-right"
         />
       </button>
       <button
-        class="aws-sld__prev"
+        class="awssld__prev"
       >
         <span
-          class="aws-sld__controls__arrow-left"
+          class="awssld__controls__arrow-left"
         />
       </button>
     </div>
   </div>
   <nav
-    class="aws-sld__bullets"
+    class="awssld__bullets"
   >
     <button
-      class="aws-sld__bullets--active"
+      class="awssld__bullets--active"
       data-index="0"
     >
       0

@@ -5,6 +5,7 @@ import Store from "./Store";
 
 import CheckButton from "../UI/CheckButton";
 import TenantSelect from "./TenantSelect";
+import SortingOptions from "./SortingOptions";
 
 const Subnav = props => {
   return (
@@ -48,11 +49,14 @@ const Subnav = props => {
               </React.Fragment>
             )}
           </div>
+          <div className="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1">
+            <SortingOptions />
+          </div>
+          <div className="subnav__spacer subnav__spacer--no-margin"></div>
 
-          <div className="subnav__spacer subnav__spacer--no-margin" />
           <div
             className={classNames(
-              "subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1",
+              "subnav__content-bar sd-flex-wrap sd-padding-l--1 ui-responsive-small--d-none ui-responsive-small--d-block if-authoring--d-none",
               { "sd-margin-r--1": store.isSuperdeskEditorOpen }
             )}
           >

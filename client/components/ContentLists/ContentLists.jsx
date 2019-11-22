@@ -7,7 +7,7 @@ import SitesSideNav from "../generic/SitesSideNav";
 import Listing from "./Listing";
 import AutomaticList from "./Automatic/Automatic";
 import ManualList from "./Manual/Manual";
-import ArticlePreview from "../generic/ArticlePreview";
+import PreviewPane from "./PreviewPane";
 
 class ContentLists extends React.Component {
   constructor(props) {
@@ -228,13 +228,14 @@ class ContentLists extends React.Component {
                 />
               )}
 
-            <ArticlePreview
+            <PreviewPane
               article={
                 this.state.previewItem && this.state.previewItem.content
                   ? this.state.previewItem.content
                   : this.state.previewItem
               }
               close={this.closePreview}
+              publisher={this.props.publisher}
             />
           </div>
         </div>

@@ -16,7 +16,7 @@ class Listing extends React.Component {
     this.queryLimit = 20;
 
     this.state = {
-      filters: {},
+      filters: { sort: "updatedAt", order: "desc" },
       loading: true,
       articles: {
         items: [],
@@ -182,7 +182,9 @@ class Listing extends React.Component {
         ? this.state.filters.publishedAfter
         : null;
     }
-    queryParams["sorting[updatedAt]"] = "desc";
+    queryParams[
+      "sorting[" + this.state.filters.sort + "]"
+    ] = this.state.filters.order;
 
     return _.pickBy(queryParams, _.identity);
   };

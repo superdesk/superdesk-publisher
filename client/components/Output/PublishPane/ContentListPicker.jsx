@@ -56,13 +56,12 @@ const ContentListPicker = props => {
         let listObject = _.find(allLists, {
           id: list.id
         });
-        console.log(listObject.content_list_items_count);
+
         for (
           let i = 0;
           i < parseInt(listObject.content_list_items_count);
           i++
         ) {
-          console.log(i);
           positionOptions.push(
             <option key={listObject.id + "positionoption" + i} value={i}>
               {i + 1}

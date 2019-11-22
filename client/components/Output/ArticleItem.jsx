@@ -131,15 +131,17 @@ const ArticleItem = ({ item, style, onRemove }) => {
                   key={`articlestatuslabel_${index}_${article.id}`}
                   article={article}
                   url={
-                    article.tenant.subdomain
-                      ? "http://" +
-                        article.tenant.subdomain +
-                        "." +
-                        article.tenant.domain_name +
-                        article._links.online.href
-                      : "http://" +
-                        article.tenant.domain_name +
-                        article._links.online.href
+                    article.tenant
+                      ? article.tenant.subdomain
+                        ? "http://" +
+                          article.tenant.subdomain +
+                          "." +
+                          article.tenant.domain_name +
+                          article._links.online.href
+                        : "http://" +
+                          article.tenant.domain_name +
+                          article._links.online.href
+                      : null
                   }
                 />
               ))}

@@ -3,40 +3,12 @@ import PropTypes from "prop-types";
 import AwesomeSlider from "react-awesome-slider";
 import AwsSliderStyles from "./slideshow.css";
 
-const Slideshow = ({
-  tenant,
-  items,
-  type = "viewImage",
-  source = "article"
-}) => {
+import helpers from "../../../services/helpers";
+
+const Slideshow = ({ items, type = "viewImage", source = "article" }) => {
   let images = [];
 
-  if (source === "article") {
-    let base = tenant.subdomain
-      ? "https://" + tenant.subdomain + "." + tenant.domain_name
-      : "https://" + tenant.domain_name;
-
-    items.forEach(item => {
-      if (item.article_media && item.article_media.image) {
-        let rendition = item.article_media.renditions.find(
-          el => el.name === type
-        );
-
-        if (!rendition)
-          rendition = item.article_media.renditions.find(
-            el => el.name === "original"
-          );
-
-        let extension =
-          rendition.image.file_extension === "jpeg"
-            ? "jpg"
-            : rendition.image.file_extension;
-        images.push(
-          base + "/media/" + rendition.image.asset_id + "." + extension
-        );
-      }
-    });
-  } else {
+  if (source === "package") {
     items.forEach(item => {
       if (item.type === "picture" && item.renditions) {
         let rendition = item.renditions.find(el => el.name === type);
@@ -47,12 +19,25 @@ const Slideshow = ({
         if (rendition) images.push(rendition.href);
       }
     });
+  } else {
+    items.forEach(item => {
+      if (item.article_media && item.article_media.renditions) {
+        let renditionUrl = helpers.getRenditionUrl(
+          item.article_media.renditions,
+          type
+        );
+        images.push(renditionUrl);
+      }
+    });
   }
 
   if (!images.length) return null;
 
   return (
-    <AwesomeSlider cssModule={AwsSliderStyles}>
+    <AwesomeSlider
+      cssModule={AwsSliderStyles}
+      style={{ marginTop: "1em", marginBottom: "2em" }}
+    >
       {images.map((image, index) => (
         <div data-src={image} key={`slider-${index}`} />
       ))}
@@ -61,7 +46,6 @@ const Slideshow = ({
 };
 
 Slideshow.propTypes = {
-  tenant: PropTypes.object,
   items: PropTypes.array.isRequired,
   type: PropTypes.string,
   source: PropTypes.string

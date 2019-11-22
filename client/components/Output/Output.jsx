@@ -9,7 +9,7 @@ import Subnav from "./Subnav";
 import FilterPane from "./FilterPane";
 import PublishPane from "./PublishPane/PublishPane";
 import Listing from "./Listing";
-import ArticlePreview from "../generic/ArticlePreview";
+import PreviewPane from "./PreviewPane";
 import Swimlane from "./Swimlane/Swimlane";
 
 import Websocket from "../../services/websocket";
@@ -26,7 +26,7 @@ class Output extends React.Component {
       articlesCounts: { incoming: 0, published: 0 },
       selectedItem: null,
       isSuperdeskEditorOpen: false,
-      filters: {},
+      filters: { sort: "updatedAt", order: "desc" },
       selectedList: window.localStorage.getItem("swpOutputListType")
         ? window.localStorage.getItem("swpOutputListType")
         : "incoming",
@@ -154,19 +154,6 @@ class Output extends React.Component {
   };
 
   render() {
-    let selectedItemSlideshows = [];
-
-    if (this.state.selectedItem && this.state.selectedItem.extra_items) {
-      this.state.selectedItem.extra_items.forEach((element, index) => {
-        if (element.type === "media") {
-          selectedItemSlideshows.push({
-            id: element.id + index,
-            items: element.items
-          });
-        }
-      });
-    }
-
     return (
       <Store.Provider
         value={{
@@ -184,7 +171,6 @@ class Output extends React.Component {
           actions: {
             togglePreview: item => this.togglePreview(item),
             togglePublish: item => this.togglePublish(item),
-
             toggleListViewType: () => this.toggleListViewType(),
             setSelectedList: listType => this.setSelectedList(listType),
             setFilters: filters => this.setFilters(filters),
@@ -244,41 +230,8 @@ class Output extends React.Component {
             />
             {this.state.selectedList === "published" &&
               this.state.listViewType === "swimlane" && <Swimlane />}
-            <ArticlePreview
-              article={
-                this.state.selectedItem
-                  ? {
-                      feature_media:
-                        this.state.selectedItem.articles[0] &&
-                        this.state.selectedItem.articles[0].feature_media
-                          ? this.state.selectedItem.articles[0].feature_media
-                          : null,
-                      media:
-                        this.state.selectedItem.articles[0] &&
-                        this.state.selectedItem.articles[0].media
-                          ? this.state.selectedItem.articles[0].media
-                          : null,
-                      tenant: this.state.selectedItem.articles[0]
-                        ? this.state.selectedItem.articles[0].tenant
-                        : null,
-                      updated_at: this.state.selectedItem.updated_at,
-                      article_statistics: {
-                        page_views_number: this.state.selectedItem
-                          .page_views_count
-                      },
-                      comments_count: this.state.selectedItem.comments_count,
-                      title: this.state.selectedItem.headline,
-                      body: this.state.selectedItem.body_html,
-                      slideshows: selectedItemSlideshows,
-                      source: "package",
-                      status: this.state.selectedItem.status,
-                      paywall_secured: this.state.selectedItem.articles[0]
-                        ? this.state.selectedItem.articles[0].paywall_secured
-                        : false,
-                      articles: this.state.selectedItem.articles
-                    }
-                  : null
-              }
+            <PreviewPane
+              package={this.state.selectedItem}
               close={() => this.togglePreview(null)}
             />
 
