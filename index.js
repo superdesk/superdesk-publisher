@@ -189,6 +189,7 @@ export default angular
     function(superdesk, workspaceMenuProvider) {
       superdesk
         .activity("/publisher", {
+          privileges: {publisher_dashboard: 1},
           label: gettext("Publisher"),
           description: gettext("Publisher"),
           controller: controllers.WebPublisherDashboardController,
@@ -255,6 +256,7 @@ export default angular
         });
 
       workspaceMenuProvider.item({
+        if: 'privileges.publisher_dashboard',
         href: "/publisher",
         label: gettext("Publisher"),
         icon: "publisher",
