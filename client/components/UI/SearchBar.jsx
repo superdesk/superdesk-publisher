@@ -39,17 +39,27 @@ class SearchBar extends React.Component {
   render() {
     let handlerStyle = {};
     let inputStyle = {};
+    let wrapperStyle = {};
 
     if (this.props.style === "dark") {
       handlerStyle = { borderRight: "1px solid rgba(0, 0, 0, 0.1)" };
       inputStyle = { color: "#ffffff" };
+      wrapperStyle = { backgroundColor: "transparent" };
     }
     return (
       <div
-        className={classNames("flat-searchbar", { extended: this.state.open })}
-        style={{ backgroundColor: "transparent" }}
+        className={classNames("flat-searchbar", {
+          extended: this.state.open,
+          "search-handler--left-border": this.props.leftBorder
+        })}
+        style={wrapperStyle}
       >
-        <div className="search-handler" style={handlerStyle}>
+        <div
+          className={classNames("search-handler", {
+            "search-handler--left-border": this.props.leftBorder
+          })}
+          style={handlerStyle}
+        >
           <label
             htmlFor="search-input"
             className="trigger-icon"
@@ -86,11 +96,13 @@ SearchBar.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   style: PropTypes.string,
-  debounceTime: PropTypes.number
+  debounceTime: PropTypes.number,
+  leftBorder: PropTypes.bool
 };
 
 SearchBar.defaultProps = {
-  style: "light"
+  style: "light",
+  leftBorder: false
 };
 
 export default SearchBar;

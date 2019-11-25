@@ -6,6 +6,8 @@ import moment from "moment";
 import helpers from "../../services/helpers";
 
 import Slideshow from "../UI/Slideshow/Slideshow";
+import PreviewStatusLabels from "./PreviewStatusLabels";
+import Loading from "../UI/Loading/Loading";
 
 class ArticlePreview extends React.Component {
   constructor(props) {
@@ -22,11 +24,13 @@ class ArticlePreview extends React.Component {
     const article = this.props.article
       ? this.props.article
       : { article_statistics: {} };
-
     let thumbnail = null;
 
-    if (article.feature_media && article.feature_media.image) {
-      thumbnail = helpers.getRenditionUrl(article, "viewImage");
+    if (article.feature_media && article.feature_media.renditions) {
+      thumbnail = helpers.getRenditionUrl(
+        article.feature_media.renditions,
+        "viewImage"
+      );
     }
 
     return (
@@ -84,6 +88,10 @@ class ArticlePreview extends React.Component {
                   </div>
                 )}
 
+                {article.articles && article.articles.length ? (
+                  <PreviewStatusLabels articles={article.articles} />
+                ) : null}
+
                 {article.status !== "new" ? (
                   <div className="form__row form__row--small-padding">
                     <div className="flex-grid flex-grid--wrap-items flex-grid--small-2">
@@ -91,13 +99,19 @@ class ArticlePreview extends React.Component {
                         <label className="form-label form-label--light">
                           Page views
                         </label>
-                        <p>{article.article_statistics.page_views_number}</p>
+                        <p>
+                          {article.article_statistics
+                            ? article.article_statistics.page_views_number
+                            : 0}
+                        </p>
                       </div>
                       <div className="flex-grid__item">
                         <label className="form-label form-label--light">
                           Comments
                         </label>
-                        <p>{article.comments_count}</p>
+                        <p>
+                          {article.comments_count ? article.comments_count : 0}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -128,11 +142,14 @@ class ArticlePreview extends React.Component {
                 dangerouslySetInnerHTML={{ __html: article.body }}
               />
               {article.slideshows && article.slideshows.length
-                ? article.slideshows.map(slideshow => (
+                ? article.slideshows.map((slideshow, index) => (
                     <Slideshow
-                      key={"slideshow" + slideshow.id}
+                      key={
+                        "slideshow" + slideshow.id + index + article.updated_at
+                      }
                       items={slideshow.items}
                       tenant={article.tenant}
+                      source={article.source ? article.source : "article"}
                     />
                   ))
                 : null}

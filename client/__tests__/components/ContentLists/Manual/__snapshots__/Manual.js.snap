@@ -42,7 +42,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         </div>
       </div>
       <div
-        class="dropdown"
+        class="dropdown undefined"
       >
         <span>
           <button
@@ -129,7 +129,6 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       </button>
       <div
         class="flat-searchbar"
-        style="background-color: transparent;"
       >
         <div
           class="search-handler"

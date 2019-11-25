@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Check from "../UI/Check";
+import CheckButton from "../UI/CheckButton";
 import ListCard from "./ListCard";
 import Dropdown from "../UI/Dropdown";
 
@@ -45,17 +45,17 @@ class Listing extends React.Component {
             onChange={value => this.setState({ search: value.toLowerCase() })}
             debounceTime={1}
           />
-          <Check
+          <CheckButton
             label="All"
             isChecked={this.state.filter === "all"}
             onClick={() => this.setFilter("all")}
           />
-          <Check
+          <CheckButton
             label="Automatic"
             isChecked={this.state.filter === "automatic"}
             onClick={() => this.setFilter("automatic")}
           />
-          <Check
+          <CheckButton
             label="Manual"
             isChecked={this.state.filter === "manual"}
             onClick={() => this.setFilter("manual")}

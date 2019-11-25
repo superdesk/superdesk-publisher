@@ -27,7 +27,7 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
         />
       </button>
       <div
-        class="dropdown"
+        class="dropdown undefined"
       >
         <span>
           <button

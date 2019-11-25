@@ -2,6 +2,9 @@ import React from "react";
 import Automatic from "../../../../components/ContentLists/Automatic/Automatic";
 import { render, waitForElement } from "@testing-library/react";
 import axios from "axios";
+jest.mock("react-virtualized/styles.css", () => {
+  return {};
+});
 
 import Publisher from "../../../../__mocks__/publisher";
 

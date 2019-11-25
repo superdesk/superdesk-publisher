@@ -30,7 +30,7 @@ class DropdownScrollable extends React.Component {
   render() {
     return (
       <div
-        className={classNames("dropdown", {
+        className={classNames("dropdown " + this.props.classes, {
           open: this.state.open
         })}
       >
@@ -45,7 +45,8 @@ class DropdownScrollable extends React.Component {
 }
 
 DropdownScrollable.propTypes = {
-  button: PropTypes.element.isRequired
+  button: PropTypes.element.isRequired,
+  classes: PropTypes.string
 };
 
 export default DropdownScrollable;

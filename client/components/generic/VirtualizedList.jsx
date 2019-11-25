@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FixedSizeList as List } from "react-window";
-import InfiniteLoader from "react-window-infinite-loader";
-import AutoSizer from "react-virtualized-auto-sizer";
+import "react-virtualized/styles.css";
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
+import List from "react-virtualized/dist/commonjs/List";
+import InfiniteLoader from "react-virtualized/dist/commonjs/InfiniteLoader";
 
 import Loading from "../UI/Loading/Loading";
 
@@ -37,41 +38,43 @@ const VirtualizedList = ({
   // Every row is loaded except for our loading indicator row.
   const isItemLoaded = index => !hasNextPage || index < items.length;
 
+  const rowRenderer = ({ index, key, style }) => {
+    return isItemLoaded(index) ? (
+      <ItemRenderer
+        item={items[index]}
+        style={style}
+        key={key}
+        {...itemRendererProps}
+      />
+    ) : (
+      <div style={style} key={key}>
+        <Loading dark={true} />
+      </div>
+    );
+  };
+
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <InfiniteLoader
-          isItemLoaded={isItemLoaded}
-          itemCount={itemCount}
-          loadMoreItems={loadMoreItems}
-        >
-          {({ onItemsRendered, ref }) => (
+    <InfiniteLoader
+      isRowLoaded={isItemLoaded}
+      rowCount={itemCount}
+      loadMoreRows={loadMoreItems}
+    >
+      {({ onRowsRendered, registerChild }) => (
+        <AutoSizer>
+          {({ width, height }) => (
             <List
+              ref={registerChild}
+              onRowsRendered={onRowsRendered}
               height={height - heightSubtract}
-              itemCount={itemCount}
-              itemSize={itemSize}
-              onItemsRendered={onItemsRendered}
-              ref={ref}
+              rowCount={itemCount}
+              rowHeight={itemSize}
               width={width}
-            >
-              {({ index, style }) =>
-                isItemLoaded(index) ? (
-                  <ItemRenderer
-                    item={items[index]}
-                    style={style}
-                    {...itemRendererProps}
-                  />
-                ) : (
-                  <div style={style}>
-                    <Loading dark={true} />
-                  </div>
-                )
-              }
-            </List>
+              rowRenderer={rowRenderer}
+            />
           )}
-        </InfiniteLoader>
+        </AutoSizer>
       )}
-    </AutoSizer>
+    </InfiniteLoader>
   );
 };
 

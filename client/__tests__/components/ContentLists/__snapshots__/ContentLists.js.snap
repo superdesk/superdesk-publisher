@@ -97,7 +97,6 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
       >
         <div
           class="flat-searchbar"
-          style="background-color: transparent;"
         >
           <div
             class="search-handler"
@@ -411,104 +410,6 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                 class="modal__content"
               />
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="sd-preview-panel"
-    >
-      <div
-        class="side-panel side-panel--shadow-right"
-      >
-        <div
-          class="side-panel__header side-panel__header--border-bottom"
-        >
-          <div
-            class="side-panel__tools"
-          >
-            <a
-              class="icn-btn"
-              flow="top"
-              sd-tooltip="Close"
-            >
-              <i
-                class="icon-close-small"
-              />
-            </a>
-          </div>
-          <h3
-            class="side-panel__heading"
-          >
-            Item preview
-          </h3>
-        </div>
-        <div
-          class="side-panel__content"
-        >
-          <div
-            class="side-panel-collapsible-header active"
-          >
-            <div
-              class="side-panel-collapsible-header__fixed"
-            >
-              <p
-                class="sd-text__date-and-author"
-              >
-                <time>
-                  a few seconds ago
-                </time>
-              </p>
-            </div>
-            <div
-              class="side-panel-collapsible-header__collapsible"
-            >
-              <div
-                class="form__row form__row--small-padding"
-              >
-                <div
-                  class="flex-grid flex-grid--wrap-items flex-grid--small-2"
-                >
-                  <div
-                    class="flex-grid__item"
-                  >
-                    <label
-                      class="form-label form-label--light"
-                    >
-                      Page views
-                    </label>
-                    <p />
-                  </div>
-                  <div
-                    class="flex-grid__item"
-                  >
-                    <label
-                      class="form-label form-label--light"
-                    >
-                      Comments
-                    </label>
-                    <p />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button
-              class="side-panel-collapsible-header__toggle active"
-            >
-              <i
-                class="icon-chevron-down-thin"
-              />
-            </button>
-          </div>
-          <div
-            class="side-panel__content-block"
-          >
-            <h3
-              class="side-panel__content-block-heading"
-            />
-            <div
-              class="side-panel__content-block-text sp-imageMaxWidth-wrapper"
-            />
           </div>
         </div>
       </div>

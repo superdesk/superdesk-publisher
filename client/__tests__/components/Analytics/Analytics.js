@@ -2,6 +2,10 @@ import React from "react";
 import Analytics from "../../../components/Analytics/Analytics";
 import { render, waitForElement } from "@testing-library/react";
 
+jest.mock("react-virtualized/styles.css", () => {
+  return {};
+});
+
 import Publisher from "../../../__mocks__/publisher";
 
 const publisher = new Publisher();

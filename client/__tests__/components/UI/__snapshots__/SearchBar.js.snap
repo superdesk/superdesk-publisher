@@ -3,7 +3,6 @@
 exports[`UI/SearchBar renders correcty 1`] = `
 <div
   class="flat-searchbar"
-  style="background-color: transparent;"
 >
   <div
     class="search-handler"

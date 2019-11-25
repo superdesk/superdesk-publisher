@@ -53,6 +53,7 @@ exports[`UI/ImageUpload renders Loading indicator 1`] = `
     </div>
   </div>
   <input
+    accept="image/*"
     id="test"
     name="test"
     style="opacity: 0; position: absolute; width: 1px; height: 1px;"
@@ -97,6 +98,7 @@ exports[`UI/ImageUpload renders correctly 1`] = `
     </div>
   </div>
   <input
+    accept="image/*"
     id="test"
     name="test"
     style="opacity: 0; position: absolute; width: 1px; height: 1px;"

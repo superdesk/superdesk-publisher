@@ -8,8 +8,8 @@ import helpers from "../../../services/helpers.js";
 const ArticleItem = ({ item, style, openPreview, previewItem, pinUnpin }) => {
   let thumbnail = null;
 
-  if (item.content.feature_media && item.content.feature_media.image) {
-    thumbnail = helpers.getRenditionUrl(item.content);
+  if (item.content.feature_media && item.content.feature_media.renditions) {
+    thumbnail = helpers.getRenditionUrl(item.content.feature_media.renditions);
   }
 
   return (

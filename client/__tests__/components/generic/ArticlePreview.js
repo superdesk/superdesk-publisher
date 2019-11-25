@@ -24,7 +24,6 @@ describe("generic/ArticlePreview", () => {
     const { container } = render(
       <ArticlePreview article={article} close={jest.fn()} />
     );
-
     expect(container.firstChild).toMatchSnapshot();
   });
 });

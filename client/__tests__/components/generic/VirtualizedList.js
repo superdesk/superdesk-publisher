@@ -2,6 +2,10 @@ import React from "react";
 import VirtualizedList from "../../../components/generic/VirtualizedList";
 import { render } from "@testing-library/react";
 
+jest.mock("react-virtualized/styles.css", () => {
+  return {};
+});
+
 describe("generic/VirtualizedList", () => {
   const itemRendered = () => <div>test</div>;
 

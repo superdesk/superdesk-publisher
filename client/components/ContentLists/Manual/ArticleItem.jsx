@@ -15,8 +15,8 @@ const ArticleItem = ({
 }) => {
   let thumbnail = null;
 
-  if (item.feature_media && item.feature_media.image) {
-    thumbnail = helpers.getRenditionUrl(item);
+  if (item.feature_media && item.feature_media.renditions) {
+    thumbnail = helpers.getRenditionUrl(item.feature_media.renditions);
   }
 
   return (

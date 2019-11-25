@@ -9,7 +9,6 @@ exports[`ContentLists/Listing renders correctly 1`] = `
   >
     <div
       class="flat-searchbar"
-      style="background-color: transparent;"
     >
       <div
         class="search-handler"

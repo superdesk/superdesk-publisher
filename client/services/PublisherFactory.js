@@ -316,6 +316,17 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
+     * @name publisher#getArticle
+     * @param {String} articleId - id of package
+     * @returns {Promise}
+     * @description gets article
+     */
+    getArticle(articleId) {
+      return pubapi.get("content/articles", articleId);
+    }
+
+    /**
+     * @ngdoc method
      * @name publisher#queryMonitoringArticles
      * @param {String} articleStatus - status of articles (new, published, unpublished, canceled)
      * @returns {Promise}
@@ -323,6 +334,17 @@ export function PublisherFactory(pubapi) {
      */
     queryMonitoringArticles(articleStatus) {
       return pubapi.queryWithDetails("packages", articleStatus);
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#getPackage
+     * @param {String} packageId - id of package
+     * @returns {Promise}
+     * @description List all articles for monitoring view
+     */
+    getPackage(packageId) {
+      return pubapi.get("packages", packageId);
     }
 
     /**

@@ -11,40 +11,48 @@ const helpers = (() => {
     return _.pick(a, updatedKeys);
   };
 
-  const getRenditionUrl = (article, type = "thumbnail") => {
-    let base = article.tenant.subdomain
-      ? "//" + article.tenant.subdomain + "." + article.tenant.domain_name
-      : "//" + article.tenant.domain_name;
-
-    if (!article.feature_media.renditions) {
-      return base + article.feature_media._links.download.href;
+  const getRenditionUrl = (renditions, type = "thumbnail") => {
+    if (!renditions) {
+      return null;
     }
 
-    let rendition = article.feature_media.renditions.find(
-      el => el.name === type
-    );
+    let rendition = renditions.find(el => el.name === type);
 
-    if (!rendition)
-      rendition = article.feature_media.renditions.find(
-        el => el.name === "original"
-      );
+    if (!rendition) rendition = renditions.find(el => el.name === "original");
 
-    if (!rendition) {
-      return base + article.feature_media._links.download.href;
-    }
+    if (rendition.href) return rendition.href;
 
-    return (
-      base +
-      "/media/" +
-      rendition.image.asset_id +
-      "." +
-      rendition.image.file_extension
-    );
+    if (rendition._links && rendition._links.public_url)
+      return rendition._links.public_url.href;
+
+    return null;
+  };
+
+  const countPageViews = (articles = []) => {
+    let count = 0;
+
+    articles.forEach(art => {
+      count += parseInt(art.article_statistics.page_views_number);
+    });
+
+    return count;
+  };
+
+  const countComments = (articles = []) => {
+    let count = 0;
+
+    articles.forEach(art => {
+      count += parseInt(art.comments_count);
+    });
+
+    return count;
   };
 
   return {
     getUpdatedValues: getUpdatedValues,
-    getRenditionUrl: getRenditionUrl
+    getRenditionUrl: getRenditionUrl,
+    countPageViews: countPageViews,
+    countComments: countComments
   };
 })();
 
