@@ -2,59 +2,36 @@
 
 exports[`UI/Slideshow renders correcty 1`] = `
 <div
-  class="awssld awssld--organic-arrows"
-  style="margin-top: 1em; margin-bottom: 2em;"
+  class="sp-slider"
 >
   <div
-    class="awssld__wrapper"
+    class="slider-wrapper"
+    style="transform: translateX(0px); transition: transform ease-out 0.45s;"
   >
     <div
-      class="awssld__container"
-    >
-      <div
-        class="awssld__box awssld--active"
-      >
-        <div
-          class="awssld__content"
-        />
-      </div>
-      <div
-        class="awssld__box"
-      />
-    </div>
+      class="slide"
+      style="background-image: url(null); background-size: cover; background-repeat: no-repeat; background-position: 50% 60%;"
+    />
     <div
-      class="awssld__controls"
-    >
-      <button
-        class="awssld__next"
-      >
-        <span
-          class="awssld__controls__arrow-right"
-        />
-      </button>
-      <button
-        class="awssld__prev"
-      >
-        <span
-          class="awssld__controls__arrow-left"
-        />
-      </button>
-    </div>
+      class="slide"
+      style="background-image: url(null); background-size: cover; background-repeat: no-repeat; background-position: 50% 60%;"
+    />
   </div>
-  <nav
-    class="awssld__bullets"
+  <div
+    class="backArrow arrow"
   >
-    <button
-      class="awssld__bullets--active"
-      data-index="0"
-    >
-      0
-    </button>
-    <button
-      data-index="1"
-    >
-      1
-    </button>
-  </nav>
+    <i
+      aria-hidden="true"
+      class="icon-chevron-left-thin"
+    />
+  </div>
+  <div
+    class="nextArrow arrow"
+  >
+    <i
+      aria-hidden="true"
+      class="icon-chevron-right-thin"
+    />
+  </div>
 </div>
 `;
