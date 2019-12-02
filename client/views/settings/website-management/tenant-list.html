@@ -1,36 +1,63 @@
 <div class="sd-page__header sd-page__header--white">
-    <h2 class="sd-page__page-heading sd-margin-r--5">Website Management</h2>
-    <sd-search-handler ng-model="" data-debounce="200" data-button="true" data-label="Search" data-borderleft="true"></sd-search-handler>
-    <div class="dropdown sd-margin-l--auto" dropdown="">
-        <button class="btn btn--primary ng-binding" dropdown__toggle="">
-            <i class="icon-plus-sign icon--white"></i>Add New
+  <h2 class="sd-page__page-heading sd-margin-r--5">Website Management</h2>
+  <sd-search-handler
+    ng-model="filterQuery"
+    data-debounce="200"
+    data-button="true"
+    data-label="Search"
+    data-borderleft="true"
+  ></sd-search-handler>
+  <div class="dropdown sd-margin-l--auto" dropdown="">
+    <button class="btn btn--primary ng-binding" dropdown__toggle="">
+      <i class="icon-plus-sign icon--white"></i>Add New
+    </button>
+    <ul class="dropdown__menu dropdown--align-right">
+      <li>
+        <div class="dropdown__menu-label">Create new site</div>
+      </li>
+      <li class="dropdown__menu-divider"></li>
+      <li>
+        <button ng-click="webPublisherSettings.toggleSiteWizard()">
+          Superdesk Publisher
         </button>
-        <ul class="dropdown__menu dropdown--align-right">
-            <li>
-                <div class="dropdown__menu-label">Create new site</div>
-            </li>
-            <li class="dropdown__menu-divider"></li>
-            <li><button ng-click="webPublisherSettings.toggleSiteWizard()">Superdesk Publisher</button></li>
-            <li><button ng-click="webPublisherSettings.toggleSiteWizard('Wordpress')">Wordpress</button></li>
-        </ul>
-    </div>
+      </li>
+      <li>
+        <button ng-click="webPublisherSettings.toggleSiteWizard('Wordpress')">
+          Wordpress
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="sd-page__content relative">
-    <div class="sd-loader" ng-if="loading"></div>
-    <a class="btn btn--sd-green btn--icon-only-circle btn--large sd-shadow--z4 fixedPosition fixedPosition--bottomRight" style="z-index:1" ng-click="webPublisherSettings.toggleInfoCarousel()"><i class="icon-info-large"></i></a>
-    <div class="sd-grid-list sd-grid-list--large sd-grid-list--no-margin">
-        <div class="sd-grid-item-wrapper"
-            ng-repeat="site in sites | orderBy: 'name'"
-            ng-include="'settings/website-management/partials/tenant.html'">
-        </div>
+  <div class="sd-loader" ng-if="loading"></div>
+  <a
+    class="btn btn--sd-green btn--icon-only-circle btn--large sd-shadow--z4 fixedPosition fixedPosition--bottomRight"
+    style="z-index:1"
+    ng-click="webPublisherSettings.toggleInfoCarousel()"
+    ><i class="icon-info-large"></i
+  ></a>
+  <div class="sd-grid-list sd-grid-list--large sd-grid-list--no-margin">
+    <div
+      class="sd-grid-item-wrapper"
+      ng-repeat="site in sites | orderBy: 'name' | filter:{name: filterQuery}"
+      ng-include="'settings/website-management/partials/tenant.html'"
+    ></div>
+  </div>
+  <div class="panel-info" ng-if="!sites.length && !loading">
+    <div class="panel-info__icon">
+      <i class="big-icon--add-to-list"></i>
     </div>
-    <div class="panel-info" ng-if="!sites.length && !loading">
-        <div class="panel-info__icon">
-            <i class="big-icon--add-to-list"></i>
-        </div>
-        <h3 class="panel-info__heading">No tenants so far.</h3>
-        <p class="panel-info__description">Don't hesitate to create one.</p>
-    </div>
+    <h3 class="panel-info__heading">No tenants so far.</h3>
+    <p class="panel-info__description">Don't hesitate to create one.</p>
+  </div>
 </div>
-<div ng-include="'settings/website-management/info-carousel/info-carousel.html'"></div>
-<div sd-site-wizard data-active="webPublisherSettings.siteWizardActive" data-output-channel-type="webPublisherSettings.siteWizardOutputChannelType" data-manager-controller="webPublisherSettings"></div>
+<div
+  ng-include="'settings/website-management/info-carousel/info-carousel.html'"
+></div>
+<div
+  sd-site-wizard
+  data-active="webPublisherSettings.siteWizardActive"
+  data-output-channel-type="webPublisherSettings.siteWizardOutputChannelType"
+  data-manager-controller="webPublisherSettings"
+></div>
