@@ -29,7 +29,7 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
          * @description Sets token
          */
         setToken() {
-            return this.save('auth/superdesk', {session_id: session.sessionId, token: session.token})
+            return this.save('auth/superdesk', { session_id: session.sessionId, token: session.token })
                 .then((response) => {
                     this._token = response.token.api_key;
                     return response;
@@ -127,14 +127,14 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
             });
         }
 
-         /**
-         * @ngdoc method
-         * @name pubapi#post
-         * @param {String} resource
-         * @param {String} id
-         * @returns {Promise}
-         * @description POST a given resource by id.
-         */
+        /**
+        * @ngdoc method
+        * @name pubapi#post
+        * @param {String} resource
+        * @param {String} id
+        * @returns {Promise}
+        * @description POST a given resource by id.
+        */
         post(resource, id) {
             return this.req({
                 url: this.resourceURL(resource, id),
@@ -242,10 +242,14 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
         * @description API Request - Adds basic error reporting
         */
         req(config) {
-            config.headers = {Authorization: 'Basic ' + this._token};
+            config.headers = { Authorization: 'Basic ' + this._token };
             return $http(config).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
                     return response.data;
+                }
+
+                if (response.status === 401) {
+                    window.location.reload();
                 }
 
                 console.error('publisher api error', response);
@@ -253,17 +257,17 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
             });
         }
 
-         /**
-         * @ngdoc method
-         * @name pubapi#upload
-         * @param {String} resource
-         * @param {Object} dataObject
-         * @param {String} id
-         * @returns {Promise}
-         * @description upload data.
-         */
+        /**
+        * @ngdoc method
+        * @name pubapi#upload
+        * @param {String} resource
+        * @param {Object} dataObject
+        * @param {String} id
+        * @returns {Promise}
+        * @description upload data.
+        */
         upload(resource, dataObject, id) {
-           return Upload.upload({
+            return Upload.upload({
                 url: this.resourceURL(resource, id),
                 data: dataObject
             })
