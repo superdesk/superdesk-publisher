@@ -1,60 +1,94 @@
-<div class="sd-list-item sd-shadow--z1"
-    ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
-    ng-click="webPublisherSettings.toggleCreateRule(); webPublisherSettings.togglePreviewRule(rule, code)">
-    <div class="sd-list-item__border"></div>
-    <div class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
-        <div class="sd-list-item__row">
-            <div class="sd-overflow-ellipsis sd-list-item--element-grow"><strong>{{rule.name}}</strong> <span class="margin--left">{{rule.description}}</span></div>
-        </div>
-        <div class="sd-list-item__row">
-            <span class="sd-overflow-ellipsis sd-list-item--element-grow">
-                <span class="label label--primary label--hollow"
-                    ng-repeat="part in webPublisherSettings.makeExpressionReadable(rule.expression)">
-                    {{part}}
-                </span>
-            </span>
-            <span ng-if="rule.configuration.paywall_secured" class="sd-margin-r--1" sd-tooltip="Paywall secured" flow="left"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-            <span class="label label--darkBlue2"
-                ng-repeat="dest in rule.configuration.destinations | limitTo:6 "
-                sd-tooltip="{{webPublisherSettings.getTenantUrlByCode(dest.tenant)}}" flow="left">
-                {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
-            </span>
-            <span ng-if="rule.configuration.destinations.length - 6 > 0">+{{rule.configuration.destinations.length - 6}} more</span>
-            <span ng-if="rule.configuration.route" class="label" ng-class="{'label--success' : rule.configuration.published}">
-                {{webPublisherSettings.getRouteNameByTenantAndId(code , rule.configuration.route)}}
-            </span>
-            <span ng-if="!rule.configuration.route && rule.configuration.published" class="label label--success">
-                auto publish
-            </span>
-            <span ng-if="rule.configuration.fbia" class="label label--primary">
-                Facebook
-            </span>            
-        </div>
+<div
+  class="sd-list-item sd-shadow--z1"
+  ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRule.id==rule.id}"
+  ng-click="webPublisherSettings.toggleCreateRule(); webPublisherSettings.togglePreviewRule(rule, code)"
+>
+  <div class="sd-list-item__border"></div>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div class="sd-list-item__row">
+      <div class="sd-overflow-ellipsis sd-list-item--element-grow">
+        <strong>{{rule.name}}</strong>
+        <span class="margin--left">{{rule.description}}</span>
+      </div>
     </div>
-    <div class="sd-list-item__action-menu">
-        <div class="dropdown" dropdown dropdown-append-to-body>
-            <button class="dropdown__toggle" dropdown__toggle ng-click="$event.stopPropagation()">
-                <i class="icon-dots-vertical"></i>
+    <div class="sd-list-item__row">
+      <span class="sd-overflow-ellipsis sd-list-item--element-grow">
+        <span
+          class="label label--primary label--hollow"
+          ng-repeat="part in webPublisherSettings.makeExpressionReadable(rule.expression)"
+        >
+          {{part}}
+        </span>
+      </span>
+      <span
+        ng-if="rule.configuration.paywall_secured"
+        class="sd-margin-r--1"
+        sd-tooltip="Paywall secured"
+        flow="left"
+        ><i class="icon-paywall icon--orange icon--full-opacity"></i
+      ></span>
+      <span
+        class="label label--darkBlue2"
+        ng-repeat="dest in rule.configuration.destinations | limitTo:6 "
+        sd-tooltip="{{webPublisherSettings.getTenantUrlByCode(dest.tenant)}}"
+        flow="left"
+      >
+        {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
+      </span>
+      <span ng-if="rule.configuration.destinations.length - 6 > 0"
+        >+{{rule.configuration.destinations.length - 6}} more</span
+      >
+      <span
+        ng-if="rule.configuration.route"
+        class="label"
+        ng-class="{'label--success' : rule.configuration.published}"
+      >
+        {{webPublisherSettings.getRouteNameByTenantAndId(code ,
+        rule.configuration.route)}}
+      </span>
+      <span
+        ng-if="!rule.configuration.route && rule.configuration.published"
+        class="label label--success"
+      >
+        auto publish
+      </span>
+      <span ng-if="rule.configuration.fbia" class="label label--primary">
+        Facebook
+      </span>
+    </div>
+  </div>
+  <div class="sd-list-item__action-menu">
+    <div class="dropdown" dropdown dropdown-append-to-body>
+      <button
+        class="dropdown__toggle"
+        dropdown__toggle
+        ng-click="$event.stopPropagation()"
+      >
+        <i class="icon-dots-vertical"></i>
+      </button>
+      <ul class="dropdown__menu">
+        <li>
+          <div class="dropdown__menu-label">
+            Actions
+            <button class="dropdown__menu-close">
+              <i class="icon-close-small"></i>
             </button>
-            <ul class="dropdown__menu">
-                <li>
-                    <div class="dropdown__menu-label">
-                        Actions
-                        <button class="dropdown__menu-close"><i class="icon-close-small"></i></button>
-                    </div>
-                </li>
-                <li class="dropdown__menu-divider"></li>
-                <li>
-                    <button ng-click="webPublisherSettings.editRule(rule, code); webPublisherSettings.togglePreviewRule()">
-                        <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
-                    </button>
-                </li>
-                <li>
-                    <button ng-click="webPublisherSettings.deleteRule(rule.id, code)">
-                        <i class="icon-trash"></i>{{:: 'Remove'| translate}}
-                    </button>
-                </li>
-            </ul>
-        </div>
+          </div>
+        </li>
+        <li class="dropdown__menu-divider"></li>
+        <li>
+          <button ng-click="webPublisherSettings.editRule(rule, code)">
+            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+          </button>
+        </li>
+        <li>
+          <button ng-click="webPublisherSettings.deleteRule(rule.id, code)">
+            <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+          </button>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

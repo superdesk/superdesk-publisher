@@ -849,7 +849,7 @@ export function WebPublisherSettingsController(
      * @description gets tenant url by its code
      */
     getTenantUrlByCode(code) {
-      let tenant = this.sites.find(function(site) {
+      let tenant = this.sites.find(function (site) {
         return site.code == code;
       });
 
@@ -864,11 +864,11 @@ export function WebPublisherSettingsController(
      * @description gets route name by tenant and route id
      */
     getRouteNameByTenantAndId(tenantCode, routeId) {
-      let tenant = this.sites.find(function(site) {
+      let tenant = this.sites.find(function (site) {
         return site.code == tenantCode;
       });
 
-      let route = tenant.routes.find(function(route) {
+      let route = tenant.routes.find(function (route) {
         return route.id == routeId;
       });
 
@@ -1010,7 +1010,7 @@ export function WebPublisherSettingsController(
         .confirm(gettext("Please confirm you want to delete rule."))
         .then(() => {
           if (tenantCode) {
-            let tenant = this.sites.find(function(site) {
+            let tenant = this.sites.find(function (site) {
               return site.code == tenantCode;
             });
 
@@ -1034,6 +1034,8 @@ export function WebPublisherSettingsController(
      * @description Edit rule
      */
     editRule(rule, tenantCode) {
+      this.rulePreviewOpen = false;
+
       this.selectedRule = angular.copy(rule);
       $scope.newRule = angular.copy(rule);
       $scope.newRule.type = $scope.newRule.configuration.destinations
@@ -1043,7 +1045,7 @@ export function WebPublisherSettingsController(
 
       if (tenantCode && $scope.newRule.type === "tenant") {
         // tenant rule
-        $scope.newRule.action.tenant = this.sites.find(function(site) {
+        $scope.newRule.action.tenant = this.sites.find(function (site) {
           return site.code == tenantCode;
         });
         if ($scope.newRule.configuration.route) {
@@ -1066,7 +1068,7 @@ export function WebPublisherSettingsController(
         $scope.newRule.destinations = [];
 
         _.each($scope.newRule.configuration.destinations, destination => {
-          let tenant = this.sites.find(function(site) {
+          let tenant = this.sites.find(function (site) {
             return site.code == destination.tenant;
           });
           $scope.newRule.destinations.push(tenant);
@@ -1346,7 +1348,7 @@ export function WebPublisherSettingsController(
       this.availableTenants = [];
       _.each(this.organizationRules, rule => {
         _.each(rule.configuration.destinations, dest => {
-          let tenant = this.sites.find(function(site) {
+          let tenant = this.sites.find(function (site) {
             return site.code == dest.tenant;
           });
 

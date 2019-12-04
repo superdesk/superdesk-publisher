@@ -1,39 +1,60 @@
 <div class="side-panel__header side-panel__header--border-b">
-	<div class="side-panel__tools">
-		<a class="icn-btn" ng-click="webPublisherSettings.editRule(webPublisherSettings.selectedRule, webPublisherSettings.selectedRule.tenantCode); webPublisherSettings.togglePreviewRule()"><i class="icon-pencil"></i></a>
-		<a class="icn-btn" ng-click="webPublisherSettings.togglePreviewRule()"><i class="icon-close-small"></i></a>
-	</div>
-	<h3 class="side-panel__heading">Rule preview</h3>
+  <div class="side-panel__tools">
+    <a
+      class="icn-btn"
+      ng-click="webPublisherSettings.editRule(webPublisherSettings.selectedRule, webPublisherSettings.selectedRule.tenantCode)"
+      ><i class="icon-pencil"></i
+    ></a>
+    <a class="icn-btn" ng-click="webPublisherSettings.togglePreviewRule()"
+      ><i class="icon-close-small"></i
+    ></a>
+  </div>
+  <h3 class="side-panel__heading">Rule preview</h3>
 </div>
 
 <div class="side-panel__content">
-	<div class="side-panel__content-block">
-		<h3 class="sd-margin-b--1">{{webPublisherSettings.selectedRule.name}}</h3>
-		<p>{{webPublisherSettings.selectedRule.description}}</p>
-		<span class="label label--primary label--hollow margin--right"
-			ng-repeat="part in webPublisherSettings.makeExpressionReadable(webPublisherSettings.selectedRule.expression)">
-			{{part}}
-		</span>
-		<p class="codeBlock">
-			{{webPublisherSettings.selectedRule.expression}}
-		</p>
-		<div class="form__row">
-			<p class="form-label sd-d-block">Send to:</p>
-			<span class="label label--darkBlue2 margin--right"
-				ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations">
-				{{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
-			</span>
-			<span ng-if="webPublisherSettings.selectedRule.configuration.route" class="label margin--right" ng-class="{'label--success' : webPublisherSettings.selectedRule.configuration.published}">
-				{{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode , webPublisherSettings.selectedRule.configuration.route)}}
-			</span>		
-			<span ng-if="webPublisherSettings.selectedRule.configuration.fbia" class="label label--primary">
-				Facebook
-			</span>
-		</div>
-		<div class="form__row">
-			<span ng-if="webPublisherSettings.selectedRule.configuration.paywall_secured" class="label-icon label-icon--warning">
-				<i class="icon-paywall"></i> Paywall Secured
-			</span>
-		</div>
-	</div>
+  <div class="side-panel__content-block">
+    <h3 class="sd-margin-b--1">{{webPublisherSettings.selectedRule.name}}</h3>
+    <p>{{webPublisherSettings.selectedRule.description}}</p>
+    <span
+      class="label label--primary label--hollow margin--right"
+      ng-repeat="part in webPublisherSettings.makeExpressionReadable(webPublisherSettings.selectedRule.expression)"
+    >
+      {{part}}
+    </span>
+    <p class="codeBlock">
+      {{webPublisherSettings.selectedRule.expression}}
+    </p>
+    <div class="form__row">
+      <p class="form-label sd-d-block">Send to:</p>
+      <span
+        class="label label--darkBlue2 margin--right"
+        ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations"
+      >
+        {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
+      </span>
+      <span
+        ng-if="webPublisherSettings.selectedRule.configuration.route"
+        class="label margin--right"
+        ng-class="{'label--success' : webPublisherSettings.selectedRule.configuration.published}"
+      >
+        {{webPublisherSettings.getRouteNameByTenantAndId(webPublisherSettings.selectedRule.tenantCode
+        , webPublisherSettings.selectedRule.configuration.route)}}
+      </span>
+      <span
+        ng-if="webPublisherSettings.selectedRule.configuration.fbia"
+        class="label label--primary"
+      >
+        Facebook
+      </span>
+    </div>
+    <div class="form__row">
+      <span
+        ng-if="webPublisherSettings.selectedRule.configuration.paywall_secured"
+        class="label-icon label-icon--warning"
+      >
+        <i class="icon-paywall"></i> Paywall Secured
+      </span>
+    </div>
+  </div>
 </div>
