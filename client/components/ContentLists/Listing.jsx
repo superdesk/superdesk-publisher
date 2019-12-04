@@ -91,9 +91,9 @@ class Listing extends React.Component {
         </div>
         <div className="sd-display-flex-column">
           <div className="sd-grid-list sd-grid-list--large">
-            {lists.map(list => (
+            {lists.map((list, index) => (
               <ListCard
-                key={list.id + list.name + "sf"}
+                key={list.id + list.name + index + "sf"}
                 list={list}
                 publisher={this.props.publisher}
                 onListDelete={id => this.props.onListDelete(id)}

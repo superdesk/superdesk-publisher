@@ -181,6 +181,7 @@ class ListCard extends React.Component {
                     value={this.state.list.name}
                     className="line-input line-input--alt"
                     required
+                    autoFocus
                   />
                 </div>
                 <div className="sd-card__btn-group sd-card__btn-group--right margin--top0">
