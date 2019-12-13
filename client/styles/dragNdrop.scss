@@ -2,7 +2,8 @@ ul[dnd-list] {
   min-height: 42px;
 
   .dndPlaceholder {
-    background-color: #ddd;
+    border: 2px dashed $sd-blue;
+    background-color: $sd-hover;
     display: block;
     min-height: 42px;
   }

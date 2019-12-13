@@ -1,5 +1,5 @@
 <div class="sd-page__header">
-  <ul class="filter-type filter-type--padded rightPadding">
+  <ul class="filter-type sd-margin-r--2">
     <li
       class="filter-type__item"
       ng-class="{'filter-type__item--active': webPublisherSettings.routeType === ''}"
@@ -53,6 +53,7 @@
           dnd-dragend="route.dragging = false"
           ng-hide="route.dragging"
           ng-include="'settings/website-management/partials/routes-tree.html'"
+          class="draggable"
         ></li>
       </ul>
     </div>

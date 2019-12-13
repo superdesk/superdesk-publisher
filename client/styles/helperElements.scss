@@ -239,10 +239,16 @@ select[disabled] > option {
 }
 
 .draggable {
-  cursor: move !important; /* fallback if grab cursor is unsupported */
-  cursor: grab !important;
-  cursor: -moz-grab !important;
-  cursor: -webkit-grab !important;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
 }
 
 .dndDragging .draggable {
