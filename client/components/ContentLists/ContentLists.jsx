@@ -140,7 +140,7 @@ class ContentLists extends React.Component {
       cache_life_time: 0
     };
 
-    this.setState({ lists: [...this.state.lists, list] });
+    this.setState({ lists: [list, ...this.state.lists] });
   };
 
   render() {
