@@ -21,9 +21,7 @@ const TenantSelect = props => {
     <React.Fragment>
       <div className="subnav__spacer subnav__spacer--no-margin" />
       <div
-        className={classNames("subnav__content-bar sd-flex-no-shrink", {
-          "sd-margin-l--1 sd-margin-r--1": store.isSuperdeskEditorOpen
-        })}
+        className={classNames("subnav__content-bar sd-flex-no-shrink sd-margin-x--0")}
       >
         <DropdownScrollable
           button={
