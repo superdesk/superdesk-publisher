@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/ArticleStatusLabel renders published article labels correctly 1`] = `
+<a
+  class="label label--success cursorPointer"
+  href="https://sourcefabric.org"
+  target="_blank"
+>
+  testtenant
+  <span>
+     / 
+    testroute
+  </span>
+</a>
+`;
+
+exports[`UI/ArticleStatusLabel renders unpublished article labels correctly 1`] = `
+<span
+  class="label label--alert"
+>
+  testtenant
+  <span>
+     / 
+    testroute
+  </span>
+</span>
+`;

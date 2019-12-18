@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/ArticleItem renders correctly 1`] = `
+<div
+  class="sd-list-item"
+>
+  <div
+    class="sd-list-item__border"
+  />
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="sd-overflow-ellipsis sd-list-item__headline"
+      >
+        Med test1.3
+      </span>
+      <time
+        title="2019-11-28T19:53:11+01:00"
+      >
+        20 days ago
+      </time>
+    </div>
+    <div
+      class="sd-list-item__row sd-list-item__row--wrap"
+    >
+      <span
+        class="sd-d-inline-flex"
+      >
+        <a
+          class="label label--success cursorPointer"
+          href="http://sourcefabric.org/test"
+          target="_blank"
+        >
+          <span>
+             / 
+          </span>
+        </a>
+      </span>
+      <span
+        class="sd-overflow-ellipsis"
+      />
+    </div>
+  </div>
+  <div
+    class="sd-list-item__action-menu sd-list-item__action-menu--direction-row"
+  >
+    <button
+      class="icn-btn"
+      flow="left"
+      sd-tooltip="Correct"
+    >
+      <i
+        class="icon-pencil"
+      />
+    </button>
+    <button
+      class="icn-btn"
+      flow="left"
+      sd-tooltip="Publish"
+    >
+      <i
+        class="icon-expand-thin"
+      />
+    </button>
+  </div>
+  <div
+    class="modal modal--double"
+    data-backdrop="static"
+  >
+    <div
+      class="modal__dialog"
+    >
+      <div
+        class="modal__content"
+      />
+    </div>
+  </div>
+</div>
+`;

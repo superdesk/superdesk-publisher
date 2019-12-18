@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generic/PreviewStatusLabels renders published article labels correctly 1`] = `
+<div
+  class="form__row form__row--small-padding"
+>
+  <label>
+    Published to:
+  </label>
+  <div>
+    <a
+      class="label label--success cursorPointer"
+      href="http://sourcefabric.org/href"
+      style="margin-right: .6em;"
+      target="_blank"
+    >
+      testtenant
+      <span>
+         / 
+        testroute
+      </span>
+    </a>
+  </div>
+</div>
+`;
