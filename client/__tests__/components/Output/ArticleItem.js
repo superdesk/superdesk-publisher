@@ -1,8 +1,9 @@
 import React from "react";
-import moment from "moment";
 import ArticleItem from "../../../components/Output/ArticleItem";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, fireEvent, waitForElement, wait } from "@testing-library/react";
 import Store from "../../../components/Output/Store";
+
+jest.mock('moment', () => () => ({ fromNow: () => '1 day ago', format: () => '2020–01–01T12:00:00+00:00' }));
 
 const item = {
   "id": 686,
@@ -50,8 +51,6 @@ const item = {
   "page_views_count": 4
 };
 
-moment.fromNow = () => '1 day ago';
-
 describe("Output/ArticleItem", () => {
 
 
@@ -73,13 +72,17 @@ describe("Output/ArticleItem", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it("fires confirmation modal and remove action", async () => {
+  it("opens confirmation modal and fires remove action", async () => {
     const onRemove = jest.fn();
 
     const { container, getByText, getBy } = render(
       <Store.Provider
         value={{
-          publisher: { removeArticle: () => new Promise },
+          publisher: {
+            removeArticle: () => new Promise((resolve) => {
+              resolve(true);
+            })
+          },
           selectedItem: null,
           selectedList: 'incoming'
         }}
@@ -99,8 +102,9 @@ describe("Output/ArticleItem", () => {
     )
     fireEvent.click(removeButton);
 
-    expect(onRemove).toHaveBeenCalled();
-    expect(onRemove).toHaveBeenCalledWith(item.id);
-
+    await wait(() => {
+      expect(onRemove).toHaveBeenCalled();
+      expect(onRemove).toHaveBeenCalledWith(item.id);
+    });
   });
 });
