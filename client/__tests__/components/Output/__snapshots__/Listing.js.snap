@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/Listing renders properly 1`] = `
+<div
+  class="sd-column-box__main-column relative"
+>
+  <div
+    class="sd-loader"
+  />
+</div>
+`;
