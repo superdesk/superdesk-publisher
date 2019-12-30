@@ -3,7 +3,6 @@ import Listing from "../../../components/Output/Listing";
 import { render, waitForElement } from "@testing-library/react";
 import axios from "axios";
 import Store from "../../../components/Output/Store";
-
 import Publisher from "../../../__mocks__/publisher";
 
 const publisher = new Publisher();

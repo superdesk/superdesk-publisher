@@ -1,10 +1,12 @@
 import React from "react";
 import ListCard from "../../../components/ContentLists/ListCard";
 import { render, fireEvent } from "@testing-library/react";
-
+import moment from 'moment';
 import Publisher from "../../../__mocks__/publisher";
 
 const publisher = new Publisher();
+
+jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
 
 let lists = [];
 publisher.queryLists().then(items => (lists = items));

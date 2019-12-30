@@ -1,6 +1,6 @@
 import React from "react";
 import Automatic from "../../../../components/ContentLists/Automatic/Automatic";
-import { render, waitForElement } from "@testing-library/react";
+import { render, wait } from "@testing-library/react";
 import axios from "axios";
 jest.mock("react-virtualized/styles.css", () => {
   return {};
@@ -16,10 +16,10 @@ publisher.queryLists().then(items => (lists = items));
 jest.mock("axios");
 jest.mock("react-select", () => props => "div");
 
-let api = () => {};
+let api = () => { };
 
 api.users = {};
-api.users.query = function() {
+api.users.query = function () {
   return new Promise((resolve, reject) => {
     resolve({
       _items: [{ is_author: true, display_name: "test author" }],
@@ -41,6 +41,10 @@ describe("ContentLists/Automatic/Automatic", () => {
         toggleFilters={jest.fn()}
       />
     );
+
+    await wait(() =>
+      expect(container.querySelector(".sd-loader")).not.toBeInTheDocument(),
+    )
     expect(container.firstChild).toMatchSnapshot();
   });
 });
