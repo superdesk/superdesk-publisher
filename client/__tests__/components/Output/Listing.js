@@ -1,6 +1,6 @@
 import React from "react";
 import Listing from "../../../components/Output/Listing";
-import { render, waitForElement } from "@testing-library/react";
+import { render, wait } from "@testing-library/react";
 import axios from "axios";
 import Store from "../../../components/Output/Store";
 import Publisher from "../../../__mocks__/publisher";
@@ -41,7 +41,7 @@ describe("Output/Listing", () => {
             },
             { name: 'tenant2', code: 'tenant2', routes: [] }
           ],
-
+          filters: { sort: "updatedAt", order: "desc" },
           actions: { setFilters: jest.fn() }
         }}
       >
@@ -51,6 +51,10 @@ describe("Output/Listing", () => {
         />
       </Store.Provider>
     );
+
+    await wait(() =>
+      expect(container.querySelector(".sd-loader")).not.toBeInTheDocument(),
+    )
     expect(container.firstChild).toMatchSnapshot();
   });
 });
