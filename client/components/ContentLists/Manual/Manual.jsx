@@ -395,6 +395,9 @@ class Manual extends React.Component {
     return list;
   };
 
+  getDraggableId = item =>
+    item.content ? item.id + "_" + item.content.id : item.id;
+
   render() {
     let filteredContentListItems = this.markDuplicates([
       ...this.state.list.items
@@ -486,7 +489,7 @@ class Manual extends React.Component {
                       {filteredContentListItems.map((item, index) => (
                         <Draggable
                           key={"list" + item.id}
-                          draggableId={item.id}
+                          draggableId={this.getDraggableId(item)}
                           index={index}
                         >
                           {(provided, snapshot) => (
@@ -560,7 +563,7 @@ class Manual extends React.Component {
                       {this.state.articles.items.map((item, index) => (
                         <Draggable
                           key={"article" + item.id}
-                          draggableId={item.id}
+                          draggableId={this.getDraggableId(item)}
                           index={index}
                         >
                           {(provided, snapshot) => (
