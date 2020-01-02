@@ -505,7 +505,7 @@ class Manual extends React.Component {
                       {filteredContentListItems.map((item, index) => (
                         <Draggable
                           key={"list" + item.id}
-                          draggableId={() => this.getDraggableId(item)}
+                          draggableId={this.getDraggableId(item)}
                           index={index}
                         >
                           {(provided, snapshot) => (
@@ -579,7 +579,7 @@ class Manual extends React.Component {
                       {this.state.articles.items.map((item, index) => (
                         <Draggable
                           key={"article" + item.id}
-                          draggableId={() => this.getDraggableId(item)}
+                          draggableId={this.getDraggableId(item)}
                           index={index}
                         >
                           {(provided, snapshot) => (

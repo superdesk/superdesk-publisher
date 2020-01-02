@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/Output renders properly 1`] = `
+<div
+  class="sd-page-content__content-block sd-page-content__content-block--double-sidebar"
+>
+  <div
+    class="subnav"
+  >
+    <button
+      class="navbtn navbtn--left navbtn--darker"
+      flow="right"
+      sd-tooltip="Filter"
+    >
+      <i
+        class="icon-filter-large"
+      />
+    </button>
+    <h3
+      class="subnav__page-title sd-flex-no-grow"
+    >
+      Output Control
+    </h3>
+    <div
+      class="flat-searchbar search-handler--left-border"
+    >
+      <div
+        class="search-handler search-handler--left-border"
+      >
+        <label
+          class="trigger-icon"
+          for="search-input"
+        >
+          <i
+            class="icon-search"
+          />
+        </label>
+        <input
+          placeholder="Search"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="subnav subnav--lower-z-index"
+  >
+    <div
+      class="subnav__content-bar"
+    >
+      <span
+        class="sd-check__wrapper"
+      >
+        <span
+          class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+        >
+          <label>
+            Incoming content
+          </label>
+        </span>
+      </span>
+      <span
+        class="sd-check__wrapper"
+      >
+        <span
+          class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+        >
+          <label>
+            Published
+          </label>
+        </span>
+      </span>
+    </div>
+    <div
+      class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1"
+    >
+      <div
+        class="dropdown dropdown--align-right"
+        flow="left"
+      >
+        <span>
+          <button
+            class="dropdown__toggle"
+          >
+            Updated
+            <span
+              class="dropdown__caret"
+            />
+          </button>
+        </span>
+        <ul
+          class="dropdown__menu dropdown--align-right"
+        >
+          <li>
+            <button>
+              Updated
+            </button>
+          </li>
+          <li>
+            <button>
+              Created
+            </button>
+          </li>
+        </ul>
+      </div>
+      <a
+        class="icn-btn"
+        flow="bottom"
+        sd-tooltip="Descending"
+      >
+        <i
+          class="icon-descending"
+        />
+      </a>
+    </div>
+    <div
+      class="subnav__spacer subnav__spacer--no-margin"
+    />
+    <div
+      class="subnav__content-bar sd-flex-wrap sd-padding-l--1 ui-responsive-small--d-none ui-responsive-small--d-block if-authoring--d-none"
+    >
+      <div
+        class="sd-margin-r--1"
+      >
+        <span>
+          Incoming:
+        </span>
+        <span
+          class="badge sd-margin-l--0-5"
+        >
+          632
+        </span>
+      </div>
+      <div>
+        <span>
+          Published:
+        </span>
+        <span
+          class="badge sd-margin-l--0-5"
+        >
+          632
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sd-column-box--3"
+  >
+    <div
+      class="sd-filters-panel sd-filters-panel--border-right"
+    >
+      <div
+        class="side-panel side-panel--transparent side-panel--shadow-right"
+      >
+        <div
+          class="side-panel__header side-panel__header--border-b"
+        >
+          <a
+            class="icn-btn side-panel__close"
+            flow="left"
+            sd-tooltip="Close filters"
+          >
+            <i
+              class="icon-close-small"
+            />
+          </a>
+          <h3
+            class="side-panel__heading side-panel__heading--big"
+          >
+            Advanced Filter
+          </h3>
+        </div>
+        <div
+          class="side-panel__content"
+        >
+          <div
+            class="side-panel__content-block"
+          >
+            <div
+              class="form__row"
+            >
+              <div
+                class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
+              >
+                <label
+                  class="sd-line-input__label"
+                >
+                  Routes
+                </label>
+                div
+              </div>
+            </div>
+            <div
+              class="form__row"
+            >
+              <div
+                class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
+              >
+                <label
+                  class="sd-line-input__label"
+                >
+                  Authors
+                </label>
+                div
+              </div>
+            </div>
+            <div
+              class="form__row form__row--flex"
+            >
+              <div
+                class="sd-line-input sd-line-input--no-margin"
+              >
+                <label
+                  class="sd-line-input__label"
+                >
+                  Published after
+                </label>
+                <input
+                  class="sd-line-input__input"
+                  name="published_after"
+                  type="date"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="form__row form__row--flex"
+            >
+              <div
+                class="sd-line-input sd-line-input--no-margin"
+              >
+                <label
+                  class="sd-line-input__label"
+                >
+                  Published before
+                </label>
+                <input
+                  class="sd-line-input__input"
+                  name="published_before"
+                  type="date"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="form__row"
+            >
+              <div
+                class="sd-line-input sd-line-input--no-margin"
+              >
+                <label
+                  class="sd-line-input__label"
+                >
+                  Ingest source
+                </label>
+                <input
+                  class="sd-line-input__input"
+                  name="source"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="side-panel__footer side-panel__footer--button-box"
+        >
+          <div
+            class="flex-grid flex-grid--boxed-small flex-grid--small-2"
+          >
+            <a
+              class="btn btn--hollow"
+            >
+              Clear
+            </a>
+            <a
+              class="btn btn--primary"
+            >
+              Filter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sd-column-box__main-column relative"
+      style="display: flex;"
+    >
+      <div
+        class="sd-list-item-group sd-shadow--z2"
+        style="flex-grow: 1;"
+      >
+        <div
+          style="overflow: visible; height: 0px; width: 0px;"
+        >
+          <div
+            aria-label="grid"
+            aria-readonly="true"
+            class="ReactVirtualized__Grid ReactVirtualized__List"
+            role="grid"
+            style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
+            tabindex="0"
+          />
+        </div>
+        <div
+          class="resize-triggers"
+        >
+          <div
+            class="expand-trigger"
+          >
+            <div
+              style="width: 1px; height: 1px;"
+            />
+          </div>
+          <div
+            class="contract-trigger"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
