@@ -23,7 +23,7 @@ const Subnav = props => {
                   />
                 </span>
 
-                <span sd-tooltip="Published" flow="right">
+                <span sd-tooltip="Published" flow="right" className="sd-margin-l--0-5">
                   <CheckButton
                     label={<i className="icon-expand-thin" />}
                     onClick={() => store.actions.setSelectedList("published")}

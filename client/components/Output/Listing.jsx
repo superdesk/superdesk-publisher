@@ -292,7 +292,7 @@ class Listing extends React.Component {
           </div>
         ) : null}
 
-        {this.state.loading && <div className="sd-loader" />}
+        {this.state.loading && <div className="sd-loader" style={{ zIndex: "1" }} />}
       </div>
     );
   }
