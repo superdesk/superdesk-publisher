@@ -5,7 +5,14 @@ import moment from "moment";
 
 import helpers from "../../../services/helpers.js";
 
-const ArticleItem = ({ item, style, openPreview, previewItem, pinUnpin }) => {
+const ArticleItem = ({
+  item,
+  style,
+  openPreview,
+  previewItem,
+  pinUnpin,
+  remove
+}) => {
   let thumbnail = null;
 
   if (item.content.feature_media && item.content.feature_media.renditions) {
@@ -61,7 +68,7 @@ const ArticleItem = ({ item, style, openPreview, previewItem, pinUnpin }) => {
           )}
         </div>
       </div>
-      <div className="sd-list-item__action-menu">
+      <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
         <button
           className="pull-right"
           onClick={e => {
@@ -74,6 +81,17 @@ const ArticleItem = ({ item, style, openPreview, previewItem, pinUnpin }) => {
         >
           <i className="icon-pin" />
         </button>
+        <button
+          onClick={e => {
+            e.stopPropagation();
+            remove(item.content.id);
+          }}
+          sd-tooltip="remove"
+          flow="left"
+          title="Remove"
+        >
+          <i className="icon-trash" />
+        </button>
       </div>
     </div>
   );
@@ -84,7 +102,8 @@ ArticleItem.propTypes = {
   style: PropTypes.object.isRequired,
   openPreview: PropTypes.func.isRequired,
   previewItem: PropTypes.object,
-  pinUnpin: PropTypes.func.isRequired
+  pinUnpin: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };
 
 export default ArticleItem;

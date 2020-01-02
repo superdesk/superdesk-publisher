@@ -32,7 +32,7 @@ exports[`ContentLists/Automatic/ArticleItem renders correctly 1`] = `
     </div>
   </div>
   <div
-    class="sd-list-item__action-menu"
+    class="sd-list-item__action-menu sd-list-item__action-menu--direction-row"
   >
     <button
       class="pull-right"
@@ -42,6 +42,15 @@ exports[`ContentLists/Automatic/ArticleItem renders correctly 1`] = `
     >
       <i
         class="icon-pin"
+      />
+    </button>
+    <button
+      flow="left"
+      sd-tooltip="remove"
+      title="Remove"
+    >
+      <i
+        class="icon-trash"
       />
     </button>
   </div>

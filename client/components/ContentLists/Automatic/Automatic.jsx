@@ -69,6 +69,54 @@ class Automatic extends React.Component {
     });
   };
 
+  removeItem = id => {
+    let change = [
+      {
+        content_id: id,
+        action: "delete"
+      }
+    ];
+
+    this.props.publisher
+      .saveManualList(
+        {
+          items: change,
+          updated_at: this.props.list.updated_at
+        },
+        this.props.list.id
+      )
+      .then(savedList => {
+        let list = { ...this.props.list };
+
+        list.updated_at = savedList.updated_at;
+        list.content_list_items_updated_at =
+          savedList.content_list_items_updated_at;
+        list.content_list_items_count = savedList.content_list_items_count;
+
+        this.props.onListUpdate(list);
+      })
+      .catch(err => {
+        if (err.status === 409) {
+          this.props.api.notify.error(
+            "Cannot save. List has been already modified by another user"
+          );
+
+          this.setState({
+            articles: {
+              items: [],
+              page: 0,
+              totalPages: 1,
+              loading: false,
+              itemSize: 56
+            }
+          });
+          this._queryArticles();
+        } else {
+          this.props.api.notify.error("Something went wrong. Try again.");
+        }
+      });
+  };
+
   onFiltersSave = updatedList => {
     this._queryArticles();
     this.props.onListUpdate(updatedList);
@@ -178,7 +226,8 @@ class Automatic extends React.Component {
                     itemRendererProps={{
                       openPreview: item => this.props.openPreview(item),
                       previewItem: this.props.previewItem,
-                      pinUnpin: item => this.pinUnpin(item)
+                      pinUnpin: item => this.pinUnpin(item),
+                      remove: id => this.removeItem(id)
                     }}
                     heightSubtract={0}
                   />
