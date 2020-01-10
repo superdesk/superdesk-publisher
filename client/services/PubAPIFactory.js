@@ -117,13 +117,15 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
          * @name pubapi#get
          * @param {String} resource
          * @param {Number} id
+         * @param {Object} params
          * @returns {Promise}
          * @description GET a given resource by id.
          */
-        get(resource, id) {
+        get(resource, id, params) {
             return this.req({
                 url: this.resourceURL(resource, id),
-                method: 'GET'
+                method: 'GET',
+                params: params
             });
         }
 

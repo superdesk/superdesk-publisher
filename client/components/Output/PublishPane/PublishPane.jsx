@@ -46,13 +46,17 @@ class PublishPane extends React.Component {
         .getPackage(this.context.selectedItem.id)
         .then(response => {
           response.articles.forEach(item => {
-            if (item.route) {
-              let tenantUrl = item.tenant.subdomain
-                ? item.tenant.subdomain + "." + item.tenant.domain_name
-                : item.tenant.domain_name;
+            let tenant = this.context.tenants.find(t => {
+              return t.code === item.tenant.code;
+            });
+
+            if (tenant && item.route) {
+              let tenantUrl = tenant.subdomain
+                ? tenant.subdomain + "." + tenant.domain_name
+                : tenant.domain_name;
 
               destinations.push({
-                tenant: item.tenant,
+                tenant: tenant,
                 route: item.route,
                 is_published_fbia: item.is_published_fbia,
                 status: item.status,

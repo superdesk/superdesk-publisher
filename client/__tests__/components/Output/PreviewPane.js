@@ -3,6 +3,8 @@ import PreviewPane from "../../../components/Output/PreviewPane";
 import { render, fireEvent } from "@testing-library/react";
 import Store from "../../../components/Output/Store";
 
+jest.mock('moment', () => () => ({ fromNow: () => '1 day ago', format: () => '2020–01–01T12:00:00+00:00' }));
+
 const _package = {
   "id": 641,
   "guid": "urn:newsml:sp-api.superdesk.pro:2019-09-24T16:37:56.756543:e027a313-b6ce-432b-91fa-45556e5ff1a8",
@@ -43,6 +45,7 @@ describe("Output/PreviewPane", () => {
       </Store.Provider>
     );
     expect(container.firstChild).toMatchSnapshot();
+
   });
 
 });

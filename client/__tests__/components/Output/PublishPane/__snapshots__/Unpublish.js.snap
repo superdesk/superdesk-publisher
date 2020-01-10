@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/PublishPane/Unpublish renders properly 1`] = `
+<div
+  class="side-panel__content"
+>
+  <div
+    class="side-panel__content-block side-panel__content-block--pad-small"
+  >
+    <div
+      class="side-panel__content-block-heading side-panel__content-block-heading--small-margin"
+    />
+  </div>
+  <div
+    class="side-panel__content-block"
+  >
+    <div
+      class="form__row form__row--small-padding"
+    >
+      <div
+        class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-1"
+      >
+        <button
+          class="btn__check flex-grid__item"
+        >
+          tenant1
+        </button>
+        <button
+          class="btn__check flex-grid__item"
+        >
+          tenant2
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
