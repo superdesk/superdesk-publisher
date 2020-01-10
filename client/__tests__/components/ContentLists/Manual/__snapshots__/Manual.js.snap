@@ -88,27 +88,16 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       class="sd-column-box--3"
     >
       <div
-        class="sd-column-box__main-column relative dropZone"
+        class="sd-column-box__main-column relative dropZone dropZone--empty"
       >
+        <h2
+          class="dropZone__heading"
+        >
+          Drag your Articles here
+        </h2>
         <ul
           class="sd-list-item-group sd-shadow--z2"
-        >
-          <li>
-            <div
-              class="spinner spinner--dark"
-            >
-              <div
-                class="bounce1"
-              />
-              <div
-                class="bounce2"
-              />
-              <div
-                class="bounce3"
-              />
-            </div>
-          </li>
-        </ul>
+        />
       </div>
     </div>
   </div>
@@ -163,19 +152,43 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         <ul
           class="sd-list-item-group sd-shadow--z2"
         >
-          <li>
+          <li
+            aria-roledescription="Draggable item. Press space bar to lift"
+            data-react-beautiful-dnd-drag-handle="0"
+            data-react-beautiful-dnd-draggable="0"
+            draggable="false"
+            tabindex="0"
+          >
             <div
-              class="spinner spinner--dark"
+              class="sd-list-item"
             >
               <div
-                class="bounce1"
-              />
-              <div
-                class="bounce2"
-              />
-              <div
-                class="bounce3"
-              />
+                class="sd-list-item__column sd-list-item__column--grow"
+              >
+                <div
+                  class="sd-list-item__row"
+                >
+                  <span
+                    class="sd-overflow-ellipsis sd-list-item__text-strong"
+                  >
+                    If you let any one have it but me, Basil, I shall never forgive you
+                  </span>
+                </div>
+                <div
+                  class="sd-list-item__row"
+                >
+                  <span
+                    class="sd-overflow-ellipsis sd-list-item--element-grow"
+                  >
+                    2 days ago
+                  </span>
+                  <span
+                    class="label label--success label--hollow"
+                  >
+                    sport
+                  </span>
+                </div>
+              </div>
             </div>
           </li>
         </ul>

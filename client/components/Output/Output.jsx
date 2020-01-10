@@ -209,7 +209,6 @@ class Output extends React.Component {
             />
           </div>
           <Subnav />
-          {this.state.loading && <div className="sd-loader" />}
           <div className="sd-column-box--3">
             <FilterPane
               toggle={this.toggleFilterPane}

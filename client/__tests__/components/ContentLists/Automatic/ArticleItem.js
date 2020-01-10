@@ -1,6 +1,9 @@
 import React from "react";
 import ArticleItem from "../../../../components/ContentLists/Automatic/ArticleItem";
 import { render } from "@testing-library/react";
+import moment from 'moment';
+
+jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
 
 describe("ContentLists/Automatic/ArticleItem", () => {
   const item = {

@@ -13,7 +13,9 @@ const publisher = new Publisher();
 
 jest.mock("axios");
 
-let api = () => {};
+jest.mock('moment', () => () => ({ fromNow: () => '2 days ago' }));
+
+let api = () => { };
 
 describe("ContentLists/ContentLists", () => {
   it("renders properly", async () => {

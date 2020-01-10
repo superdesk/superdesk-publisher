@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/Swimlane/TenantBoard renders properly 1`] = `
+<div
+  class="sd-kanban-list sd-d-inline-flex sd-flex-grow"
+>
+  <div
+    class="sd-kanban-list__board sd-kanban-list__board--wide"
+  >
+    <div
+      class="sd-kanban-list__board-header"
+    >
+      <div
+        class="sd-list-header"
+      >
+        <span
+          class="sd-list-header__name"
+        >
+          tenant1
+        </span>
+        <span
+          class="sd-list-header__number badge"
+        >
+          632
+        </span>
+      </div>
+    </div>
+    <div
+      class="sd-kanban-list__board-content relative"
+      style="display: flex; flex-direction: column;"
+    >
+      <div
+        class="sd-list-item-group sd-shadow--z2"
+        style="flex-grow: 1;"
+      >
+        <div
+          style="overflow: visible; height: 0px; width: 0px;"
+        >
+          <div
+            aria-label="grid"
+            aria-readonly="true"
+            class="ReactVirtualized__Grid ReactVirtualized__List"
+            role="grid"
+            style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
+            tabindex="0"
+          />
+        </div>
+        <div
+          class="resize-triggers"
+        >
+          <div
+            class="expand-trigger"
+          >
+            <div
+              style="width: 1px; height: 1px;"
+            />
+          </div>
+          <div
+            class="contract-trigger"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sd-kanban-list__board sd-kanban-list__board--wide"
+  >
+    <div
+      class="sd-kanban-list__board-header"
+    >
+      <div
+        class="sd-list-header"
+      >
+        <span
+          class="sd-list-header__name"
+        >
+          tenant2
+        </span>
+        <span
+          class="sd-list-header__number badge"
+        >
+          632
+        </span>
+      </div>
+    </div>
+    <div
+      class="sd-kanban-list__board-content relative"
+      style="display: flex; flex-direction: column;"
+    >
+      <div
+        class="sd-list-item-group sd-shadow--z2"
+        style="flex-grow: 1;"
+      >
+        <div
+          style="overflow: visible; height: 0px; width: 0px;"
+        >
+          <div
+            aria-label="grid"
+            aria-readonly="true"
+            class="ReactVirtualized__Grid ReactVirtualized__List"
+            role="grid"
+            style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
+            tabindex="0"
+          />
+        </div>
+        <div
+          class="resize-triggers"
+        >
+          <div
+            class="expand-trigger"
+          >
+            <div
+              style="width: 1px; height: 1px;"
+            />
+          </div>
+          <div
+            class="contract-trigger"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

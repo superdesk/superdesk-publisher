@@ -1,6 +1,6 @@
 import React from "react";
 import FilterPanel from "../../../../components/ContentLists/Automatic/FilterPanel";
-import { render, waitForElement } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import Publisher from "../../../../__mocks__/publisher";
 
@@ -11,10 +11,10 @@ jest.mock("react-select", () => props => "div");
 let lists = [];
 publisher.queryLists().then(items => (lists = items));
 
-let api = () => {};
+let api = () => { };
 
 api.users = {};
-api.users.query = function() {
+api.users.query = function () {
   return new Promise((resolve, reject) => {
     resolve({
       _items: [{ is_author: true, display_name: "test author" }],

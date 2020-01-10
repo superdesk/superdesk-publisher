@@ -343,8 +343,13 @@ export function PublisherFactory(pubapi) {
      * @returns {Promise}
      * @description List all articles for monitoring view
      */
-    getPackage(packageId) {
-      return pubapi.get("packages", packageId);
+    getPackage(packageId, withRoutes = false, withContentLists = false) {
+      let params = {};
+
+      if (withContentLists) params.withContentLists = true;
+      if (withRoutes) params.withRoutes = true;
+
+      return pubapi.get("packages", packageId, params);
     }
 
     /**

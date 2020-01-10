@@ -3,7 +3,7 @@ import ArticlePreview from "../../../components/generic/ArticlePreview";
 import { render } from "@testing-library/react";
 import moment from "moment";
 
-jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
+jest.mock('moment', () => () => ({ fromNow: () => '2 days ago', format: () => '2020–01–01T12:00:00+00:00' }));
 
 const article = {
   article_statistics: {

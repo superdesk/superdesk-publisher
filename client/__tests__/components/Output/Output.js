@@ -1,18 +1,13 @@
 import React from "react";
-import Automatic from "../../../../components/ContentLists/Automatic/Automatic";
+import Output from "../../../components/Output/Output";
 import { render, wait } from "@testing-library/react";
-import axios from "axios";
-jest.mock("react-virtualized/styles.css", () => {
-  return {};
-});
-
-import Publisher from "../../../../__mocks__/publisher";
+import Publisher from "../../../__mocks__/publisher";
 
 const publisher = new Publisher();
 
-let lists = [];
-publisher.queryLists().then(items => (lists = items));
-
+jest.mock("react-virtualized/styles.css", () => {
+  return {};
+});
 jest.mock("axios");
 jest.mock("react-select", () => props => "div");
 
@@ -28,23 +23,22 @@ api.users.query = function () {
   });
 };
 
-describe("ContentLists/Automatic/Automatic", () => {
+describe("Output/Output", () => {
   it("renders properly", async () => {
-    const { container, getByText } = render(
-      <Automatic
-        list={lists[0]}
-        lists={lists}
+    const { container } = render(
+      <Output
         publisher={publisher}
-        listEdit={jest.fn()}
-        onListUpdate={jest.fn()}
+        notify={{}}
+        config={{}}
+        authoringWorkspace={{}}
         api={api}
-        toggleFilters={jest.fn()}
       />
     );
 
     await wait(() =>
       expect(container.querySelector(".sd-loader")).not.toBeInTheDocument(),
     )
+
     expect(container.firstChild).toMatchSnapshot();
   });
 });

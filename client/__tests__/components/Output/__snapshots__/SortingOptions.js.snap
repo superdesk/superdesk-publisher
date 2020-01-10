@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/SortingOptions renders correctly 1`] = `
+<div
+  class="dropdown dropdown--align-right"
+  flow="left"
+>
+  <span>
+    <button
+      class="dropdown__toggle"
+    >
+      Created
+      <span
+        class="dropdown__caret"
+      />
+    </button>
+  </span>
+  <ul
+    class="dropdown__menu dropdown--align-right"
+  >
+    <li>
+      <button>
+        Updated
+      </button>
+    </li>
+    <li>
+      <button>
+        Created
+      </button>
+    </li>
+  </ul>
+</div>
+`;
