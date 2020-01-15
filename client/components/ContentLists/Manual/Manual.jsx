@@ -339,16 +339,6 @@ class Manual extends React.Component {
       let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
-      if (
-        this.props.list.limit &&
-        this.props.list.limit < result.contentList.length
-      ) {
-        this.props.api.notify.error(
-          "This list is limited to " + this.props.list.limit + " articles"
-        );
-        return null;
-      }
-
       list.items = result.contentList;
       articles.items = result.articles;
       this.recordChange("add", destination.index, [...list.items]);
@@ -502,33 +492,54 @@ class Manual extends React.Component {
                           : {}
                       }
                     >
-                      {filteredContentListItems.map((item, index) => (
-                        <Draggable
-                          key={"list" + item.id}
-                          draggableId={this.getDraggableId(item)}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
+                      {filteredContentListItems.map((item, index) => {
+                        let retArray = [];
+
+                        if (index === this.props.list.limit) {
+                          retArray.push(
                             <li
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={provided.draggableProps.style}
+                              key={"limitnotification"}
+                              className="listLimitNotification"
                             >
-                              <ArticleItem
-                                item={item.content ? item.content : item}
-                                openPreview={item =>
-                                  this.props.openPreview(item)
-                                }
-                                previewItem={this.props.previewItem}
-                                index={index}
-                                showExtras={true}
-                                remove={id => this.removeItem(id)}
-                              />
+                              This list is limited to {this.props.list.limit}{" "}
+                              items. Articles below will be removed.
                             </li>
-                          )}
-                        </Draggable>
-                      ))}
+                          );
+                        }
+
+                        retArray.push(
+                          <Draggable
+                            key={"list" + item.id + "" + index}
+                            draggableId={this.getDraggableId(item)}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <li
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={provided.draggableProps.style}
+                              >
+                                <ArticleItem
+                                  item={item.content ? item.content : item}
+                                  openPreview={item =>
+                                    this.props.openPreview(item)
+                                  }
+                                  previewItem={this.props.previewItem}
+                                  index={index}
+                                  showExtras={true}
+                                  remove={id => this.removeItem(id)}
+                                  willBeTrimmed={
+                                    this.props.list.limit &&
+                                    this.props.list.limit <= index
+                                  }
+                                />
+                              </li>
+                            )}
+                          </Draggable>
+                        );
+                        return retArray;
+                      })}
                       {provided.placeholder}
 
                       {this.state.list.loading && (
