@@ -11,7 +11,8 @@ const ArticleItem = ({
   previewItem,
   index,
   showExtras = false,
-  remove
+  remove,
+  willBeTrimmed
 }) => {
   let thumbnail = null;
 
@@ -24,6 +25,7 @@ const ArticleItem = ({
       className={classNames("sd-list-item", {
         "sd-list-item--activated": previewItem && previewItem.id === item.id
       })}
+      style={willBeTrimmed ? { opacity: 0.5 } : {}}
       onClick={() => openPreview(item)}
     >
       {showExtras && item.isDuplicate && (
@@ -95,7 +97,8 @@ ArticleItem.propTypes = {
   previewItem: PropTypes.object,
   index: PropTypes.number,
   showExtras: PropTypes.bool,
-  remove: PropTypes.func
+  remove: PropTypes.func,
+  willBeTrimmed: PropTypes.bool
 };
 
 export default ArticleItem;

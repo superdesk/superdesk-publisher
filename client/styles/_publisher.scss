@@ -2,18 +2,25 @@
 // Styling for the web publisher module
 // ----------------------------------------------------------------------------------------
 
-@import '~mixins.scss';
-@import '~variables.scss';
-@import 'uploadFix.scss';
-@import 'treeList.scss';
-@import 'listElement.scss';
-@import 'helperElements.scss';
-@import 'dragNdrop.scss';
-@import 'articlePreview.scss';
-@import 'wizardThemeBox.scss';
-@import 'wizardThemeDetails.scss';
-@import 'iconOnHover.scss';
+@import "~mixins.scss";
+@import "~variables.scss";
+@import "uploadFix.scss";
+@import "treeList.scss";
+@import "listElement.scss";
+@import "helperElements.scss";
+@import "dragNdrop.scss";
+@import "articlePreview.scss";
+@import "wizardThemeBox.scss";
+@import "wizardThemeDetails.scss";
+@import "iconOnHover.scss";
 
 .sd-list-item-group li + li .sd-list-item {
-    border-top: 1px solid rgba(123, 123, 123, 0.2);
+  border-top: 1px solid rgba(123, 123, 123, 0.2);
+}
+
+.listLimitNotification {
+  padding: 5px;
+  text-align: center;
+  border-top: 2px dashed red;
+  color: red;
 }
