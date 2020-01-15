@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
+<div
+  class="sd-list-item sd-list-item--no-hover sd-margin-b--1"
+>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow"
+  >
+    <div
+      class="sd-list-item__row sd-list-item__row--only-child"
+    >
+      <span
+        class="sd-margin-r--1"
+      >
+        Choose list
+      </span>
+      <div
+        class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin"
+      >
+        <select
+          class="sd-line-input__select"
+        >
+          <option
+            value="1"
+          >
+            list1
+          </option>
+          <option
+            disabled=""
+            value="3"
+          >
+            list3
+          </option>
+          <option
+            value="4"
+          >
+            list4
+          </option>
+        </select>
+      </div>
+      <a
+        class="icn-btn disabled"
+        flow="left"
+        sd-tooltip="Remove list"
+      >
+        <i
+          class="icon-trash"
+        />
+      </a>
+    </div>
+    <div
+      class="sd-list-item__row sd-margin-b--1"
+    >
+      <span
+        class="sd-margin-r--1"
+      >
+        Set order
+      </span>
+      <div
+        class="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2"
+      >
+        <select
+          class="sd-line-input__select"
+        >
+          <option
+            value="0"
+          >
+            1
+          </option>
+          <option
+            value="1"
+          >
+            2
+          </option>
+          <option
+            value="2"
+          >
+            3
+          </option>
+          <option
+            value="3"
+          >
+            4
+          </option>
+          <option
+            value="4"
+          >
+            5
+          </option>
+          <option
+            value="5"
+          >
+            6
+          </option>
+          <option
+            value="6"
+          >
+            7
+          </option>
+          <option
+            value="7"
+          >
+            8
+          </option>
+          <option
+            value="8"
+          >
+            9
+          </option>
+          <option
+            value="9"
+          >
+            10
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+`;

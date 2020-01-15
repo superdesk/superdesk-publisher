@@ -57,7 +57,8 @@ const RouteSelect = props => {
 
 RouteSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
-  selectedRouteId: PropTypes.any.isRequired
+  selectedRouteId: PropTypes.any.isRequired,
+  routes: PropTypes.array.isRequired
 };
 
 export default RouteSelect;

@@ -1,7 +1,6 @@
 import React from "react";
 import Listing from "../../../components/Output/Listing";
 import { render, wait } from "@testing-library/react";
-import axios from "axios";
 import Store from "../../../components/Output/Store";
 import Publisher from "../../../__mocks__/publisher";
 

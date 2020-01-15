@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/PublishPane/RelatedArticles renders correctly 1`] = `
+<div
+  class="side-panel__content-block"
+>
+  <div
+    class="toggle-box toggle-box--dark sp--dark-ui"
+  >
+    <div
+      class="toggle-box__header"
+    >
+      <div
+        class="toggle-box__chevron"
+      >
+        <i
+          class="icon-chevron-right-thin"
+        />
+      </div>
+      <div
+        class="toggle-box__label"
+      >
+        Related Articles
+      </div>
+      <div
+        class="toggle-box__line"
+      />
+    </div>
+    <div
+      class="toggle-box__content-wraper"
+    >
+      <div
+        class="toggle-box__content"
+      >
+        <div
+          class="spinner"
+        >
+          <div
+            class="bounce1"
+          />
+          <div
+            class="bounce2"
+          />
+          <div
+            class="bounce3"
+          />
+        </div>
+        <ul
+          class="simple-list simple-list--dotted simple-list--no-padding"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
