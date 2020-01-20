@@ -2,10 +2,21 @@ import React from "react";
 import FiltersPanel from "../../../components/Analytics/FiltersPanel";
 import { render, fireEvent } from "@testing-library/react";
 
+let api = () => { };
+
+api.users = {};
+api.users.query = function () {
+  return new Promise((resolve, reject) => {
+    resolve({
+      _items: [{ is_author: true, display_name: "author" }],
+      _links: {}
+    });
+  });
+};
+
 describe("Analytics/FiltersPanel", () => {
   const filters = {
     route: 1,
-    author: "author",
     published_after: "2019-07-04",
     published_before: "2019-07-04"
   };
@@ -24,6 +35,7 @@ describe("Analytics/FiltersPanel", () => {
         filters={filters}
         setFilters={jest.fn()}
         routes={routes}
+        api={api}
       />
     );
 
@@ -39,6 +51,7 @@ describe("Analytics/FiltersPanel", () => {
         filters={{}}
         setFilters={jest.fn()}
         routes={[]}
+        api={api}
       />
     );
 
@@ -57,11 +70,12 @@ describe("Analytics/FiltersPanel", () => {
         filters={filters}
         setFilters={setFilters}
         routes={routes}
+        api={api}
       />
     );
 
-    const input = container.querySelector('input[name="author"]');
-    fireEvent.change(input, { target: { value: "testauthor" } });
+    const input = container.querySelector('input[name="published_before"]');
+    fireEvent.change(input, { target: { value: "2020-02-02" } });
 
     const filterButton = getByTestId("filterSave");
     fireEvent.click(filterButton);
@@ -69,7 +83,7 @@ describe("Analytics/FiltersPanel", () => {
     expect(setFilters).toHaveBeenCalled();
 
     let newFilters = { ...filters };
-    newFilters.author = "testauthor";
+    newFilters.published_before = "2020-02-02";
 
     expect(setFilters).toHaveBeenCalledWith(newFilters);
   });
@@ -83,11 +97,9 @@ describe("Analytics/FiltersPanel", () => {
         filters={filters}
         setFilters={setFilters}
         routes={routes}
+        api={api}
       />
     );
-
-    const input = container.querySelector('input[name="author"]');
-    fireEvent.change(input, { target: { value: "testauthor" } });
 
     const button = getByTestId("filterClear");
     fireEvent.click(button);

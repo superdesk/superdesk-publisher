@@ -1,7 +1,6 @@
 import React from "react";
 import Publishing from "../../extensions/Publishing";
 import { render } from "@testing-library/react";
-import axios from "axios";
 
 jest.mock("axios");
 
@@ -21,9 +20,9 @@ describe("extensions/Publishing", () => {
     token: "asdfasdf"
   };
 
-  let api = () => {};
+  let api = () => { };
 
-  api.query = function() {
+  api.query = function () {
     return new Promise((resolve, reject) => {
       resolve({ _items: [] });
     });
@@ -46,7 +45,7 @@ describe("extensions/Publishing", () => {
           resolve({
             ok: true,
             status: 200,
-            json: () => {},
+            json: () => { },
             text: () =>
               new Promise((resolve, reject) => {
                 resolve('{"guid": "asdfasdf"}');
@@ -66,5 +65,7 @@ describe("extensions/Publishing", () => {
     );
 
     expect(container.firstChild).toMatchSnapshot();
+
+
   });
 });

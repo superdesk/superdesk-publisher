@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output/PublishPane/MetadataEditor renders correctly 1`] = `
+<div
+  class="side-panel__content-block-overlay-grid side-panel__content-block-overlay-grid--open"
+>
+  <div
+    class="side-panel"
+  >
+    <div
+      class="side-panel__header"
+    >
+      <a
+        class="icn-btn sd-margin-l--1"
+        flow="right"
+        sd-tooltip="Back"
+      >
+        <i
+          class="icon-arrow-left"
+        />
+      </a>
+      <h3
+        class="side-panel__heading side-panel__heading--big"
+      >
+        SEO
+         meta data
+      </h3>
+    </div>
+    <div
+      class="side-panel__content"
+    >
+      <div
+        class="side-panel__content-block"
+      >
+        <div
+          class="form__row"
+        >
+          <div
+            class="sd-line-input"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Post image
+            </label>
+            <div
+              class="sd-overlay-block sd-overlay-block--no-image"
+            >
+              <div
+                class="sd-overlay-block__overlay"
+              >
+                <div
+                  class="sd-overlay-block__overlay-action-group"
+                >
+                  <label
+                    class="sd-overlay-block__overlay-action"
+                    for="meta_media_file"
+                    sd-tooltip="Upload image"
+                  >
+                    <i
+                      class="icon-upload"
+                    />
+                  </label>
+                  <span
+                    class="sd-overlay-block__overlay-message"
+                  >
+                    No image has been set so far.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <input
+              accept="image/*"
+              id="meta_media_file"
+              name="meta_media_file"
+              style="opacity: 0; position: absolute; width: 1px; height: 1px;"
+              type="file"
+            />
+          </div>
+        </div>
+        <div
+          class="form__row"
+        >
+          <div
+            class="sd-line-input sd-line-input--dark-ui sd-line-input--boxed"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Title
+            </label>
+            <input
+              class="sd-line-input__input"
+              name="title"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form__row"
+        >
+          <div
+            class="sd-line-input sd-line-input--dark-ui sd-line-input--boxed"
+          >
+            <label
+              class="sd-line-input__label"
+            >
+              Description
+            </label>
+            <textarea
+              class="sd-line-input__input"
+              name="description"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

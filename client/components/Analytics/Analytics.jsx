@@ -201,6 +201,7 @@ class Analytics extends React.Component {
                     filters={this.state.filters}
                     setFilters={filters => this.setFilters(filters)}
                     routes={this.state.routes}
+                    api={this.props.api}
                   />
                   <div className="sd-column-box__main-column-inner sd-d-flex">
                     <div
@@ -259,7 +260,8 @@ class Analytics extends React.Component {
 
 Analytics.propTypes = {
   tenant: PropTypes.string,
-  publisher: PropTypes.object.isRequired
+  publisher: PropTypes.object.isRequired,
+  api: PropTypes.func.isRequired
 };
 
 export default Analytics;
