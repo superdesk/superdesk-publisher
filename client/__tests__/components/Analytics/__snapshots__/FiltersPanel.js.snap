@@ -68,12 +68,7 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
             >
               Author
             </label>
-            <input
-              class="sd-line-input__input"
-              name="author"
-              type="text"
-              value="author"
-            />
+            <div />
           </div>
         </div>
         <div

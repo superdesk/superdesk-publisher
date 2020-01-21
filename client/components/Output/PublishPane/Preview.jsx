@@ -89,7 +89,7 @@ class Preview extends React.Component {
             Live preview: <b className="text--dark">{modeName}</b>
           </h6>
 
-          <div className=" text--center">
+          <div className="text--center">
             <a
               className={classNames(
                 "cursorPointer previewIcon previewIcon--desktop",

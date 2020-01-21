@@ -66,6 +66,9 @@ class ListCard extends React.Component {
     let { name, value } = e.target;
     let list = { ...this.state.list };
 
+    if ((name === "limit" || name === "cache_life_time") & !value.length)
+      value = 0;
+
     list[name] = value;
     this.setState({ list });
   };

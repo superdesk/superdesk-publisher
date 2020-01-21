@@ -181,12 +181,7 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                       >
                         Author
                       </label>
-                      <input
-                        class="sd-line-input__input"
-                        name="author"
-                        type="text"
-                        value=""
-                      />
+                      <div />
                     </div>
                   </div>
                   <div

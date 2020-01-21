@@ -31,6 +31,7 @@ class Publish extends React.Component {
   componentDidMount() {
     this.setAvailableTenants();
   }
+
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.destinations, prevProps.destinations)) {
       this.setState(
