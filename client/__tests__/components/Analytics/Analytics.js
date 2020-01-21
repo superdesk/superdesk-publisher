@@ -6,6 +6,10 @@ jest.mock("react-virtualized/styles.css", () => {
   return {};
 });
 
+jest.mock("../../../components/UI/MultiSelect", () => () => {
+  return (<div></div>)
+});
+
 let api = () => { };
 
 api.users = {};

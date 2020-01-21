@@ -4,6 +4,10 @@ import { render, fireEvent } from "@testing-library/react";
 
 let api = () => { };
 
+jest.mock("../../../components/UI/MultiSelect", () => () => {
+  return (<div></div>)
+});
+
 api.users = {};
 api.users.query = function () {
   return new Promise((resolve, reject) => {

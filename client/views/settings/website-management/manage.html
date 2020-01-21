@@ -8,7 +8,10 @@
         </a>
     </div>
 </div>
-<div class="sd-column-box--3">
+<div class="sd-column-box--3" ng-init="sideNavOpen=true" ng-class="{'content-nav-closed' : !sideNavOpen}">
+    <div class="nav-tabs-vertical" ng-class="{'nav-tabs-vertical--closed' : sideNavOpen}">
+        <ul class="nav-tabs-vertical__list"><li class="nav-tabs-vertical__tab"><button class="nav-tabs-vertical__link" ng-click="sideNavOpen=!sideNavOpen">Website</button></li></ul>
+    </div>
     <div class="sd-content-navigation-panel sd-content-navigation-panel--border-right"
     ng-if="webPublisherSettings.activePanel === 'tenant' && webPublisherSettings.openSiteEdit"
     ng-include="'settings/website-management/manage-nav.html'"></div>
