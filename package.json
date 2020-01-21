@@ -28,6 +28,9 @@
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom"
     ],
+    "setupFilesAfterEnv": [
+      "./setupJest.js"
+    ],
     "moduleNameMapper": {
       "\\.(css|less|sass|scss)$": "<rootDir>/client/__mocks__/styleMock.js"
     }
@@ -58,6 +61,7 @@
     "babel-polyfill": "^6.26.0",
     "jest": "^24.8.0",
     "jest-dom": "^3.4.0",
+    "jest-styled-components": "^7.0.0",
     "jest-transform-css": "^2.0.0",
     "superdesk-code-style": "^1.0.0",
     "superdesk-core": "superdesk/superdesk-client-core#a36be47",
