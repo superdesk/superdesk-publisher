@@ -47,7 +47,7 @@ describe("Output/SortingOptions", () => {
     const { container, getByText } = render(
       <Store.Provider
         value={{
-          filters: { sort: 'updatedAt' },
+          filters: { sort: 'updated_at' },
           actions: { setFilters: setFilters }
         }}
       >
@@ -58,6 +58,6 @@ describe("Output/SortingOptions", () => {
     fireEvent.click(button);
 
     expect(setFilters).toHaveBeenCalled();
-    expect(setFilters).toHaveBeenCalledWith({ sort: 'createdAt' });
+    expect(setFilters).toHaveBeenCalledWith({ sort: 'created_at' });
   });
 });

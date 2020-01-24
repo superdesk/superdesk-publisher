@@ -142,7 +142,6 @@ export default angular
   .directive("sdListArticles", directive.ListArticlesDirective)
   .directive("sdListContentLists", directive.ListContentListsDirective)
   .directive("sdCardInputFocus", directive.CardInputFocusDirective)
-  .directive("sdGroupArticle", directive.GroupArticleDirective)
   .directive("sdArticles", directive.ArticlesDirective)
   .directive("sdSiteWizard", directive.SiteWizardDirective)
   .directive("sdThemeManager", directive.ThemeManagerDirective)

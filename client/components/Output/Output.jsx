@@ -26,7 +26,7 @@ class Output extends React.Component {
       articlesCounts: { incoming: 0, published: 0 },
       selectedItem: null,
       isSuperdeskEditorOpen: false,
-      filters: { sort: "updatedAt", order: "desc" },
+      filters: { sort: "updated_at", order: "desc" },
       selectedList: window.localStorage.getItem("swpOutputListType")
         ? window.localStorage.getItem("swpOutputListType")
         : "incoming",

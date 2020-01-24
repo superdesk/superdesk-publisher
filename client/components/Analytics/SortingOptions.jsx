@@ -1,23 +1,16 @@
 import React from "react";
 
 import Dropdown from "../UI/Dropdown";
-import Store from "./Store";
 
-const SortingOptions = props => {
-  const store = React.useContext(Store);
-
+const SortingOptions = ({ filters, setFilters }) => {
   const setSort = value => {
-    let filters = { ...store.filters };
-
     filters.sort = value;
-    store.actions.setFilters(filters);
+    setFilters(filters);
   };
 
   const setOrder = value => {
-    let filters = { ...store.filters };
-
     filters.order = value;
-    store.actions.setFilters(filters);
+    setFilters(filters);
   };
 
   return (
@@ -25,19 +18,23 @@ const SortingOptions = props => {
       <Dropdown
         button={
           <button className="dropdown__toggle">
-            {store.filters.sort === "updated_at" ? "Updated" : "Created"}
+            {filters.sort === "published_at" ? "Publish date" : "Page views"}
             <span className="dropdown__caret"></span>
           </button>
         }
       >
         <li>
-          <button onClick={() => setSort("updated_at")}>Updated</button>
+          <button onClick={() => setSort("published_at")}>Publish date</button>
         </li>
         <li>
-          <button onClick={() => setSort("created_at")}>Created</button>
+          <button
+            onClick={() => setSort("article_statistics.page_views_number")}
+          >
+            Page views
+          </button>
         </li>
       </Dropdown>
-      {store.filters.order === "desc" ? (
+      {filters.order === "desc" ? (
         <a
           className="icn-btn"
           sd-tooltip="Descending"

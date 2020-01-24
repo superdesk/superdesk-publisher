@@ -188,6 +188,12 @@ class Manual extends React.Component {
             loading: false
           };
           if (this._isMounted) this.setState({ list });
+        })
+        .catch(err => {
+          this.props.api.notify.error("Cannot load list items.");
+          let list = { ...this.state.list };
+          list.loading = false;
+          if (this._isMounted) this.setState({ list });
         });
     });
   };
@@ -275,11 +281,7 @@ class Manual extends React.Component {
         this.props.list.id
       )
       .then(savedList => {
-        let list = { ...this.props.list };
-        list.updated_at = savedList.updated_at;
-        list.content_list_items_updated_at =
-          savedList.content_list_items_updated_at;
-        this.props.onListUpdate(list);
+        this.props.onListUpdate(savedList);
       })
       .catch(err => {
         if (err.status === 409) {

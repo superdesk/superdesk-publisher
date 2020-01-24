@@ -103,9 +103,12 @@ class ContentLists extends React.Component {
     let lists = [...this.state.lists];
     let index = lists.findIndex(list => list.id === id);
 
-    if (index > -1) {
-      delete lists[index];
+    if (index < 0) {
+      index = lists.findIndex(list => typeof list.id === "undefined");
+    }
 
+    if (index > -1) {
+      lists.splice(index, 1);
       this.setState({ lists });
     }
   };
@@ -122,7 +125,21 @@ class ContentLists extends React.Component {
     if (index > -1) {
       lists[index] = updatedList;
     }
+
     this.setState({ lists, selectedList });
+  };
+
+  onListCreated = newList => {
+    let lists = [...this.state.lists];
+    let oldIndex = lists.findIndex(list => typeof list.id === "undefined");
+
+    if (oldIndex > -1) {
+      lists.splice(oldIndex, 1);
+    }
+
+    lists.unshift(newList);
+
+    this.setState({ lists });
   };
 
   toggleTenantsNav = () =>
@@ -189,6 +206,7 @@ class ContentLists extends React.Component {
                 lists={this.state.lists}
                 publisher={this.props.publisher}
                 onListDelete={id => this.onListDelete(id)}
+                onListCreated={list => this.onListCreated(list)}
                 addList={type => this.addList(type)}
                 listEdit={list => this.listEdit(list)}
               />

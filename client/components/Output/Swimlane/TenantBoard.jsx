@@ -105,7 +105,7 @@ class TenantBoard extends React.Component {
       ? this.state.filters.publishedAfter
       : null;
 
-    queryParams["sorting[updatedAt]"] = "desc";
+    queryParams["sorting[updated_at]"] = "desc";
 
     return _.pickBy(queryParams, _.identity);
   };

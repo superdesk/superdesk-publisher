@@ -30,7 +30,7 @@ describe("Output/Swimlane/TenantBoard", () => {
             },
             { name: 'tenant2', code: 'tenant2', routes: [] }
           ],
-          filters: { sort: "updatedAt", order: "desc" },
+          filters: { sort: "updated_at", order: "desc" },
           actions: { setFilters: jest.fn(), setArticlesCounts: jest.fn() }
         }}
       >
