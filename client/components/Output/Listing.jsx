@@ -16,7 +16,7 @@ class Listing extends React.Component {
     this.queryLimit = 20;
 
     this.state = {
-      filters: { sort: "updatedAt", order: "desc" },
+      filters: { sort: "updated_at", order: "desc" },
       loading: true,
       articles: {
         items: [],
@@ -292,7 +292,9 @@ class Listing extends React.Component {
           </div>
         ) : null}
 
-        {this.state.loading && <div className="sd-loader" style={{ zIndex: "1" }} />}
+        {this.state.loading && (
+          <div className="sd-loader" style={{ zIndex: "1" }} />
+        )}
       </div>
     );
   }

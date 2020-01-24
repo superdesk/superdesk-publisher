@@ -41,9 +41,11 @@ class ListCard extends React.Component {
 
     this.props.publisher
       .manageList(list, this.state.list.id)
-      .then(() => {
+      .then(res => {
+        let list = { ...res };
         this.modalClose();
         this.editClose();
+        this.props.onListCreated(list);
       })
       .catch(err => {
         console.error(err);
@@ -82,7 +84,11 @@ class ListCard extends React.Component {
   };
 
   cancelEditing = () => {
-    this.setState({ list: this.props.list, isEditing: false });
+    if (typeof this.props.list.id === "undefined") {
+      this.props.onListDelete(this.state.list.id);
+    } else {
+      this.setState({ list: this.props.list, isEditing: false });
+    }
   };
 
   render() {
@@ -297,7 +303,8 @@ class ListCard extends React.Component {
 ListCard.propTypes = {
   list: PropTypes.object.isRequired,
   publisher: PropTypes.object.isRequired,
-  listEdit: PropTypes.func.isRequired
+  listEdit: PropTypes.func.isRequired,
+  onListCreated: PropTypes.func.isRequired
 };
 
 export default ListCard;

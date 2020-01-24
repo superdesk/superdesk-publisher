@@ -20,6 +20,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
     store.publisher
       .removeArticle({ pub_status: "canceled" }, item.id)
       .then(() => {
+        setState({ confirm: false });
         onRemove(item.id);
       })
       .catch(e => store.notify.error("Cannot remove article"));

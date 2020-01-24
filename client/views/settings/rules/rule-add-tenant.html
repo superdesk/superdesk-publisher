@@ -76,6 +76,13 @@
             </div>
         </div>
 
+        <div class="sd-line-input" ng-if="newRule.id">
+            <label class="sd-line-input__label">Expression</label>
+            <p class="codeBlock" >
+                {{webPublisherSettings.selectedRule.expression}}
+            </p>
+        </div>
+
         <div ng-if="!newRule.id" class="form__row margin--top">
             <button class="btn"
                 ng-click="webPublisherSettings.addRuleExpression()"

@@ -6,6 +6,7 @@ import SitesSideNav from "../generic/SitesSideNav";
 import FiltersPanel from "./FiltersPanel";
 import VirtualizedList from "../generic/VirtualizedList";
 import ArticleItem from "./ArticleItem";
+import SortingOptions from "./SortingOptions";
 
 class Analytics extends React.Component {
   constructor(props) {
@@ -16,7 +17,10 @@ class Analytics extends React.Component {
     this.state = {
       loading: true,
       tenantsNavOpen: false,
-      filters: {},
+      filters: {
+        sort: "published_at",
+        order: "desc"
+      },
       filtersOpen: false,
       sites: [],
       routes: [],
@@ -61,7 +65,10 @@ class Analytics extends React.Component {
       selectedSite: site,
       articles,
       loading: false,
-      filters: {}
+      filters: {
+        sort: "published_at",
+        order: "desc"
+      }
     });
     this._queryRoutes();
   };
@@ -78,7 +85,9 @@ class Analytics extends React.Component {
     this.setState({ articles }, () => {
       let params = {};
       params.limit = 20;
-      params["sorting[published_at]"] = "desc";
+      params[
+        "sorting[" + this.state.filters.sort + "]"
+      ] = this.state.filters.order;
       params.status = "published";
       params.page = this.state.articles.page + 1;
 
@@ -193,6 +202,12 @@ class Analytics extends React.Component {
                   >
                     <i className="icon-filter-large" />
                   </button>
+                  <div className="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1">
+                    <SortingOptions
+                      filters={this.state.filters}
+                      setFilters={this.setFilters}
+                    />
+                  </div>
                 </div>
 
                 <div className="sd-column-box--3">

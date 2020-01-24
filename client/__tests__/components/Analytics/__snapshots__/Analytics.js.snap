@@ -105,6 +105,48 @@ exports[`Analytics/Analytics renders correctly 1`] = `
               class="icon-filter-large"
             />
           </button>
+          <div
+            class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1"
+          >
+            <div
+              class="dropdown dropdown--align-right"
+              flow="left"
+            >
+              <span>
+                <button
+                  class="dropdown__toggle"
+                >
+                  Publish date
+                  <span
+                    class="dropdown__caret"
+                  />
+                </button>
+              </span>
+              <ul
+                class="dropdown__menu dropdown--align-right"
+              >
+                <li>
+                  <button>
+                    Publish date
+                  </button>
+                </li>
+                <li>
+                  <button>
+                    Page views
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <a
+              class="icn-btn"
+              flow="bottom"
+              sd-tooltip="Descending"
+            >
+              <i
+                class="icon-descending"
+              />
+            </a>
+          </div>
         </div>
         <div
           class="sd-column-box--3"
