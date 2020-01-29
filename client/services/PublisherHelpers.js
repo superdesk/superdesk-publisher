@@ -56,7 +56,9 @@ export function PublisherHelpersFactory() {
       let count = 0;
 
       articles.forEach(art => {
-        count += parseInt(art.article_statistics.page_views_number);
+        if(art.article_statistics && art.article_statistics.page_views_number) {
+          count += parseInt(art.article_statistics.page_views_number);
+        }
       });
 
       return count;
@@ -72,7 +74,9 @@ export function PublisherHelpersFactory() {
       let count = 0;
 
       articles.forEach(art => {
-        count += parseInt(art.comments_count);
+        if(art.comments_count) {
+          count += parseInt(art.comments_count);
+        }
       });
 
       return count;
