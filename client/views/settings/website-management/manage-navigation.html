@@ -1,44 +1,92 @@
 <div class="sd-page__header">
-    <h2 class="sd-page__page-heading">Navigation</h2>
-    <span class="sd-page__element-grow"></span>
-    <a href="" ng-disabled="webPublisherSettings.menuAdd"
-        ng-click="webPublisherSettings.createMenuCard()"
-        class="btn btn--primary"><i class="icon-plus-sign"></i>Add new</a>
+  <h2 class="sd-page__page-heading">Navigation</h2>
+  <span class="sd-page__element-grow"></span>
+  <a
+    href=""
+    ng-disabled="webPublisherSettings.menuAdd"
+    ng-click="webPublisherSettings.createMenuCard()"
+    class="btn btn--primary"
+    ><i class="icon-plus-sign"></i>Add new</a
+  >
 </div>
 
 <div class="sd-page__content">
-    <div class="flex-grid box wrap-items small-1 medium-1 large-2 xlarge-3">
-        <div class="flex-item card-box" ng-repeat="menu in menus | orderBy: 'id' track by menu.id">
-            <div class="card-box__header sd-d-flex sd-flex-align-items-center">                
-                <div ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
-                    ng-click="webPublisherSettings.editMenuCard(menu)"
-                    class="card-box__heading card-box__heading--editable sd-flex-grow">
-                    <div>{{ menu.name }}</div>
-                </div>
-                <div ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="card-box__heading card-box__heading--editable sd-flex-grow">
-                    <input type="text" ng-model="newMenu.name" class="line-input line-input--alt" required sd-card-input-focus>
-                </div>
-                <div ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="card-box__btn-group card-box__btn-group--right sd-margin-t--0">
-                    <button ng-click="webPublisherSettings.cancelEditMenuCard()" class="icn-btn">
-                        <i class="icon-close-small"></i>
-                    </button>
-                    <button ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshMenus)" class="icn-btn">
-                        <i class="icon-ok"></i>
-                    </button>
-                </div>
-                <div ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)" class="sd-d-flex sd-margin-l--auto sd-margin-r--1">
-                    <a ng-click="webPublisherSettings.editMenuTree(menu)" class="icn-btn" title="{{:: 'Edit menu'| translate}}"><i class="icon-pencil"></i></a>
-                    <a ng-click="webPublisherSettings.deleteMenu(menu.id)" class="icn-btn" title="{{:: 'Remove menu'| translate}}"><i class="icon-trash"></i></a>
-                </div>                    
-            </div>
-            <div class="card-box__content card-box__content--scrollable relative">
-                <div class="sd-loader" ng-if="loading"></div>
-                <ul class="card-box__content-list">
-                    <li ng-repeat="child in menu.children | orderBy: 'position' track by child.id" class="card-box__content-list-item--small card-box__content-list-item--border-bottom">
-                        <h4 class="card-box__h4--normal-case">{{ child.name }}<span class="label">{{ child.children.length }}</span></h4>
-                    </li>
-                </ul>
-            </div>
+  <div class="flex-grid box wrap-items small-1 medium-1 large-2 xlarge-3">
+    <div
+      class="flex-item card-box"
+      ng-repeat="menu in menus | orderBy: 'id' track by menu.id"
+    >
+      <div class="card-box__header sd-d-flex sd-flex-align-items-center">
+        <div
+          ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
+          ng-click="webPublisherSettings.editMenuCard(menu)"
+          class="card-box__heading card-box__heading--editable sd-flex-grow"
+        >
+          <div>{{ menu.name }}</div>
         </div>
+        <div
+          ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
+          class="card-box__heading card-box__heading--editable sd-flex-grow"
+        >
+          <input
+            type="text"
+            ng-model="newMenu.name"
+            class="line-input line-input--alt"
+            required
+            sd-card-input-focus
+          />
+        </div>
+        <div
+          ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
+          class="card-box__btn-group card-box__btn-group--right sd-margin-t--0"
+        >
+          <button
+            ng-click="webPublisherSettings.cancelEditMenuCard()"
+            class="icn-btn"
+          >
+            <i class="icon-close-small"></i>
+          </button>
+          <button
+            ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshMenus)"
+            class="icn-btn"
+          >
+            <i class="icon-ok"></i>
+          </button>
+        </div>
+        <div
+          ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
+          class="sd-d-flex sd-margin-l--auto sd-margin-r--1"
+          style="margin-top: 1em"
+        >
+          <a
+            ng-click="webPublisherSettings.editMenuTree(menu)"
+            class="icn-btn"
+            title="{{:: 'Edit menu'| translate}}"
+            ><i class="icon-pencil"></i
+          ></a>
+          <a
+            ng-click="webPublisherSettings.deleteMenu(menu.id)"
+            class="icn-btn"
+            title="{{:: 'Remove menu'| translate}}"
+            ><i class="icon-trash"></i
+          ></a>
+        </div>
+      </div>
+      <div class="card-box__content card-box__content--scrollable relative">
+        <div class="sd-loader" ng-if="loading"></div>
+        <ul class="card-box__content-list">
+          <li
+            ng-repeat="child in menu.children | orderBy: 'position' track by child.id"
+            class="card-box__content-list-item--small card-box__content-list-item--border-bottom"
+          >
+            <h4 class="card-box__h4--normal-case">
+              {{ child.name }}<span class="label"
+                >{{ child.children.length }}</span
+              >
+            </h4>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>

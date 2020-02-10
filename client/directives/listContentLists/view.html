@@ -1,19 +1,23 @@
 <div class="sd-loader" ng-if="loading"></div>
 <ul class="sd-card__content-list">
-    <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"
-        ng-repeat="list in contentLists"
+  <li
+    class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+    ng-repeat="list in contentLists"
+  >
+    <a
+      ng-href="#/publisher/content_lists/{{site.code}}/{{list.id}}"
+      class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
     >
-        <a ng-href="#/publisher/content_lists/{{site.code}}/{{list.id}}" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">
-            {{list.name}}
-            <i class="icon-pencil icon--dark-blue-grey"></i>
-        </a>
-    </li>
-    <div class="panel-info" ng-if="!contentLists.length">
-        <div class="panel-info__icon">
-            <i class="big-icon--add-to-list" ng-if="!site.output_channel"></i>
-            <i class="big-icon--web" ng-if="site.output_channel"></i>
-        </div>
-        <h3 class="panel-info__heading">&nbsp;</h3>
-        <p class="panel-info__description">&nbsp;</p>
+      {{list.name}}
+      <i class="icon-pencil icon--dark-blue-grey"></i>
+    </a>
+  </li>
+  <div class="panel-info" ng-if="!contentLists.length">
+    <div class="panel-info__icon">
+      <i class="big-icon--add-to-list" ng-if="!site.output_channel"></i>
+      <i class="big-icon--web" ng-if="site.output_channel"></i>
     </div>
+    <h3 class="panel-info__heading">&nbsp;</h3>
+    <p class="panel-info__description">&nbsp;</p>
+  </div>
 </ul>

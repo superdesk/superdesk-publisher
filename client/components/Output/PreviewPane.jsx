@@ -89,7 +89,13 @@ class PreviewPane extends React.Component {
       paywall_secured: this.props.package.articles[0]
         ? this.props.package.articles[0].paywall_secured
         : false,
-      articles: this.props.package.articles
+      articles: this.props.package.articles,
+      authors:
+        this.props.package.articles &&
+        this.props.package.articles[0] &&
+        this.props.package.articles[0].authors
+          ? this.props.package.articles[0].authors
+          : []
     };
 
     return <ArticlePreview article={article} close={this.props.close} />;

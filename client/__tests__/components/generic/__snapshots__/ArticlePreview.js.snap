@@ -46,6 +46,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
             >
               2 days ago
             </time>
+            
           </p>
         </div>
         <div

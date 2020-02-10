@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import _ from "lodash";
 
 import SitesSideNav from "../generic/SitesSideNav";
 import FiltersPanel from "./FiltersPanel";
-import VirtualizedList from "../generic/VirtualizedList";
-import ArticleItem from "./ArticleItem";
+import Listing from "./Listing";
 import SortingOptions from "./SortingOptions";
+import Reports from "./Reports/Reports";
 
 class Analytics extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Analytics extends React.Component {
         order: "desc"
       },
       filtersOpen: false,
+      activeView: "listing",
       sites: [],
       routes: [],
       selectedSite: null,
@@ -152,6 +154,48 @@ class Analytics extends React.Component {
     );
   };
 
+  changeActiveView = type => this.setState({ activeView: type });
+
+  generateReport = filters => {
+    let reportFilters = {};
+
+    if (filters.published_after) {
+      reportFilters.start = filters.published_after;
+    }
+
+    if (filters.published_before) {
+      reportFilters.end = filters.published_before;
+    }
+
+    if (filters.author && filters.author.length) {
+      reportFilters.authors = [];
+      filters.author.map(a => reportFilters.authors.push(a.value));
+    }
+
+    if (filters.route) {
+      reportFilters.routes = [
+        {
+          id: filters.route
+        }
+      ];
+    }
+
+    this.props.publisher
+      .generateAnalyticsReport(reportFilters)
+      .then(response => {
+        this.props.api.notify.success(
+          "You fired report generation. Please note: the process takes some time. The link for generated report will be sent via email. Once generatet the report will be available in Reports History list."
+        );
+        // this is ugly...
+        this.setState({ activeView: null }, () =>
+          this.setState({ activeView: "reports" })
+        );
+      })
+      .catch(err => {
+        this.props.api.notify.error("Cannot generate report");
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -202,12 +246,36 @@ class Analytics extends React.Component {
                   >
                     <i className="icon-filter-large" />
                   </button>
-                  <div className="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1">
-                    <SortingOptions
-                      filters={this.state.filters}
-                      setFilters={this.setFilters}
-                    />
-                  </div>
+                  <span className="sd-check__wrapper">
+                    <span
+                      className={classNames(
+                        "sd-checkbox sd-checkbox--button-style sd-checkbox--radio",
+                        { checked: this.state.activeView === "listing" }
+                      )}
+                      onClick={() => this.changeActiveView("listing")}
+                    >
+                      <label>Analytics</label>
+                    </span>
+                  </span>
+                  <span className="sd-check__wrapper">
+                    <span
+                      className={classNames(
+                        "sd-checkbox sd-checkbox--button-style sd-checkbox--radio",
+                        { checked: this.state.activeView === "reports" }
+                      )}
+                      onClick={() => this.changeActiveView("reports")}
+                    >
+                      <label>Reports History</label>
+                    </span>
+                  </span>
+                  {this.state.activeView === "listing" && (
+                    <div className="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1">
+                      <SortingOptions
+                        filters={this.state.filters}
+                        setFilters={this.setFilters}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="sd-column-box--3">
@@ -217,52 +285,18 @@ class Analytics extends React.Component {
                     setFilters={filters => this.setFilters(filters)}
                     routes={this.state.routes}
                     api={this.props.api}
+                    generateReport={this.generateReport}
                   />
-                  <div className="sd-column-box__main-column-inner sd-d-flex">
-                    <div
-                      className="sd-flex-table sd-table--shadowed sd-table--action-hover"
-                      style={{ flexGrow: "1", position: "relative" }}
-                    >
-                      <div className="sd-flex-table__row sd-flex-table--head">
-                        <div className="sd-flex-table__cell sd-flex-grow">
-                          <div>Title</div>
-                        </div>
-                        <div className="sd-flex-table__cell">&nbsp;</div>
-                        <div className="sd-flex-table__cell">
-                          <div>Page Views</div>
-                        </div>
-                        {/* <div className="sd-flex-table__cell">
-                          <div>Click Rate</div>
-                        </div>
-                        <div className="sd-flex-table__cell">
-                          <div>Impressions</div>
-                        </div> */}
-                      </div>
-                      {!this.state.articles.loading &&
-                        this.state.articles.items &&
-                        !this.state.articles.items.length && (
-                          <p style={{ padding: "1em", textAlign: "center" }}>
-                            No results found
-                          </p>
-                        )}
-                      {!this.state.loading && (
-                        <VirtualizedList
-                          hasNextPage={
-                            this.state.articles.totalPages >
-                            this.state.articles.page
-                              ? true
-                              : false
-                          }
-                          isNextPageLoading={this.state.articles.loading}
-                          loadNextPage={this._queryArticles}
-                          items={this.state.articles.items}
-                          itemSize={this.state.articles.itemSize}
-                          ItemRenderer={ArticleItem}
-                          heightSubtract={46}
-                        />
-                      )}
-                    </div>
-                  </div>
+
+                  {this.state.activeView === "reports" ? (
+                    <Reports publisher={this.props.publisher} />
+                  ) : (
+                    <Listing
+                      articles={this.state.articles}
+                      loading={this.state.loading}
+                      queryArticles={this._queryArticles}
+                    />
+                  )}
                 </div>
               </div>
             </div>

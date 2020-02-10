@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics/SortingOptions renders correctly 1`] = `
+<div
+  class="dropdown dropdown--align-right"
+  flow="left"
+>
+  <span>
+    <button
+      class="dropdown__toggle"
+    >
+      Page views
+      <span
+        class="dropdown__caret"
+      />
+    </button>
+  </span>
+  <ul
+    class="dropdown__menu dropdown--align-right"
+  >
+    <li>
+      <button>
+        Publish date
+      </button>
+    </li>
+    <li>
+      <button>
+        Page views
+      </button>
+    </li>
+  </ul>
+</div>
+`;

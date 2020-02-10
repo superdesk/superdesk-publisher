@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import classNames from "classnames";
 
 import MultiSelect from "../UI/MultiSelect";
 
@@ -10,7 +11,8 @@ class FiltersPanel extends React.Component {
 
     this.state = {
       filters: props.filters ? props.filters : {},
-      authors: []
+      authors: [],
+      dateFilterType: "range"
     };
   }
 
@@ -94,6 +96,64 @@ class FiltersPanel extends React.Component {
     this.props.setFilters(filters);
   };
 
+  isFiltersEmpty = () => {
+    let filters = { ...this.state.filters };
+
+    if (
+      (filters.author && filters.author.length) ||
+      filters.route ||
+      filters.published_after ||
+      filters.published_before
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  handleDateFilterTypeChange = e => {
+    let type = e.target.value;
+    let published_after = "";
+    let published_before = "";
+
+    // 2020-02-04
+
+    if (type === "thisWeek") {
+      published_after = moment()
+        .startOf("isoWeek")
+        .format("YYYY-MM-DD");
+      published_before = moment().format("YYYY-MM-DD");
+    } else if (type === "thisMonth") {
+      published_after = moment()
+        .startOf("month")
+        .format("YYYY-MM-DD");
+      published_before = moment().format("YYYY-MM-DD");
+    } else if (type === "lastWeek") {
+      published_after = moment()
+        .subtract(1, "weeks")
+        .startOf("isoWeek")
+        .format("YYYY-MM-DD");
+      published_before = moment()
+        .subtract(1, "weeks")
+        .endOf("isoWeek")
+        .format("YYYY-MM-DD");
+    } else if (type === "lastMonth") {
+      published_after = moment()
+        .subtract(1, "months")
+        .startOf("month")
+        .format("YYYY-MM-DD");
+      published_before = moment()
+        .subtract(1, "months")
+        .endOf("month")
+        .format("YYYY-MM-DD");
+    }
+
+    let filters = { ...this.state.filters };
+    filters.published_after = published_after;
+    filters.published_before = published_before;
+
+    this.setState({ filters, dateFilterType: type });
+  };
+
   render() {
     let authorsOptions = [];
 
@@ -154,42 +214,60 @@ class FiltersPanel extends React.Component {
                   />
                 </div>
               </div>
-              <div className="form__row form__row--flex">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">
-                    Published after
-                  </label>
-                  <input
-                    className="sd-line-input__input"
-                    type="date"
-                    onChange={this.handleInputChange}
-                    name="published_after"
-                    value={
-                      this.state.filters.published_after
-                        ? this.state.filters.published_after
-                        : ""
-                    }
-                  />
+              <div className="form__row">
+                <div className="sd-line-input sd-line-input--no-margin sd-line-input--is-select">
+                  <label className="sd-line-input__label">Date filter</label>
+                  <select
+                    className="sd-line-input__select"
+                    onChange={this.handleDateFilterTypeChange}
+                    name="route"
+                    value={this.state.dateFilterType}
+                  >
+                    <option value="range">Custom</option>
+                    <option value="lastWeek">Last week</option>
+                    <option value="lastMonth">Last month</option>
+                    <option value="thisWeek">This week</option>
+                    <option value="thisMonth">This month</option>
+                  </select>
                 </div>
               </div>
-              <div className="form__row form__row--flex">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">
-                    Published before
-                  </label>
-                  <input
-                    className="sd-line-input__input"
-                    type="date"
-                    onChange={this.handleInputChange}
-                    name="published_before"
-                    value={
-                      this.state.filters.published_before
-                        ? this.state.filters.published_before
-                        : ""
-                    }
-                  />
+
+              {this.state.dateFilterType === "range" && (
+                <div className="form__row form__row--flex">
+                  <div className="form__row-item">
+                    <div className="sd-line-input sd-line-input--no-margin">
+                      <label className="sd-line-input__label">From</label>
+                      <input
+                        className="sd-line-input__input"
+                        type="date"
+                        onChange={this.handleInputChange}
+                        name="published_after"
+                        value={
+                          this.state.filters.published_after
+                            ? this.state.filters.published_after
+                            : ""
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="form__row-item">
+                    <div className="sd-line-input sd-line-input--no-margin">
+                      <label className="sd-line-input__label">To</label>
+                      <input
+                        className="sd-line-input__input"
+                        type="date"
+                        onChange={this.handleInputChange}
+                        name="published_before"
+                        value={
+                          this.state.filters.published_before
+                            ? this.state.filters.published_before
+                            : ""
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
@@ -206,7 +284,21 @@ class FiltersPanel extends React.Component {
                 data-testid="filterSave"
                 onClick={this.save}
               >
-                Filter
+                Run Report
+              </a>
+            </div>
+            <div className="flex-grid flex-grid--boxed-small flex-grid--small-1">
+              <a
+                className={classNames("btn btn--primary btn--expanded", {
+                  "btn--disabled": this.isFiltersEmpty()
+                })}
+                onClick={() =>
+                  this.isFiltersEmpty()
+                    ? null
+                    : this.props.generateReport(this.state.filters)
+                }
+              >
+                Generate Report
               </a>
             </div>
           </div>
@@ -221,7 +313,8 @@ FiltersPanel.propTypes = {
   filters: PropTypes.object.isRequired,
   setFilters: PropTypes.func.isRequired,
   routes: PropTypes.array,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
+  generateReport: PropTypes.func.isRequired
 };
 
 export default FiltersPanel;

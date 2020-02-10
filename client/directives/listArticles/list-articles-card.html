@@ -1,8 +1,0 @@
-<div class="sd-loader" ng-if="loading"></div>
-
-<div ng-if="!loading && !articles.length" class="sd-card__content-list-item sd-card__content-list-item--small">
-    <span translate>No articles in this list</span>
-</div>
-<li ng-if="articles.length" ng-repeat="article in articles" class="sd-card__content-list-item sd-card__content-list-item--small">
-    {{ :: article.content.title}}
-</li>
