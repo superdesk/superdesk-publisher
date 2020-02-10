@@ -72,41 +72,88 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
           </div>
         </div>
         <div
-          class="form__row form__row--flex"
+          class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--no-margin"
+            class="sd-line-input sd-line-input--no-margin sd-line-input--is-select"
           >
             <label
               class="sd-line-input__label"
             >
-              Published after
+              Date filter
             </label>
-            <input
-              class="sd-line-input__input"
-              name="published_after"
-              type="date"
-              value="2019-07-04"
-            />
+            <select
+              class="sd-line-input__select"
+              name="route"
+            >
+              <option
+                value="range"
+              >
+                Custom
+              </option>
+              <option
+                value="lastWeek"
+              >
+                Last week
+              </option>
+              <option
+                value="lastMonth"
+              >
+                Last month
+              </option>
+              <option
+                value="thisWeek"
+              >
+                This week
+              </option>
+              <option
+                value="thisMonth"
+              >
+                This month
+              </option>
+            </select>
           </div>
         </div>
         <div
           class="form__row form__row--flex"
         >
           <div
-            class="sd-line-input sd-line-input--no-margin"
+            class="form__row-item"
           >
-            <label
-              class="sd-line-input__label"
+            <div
+              class="sd-line-input sd-line-input--no-margin"
             >
-              Published before
-            </label>
-            <input
-              class="sd-line-input__input"
-              name="published_before"
-              type="date"
-              value="2019-07-04"
-            />
+              <label
+                class="sd-line-input__label"
+              >
+                From
+              </label>
+              <input
+                class="sd-line-input__input"
+                name="published_after"
+                type="date"
+                value="2019-07-04"
+              />
+            </div>
+          </div>
+          <div
+            class="form__row-item"
+          >
+            <div
+              class="sd-line-input sd-line-input--no-margin"
+            >
+              <label
+                class="sd-line-input__label"
+              >
+                To
+              </label>
+              <input
+                class="sd-line-input__input"
+                name="published_before"
+                type="date"
+                value="2019-07-04"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -127,7 +174,16 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
           class="btn btn--primary"
           data-testid="filterSave"
         >
-          Filter
+          Run Report
+        </a>
+      </div>
+      <div
+        class="flex-grid flex-grid--boxed-small flex-grid--small-1"
+      >
+        <a
+          class="btn btn--primary btn--expanded"
+        >
+          Generate Report
         </a>
       </div>
     </div>

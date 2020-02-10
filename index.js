@@ -13,28 +13,17 @@ import Publishing from "./client/extensions/Publishing";
 cacheIncludedTemplates.$inject = ["$templateCache"];
 function cacheIncludedTemplates($templateCache) {
   $templateCache.put(
+    "tenant.html",
+    require("./client/views/dashboard/tenant.html")
+  );
+  $templateCache.put(
     "sidebar-content.html",
     require("./client/views/sidebar-content.html")
   );
-
-  $templateCache.put(
-    "list-articles-card.html",
-    require("./client/directives/listArticles/list-articles-card.html")
-  );
-  $templateCache.put(
-    "list-articles-detail.html",
-    require("./client/directives/listArticles/list-articles-detail.html")
-  );
-
   $templateCache.put(
     "themeManager-details.html",
     require("./client/directives/themeManager/themeManager-details.html")
   );
-  $templateCache.put(
-    "tenant.html",
-    require("./client/views/dashboard/tenant.html")
-  );
-
   $templateCache.put(
     "settings/rules/index.html",
     require("./client/views/settings/rules/index.html")
@@ -137,18 +126,11 @@ export default angular
     "ngFileUpload",
     "in-viewport"
   ])
-
-  .directive("sdPublishRoutes", directive.PublishRoutesDirective)
-  .directive("sdListArticles", directive.ListArticlesDirective)
-  .directive("sdListContentLists", directive.ListContentListsDirective)
-  .directive("sdCardInputFocus", directive.CardInputFocusDirective)
-  .directive("sdArticles", directive.ArticlesDirective)
   .directive("sdSiteWizard", directive.SiteWizardDirective)
   .directive("sdThemeManager", directive.ThemeManagerDirective)
-  .directive("sdGallery", directive.GalleryDirective)
+  .directive("sdListContentLists", directive.ListContentListsDirective)
   .factory("publisher", services.PublisherFactory)
   .factory("pubapi", services.PubAPIFactory)
-  .factory("publisherHelpers", services.PublisherHelpersFactory)
   .config([
     "superdeskProvider",
     "workspaceMenuProvider",

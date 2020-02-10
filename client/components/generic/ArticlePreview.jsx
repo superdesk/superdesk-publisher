@@ -33,6 +33,14 @@ class ArticlePreview extends React.Component {
       );
     }
 
+    let authors = "";
+
+    if (article.authors && article.authors.length) {
+      article.authors.map((a, index) => {
+        authors += index > 0 ? ", " + a.name : a.name;
+      });
+    }
+
     return (
       <div className="sd-preview-panel">
         <div className="side-panel side-panel--shadow-right">
@@ -76,6 +84,12 @@ class ArticlePreview extends React.Component {
                           : article.created_at
                       ).fromNow()}
                     </time>
+                  )}
+
+                  {authors && (
+                    <span className="leftSpace">
+                      by <strong>{authors}</strong>
+                    </span>
                   )}
                 </p>
               </div>

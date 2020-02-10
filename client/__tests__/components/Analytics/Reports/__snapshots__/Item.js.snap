@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics/Reports/Item renders correctly 1`] = `
+<div
+  class="sd-list-item sd-shadow--z1"
+>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row"
+    >
+      <div
+        class="sd-overflow-ellipsis"
+      >
+        <span
+          class="sd-text__date-time sd-text__italic"
+        >
+          Report Author:
+           
+        </span>
+        <span
+          class="sd-text__normal sd-margin-r--1"
+        >
+          test buddy
+        </span>
+        <span
+          class="sd-text__date-time sd-text__italic"
+        >
+          Report created:
+           
+        </span>
+        <span
+          class="sd-text__date-time sd-margin-r--1"
+        >
+          2019-11-28, 19:49
+        </span>
+      </div>
+    </div>
+    <div
+      class="sd-list-item__row"
+    >
+      <span
+        class="label label--success sd-margin-r--1"
+      >
+        completed
+      </span>
+      <span
+        class="sd-text__date-time sd-text__italic"
+      >
+        Range:
+      </span>
+      <span
+        class="sd-text__normal sd-margin-r--1 leftSpace"
+      >
+        2019-11-28
+         
+        -
+         
+        2019-11-28
+      </span>
+      
+      
+    </div>
+  </div>
+  <div
+    class="sd-list-item__action-menu"
+  >
+    <a
+      class="pull-right"
+      flow="left"
+      href="http://google.com"
+      sd-tooltip="Download"
+      style="margin-right: 1em;"
+      title="Download"
+    >
+      <i
+        class="icon-download"
+      />
+    </a>
+  </div>
+</div>
+`;

@@ -46,6 +46,7 @@ exports[`Output/PreviewPane renders correctly 1`] = `
             >
               1 day ago
             </time>
+            
           </p>
         </div>
         <div

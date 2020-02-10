@@ -430,6 +430,16 @@ export function PublisherFactory(pubapi) {
     }
 
     /**
+   * @ngdoc method
+   * @name publisher#getAnalyticsReports
+   * @returns {Promise}
+   * @description List all webhooks
+   */
+    getAnalyticsReports(params) {
+      return pubapi.queryWithDetails("export/analytics", params);
+    }
+
+    /**
      * @ngdoc method
      * @name publisher#queryTenantRules
      * @returns {Promise}
@@ -567,13 +577,13 @@ export function PublisherFactory(pubapi) {
     }
 
     /**
-     * @ngdoc method
-     * @name publisher#manageWebhook
-     * @param {Object} webhook - webhook which is edited
-     * @param {String} id - id of webhook which is edited
-     * @returns {Promise}
-     * @description Add or edit tenant rule
-     */
+    * @ngdoc method
+    * @name publisher#manageWebhook
+    * @param {Object} webhook - webhook which is edited
+    * @param {String} id - id of webhook which is edited
+    * @returns {Promise}
+    * @description Add or edit tenant rule
+    */
     manageWebhook(webhook, id) {
       return pubapi.save("webhooks", webhook, id);
     }
@@ -600,6 +610,17 @@ export function PublisherFactory(pubapi) {
      */
     saveArticleMetaData(data, slug) {
       return pubapi.save("content/articles", { seo_metadata: data }, slug);
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#generateAnalyticsReport
+     * @param {Object} filters
+     * @returns {Promise}
+     * @description Save article meta data
+     */
+    generateAnalyticsReport(filters) {
+      return pubapi.save("export/analytics", filters);
     }
   }
 

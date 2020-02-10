@@ -30,6 +30,12 @@ const customStyles = {
       boxShadow: "0 1px 0 0 #5ea9c8"
     }
   }),
+  container: (base, state) => {
+    return {
+      ...base,
+      zIndex: state.isFocused ? "999" : "1" //Only when current state focused
+    };
+  },
   indicatorSeparator: provided => ({
     display: "none"
   }),
