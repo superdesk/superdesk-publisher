@@ -102,11 +102,20 @@ export function WebPublisherSettingsController(
      */
     changeManageTab(newTabName) {
       this.manageTab = newTabName;
+      this.paneOpen = false;
 
       switch (newTabName) {
         case "routes":
-          this.changeRouteFilter("");
+          this.routeType = "";
+          // getting only route redirects to fill route objects
+          this.redirectType = "route";
+          this._refreshRedirects().then(redirects => this._refreshRoutes(redirects));
+
+          break;
+        case "redirects":
+          this.redirectType = "";
           this._refreshRoutes();
+          this._refreshRedirects();
           break;
         case "navigation":
           $scope.menu = {};
@@ -214,10 +223,10 @@ export function WebPublisherSettingsController(
      * @param {Boolean} paneOpen - should pane be open
      * @description Opens window for creating new route
      */
-    toogleCreateRoute(paneOpen) {
+    toggleCreateRoute(paneOpen) {
       this.selectedRoute = {};
       $scope.newRoute = {};
-      this.routePaneOpen = paneOpen;
+      this.paneOpen = paneOpen;
     }
 
     /**
@@ -227,12 +236,12 @@ export function WebPublisherSettingsController(
      * @description Opens window for editing route
      */
     editRoute(route) {
-      this.routeForm.$setPristine();
+      this.paneOpen = true;
       this.selectedRoute = route;
       $scope.newRoute = angular.copy(route);
       // we never edit list of children
       delete $scope.newRoute.children;
-      this.routePaneOpen = true;
+      this.routeForm.$setPristine();
     }
 
     /**
@@ -254,7 +263,7 @@ export function WebPublisherSettingsController(
           this.selectedRoute.id
         )
         .then(route => {
-          this.routePaneOpen = false;
+          this.paneOpen = false;
           this._refreshRoutes();
         });
     }
@@ -354,9 +363,10 @@ export function WebPublisherSettingsController(
      * @ngdoc method
      * @name WebPublisherSettingsController#_refreshRoutes
      * @private
+     * @param {Array} redirects - list of redirects
      * @description Loads list of routes
      */
-    _refreshRoutes() {
+    _refreshRoutes(redirects) {
       $scope.loading = true;
       publisher.queryRoutes().then(routes => {
         $scope.loading = false;
@@ -373,9 +383,124 @@ export function WebPublisherSettingsController(
         } else {
           filteredRoutes.children = routes.filter(item => !item.parent);
         }
+
+        if (redirects && redirects.length) {
+          filteredRoutes.children.forEach(route => {
+            let routeRedirect = redirects.find(r => {
+              return r.route_source.id === route.id
+            }
+            );
+            if (routeRedirect) route.redirect = routeRedirect;
+          })
+        }
         $scope.routes = filteredRoutes;
+        console.log(filteredRoutes);
       });
     }
+    // ---------------------------------- REDIRECTS
+    /**
+    * @ngdoc method
+    * @name WebPublisherSettingsController#toogleCreateRedirect
+    * @param {Boolean} paneOpen - should pane be open
+    * @param {String} kind - type of redirect
+    * @description Opens window for creating new redirect
+    */
+    toggleCreateRedirect(paneOpen, kind = 'route') {
+      this.selectedRedirect = {};
+      $scope.newRedirect = { kind: kind, permanent: "true" };
+      this.paneOpen = paneOpen;
+    }
+
+    onChangeRedirectKind() {
+      $scope.newRedirect = { kind: $scope.newRedirect.kind, permanent: $scope.newRedirect.permanent };
+    }
+
+    changeRedirectFilter(type) {
+      this.redirectType = type;
+      this._refreshRedirects();
+    }
+
+    saveRedirect() {
+      let updatedKeys = this._updatedKeys($scope.newRedirect, this.selectedRedirect);
+      let newRedirect = _.pick($scope.newRedirect, updatedKeys);
+
+      delete newRedirect.kind;
+
+      publisher
+        .manageRedirect(
+          newRedirect,
+          this.selectedRedirect.id
+        )
+        .then(r => {
+          this.toggleCreateRedirect(false);
+          this._refreshRedirects();
+        }).catch(err => {
+          let message = err.data.message
+            ? err.data.message
+            : "Something went wrong. Try again.";
+          modal.confirm(message);
+        });
+    }
+
+    editRedirect(redirect) {
+      let editedRedirect = {
+        permanent: redirect.permanent ? "true" : "false",
+        id: redirect.id
+      };
+
+      if (redirect.route_target && redirect.route_source) {
+        editedRedirect.kind = "route";
+        editedRedirect.route_target = redirect.route_target.id;
+        editedRedirect.route_source = redirect.route_source.id;
+      } else {
+        editedRedirect.kind = "custom";
+        editedRedirect.route_name = redirect.route_name;
+        editedRedirect.uri = redirect.uri;
+      }
+
+      this.selectedRedirect = redirect;
+      $scope.newRedirect = angular.copy(editedRedirect);
+      this.paneOpen = true;
+      this.redirectForm.$setPristine();
+    }
+
+    deleteRedirect(id) {
+      modal
+        .confirm(gettext("Please confirm you want to delete redirect."))
+        .then(() =>
+          publisher.removeRedirect(id).then(() => {
+            this._refreshRedirects();
+          })
+        )
+        .catch(err => {
+          let message = err.data.message
+            ? err.data.message
+            : "Something went wrong. Try again.";
+          modal.confirm(message);
+        });
+    }
+
+    _refreshRedirects() {
+      $scope.loading = true;
+      return publisher.queryRedirects().then(redirects => {
+        let filteredRedirects = redirects;
+
+        if (this.redirectType === "route") {
+          filteredRedirects = redirects.filter(
+            redirect => redirect.route_target && redirect.route_source
+          );
+        } else if (this.redirectType === "custom") {
+          filteredRedirects = redirects.filter(
+            redirect => !redirect.route_target && !redirect.route_source
+          );
+        }
+
+        $scope.loading = false;
+        $scope.redirects = filteredRedirects;
+        return filteredRedirects;
+      });
+    }
+
 
     // ---------------------------------- NAVIGATION
 

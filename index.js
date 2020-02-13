@@ -110,7 +110,27 @@ function cacheIncludedTemplates($templateCache) {
     "settings/website-management/webhooks/webhook-add.html",
     require("./client/views/settings/website-management/webhooks/webhook-add.html")
   );
+
+  $templateCache.put(
+    "settings/website-management/route-form.html",
+    require("./client/views/settings/website-management/route-form.html")
+  );
+  $templateCache.put(
+    "settings/website-management/redirects/form.html",
+    require("./client/views/settings/website-management/redirects/form.html")
+  );
+  $templateCache.put(
+    "settings/website-management/redirects/index.html",
+    require("./client/views/settings/website-management/redirects/index.html")
+  );
+
+  $templateCache.put(
+    "settings/website-management/redirects/item.html",
+    require("./client/views/settings/website-management/redirects/item.html")
+  );
 }
+
+
 
 /**
  * @ngdoc module
