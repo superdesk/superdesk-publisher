@@ -1,0 +1,75 @@
+<div class="sd-page__header">
+  <ul class="filter-type sd-margin-r--2">
+    <li
+      class="filter-type__item"
+      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === ''}"
+    >
+      <a ng-click="webPublisherSettings.changeRedirectFilter('')" translate
+        >all</a
+      >
+    </li>
+    <li
+      class="filter-type__item"
+      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === 'route'}"
+    >
+      <a ng-click="webPublisherSettings.changeRedirectFilter('route')" translate
+        >Route to Route</a
+      >
+    </li>
+    <li
+      class="filter-type__item"
+      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === 'custom'}"
+    >
+      <a
+        ng-click="webPublisherSettings.changeRedirectFilter('custom')"
+        translate
+        >Custom</a
+      >
+    </li>
+  </ul>
+  <span class="sd-page__element-grow"></span>
+  <div class="dropdown sd-margin-l--auto" dropdown="">
+    <button class="btn btn--primary ng-binding" dropdown__toggle="">
+      <i class="icon-plus-sign icon--white"></i>Add New
+    </button>
+    <ul class="dropdown__menu dropdown--align-right">
+      <li>
+        <button
+          ng-click="webPublisherSettings.toggleCreateRedirect(true, 'route')"
+        >
+          Route to route
+        </button>
+      </li>
+      <li>
+        <button
+          ng-click="webPublisherSettings.toggleCreateRedirect(true, 'custom')"
+        >
+          Custom redirect
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div
+  class="sd-page-content__content-block sd-page-content__content-block--main relative"
+  ng-class="{'open-preview': webPublisherSettings.paneOpen}"
+>
+  <div class="sd-loader" ng-if="loading"></div>
+  <div class="sd-column-box--3">
+    <div class="sd-column-box__main-column">
+      <ul ng-if="redirects.length" class="sd-list-item-group">
+        <li
+          ng-repeat="redirect in redirects"
+          ng-include="'settings/website-management/redirects/item.html'"
+        ></li>
+      </ul>
+    </div>
+    <div class="sd-preview-panel">
+      <div
+        class="side-panel side-panel--shadow-right"
+        ng-include="'settings/website-management/redirects/form.html'"
+      ></div>
+    </div>
+  </div>
+</div>

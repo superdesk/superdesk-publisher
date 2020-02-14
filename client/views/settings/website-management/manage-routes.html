@@ -26,17 +26,19 @@
     </li>
   </ul>
   <span class="sd-page__element-grow"></span>
-  <a
-    href=""
-    ng-click="webPublisherSettings.toogleCreateRoute(true)"
-    class="btn btn--primary"
-    ><i class="icon-plus-sign"></i>Add new</a
-  >
+  <div class="dropdown sd-margin-l--auto">
+    <button
+      class="btn btn--primary ng-binding"
+      ng-click="webPublisherSettings.toggleCreateRoute(true)"
+    >
+      <i class="icon-plus-sign icon--white"></i>Add New
+    </button>
+  </div>
 </div>
 
 <div
   class="sd-page-content__content-block sd-page-content__content-block--main relative"
-  ng-class="{'open-preview': webPublisherSettings.routePaneOpen}"
+  ng-class="{'open-preview': webPublisherSettings.paneOpen}"
 >
   <div class="sd-loader" ng-if="loading"></div>
   <div class="sd-column-box--3">
@@ -58,129 +60,10 @@
       </ul>
     </div>
     <div class="sd-preview-panel">
-      <div class="side-panel side-panel--shadow-right">
-        <div class="side-panel__header side-panel__header--border-b">
-          <a
-            class="icn-btn side-panel__close"
-            ng-click="webPublisherSettings.toogleCreateRoute(false)"
-            ><i class="icon-close-small"></i
-          ></a>
-          <h3
-            class="side-panel__heading"
-            ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
-            translate
-          >
-            Add Route
-          </h3>
-          <h3
-            class="side-panel__heading"
-            ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
-            translate
-          >
-            Edit Route
-          </h3>
-        </div>
-
-        <div class="side-panel__content">
-          <div class="side-panel__content-block">
-            <form name="webPublisherSettings.routeForm" class="flat">
-              <fieldset class="label-light">
-                <div class="item">
-                  <label for="routeName" translate>name</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="routeName"
-                    ng-model="newRoute.name"
-                    required
-                  />
-                </div>
-                <div
-                  class="item"
-                  ng-class="{'sd-line-input sd-line-input--invalid': newRoute.id}"
-                >
-                  <label for="routeSlug" translate>slug</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="routeSlug"
-                    ng-model="newRoute.slug"
-                  />
-                  <div ng-if="newRoute.id" class="sd-line-input__message">
-                    Beware than changing slug will affect article urls and may
-                    cause SEO issues.
-                  </div>
-                </div>
-                <div class="item">
-                  <label for="routeType" translate>type</label>
-                  <select
-                    class="dropdown__toggle line-input"
-                    id="routeType"
-                    ng-model="newRoute.type"
-                    required
-                  >
-                    <option value="collection" translate>Collection</option>
-                    <option value="content" translate>Content</option>
-                  </select>
-                </div>
-                <div class="item">
-                  <label for="routeParent" translate>parent</label>
-                  <select
-                    id="routeParent"
-                    class="dropdown__toggle line-input"
-                    ng-model="newRoute.parent"
-                    ng-options="route.id as route.name for route in routes.children | filter: {id: newRoute.id ? '!' + newRoute.id : ''}"
-                  >
-                    <option value=""></option>
-                  </select>
-                </div>
-                <div class="item">
-                  <span ng-model="newRoute.paywall_secured" sd-switch=""></span
-                  ><label>Paywall secured</label>
-                </div>
-                <div class="item">
-                  <label for="routeTemplate" translate>template name</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="routeTemplate"
-                    ng-model="newRoute.template_name"
-                  />
-                </div>
-                <div class="item">
-                  <label for="articleTemplate" translate
-                    >article template name</label
-                  >
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="articleTemplate"
-                    ng-model="newRoute.articles_template_name"
-                  />
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <div class="side-panel__footer side-panel__footer--button-box">
-          <div
-            class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2"
-          >
-            <a
-              class="btn btn--hollow"
-              ng-click="webPublisherSettings.toogleCreateRoute(false)"
-              >Cancel</a
-            >
-            <button
-              class="btn btn--primary"
-              ng-disabled="webPublisherSettings.routeForm.$invalid || !webPublisherSettings.routeForm.$dirty"
-              ng-click="webPublisherSettings.saveRoute()"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
+      <div
+        class="side-panel side-panel--shadow-right"
+        ng-include="'settings/website-management/route-form.html'"
+      ></div>
     </div>
   </div>
 </div>

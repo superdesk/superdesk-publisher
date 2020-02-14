@@ -1,0 +1,62 @@
+<div
+  class="sd-list-item sd-shadow--z1"
+  ng-class="{'sd-list-item--activated': webPublisherSettings.selectedRedirect.id==redirect.id}"
+>
+  <div class="sd-list-item__border"></div>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row"
+      ng-if="redirect.route_target && redirect.route_source"
+    >
+      <div class="sd-overflow-ellipsis sd-list-item--element-grow">
+        <strong>{{redirect.route_source.name}}</strong
+        ><i class="icon-random margin--left margin--right"></i
+        ><strong>{{redirect.route_target.name}}</strong>
+      </div>
+    </div>
+    <div
+      class="sd-list-item__row"
+      ng-if="!redirect.route_target && !redirect.route_source"
+    >
+      <div class="sd-overflow-ellipsis sd-list-item--element-grow">
+        <strong>{{redirect.route_name}}</strong
+        ><i class="icon-random margin--left margin--right"></i
+        ><strong>{{redirect.uri}}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="sd-list-item__action-menu">
+    <div class="dropdown" dropdown dropdown-append-to-body>
+      <button
+        class="dropdown__toggle"
+        dropdown__toggle
+        ng-click="$event.stopPropagation()"
+      >
+        <i class="icon-dots-vertical"></i>
+      </button>
+      <ul class="dropdown__menu">
+        <li>
+          <div class="dropdown__menu-label">
+            Actions
+            <button class="dropdown__menu-close">
+              <i class="icon-close-small"></i>
+            </button>
+          </div>
+        </li>
+        <li class="dropdown__menu-divider"></li>
+        <li>
+          <button ng-click="webPublisherSettings.editRedirect(redirect)">
+            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+          </button>
+        </li>
+        <li>
+          <button ng-click="webPublisherSettings.deleteRedirect(redirect.id)">
+            <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
