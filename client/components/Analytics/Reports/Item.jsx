@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import classNames from "classnames";
 
 const Item = ({ item }) => {
   let filterAuthors = "",
@@ -19,7 +20,11 @@ const Item = ({ item }) => {
   }
 
   return (
-    <div className="sd-list-item sd-shadow--z1">
+    <div
+      className={classNames("sd-list-item sd-shadow--z1", {
+        "sd-list-item--no-hover": item.status !== "completed"
+      })}
+    >
       <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
         <div className="sd-list-item__row">
           <div className="sd-overflow-ellipsis">

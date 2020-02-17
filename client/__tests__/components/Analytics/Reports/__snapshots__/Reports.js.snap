@@ -95,7 +95,7 @@ exports[`Analytics/Reports/Reports renders correctly 1`] = `
           </div>
         </div>
         <div
-          class="sd-list-item sd-shadow--z1"
+          class="sd-list-item sd-shadow--z1 sd-list-item--no-hover"
         >
           <div
             class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
