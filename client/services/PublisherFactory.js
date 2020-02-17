@@ -133,6 +133,43 @@ export function PublisherFactory(pubapi) {
       return pubapi.query("content/routes", params);
     }
 
+
+    /**
+     * @ngdoc method
+     * @name publisher#manageRedirect
+     * @param {Object} redirect - redirect which is edited
+     * @param {String} id - id of redirect which is edited
+     * @returns {Promise}
+     * @description Add or edit route
+     */
+    manageRedirect(redirect, id) {
+      return pubapi.save("redirects", redirect, id);
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#removeRedirect
+     * @param {String} id - id of redirect which is deleted
+     * @returns {Promise}
+     * @description Delete route
+     */
+    removeRedirect(id) {
+      return pubapi.remove("redirects", id);
+    }
+
+    /**
+    * @ngdoc method
+    * @name publisher#queryRedirects
+    * @returns {Promise}
+    * @description List all redirects
+    */
+    queryRedirects() {
+      let params = {
+        limit: 1000
+      };
+      return pubapi.query("redirects", params);
+    }
+
     /**
      * @ngdoc method
      * @name publisher#getMenu

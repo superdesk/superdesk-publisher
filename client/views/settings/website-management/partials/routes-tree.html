@@ -1,34 +1,70 @@
 <div class="listElement">
-    <button class="listElement__icon iconButton" ng-if="route.type == 'collection' && route.children.length">
-        <i class="icon-chevron-down-thin" ng-show="!route.closed" ng-click="route.closed = !route.closed"></i>
-        <i class="icon-chevron-right-thin" ng-show="route.closed" ng-click="route.closed = !route.closed"></i>
-    </button>
-    <div class="listElement__icon">
-        <i ng-class="{'icon-align-justify': route.type == 'collection', 'icon-text': route.type == 'content'}"></i>
+  <button
+    class="listElement__icon iconButton"
+    ng-if="route.type == 'collection' && route.children.length"
+  >
+    <i
+      class="icon-chevron-down-thin"
+      ng-show="!route.closed"
+      ng-click="route.closed = !route.closed"
+    ></i>
+    <i
+      class="icon-chevron-right-thin"
+      ng-show="route.closed"
+      ng-click="route.closed = !route.closed"
+    ></i>
+  </button>
+  <div class="listElement__icon">
+    <i
+      ng-class="{'icon-align-justify': route.type == 'collection', 'icon-text': route.type == 'content'}"
+    ></i>
+  </div>
+  <div class="listElement__content">
+    <span ng-class="{'listElement--bold': route.type == 'collection'}"
+      >{{route.name}}</span
+    >
+  </div>
+  <div class="listElement__right">
+    <span
+      sd-tooltip="This route is redirected"
+      flow="left"
+      ng-if="route.redirect"
+      ><i class="icon-random"></i
+    ></span>
+    <span sd-tooltip="Paywall secured" flow="left" ng-if="route.paywall_secured"
+      ><i class="icon-paywall icon--orange icon--full-opacity"></i
+    ></span>
+    <div class="dropdown dropdown--align-right" dropdown>
+      <button class="dropdown__toggle dropdown--toggle" dropdown__toggle>
+        <i class="icon-dots-vertical"></i>
+      </button>
+      <ul class="dropdown__menu">
+        <li>
+          <button ng-click="webPublisherSettings.editRoute(route)">
+            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+          </button>
+        </li>
+        <li>
+          <button ng-click="webPublisherSettings.deleteRoute(route.id)">
+            <i class="icon-trash"></i>{{:: 'Delete'| translate}}
+          </button>
+        </li>
+      </ul>
     </div>
-    <div class="listElement__content">
-        <span ng-class="{'listElement--bold': route.type == 'collection'}">{{route.name}}</span>
-    </div>
-    <div class="listElement__right">
-        <span sd-tooltip="Paywall secured" flow="left" ng-if="route.paywall_secured"><i class="icon-paywall icon--orange icon--full-opacity"></i></span>
-        <div class="dropdown dropdown--align-right" dropdown>
-            <button class="dropdown__toggle dropdown--toggle" dropdown__toggle>
-                <i class="icon-dots-vertical"></i>
-            </button>
-            <ul class="dropdown__menu">
-                <li><button ng-click="webPublisherSettings.editRoute(route)"><i class="icon-pencil"></i>{{:: 'Edit'| translate}}</button></li>
-                <li><button ng-click="webPublisherSettings.deleteRoute(route.id)"><i class="icon-trash"></i>{{:: 'Delete'| translate}}</button></li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </div>
 
-<ul ng-show="route.children.length && !route.closed" dnd-list="route.children" dnd-drop="webPublisherSettings.reorderRoute(route, item, index)">
-    <li ng-repeat="route in route.children"
-        ng-include="'settings/website-management/partials/routes-tree.html'"
-        dnd-draggable="route"
-        dnd-dragstart="route.dragging = true"
-        dnd-dragend="route.dragging = false"
-        ng-hide="route.dragging"
-        ></li>
+<ul
+  ng-show="route.children.length && !route.closed"
+  dnd-list="route.children"
+  dnd-drop="webPublisherSettings.reorderRoute(route, item, index)"
+>
+  <li
+    ng-repeat="route in route.children"
+    ng-include="'settings/website-management/partials/routes-tree.html'"
+    dnd-draggable="route"
+    dnd-dragstart="route.dragging = true"
+    dnd-dragend="route.dragging = false"
+    ng-hide="route.dragging"
+  ></li>
 </ul>

@@ -1,47 +1,132 @@
 <div class="sd-grid-item-header">
-    <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
-        <a target="_blank" ng-href="{{site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}" flow="down">
-            <span>{{ site.name }}</span><i class="icon-external"></i>
-        </a>
-    </h3>
-    <div class="dropdown dropdown--align-right" dropdown="">
-        <button class="dropdown__toggle icn-btn" dropdown__toggle="">
-            <i class="icon-dots"></i>
+  <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
+    <a
+      target="_blank"
+      ng-href="{{site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}"
+      flow="down"
+    >
+      <span>{{ site.name }}</span><i class="icon-external"></i>
+    </a>
+  </h3>
+  <div class="dropdown dropdown--align-right" dropdown="">
+    <button class="dropdown__toggle icn-btn" dropdown__toggle="">
+      <i class="icon-dots"></i>
+    </button>
+    <ul class="dropdown__menu">
+      <li>
+        <button ng-click="webPublisherSettings.editSite(site)">
+          <i class="icon-settings"></i>Manage
         </button>
-        <ul class="dropdown__menu">
-            <li><button ng-click="webPublisherSettings.editSite(site)"><i class="icon-settings"></i>Manage</button></li>
-            <li><button ng-click="webPublisherSettings.deleteSite(site.code)"><i class="icon-trash"></i>Delete</button></li>
-        </ul>
-    </div>
+      </li>
+      <li>
+        <button ng-click="webPublisherSettings.deleteSite(site.code)">
+          <i class="icon-trash"></i>Delete
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="sd-card sd-card--flex-grow">
-    <div class="dashboard-content-header sd-shadow--z1">
-        <div class="dashboard-thumbnail-block">
-            <div class="dashboard-thumbnail-block__image">
-                <img ng-if="!site.theme.screenshots[0] || !site.theme.screenshots[0].url"
-                    src="../../../../directives/themeManager/no-theme-preview.png"
-                    style="max-width:140px; max-height: 60px"/>
-                <img ng-if="site.theme.screenshots[0] && site.theme.screenshots[0].url"
-                    ng-src="{{site.theme.screenshots[0].url}}"
-                    style="max-width:140px; max-height: 60px"/>
-            </div>
-            <div class="dashboard-thumbnail-block__meta">
-                <span class="dashboard-thumbnail-block__label">Active theme:</span>
-                <h4 class="dashboard-thumbnail-block__heading" sd-tooltip="AMP {{ site.amp_enabled ? 'enabled' : 'disabled'}}" flow="left">
-                    <i class="icon-amp" ng-class="{'icon--green': site.amp_enabled, 'icon--disabled': !site.amp_enabled}"></i>
-                     {{site.theme.title ? site.theme.title : 'No Theme' }}
-                </h4>
-                <span ng-if="site.theme.settings"><a href="" ng-click="webPublisherSettings.editSite(site, 'theme-settings')" class="dashboard-thumbnail-block__link">customize theme</a></span>
-            </div>
-        </div>
+  <div class="dashboard-content-header sd-shadow--z1">
+    <div class="dashboard-thumbnail-block">
+      <div class="dashboard-thumbnail-block__image">
+        <img
+          ng-if="!site.theme.screenshots[0] || !site.theme.screenshots[0].url"
+          src="../../../../directives/themeManager/no-theme-preview.png"
+          style="max-width:140px; max-height: 60px"
+        />
+        <img
+          ng-if="site.theme.screenshots[0] && site.theme.screenshots[0].url"
+          ng-src="{{site.theme.screenshots[0].url}}"
+          style="max-width:140px; max-height: 60px"
+        />
+      </div>
+      <div class="dashboard-thumbnail-block__meta">
+        <span class="dashboard-thumbnail-block__label">Active theme:</span>
+        <h4
+          class="dashboard-thumbnail-block__heading"
+          sd-tooltip="AMP {{ site.amp_enabled ? 'enabled' : 'disabled'}}"
+          flow="left"
+        >
+          <i
+            class="icon-amp"
+            ng-class="{'icon--green': site.amp_enabled, 'icon--disabled': !site.amp_enabled}"
+          ></i>
+          {{site.theme.title ? site.theme.title : 'No Theme' }}
+        </h4>
+        <span ng-if="site.theme.settings"
+          ><a
+            href=""
+            ng-click="webPublisherSettings.editSite(site, 'theme-settings')"
+            class="dashboard-thumbnail-block__link"
+            >customize theme</a
+          ></span
+        >
+      </div>
     </div>
-    <div class="sd-card__content">
-        <ul class="sd-card__content-list">
-            <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"><a href="" ng-click="webPublisherSettings.editSite(site, 'general')" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">General <i class="icon-pencil icon--dark-blue-grey"></i></a></li>
-            <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"><a href="" ng-click="webPublisherSettings.editSite(site, 'routes')" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">Routes <i class="icon-pencil icon--dark-blue-grey"></i></a></li>
-            <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"><a href="" ng-click="webPublisherSettings.editSite(site, 'navigation')" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">Navigation <i class="icon-pencil icon--dark-blue-grey"></i></a></li>
-            <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"><a href="" ng-click="webPublisherSettings.editSite(site, 'webhooks')" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">Webhooks <i class="icon-pencil icon--dark-blue-grey"></i></a></li>
-            <li class="sd-card__content-list-item sd-card__content-list-item--no-padding"><a href="" ng-click="webPublisherSettings.editSite(site, 'theme')" class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis">Theme <i class="icon-pencil icon--dark-blue-grey"></i></a></li>
-        </ul>
-    </div>
+  </div>
+  <div class="sd-card__content">
+    <ul class="sd-card__content-list">
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'general')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >General <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'routes')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >Routes <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'redirects')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >Redirects <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'navigation')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >Navigation <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'webhooks')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >Webhooks <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+      <li
+        class="sd-card__content-list-item sd-card__content-list-item--no-padding"
+      >
+        <a
+          href=""
+          ng-click="webPublisherSettings.editSite(site, 'theme')"
+          class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          >Theme <i class="icon-pencil icon--dark-blue-grey"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -1,0 +1,93 @@
+<div class="side-panel__header side-panel__header--border-b">
+  <a
+    class="icn-btn side-panel__close"
+    ng-click="webPublisherSettings.toggleCreateRoute(false)"
+    ><i class="icon-close-small"></i
+  ></a>
+  <h3 class="side-panel__heading" ng-if="!newRedirect.id" translate>
+    Add Redirect
+  </h3>
+  <h3 class="side-panel__heading" ng-if="newRedirect.id" translate>
+    Edit Redirect
+  </h3>
+</div>
+
+<div class="side-panel__content">
+  <div class="side-panel__content-block">
+    <form name="webPublisherSettings.redirectForm" class="flat">
+      <fieldset class="label-light margin--topBig">
+        <div class="item" ng-if="newRedirect.kind === 'route'">
+          <div class="sd-line-input sd-line-input--is-select">
+            <label class="sd-line-input__label">From route</label>
+            <select
+              class="sd-line-input__select"
+              ng-model="newRedirect.route_source"
+              ng-options="route.id as route.name for route in routes.children"
+            >
+            </select>
+          </div>
+        </div>
+        <div class="item" ng-if="newRedirect.kind === 'route'">
+          <div class="sd-line-input sd-line-input--is-select">
+            <label class="sd-line-input__label">To route</label>
+            <select
+              class="sd-line-input__select"
+              ng-model="newRedirect.route_target"
+              ng-options="route.id as route.name for route in routes.children"
+            >
+            </select>
+          </div>
+        </div>
+
+        <div class="item" ng-if="newRedirect.kind === 'custom'">
+          <div class="sd-line-input ">
+            <label class="sd-line-input__label">From uri</label>
+            <input
+              type="text"
+              class="line-input"
+              ng-model="newRedirect.route_name"
+            />
+          </div>
+        </div>
+
+        <div class="item" ng-if="newRedirect.kind === 'custom'">
+          <div class="sd-line-input ">
+            <label class="sd-line-input__label">To uri</label>
+            <input type="text" class="line-input" ng-model="newRedirect.uri" />
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="sd-line-input sd-line-input--is-select">
+            <label class="sd-line-input__label">Redirect type</label>
+            <select
+              class="sd-line-input__select"
+              ng-model="newRedirect.permanent"
+            >
+              <option value="true">301 - permanent</option>
+              <option value="false">302 - temporary</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div class="side-panel__footer side-panel__footer--button-box">
+  <div
+    class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2"
+  >
+    <a
+      class="btn btn--hollow"
+      ng-click="webPublisherSettings.toggleCreateRedirect(false)"
+      >Cancel</a
+    >
+    <button
+      class="btn btn--primary"
+      ng-disabled="webPublisherSettings.redirectForm.$invalid || !webPublisherSettings.redirectForm.$dirty"
+      ng-click="webPublisherSettings.saveRedirect()"
+    >
+      Save
+    </button>
+  </div>
+</div>
