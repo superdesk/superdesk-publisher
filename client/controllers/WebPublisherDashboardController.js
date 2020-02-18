@@ -52,6 +52,10 @@ export function WebPublisherDashboardController(
       return angular.equals({}, value);
     }
 
+    formatNumber(number) {
+      return (number).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+
     /**
      * @ngdoc method
      * @name WebPublisherDashboardController#_updatedKeys
@@ -79,8 +83,10 @@ export function WebPublisherDashboardController(
     _refreshSites() {
       $scope.loading = true;
       return publisher.querySites().then(sites => {
-        // assigning theme to site
-        $scope.sites = sites;
+        $scope.sites = sites.map(s => {
+          s.articles_count = this.formatNumber(s.articles_count);
+          return s
+        });
         $scope.loading = false;
       });
     }
