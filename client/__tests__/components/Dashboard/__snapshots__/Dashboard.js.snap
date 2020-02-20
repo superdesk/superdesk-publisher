@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard/Dashboard renders properly 1`] = `
+<div>
+  <div
+    class="subnav"
+  >
+    <h3
+      class="subnav__page-title"
+    >
+      Publisher Dashboard
+    </h3>
+  </div>
+  <div
+    class="sd-column-box--3"
+  >
+    <div
+      class="sd-column-box__main-column"
+    >
+      <div
+        class="sd-grid-list sd-grid-list--large"
+      >
+        <div
+          class="sd-grid-item-wrapper"
+        >
+          <div
+            class="sd-grid-item-header"
+          >
+            <h3
+              class="sd-grid-item-header__heading sd-overflow-ellipsis"
+            >
+              <a
+                flow="down"
+                href="http://site1.sourcefabric.org"
+                target="_blank"
+              >
+                <span>
+                  Site1
+                </span>
+                <i
+                  class="icon-external"
+                />
+              </a>
+            </h3>
+          </div>
+          <div
+            class="sd-card sd-card--flex-grow"
+          >
+            <div
+              class="dashboard-content-header sd-shadow--z1"
+            >
+              <div
+                class="big-number-block big-number-block--grow big-number-block--center"
+              >
+                <div
+                  class="big-number-block__number"
+                >
+                  146
+                </div>
+                <div
+                  class="big-number-block__text"
+                >
+                  Published
+                  <br />
+                  items
+                </div>
+              </div>
+              <div
+                class="btn-icon-group"
+              >
+                <a
+                  class="btn btn--icon-only-circle btn--large btn--hollow"
+                  flow="down"
+                  href="#/publisher/analytics/site1"
+                  sd-tooltip="Analytics"
+                >
+                  <i
+                    class="icon-analytics"
+                  />
+                </a>
+                <a
+                  class="btn btn--icon-only-circle btn--large btn--hollow"
+                  flow="down"
+                  href="#/publisher/content_lists/site1"
+                  sd-tooltip="Content lists"
+                >
+                  <i
+                    class="icon-unordered-list"
+                  />
+                </a>
+              </div>
+            </div>
+            <div
+              class="sd-card__content"
+              style="max-height: 210px; overflow-y: auto;"
+            >
+              <ul
+                class="sd-card__content-list"
+              >
+                <div
+                  class="panel-info"
+                >
+                  <div
+                    class="panel-info__icon"
+                  >
+                    <i
+                      class="big-icon--add-to-list"
+                    />
+                  </div>
+                  <h3
+                    class="panel-info__heading"
+                  >
+                     
+                  </h3>
+                  <p
+                    class="panel-info__description"
+                  >
+                     
+                  </p>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sd-grid-item-wrapper"
+        >
+          <div
+            class="sd-grid-item-header"
+          >
+            <h3
+              class="sd-grid-item-header__heading sd-overflow-ellipsis"
+            >
+              <a
+                flow="down"
+                href="http://site2.sourcefabric.org"
+                target="_blank"
+              >
+                <span>
+                  Site2
+                </span>
+                <i
+                  class="icon-external"
+                />
+              </a>
+            </h3>
+          </div>
+          <div
+            class="sd-card sd-card--flex-grow"
+          >
+            <div
+              class="dashboard-content-header sd-shadow--z1"
+            >
+              <div
+                class="big-number-block big-number-block--grow big-number-block--center"
+              >
+                <div
+                  class="big-number-block__number"
+                >
+                  146
+                </div>
+                <div
+                  class="big-number-block__text"
+                >
+                  Published
+                  <br />
+                  items
+                </div>
+              </div>
+              <div
+                class="btn-icon-group"
+              >
+                <a
+                  class="btn btn--icon-only-circle btn--large btn--hollow"
+                  flow="down"
+                  href="#/publisher/analytics/site2"
+                  sd-tooltip="Analytics"
+                >
+                  <i
+                    class="icon-analytics"
+                  />
+                </a>
+                <a
+                  class="btn btn--icon-only-circle btn--large btn--hollow"
+                  flow="down"
+                  href="#/publisher/content_lists/site2"
+                  sd-tooltip="Content lists"
+                >
+                  <i
+                    class="icon-unordered-list"
+                  />
+                </a>
+              </div>
+            </div>
+            <div
+              class="sd-card__content"
+              style="max-height: 210px; overflow-y: auto;"
+            >
+              <ul
+                class="sd-card__content-list"
+              >
+                <div
+                  class="panel-info"
+                >
+                  <div
+                    class="panel-info__icon"
+                  >
+                    <i
+                      class="big-icon--add-to-list"
+                    />
+                  </div>
+                  <h3
+                    class="panel-info__heading"
+                  >
+                     
+                  </h3>
+                  <p
+                    class="panel-info__description"
+                  >
+                     
+                  </p>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

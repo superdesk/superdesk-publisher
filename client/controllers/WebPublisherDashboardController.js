@@ -3,92 +3,30 @@
  * @module superdesk.apps.web_publisher
  * @name WebPublisherDashboardController
  * @requires publisher
- * @requires modal
  * @requires https://docs.angularjs.org/api/ng/type/$rootScope.Scope $scope
- * @description WebPublisherManagerController holds a set of functions used for web publisher manager
+ * @description WebPublisherDashboardController holds a set of functions used for web publisher dashboard
  */
+import React from "react";
+import ReactDOM from "react-dom";
+import Dashboard from "../components/Dashboard/Dashboard";
+
 WebPublisherDashboardController.$inject = [
-  "$scope",
-  "publisher",
-  "modal",
-  "privileges",
-  "$window"
+  "publisher"
 ];
 export function WebPublisherDashboardController(
-  $scope,
   publisher,
-  modal,
-  privileges,
-  $window
+  notify
 ) {
   class WebPublisherDashboard {
     constructor() {
-      this.TEMPLATES_DIR = "scripts/apps/web-publisher/views";
-      $scope.loading = true;
+      this.publisher = publisher;
 
-      publisher.setToken().then(() => {
-        this._refreshSites();
-      });
-    }
-
-    /**
-     * @ngdoc method
-     * @name WebPublisherDashboardController#changeListFilter
-     * @param {String} type - type of content lists
-     * @description Sets type for content lists
-     */
-    changeListFilter(type) {
-      this.listType = type;
-    }
-
-    /**
-     * @ngdoc method
-     * @name WebPublisherDashboardController#isObjEmpty
-     * @param {Object} value
-     * @returns {Boolean}
-     * @description Checks if object is empty
-     */
-    isObjEmpty(value) {
-      return angular.equals({}, value);
-    }
-
-    formatNumber(number) {
-      return (number).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-    }
-
-    /**
-     * @ngdoc method
-     * @name WebPublisherDashboardController#_updatedKeys
-     * @private
-     * @param {Object} a
-     * @param {Object} b
-     * @returns {Array}
-     * @description Compares 2 objects and returns keys of fields that are updated
-     */
-    _updatedKeys(a, b) {
-      return _.reduce(
-        a,
-        (result, value, key) =>
-          _.isEqual(value, b[key]) ? result : result.concat(key),
-        []
+      ReactDOM.render(
+        <Dashboard
+          publisher={this.publisher}
+        />,
+        document.getElementById("sp-dashboard-react-app")
       );
-    }
-
-    /**
-     * @ngdoc method
-     * @name WebPublisherDashboardController#_refreshSites
-     * @private
-     * @description Loads list of sites
-     */
-    _refreshSites() {
-      $scope.loading = true;
-      return publisher.querySites().then(sites => {
-        $scope.sites = sites.map(s => {
-          s.articles_count = this.formatNumber(s.articles_count);
-          return s
-        });
-        $scope.loading = false;
-      });
     }
   }
 

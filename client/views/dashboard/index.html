@@ -1,34 +1,23 @@
 <div class="sd-page-grid--basic">
-    <header class="sd-top-menu">
-        <a href="" class="sd-top-menu__collapse-nav"><i class="icon-collapse icon--white"></i></a>
-        <p class="sd-top-menu__header">Publisher</p>
-    </header>
-    <section class="sd-content sd-page-content--slide-in">
-        <div class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs" ng-include="'sidebar-content.html'"></div>
-        <div class="sd-page-content__content-block">
-            <div class="subnav">
-                <h3 class="subnav__page-title">Publisher Dashboard</h3>
-            </div>
-            <div class="sd-column-box--3">
-                <div class="sd-column-box__main-column">
-                    <div class="sd-grid-list sd-grid-list--large">
-                        <div class="sd-grid-item-wrapper"
-                            ng-repeat="site in sites | orderBy: 'name'"
-                            ng-include="'tenant.html'"
-                        ></div>
-                    </div>
-                    <div class="sd-loader" ng-if="loading"></div>
-                    <div class="panel-info" ng-if="!sites.length && !loading">
-                        <div class="panel-info__icon">
-                            <i class="big-icon--add-to-list"></i>
-                        </div>
-                        <h3 class="panel-info__heading">No tenants so far.</h3>
-                        <p class="panel-info__description">To create a site go to Publisher Settings</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="bottom-bar ">
-    </footer>
+  <header class="sd-top-menu">
+    <a href="" class="sd-top-menu__collapse-nav"
+      ><i class="icon-collapse icon--white"></i
+    ></a>
+    <p class="sd-top-menu__header">Publisher</p>
+  </header>
+  <section
+    class="sd-content sd-page-content--slide-in"
+    ng-class="{'sd-page-content--slide-in--open' : webPublisherOutput.editorOpen}"
+  >
+    <div
+      class="sd-sidebar-menu sd-sidebar-menu--second-level sd-page-content__left-tabs"
+      ng-include="'sidebar-content.html'"
+    ></div>
+    <div
+      id="sp-dashboard-react-app"
+      class="sd-page-content__content-block sp-bottomBarMargin"
+    ></div>
+    <footer classname="bottom-bar "></footer>
+  </section>
+  <footer className="bottom-bar " />
 </div>

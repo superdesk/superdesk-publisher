@@ -14,7 +14,7 @@ publisher.queryLists().then(items => (lists = items));
 describe("ContentLists/ListCard", () => {
   it("renders correctly", async () => {
     const { container, getByText } = render(
-      <ListCard publisher={publisher} list={lists[0]} listEdit={jest.fn()} />
+      <ListCard publisher={publisher} list={lists[0]} listEdit={jest.fn()} onListCreated={jest.fn()} />
     );
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -23,7 +23,7 @@ describe("ContentLists/ListCard", () => {
     const listEdit = jest.fn();
 
     const { container, getByText } = render(
-      <ListCard publisher={publisher} list={lists[0]} listEdit={listEdit} />
+      <ListCard publisher={publisher} list={lists[0]} listEdit={listEdit} onListCreated={jest.fn()} />
     );
 
     const button = getByText("Edit");
