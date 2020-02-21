@@ -15,6 +15,7 @@ WebPublisherOutputController.$inject = [
   "$scope",
   "publisher",
   "authoringWorkspace",
+  "vocabularies",
   "notify",
   "config",
   "api"
@@ -23,6 +24,7 @@ export function WebPublisherOutputController(
   $scope,
   publisher,
   authoringWorkspace,
+  vocabularies,
   notify,
   config,
   api
@@ -30,6 +32,26 @@ export function WebPublisherOutputController(
   class WebPublisherOutput {
     constructor() {
       this.editorOpen = false;
+      let languagesEnabled = false;
+
+      vocabularies.getVocabularies().then(res => {
+        let languages = res.find(v => v._id === "languages");
+        if (languages.items && languages.items.length > 1) {
+          languagesEnabled = true;
+        }
+
+        ReactDOM.render(
+          React.createElement(Output, {
+            publisher: publisher,
+            notify: notify,
+            config: config,
+            authoringWorkspace: authoringWorkspace,
+            api: api,
+            languagesEnabled: languagesEnabled
+          }),
+          document.getElementById("sp-output-react-app")
+        );
+      })
 
       $scope.$watch(authoringWorkspace.getState, state => {
         this.editorOpen = state && state.item ? true : false;
@@ -39,16 +61,7 @@ export function WebPublisherOutputController(
         document.dispatchEvent(event);
       });
 
-      ReactDOM.render(
-        React.createElement(Output, {
-          publisher: publisher,
-          notify: notify,
-          config: config,
-          authoringWorkspace: authoringWorkspace,
-          api: api
-        }),
-        document.getElementById("sp-output-react-app")
-      );
+
     }
   }
 
