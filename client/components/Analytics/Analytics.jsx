@@ -149,7 +149,7 @@ class Analytics extends React.Component {
       itemSize: 100
     };
 
-    this.setState({ loading: true }, () =>
+    this.setState({ loading: true, activeView: "listing" }, () =>
       this.setState({ filters, articles, loading: false })
     );
   };

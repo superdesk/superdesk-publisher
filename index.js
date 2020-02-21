@@ -12,10 +12,7 @@ import Publishing from "./client/extensions/Publishing";
 
 cacheIncludedTemplates.$inject = ["$templateCache"];
 function cacheIncludedTemplates($templateCache) {
-  $templateCache.put(
-    "tenant.html",
-    require("./client/views/dashboard/tenant.html")
-  );
+
   $templateCache.put(
     "sidebar-content.html",
     require("./client/views/sidebar-content.html")
@@ -148,7 +145,6 @@ export default angular
   ])
   .directive("sdSiteWizard", directive.SiteWizardDirective)
   .directive("sdThemeManager", directive.ThemeManagerDirective)
-  .directive("sdListContentLists", directive.ListContentListsDirective)
   .factory("publisher", services.PublisherFactory)
   .factory("pubapi", services.PubAPIFactory)
   .config([

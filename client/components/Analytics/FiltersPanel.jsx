@@ -81,6 +81,11 @@ class FiltersPanel extends React.Component {
     this.setState({ filters });
   };
 
+  clear = () => {
+    this.setState({ dateFilterType: "range", filters: {} });
+    this.props.setFilters({});
+  };
+
   save = () => {
     let filters = { ...this.state.filters };
     let newAuthor = [];
@@ -275,7 +280,7 @@ class FiltersPanel extends React.Component {
               <a
                 className="btn btn--hollow"
                 data-testid="filterClear"
-                onClick={() => this.props.setFilters({})}
+                onClick={this.clear}
               >
                 Clear
               </a>

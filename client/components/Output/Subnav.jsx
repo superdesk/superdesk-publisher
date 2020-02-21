@@ -23,7 +23,11 @@ const Subnav = props => {
                   />
                 </span>
 
-                <span sd-tooltip="Published" flow="right" className="sd-margin-l--0-5">
+                <span
+                  sd-tooltip="Published"
+                  flow="right"
+                  className="sd-margin-l--0-5"
+                >
                   <CheckButton
                     label={<i className="icon-expand-thin" />}
                     onClick={() => store.actions.setSelectedList("published")}
@@ -63,13 +67,17 @@ const Subnav = props => {
             <div className="sd-margin-r--1">
               <span>Incoming:</span>
               <span className="badge sd-margin-l--0-5">
-                {store.articlesCounts.incoming}
+                {store.articlesCounts.incoming
+                  .toString()
+                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
               </span>
             </div>
             <div>
               <span>Published:</span>
               <span className="badge sd-margin-l--0-5">
-                {store.articlesCounts.published}
+                {store.articlesCounts.published
+                  .toString()
+                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
               </span>
             </div>
           </div>
