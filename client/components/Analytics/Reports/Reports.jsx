@@ -33,7 +33,7 @@ class Reports extends React.Component {
 
     this.props.publisher.getAnalyticsReports(params).then(response =>
       this.setState({
-        reports: [...response._embedded._items, ...this.state.reports],
+        reports: [...this.state.reports, ...response._embedded._items],
         loading: false,
         totalPages: response.pages,
         page: this.state.page + 1
