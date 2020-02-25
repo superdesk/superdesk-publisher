@@ -99,6 +99,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 </span>
               )
           )}
+
           {item.service &&
             item.service.map(service =>
               store.selectedList === "incoming" ? (
@@ -154,7 +155,9 @@ const ArticleItem = ({ item, style, onRemove }) => {
               +{item.articles.length - 3} more
             </span>
           )}
-
+          {store.languagesEnabled && (
+            <span className="label label--hollow">{item.language}</span>
+          )}
           <span className="sd-overflow-ellipsis">
             {store.selectedList === "incoming" && (
               <span className="sd-overflow-ellipsis sd-list-item--element-grow">

@@ -161,6 +161,7 @@ class Output extends React.Component {
           notify: this.props.notify,
           api: this.props.api,
           isSuperdeskEditorOpen: this.state.isSuperdeskEditorOpen,
+          languagesEnabled: this.props.languagesEnabled,
           config: this.props.config,
           selectedList: this.state.selectedList,
           selectedItem: this.state.selectedItem,
@@ -247,7 +248,8 @@ Output.propTypes = {
   notify: PropTypes.object.isRequired,
   config: PropTypes.object.isRequired,
   authoringWorkspace: PropTypes.object.isRequired,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
+  languagesEnabled: PropTypes.bool.isRequired
 };
 
 export default Output;
