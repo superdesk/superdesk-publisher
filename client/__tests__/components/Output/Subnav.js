@@ -3,6 +3,11 @@ import Subnav from "../../../components/Output/Subnav";
 import { render, fireEvent } from "@testing-library/react";
 import Store from "../../../components/Output/Store";
 
+const languages = [
+  { qcode: 'pl', name: 'Polish' },
+  { qcode: 'en', name: 'English' },
+  { qcode: 'de', name: 'German' },
+]
 
 describe("Output/Subnav", () => {
 
@@ -20,7 +25,8 @@ describe("Output/Subnav", () => {
           actions: { setSelectedList: jest.fn() }
         }}
       >
-        <Subnav />
+        <Subnav isLanguagesEnabled={true}
+          languages={languages} />
       </Store.Provider>
     );
     expect(container.firstChild).toMatchSnapshot();
@@ -42,7 +48,8 @@ describe("Output/Subnav", () => {
           actions: { setSelectedList: setList }
         }}
       >
-        <Subnav />
+        <Subnav isLanguagesEnabled={true}
+          languages={languages} />
       </Store.Provider>
     );
 

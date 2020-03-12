@@ -9,6 +9,7 @@ import DropdownScrollable from "../../UI/DropdownScrollable";
 import SearchBar from "../../UI/SearchBar";
 import ArticleItem from "./ArticleItem";
 import Loading from "../../UI/Loading/Loading";
+import LanguageSelect from "../../UI/LanguageSelect";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -58,7 +59,10 @@ class Manual extends React.Component {
         loading: false
       },
       listSearchQuery: "",
-      articlesFilters: {},
+      articlesFilters:
+        this.props.site && this.props.site.default_language
+          ? { language: this.props.site.default_language }
+          : {},
       changesRecord: []
     };
   }
@@ -80,7 +84,10 @@ class Manual extends React.Component {
             loading: false
           },
           listSearchQuery: "",
-          articlesFilters: {},
+          articlesFilters:
+            this.props.site && this.props.site.default_language
+              ? { language: this.props.site.default_language }
+              : {},
           changesRecord: []
         },
         this._loadData
@@ -219,6 +226,10 @@ class Manual extends React.Component {
       params.page = this.state.articles.page + 1;
       params["sorting[published_at]"] = "desc";
       params.status = "published";
+      if (params.language) {
+        params["metadata[language]"] = params.language;
+        delete params.language;
+      }
 
       this.props.publisher.queryTenantArticles(params).then(response => {
         let articles = {
@@ -577,6 +588,18 @@ class Manual extends React.Component {
                 onChange={value => this.handleArticlesSearch(value)}
               />
               <h3 className="subnav__page-title">All published articles</h3>
+              {this.props.isLanguagesEnabled && (
+                <LanguageSelect
+                  languages={this.props.languages}
+                  selectedLanguageCode={this.state.articlesFilters.language}
+                  setLanguage={lang => {
+                    this.filterArticles({
+                      ...this.state.articlesFilters,
+                      language: lang
+                    });
+                  }}
+                />
+              )}
             </div>
             <div className="sd-column-box--3">
               <div
@@ -649,7 +672,10 @@ Manual.propTypes = {
   openPreview: PropTypes.func,
   previewItem: PropTypes.object,
   filtersOpen: PropTypes.bool,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
+  isLanguagesEnabled: PropTypes.bool.isRequired,
+  languages: PropTypes.array.isRequired,
+  site: PropTypes.object.isRequired
 };
 
 export default Manual;

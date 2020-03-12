@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics/ArticleItem renders correctly 1`] = `
+<div
+  class="sd-list-item sd-list-item--no-hover sd-shadow--z1"
+>
+  <div
+    class="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border"
+  >
+    <div
+      class="sd-list-item__row cursorPointer"
+    >
+      <div
+        class="sd-overflow-ellipsis sd-list-item--element-grow"
+      >
+        <span
+          class="state-label state-in_progress sd-margin-r--1"
+        >
+          async_content_push
+        </span>
+        SWP\\Bundle\\CoreBundle\\MessageHandler\\Message\\ContentPushMessage
+         
+        <span
+          class="sd-text__date-time sd-margin-l--1"
+        >
+          2020-03-02, 14:07:42
+        </span>
+      </div>
+      <i
+        class="icon-chevron-up-thin sd-margin-l--1"
+      />
+    </div>
+    <div
+      class="sd-alert sd-alert--hollow sd-alert--alert sd-alert--small"
+      style="margin: 1em 2em 1em 1em;"
+    >
+      Argument 1 passed to SWP\\Bundle\\CoreBundle\\MessageHandler\\AbstractContentPushHandler::__construct() must implement interface Symfony\\Component\\Messenger\\MessageBusInterface, instance of Symfony\\Bridge\\Monolog\\Logger given, called in /private/var/www/publisher/var/cache/dev/ContainerADrp4xz/getContentPushHandlerService.php on line 17
+    </div>
+    <div>
+      <ul
+        class="nav-tabs"
+      >
+        <li
+          class="nav-tabs__tab nav-tabs__tab--active"
+        >
+          <button
+            class="nav-tabs__link"
+          >
+            <span>
+              Message
+            </span>
+          </button>
+        </li>
+        <li
+          class="nav-tabs__tab"
+        >
+          <button
+            class="nav-tabs__link"
+          >
+            <span>
+              Stacktrace
+            </span>
+          </button>
+        </li>
+        <li
+          class="nav-tabs__tab"
+        >
+          <button
+            class="nav-tabs__link"
+          >
+            <span>
+              Redeliveries
+            </span>
+          </button>
+        </li>
+      </ul>
+      <div
+        class="nav-tabs__content"
+      >
+        <div
+          class="nav-tabs__pane"
+        >
+          <div>
+            <strong>
+              tenant
+              : 
+            </strong>
+            <pre>
+              1
+            </pre>
+          </div>
+          <div>
+            <strong>
+              content
+              : 
+            </strong>
+            <pre>
+              {
+      "language":"en",
+      "slugline":"abstract-html-test",
+      "body_html":"&lt;p&gt;some html body edit 3 raf&lt;/p&gt;",
+      "versioncreated":"2016-09-23T13:57:28+0000",
+      "firstcreated":"2016-05-25T10:23:15+0000",
+      "description_text":"some abstract text",
+      "place":[
+        {
+          "country":"Australia",
+          "world_region":"Oceania",
+          "state":"Australian Capital Territory",
+          "qcode":"ACT",
+          "name":"ACT",
+          "group":"Australia"
+        }
+      ],
+      "version":"2",
+      "byline":"ADmin",
+      "keywords":[
+        "keyword1",
+        "keyword2"
+      ],
+      "guid":"urn:newsml:localhost:2016-09-23T13:56:39.404843:56465de4-0d5c-495a-8e36-3b396def3cf0",
+      "priority":6,
+      "subject":[
+        {
+          "name":"lawyer",
+          "code":"02002001"
+        }
+      ],
+      "urgency":3,
+      "type":"text",
+      "headline":"testing correction",
+      "service":[
+        {
+          "name":"Australian General News",
+          "code":"a"
+        }
+      ],
+      "description_html":"&lt;p&gt;&lt;b&gt;&lt;u&gt;some abstract text&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;",
+      "located":"Warsaw",
+      "pubstatus":"usable"
+    }
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

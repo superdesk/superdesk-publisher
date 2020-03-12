@@ -51,7 +51,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form__row-item" ng-if="expression.option.name != 'Category'">
+            <div class="form__row-item" ng-if="expression.option.name !== 'Category' && expression.option.name !== 'Author'">
                 <div class="sd-line-input margin--bottom0">
                     <input class="sd-line-input__input" type="text" ng-model="expression.value" ng-disabled="!expression.operator" required>
                 </div>
@@ -64,6 +64,17 @@
                         ng-model="expression.value"
                         ">
                         <option ng-repeat="category in webPublisherSettings.expressionBuilder.categories" value="{{category.name}}">{{category.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form__row-item" ng-if="expression.option.name == 'Author'">
+                <div class="sd-line-input sd-line-input--is-select margin--bottom0">
+                    <select class="sd-line-input__select"
+                        required
+                        ng-disabled="!expression.operator"
+                        ng-model="expression.value"
+                        ">
+                        <option ng-repeat="author in webPublisherSettings.authors" value="{{author.display_name}}">{{author.display_name}}</option>
                     </select>
                 </div>
             </div>

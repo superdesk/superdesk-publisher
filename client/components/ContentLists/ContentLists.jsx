@@ -243,6 +243,9 @@ class ContentLists extends React.Component {
                   previewItem={this.state.previewItem}
                   filtersOpen={this.state.filtersOpen}
                   api={this.props.api}
+                  isLanguagesEnabled={this.props.isLanguagesEnabled}
+                  languages={this.props.languages}
+                  site={this.state.selectedSite}
                 />
               )}
 
@@ -266,7 +269,9 @@ ContentLists.propTypes = {
   tenant: PropTypes.string,
   list: PropTypes.string,
   publisher: PropTypes.object.isRequired,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
+  isLanguagesEnabled: PropTypes.bool.isRequired,
+  languages: PropTypes.array.isRequired
 };
 
 export default ContentLists;

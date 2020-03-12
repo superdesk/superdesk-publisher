@@ -165,6 +165,10 @@ class Listing extends React.Component {
       queryParams["source[]"] = this.state.filters.source;
     }
 
+    if (this.state.filters.language && this.state.filters.language.length) {
+      queryParams.language = this.state.filters.language;
+    }
+
     if (this.state.filters.term && this.state.filters.term.length) {
       queryParams.term = this.state.filters.term;
     }

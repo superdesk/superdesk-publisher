@@ -32,12 +32,14 @@ export function WebPublisherOutputController(
   class WebPublisherOutput {
     constructor() {
       this.editorOpen = false;
-      let languagesEnabled = false;
+      let isLanguagesEnabled = false;
 
       vocabularies.getVocabularies().then(res => {
         let languages = res.find(v => v._id === "languages");
-        if (languages.items && languages.items.length > 1) {
-          languagesEnabled = true;
+        languages = languages && languages.items ? languages.items.filter(l => l.is_active) : [];
+
+        if (languages.length > 1) {
+          isLanguagesEnabled = true;
         }
 
         ReactDOM.render(
@@ -47,7 +49,8 @@ export function WebPublisherOutputController(
             config: config,
             authoringWorkspace: authoringWorkspace,
             api: api,
-            languagesEnabled: languagesEnabled
+            isLanguagesEnabled: isLanguagesEnabled,
+            languages: languages
           }),
           document.getElementById("sp-output-react-app")
         );
