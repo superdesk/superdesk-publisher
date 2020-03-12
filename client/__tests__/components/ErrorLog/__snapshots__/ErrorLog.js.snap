@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorLog/ErrorLog renders correctly 1`] = `
+<div
+  class="subnav"
+>
+  <h3
+    class="subnav__page-title"
+  >
+    Error Log
+  </h3>
+</div>
+`;

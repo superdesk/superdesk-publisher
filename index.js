@@ -169,6 +169,13 @@ export default angular
           template: require("./client/views/output/index.html"),
           sideTemplateUrl: "scripts/apps/workspace/views/workspace-sidenav.html"
         })
+        .activity("/publisher/error-log", {
+          label: gettext("Publisher"),
+          description: gettext("Publisher"),
+          controller: controllers.WebPublisherErrorLogController,
+          template: require("./client/views/error-log/index.html"),
+          sideTemplateUrl: "scripts/apps/workspace/views/workspace-sidenav.html"
+        })
         .activity("/publisher/content_lists", {
           label: gettext("Publisher"),
           description: gettext("Publisher"),

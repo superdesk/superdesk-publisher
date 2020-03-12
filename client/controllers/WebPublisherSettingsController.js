@@ -12,7 +12,8 @@ WebPublisherSettingsController.$inject = [
   "modal",
   "vocabularies",
   "$sce",
-  "notify"
+  "notify",
+  "api"
 ];
 export function WebPublisherSettingsController(
   $scope,
@@ -20,13 +21,28 @@ export function WebPublisherSettingsController(
   modal,
   vocabularies,
   $sce,
-  notify
+  notify,
+  api
 ) {
   class WebPublisherSettings {
     constructor() {
       this.TEMPLATES_DIR = "scripts/apps/web-publisher/views";
       $scope.mainLoading = true;
       this.siteWizardActive = false;
+
+      this.isLanguagesEnabled = false;
+
+      vocabularies.getVocabularies().then(res => {
+        this.languages = res.find(v => v._id === "languages");
+        this.languages = this.languages && this.languages.items ? this.languages.items.filter(l => l.is_active) : [];
+
+        if (this.languages.length > 1) {
+          this.isLanguagesEnabled = true;
+        }
+      });
+
+      this.authors = [];
+      this.loadAuthors();
 
       publisher
         .setToken()
@@ -43,6 +59,27 @@ export function WebPublisherSettingsController(
           });
           // rules panel is default
           this.changePanel("tenant");
+        });
+    }
+
+    loadAuthors(page = 0) {
+
+      api.users.query({
+        max_results: 200,
+        page: page,
+        sort: '[("first_name", 1), ("last_name", 1)]',
+        where: {
+          is_support: { $ne: true },
+          is_active: true,
+          is_enabled: true,
+          needs_activation: false
+        }
+      })
+        .then(response => {
+          let authors = response._items.filter(item => item.is_author);
+
+          if (authors.length) this.authors = [...this.authors, ...authors];
+          if (response._links.next) this.loadAuthors(page + 1);
         });
     }
 
@@ -394,7 +431,6 @@ export function WebPublisherSettingsController(
           })
         }
         $scope.routes = filteredRoutes;
-        console.log(filteredRoutes);
       });
     }
     // ---------------------------------- REDIRECTS

@@ -659,6 +659,17 @@ export function PublisherFactory(pubapi) {
     generateAnalyticsReport(filters) {
       return pubapi.save("export/analytics", filters);
     }
+
+    /**
+     * @ngdoc method
+     * @name publisher#getFailedQueue
+     * @param {Object} params
+     * @returns {Promise}
+     * @description Get failed queue items
+     */
+    getFailedQueue(params) {
+      return pubapi.queryWithDetails("failed_queue", params);
+    }
   }
 
   return new Publisher();

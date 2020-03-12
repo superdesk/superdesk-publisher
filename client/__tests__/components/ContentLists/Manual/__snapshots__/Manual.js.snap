@@ -142,6 +142,54 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       >
         All published articles
       </h3>
+      <div
+        class="subnav__spacer subnav__spacer--no-margin"
+      />
+      <div
+        class="subnav__content-bar sd-flex-no-shrink sd-margin-x--0"
+      >
+        <div
+          class="dropdown dropdown--align-right"
+        >
+          <span>
+            <button
+              class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle"
+            >
+              All Languages
+              <span
+                class="dropdown__caret"
+              />
+            </button>
+          </span>
+          <ul
+            class="dropdown__menu dropdown__menu--scrollable"
+          >
+            <li>
+              <button>
+                All Languages
+              </button>
+            </li>
+            <li
+              class="dropdown__menu-divider"
+            />
+            <li>
+              <button>
+                Polish
+              </button>
+            </li>
+            <li>
+              <button>
+                English
+              </button>
+            </li>
+            <li>
+              <button>
+                German
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div
       class="sd-column-box--3"

@@ -6,6 +6,7 @@ import Store from "./Store";
 import CheckButton from "../UI/CheckButton";
 import TenantSelect from "./TenantSelect";
 import SortingOptions from "./SortingOptions";
+import LanguageSelect from "../UI/LanguageSelect";
 
 const Subnav = props => {
   return (
@@ -83,6 +84,16 @@ const Subnav = props => {
           </div>
           {store.selectedList === "published" &&
             store.listViewType !== "swimlane" && <TenantSelect />}
+          {store.listViewType !== "swimlane" && store.isLanguagesEnabled && (
+            <LanguageSelect
+              languages={store.languages}
+              selectedLanguageCode={store.filters.language}
+              setLanguage={lang => {
+                store.actions.setFilters({ language: lang });
+              }}
+            />
+          )}
+
           {store.selectedList === "published" && (
             <button
               className="navbtn"

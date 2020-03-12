@@ -43,15 +43,15 @@ const Item = ({ item }) => {
           </div>
         </div>
         <div className="sd-list-item__row">
-          {item.status === "completed" ? (
-            <span className="label label--success sd-margin-r--1">
-              completed
-            </span>
-          ) : (
-            <span className="state-label state-in_progress sd-margin-r--1">
-              in progress
-            </span>
-          )}
+          <span
+            className={classNames("label sd-margin-r--1", {
+              "label--success": item.status === "completed",
+              "state-in_progress": item.status === "processing",
+              "label--alert": item.status === "errored"
+            })}
+          >
+            {item.status}
+          </span>
           {(item.filters.start || item.filters.end) && (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">Range:</span>
@@ -64,7 +64,6 @@ const Item = ({ item }) => {
               </span>
             </React.Fragment>
           )}
-
           {filterCategories && (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">
@@ -75,7 +74,6 @@ const Item = ({ item }) => {
               </span>
             </React.Fragment>
           )}
-
           {filterAuthors && (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">

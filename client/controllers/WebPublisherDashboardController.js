@@ -14,8 +14,7 @@ WebPublisherDashboardController.$inject = [
   "publisher"
 ];
 export function WebPublisherDashboardController(
-  publisher,
-  notify
+  publisher
 ) {
   class WebPublisherDashboard {
     constructor() {

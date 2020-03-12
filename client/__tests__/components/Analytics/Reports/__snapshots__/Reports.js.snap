@@ -55,7 +55,7 @@ exports[`Analytics/Reports/Reports renders correctly 1`] = `
               class="sd-list-item__row"
             >
               <span
-                class="label label--success sd-margin-r--1"
+                class="label sd-margin-r--1 label--success"
               >
                 completed
               </span>
@@ -134,9 +134,9 @@ exports[`Analytics/Reports/Reports renders correctly 1`] = `
               class="sd-list-item__row"
             >
               <span
-                class="state-label state-in_progress sd-margin-r--1"
+                class="label sd-margin-r--1 state-in_progress"
               >
-                in progress
+                processing
               </span>
               <span
                 class="sd-text__date-time sd-text__italic"

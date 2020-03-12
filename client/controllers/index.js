@@ -11,3 +11,6 @@ export {
 export {
   WebPublisherAnalyticsController
 } from "./WebPublisherAnalyticsController";
+export {
+  WebPublisherErrorLogController
+} from "./WebPublisherErrorLogController";

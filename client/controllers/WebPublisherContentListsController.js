@@ -16,6 +16,7 @@ WebPublisherContentListsController.$inject = [
   "publisher",
   "$route",
   "api",
+  "vocabularies",
   "notify"
 ];
 export function WebPublisherContentListsController(
@@ -23,6 +24,7 @@ export function WebPublisherContentListsController(
   publisher,
   $route,
   api,
+  vocabularies,
   notify
 ) {
   class WebPublisherContentLists {
@@ -34,15 +36,28 @@ export function WebPublisherContentListsController(
       api.notify = notify;
       this.api = api;
 
-      ReactDOM.render(
-        <ContentLists
-          tenant={this.tenant}
-          publisher={this.publisher}
-          list={this.list}
-          api={this.api}
-        />,
-        document.getElementById("sp-content-lists-react-app")
-      );
+      let isLanguagesEnabled = false;
+
+      vocabularies.getVocabularies().then(res => {
+        let languages = res.find(v => v._id === "languages");
+        languages = languages && languages.items ? languages.items.filter(l => l.is_active) : [];
+
+        if (languages.length > 1) {
+          isLanguagesEnabled = true;
+        }
+
+        ReactDOM.render(
+          <ContentLists
+            tenant={this.tenant}
+            publisher={this.publisher}
+            list={this.list}
+            api={this.api}
+            isLanguagesEnabled={isLanguagesEnabled}
+            languages={languages}
+          />,
+          document.getElementById("sp-content-lists-react-app")
+        );
+      });
     }
   }
 

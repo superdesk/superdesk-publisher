@@ -155,9 +155,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
               +{item.articles.length - 3} more
             </span>
           )}
-          {store.languagesEnabled && (
-            <span className="label label--hollow">{item.language}</span>
-          )}
+
           <span className="sd-overflow-ellipsis">
             {store.selectedList === "incoming" && (
               <span className="sd-overflow-ellipsis sd-list-item--element-grow">
@@ -181,6 +179,12 @@ const ArticleItem = ({ item, style, onRemove }) => {
           </span>
         </div>
       </div>
+      {store.isLanguagesEnabled && (
+        <div className="sd-list-item__column sd-list-item__column--no-border">
+          <span className="label label--hollow">{item.language}</span>
+        </div>
+      )}
+
       <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
         {store.selectedList === "incoming" && (
           <button

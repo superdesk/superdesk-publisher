@@ -27,6 +27,12 @@ api.users.query = function () {
   });
 };
 
+const languages = [
+  { qcode: 'pl', name: 'Polish' },
+  { qcode: 'en', name: 'English' },
+  { qcode: 'de', name: 'German' },
+]
+
 describe("ContentLists/Manual/Manual", () => {
   it("renders properly", async () => {
     const { container } = render(
@@ -38,6 +44,8 @@ describe("ContentLists/Manual/Manual", () => {
         onListUpdate={jest.fn()}
         api={api}
         toggleFilters={jest.fn()}
+        isLanguagesEnabled={true}
+        languages={languages}
       />
     );
 

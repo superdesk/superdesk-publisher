@@ -41,7 +41,7 @@ exports[`Analytics/Reports/Item renders correctly 1`] = `
       class="sd-list-item__row"
     >
       <span
-        class="label label--success sd-margin-r--1"
+        class="label sd-margin-r--1 label--success"
       >
         completed
       </span>

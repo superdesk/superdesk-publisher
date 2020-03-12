@@ -23,6 +23,12 @@ api.users.query = function () {
   });
 };
 
+const languages = [
+  { qcode: 'pl', name: 'Polish' },
+  { qcode: 'en', name: 'English' },
+  { qcode: 'de', name: 'German' },
+]
+
 describe("Output/Output", () => {
   it("renders properly", async () => {
     const { container } = render(
@@ -32,6 +38,8 @@ describe("Output/Output", () => {
         config={{}}
         authoringWorkspace={{}}
         api={api}
+        isLanguagesEnabled={true}
+        languages={languages}
       />
     );
 

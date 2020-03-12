@@ -1,45 +1,91 @@
 <div class="grid grid--margin">
-    <form name="webPublisherSettings.siteForm" class="grid__item gi-xsmall-12 gi-xlarge-8">
-        <div class="form__row">
-            <div class="sd-line-input">
-                <label class="sd-line-input__label">Website name</label>
-                <input class="sd-line-input__input sd-line-input--required" type="text" ng-model="newSite.name" required>
-            </div>
+  <form
+    name="webPublisherSettings.siteForm"
+    class="grid__item gi-xsmall-12 gi-xlarge-8"
+  >
+    <div class="form__row">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">Website name</label>
+        <input
+          class="sd-line-input__input sd-line-input--required"
+          type="text"
+          ng-model="newSite.name"
+          required
+        />
+      </div>
+    </div>
+    <div class="form__row">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">Domain name</label>
+        <input
+          class="sd-line-input__input sd-line-input--required"
+          type="text"
+          ng-trim="false"
+          ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')"
+          ng-model="newSite.domain_name"
+          required
+        />
+      </div>
+    </div>
+    <div class="form__row">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">Subdomain name</label>
+        <input
+          class="sd-line-input__input"
+          type="text"
+          ng-trim="false"
+          ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')"
+          ng-model="newSite.subdomain"
+        />
+      </div>
+    </div>
+    <div class="form__row" ng-if="webPublisherSettings.isLanguagesEnabled">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">Default Language</label>
+        <select
+          class="dropdown__toggle line-input"
+          ng-model="newSite.default_language"
+          ng-options="lang.qcode as lang.name for lang in webPublisherSettings.languages"
+        >
+        </select>
+      </div>
+    </div>
+    <div class="form__row">
+      <span ng-model="newSite.amp_enabled" sd-switch=""></span
+      ><label>Enable AMP</label>
+    </div>
+    <div class="form__row">
+      <span ng-model="newSite.fbia_enabled" sd-switch=""></span
+      ><label>Enable FBIA</label>
+    </div>
+    <div class="form__row">
+      <span ng-model="newSite.paywall_enabled" sd-switch=""></span
+      ><label>Enable Paywall</label>
+    </div>
+    <div ng-if="newSite.output_channel">
+      <div class="form__row">
+        <h4 class="text--light text--uppercase">
+          {{newSite.output_channel.type}} settings
+        </h4>
+      </div>
+      <div
+        class="form__row"
+        ng-repeat="(name, value) in newSite.output_channel.config"
+      >
+        <div class="form__row-item">
+          <div class="sd-line-input sd-line-input--required">
+            <label class="sd-line-input__label" translate
+              >{{name.replace('_', ' ')}}</label
+            >
+            <input
+              class="sd-line-input__input"
+              type="text"
+              ng-model="newSite.output_channel.config[name]"
+              required
+            />
+          </div>
         </div>
-        <div class="form__row">
-            <div class="sd-line-input">
-                <label class="sd-line-input__label">Domain name</label>
-                <input class="sd-line-input__input sd-line-input--required" type="text" ng-trim="false" ng-change="newSite.domain_name = newSite.domain_name.split(' ').join('')" ng-model="newSite.domain_name" required>
-            </div>
-        </div>
-        <div class="form__row">
-            <div class="sd-line-input">
-                <label class="sd-line-input__label">Subdomain name</label>
-                <input class="sd-line-input__input" type="text" ng-trim="false" ng-change="newSite.subdomain = newSite.subdomain.split(' ').join('')" ng-model="newSite.subdomain" >
-            </div>
-        </div>
-        <div class="form__row">
-            <span ng-model="newSite.amp_enabled" sd-switch=""></span><label>Enable AMP</label>
-        </div>
-        <div class="form__row">
-            <span ng-model="newSite.fbia_enabled" sd-switch=""></span><label>Enable FBIA</label>
-        </div>
-        <div class="form__row">
-            <span ng-model="newSite.paywall_enabled" sd-switch=""></span><label>Enable Paywall</label>
-        </div>
-        <div ng-if="newSite.output_channel">
-            <div class="form__row">
-                <h4 class="text--light text--uppercase">{{newSite.output_channel.type}} settings</h4>
-            </div>
-            <div class="form__row"
-                ng-repeat="(name, value) in newSite.output_channel.config" >
-                <div class="form__row-item">
-                    <div class="sd-line-input sd-line-input--required">
-                        <label class="sd-line-input__label" translate>{{name.replace('_', ' ')}}</label>
-                        <input class="sd-line-input__input" type="text" ng-model="newSite.output_channel.config[name]" required>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>
