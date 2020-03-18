@@ -14,7 +14,7 @@
 - Route Redirects
   > This new feature allows to define redirects for existing routes or completely custom redirect from URI to URI. Permanent (301 http code) or temporary (302 http code) type of redirect can be picked.
 - Notification when manual content list limit is exceeded
-  > Visual notification will appear once limit is set for a content list and user exceeds that limit by putting too much items. It is now clearly visible which articles are above the limit and therefore will be removed once list is saved.
+  > Visual notification will appear once limit is set for a content list and user exceeds that limit by putting too many items. It is now clearly visible which articles are above the limit and therefore will be removed once list is saved.
 - Ability to remove item from automatic content lists
   > It is now possible to manually remove an article that matches automatic content list criteria but is unwanted.
 
