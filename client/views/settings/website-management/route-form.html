@@ -9,14 +9,14 @@
     ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
     translate
   >
-    Add Route
+    Add {{newRoute.type}} route
   </h3>
   <h3
     class="side-panel__heading"
     ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
     translate
   >
-    Edit Route
+    Edit {{newRoute.type}} route
   </h3>
 </div>
 
@@ -63,19 +63,16 @@
             issues.
           </div>
         </div>
-        <div class="item">
-          <label for="routeType" translate>type</label>
-          <select
-            class="dropdown__toggle line-input"
-            id="routeType"
-            ng-model="newRoute.type"
-            required
-          >
-            <option value="collection" translate>Collection</option>
-            <option value="content" translate>Content</option>
-          </select>
+        <div class="item" ng-if="newRoute.type === 'custom'">
+          <label for="variableName" translate>variable name</label>
+          <input
+            type="text"
+            class="line-input"
+            id="variableName"
+            ng-model="newRoute.variableName"
+          />
         </div>
-        <div class="item">
+        <div class="item" ng-if="newRoute.type !== 'custom'">
           <label for="routeParent" translate>parent</label>
           <select
             id="routeParent"
@@ -99,7 +96,7 @@
             ng-model="newRoute.template_name"
           />
         </div>
-        <div class="item">
+        <div class="item" ng-if="newRoute.type === 'collection'">
           <label for="articleTemplate" translate>article template name</label>
           <input
             type="text"
