@@ -79,16 +79,16 @@ function cacheIncludedTemplates($templateCache) {
     require("./client/views/settings/website-management/partials/routes-tree.html")
   );
   $templateCache.put(
-    "settings/website-management/manage-navigation.html",
-    require("./client/views/settings/website-management/manage-navigation.html")
+    "settings/website-management/navigation/index.html",
+    require("./client/views/settings/website-management/navigation/index.html")
   );
   $templateCache.put(
-    "settings/website-management/manage-navigation-menu.html",
-    require("./client/views/settings/website-management/manage-navigation-menu.html")
+    "settings/website-management/navigation/menu.html",
+    require("./client/views/settings/website-management/navigation/menu.html")
   );
   $templateCache.put(
-    "settings/website-management/partials/navigation-tree-renderer.html",
-    require("./client/views/settings/website-management/partials/navigation-tree-renderer.html")
+    "settings/website-management/navigation/tree-renderer.html",
+    require("./client/views/settings/website-management/navigation/tree-renderer.html")
   );
   $templateCache.put(
     "settings/website-management/manage-theme-settings.html",

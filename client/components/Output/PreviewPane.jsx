@@ -60,6 +60,10 @@ class PreviewPane extends React.Component {
     if (this.state.package && this.state.package.extra_items) {
       this.state.package.extra_items.map(gal => {
         if (gal.id === "gallery") {
+          if (gal.items[1] && Number.isInteger(parseInt(gal.items[1].order))) {
+            gal.items = _.sortBy(gal.items, "order");
+          }
+
           slideshows.push(gal);
         }
       });

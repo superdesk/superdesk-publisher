@@ -258,11 +258,12 @@ export function WebPublisherSettingsController(
      * @ngdoc method
      * @name WebPublisherSettingsController#toogleCreateRoute
      * @param {Boolean} paneOpen - should pane be open
+     * @param {String} type - type of redirect
      * @description Opens window for creating new route
      */
-    toggleCreateRoute(paneOpen) {
+    toggleCreateRoute(paneOpen, type) {
       this.selectedRoute = {};
-      $scope.newRoute = {};
+      $scope.newRoute = { type: type };
       this.paneOpen = paneOpen;
     }
 
@@ -274,8 +275,20 @@ export function WebPublisherSettingsController(
      */
     editRoute(route) {
       this.paneOpen = true;
+
       this.selectedRoute = route;
       $scope.newRoute = angular.copy(route);
+
+      if ($scope.newRoute.type === "custom") {
+        const regex = /\/{([a-zA-Z0-9]*)}/gm;
+        let match = regex.exec($scope.newRoute.variable_pattern);
+
+        $scope.newRoute.variableName = match[1] ? match[1] : '';
+
+        delete $scope.newRoute.requirements
+        delete $scope.newRoute.variable_pattern;
+      }
+
       // we never edit list of children
       delete $scope.newRoute.children;
       this.routeForm.$setPristine();
@@ -287,6 +300,21 @@ export function WebPublisherSettingsController(
      * @description Saving route
      */
     saveRoute() {
+
+      if ($scope.newRoute.type === "custom") {
+        $scope.newRoute.variable_pattern = "/{" + $scope.newRoute.variableName + "}";
+
+        $scope.newRoute.requirements = [
+          {
+            "key": $scope.newRoute.variableName,
+            "value": "[a-zA-Z\\-_]+"
+          }
+        ];
+
+        delete $scope.newRoute.variableName;
+      }
+
+
       let updatedKeys = this._updatedKeys($scope.newRoute, this.selectedRoute);
 
       // only for updating, parent is received as object but for update id is needed
@@ -589,6 +617,19 @@ export function WebPublisherSettingsController(
         $scope.newMenu.parent = $scope.menu.id;
       }
 
+      if ($scope.newMenu.route) {
+        let route = $scope.routes.find(r => r.id === $scope.newMenu.route);
+        if (route.type === 'custom') {
+          let valueSlug = $scope.newMenu.variableValue.toLowerCase().replace(" ", "-");
+
+          $scope.newMenu.uri = valueSlug.length ? route.static_prefix + "/" + valueSlug : route.static_prefix;
+          delete $scope.newMenu.route;
+          delete $scope.newMenu.variableValue;
+        }
+      }
+
+      delete $scope.newMenu.type;
+
       let updatedKeys = this._updatedKeys($scope.newMenu, this.selectedMenu);
 
       publisher
@@ -649,12 +690,27 @@ export function WebPublisherSettingsController(
      * @ngdoc method
      * @name WebPublisherSettingsController#toogleCreateMenu
      * @param {Boolean} paneOpen - should pane be open
+     * @param {String} type - type of redirect
      * @description Creates a new menu
      */
-    toogleCreateMenu(paneOpen) {
+    toogleCreateMenu(paneOpen, type) {
       this.selectedMenu = {};
-      $scope.newMenu = {};
+      $scope.newMenu = { type: type };
       this.menuPaneOpen = paneOpen;
+    }
+
+    isRouteTypeCustom(routeId) {
+      if (!$scope.routes) return null;
+
+      let route = $scope.routes.find(r => r.id === routeId);
+      return route.type === 'custom';
+    }
+
+    getRouteNameById(routeId) {
+      if (!$scope.routes) return null;
+
+      let route = $scope.routes.find(r => r.id === routeId);
+      return route.name;
     }
 
     /**
@@ -666,6 +722,7 @@ export function WebPublisherSettingsController(
     editMenu(menu) {
       this.menuForm.$setPristine();
       this.selectedMenu = menu;
+      menu.type = menu.route ? "route" : "custom";
       $scope.newMenu = angular.copy(menu);
       this.menuPaneOpen = true;
     }

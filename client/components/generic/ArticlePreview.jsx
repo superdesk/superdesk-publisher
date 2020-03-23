@@ -42,7 +42,7 @@ class ArticlePreview extends React.Component {
     }
 
     return (
-      <div className="sd-preview-panel">
+      <div className="sd-preview-panel" style={{ zIndex: 1 }}>
         <div className="side-panel side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-bottom">
             <div className="side-panel__tools">
