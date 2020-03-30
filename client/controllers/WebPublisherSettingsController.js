@@ -69,10 +69,7 @@ export function WebPublisherSettingsController(
         page: page,
         sort: '[("first_name", 1), ("last_name", 1)]',
         where: {
-          is_support: { $ne: true },
-          is_active: true,
-          is_enabled: true,
-          needs_activation: false
+          is_support: { $ne: true }
         }
       })
         .then(response => {
