@@ -13,11 +13,12 @@ describe("TargetedPublishing/OptionSwitches", () => {
     paywall_secured: true
   };
 
-  it("returns null when both options are disabled", () => {
+  it("returns null when all options are disabled", () => {
     const { container } = render(
       <OptionSwitches
         fbiaEnabled={false}
         paywallEnabled={false}
+        appleNewsEnabled={false}
         destination={destination}
         onChange={jest.fn()}
       />
@@ -26,18 +27,20 @@ describe("TargetedPublishing/OptionSwitches", () => {
     expect(container.firstChild).toBe(null);
   });
 
-  it("renders both switches", async () => {
+  it("renders all switches", async () => {
     const { getByText } = render(
       <OptionSwitches
         fbiaEnabled={true}
         paywallEnabled={true}
+        appleNewsEnabled={true}
         destination={destination}
         onChange={jest.fn()}
       />
     );
 
     await waitForElement(() => getByText("Facebook"));
-    await waitForElement(() => getByText("Paywall Secured"));
+    await waitForElement(() => getByText("Paywall"));
+    await waitForElement(() => getByText("Apple News"));
   });
 
   it("renders facebook switch only", async () => {
@@ -45,6 +48,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
       <OptionSwitches
         fbiaEnabled={true}
         paywallEnabled={false}
+        appleNewsEnabled={false}
         destination={destination}
         onChange={jest.fn()}
       />
@@ -52,7 +56,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
 
     await waitForElement(() => getByText("Facebook"));
     await wait(() =>
-      expect(queryByText("Paywall Secured")).not.toBeInTheDocument()
+      expect(queryByText("Paywall")).not.toBeInTheDocument()
     );
   });
 
@@ -61,12 +65,13 @@ describe("TargetedPublishing/OptionSwitches", () => {
       <OptionSwitches
         fbiaEnabled={false}
         paywallEnabled={true}
+        appleNewsEnabled={false}
         destination={destination}
         onChange={jest.fn()}
       />
     );
 
-    await waitForElement(() => getByText("Paywall Secured"));
+    await waitForElement(() => getByText("Paywall"));
     await wait(() => expect(queryByText("Facebook")).not.toBeInTheDocument());
   });
 
@@ -77,6 +82,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
       <OptionSwitches
         fbiaEnabled={true}
         paywallEnabled={true}
+        appleNewsEnabled={true}
         destination={destination}
         onChange={onChange}
       />

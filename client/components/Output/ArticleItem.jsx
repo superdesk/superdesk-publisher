@@ -23,7 +23,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
         setState({ confirm: false });
         onRemove(item.id);
       })
-      .catch(e => store.notify.error("Cannot remove article"));
+      .catch((e) => store.notify.error("Cannot remove article"));
   };
 
   let modalContent = null;
@@ -39,7 +39,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
         <div className="modal__footer">
           <button
             className="btn"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               removeCancel();
             }}
@@ -48,7 +48,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           </button>
           <button
             className="btn btn--primary"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               remove();
             }}
@@ -60,12 +60,20 @@ const ArticleItem = ({ item, style, onRemove }) => {
     );
   }
 
+  let isPublishedFbia = false;
+  let isPublishedAppleNews = false;
+
+  item.articles.forEach((article) => {
+    if (article.is_published_fbia) isPublishedFbia = true;
+    if (article.is_published_to_apple_news) isPublishedAppleNews = true;
+  });
+
   return (
     <div
       className={classNames("sd-list-item", {
         "sd-list-item--activated":
           store.selectedItem && store.selectedItem.id === item.id,
-        fadeElement: item.animate
+        fadeElement: item.animate,
       })}
       style={style}
       onClick={() => store.actions.togglePreview(item)}
@@ -101,7 +109,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           )}
 
           {item.service &&
-            item.service.map(service =>
+            item.service.map((service) =>
               store.selectedList === "incoming" ? (
                 <span
                   key={"articleService" + item.id + "-" + service.name}
@@ -150,6 +158,12 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 />
               ))}
           </span>
+          {isPublishedFbia ? (
+            <span className="label label--primary">facebook</span>
+          ) : null}
+          {isPublishedAppleNews ? (
+            <span className="label label--highlight2">Apple News</span>
+          ) : null}
           {item.articles.length - 3 > 0 && (
             <span className="sd-margin-r--1">
               +{item.articles.length - 3} more
@@ -191,7 +205,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
             sd-tooltip="Remove"
             flow="left"
             className="icn-btn"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               removeConfirm();
             }}
@@ -203,7 +217,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           sd-tooltip="Correct"
           flow="left"
           className="icn-btn"
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             store.actions.correctPackage(item);
           }}
@@ -214,7 +228,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           sd-tooltip="Publish"
           flow="left"
           className="icn-btn"
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             store.actions.togglePublish(item);
           }}
@@ -230,7 +244,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
 ArticleItem.propTypes = {
   item: PropTypes.object.isRequired,
   style: PropTypes.object.isRequired,
-  onRemove: PropTypes.func.isRequired
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default ArticleItem;

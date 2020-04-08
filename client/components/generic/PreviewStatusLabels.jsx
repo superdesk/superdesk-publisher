@@ -4,14 +4,22 @@ import PropTypes from "prop-types";
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 
 const PreviewStatusLabels = ({ articles }) => {
+  let isPublishedFbia = false;
+  let isPublishedAppleNews = false;
+
+  articles.forEach((article) => {
+    if (article.is_published_fbia) isPublishedFbia = true;
+    if (article.is_published_to_apple_news) isPublishedAppleNews = true;
+  });
+
   return (
     <React.Fragment>
-      {articles.filter(item => item.status === "published").length ? (
+      {articles.filter((item) => item.status === "published").length ? (
         <div className="form__row form__row--small-padding">
           <label>Published to:</label>
           <div>
             {articles
-              .filter(item => item.status === "published")
+              .filter((item) => item.status === "published")
               .map((article, index) => (
                 <ArticleStatusLabel
                   key={`articlePreviewstatuslabel_${index}_${article.id}`}
@@ -30,15 +38,31 @@ const PreviewStatusLabels = ({ articles }) => {
                   }
                 />
               ))}
+            {isPublishedFbia ? (
+              <span
+                className="label label--primary"
+                style={{ marginRight: ".6em" }}
+              >
+                facebook
+              </span>
+            ) : null}
+            {isPublishedAppleNews ? (
+              <span
+                className="label label--highlight2"
+                style={{ marginRight: ".6em" }}
+              >
+                Apple News
+              </span>
+            ) : null}
           </div>
         </div>
       ) : null}
-      {articles.filter(item => item.status === "new").length ? (
+      {articles.filter((item) => item.status === "new").length ? (
         <div className="form__row form__row--small-padding">
           <label>Sent to:</label>
           <div>
             {articles
-              .filter(item => item.status === "new")
+              .filter((item) => item.status === "new")
               .map((article, index) => (
                 <ArticleStatusLabel
                   key={`articlePreviewstatuslabel_${index}_${article.id}`}
@@ -49,12 +73,12 @@ const PreviewStatusLabels = ({ articles }) => {
           </div>
         </div>
       ) : null}
-      {articles.filter(item => item.status === "unpublished").length ? (
+      {articles.filter((item) => item.status === "unpublished").length ? (
         <div className="form__row form__row--small-padding">
           <label>Unpublished from:</label>
           <div>
             {articles
-              .filter(item => item.status === "unpublished")
+              .filter((item) => item.status === "unpublished")
               .map((article, index) => (
                 <ArticleStatusLabel
                   key={`articlePreviewstatuslabel_${index}_${article.id}`}
@@ -70,7 +94,7 @@ const PreviewStatusLabels = ({ articles }) => {
 };
 
 PreviewStatusLabels.propTypes = {
-  articles: PropTypes.array.isRequired
+  articles: PropTypes.array.isRequired,
 };
 
 export default PreviewStatusLabels;

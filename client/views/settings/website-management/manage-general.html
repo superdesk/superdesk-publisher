@@ -51,6 +51,49 @@
       </div>
     </div>
     <div class="form__row">
+      <span
+        class="sd-toggle"
+        ng-class="{'checked' : newSite.apple_news_config}"
+        ng-click="webPublisherSettings.switchAppleNewsConfig()"
+        ><span class="inner"></span
+      ></span>
+      <label>Apple News</label>
+    </div>
+
+    <div class="form__row" ng-if="newSite.apple_news_config">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">Channel Id</label>
+        <input
+          class="sd-line-input__input"
+          type="text"
+          ng-model="newSite.apple_news_config.channel_id"
+        />
+      </div>
+    </div>
+
+    <div class="form__row" ng-if="newSite.apple_news_config">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">API Key</label>
+        <input
+          class="sd-line-input__input"
+          type="text"
+          ng-model="newSite.apple_news_config.api_key_id"
+        />
+      </div>
+    </div>
+
+    <div class="form__row" ng-if="newSite.apple_news_config">
+      <div class="sd-line-input">
+        <label class="sd-line-input__label">API Key Secret</label>
+        <input
+          class="sd-line-input__input"
+          type="text"
+          ng-model="newSite.apple_news_config.api_key_secret"
+        />
+      </div>
+    </div>
+
+    <div class="form__row">
       <span ng-model="newSite.amp_enabled" sd-switch=""></span
       ><label>Enable AMP</label>
     </div>

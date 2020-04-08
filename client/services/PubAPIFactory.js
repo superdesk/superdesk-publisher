@@ -250,7 +250,7 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
                     return response.data;
                 }
 
-                if (response.status === 401) {
+                if (response.status === 401 || response.status === 403) {
                     window.location.reload();
                 }
 
