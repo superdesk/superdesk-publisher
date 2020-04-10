@@ -21,7 +21,7 @@ class PublishPane extends React.Component {
       isPreviewOpen: false,
       previewItem: null,
       destinations: [],
-      package: {}
+      package: {},
     };
   }
 
@@ -34,19 +34,15 @@ class PublishPane extends React.Component {
   }
 
   componentDidUpdate() {
-    if (
-      this.props.isOpen &&
-      this.context.selectedItem &&
-      this.context.selectedItem.id !== this.state.package.id
-    ) {
+    if (this.props.isOpen && this.context.selectedItem) {
       // build destinations
       let destinations = [];
 
       this.context.publisher
         .getPackage(this.context.selectedItem.id)
-        .then(response => {
-          response.articles.forEach(item => {
-            let tenant = this.context.tenants.find(t => {
+        .then((response) => {
+          response.articles.forEach((item) => {
+            let tenant = this.context.tenants.find((t) => {
               return t.code === item.tenant.code;
             });
 
@@ -68,27 +64,27 @@ class PublishPane extends React.Component {
                 live_url:
                   item.status === "published"
                     ? "http://" + tenantUrl + item._links.online.href
-                    : null
+                    : null,
               });
             }
           });
 
           this.setState({
             destinations,
-            package: response
+            package: response,
           });
         });
     }
   }
 
-  togglePreview = item => {
+  togglePreview = (item) => {
     this.setState({
       isPreviewOpen: item ? true : false,
-      previewItem: item ? item : null
+      previewItem: item ? item : null,
     });
   };
 
-  switchTab = type => this.setState({ tab: type, isMetadataOpen: false });
+  switchTab = (type) => this.setState({ tab: type, isMetadataOpen: false });
 
   render() {
     if (!this.props.isOpen) return null;
@@ -108,7 +104,7 @@ class PublishPane extends React.Component {
             <ul className="nav-tabs nav-tabs--ui-dark">
               <li
                 className={classNames("nav-tabs__tab", {
-                  "nav-tabs__tab--active": this.state.tab === "publish"
+                  "nav-tabs__tab--active": this.state.tab === "publish",
                 })}
               >
                 <button
@@ -121,7 +117,7 @@ class PublishPane extends React.Component {
               {this.state.package && this.state.package.status !== "new" ? (
                 <li
                   className={classNames("nav-tabs__tab", {
-                    "nav-tabs__tab--active": this.state.tab === "unpublish"
+                    "nav-tabs__tab--active": this.state.tab === "unpublish",
                   })}
                 >
                   <button
@@ -137,7 +133,7 @@ class PublishPane extends React.Component {
           {this.state.tab === "publish" ? (
             <Publish
               destinations={this.state.destinations}
-              openPreview={item => this.togglePreview(item)}
+              openPreview={(item) => this.togglePreview(item)}
             />
           ) : (
             <Unpublish destinations={this.state.destinations} />
@@ -155,7 +151,7 @@ class PublishPane extends React.Component {
 }
 
 PublishPane.propTypes = {
-  isOpen: PropTypes.bool.isRequired
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default PublishPane;
