@@ -8,7 +8,6 @@ import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";
 import OptionSwitches from "./OptionSwitches";
 
-import Checkbox from "../UI/Checkbox";
 import SaveBar from "../UI/SaveBar";
 
 class Destination extends Component {
@@ -23,6 +22,7 @@ class Destination extends Component {
     let hasOutputChannel = false;
     let hasFbiaEnabled = false;
     let hasPaywallEnabled = false;
+    let hasAppleNewsEnabled = false;
 
     if (props.rule || props.site) {
       destination = {
@@ -32,7 +32,7 @@ class Destination extends Component {
         package_guid: props.item.evolvedfrom
           ? props.item.evolvedfrom
           : props.item.guid,
-        content_lists: []
+        content_lists: [],
       };
 
       if (props.site) {
@@ -40,6 +40,11 @@ class Destination extends Component {
 
         hasFbiaEnabled = props.site.fbia_enabled;
         hasPaywallEnabled = props.site.paywall_enabled;
+        hasAppleNewsEnabled =
+          props.site.apple_news_config &&
+          props.site.apple_news_config.channel_id
+            ? true
+            : false;
         hasOutputChannel = props.site.output_channel;
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
@@ -55,6 +60,11 @@ class Destination extends Component {
 
         hasFbiaEnabled = props.rule.tenant.fbia_enabled;
         hasPaywallEnabled = props.rule.tenant.paywall_enabled;
+        hasAppleNewsEnabled =
+          props.rule.tenant.apple_news_config &&
+          props.rule.tenant.apple_news_config.channel_id
+            ? true
+            : false;
         hasOutputChannel = props.rule.tenant.output_channel;
         subdomain = props.rule.tenant.subdomain
           ? props.rule.tenant.subdomain
@@ -77,9 +87,10 @@ class Destination extends Component {
       domainName: domainName ? domainName : "",
       hasOutputChannel: hasOutputChannel ? hasOutputChannel : false,
       hasPaywallEnabled: hasPaywallEnabled ? hasPaywallEnabled : false,
+      hasAppleNewsEnabled: hasAppleNewsEnabled ? true : false,
       hasFbiaEnabled: hasFbiaEnabled ? hasFbiaEnabled : false,
       isOpen: props.isOpen,
-      deleted: false
+      deleted: false,
     };
   }
 
@@ -96,7 +107,7 @@ class Destination extends Component {
         package_guid: props.item.evolvedfrom
           ? props.item.evolvedfrom
           : props.item.guid,
-        content_lists: []
+        content_lists: [],
       };
 
       const pubConfig = props.config.publisher || {};
@@ -106,12 +117,16 @@ class Destination extends Component {
       let hasOutputChannel = false;
       let hasFbiaEnabled = false;
       let hasPaywallEnabled = false;
+      let hasAppleNewsEnabled = false;
 
       if (props.site) {
         destination.tenant = props.site.code;
 
         hasFbiaEnabled = props.site.fbia_enabled;
         hasPaywallEnabled = props.site.paywall_enabled;
+        hasAppleNewsEnabled =
+          props.site.apple_news_config &&
+          props.site.apple_news_config.channel_id;
         hasOutputChannel = props.site.output_channel;
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
@@ -127,6 +142,11 @@ class Destination extends Component {
 
         hasFbiaEnabled = props.rule.tenant.fbia_enabled;
         hasPaywallEnabled = props.rule.tenant.paywall_enabled;
+        hasAppleNewsEnabled =
+          props.rule.tenant.apple_news_config &&
+          props.rule.tenant.apple_news_config.channel_id
+            ? true
+            : false;
         hasOutputChannel = props.rule.tenant.output_channel;
         subdomain = props.rule.tenant.subdomain
           ? props.rule.tenant.subdomain
@@ -145,8 +165,9 @@ class Destination extends Component {
           domainName: domainName,
           hasOutputChannel: hasOutputChannel,
           hasPaywallEnabled: hasPaywallEnabled,
+          hasAppleNewsEnabled: hasAppleNewsEnabled,
           hasFbiaEnabled: hasFbiaEnabled,
-          isOpen: props.isOpen
+          isOpen: props.isOpen,
         },
         this.getContentLists
       );
@@ -157,7 +178,7 @@ class Destination extends Component {
     let isOpen = this.state.isOpen;
     isOpen = !isOpen;
     this.setState({
-      isOpen: isOpen
+      isOpen: isOpen,
     });
     if (isOpen) this.setPreview();
   };
@@ -171,9 +192,9 @@ class Destination extends Component {
         this.props.item,
         { headers: this.props.apiHeader }
       )
-      .then(res => {
+      .then((res) => {
         this.setState({
-          previewUrl: res.data.preview_url
+          previewUrl: res.data.preview_url,
         });
         return res;
       });
@@ -185,15 +206,15 @@ class Destination extends Component {
     return axios
       .get(this.state.apiUrl + "content/lists/", {
         headers: this.props.apiHeader,
-        params: { limit: 1000 }
+        params: { limit: 1000 },
       })
-      .then(res => {
+      .then((res) => {
         let manualLists = res.data._embedded._items.filter(
-          el => el.type === "manual"
+          (el) => el.type === "manual"
         );
 
         this.setState({
-          contentLists: manualLists
+          contentLists: manualLists,
         });
         return res;
       });
@@ -203,11 +224,11 @@ class Destination extends Component {
     const dest = { ...this.state.destination };
     dest[fieldName] = value;
     this.setState({
-      destination: dest
+      destination: dest,
     });
   };
 
-  handleRouteChange = e => {
+  handleRouteChange = (e) => {
     const routeId = parseInt(e.target.value);
     const dest = { ...this.state.destination };
 
@@ -215,13 +236,13 @@ class Destination extends Component {
     this.setState(
       {
         destination: dest,
-        previewUrl: null
+        previewUrl: null,
       },
       this.setPreview
     );
   };
 
-  saveContentList = data => {
+  saveContentList = (data) => {
     let destination = { ...this.state.destination };
     destination.content_lists = data;
 
@@ -234,7 +255,7 @@ class Destination extends Component {
     this.setState({ destination });
   };
 
-  removeContentList = index => {
+  removeContentList = (index) => {
     let destination = { ...this.state.destination };
     destination.content_lists.splice(index, 1);
     this.setState({ destination });
@@ -247,7 +268,7 @@ class Destination extends Component {
         this.state.destination,
         { headers: this.props.apiHeader }
       )
-      .then(res => {
+      .then((res) => {
         this.props.done();
       });
   };
@@ -282,8 +303,8 @@ class Destination extends Component {
     }
 
     if (destination.content_lists && destination.content_lists.length) {
-      destination.content_lists.forEach(list => {
-        let theList = this.state.contentLists.find(el => el.id === list.id);
+      destination.content_lists.forEach((list) => {
+        let theList = this.state.contentLists.find((el) => el.id === list.id);
         if (theList)
           contentListsNames += contentListsNames
             ? ", " + theList.name
@@ -323,7 +344,7 @@ class Destination extends Component {
     return (
       <div
         className={classNames("sd-collapse-box sd-shadow--z2", {
-          "sd-collapse-box--open": this.state.isOpen
+          "sd-collapse-box--open": this.state.isOpen,
         })}
       >
         <div className="sd-collapse-box__header" onClick={this.toggleOpen}>
@@ -424,7 +445,7 @@ class Destination extends Component {
                 <RouteSelect
                   apiUrl={this.state.apiUrl}
                   apiHeader={this.props.apiHeader}
-                  onChange={e => this.handleRouteChange(e)}
+                  onChange={(e) => this.handleRouteChange(e)}
                   selectedRouteId={
                     this.state.destination.route
                       ? this.state.destination.route
@@ -436,6 +457,7 @@ class Destination extends Component {
             <OptionSwitches
               fbiaEnabled={this.state.hasFbiaEnabled}
               paywallEnabled={this.state.hasPaywallEnabled}
+              appleNewsEnabled={this.state.hasAppleNewsEnabled}
               destination={this.state.destination}
               onChange={(value, fieldName) =>
                 this.handleSwitchChange(value, fieldName)
@@ -465,11 +487,11 @@ Destination.propTypes = {
   item: PropTypes.object.isRequired,
   cancel: PropTypes.func.isRequired,
   done: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
 };
 
 Destination.defaultProps = {
-  isOpen: false
+  isOpen: false,
 };
 
 export default Destination;

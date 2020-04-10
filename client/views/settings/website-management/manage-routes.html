@@ -26,13 +26,33 @@
     </li>
   </ul>
   <span class="sd-page__element-grow"></span>
-  <div class="dropdown sd-margin-l--auto">
-    <button
-      class="btn btn--primary ng-binding"
-      ng-click="webPublisherSettings.toggleCreateRoute(true)"
-    >
+  <div class="dropdown sd-margin-l--auto" dropdown="">
+    <button class="btn btn--primary ng-binding" dropdown__toggle="">
       <i class="icon-plus-sign icon--white"></i>Add New
     </button>
+    <ul class="dropdown__menu dropdown--align-right">
+      <li>
+        <button
+          ng-click="webPublisherSettings.toggleCreateRoute(true, 'collection')"
+        >
+          Collection
+        </button>
+      </li>
+      <li>
+        <button
+          ng-click="webPublisherSettings.toggleCreateRoute(true, 'content')"
+        >
+          Content
+        </button>
+      </li>
+      <li>
+        <button
+          ng-click="webPublisherSettings.toggleCreateRoute(true, 'custom')"
+        >
+          Custom
+        </button>
+      </li>
+    </ul>
   </div>
 </div>
 

@@ -3,6 +3,7 @@
 exports[`generic/ArticlePreview renders correctly 1`] = `
 <div
   class="sd-preview-panel"
+  style="z-index: 1;"
 >
   <div
     class="side-panel side-panel--shadow-right"

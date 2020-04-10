@@ -14,7 +14,7 @@ class ArticlePreview extends React.Component {
     super(props);
 
     this.state = {
-      isExpanded: true
+      isExpanded: true,
     };
   }
 
@@ -42,7 +42,7 @@ class ArticlePreview extends React.Component {
     }
 
     return (
-      <div className="sd-preview-panel">
+      <div className="sd-preview-panel" style={{ zIndex: 1 }}>
         <div className="side-panel side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-bottom">
             <div className="side-panel__tools">
@@ -61,7 +61,7 @@ class ArticlePreview extends React.Component {
           <div className="side-panel__content">
             <div
               className={classNames("side-panel-collapsible-header", {
-                active: this.state.isExpanded
+                active: this.state.isExpanded,
               })}
             >
               <div className="side-panel-collapsible-header__fixed">
@@ -133,7 +133,7 @@ class ArticlePreview extends React.Component {
               </div>
               <button
                 className={classNames("side-panel-collapsible-header__toggle", {
-                  active: this.state.isExpanded
+                  active: this.state.isExpanded,
                 })}
                 onClick={this.toggle}
               >
@@ -177,7 +177,7 @@ class ArticlePreview extends React.Component {
 
 ArticlePreview.propTypes = {
   article: PropTypes.object,
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
 };
 
 export default ArticlePreview;
