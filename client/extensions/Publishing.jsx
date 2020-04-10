@@ -44,7 +44,6 @@ class Publishing extends React.Component {
           if (!json.guid) {
             this.setState({ ninjsError: json.message, loading: false });
           } else {
-            console.log(json);
             this.setState({ item: json });
             this.prepare();
           }
