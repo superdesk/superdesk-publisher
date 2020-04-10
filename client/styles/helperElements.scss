@@ -264,7 +264,9 @@ select[disabled] > option {
   text-align: center;
 }
 
-.sp-imageMaxWidth-wrapper img {
+.sp-imageMaxWidth-wrapper img,
+.sp-imageMaxWidth-wrapper .embed-block,
+.sp-imageMaxWidth-wrapper iframe {
   max-width: 100%;
 }
 

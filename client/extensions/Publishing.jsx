@@ -25,27 +25,26 @@ class Publishing extends React.Component {
       item: null,
       rules: [],
       loading: true,
-      ninjsError: false
+      ninjsError: false,
     };
   }
 
   componentDidMount() {
     const { api, item, urls } = this.props;
 
-    api.query("subscribers").then(res => {
+    api.query("subscribers").then((res) => {
       let subscriber_id = res["_items"][0] ? res["_items"][0]._id : null;
       let formatterUrl =
         urls.item("format-document-for-preview") +
-        `?subscriber_id=${subscriber_id}&formatter=ninjs&document_id=${
-          item._id
-        }`;
+        `?subscriber_id=${subscriber_id}&formatter=ninjs&document_id=${item._id}`;
 
-      fetch(formatterUrl).then(response =>
-        response.text().then(responseText => {
+      fetch(formatterUrl).then((response) =>
+        response.text().then((responseText) => {
           let json = JSON.parse(responseText);
           if (!json.guid) {
             this.setState({ ninjsError: json.message, loading: false });
           } else {
+            console.log(json);
             this.setState({ item: json });
             this.prepare();
           }
@@ -55,7 +54,7 @@ class Publishing extends React.Component {
   }
 
   prepare = () => {
-    this.authorize().then(res => {
+    this.authorize().then((res) => {
       this.setState(
         { apiHeader: { Authorization: "Basic " + res.data.token.api_key } },
         () => {
@@ -68,7 +67,7 @@ class Publishing extends React.Component {
   authorize = () => {
     return axios.post(this.state.apiUrl + "auth/superdesk/", {
       session_id: this.props.session.sessionId,
-      token: this.props.session.token
+      token: this.props.session.token,
     });
   };
 
@@ -79,12 +78,12 @@ class Publishing extends React.Component {
         this.state.item,
         { headers: this.state.apiHeader }
       )
-      .then(res => {
+      .then((res) => {
         if (!_.isEmpty(res.data)) {
-          let rules = _.filter(res.data.tenants, rule => rule.published);
+          let rules = _.filter(res.data.tenants, (rule) => rule.published);
           this.setState({
             rules: rules,
-            loading: false
+            loading: false,
           });
         }
         return res;
@@ -136,7 +135,7 @@ Publishing.propTypes = {
   api: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
-  session: PropTypes.object.isRequired
+  session: PropTypes.object.isRequired,
 };
 
 export default Publishing;

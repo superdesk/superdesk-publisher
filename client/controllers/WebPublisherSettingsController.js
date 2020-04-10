@@ -935,6 +935,11 @@ export function WebPublisherSettingsController(
         );
     }
 
+    switchAppleNewsConfig() {
+      $scope.newSite.apple_news_config = $scope.newSite.apple_news_config === null ? {} : null;
+    }
+
+
     /**
      * @ngdoc method
      * @name WebPublisherSettingsController#themeActivatedCallback
