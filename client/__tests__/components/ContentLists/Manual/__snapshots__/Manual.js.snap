@@ -201,10 +201,13 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
           class="sd-list-item-group sd-shadow--z2"
         >
           <li
-            aria-roledescription="Draggable item. Press space bar to lift"
-            data-react-beautiful-dnd-drag-handle="0"
-            data-react-beautiful-dnd-draggable="0"
+            aria-describedby="rbd-hidden-text-0-hidden-text-0"
+            data-rbd-drag-handle-context-id="0"
+            data-rbd-drag-handle-draggable-id="draggable_1317"
+            data-rbd-draggable-context-id="0"
+            data-rbd-draggable-id="draggable_1317"
             draggable="false"
+            role="button"
             tabindex="0"
           >
             <div
