@@ -40,7 +40,7 @@
     "moment": "^2.24.0",
     "ng-file-upload": "^12.2.13",
     "ng-infinite-scroll": "^1.3.0",
-    "react-beautiful-dnd": "^11.0.5",
+    "react-beautiful-dnd": "^13.0.0",
     "react-infinite-scroll-component": "^5.0.4",
     "react-select": "^3.0.4",
     "react-virtualized": "^9.21.2"
@@ -61,7 +61,7 @@
     "jest-dom": "^3.4.0",
     "jest-transform-css": "^2.0.0",
     "superdesk-code-style": "^1.0.0",
-    "superdesk-core": "superdesk/superdesk-client-core#bcf2394",
+    "superdesk-core": "superdesk/superdesk-client-core#9242566",
     "wait-for-expect": "^1.2.0"
   }
 }
