@@ -6,6 +6,8 @@ import _ from "lodash";
 import ImageUpload from "../../UI/ImageUpload";
 import Store from "../Store";
 
+import { IconButton } from "superdesk-ui-framework";
+
 class MetadataEditor extends React.Component {
   static contextType = Store;
 
@@ -16,7 +18,7 @@ class MetadataEditor extends React.Component {
       file: null,
       title: null,
       description: null,
-      uploading: false
+      uploading: false,
     };
   }
 
@@ -35,7 +37,7 @@ class MetadataEditor extends React.Component {
       let {
         fileFieldName,
         titleFieldName,
-        descriptionFieldName
+        descriptionFieldName,
       } = this.getFieldNames();
 
       let file =
@@ -56,12 +58,12 @@ class MetadataEditor extends React.Component {
     let {
       fileFieldName,
       titleFieldName,
-      descriptionFieldName
+      descriptionFieldName,
     } = this.getFieldNames();
 
     let metadata = {
       [titleFieldName]: this.state.title,
-      [descriptionFieldName]: this.state.description
+      [descriptionFieldName]: this.state.description,
     };
 
     this.context.publisher.setTenant(this.props.destination.tenant);
@@ -72,10 +74,10 @@ class MetadataEditor extends React.Component {
   };
 
   debouncedSaveMetadata = _.debounce(this.saveMetaData, 1000, {
-    maxWait: 3000
+    maxWait: 3000,
   });
 
-  uploadImage = e => {
+  uploadImage = (e) => {
     const files = Array.from(e.target.files);
     const name = e.target.name;
 
@@ -90,11 +92,11 @@ class MetadataEditor extends React.Component {
         this.context.publisher.setTenant(this.props.destination.tenant);
         this.context.publisher
           .uploadMetaImage(data, this.props.destination.slug)
-          .then(response => {
+          .then((response) => {
             let {
               fileFieldName,
               titleFieldName,
-              descriptionFieldName
+              descriptionFieldName,
             } = this.getFieldNames();
 
             let file =
@@ -106,7 +108,7 @@ class MetadataEditor extends React.Component {
 
             this.setState({ file, title, description, uploading: false });
           })
-          .catch(err => {
+          .catch((err) => {
             this.setState({ uploading: false });
           });
       }
@@ -133,7 +135,7 @@ class MetadataEditor extends React.Component {
     return { fileFieldName, titleFieldName, descriptionFieldName };
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     let { name, value } = e.target;
 
     this.setState({ [name]: value }, this.debouncedSaveMetadata);
@@ -153,19 +155,19 @@ class MetadataEditor extends React.Component {
     return (
       <div
         className={classNames("side-panel__content-block-overlay-grid", {
-          "side-panel__content-block-overlay-grid--open": this.props.isOpen
+          "side-panel__content-block-overlay-grid--open": this.props.isOpen,
         })}
       >
         <div className="side-panel">
           <div className="side-panel__header">
-            <a
-              className="icn-btn sd-margin-l--1"
-              onClick={this.props.close}
-              sd-tooltip="Back"
-              flow="right"
-            >
-              <i className="icon-arrow-left"></i>
-            </a>
+            <span className="sd-margin-l--1">
+              <IconButton
+                icon="arrow-left"
+                tooltip={{ text: "Back", flow: "right" }}
+                onClick={this.props.close}
+              />
+            </span>
+
             <h3 className="side-panel__heading side-panel__heading--big">
               {this.props.type} meta data
             </h3>
@@ -175,7 +177,7 @@ class MetadataEditor extends React.Component {
               <div className="form__row">
                 <ImageUpload
                   href={this.state.file}
-                  upload={e => this.uploadImage(e)}
+                  upload={(e) => this.uploadImage(e)}
                   fieldName={imageFieldName}
                   isUploadingInProgress={this.props.isUploadingInProgress}
                 />
@@ -216,7 +218,7 @@ MetadataEditor.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   destination: PropTypes.object,
   type: PropTypes.string,
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
 };
 
 export default MetadataEditor;

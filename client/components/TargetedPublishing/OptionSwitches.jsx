@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Checkbox from "../UI/Checkbox";
+import { Checkbox } from "superdesk-ui-framework";
 
 const OptionSwitches = ({
   fbiaEnabled,
@@ -24,9 +24,9 @@ const OptionSwitches = ({
           >
             <span>
               <Checkbox
-                label="Facebook"
-                value={destination.is_published_fbia}
-                onChange={(e) => onChange(e.target.value, "is_published_fbia")}
+                label={{ text: "Facebook" }}
+                checked={destination.is_published_fbia}
+                onChange={(value) => onChange(value, "is_published_fbia")}
               />
             </span>
           </div>
@@ -40,10 +40,10 @@ const OptionSwitches = ({
           >
             <span>
               <Checkbox
-                label="Apple News"
-                value={destination.is_published_to_apple_news}
-                onChange={(e) =>
-                  onChange(e.target.value, "is_published_to_apple_news")
+                label={{ text: "Apple News" }}
+                checked={destination.is_published_to_apple_news}
+                onChange={(value) =>
+                  onChange(value, "is_published_to_apple_news")
                 }
               />
             </span>
@@ -58,9 +58,9 @@ const OptionSwitches = ({
           >
             <span>
               <Checkbox
-                label="Paywall"
-                value={destination.paywall_secured}
-                onChange={(e) => onChange(e.target.value, "paywall_secured")}
+                label={{ text: "Paywall" }}
+                checked={destination.paywall_secured}
+                onChange={(value) => onChange(value, "paywall_secured")}
               />
             </span>
           </div>

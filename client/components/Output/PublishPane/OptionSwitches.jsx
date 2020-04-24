@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Checkbox from "../../UI/Checkbox";
+import { Checkbox } from "superdesk-ui-framework";
 
 const OptionSwitches = ({
   fbiaEnabled,
   paywallEnabled,
   destination,
-  onChange
+  onChange,
 }) => {
   let paywalSecuredStyle = {};
 
@@ -21,9 +21,9 @@ const OptionSwitches = ({
         {fbiaEnabled && (
           <span sd-tooltip="Publish to facebook">
             <Checkbox
-              label="Facebook"
-              value={destination.is_published_fbia}
-              onChange={e => onChange(e.target.value, "is_published_fbia")}
+              label={{ text: "Facebook" }}
+              checked={destination.is_published_fbia}
+              onChange={(value) => onChange(value, "is_published_fbia")}
             />
           </span>
         )}
@@ -31,9 +31,10 @@ const OptionSwitches = ({
         {paywallEnabled && (
           <span style={paywalSecuredStyle} sd-tooltip="Enable Paywall">
             <Checkbox
-              label="Paywall Secured"
-              value={destination.paywall_secured}
-              onChange={e => onChange(e.target.value, "paywall_secured")}
+              label={{ text: "Paywall Secured" }}
+              label=""
+              checked={destination.paywall_secured}
+              onChange={(value) => onChange(value, "paywall_secured")}
             />
           </span>
         )}
@@ -48,7 +49,7 @@ OptionSwitches.propTypes = {
   fbiaEnabled: PropTypes.bool.isRequired,
   paywallEnabled: PropTypes.bool.isRequired,
   destination: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default OptionSwitches;

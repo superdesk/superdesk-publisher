@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
+import { IconButton } from "superdesk-ui-framework";
 import ImageUpload from "../UI/ImageUpload";
+
 class MetaDataOverlay extends Component {
   handleInputChange = (e, a) => {
     let { name, value } = e.target;
@@ -45,19 +47,19 @@ class MetaDataOverlay extends Component {
     return (
       <div
         className={classNames("side-panel__content-block-overlay", {
-          "side-panel__content-block-overlay--open": this.props.isOpen
+          "side-panel__content-block-overlay--open": this.props.isOpen,
         })}
       >
         <div className="side-panel">
           <div className="side-panel__header">
-            <a
-              className="icn-btn sd-margin-l--1"
-              onClick={this.props.toggle}
-              sd-tooltip="Back"
-              flow="right"
-            >
-              <i className="icon-arrow-left" />
-            </a>
+            <span className="sd-margin-l--1">
+              <IconButton
+                icon="arrow-left"
+                tooltip={{ text: "Back", flow: "right" }}
+                onClick={this.props.toggle}
+              />
+            </span>
+
             <h3 className="side-panel__heading side-panel__heading--big">
               {this.props.type}
             </h3>
@@ -67,7 +69,7 @@ class MetaDataOverlay extends Component {
               <div className="form__row">
                 <ImageUpload
                   href={imageHref}
-                  upload={e => this.props.uploadImage(e)}
+                  upload={(e) => this.props.uploadImage(e)}
                   fieldName={imageFieldName}
                   isUploadingInProgress={this.props.isUploadingInProgress}
                 />
@@ -118,7 +120,7 @@ MetaDataOverlay.propTypes = {
   metaData: PropTypes.object.isRequired,
   setMetaData: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
-  isUploadingInProgress: PropTypes.bool
+  isUploadingInProgress: PropTypes.bool,
 };
 
 export default MetaDataOverlay;

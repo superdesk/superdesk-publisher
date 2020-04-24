@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { IconButton } from "superdesk-ui-framework";
 
-const ContentListElement = props => {
-  const createPositionOptions = list => {
+const ContentListElement = (props) => {
+  const createPositionOptions = (list) => {
     if (!Number.isInteger(list.id)) return null;
 
-    let listObj = props.allContentLists.find(l => l.id === list.id);
+    let listObj = props.allContentLists.find((l) => l.id === list.id);
     let count = listObj.content_list_items_count;
     let options = [];
 
@@ -40,9 +41,9 @@ const ContentListElement = props => {
 
   let remainingLists = [...props.allContentLists];
 
-  props.ruleLists.forEach(list => {
+  props.ruleLists.forEach((list) => {
     let index = remainingLists.findIndex(
-      rlist => list.id === rlist.id && rlist.id !== props.list.id
+      (rlist) => list.id === rlist.id && rlist.id !== props.list.id
     );
 
     if (index >= 0) {
@@ -54,14 +55,11 @@ const ContentListElement = props => {
     <div className="sd-list-item sd-list-item--no-hover sd-margin-b--1">
       <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--large-padding">
         <div className="sd-list-item__row no-margin sd-flex-justify-end">
-          <a
-            className="icn-btn disabled"
-            sd-tooltip="Remove list"
-            flow="left"
+          <IconButton
+            icon="trash"
+            tooltip={{ text: "Remove list", flow: "left" }}
             onClick={() => props.removeList(props.index)}
-          >
-            <i className="icon-trash" />
-          </a>
+          />
         </div>
         <div className="sd-list-item__row">
           <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow">
@@ -70,10 +68,10 @@ const ContentListElement = props => {
               className="sd-line-input__select"
               value={props.list.id ? props.list.id : ""}
               name="id"
-              onChange={e => contentListChangeHandler(e, props.index)}
+              onChange={(e) => contentListChangeHandler(e, props.index)}
             >
               <option value="" />
-              {remainingLists.map(rl => (
+              {remainingLists.map((rl) => (
                 <option
                   value={rl.id}
                   key={"select" + props.list.id + "-" + rl.id}
@@ -91,7 +89,7 @@ const ContentListElement = props => {
               className="sd-line-input__select"
               value={props.list.position}
               name="position"
-              onChange={e => contentListChangeHandler(e, props.index)}
+              onChange={(e) => contentListChangeHandler(e, props.index)}
             >
               {createPositionOptions(props.list)}
             </select>
@@ -108,7 +106,7 @@ ContentListElement.propTypes = {
   index: PropTypes.number.isRequired,
   list: PropTypes.object.isRequired,
   allContentLists: PropTypes.array.isRequired,
-  save: PropTypes.func.isRequired
+  save: PropTypes.func.isRequired,
 };
 
 export default ContentListElement;

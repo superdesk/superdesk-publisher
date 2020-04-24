@@ -1,14 +1,14 @@
 import React from "react";
-
+import { IconButton } from "superdesk-ui-framework";
 import Dropdown from "../UI/Dropdown";
 
 const SortingOptions = ({ filters, setFilters }) => {
-  const setSort = value => {
+  const setSort = (value) => {
     filters.sort = value;
     setFilters(filters);
   };
 
-  const setOrder = value => {
+  const setOrder = (value) => {
     filters.order = value;
     setFilters(filters);
   };
@@ -35,23 +35,17 @@ const SortingOptions = ({ filters, setFilters }) => {
         </li>
       </Dropdown>
       {filters.order === "desc" ? (
-        <a
-          className="icn-btn"
-          sd-tooltip="Descending"
-          flow="bottom"
+        <IconButton
+          icon="descending"
+          tooltip={{ text: "Descending", flow: "bottom" }}
           onClick={() => setOrder("asc")}
-        >
-          <i className="icon-descending"></i>
-        </a>
+        />
       ) : (
-        <a
-          className="icn-btn"
-          sd-tooltip="Ascending"
-          flow="bottom"
+        <IconButton
+          icon="ascending"
+          tooltip={{ text: "Ascending", flow: "bottom" }}
           onClick={() => setOrder("desc")}
-        >
-          <i className="icon-ascending"></i>
-        </a>
+        />
       )}
     </React.Fragment>
   );

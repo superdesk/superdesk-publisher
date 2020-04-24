@@ -5,14 +5,15 @@ import moment from "moment";
 import _ from "lodash";
 
 import Store from "../Store";
-import ArticleStatusLabel from "../../UI/ArticleStatusLabel";
+
+import { IconButton, Label } from "superdesk-ui-framework";
 
 const ArticleItem = ({ item, style }) => {
   const store = React.useContext(Store);
 
   let galleries = null;
   let galleriesFlag = false;
-  item.extra_items.forEach(i => {
+  item.extra_items.forEach((i) => {
     if (i.type === "media") galleriesFlag = true;
   });
 
@@ -41,7 +42,7 @@ const ArticleItem = ({ item, style }) => {
     <div
       className={classNames("sd-list-item", {
         "sd-list-item--activated":
-          store.selectedItem && store.selectedItem.id === item.id
+          store.selectedItem && store.selectedItem.id === item.id,
       })}
       style={style}
       onClick={() => store.actions.togglePreview(item)}
@@ -49,7 +50,7 @@ const ArticleItem = ({ item, style }) => {
       <div
         className={classNames("sd-list-item__border", {
           "sd-list-item__border--success": item.status === "published",
-          "sd-list-item__border--locked": item.status === "unpublished"
+          "sd-list-item__border--locked": item.status === "unpublished",
         })}
       ></div>
 
@@ -60,14 +61,13 @@ const ArticleItem = ({ item, style }) => {
             {item.headline}
           </span>
           {item.service &&
-            item.service.map(service =>
+            item.service.map((service) =>
               store.selectedList === "incoming" ? (
-                <span
+                <Label
                   key={"articleService" + item.id + "-" + service.name}
-                  className="label label--hollow"
-                >
-                  {service.name}
-                </span>
+                  text={service.name}
+                  style="hollow"
+                />
               ) : null
             )}
           {item.articles[0] && item.articles[0].paywall_secured && (
@@ -91,28 +91,22 @@ const ArticleItem = ({ item, style }) => {
         </div>
       </div>
       <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
-        <button
-          sd-tooltip="Correct"
-          flow="left"
-          className="icn-btn"
-          onClick={e => {
+        <IconButton
+          icon="pencil"
+          tooltip={{ text: "Correct", flow: "left" }}
+          onClick={(e) => {
             e.stopPropagation();
             store.actions.correctPackage(item);
           }}
-        >
-          <i className="icon-pencil"></i>
-        </button>
-        <button
-          sd-tooltip="Publish"
-          flow="left"
-          className="icn-btn"
-          onClick={e => {
+        />
+        <IconButton
+          icon="expand-thin"
+          tooltip={{ text: "Publish", flow: "left" }}
+          onClick={(e) => {
             e.stopPropagation();
             store.actions.togglePublish(item);
           }}
-        >
-          <i className="icon-expand-thin"></i>
-        </button>
+        />
       </div>
     </div>
   );
@@ -120,7 +114,7 @@ const ArticleItem = ({ item, style }) => {
 
 ArticleItem.propTypes = {
   item: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 };
 
 export default ArticleItem;

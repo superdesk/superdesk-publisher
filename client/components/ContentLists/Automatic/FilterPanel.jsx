@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import _ from "lodash";
-
+import { Button, IconButton } from "superdesk-ui-framework";
 import MultiSelect from "../../UI/MultiSelect";
 
 class FilterPanel extends React.Component {
@@ -15,14 +14,14 @@ class FilterPanel extends React.Component {
       filters: { metadata: [], route: [], author: [] },
       routes: [],
       authors: [],
-      loading: true
+      loading: true,
     };
   }
 
   componentDidMount() {
     this._isMounted = true;
 
-    this.props.publisher.queryRoutes({ type: "collection" }).then(routes => {
+    this.props.publisher.queryRoutes({ type: "collection" }).then((routes) => {
       if (this._isMounted) {
         this.setState({ routes }, this.prepareFilters);
       }
@@ -48,11 +47,11 @@ class FilterPanel extends React.Component {
         page: page,
         sort: '[("first_name", 1), ("last_name", 1)]',
         where: {
-          is_support: { $ne: true }
-        }
+          is_support: { $ne: true },
+        },
       })
-      .then(response => {
-        let authors = response._items.filter(item => item.is_author);
+      .then((response) => {
+        let authors = response._items.filter((item) => item.is_author);
 
         if (this._isMounted && authors.length)
           this.setState({ authors: [...this.state.authors, ...authors] });
@@ -66,9 +65,9 @@ class FilterPanel extends React.Component {
 
     let newRoute = [];
     if (filters.route) {
-      filters.route.map(id => {
+      filters.route.map((id) => {
         let routeObj = this.state.routes.find(
-          route => parseInt(id) === parseInt(route.id)
+          (route) => parseInt(id) === parseInt(route.id)
         );
         if (routeObj)
           newRoute.push({ value: parseInt(routeObj.id), label: routeObj.name });
@@ -78,7 +77,7 @@ class FilterPanel extends React.Component {
 
     let newAuthor = [];
     if (filters.author) {
-      filters.author.map(authorName => {
+      filters.author.map((authorName) => {
         newAuthor.push({ value: authorName, label: authorName });
       });
     }
@@ -101,7 +100,7 @@ class FilterPanel extends React.Component {
     let filters = _.pickBy({ ...this.state.filters }, _.identity);
 
     let newMetadata = {};
-    filters.metadata.forEach(item => {
+    filters.metadata.forEach((item) => {
       if (item.key) {
         newMetadata[item.key] = item.value;
       }
@@ -111,7 +110,7 @@ class FilterPanel extends React.Component {
 
     let newRoute = [];
 
-    filters.route.forEach(item => {
+    filters.route.forEach((item) => {
       newRoute.push(item.value);
     });
 
@@ -119,7 +118,7 @@ class FilterPanel extends React.Component {
 
     let newAuthor = [];
 
-    filters.author.forEach(item => {
+    filters.author.forEach((item) => {
       newAuthor.push(item.value);
     });
 
@@ -127,11 +126,11 @@ class FilterPanel extends React.Component {
 
     this.props.publisher
       .manageList({ filters: JSON.stringify(filters) }, this.props.list.id)
-      .then(response => {
+      .then((response) => {
         this.props.onFiltersSave(response);
         this.setState({ loading: false });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ loading: false });
         if (err.status === 409) {
           this.props.api.notify.error(
@@ -147,7 +146,7 @@ class FilterPanel extends React.Component {
     this.setState({ filters: { metadata: [], route: [], author: [] } });
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     let { name, value } = e.target;
     let filters = { ...this.state.filters };
 
@@ -155,14 +154,14 @@ class FilterPanel extends React.Component {
     this.setState({ filters });
   };
 
-  handleAuthorChange = arr => {
+  handleAuthorChange = (arr) => {
     let filters = { ...this.state.filters };
 
     filters.author = arr ? arr : [];
     this.setState({ filters });
   };
 
-  handleRoutesChange = arr => {
+  handleRoutesChange = (arr) => {
     let filters = { ...this.state.filters };
 
     filters.route = arr ? arr : [];
@@ -176,7 +175,7 @@ class FilterPanel extends React.Component {
     this.setState({ filters });
   };
 
-  removeMetaData = index => {
+  removeMetaData = (index) => {
     let filters = { ...this.state.filters };
 
     delete filters.metadata[index];
@@ -194,19 +193,19 @@ class FilterPanel extends React.Component {
   render() {
     let routesOptions = [];
 
-    this.state.routes.map(route => {
+    this.state.routes.map((route) => {
       routesOptions.push({
         value: parseInt(route.id),
-        label: route.name
+        label: route.name,
       });
     });
 
     let authorsOptions = [];
 
-    this.state.authors.map(author => {
+    this.state.authors.map((author) => {
       authorsOptions.push({
         value: author.display_name,
-        label: author.display_name
+        label: author.display_name,
       });
     });
 
@@ -215,14 +214,13 @@ class FilterPanel extends React.Component {
         {this.state.loading && <div className="sd-loader" />}
         <div className="side-panel side-panel--transparent side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-b">
-            <a
-              className="icn-btn side-panel__close"
-              sd-tooltip="Close filters"
-              flow="left"
-              onClick={this.props.toggle}
-            >
-              <i className="icon-close-small" />
-            </a>
+            <span className="side-panel__close">
+              <IconButton
+                icon="close-small"
+                tooltip={{ text: "Close", flow: "left" }}
+                onClick={this.props.toggle}
+              />
+            </span>
             <h3 className="side-panel__heading side-panel__heading--big">
               Automatic List Criteria
             </h3>
@@ -233,7 +231,7 @@ class FilterPanel extends React.Component {
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Categories</label>
                   <MultiSelect
-                    onSelect={values => this.handleRoutesChange(values)}
+                    onSelect={(values) => this.handleRoutesChange(values)}
                     options={routesOptions}
                     selectedOptions={this.state.filters.route}
                   />
@@ -243,7 +241,7 @@ class FilterPanel extends React.Component {
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Author</label>
                   <MultiSelect
-                    onSelect={values => this.handleAuthorChange(values)}
+                    onSelect={(values) => this.handleAuthorChange(values)}
                     options={authorsOptions}
                     selectedOptions={this.state.filters.author}
                   />
@@ -310,7 +308,7 @@ class FilterPanel extends React.Component {
                         <input
                           className="sd-line-input__input"
                           type="text"
-                          onChange={e => this.handleMetaDataChange(e, index)}
+                          onChange={(e) => this.handleMetaDataChange(e, index)}
                           name="key"
                           value={meta.key ? meta.key : ""}
                           placeholder="Name"
@@ -320,45 +318,43 @@ class FilterPanel extends React.Component {
                         <input
                           className="sd-line-input__input"
                           type="text"
-                          onChange={e => this.handleMetaDataChange(e, index)}
+                          onChange={(e) => this.handleMetaDataChange(e, index)}
                           name="value"
                           value={meta.value ? meta.value : ""}
                           placeholder="Value"
                         />
                       </div>
                       <div className="grid__item grid__item--col-2">
-                        <button
-                          type="button"
-                          className="btn btn--alert btn--small btn--icon-only btn--hollow"
+                        <Button
+                          type="primary"
+                          icon="close-small"
+                          size="small"
                           onClick={() => this.removeMetaData(index)}
                           sd-tooltip="Remove"
-                        >
-                          <i className="icon-close-small" />
-                        </button>
+                        />
                       </div>
                     </div>
                   ))}
 
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--icon-only margin--top"
-                    onClick={this.addMetadata}
-                    flow="right"
-                  >
-                    <i className="icon-plus-large" />
-                  </button>
+                  <div className="margin--top">
+                    <Button
+                      type="primary"
+                      icon="plus-large"
+                      onClick={this.addMetadata}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-              <a className="btn btn--hollow" onClick={this.clear}>
-                Clear
-              </a>
-              <a className="btn btn--primary" onClick={this.save}>
-                Update Criteria
-              </a>
+              <Button text="Clear" style="hollow" onClick={this.clear} />
+              <Button
+                text="Update Criteria"
+                type="primary"
+                onClick={this.save}
+              />
             </div>
           </div>
         </div>
@@ -373,7 +369,7 @@ FilterPanel.propTypes = {
   publisher: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   onFiltersSave: PropTypes.func,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
 };
 
 export default FilterPanel;

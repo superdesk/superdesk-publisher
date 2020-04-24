@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import classNames from "classnames";
-
+import { Button, IconButton } from "superdesk-ui-framework";
 import MultiSelect from "../UI/MultiSelect";
 
 class FiltersPanel extends React.Component {
@@ -12,7 +11,7 @@ class FiltersPanel extends React.Component {
     this.state = {
       filters: props.filters ? props.filters : {},
       authors: [],
-      dateFilterType: "range"
+      dateFilterType: "range",
     };
   }
 
@@ -26,13 +25,13 @@ class FiltersPanel extends React.Component {
       let newAuthors = [];
 
       if (filters.author && filters.author.length) {
-        filters.author.forEach(item => {
-          let author = this.state.authors.find(a => a.display_name === item);
+        filters.author.forEach((item) => {
+          let author = this.state.authors.find((a) => a.display_name === item);
 
           if (author) {
             newAuthors.push({
               value: author.display_name,
-              label: author.display_name
+              label: author.display_name,
             });
           }
         });
@@ -50,11 +49,11 @@ class FiltersPanel extends React.Component {
         page: page,
         sort: '[("first_name", 1), ("last_name", 1)]',
         where: {
-          is_support: { $ne: true }
-        }
+          is_support: { $ne: true },
+        },
       })
-      .then(response => {
-        let authors = response._items.filter(item => item.is_author);
+      .then((response) => {
+        let authors = response._items.filter((item) => item.is_author);
 
         if (authors.length)
           this.setState({ authors: [...this.state.authors, ...authors] });
@@ -63,7 +62,7 @@ class FiltersPanel extends React.Component {
       });
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     let { name, value } = e.target;
     let filters = { ...this.state.filters };
 
@@ -71,7 +70,7 @@ class FiltersPanel extends React.Component {
     this.setState({ filters });
   };
 
-  handleAuthorChange = arr => {
+  handleAuthorChange = (arr) => {
     let filters = { ...this.state.filters };
 
     filters.author = arr ? arr : [];
@@ -88,7 +87,7 @@ class FiltersPanel extends React.Component {
     let newAuthor = [];
 
     if (filters.author && filters.author.length) {
-      filters.author.map(item => {
+      filters.author.map((item) => {
         newAuthor.push(item.value);
       });
 
@@ -112,7 +111,7 @@ class FiltersPanel extends React.Component {
     return true;
   };
 
-  handleDateFilterTypeChange = e => {
+  handleDateFilterTypeChange = (e) => {
     let type = e.target.value;
     let published_after = "";
     let published_before = "";
@@ -120,14 +119,10 @@ class FiltersPanel extends React.Component {
     // 2020-02-04
 
     if (type === "thisWeek") {
-      published_after = moment()
-        .startOf("isoWeek")
-        .format("YYYY-MM-DD");
+      published_after = moment().startOf("isoWeek").format("YYYY-MM-DD");
       published_before = moment().format("YYYY-MM-DD");
     } else if (type === "thisMonth") {
-      published_after = moment()
-        .startOf("month")
-        .format("YYYY-MM-DD");
+      published_after = moment().startOf("month").format("YYYY-MM-DD");
       published_before = moment().format("YYYY-MM-DD");
     } else if (type === "lastWeek") {
       published_after = moment()
@@ -159,10 +154,10 @@ class FiltersPanel extends React.Component {
   render() {
     let authorsOptions = [];
 
-    this.state.authors.map(author => {
+    this.state.authors.map((author) => {
       authorsOptions.push({
         value: author.display_name,
-        label: author.display_name
+        label: author.display_name,
       });
     });
 
@@ -170,14 +165,13 @@ class FiltersPanel extends React.Component {
       <div className="sd-filters-panel sd-filters-panel--border-right">
         <div className="side-panel side-panel--transparent side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-b">
-            <a
-              className="icn-btn side-panel__close"
-              sd-tooltip="Close filters"
-              flow="left"
-              onClick={this.props.toggle}
-            >
-              <i className="icon-close-small" />
-            </a>
+            <span className="side-panel__close">
+              <IconButton
+                icon="close-small"
+                tooltip={{ text: "Close filters", flow: "left" }}
+                onClick={this.props.toggle}
+              />
+            </span>
             <h3 className="side-panel__heading side-panel__heading--big">
               Filter
             </h3>
@@ -196,7 +190,7 @@ class FiltersPanel extends React.Component {
                     }
                   >
                     <option value="" />
-                    {this.props.routes.map(route => (
+                    {this.props.routes.map((route) => (
                       <option key={"route" + route.id} value={route.id}>
                         {route.name}
                       </option>
@@ -208,7 +202,7 @@ class FiltersPanel extends React.Component {
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Author</label>
                   <MultiSelect
-                    onSelect={values => this.handleAuthorChange(values)}
+                    onSelect={(values) => this.handleAuthorChange(values)}
                     options={authorsOptions}
                     selectedOptions={
                       this.state.filters.author ? this.state.filters.author : []
@@ -274,34 +268,31 @@ class FiltersPanel extends React.Component {
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-              <a
-                className="btn btn--hollow"
-                data-testid="filterClear"
+              <Button
+                text="Clear"
+                style="hollow"
                 onClick={this.clear}
-              >
-                Clear
-              </a>
-              <a
-                className="btn btn--primary"
-                data-testid="filterSave"
+                data-testid="filterClear"
+              />
+              <Button
+                text="Run Report"
+                type="primary"
                 onClick={this.save}
-              >
-                Run Report
-              </a>
+                data-testid="filterSave"
+              />
             </div>
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-1">
-              <a
-                className={classNames("btn btn--primary btn--expanded", {
-                  "btn--disabled": this.isFiltersEmpty()
-                })}
+              <Button
+                text="Generate Report"
+                type="primary"
+                expanded={true}
                 onClick={() =>
                   this.isFiltersEmpty()
                     ? null
                     : this.props.generateReport(this.state.filters)
                 }
-              >
-                Generate Report
-              </a>
+                disabled={this.isFiltersEmpty()}
+              />
             </div>
           </div>
         </div>
@@ -316,7 +307,7 @@ FiltersPanel.propTypes = {
   setFilters: PropTypes.func.isRequired,
   routes: PropTypes.array,
   api: PropTypes.func.isRequired,
-  generateReport: PropTypes.func.isRequired
+  generateReport: PropTypes.func.isRequired,
 };
 
 export default FiltersPanel;

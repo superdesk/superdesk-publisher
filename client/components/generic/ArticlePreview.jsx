@@ -7,7 +7,7 @@ import helpers from "../../services/helpers";
 
 import Slideshow from "../UI/Slideshow/Slideshow";
 import PreviewStatusLabels from "./PreviewStatusLabels";
-import Loading from "../UI/Loading/Loading";
+import { IconButton, IconLabel } from "superdesk-ui-framework";
 
 class ArticlePreview extends React.Component {
   constructor(props) {
@@ -46,14 +46,11 @@ class ArticlePreview extends React.Component {
         <div className="side-panel side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-bottom">
             <div className="side-panel__tools">
-              <a
-                className="icn-btn"
-                sd-tooltip="Close"
-                flow="top"
+              <IconButton
+                icon="close-small"
+                tooltip={{ text: "Close", flow: "left" }}
                 onClick={this.props.close}
-              >
-                <i className="icon-close-small" />
-              </a>
+              />
             </div>
             <h3 className="side-panel__heading">Item preview</h3>
           </div>
@@ -96,9 +93,11 @@ class ArticlePreview extends React.Component {
               <div className="side-panel-collapsible-header__collapsible">
                 {article.paywall_secured && (
                   <div className="form__row">
-                    <span className="label-icon label-icon--warning">
-                      <i className="icon-paywall" /> Paywall secured
-                    </span>
+                    <IconLabel
+                      text="Paywall secured"
+                      icon="paywall"
+                      type="warning"
+                    />
                   </div>
                 )}
 

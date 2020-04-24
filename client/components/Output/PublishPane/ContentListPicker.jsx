@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import { Button, IconButton } from "superdesk-ui-framework";
 
-const ContentListPicker = props => {
+const ContentListPicker = (props) => {
   const allLists = props.destination.tenant.content_lists.filter(
-    l => l.type === "manual"
+    (l) => l.type === "manual"
   );
 
-  const remainingLists = _.reject(allLists, item =>
+  const remainingLists = _.reject(allLists, (item) =>
     _.find(props.destination.content_lists, { id: item.id })
   );
 
@@ -17,13 +18,13 @@ const ContentListPicker = props => {
     let dest = { ...props.destination };
     dest.content_lists.push({
       id: remainingLists[0].id,
-      position: 0
+      position: 0,
     });
 
     props.update(dest);
   };
 
-  const removeList = index => {
+  const removeList = (index) => {
     let dest = { ...props.destination };
     dest.content_lists.splice(index, 1);
 
@@ -54,7 +55,7 @@ const ContentListPicker = props => {
       {props.destination.content_lists.map((list, index) => {
         let positionOptions = [];
         let listObject = _.find(allLists, {
-          id: list.id
+          id: list.id,
         });
 
         for (
@@ -86,11 +87,16 @@ const ContentListPicker = props => {
           >
             <div className="sd-list-item__column sd-list-item__column--grow">
               <div className="sd-list-item__row sd-list-item__row--only-child">
-                <span className="sd-margin-r--1">Choose list</span>
+                <span
+                  className="sd-margin-r--1"
+                  style={{ paddingTop: "1.4rem" }}
+                >
+                  Choose list
+                </span>
                 <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin">
                   <select
                     className="sd-line-input__select"
-                    onChange={e => onListChange(e, index)}
+                    onChange={(e) => onListChange(e, index)}
                     value={list.id}
                   >
                     {allLists.map((l, index) => (
@@ -105,7 +111,7 @@ const ContentListPicker = props => {
                         disabled={
                           list.id !== l.id &&
                           _.find(props.destination.content_lists, {
-                            id: l.id
+                            id: l.id,
                           })
                         }
                       >
@@ -114,22 +120,24 @@ const ContentListPicker = props => {
                     ))}
                   </select>
                 </div>
-                <a
-                  className="icn-btn disabled"
-                  sd-tooltip="Remove list"
-                  flow="left"
+                <IconButton
+                  icon="trash"
+                  tooltip={{ text: "Remove list", flow: "left" }}
                   onClick={() => removeList(index)}
-                >
-                  <i className="icon-trash"></i>
-                </a>
+                />
               </div>
               <div className="sd-list-item__row sd-margin-b--1">
-                <span className="sd-margin-r--1">Set order</span>
+                <span
+                  className="sd-margin-r--1"
+                  style={{ paddingTop: "1.4rem" }}
+                >
+                  Set order
+                </span>
                 <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
                   <select
                     className="sd-line-input__select"
                     value={list.position}
-                    onChange={e => onPositionChange(e, index)}
+                    onChange={(e) => onPositionChange(e, index)}
                   >
                     {positionOptions}
                   </select>
@@ -141,12 +149,13 @@ const ContentListPicker = props => {
       })}
       {remainingLists.length ? (
         <div className="form__row">
-          <button
-            className="btn btn--hollow btn--expanded btn--primary"
+          <Button
+            text="Add to content list"
+            type="primary"
+            style="hollow"
+            expand={true}
             onClick={addList}
-          >
-            Add to content list
-          </button>
+          />
         </div>
       ) : null}
     </React.Fragment>
@@ -155,7 +164,7 @@ const ContentListPicker = props => {
 
 ContentListPicker.propTypes = {
   update: PropTypes.func.isRequired,
-  destination: PropTypes.object.isRequired
+  destination: PropTypes.object.isRequired,
 };
 
 export default ContentListPicker;
