@@ -15,8 +15,9 @@ class FilterPane extends React.Component {
 
     this.state = {
       routes: [],
-      authors: [],
-      filters: { route: [], author: [] }
+      authors: { items: [], loading: false },
+      ingestSources: { items: [], loading: false },
+      filters: { route: [], author: [], source: [] },
     };
   }
 
@@ -29,8 +30,12 @@ class FilterPane extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.state.authors.length) {
+    if (!this.state.authors.items.length) {
       this.loadAuthors();
+    }
+
+    if (!this.state.ingestSources.items.length) {
+      this.loadIngestSources();
     }
 
     if (this.context.tenants.length && !this.state.routes.length) {
@@ -41,8 +46,8 @@ class FilterPane extends React.Component {
   prepareRoutes = () => {
     let routes = [];
 
-    this.context.tenants.map(tenant => {
-      let newRoutes = [...tenant.routes].map(route => {
+    this.context.tenants.map((tenant) => {
+      let newRoutes = [...tenant.routes].map((route) => {
         route.name = tenant.name + " / " + route.name;
         return route;
       });
@@ -51,34 +56,78 @@ class FilterPane extends React.Component {
     this.setState({ routes });
   };
 
+  loadIngestSources = (page = 1) => {
+    if (this.state.ingestSources.loading) return;
+    this.setState({
+      ingestSources: { ...this.state.ingestSources, loading: true },
+    });
+
+    this.context.api.ingestProviders
+      .query({ max_results: 200, page: page })
+      .then((response) => {
+        let ingestSources = response._items;
+
+        if (this._isMounted && ingestSources.length)
+          this.setState(
+            {
+              ingestSources: {
+                items: [...this.state.ingestSources.items, ...ingestSources],
+                loading: false,
+              },
+            },
+            () => {
+              if (response._links.next) this.loadIngestSources(page + 1);
+            }
+          );
+      });
+  };
+
   loadAuthors = (page = 1) => {
+    if (this.state.authors.loading) return;
+    this.setState({ authors: { ...this.state.authors, loading: true } });
+
     this.context.api.users
       .query({
         max_results: 200,
         page: page,
         sort: '[("first_name", 1), ("last_name", 1)]',
         where: {
-          is_support: { $ne: true }
-        }
+          is_support: { $ne: true },
+        },
       })
-      .then(response => {
-        let authors = response._items.filter(item => item.is_author);
+      .then((response) => {
+        let authors = response._items.filter((item) => item.is_author);
 
         if (this._isMounted && authors.length)
-          this.setState({ authors: [...this.state.authors, ...authors] });
-
-        if (response._links.next) this.loadAuthors(page + 1);
+          this.setState(
+            {
+              authors: {
+                items: [...this.state.authors.items, ...authors],
+                loading: false,
+              },
+            },
+            () => {
+              if (response._links.next) this.loadAuthors(page + 1);
+            }
+          );
       });
   };
 
-  handleAuthorChange = arr => {
+  handleAuthorChange = (arr) => {
     let filters = { ...this.state.filters };
 
     filters.author = arr ? arr : [];
     this.setState({ filters });
   };
 
-  handleRoutesChange = arr => {
+  handleSourceChange = (arr) => {
+    let filters = { ...this.state.filters };
+
+    filters.source = arr ? arr : [];
+    this.setState({ filters });
+  };
+
+  handleRoutesChange = (arr) => {
     let filters = { ...this.state.filters };
 
     filters.route = arr ? arr : [];
@@ -105,19 +154,28 @@ class FilterPane extends React.Component {
   render() {
     let routesOptions = [];
 
-    this.state.routes.map(route => {
+    this.state.routes.map((route) => {
       routesOptions.push({
         value: parseInt(route.id),
-        label: route.name
+        label: route.name,
       });
     });
 
     let authorsOptions = [];
 
-    this.state.authors.map(author => {
+    this.state.authors.items.map((author) => {
       authorsOptions.push({
         value: author.display_name,
-        label: author.display_name
+        label: author.display_name,
+      });
+    });
+
+    let ingestSourceOptions = [];
+
+    this.state.ingestSources.items.map((source) => {
+      ingestSourceOptions.push({
+        value: source.name,
+        label: source.name,
       });
     });
 
@@ -129,7 +187,7 @@ class FilterPane extends React.Component {
               "sd-filters-panel sd-filters-panel--border-right",
               {
                 "sd-flex-no-shrink":
-                  selectedList === "published" && listViewType === "swimlane"
+                  selectedList === "published" && listViewType === "swimlane",
               }
             )}
           >
@@ -153,7 +211,7 @@ class FilterPane extends React.Component {
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                       <label className="sd-line-input__label">Routes</label>
                       <MultiSelect
-                        onSelect={values => this.handleRoutesChange(values)}
+                        onSelect={(values) => this.handleRoutesChange(values)}
                         options={routesOptions}
                         selectedOptions={this.state.filters.route}
                       />
@@ -163,7 +221,7 @@ class FilterPane extends React.Component {
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                       <label className="sd-line-input__label">Authors</label>
                       <MultiSelect
-                        onSelect={values => this.handleAuthorChange(values)}
+                        onSelect={(values) => this.handleAuthorChange(values)}
                         options={authorsOptions}
                         selectedOptions={this.state.filters.author}
                       />
@@ -206,20 +264,14 @@ class FilterPane extends React.Component {
                     </div>
                   </div>
                   <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin">
+                    <div className="sd-line-input sd-line-input--is-select">
                       <label className="sd-line-input__label">
                         Ingest source
                       </label>
-                      <input
-                        className="sd-line-input__input"
-                        type="text"
-                        onChange={this.handleInputChange}
-                        name="source"
-                        value={
-                          this.state.filters.source
-                            ? this.state.filters.source
-                            : ""
-                        }
+                      <MultiSelect
+                        onSelect={(values) => this.handleSourceChange(values)}
+                        options={ingestSourceOptions}
+                        selectedOptions={this.state.filters.source}
                       />
                     </div>
                   </div>
@@ -245,7 +297,7 @@ class FilterPane extends React.Component {
 
 FilterPane.propTypes = {
   toggle: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default FilterPane;
