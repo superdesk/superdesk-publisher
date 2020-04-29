@@ -98,6 +98,7 @@ class Publish extends React.Component {
       route: {},
       is_published_fbia: false,
       paywall_secured: false,
+      is_published_to_apple_news: false,
       status: "new",
       content_lists: [],
     };
@@ -113,6 +114,7 @@ class Publish extends React.Component {
       is_published_fbia: item.is_published_fbia,
       published: item.route && item.route.id ? true : false,
       paywall_secured: item.paywall_secured,
+      is_published_to_apple_news: item.is_published_to_apple_news,
     };
 
     if (
