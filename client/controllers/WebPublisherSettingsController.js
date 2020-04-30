@@ -154,6 +154,7 @@ export function WebPublisherSettingsController(
         case "navigation":
           $scope.menu = {};
           this._refreshMenus();
+          this._refreshRoutes();
           break;
         case "theme-settings":
           // reseting logo replacement flags
@@ -697,14 +698,14 @@ export function WebPublisherSettingsController(
     }
 
     isRouteTypeCustom(routeId) {
-      if (!$scope.routes) return null;
+      if (!$scope.routes || !$scope.routes.length) return null;
 
       let route = $scope.routes.find(r => r.id === routeId);
       return route.type === 'custom';
     }
 
     getRouteNameById(routeId) {
-      if (!$scope.routes) return null;
+      if (!$scope.routes || !$scope.routes.length) return null;
 
       let route = $scope.routes.find(r => r.id === routeId);
       return route.name;

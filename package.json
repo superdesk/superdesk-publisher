@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "angular-drag-and-drop-lists-spiria": "latest",
-    "angular-in-viewport": "^1.2.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "moment": "^2.24.0",
