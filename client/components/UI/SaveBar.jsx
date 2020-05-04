@@ -7,7 +7,7 @@ const SaveBar = ({ save, cancel, isDisabled }) => {
     <div className="sd-collapse-box__sliding-toolbar-wrapper">
       <div className="sd-collapse-box__sliding-toolbar">
         <div className="sliding-toolbar__inner" />
-        <Button text="Clear" style="hollow" theme="dark" onClick={cancel} />
+        <Button text="Cancel" style="hollow" theme="dark" onClick={cancel} />
         <Button
           text="Save"
           type="primary"

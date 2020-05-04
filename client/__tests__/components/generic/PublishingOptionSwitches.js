@@ -89,7 +89,7 @@ describe("generic/PublishingOptionsSwithces", () => {
     );
 
     const checkbox = await waitForElement(() =>
-      container.querySelector(".sd-checkbox")
+      container.querySelector(".sd-check-new")
     );
 
     fireEvent.click(checkbox);

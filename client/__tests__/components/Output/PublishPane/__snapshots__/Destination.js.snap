@@ -29,9 +29,9 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
             </span>
           </span>
           <a
-            class="icn-btn disabled"
-            flow="left"
-            sd-tooltip="Remove tenant"
+            class="icn-btn"
+            data-flow="left"
+            data-sd-tooltip="Remove tenant"
           >
             <i
               class="icon-trash"
@@ -60,21 +60,21 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
       <div
         class="sd-collapse-box__tools sd-collapse-box__tools--flex"
       >
-        <a
+        <span
           class="sd-collapse-box__collapse-btn"
         >
-          <span
+          <a
             class="icn-btn"
           >
             <i
               class="icon-chevron-up-thin"
             />
-          </span>
-        </a>
+          </a>
+        </span>
         <a
           class="icn-btn"
-          flow="left"
-          sd-tooltip="Remove tenant"
+          data-flow="left"
+          data-sd-tooltip="Remove tenant"
         >
           <i
             class="icon-trash"
@@ -152,14 +152,20 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
         >
           <span>
             <span
-              class="sd-check__wrapper"
+              class="sd-check-new__wrapper"
             >
+              <input
+                class="visuallyhidden"
+                id="id1"
+                type="checkbox"
+              />
               <span
-                class="sd-checkbox"
+                aria-label="false"
+                class="sd-check-new"
               />
               <label
                 class=""
-                style="color: rgb(255, 255, 255);"
+                for="id1"
               >
                 Facebook
               </label>
@@ -171,7 +177,8 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
         class="form__row"
       >
         <button
-          class="btn btn--hollow btn--expanded btn--primary"
+          aria-label="button"
+          class="btn btn--expanded btn--primary btn--hollow"
         >
           Add to content list
         </button>

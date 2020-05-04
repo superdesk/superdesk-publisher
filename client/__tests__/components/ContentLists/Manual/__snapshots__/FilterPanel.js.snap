@@ -10,15 +10,19 @@ exports[`ContentLists/Manual/FilterPanel renders properly 1`] = `
     <div
       class="side-panel__header side-panel__header--border-b"
     >
-      <a
-        class="icn-btn side-panel__close"
-        flow="left"
-        sd-tooltip="Close filters"
+      <span
+        class="side-panel__close"
       >
-        <i
-          class="icon-close-small"
-        />
-      </a>
+        <a
+          class="icn-btn"
+          data-flow="left"
+          data-sd-tooltip="Close"
+        >
+          <i
+            class="icon-close-small"
+          />
+        </a>
+      </span>
       <h3
         class="side-panel__heading"
       >
@@ -124,16 +128,18 @@ exports[`ContentLists/Manual/FilterPanel renders properly 1`] = `
       <div
         class="flex-grid flex-grid--boxed-small flex-grid--small-2"
       >
-        <a
+        <button
+          aria-label="button"
           class="btn btn--hollow"
         >
           Clear
-        </a>
-        <a
+        </button>
+        <button
+          aria-label="button"
           class="btn btn--primary"
         >
           Filter
-        </a>
+        </button>
       </div>
     </div>
   </div>

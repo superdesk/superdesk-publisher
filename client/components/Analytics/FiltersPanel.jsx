@@ -168,7 +168,7 @@ class FiltersPanel extends React.Component {
             <span className="side-panel__close">
               <IconButton
                 icon="close-small"
-                tooltip={{ text: "Close filters", flow: "left" }}
+                tooltip={{ text: "Close", flow: "left" }}
                 onClick={this.props.toggle}
               />
             </span>
@@ -268,18 +268,8 @@ class FiltersPanel extends React.Component {
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-              <Button
-                text="Clear"
-                style="hollow"
-                onClick={this.clear}
-                data-testid="filterClear"
-              />
-              <Button
-                text="Run Report"
-                type="primary"
-                onClick={this.save}
-                data-testid="filterSave"
-              />
+              <Button text="Clear" style="hollow" onClick={this.clear} />
+              <Button text="Run Report" type="primary" onClick={this.save} />
             </div>
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-1">
               <Button
