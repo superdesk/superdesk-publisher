@@ -8,7 +8,7 @@ import { Label, IconButton } from "superdesk-ui-framework/react";
 
 import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";
-import OptionSwitches from "./OptionSwitches";
+import PublishingOptionSwitches from "../generic/PublishingOptionSwitches";
 
 import SaveBar from "../UI/SaveBar";
 
@@ -451,7 +451,7 @@ class Destination extends Component {
                 />
               </div>
             )}
-            <OptionSwitches
+            <PublishingOptionSwitches
               fbiaEnabled={this.state.hasFbiaEnabled}
               paywallEnabled={this.state.hasPaywallEnabled}
               appleNewsEnabled={this.state.hasAppleNewsEnabled}

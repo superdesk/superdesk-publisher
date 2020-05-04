@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Switch, IconButton } from "superdesk-ui-framework/react";
 import Store from "../Store";
-import OptionSwitches from "./OptionSwitches";
+import PublishingOptionSwitches from "../../generic/PublishingOptionSwitches";
 import RouteSelect from "./RouteSelect";
 import MetadataButtons from "./MetadataButtons";
 import ContentListPicker from "./ContentListPicker";
@@ -233,9 +233,14 @@ class Destination extends React.Component {
                 />
               </div>
             )}
-            <OptionSwitches
+            <PublishingOptionSwitches
               fbiaEnabled={tenant.paywall_enabled}
               paywallEnabled={tenant.fbia_enabled}
+              appleNewsEnabled={
+                tenant.apple_news_config && tenant.apple_news_config.channel_id
+                  ? true
+                  : false
+              }
               destination={destination}
               onChange={(value, fieldName) =>
                 this.handleSwitchChange(value, fieldName)

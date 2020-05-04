@@ -101,19 +101,14 @@ exports[`Output/FilterPane renders properly 1`] = `
           class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--no-margin"
+            class="sd-line-input sd-line-input--is-select"
           >
             <label
               class="sd-line-input__label"
             >
               Ingest source
             </label>
-            <input
-              class="sd-line-input__input"
-              name="source"
-              type="text"
-              value=""
-            />
+            div
           </div>
         </div>
       </div>

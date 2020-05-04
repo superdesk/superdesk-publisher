@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Checkbox } from "superdesk-ui-framework/react";
 
-const OptionSwitches = ({
+const PublishingOptionSwitches = ({
   fbiaEnabled,
   paywallEnabled,
   appleNewsEnabled,
@@ -72,7 +72,7 @@ const OptionSwitches = ({
   return null;
 };
 
-OptionSwitches.propTypes = {
+PublishingOptionSwitches.propTypes = {
   fbiaEnabled: PropTypes.bool.isRequired,
   paywallEnabled: PropTypes.bool.isRequired,
   appleNewsEnabled: PropTypes.bool.isRequired,
@@ -80,4 +80,4 @@ OptionSwitches.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default OptionSwitches;
+export default PublishingOptionSwitches;

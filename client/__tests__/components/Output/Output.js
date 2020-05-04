@@ -34,7 +34,7 @@ describe("Output/Output", () => {
     const { container } = render(
       <Output
         publisher={publisher}
-        notify={{}}
+        notify={{ error: jest.fn() }}
         config={{}}
         authoringWorkspace={{}}
         api={api}
@@ -42,10 +42,6 @@ describe("Output/Output", () => {
         languages={languages}
       />
     );
-
-    await wait(() =>
-      expect(container.querySelector(".sd-loader")).not.toBeInTheDocument(),
-    )
 
     expect(container.firstChild).toMatchSnapshot();
   });
