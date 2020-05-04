@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton } from "superdesk-ui-framework";
+import { IconButton } from "superdesk-ui-framework/react";
 
 const ContentListElement = (props) => {
   const createPositionOptions = (list) => {

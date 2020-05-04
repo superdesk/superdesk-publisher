@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-import { Button } from "superdesk-ui-framework";
+import { Button } from "superdesk-ui-framework/react";
 
 class AddWebsite extends React.Component {
   constructor(props) {

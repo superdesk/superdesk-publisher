@@ -4,7 +4,11 @@ import _ from "lodash";
 import helpers from "../../../services/helpers";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 
-import { Button, CheckButtonGroup, RadioButton } from "superdesk-ui-framework";
+import {
+  Button,
+  CheckButtonGroup,
+  RadioButton,
+} from "superdesk-ui-framework/react";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
 import MetadataEditor from "./MetadataEditor";

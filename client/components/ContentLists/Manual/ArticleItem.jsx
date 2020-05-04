@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
-import { Label } from "superdesk-ui-framework";
+import { Label } from "superdesk-ui-framework/react";
 import helpers from "../../../services/helpers.js";
 
 const ArticleItem = ({

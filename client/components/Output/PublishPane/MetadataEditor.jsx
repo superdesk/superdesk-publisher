@@ -6,7 +6,7 @@ import _ from "lodash";
 import ImageUpload from "../../UI/ImageUpload";
 import Store from "../Store";
 
-import { IconButton } from "superdesk-ui-framework";
+import { IconButton } from "superdesk-ui-framework/react";
 
 class MetadataEditor extends React.Component {
   static contextType = Store;

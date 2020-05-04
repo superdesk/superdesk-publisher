@@ -4,7 +4,7 @@ import classNames from "classnames";
 import _ from "lodash";
 import Store from "../Store";
 import Modal from "../../UI/Modal";
-import { Button } from "superdesk-ui-framework";
+import { Button } from "superdesk-ui-framework/react";
 
 class Preview extends React.Component {
   static contextType = Store;

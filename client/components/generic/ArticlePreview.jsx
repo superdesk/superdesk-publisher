@@ -7,7 +7,7 @@ import helpers from "../../services/helpers";
 
 import Slideshow from "../UI/Slideshow/Slideshow";
 import PreviewStatusLabels from "./PreviewStatusLabels";
-import { IconButton, IconLabel } from "superdesk-ui-framework";
+import { IconButton, IconLabel } from "superdesk-ui-framework/react";
 
 class ArticlePreview extends React.Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import helpers from "../../services/helpers.js";
 import _ from "lodash";
-import { Button, Label } from "superdesk-ui-framework";
+import { Button, Label } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
 import Modal from "../UI/Modal";
 

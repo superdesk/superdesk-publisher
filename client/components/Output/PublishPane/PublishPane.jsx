@@ -7,7 +7,7 @@ import Unpublish from "./Unpublish";
 import Preview from "./Preview";
 import Store from "../Store";
 
-import { IconButton } from "superdesk-ui-framework";
+import { IconButton } from "superdesk-ui-framework/react";
 
 class PublishPane extends React.Component {
   static contextType = Store;

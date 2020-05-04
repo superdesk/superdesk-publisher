@@ -3,7 +3,7 @@ import React from "react";
 import Dropdown from "../UI/Dropdown";
 import Store from "./Store";
 
-import { IconButton } from "superdesk-ui-framework";
+import { IconButton } from "superdesk-ui-framework/react";
 
 const SortingOptions = (props) => {
   const store = React.useContext(Store);

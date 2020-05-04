@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { Button, IconButton } from "superdesk-ui-framework";
+import { Button, IconButton } from "superdesk-ui-framework/react";
 
 import MultiSelect from "../UI/MultiSelect";
 import Store from "./Store";

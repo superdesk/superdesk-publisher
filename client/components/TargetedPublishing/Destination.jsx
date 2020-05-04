@@ -4,7 +4,7 @@ import axios from "axios";
 import classNames from "classnames";
 import _ from "lodash";
 
-import { Label, IconButton } from "superdesk-ui-framework";
+import { Label, IconButton } from "superdesk-ui-framework/react";
 
 import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "superdesk-ui-framework";
+import { Button } from "superdesk-ui-framework/react";
 
 const SaveBar = ({ save, cancel, isDisabled }) => {
   return (

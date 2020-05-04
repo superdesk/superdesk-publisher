@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton } from "superdesk-ui-framework";
+import { IconButton } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
 
 const SortingOptions = ({ filters, setFilters }) => {

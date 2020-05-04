@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 
-import { Button } from "superdesk-ui-framework";
+import { Button } from "superdesk-ui-framework/react";
 import FilterPanel from "./FilterPanel";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import SearchBar from "../../UI/SearchBar";

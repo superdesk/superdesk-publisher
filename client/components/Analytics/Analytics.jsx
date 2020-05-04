@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 
-import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework";
+import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
 
 import SitesSideNav from "../generic/SitesSideNav";
 import FiltersPanel from "./FiltersPanel";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Checkbox } from "superdesk-ui-framework";
+import { Checkbox } from "superdesk-ui-framework/react";
 
 const OptionSwitches = ({
   fbiaEnabled,

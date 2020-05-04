@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import classNames from "classnames";
-import { Alert, TabList, Tab } from "superdesk-ui-framework";
+import { Alert, TabList, Tab } from "superdesk-ui-framework/react";
 
 const Item = ({ item }) => {
   const [state, setState] = React.useState({ isExpanded: false, tab: 1 });

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
-import { Label } from "superdesk-ui-framework";
+import { Label } from "superdesk-ui-framework/react";
 
 const PreviewStatusLabels = ({ articles }) => {
   let isPublishedFbia = false;

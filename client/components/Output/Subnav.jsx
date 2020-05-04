@@ -2,7 +2,11 @@ import React from "react";
 import classNames from "classnames";
 
 import Store from "./Store";
-import { CheckButtonGroup, RadioButton, Badge } from "superdesk-ui-framework";
+import {
+  CheckButtonGroup,
+  RadioButton,
+  Badge,
+} from "superdesk-ui-framework/react";
 import TenantSelect from "./TenantSelect";
 import SortingOptions from "./SortingOptions";
 import LanguageSelect from "../UI/LanguageSelect";

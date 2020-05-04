@@ -6,7 +6,7 @@ import _ from "lodash";
 
 import Store from "../Store";
 
-import { IconButton, Label } from "superdesk-ui-framework";
+import { IconButton, Label } from "superdesk-ui-framework/react";
 
 const ArticleItem = ({ item, style }) => {
   const store = React.useContext(Store);

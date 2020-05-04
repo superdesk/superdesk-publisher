@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
-import { Button, IconButton, Label } from "superdesk-ui-framework";
+import { Button, IconButton, Label } from "superdesk-ui-framework/react";
 import Store from "./Store";
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 import Modal from "../UI/Modal";

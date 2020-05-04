@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import { Button, IconButton } from "superdesk-ui-framework";
+import { Button, IconButton } from "superdesk-ui-framework/react";
 
 const ContentListPicker = (props) => {
   const allLists = props.destination.tenant.content_lists.filter(
