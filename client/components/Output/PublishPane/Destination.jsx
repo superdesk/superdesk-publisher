@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import { Switch } from "superdesk-ui-framework";
+import { Switch } from "superdesk-ui-framework/react";
 import Store from "../Store";
 import PublishingOptionSwitches from "../../generic/PublishingOptionSwitches";
 import RouteSelect from "./RouteSelect";
