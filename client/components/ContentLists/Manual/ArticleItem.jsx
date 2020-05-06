@@ -12,7 +12,8 @@ const ArticleItem = ({
   index,
   showExtras = false,
   remove,
-  willBeTrimmed
+  pinUnpin,
+  willBeTrimmed,
 }) => {
   let thumbnail = null;
 
@@ -23,7 +24,7 @@ const ArticleItem = ({
   return (
     <div
       className={classNames("sd-list-item", {
-        "sd-list-item--activated": previewItem && previewItem.id === item.id
+        "sd-list-item--activated": previewItem && previewItem.id === item.id,
       })}
       style={willBeTrimmed ? { opacity: 0.5 } : {}}
       onClick={() => openPreview(item)}
@@ -72,16 +73,34 @@ const ArticleItem = ({
           <span className="label label--success label--hollow">
             {item.route && item.route.name}
           </span>
+          {item.sticky && (
+            <span className="pull-right label label--primary label--hollow">
+              pinned
+            </span>
+          )}
         </div>
       </div>
       {showExtras && (
-        <div className="sd-list-item__action-menu">
+        <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
           <button
-            onClick={e => {
+            className="pull-right"
+            onClick={(e) => {
+              e.stopPropagation();
+              pinUnpin(item.id);
+            }}
+            title={item.sticky ? "Unpin" : "Pin"}
+            sd-tooltip={item.sticky ? "Unpin" : "Pin"}
+            flow="left"
+          >
+            <i className="icon-pin" />
+          </button>
+          <button
+            onClick={(e) => {
               e.stopPropagation();
               remove(item.id);
             }}
-            title="Remove"
+            sd-tooltip="Remove"
+            flow="left"
           >
             <i className="icon-trash" />
           </button>
@@ -98,7 +117,8 @@ ArticleItem.propTypes = {
   index: PropTypes.number,
   showExtras: PropTypes.bool,
   remove: PropTypes.func,
-  willBeTrimmed: PropTypes.bool
+  pinUnpin: PropTypes.func,
+  willBeTrimmed: PropTypes.bool,
 };
 
 export default ArticleItem;
