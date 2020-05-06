@@ -12,6 +12,7 @@ const ArticleItem = ({
   index,
   showExtras = false,
   remove,
+  pinUnpin,
   willBeTrimmed,
 }) => {
   let thumbnail = null;
@@ -74,16 +75,30 @@ const ArticleItem = ({
             type="success"
             style="hollow"
           />
+          {item.sticky && <Label text="pinned" type="primary" style="hollow" />}
         </div>
       </div>
       {showExtras && (
-        <div className="sd-list-item__action-menu">
+        <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
+          <button
+            className="pull-right"
+            onClick={(e) => {
+              e.stopPropagation();
+              pinUnpin(item.id);
+            }}
+            title={item.sticky ? "Unpin" : "Pin"}
+            sd-tooltip={item.sticky ? "Unpin" : "Pin"}
+            flow="left"
+          >
+            <i className="icon-pin" />
+          </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               remove(item.id);
             }}
-            title="Remove"
+            sd-tooltip="Remove"
+            flow="left"
           >
             <i className="icon-trash" />
           </button>
@@ -100,6 +115,7 @@ ArticleItem.propTypes = {
   index: PropTypes.number,
   showExtras: PropTypes.bool,
   remove: PropTypes.func,
+  pinUnpin: PropTypes.func,
   willBeTrimmed: PropTypes.bool,
 };
 

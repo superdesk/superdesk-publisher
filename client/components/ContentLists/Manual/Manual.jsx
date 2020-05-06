@@ -269,6 +269,32 @@ class Manual extends React.Component {
       this._queryArticles(true)
     );
 
+  pinUnpin = (id) => {
+    let list = { ...this.state.list };
+    let index = list.items.findIndex((item) => {
+      let itemId = item.content ? item.content.id : item.id;
+      return itemId === id;
+    });
+
+    if (index > -1) {
+      let changesRecord = [...this.state.changesRecord];
+      let item = list.items[index];
+
+      let change = {
+        content_id: id,
+        action: "move",
+        position: index,
+        sticky: !item.sticky,
+      };
+
+      changesRecord.push(change);
+      changesRecord = this.updatePositions(changesRecord, list.items);
+      list.items[index] = { ...item, sticky: !item.sticky };
+
+      this.setState({ changesRecord, list });
+    }
+  };
+
   removeItem = (id) => {
     let list = { ...this.state.list };
     let index = list.items.findIndex((item) => {
@@ -538,7 +564,11 @@ class Manual extends React.Component {
                                 style={provided.draggableProps.style}
                               >
                                 <ArticleItem
-                                  item={item.content ? item.content : item}
+                                  item={
+                                    item.content
+                                      ? { ...item.content, sticky: item.sticky }
+                                      : item
+                                  }
                                   openPreview={(item) =>
                                     this.props.openPreview(item)
                                   }
@@ -546,6 +576,7 @@ class Manual extends React.Component {
                                   index={index}
                                   showExtras={true}
                                   remove={(id) => this.removeItem(id)}
+                                  pinUnpin={(id) => this.pinUnpin(id)}
                                   willBeTrimmed={
                                     this.props.list.limit &&
                                     this.props.list.limit <= index
