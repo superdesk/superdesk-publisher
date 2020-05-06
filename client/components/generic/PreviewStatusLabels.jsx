@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
+import { Label } from "superdesk-ui-framework/react";
 
 const PreviewStatusLabels = ({ articles }) => {
   let isPublishedFbia = false;
@@ -39,19 +40,13 @@ const PreviewStatusLabels = ({ articles }) => {
                 />
               ))}
             {isPublishedFbia ? (
-              <span
-                className="label label--primary"
-                style={{ marginRight: ".6em" }}
-              >
-                facebook
+              <span style={{ marginRight: ".6em" }}>
+                <Label text="facebook" type="primary" />
               </span>
             ) : null}
             {isPublishedAppleNews ? (
-              <span
-                className="label label--highlight2"
-                style={{ marginRight: ".6em" }}
-              >
-                Apple News
+              <span style={{ marginRight: ".6em" }}>
+                <Label text="Apple News" color="pink--400" />
               </span>
             ) : null}
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import classNames from "classnames";
+import { Alert, TabList, Tab } from "superdesk-ui-framework/react";
 
 const Item = ({ item }) => {
   const [state, setState] = React.useState({ isExpanded: false, tab: 1 });
@@ -33,80 +34,35 @@ const Item = ({ item }) => {
 
         {state.isExpanded && (
           <React.Fragment>
-            <div
-              className="sd-alert sd-alert--hollow sd-alert--alert sd-alert--small"
-              style={{ margin: "1em 2em 1em 1em" }}
-            >
-              {item.error_message}
+            <div style={{ margin: "1em 2em 0 1em" }}>
+              <Alert style="hollow" size="small" type="alert">
+                {item.error_message}
+              </Alert>
             </div>
 
             <div>
-              <ul className="nav-tabs">
-                <li
-                  className={classNames("nav-tabs__tab", {
-                    "nav-tabs__tab--active": state.tab === 1
-                  })}
-                >
-                  <button
-                    onClick={() => setState({ isExpanded: true, tab: 1 })}
-                    className="nav-tabs__link"
-                  >
-                    <span>Message</span>
-                  </button>
-                </li>
-                <li
-                  className={classNames("nav-tabs__tab", {
-                    "nav-tabs__tab--active": state.tab === 2
-                  })}
-                >
-                  <button
-                    onClick={() => setState({ isExpanded: true, tab: 2 })}
-                    className="nav-tabs__link"
-                  >
-                    <span>Stacktrace</span>
-                  </button>
-                </li>
-                <li
-                  className={classNames("nav-tabs__tab", {
-                    "nav-tabs__tab--active": state.tab === 3
-                  })}
-                >
-                  <button
-                    onClick={() => setState({ isExpanded: true, tab: 3 })}
-                    className="nav-tabs__link"
-                  >
-                    <span>Redeliveries</span>
-                  </button>
-                </li>
-              </ul>
-              <div className="nav-tabs__content">
-                {state.tab === 1 && (
-                  <div className="nav-tabs__pane">
-                    {messageKeys.map((key, index) => (
-                      <div key={"message" + index + "-" + item.id}>
-                        <strong>{key}: </strong>
-                        <pre>{item.message[key]}</pre>
-                      </div>
+              <TabList>
+                <Tab label="Message">
+                  {messageKeys.map((key, index) => (
+                    <div key={"message" + index + "-" + item.id}>
+                      <strong>{key}: </strong>
+                      <pre>{item.message[key]}</pre>
+                    </div>
+                  ))}
+                </Tab>
+                <Tab label="Stacktrace">
+                  <pre>{item.exception_stacktrace}</pre>
+                </Tab>
+                <Tab label="Redeliveries">
+                  <ul>
+                    {item.redeliveries.map((r, index) => (
+                      <li key={"redelivery" + index + "-" + item.id}>
+                        {moment(r).format("YYYY-MM-DD, HH:mm:ss")}
+                      </li>
                     ))}
-                  </div>
-                )}
-                {state.tab === 2 && (
-                  <div className="nav-tabs__pane">
-                    <pre>{item.exception_stacktrace}</pre>
-                  </div>
-                )}
-                {state.tab === 3 && (
-                  <div className="nav-tabs__pane">
-                    <ul>
-                      {item.redeliveries.map((r, index) => (
-                        <li key={"redelivery" + index + "-" + item.id}>
-                          {moment(r).format("YYYY-MM-DD, HH:mm:ss")}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  </ul>
+                </Tab>
+              </TabList>
             </div>
           </React.Fragment>
         )}
@@ -116,7 +72,7 @@ const Item = ({ item }) => {
 };
 
 Item.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
 };
 
 export default Item;

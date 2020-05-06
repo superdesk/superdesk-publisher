@@ -1,25 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import { Button } from "superdesk-ui-framework/react";
 
 const SaveBar = ({ save, cancel, isDisabled }) => {
   return (
     <div className="sd-collapse-box__sliding-toolbar-wrapper">
       <div className="sd-collapse-box__sliding-toolbar">
         <div className="sliding-toolbar__inner" />
-        <a className="btn btn--hollow btn--ui-dark" onClick={cancel}>
-          Cancel
-        </a>
-        <button
-          className={classNames("btn btn--primary", {
-            "btn--disabled": isDisabled
-          })}
+        <Button text="Cancel" style="hollow" theme="dark" onClick={cancel} />
+        <Button
+          text="Save"
+          type="primary"
+          theme="dark"
           onClick={save}
           disabled={isDisabled}
           data-testid="save-button"
-        >
-          Save
-        </button>
+        />
       </div>
     </div>
   );
@@ -28,11 +24,11 @@ const SaveBar = ({ save, cancel, isDisabled }) => {
 SaveBar.propTypes = {
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
 };
 
 SaveBar.defaultProps = {
-  isDisabled: false
+  isDisabled: false,
 };
 
 export default SaveBar;

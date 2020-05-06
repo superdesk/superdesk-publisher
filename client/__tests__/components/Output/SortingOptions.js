@@ -33,7 +33,7 @@ describe("Output/SortingOptions", () => {
         <SortingOptions />
       </Store.Provider>
     );
-    const orderButton = container.querySelector('a[sd-tooltip="Ascending"]');
+    const orderButton = container.querySelector('a[data-sd-tooltip="Ascending"]');
     fireEvent.click(orderButton);
 
     expect(setFilters).toHaveBeenCalled();

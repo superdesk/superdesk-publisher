@@ -1,6 +1,7 @@
 import "ng-file-upload";
 import "./client/styles/_publisher.scss";
 import "angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists";
+import 'superdesk-ui-framework/dist/superdesk-ui.bundle.css';
 
 import * as controllers from "./client/controllers";
 import * as services from "./client/services";

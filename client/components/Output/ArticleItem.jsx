@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
-
+import { Button, IconButton, Label } from "superdesk-ui-framework/react";
 import Store from "./Store";
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 import Modal from "../UI/Modal";
@@ -37,24 +37,21 @@ const ArticleItem = ({ item, style, onRemove }) => {
           Please confirm you want to remove article from incoming list.
         </div>
         <div className="modal__footer">
-          <button
-            className="btn"
+          <Button
+            text="Cancel"
             onClick={(e) => {
               e.stopPropagation();
               removeCancel();
             }}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn--primary"
+          />
+          <Button
+            text="Remove"
+            type="primary"
             onClick={(e) => {
               e.stopPropagation();
               remove();
             }}
-          >
-            Remove
-          </button>
+          />
         </div>
       </React.Fragment>
     );
@@ -111,19 +108,20 @@ const ArticleItem = ({ item, style, onRemove }) => {
           {item.service &&
             item.service.map((service) =>
               store.selectedList === "incoming" ? (
-                <span
+                <Label
                   key={"articleService" + item.id + "-" + service.name}
-                  className="label label--hollow"
-                >
-                  {service.name}
-                </span>
+                  text={service.name}
+                  style="hollow"
+                />
               ) : null
             )}
 
           {item.version > 1 && store.selectedList === "incoming" && (
-            <span className="label label--darkBlue2 label--hollow">
-              update {item.version}
-            </span>
+            <Label
+              text={"update " + item.version}
+              style="hollow"
+              color="indigo--700"
+            />
           )}
           {item.articles[0] && item.articles[0].paywall_secured && (
             <span
@@ -158,11 +156,9 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 />
               ))}
           </span>
-          {isPublishedFbia ? (
-            <span className="label label--primary">facebook</span>
-          ) : null}
+          {isPublishedFbia ? <Label text="facebook" type="primary" /> : null}
           {isPublishedAppleNews ? (
-            <span className="label label--highlight2">Apple News</span>
+            <Label text="Apple News" color="pink--400" />
           ) : null}
           {item.articles.length - 3 > 0 && (
             <span className="sd-margin-r--1">
@@ -195,46 +191,38 @@ const ArticleItem = ({ item, style, onRemove }) => {
       </div>
       {store.isLanguagesEnabled && (
         <div className="sd-list-item__column sd-list-item__column--no-border">
-          <span className="label label--hollow">{item.language}</span>
+          <Label text={item.language} style="hollow" />
         </div>
       )}
 
       <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
         {store.selectedList === "incoming" && (
-          <button
-            sd-tooltip="Remove"
-            flow="left"
-            className="icn-btn"
+          <IconButton
+            icon="trash"
+            tooltip={{ text: "Remove", flow: "left" }}
             onClick={(e) => {
               e.stopPropagation();
               removeConfirm();
             }}
-          >
-            <i className="icon-trash"></i>
-          </button>
+          />
         )}
-        <button
-          sd-tooltip="Correct"
-          flow="left"
-          className="icn-btn"
+
+        <IconButton
+          icon="pencil"
+          tooltip={{ text: "Correct", flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.correctPackage(item);
           }}
-        >
-          <i className="icon-pencil"></i>
-        </button>
-        <button
-          sd-tooltip="Publish"
-          flow="left"
-          className="icn-btn"
+        />
+        <IconButton
+          icon="expand-thin"
+          tooltip={{ text: "Publish", flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.togglePublish(item);
           }}
-        >
-          <i className="icon-expand-thin"></i>
-        </button>
+        />
       </div>
       <Modal isOpen={state.confirm ? true : false}>{modalContent}</Modal>
     </div>
