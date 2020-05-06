@@ -23,8 +23,8 @@ class Listing extends React.Component {
         page: 0,
         totalPages: 1,
         loading: true,
-        itemSize: 56
-      }
+        itemSize: 56,
+      },
     };
   }
 
@@ -63,14 +63,14 @@ class Listing extends React.Component {
           page: 0,
           totalPages: 1,
           loading: true,
-          itemSize: 56
-        }
+          itemSize: 56,
+        },
       },
       this._queryArticles
     );
   };
 
-  handleNewPackageEvent = e => {
+  handleNewPackageEvent = (e) => {
     let item = e.detail.newPackage;
     let state = e.detail.state;
 
@@ -90,10 +90,10 @@ class Listing extends React.Component {
     }
   };
 
-  removeArticle = itemId => {
+  removeArticle = (itemId) => {
     let articles = [...this.state.articles];
 
-    let index = articles.items.findIndex(el => el.id === itemId);
+    let index = articles.items.findIndex((el) => el.id === itemId);
 
     if (index > -1) {
       articles.items.splice(index, 1);
@@ -112,7 +112,7 @@ class Listing extends React.Component {
 
     if (state === "update") {
       //update
-      let elIndex = articles.items.findIndex(el => el.guid === item.guid);
+      let elIndex = articles.items.findIndex((el) => el.guid === item.guid);
       if (elIndex !== -1) {
         articles.items[elIndex] = item;
       }
@@ -134,7 +134,7 @@ class Listing extends React.Component {
     let queryParams = {
       page: this.state.articles.page + 1,
       limit: this.queryLimit,
-      "status[]": []
+      "status[]": [],
     };
 
     // tenant
@@ -146,7 +146,7 @@ class Listing extends React.Component {
     // route
     let route = [];
     if (this.state.filters.route) {
-      this.state.filters.route.forEach(routeObj => {
+      this.state.filters.route.forEach((routeObj) => {
         route.push(routeObj.value);
       });
     }
@@ -154,16 +154,20 @@ class Listing extends React.Component {
     // authors
     let author = [];
     if (this.state.filters.author) {
-      this.state.filters.author.forEach(ath => {
+      this.state.filters.author.forEach((ath) => {
         author.push(ath.value);
       });
     }
     queryParams["author[]"] = author.length ? author : null;
 
-    // other
-    if (this.state.filters.source && this.state.filters.source.length) {
-      queryParams["source[]"] = this.state.filters.source;
+    // source
+    let source = [];
+    if (this.state.filters.source) {
+      this.state.filters.source.forEach((ath) => {
+        source.push(ath.value);
+      });
     }
+    queryParams["source[]"] = source.length ? source : null;
 
     if (this.state.filters.language && this.state.filters.language.length) {
       queryParams.language = this.state.filters.language;
@@ -202,14 +206,14 @@ class Listing extends React.Component {
 
     this.context.publisher
       .queryMonitoringArticles(queryParams)
-      .then(response => {
+      .then((response) => {
         let newArticles = response._embedded._items;
 
         if (this.context.selectedList === "published") {
-          newArticles.forEach(item => {
+          newArticles.forEach((item) => {
             item.comments_count = helpers.countComments(item.articles);
             item.page_views_count = helpers.countPageViews(item.articles);
-            item.articles.forEach(item => {
+            item.articles.forEach((item) => {
               if (item.route && item.status == "published" && item.tenant) {
                 let tenantUrl = item.tenant.subdomain
                   ? item.tenant.subdomain + "." + item.tenant.domain_name
@@ -231,22 +235,22 @@ class Listing extends React.Component {
 
         this.setState({ articles, loading: false });
       })
-      .catch(err => {
+      .catch((err) => {
         articles.loading = false;
         this.setState({ articles, loading: false });
         this.context.notify.error("Cannot load articles");
       });
   };
 
-  handleRemove = id => {
+  handleRemove = (id) => {
     let articles = { ...this.state.articles };
     articles.items = [...this.state.articles.items];
-    let index = articles.items.findIndex(item => item.id === id);
+    let index = articles.items.findIndex((item) => item.id === id);
 
     if (index) {
       articles.items = [
         ...articles.items.slice(0, index),
-        ...articles.items.slice(index + 1, articles.items.length)
+        ...articles.items.slice(index + 1, articles.items.length),
       ];
     }
     this.setState({ articles });
@@ -277,7 +281,7 @@ class Listing extends React.Component {
               itemSize={this.state.articles.itemSize}
               ItemRenderer={ArticleItem}
               itemRendererProps={{
-                onRemove: id => this.handleRemove(id)
+                onRemove: (id) => this.handleRemove(id),
               }}
             />
           </div>
@@ -306,7 +310,7 @@ class Listing extends React.Component {
 
 Listing.propTypes = {
   type: PropTypes.string.isRequired,
-  hide: PropTypes.bool
+  hide: PropTypes.bool,
 };
 
 export default Listing;

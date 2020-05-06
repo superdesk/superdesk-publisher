@@ -129,7 +129,7 @@ exports[`Output/Output renders properly 1`] = `
         <span
           class="badge sd-margin-l--0-5"
         >
-          632
+          0
         </span>
       </div>
       <div>
@@ -139,7 +139,7 @@ exports[`Output/Output renders properly 1`] = `
         <span
           class="badge sd-margin-l--0-5"
         >
-          632
+          0
         </span>
       </div>
     </div>
@@ -295,19 +295,14 @@ exports[`Output/Output renders properly 1`] = `
               class="form__row"
             >
               <div
-                class="sd-line-input sd-line-input--no-margin"
+                class="sd-line-input sd-line-input--is-select"
               >
                 <label
                   class="sd-line-input__label"
                 >
                   Ingest source
                 </label>
-                <input
-                  class="sd-line-input__input"
-                  name="source"
-                  type="text"
-                  value=""
-                />
+                div
               </div>
             </div>
           </div>
@@ -334,39 +329,11 @@ exports[`Output/Output renders properly 1`] = `
     </div>
     <div
       class="sd-column-box__main-column relative"
-      style="display: flex;"
     >
       <div
-        class="sd-list-item-group sd-shadow--z2"
-        style="flex-grow: 1;"
-      >
-        <div
-          style="overflow: visible; height: 0px; width: 0px;"
-        >
-          <div
-            aria-label="grid"
-            aria-readonly="true"
-            class="ReactVirtualized__Grid ReactVirtualized__List"
-            role="grid"
-            style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
-            tabindex="0"
-          />
-        </div>
-        <div
-          class="resize-triggers"
-        >
-          <div
-            class="expand-trigger"
-          >
-            <div
-              style="width: 1px; height: 1px;"
-            />
-          </div>
-          <div
-            class="contract-trigger"
-          />
-        </div>
-      </div>
+        class="sd-loader"
+        style="z-index: 1;"
+      />
     </div>
   </div>
 </div>

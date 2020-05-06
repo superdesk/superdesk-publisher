@@ -223,25 +223,30 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             </div>
           </div>
           <div
-            class="form__row"
+            class="flex-grid flex-grid--wrap-items flex-grid--small-1 flex-grid--medium-2"
+            style="overflow: visible;"
           >
-            <span
+            <div
+              class="flex-grid__item"
               sd-tooltip="Publish to facebook"
+              style="margin-bottom: 1em;"
             >
-              <span
-                class="sd-check__wrapper"
-              >
+              <span>
                 <span
-                  class="sd-checkbox"
-                />
-                <label
-                  class=""
-                  style="color: rgb(255, 255, 255);"
+                  class="sd-check__wrapper"
                 >
-                  Facebook
-                </label>
+                  <span
+                    class="sd-checkbox"
+                  />
+                  <label
+                    class=""
+                    style="color: rgb(255, 255, 255);"
+                  >
+                    Facebook
+                  </label>
+                </span>
               </span>
-            </span>
+            </div>
           </div>
           <div
             class="form__row"
