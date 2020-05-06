@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='superdesk-publisher',
-    version='0.1',
+    version='2.1',
     description='Superdesk Publisher plugin',
     author='sourcefabric',
     author_email='contact@sourcefabric.org',

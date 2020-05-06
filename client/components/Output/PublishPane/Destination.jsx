@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import { Switch } from "superdesk-ui-framework/react";
 import Store from "../Store";
-import OptionSwitches from "./OptionSwitches";
+import PublishingOptionSwitches from "../../generic/PublishingOptionSwitches";
 import RouteSelect from "./RouteSelect";
 import MetadataButtons from "./MetadataButtons";
 import ContentListPicker from "./ContentListPicker";
@@ -16,7 +17,7 @@ class Destination extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      isOpen: this.props.destination.status === "new" ? true : false
+      isOpen: this.props.destination.status === "new" ? true : false,
     };
   }
 
@@ -30,12 +31,12 @@ class Destination extends React.Component {
 
   toggle = () => this.setState({ isOpen: !this.state.isOpen });
 
-  handleRouteChange = e => {
+  handleRouteChange = (e) => {
     const routeId = parseInt(e.target.value);
     let dest = { ...this.props.destination };
     let tenantRoutes = this.getTenantRoutes();
 
-    dest.route = tenantRoutes.find(r => r.id === routeId);
+    dest.route = tenantRoutes.find((r) => r.id === routeId);
     this.props.update(dest);
   };
 
@@ -46,7 +47,11 @@ class Destination extends React.Component {
   };
 
   shouldItemMarkedUnpublished = () => {
-    if (this.props.destination.status !== "unpublished") return false;
+    if (
+      this.props.destination.status !== "unpublished" ||
+      this.props.destination.republish
+    )
+      return false;
 
     // checking if route changed
     return (
@@ -60,13 +65,13 @@ class Destination extends React.Component {
 
   getTenant = () =>
     this.context.tenants.find(
-      tenant => tenant.code === this.props.destination.tenant.code
+      (tenant) => tenant.code === this.props.destination.tenant.code
     );
 
   getTenantRoutes = () => {
     const tenant = this.getTenant();
 
-    return tenant.routes.map(route => {
+    return tenant.routes.map((route) => {
       route.name = route.name.replace(tenant.name + " / ", "");
       return route;
     });
@@ -81,7 +86,7 @@ class Destination extends React.Component {
     return (
       <div
         className={classNames("sd-collapse-box sd-shadow--z2", {
-          "sd-collapse-box--open": this.state.isOpen
+          "sd-collapse-box--open": this.state.isOpen,
         })}
       >
         <div className="sd-collapse-box__header" onClick={this.toggle}>
@@ -89,7 +94,7 @@ class Destination extends React.Component {
             <div
               className={classNames("sd-list-item__dot", {
                 "sd-list-item__dot--success": !shouldItemMarkedUnpublished,
-                "sd-list-item__dot--locked": shouldItemMarkedUnpublished
+                "sd-list-item__dot--locked": shouldItemMarkedUnpublished,
               })}
             ></div>
             <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
@@ -104,7 +109,7 @@ class Destination extends React.Component {
                     className="icn-btn disabled"
                     sd-tooltip="Remove tenant"
                     flow="left"
-                    onClick={event => {
+                    onClick={(event) => {
                       this.props.remove();
                       event.stopPropagation();
                     }}
@@ -118,7 +123,7 @@ class Destination extends React.Component {
               <div className="sd-list-item__row">
                 <span
                   className={classNames("sd-overflow-ellipsis label", {
-                    "label--success": !shouldItemMarkedUnpublished
+                    "label--success": !shouldItemMarkedUnpublished,
                   })}
                 >
                   {shouldItemMarkedUnpublished
@@ -159,7 +164,7 @@ class Destination extends React.Component {
             <div
               className={classNames("sd-list-item__dot", {
                 "sd-list-item__dot--success": !shouldItemMarkedUnpublished,
-                "sd-list-item__dot--locked": shouldItemMarkedUnpublished
+                "sd-list-item__dot--locked": shouldItemMarkedUnpublished,
               })}
             ></div>
             <div className="sd-collapse-box__tools sd-collapse-box__tools--flex">
@@ -176,7 +181,7 @@ class Destination extends React.Component {
                   className="icn-btn"
                   sd-tooltip="Remove tenant"
                   flow="left"
-                  onClick={event => {
+                  onClick={(event) => {
                     this.props.remove();
                     event.stopPropagation();
                   }}
@@ -230,20 +235,24 @@ class Destination extends React.Component {
               <div className="form__row">
                 <RouteSelect
                   routes={tenantRoutes}
-                  onChange={e => this.handleRouteChange(e)}
+                  onChange={(e) => this.handleRouteChange(e)}
                   selectedRouteId={
-                    this.props.destination.route &&
-                    this.props.destination.route.id
-                      ? this.props.destination.route.id
+                    destination.route && destination.route.id
+                      ? destination.route.id
                       : ""
                   }
                 />
               </div>
             )}
-            <OptionSwitches
+            <PublishingOptionSwitches
               fbiaEnabled={tenant.paywall_enabled}
               paywallEnabled={tenant.fbia_enabled}
-              destination={this.props.destination}
+              appleNewsEnabled={
+                tenant.apple_news_config && tenant.apple_news_config.channel_id
+                  ? true
+                  : false
+              }
+              destination={destination}
               onChange={(value, fieldName) =>
                 this.handleSwitchChange(value, fieldName)
               }
@@ -269,7 +278,7 @@ class Destination extends React.Component {
 
             {destination.status === "new" && (
               <ContentListPicker
-                destination={this.props.destination}
+                destination={destination}
                 update={this.props.update}
               />
             )}
@@ -277,12 +286,24 @@ class Destination extends React.Component {
             {!destination.status !== "new" ? (
               <div className="form__row" ng-if="destination.status !== 'new'">
                 <MetadataButtons
-                  open={type =>
-                    this.props.openMetadataEditor(this.props.destination, type)
+                  open={(type) =>
+                    this.props.openMetadataEditor(destination, type)
                   }
                 />
               </div>
             ) : null}
+
+            {destination.status === "unpublished" && (
+              <div className="form__row" style={{ marginTop: "-2rem" }}>
+                <Switch
+                  value={destination.republish ? true : false}
+                  onChange={(value) =>
+                    this.handleSwitchChange(value, "republish")
+                  }
+                />
+                <label style={{ color: "rgb(255, 255, 255)" }}>Republish</label>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -296,7 +317,7 @@ Destination.propTypes = {
   update: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   openMetadataEditor: PropTypes.func.isRequired,
-  openPreview: PropTypes.func.isRequired
+  openPreview: PropTypes.func.isRequired,
 };
 
 export default Destination;
