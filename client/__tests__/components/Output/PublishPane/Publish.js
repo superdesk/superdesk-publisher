@@ -99,14 +99,15 @@ describe("Output/PublishPane/Publish", () => {
     const tenantButton = getByText('tenant2');
     fireEvent.click(tenantButton);
 
-    expect(plusButton).toBeDisabled();
+    expect(plusButton.classList.contains('btn--disabled')).toBe(true)
+
 
 
     // removes destination and updates available tenants
-    const removeTenantButton = container.querySelector('[sd-tooltip="Remove tenant"]');
+    const removeTenantButton = container.querySelector('[data-sd-tooltip="Remove tenant"]');
 
     fireEvent.click(removeTenantButton);
-    expect(plusButton).not.toBeDisabled();
+    expect(plusButton.classList.contains('btn--disabled')).toBe(false)
   });
 });
 

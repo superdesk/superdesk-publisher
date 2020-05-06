@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
-
+import { Button } from "superdesk-ui-framework/react";
 import Store from "../Store";
 
 class Unpublish extends React.Component {
@@ -12,7 +12,7 @@ class Unpublish extends React.Component {
     super(props);
 
     this.state = {
-      newDestinations: props.destinations
+      newDestinations: props.destinations,
     };
   }
 
@@ -31,8 +31,8 @@ class Unpublish extends React.Component {
 
   unpublish = () => {
     let tenants = this.state.newDestinations
-      .filter(item => item.unpublish)
-      .map(item => item.tenant.code);
+      .filter((item) => item.unpublish)
+      .map((item) => item.tenant.code);
 
     this.context.publisher
       .unPublishArticle({ tenants: tenants }, this.context.selectedItem.id)
@@ -40,7 +40,7 @@ class Unpublish extends React.Component {
         this.context.actions.togglePublish(null);
         this.context.actions.togglePreview(null);
         let event = new CustomEvent("refreshOutputLists", {
-          detail: true
+          detail: true,
         });
         document.dispatchEvent(event);
       });
@@ -66,7 +66,7 @@ class Unpublish extends React.Component {
                         key={"unpublishbutton" + item.tenant.code}
                         onClick={() => this.toggleUnpublishFlag(item, index)}
                         className={classNames("btn__check flex-grid__item", {
-                          "btn__check--active": item.unpublish
+                          "btn__check--active": item.unpublish,
                         })}
                       >
                         {item.tenant.name}
@@ -80,15 +80,16 @@ class Unpublish extends React.Component {
         </div>
 
         <div className="side-panel__footer side-panel__footer--button-box-large">
-          <button
-            className="btn btn--large btn--alert btn--expanded"
+          <Button
+            text="Unpublish"
+            type="alert"
+            expand={true}
             disabled={
-              !this.state.newDestinations.filter(item => item.unpublish).length
+              !this.state.newDestinations.filter((item) => item.unpublish)
+                .length
             }
             onClick={this.unpublish}
-          >
-            Unpublish
-          </button>
+          />
         </div>
       </React.Fragment>
     );
@@ -96,7 +97,7 @@ class Unpublish extends React.Component {
 }
 
 Unpublish.propTypes = {
-  destinations: PropTypes.array.isRequired
+  destinations: PropTypes.array.isRequired,
 };
 
 export default Unpublish;

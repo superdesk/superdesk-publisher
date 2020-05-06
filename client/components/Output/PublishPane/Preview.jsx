@@ -4,6 +4,7 @@ import classNames from "classnames";
 import _ from "lodash";
 import Store from "../Store";
 import Modal from "../../UI/Modal";
+import { Button } from "superdesk-ui-framework/react";
 
 class Preview extends React.Component {
   static contextType = Store;
@@ -13,7 +14,7 @@ class Preview extends React.Component {
 
     this.state = {
       mode: "desktop",
-      urls: null
+      urls: null,
     };
   }
 
@@ -50,14 +51,14 @@ class Preview extends React.Component {
           this.context.selectedItem.id +
           "?auth_token=" +
           token +
-          "&amp"
+          "&amp",
       };
 
       this.setState({ urls });
     }
   }
 
-  changeMode = mode => this.setState({ mode });
+  changeMode = (mode) => this.setState({ mode });
 
   render() {
     let { mode, urls } = this.state;
@@ -141,12 +142,9 @@ class Preview extends React.Component {
             ></a>
           </div>
           <div className="subnav__stretch-bar"></div>
-          <button
-            className="btn sd-margin-r--1"
-            onClick={() => this.props.close()}
-          >
-            Close
-          </button>
+          <span className="sd-margin-r--1">
+            <Button text="Close" onClick={() => this.props.close()} />
+          </span>
         </div>
 
         <div className="modal__body articlePreview">
@@ -159,7 +157,7 @@ class Preview extends React.Component {
               "articlePreview__iframe--mobile":
                 mode == "mobile" || mode == "amp",
               "articlePreview__iframe--mobileLandscape":
-                mode == "mobile-landscape" || mode == "amp-landscape"
+                mode == "mobile-landscape" || mode == "amp-landscape",
             })}
           ></iframe>
         </div>
@@ -171,7 +169,7 @@ class Preview extends React.Component {
 Preview.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
-  item: PropTypes.object
+  item: PropTypes.object,
 };
 
 export default Preview;

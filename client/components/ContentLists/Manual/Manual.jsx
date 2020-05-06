@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 
+import { Button } from "superdesk-ui-framework/react";
 import FilterPanel from "./FilterPanel";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import SearchBar from "../../UI/SearchBar";
@@ -498,13 +499,14 @@ class Manual extends React.Component {
                 ))}
               </DropdownScrollable>
               <div className="subnav__stretch-bar" />
-              <button
-                className="btn btn--primary margin--right"
-                disabled={this.state.changesRecord.length ? false : true}
-                onClick={this.save}
-              >
-                Save
-              </button>
+              <span className="margin--right">
+                <Button
+                  text="Save"
+                  type="primary"
+                  onClick={this.save}
+                  disabled={this.state.changesRecord.length ? false : true}
+                />
+              </span>
             </div>
 
             <div className="sd-column-box--3">

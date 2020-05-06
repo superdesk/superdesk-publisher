@@ -81,7 +81,7 @@ describe("TargetedPublishing/Destination", () => {
 
     const saveButton = getByText("Save");
 
-    expect(saveButton.disabled).toBeTruthy();
+    expect(saveButton.classList.contains('btn--disabled')).toBe(true)
   });
 
   it("rerenders preview", async () => {

@@ -11,13 +11,13 @@ class TargetedPublishing extends React.Component {
     super(props);
 
     this.state = {
-      newDestination: {}
+      newDestination: {},
     };
   }
 
-  setNewDestination = site => {
+  setNewDestination = (site) => {
     this.setState({
-      newDestination: site
+      newDestination: site,
     });
   };
 
@@ -30,7 +30,7 @@ class TargetedPublishing extends React.Component {
     return (
       <ToggleBox
         title="Web publishing"
-        style="toggle-box--dark sp--dark-ui"
+        style="toggle-box--dark sp--dark-ui toggle-box--circle"
         isOpen={true}
       >
         {!this.props.rules.length && (
@@ -68,7 +68,7 @@ class TargetedPublishing extends React.Component {
           />
         )}
         <AddWebsite
-          setNewDestination={newDestination =>
+          setNewDestination={(newDestination) =>
             this.setNewDestination(newDestination)
           }
           apiHeader={this.props.apiHeader}
@@ -86,7 +86,7 @@ TargetedPublishing.propTypes = {
   apiHeader: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
   reload: PropTypes.func.isRequired,
-  config: PropTypes.object.isRequired
+  config: PropTypes.object.isRequired,
 };
 
 export default TargetedPublishing;

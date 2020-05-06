@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
-
+import { Label } from "superdesk-ui-framework/react";
 import helpers from "../../../services/helpers.js";
 
 const ArticleItem = ({
@@ -70,14 +70,12 @@ const ArticleItem = ({
           <span className="sd-overflow-ellipsis sd-list-item--element-grow">
             {moment(item.published_at).fromNow()}
           </span>
-          <span className="label label--success label--hollow">
-            {item.route && item.route.name}
-          </span>
-          {item.sticky && (
-            <span className="pull-right label label--primary label--hollow">
-              pinned
-            </span>
-          )}
+          <Label
+            text={item.route && item.route.name}
+            type="success"
+            style="hollow"
+          />
+          {item.sticky && <Label text="pinned" type="primary" style="hollow" />}
         </div>
       </div>
       {showExtras && (

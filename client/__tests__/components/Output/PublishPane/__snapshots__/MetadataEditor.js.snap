@@ -10,15 +10,19 @@ exports[`Output/PublishPane/MetadataEditor renders correctly 1`] = `
     <div
       class="side-panel__header"
     >
-      <a
-        class="icn-btn sd-margin-l--1"
-        flow="right"
-        sd-tooltip="Back"
+      <span
+        class="sd-margin-l--1"
       >
-        <i
-          class="icon-arrow-left"
-        />
-      </a>
+        <a
+          class="icn-btn"
+          data-flow="right"
+          data-sd-tooltip="Back"
+        >
+          <i
+            class="icon-arrow-left"
+          />
+        </a>
+      </span>
       <h3
         class="side-panel__heading side-panel__heading--big"
       >

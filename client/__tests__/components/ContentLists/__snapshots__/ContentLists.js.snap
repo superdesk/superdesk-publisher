@@ -116,39 +116,59 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
             />
           </div>
         </div>
-        <span
-          class="sd-check__wrapper"
+        <div
+          style="margin-left: 1rem;"
         >
-          <span
-            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+          <div
+            class="sd-check-button__group sd-check-button__group--left"
           >
-            <label>
-              All
-            </label>
-          </span>
-        </span>
-        <span
-          class="sd-check__wrapper"
-        >
-          <span
-            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
-          >
-            <label>
-              Automatic
-            </label>
-          </span>
-        </span>
-        <span
-          class="sd-check__wrapper"
-        >
-          <span
-            class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
-          >
-            <label>
-              Manual
-            </label>
-          </span>
-        </span>
+            <input
+              class="visuallyhidden"
+              id="id10"
+              type="checkbox"
+            />
+            <span
+              class="sd-check-button checked"
+            >
+              <label
+                class="sd-check-button__text-label"
+                for="id10"
+              >
+                All
+              </label>
+            </span>
+            <input
+              class="visuallyhidden"
+              id="id11"
+              type="checkbox"
+            />
+            <span
+              class="sd-check-button"
+            >
+              <label
+                class="sd-check-button__text-label"
+                for="id11"
+              >
+                Automatic
+              </label>
+            </span>
+            <input
+              class="visuallyhidden"
+              id="id12"
+              type="checkbox"
+            />
+            <span
+              class="sd-check-button"
+            >
+              <label
+                class="sd-check-button__text-label"
+                for="id12"
+              >
+                Manual
+              </label>
+            </span>
+          </div>
+        </div>
         <div
           class="subnav__stretch-bar"
         />
@@ -215,11 +235,12 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
               <div
                 class="sd-card__actions-group"
               >
-                <a
+                <button
+                  aria-label="button"
                   class="btn btn--small btn--hollow btn--ui-dark"
                 >
                   Edit
-                </a>
+                </button>
                 <div
                   class="dropdown dropdown--align-right"
                   flow="left"
@@ -321,11 +342,12 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
               <div
                 class="sd-card__actions-group"
               >
-                <a
+                <button
+                  aria-label="button"
                   class="btn btn--small btn--hollow btn--ui-dark"
                 >
                   Edit
-                </a>
+                </button>
                 <div
                   class="dropdown dropdown--align-right"
                   flow="left"
