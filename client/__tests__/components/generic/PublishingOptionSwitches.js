@@ -1,5 +1,5 @@
 import React from "react";
-import OptionSwitches from "../../../components/TargetedPublishing/OptionSwitches";
+import PublishingOptionsSwithces from "../../../components/generic/PublishingOptionSwitches";
 import {
   render,
   fireEvent,
@@ -7,7 +7,7 @@ import {
   wait
 } from "@testing-library/react";
 
-describe("TargetedPublishing/OptionSwitches", () => {
+describe("generic/PublishingOptionsSwithces", () => {
   const destination = {
     is_published_fbia: true,
     paywall_secured: true
@@ -15,7 +15,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
 
   it("returns null when all options are disabled", () => {
     const { container } = render(
-      <OptionSwitches
+      <PublishingOptionsSwithces
         fbiaEnabled={false}
         paywallEnabled={false}
         appleNewsEnabled={false}
@@ -29,7 +29,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
 
   it("renders all switches", async () => {
     const { getByText } = render(
-      <OptionSwitches
+      <PublishingOptionsSwithces
         fbiaEnabled={true}
         paywallEnabled={true}
         appleNewsEnabled={true}
@@ -45,7 +45,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
 
   it("renders facebook switch only", async () => {
     const { getByText, queryByText } = render(
-      <OptionSwitches
+      <PublishingOptionsSwithces
         fbiaEnabled={true}
         paywallEnabled={false}
         appleNewsEnabled={false}
@@ -62,7 +62,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
 
   it("renders paywall switch only", async () => {
     const { getByText, queryByText } = render(
-      <OptionSwitches
+      <PublishingOptionsSwithces
         fbiaEnabled={false}
         paywallEnabled={true}
         appleNewsEnabled={false}
@@ -79,7 +79,7 @@ describe("TargetedPublishing/OptionSwitches", () => {
     const onChange = jest.fn();
 
     const { container } = render(
-      <OptionSwitches
+      <PublishingOptionsSwithces
         fbiaEnabled={true}
         paywallEnabled={true}
         appleNewsEnabled={true}
