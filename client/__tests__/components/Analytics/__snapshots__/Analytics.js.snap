@@ -9,9 +9,7 @@ exports[`Analytics/Analytics renders correctly 1`] = `
   >
     <a
       class="navbtn navbtn--left"
-      flow="right"
       href="#/publisher"
-      sd-tooltip="Dashboard"
     >
       <i
         class="icon-arrow-left"
@@ -105,28 +103,44 @@ exports[`Analytics/Analytics renders correctly 1`] = `
               class="icon-filter-large"
             />
           </button>
-          <span
-            class="sd-check__wrapper"
+          <div
+            style="margin-left: 1rem;"
           >
-            <span
-              class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+            <div
+              class="sd-check-button__group sd-check-button__group--left"
             >
-              <label>
-                Analytics
-              </label>
-            </span>
-          </span>
-          <span
-            class="sd-check__wrapper"
-          >
-            <span
-              class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
-            >
-              <label>
-                Reports History
-              </label>
-            </span>
-          </span>
+              <input
+                class="visuallyhidden"
+                id="id10"
+                type="checkbox"
+              />
+              <span
+                class="sd-check-button checked"
+              >
+                <label
+                  class="sd-check-button__text-label"
+                  for="id10"
+                >
+                  Analytics
+                </label>
+              </span>
+              <input
+                class="visuallyhidden"
+                id="id11"
+                type="checkbox"
+              />
+              <span
+                class="sd-check-button"
+              >
+                <label
+                  class="sd-check-button__text-label"
+                  for="id11"
+                >
+                  Reports History
+                </label>
+              </span>
+            </div>
+          </div>
           <div
             class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1"
           >
@@ -161,8 +175,8 @@ exports[`Analytics/Analytics renders correctly 1`] = `
             </div>
             <a
               class="icn-btn"
-              flow="bottom"
-              sd-tooltip="Descending"
+              data-flow="bottom"
+              data-sd-tooltip="Descending"
             >
               <i
                 class="icon-descending"
@@ -182,15 +196,19 @@ exports[`Analytics/Analytics renders correctly 1`] = `
               <div
                 class="side-panel__header side-panel__header--border-b"
               >
-                <a
-                  class="icn-btn side-panel__close"
-                  flow="left"
-                  sd-tooltip="Close filters"
+                <span
+                  class="side-panel__close"
                 >
-                  <i
-                    class="icon-close-small"
-                  />
-                </a>
+                  <a
+                    class="icn-btn"
+                    data-flow="left"
+                    data-sd-tooltip="Close"
+                  >
+                    <i
+                      class="icon-close-small"
+                    />
+                  </a>
+                </span>
                 <h3
                   class="side-panel__heading side-panel__heading--big"
                 >
@@ -341,27 +359,28 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                 <div
                   class="flex-grid flex-grid--boxed-small flex-grid--small-2"
                 >
-                  <a
+                  <button
+                    aria-label="button"
                     class="btn btn--hollow"
-                    data-testid="filterClear"
                   >
                     Clear
-                  </a>
-                  <a
+                  </button>
+                  <button
+                    aria-label="button"
                     class="btn btn--primary"
-                    data-testid="filterSave"
                   >
                     Run Report
-                  </a>
+                  </button>
                 </div>
                 <div
                   class="flex-grid flex-grid--boxed-small flex-grid--small-1"
                 >
-                  <a
-                    class="btn btn--primary btn--expanded btn--disabled"
+                  <button
+                    aria-label="button"
+                    class="btn btn--primary btn--disabled"
                   >
                     Generate Report
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

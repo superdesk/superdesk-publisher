@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 
+import { Button } from "superdesk-ui-framework/react";
 import FilterPanel from "./FilterPanel";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import SearchBar from "../../UI/SearchBar";
@@ -50,20 +51,20 @@ class Manual extends React.Component {
         items: [],
         page: 0,
         totalPages: 1,
-        loading: false
+        loading: false,
       },
       articles: {
         items: [],
         page: 0,
         totalPages: 1,
-        loading: false
+        loading: false,
       },
       listSearchQuery: "",
       articlesFilters:
         this.props.site && this.props.site.default_language
           ? { language: this.props.site.default_language }
           : {},
-      changesRecord: []
+      changesRecord: [],
     };
   }
 
@@ -75,20 +76,20 @@ class Manual extends React.Component {
             items: [],
             page: 0,
             totalPages: 1,
-            loading: false
+            loading: false,
           },
           articles: {
             items: [],
             page: 0,
             totalPages: 1,
-            loading: false
+            loading: false,
           },
           listSearchQuery: "",
           articlesFilters:
             this.props.site && this.props.site.default_language
               ? { language: this.props.site.default_language }
               : {},
-          changesRecord: []
+          changesRecord: [],
         },
         this._loadData
       );
@@ -127,9 +128,9 @@ class Manual extends React.Component {
     }
   };
 
-  scrollListenerList = _.debounce(e => this.scrollListener(e, "list"), 150);
+  scrollListenerList = _.debounce((e) => this.scrollListener(e, "list"), 150);
   scrollListenerArticles = _.debounce(
-    e => this.scrollListener(e, "articles"),
+    (e) => this.scrollListener(e, "articles"),
     150
   );
 
@@ -175,7 +176,7 @@ class Manual extends React.Component {
         items: [],
         page: 0,
         totalPages: 1,
-        loading: false
+        loading: false,
       };
     }
 
@@ -187,16 +188,16 @@ class Manual extends React.Component {
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)
-        .then(response => {
+        .then((response) => {
           let list = {
             page: response.page,
             totalPages: response.pages,
             items: [...this.state.list.items, ...response._embedded._items],
-            loading: false
+            loading: false,
           };
           if (this._isMounted) this.setState({ list });
         })
-        .catch(err => {
+        .catch((err) => {
           this.props.api.notify.error("Cannot load list items.");
           let list = { ...this.state.list };
           list.loading = false;
@@ -215,7 +216,7 @@ class Manual extends React.Component {
         items: [],
         page: 0,
         totalPages: 1,
-        loading: false
+        loading: false,
       };
     }
 
@@ -231,46 +232,72 @@ class Manual extends React.Component {
         delete params.language;
       }
 
-      this.props.publisher.queryTenantArticles(params).then(response => {
+      this.props.publisher.queryTenantArticles(params).then((response) => {
         let articles = {
           page: response.page,
           totalPages: response.pages,
           items: [...this.state.articles.items, ...response._embedded._items],
-          loading: false
+          loading: false,
         };
         if (this._isMounted) this.setState({ articles });
       });
     });
   };
 
-  handleListSearch = query => {
+  handleListSearch = (query) => {
     this.setState(
       {
-        listSearchQuery: query
+        listSearchQuery: query,
       },
       () => this._queryListArticles(true, 99999)
     );
   };
 
-  handleArticlesSearch = query => {
+  handleArticlesSearch = (query) => {
     let articlesFilters = { ...this.state.articlesFilters };
     articlesFilters.term = query;
     this.setState(
       {
-        articlesFilters
+        articlesFilters,
       },
       () => this._queryArticles(true)
     );
   };
 
-  filterArticles = filters =>
+  filterArticles = (filters) =>
     this.setState({ articlesFilters: filters }, () =>
       this._queryArticles(true)
     );
 
-  removeItem = id => {
+  pinUnpin = (id) => {
     let list = { ...this.state.list };
-    let index = list.items.findIndex(item => {
+    let index = list.items.findIndex((item) => {
+      let itemId = item.content ? item.content.id : item.id;
+      return itemId === id;
+    });
+
+    if (index > -1) {
+      let changesRecord = [...this.state.changesRecord];
+      let item = list.items[index];
+
+      let change = {
+        content_id: id,
+        action: "move",
+        position: index,
+        sticky: !item.sticky,
+      };
+
+      changesRecord.push(change);
+      changesRecord = this.updatePositions(changesRecord, list.items);
+      list.items[index] = { ...item, sticky: !item.sticky };
+
+      this.setState({ changesRecord, list });
+    }
+  };
+
+  removeItem = (id) => {
+    let list = { ...this.state.list };
+    let index = list.items.findIndex((item) => {
       let itemId = item.content ? item.content.id : item.id;
       return itemId === id;
     });
@@ -287,14 +314,14 @@ class Manual extends React.Component {
       .saveManualList(
         {
           items: this.state.changesRecord,
-          updated_at: this.props.list.updated_at
+          updated_at: this.props.list.updated_at,
         },
         this.props.list.id
       )
-      .then(savedList => {
+      .then((savedList) => {
         this.props.onListUpdate(savedList);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.status === 409) {
           this.props.api.notify.error(
             "Cannot save. List has been already modified by another user"
@@ -316,12 +343,12 @@ class Manual extends React.Component {
    */
   id2List = {
     contentList: "list",
-    articles: "articles"
+    articles: "articles",
   };
 
-  getList = id => this.state[this.id2List[id]].items;
+  getList = (id) => this.state[this.id2List[id]].items;
 
-  onDragEnd = result => {
+  onDragEnd = (result) => {
     const { source, destination } = result;
 
     // dropped outside the list
@@ -357,7 +384,7 @@ class Manual extends React.Component {
       this.recordChange("add", destination.index, [...list.items]);
       this.setState({
         list,
-        articles
+        articles,
       });
     }
   };
@@ -372,7 +399,7 @@ class Manual extends React.Component {
     let change = {
       content_id: item.content ? item.content.id : item.id,
       action: action,
-      position: index
+      position: index,
     };
 
     if (action === "delete") delete change.position;
@@ -384,7 +411,7 @@ class Manual extends React.Component {
 
   updatePositions = (changesRecord, list) => {
     for (let i = 0; i < changesRecord.length; i++) {
-      let itemIndex = list.findIndex(item => {
+      let itemIndex = list.findIndex((item) => {
         let itemId = item.content ? item.content.id : item.id;
         return itemId === changesRecord[i].content_id;
       });
@@ -397,10 +424,10 @@ class Manual extends React.Component {
     return changesRecord;
   };
 
-  markDuplicates = list => {
-    list.forEach(el => {
+  markDuplicates = (list) => {
+    list.forEach((el) => {
       let elId = el.content ? el.content.id : el.id;
-      let result = list.filter(element => {
+      let result = list.filter((element) => {
         let elementId = element.content ? element.content.id : element.id;
         return elId === elementId;
       });
@@ -414,16 +441,18 @@ class Manual extends React.Component {
     return list;
   };
 
-  getDraggableId = item =>
-    item.content ? item.id + "_" + item.content.id : item.id;
+  getDraggableId = (item) =>
+    item.content
+      ? "draggable_" + item.id + "_" + item.content.id
+      : "draggable_" + item.id;
 
   render() {
     let filteredContentListItems = this.markDuplicates([
-      ...this.state.list.items
+      ...this.state.list.items,
     ]);
 
     if (this.state.listSearchQuery) {
-      filteredContentListItems = filteredContentListItems.filter(item =>
+      filteredContentListItems = filteredContentListItems.filter((item) =>
         item.content
           ? item.content.title
               .toLowerCase()
@@ -447,7 +476,7 @@ class Manual extends React.Component {
               </button>
               <SearchBar
                 value={this.state.listSearchQuery}
-                onChange={value => this.handleListSearch(value)}
+                onChange={(value) => this.handleListSearch(value)}
                 style="dark"
               />
               <DropdownScrollable
@@ -461,7 +490,7 @@ class Manual extends React.Component {
                 <li>
                   <div className="dropdown__menu-label">{this.props.label}</div>
                 </li>
-                {this.props.lists.map(item => (
+                {this.props.lists.map((item) => (
                   <li key={"dropdownElement" + item.id}>
                     <button onClick={() => this.props.listEdit(item)}>
                       {item.name}
@@ -470,13 +499,14 @@ class Manual extends React.Component {
                 ))}
               </DropdownScrollable>
               <div className="subnav__stretch-bar" />
-              <button
-                className="btn btn--primary margin--right"
-                disabled={this.state.changesRecord.length ? false : true}
-                onClick={this.save}
-              >
-                Save
-              </button>
+              <span className="margin--right">
+                <Button
+                  text="Save"
+                  type="primary"
+                  onClick={this.save}
+                  disabled={this.state.changesRecord.length ? false : true}
+                />
+              </span>
             </div>
 
             <div className="sd-column-box--3">
@@ -485,7 +515,7 @@ class Manual extends React.Component {
                   "sd-column-box__main-column relative dropZone",
                   {
                     "dropZone--empty":
-                      !this.state.list.loading && !this.state.list.items.length
+                      !this.state.list.loading && !this.state.list.items.length,
                   }
                 )}
                 ref={this.listScroll}
@@ -534,14 +564,19 @@ class Manual extends React.Component {
                                 style={provided.draggableProps.style}
                               >
                                 <ArticleItem
-                                  item={item.content ? item.content : item}
-                                  openPreview={item =>
+                                  item={
+                                    item.content
+                                      ? { ...item.content, sticky: item.sticky }
+                                      : item
+                                  }
+                                  openPreview={(item) =>
                                     this.props.openPreview(item)
                                   }
                                   previewItem={this.props.previewItem}
                                   index={index}
                                   showExtras={true}
-                                  remove={id => this.removeItem(id)}
+                                  remove={(id) => this.removeItem(id)}
+                                  pinUnpin={(id) => this.pinUnpin(id)}
                                   willBeTrimmed={
                                     this.props.list.limit &&
                                     this.props.list.limit <= index
@@ -572,7 +607,7 @@ class Manual extends React.Component {
               <button
                 onClick={this.props.toggleFilters}
                 className={classNames("navbtn navbtn--left navbtn--darker", {
-                  "navbtn--active": this.props.filtersOpen
+                  "navbtn--active": this.props.filtersOpen,
                 })}
                 sd-tooltip="Filter"
                 flow="right"
@@ -585,17 +620,17 @@ class Manual extends React.Component {
                     ? this.state.articlesFilters.term
                     : ""
                 }
-                onChange={value => this.handleArticlesSearch(value)}
+                onChange={(value) => this.handleArticlesSearch(value)}
               />
               <h3 className="subnav__page-title">All published articles</h3>
               {this.props.isLanguagesEnabled && (
                 <LanguageSelect
                   languages={this.props.languages}
                   selectedLanguageCode={this.state.articlesFilters.language}
-                  setLanguage={lang => {
+                  setLanguage={(lang) => {
                     this.filterArticles({
                       ...this.state.articlesFilters,
-                      language: lang
+                      language: lang,
                     });
                   }}
                 />
@@ -627,7 +662,7 @@ class Manual extends React.Component {
                             >
                               <ArticleItem
                                 item={item.content ? item.content : item}
-                                openPreview={item =>
+                                openPreview={(item) =>
                                   this.props.openPreview(item)
                                 }
                                 previewItem={this.props.previewItem}
@@ -648,7 +683,7 @@ class Manual extends React.Component {
               </div>
 
               <FilterPanel
-                filter={filters => this.filterArticles(filters)}
+                filter={(filters) => this.filterArticles(filters)}
                 toggle={this.props.toggleFilters}
                 publisher={this.props.publisher}
                 api={this.props.api}
@@ -675,7 +710,7 @@ Manual.propTypes = {
   api: PropTypes.func.isRequired,
   isLanguagesEnabled: PropTypes.bool.isRequired,
   languages: PropTypes.array.isRequired,
-  site: PropTypes.object.isRequired
+  site: PropTypes.object.isRequired,
 };
 
 export default Manual;

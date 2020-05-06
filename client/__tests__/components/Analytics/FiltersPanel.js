@@ -59,7 +59,7 @@ describe("Analytics/FiltersPanel", () => {
       />
     );
 
-    const button = container.querySelector(".side-panel__close");
+    const button = container.querySelector(".side-panel__close a");
 
     fireEvent.click(button);
     expect(toggle).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe("Analytics/FiltersPanel", () => {
   it("updates and sets filters", () => {
     const setFilters = jest.fn();
 
-    const { container, getByTestId } = render(
+    const { container, getByText } = render(
       <FiltersPanel
         toggle={jest.fn()}
         filters={filters}
@@ -81,7 +81,7 @@ describe("Analytics/FiltersPanel", () => {
     const input = container.querySelector('input[name="published_before"]');
     fireEvent.change(input, { target: { value: "2020-02-02" } });
 
-    const filterButton = getByTestId("filterSave");
+    const filterButton = getByText("Run Report");
     fireEvent.click(filterButton);
 
     expect(setFilters).toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe("Analytics/FiltersPanel", () => {
   it("clears filters", () => {
     const setFilters = jest.fn();
 
-    const { container, getByTestId } = render(
+    const { getByText } = render(
       <FiltersPanel
         toggle={jest.fn()}
         filters={filters}
@@ -105,7 +105,7 @@ describe("Analytics/FiltersPanel", () => {
       />
     );
 
-    const button = getByTestId("filterClear");
+    const button = getByText("Clear");
     fireEvent.click(button);
 
     expect(setFilters).toHaveBeenCalled();

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-import ButtonPlus from "../UI/ButtonPlus";
+import { Button } from "superdesk-ui-framework/react";
 
 class AddWebsite extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class AddWebsite extends React.Component {
 
     this.state = {
       sites: [],
-      sitesDropdownOpen: false
+      sitesDropdownOpen: false,
     };
   }
 
@@ -21,11 +21,11 @@ class AddWebsite extends React.Component {
   getSites = () => {
     return axios
       .get(this.props.apiUrl + "tenants/?limit=9999", {
-        headers: this.props.apiHeader
+        headers: this.props.apiHeader,
       })
-      .then(res => {
+      .then((res) => {
         this.setState({
-          sites: res.data._embedded._items
+          sites: res.data._embedded._items,
         });
         return res;
       });
@@ -34,11 +34,11 @@ class AddWebsite extends React.Component {
   toggleSitesDropdown = () => {
     let sitesDropdownOpen = !this.state.sitesDropdownOpen;
     this.setState({
-      sitesDropdownOpen: sitesDropdownOpen
+      sitesDropdownOpen: sitesDropdownOpen,
     });
   };
 
-  addDestination = site => {
+  addDestination = (site) => {
     // close site selection "dropdown"
     this.toggleSitesDropdown();
     this.props.setNewDestination(site);
@@ -52,8 +52,8 @@ class AddWebsite extends React.Component {
         marginTop: "10px",
         maxHeight: 0,
         overflow: "hidden",
-        transition: "all ease-in-out .4s"
-      }
+        transition: "all ease-in-out .4s",
+      },
     };
 
     if (this.state.sitesDropdownOpen) {
@@ -63,8 +63,10 @@ class AddWebsite extends React.Component {
     const remainingSites = [...this.state.sites];
     const rules = [...this.props.rules];
 
-    rules.forEach(rule => {
-      let index = remainingSites.findIndex(site => rule.tenant.id === site.id);
+    rules.forEach((rule) => {
+      let index = remainingSites.findIndex(
+        (site) => rule.tenant.id === site.id
+      );
       if (index >= 0) {
         remainingSites.splice(index, 1);
       }
@@ -73,13 +75,18 @@ class AddWebsite extends React.Component {
     return (
       <React.Fragment>
         {!!remainingSites.length && (
-          <ButtonPlus onClick={() => this.toggleSitesDropdown()} />
+          <Button
+            type="primary"
+            icon="plus-large"
+            shape="round"
+            onClick={this.toggleSitesDropdown}
+          />
         )}
         <div style={styles.addWebsiteDropdown} data-testid="dropdown">
           <div style={{ padding: "1.5rem" }}>
             <h3 className="tp-dropdown-heading">Add Website</h3>
             <ul className="simple-list--dotted simple-list">
-              {remainingSites.map(site => {
+              {remainingSites.map((site) => {
                 let siteDomain = site.subdomain
                   ? site.subdomain + "." + site.domain_name
                   : site.domain_name;
@@ -106,7 +113,7 @@ AddWebsite.propTypes = {
   setNewDestination: PropTypes.func.isRequired,
   apiUrl: PropTypes.string.isRequired,
   apiHeader: PropTypes.object.isRequired,
-  rules: PropTypes.array.isRequired
+  rules: PropTypes.array.isRequired,
 };
 
 export default AddWebsite;

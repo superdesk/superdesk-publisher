@@ -2,7 +2,7 @@
 
 exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set" and AdddWebsite component 1`] = `
 <div
-  class="toggle-box toggle-box--dark sp--dark-ui"
+  class="toggle-box toggle-box--dark sp--dark-ui toggle-box--circle"
 >
   <div
     class="toggle-box__header"

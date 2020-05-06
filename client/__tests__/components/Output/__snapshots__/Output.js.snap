@@ -49,28 +49,44 @@ exports[`Output/Output renders properly 1`] = `
     <div
       class="subnav__content-bar"
     >
-      <span
-        class="sd-check__wrapper"
+      <div
+        style="margin-left: 1rem;"
       >
-        <span
-          class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+        <div
+          class="sd-check-button__group sd-check-button__group--left"
         >
-          <label>
-            Incoming content
-          </label>
-        </span>
-      </span>
-      <span
-        class="sd-check__wrapper"
-      >
-        <span
-          class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
-        >
-          <label>
-            Published
-          </label>
-        </span>
-      </span>
+          <input
+            class="visuallyhidden"
+            id="id10"
+            type="checkbox"
+          />
+          <span
+            class="sd-check-button checked"
+          >
+            <label
+              class="sd-check-button__text-label"
+              for="id10"
+            >
+              Incoming
+            </label>
+          </span>
+          <input
+            class="visuallyhidden"
+            id="id11"
+            type="checkbox"
+          />
+          <span
+            class="sd-check-button"
+          >
+            <label
+              class="sd-check-button__text-label"
+              for="id11"
+            >
+              Published
+            </label>
+          </span>
+        </div>
+      </div>
     </div>
     <div
       class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1"
@@ -106,8 +122,8 @@ exports[`Output/Output renders properly 1`] = `
       </div>
       <a
         class="icn-btn"
-        flow="bottom"
-        sd-tooltip="Descending"
+        data-flow="bottom"
+        data-sd-tooltip="Descending"
       >
         <i
           class="icon-descending"
@@ -127,9 +143,13 @@ exports[`Output/Output renders properly 1`] = `
           Incoming:
         </span>
         <span
-          class="badge sd-margin-l--0-5"
+          class="sd-margin-l--0-5"
         >
-          632
+          <span
+            class="badge"
+          >
+            0
+          </span>
         </span>
       </div>
       <div>
@@ -137,9 +157,13 @@ exports[`Output/Output renders properly 1`] = `
           Published:
         </span>
         <span
-          class="badge sd-margin-l--0-5"
+          class="sd-margin-l--0-5"
         >
-          632
+          <span
+            class="badge"
+          >
+            0
+          </span>
         </span>
       </div>
     </div>
@@ -204,15 +228,19 @@ exports[`Output/Output renders properly 1`] = `
         <div
           class="side-panel__header side-panel__header--border-b"
         >
-          <a
-            class="icn-btn side-panel__close"
-            flow="left"
-            sd-tooltip="Close filters"
+          <span
+            class="side-panel__close"
           >
-            <i
-              class="icon-close-small"
-            />
-          </a>
+            <a
+              class="icn-btn"
+              data-flow="left"
+              data-sd-tooltip="Close"
+            >
+              <i
+                class="icon-close-small"
+              />
+            </a>
+          </span>
           <h3
             class="side-panel__heading side-panel__heading--big"
           >
@@ -295,19 +323,14 @@ exports[`Output/Output renders properly 1`] = `
               class="form__row"
             >
               <div
-                class="sd-line-input sd-line-input--no-margin"
+                class="sd-line-input sd-line-input--is-select"
               >
                 <label
                   class="sd-line-input__label"
                 >
                   Ingest source
                 </label>
-                <input
-                  class="sd-line-input__input"
-                  name="source"
-                  type="text"
-                  value=""
-                />
+                div
               </div>
             </div>
           </div>
@@ -318,55 +341,29 @@ exports[`Output/Output renders properly 1`] = `
           <div
             class="flex-grid flex-grid--boxed-small flex-grid--small-2"
           >
-            <a
+            <button
+              aria-label="button"
               class="btn btn--hollow"
             >
               Clear
-            </a>
-            <a
+            </button>
+            <button
+              aria-label="button"
               class="btn btn--primary"
             >
               Filter
-            </a>
+            </button>
           </div>
         </div>
       </div>
     </div>
     <div
       class="sd-column-box__main-column relative"
-      style="display: flex;"
     >
       <div
-        class="sd-list-item-group sd-shadow--z2"
-        style="flex-grow: 1;"
-      >
-        <div
-          style="overflow: visible; height: 0px; width: 0px;"
-        >
-          <div
-            aria-label="grid"
-            aria-readonly="true"
-            class="ReactVirtualized__Grid ReactVirtualized__List"
-            role="grid"
-            style="box-sizing: border-box; direction: ltr; height: 0px; position: relative; width: 0px; will-change: transform; overflow-x: hidden; overflow-y: auto;"
-            tabindex="0"
-          />
-        </div>
-        <div
-          class="resize-triggers"
-        >
-          <div
-            class="expand-trigger"
-          >
-            <div
-              style="width: 1px; height: 1px;"
-            />
-          </div>
-          <div
-            class="contract-trigger"
-          />
-        </div>
-      </div>
+        class="sd-loader"
+        style="z-index: 1;"
+      />
     </div>
   </div>
 </div>

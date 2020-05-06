@@ -7,6 +7,8 @@ import Unpublish from "./Unpublish";
 import Preview from "./Preview";
 import Store from "../Store";
 
+import { IconButton } from "superdesk-ui-framework/react";
+
 class PublishPane extends React.Component {
   static contextType = Store;
 
@@ -34,7 +36,11 @@ class PublishPane extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.isOpen && this.context.selectedItem) {
+    if (
+      this.props.isOpen &&
+      this.context.selectedItem &&
+      this.context.selectedItem.id !== this.state.package.id
+    ) {
       // build destinations
       let destinations = [];
 
@@ -94,12 +100,11 @@ class PublishPane extends React.Component {
         <div className="side-panel side-panel--shadow-right side-panel--dark-ui">
           <div className="side-panel__header">
             <div className="side-panel__tools">
-              <a
-                className="icn-btn"
+              <IconButton
+                icon="close-small"
+                tooltip={{ text: "Close", flow: "left" }}
                 onClick={() => this.context.actions.togglePublish(null)}
-              >
-                <i className="icon-close-small"></i>
-              </a>
+              />
             </div>
             <ul className="nav-tabs nav-tabs--ui-dark">
               <li

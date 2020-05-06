@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 
+import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
+
 import SitesSideNav from "../generic/SitesSideNav";
 import FiltersPanel from "./FiltersPanel";
 import Listing from "./Listing";
@@ -20,14 +22,14 @@ class Analytics extends React.Component {
       tenantsNavOpen: false,
       filters: {
         sort: "published_at",
-        order: "desc"
+        order: "desc",
       },
       filtersOpen: false,
       activeView: "listing",
       sites: [],
       routes: [],
       selectedSite: null,
-      articles: {}
+      articles: {},
     };
   }
 
@@ -37,12 +39,12 @@ class Analytics extends React.Component {
     this.props.publisher
       .setToken()
       .then(this.props.publisher.querySites)
-      .then(sites => {
+      .then((sites) => {
         let tenantsNavOpen = sites.length > 1 ? true : false;
         this.setState({ sites, tenantsNavOpen });
 
         if (this.props.tenant) {
-          let site = sites.find(site => site.code === this.props.tenant);
+          let site = sites.find((site) => site.code === this.props.tenant);
           if (site) this.setTenant(site);
         } else if (sites[0]) {
           this.setTenant(sites[0]);
@@ -54,14 +56,14 @@ class Analytics extends React.Component {
     this._isMounted = false;
   }
 
-  setTenant = site => {
+  setTenant = (site) => {
     this.props.publisher.setTenant(site);
     let articles = {
       items: [],
       page: 0,
       totalPages: 1,
       loading: false,
-      itemSize: 50
+      itemSize: 50,
     };
     this.setState({
       selectedSite: site,
@@ -69,14 +71,14 @@ class Analytics extends React.Component {
       loading: false,
       filters: {
         sort: "published_at",
-        order: "desc"
-      }
+        order: "desc",
+      },
     });
     this._queryRoutes();
   };
 
   _queryRoutes = () => {
-    this.props.publisher.queryRoutes({ type: "collection" }).then(routes => {
+    this.props.publisher.queryRoutes({ type: "collection" }).then((routes) => {
       if (this._isMounted) this.setState({ routes });
     });
   };
@@ -115,13 +117,13 @@ class Analytics extends React.Component {
         params.published_after = this.state.filters.published_after;
       }
 
-      this.props.publisher.queryTenantArticles(params).then(response => {
+      this.props.publisher.queryTenantArticles(params).then((response) => {
         let articles = {
           page: response.page,
           totalPages: response.pages,
           items: [...this.state.articles.items, ...response._embedded._items],
           loading: false,
-          itemSize: this.state.articles.itemSize
+          itemSize: this.state.articles.itemSize,
         };
         if (this._isMounted) this.setState({ articles });
       });
@@ -140,13 +142,13 @@ class Analytics extends React.Component {
     this.setState({ filtersOpen, articles });
   };
 
-  setFilters = filters => {
+  setFilters = (filters) => {
     let articles = {
       items: [],
       page: 0,
       totalPages: 1,
       loading: false,
-      itemSize: 100
+      itemSize: 100,
     };
 
     this.setState({ loading: true, activeView: "listing" }, () =>
@@ -154,9 +156,9 @@ class Analytics extends React.Component {
     );
   };
 
-  changeActiveView = type => this.setState({ activeView: type });
+  changeActiveView = (type) => this.setState({ activeView: type });
 
-  generateReport = filters => {
+  generateReport = (filters) => {
     let reportFilters = {};
 
     if (filters.published_after) {
@@ -169,20 +171,20 @@ class Analytics extends React.Component {
 
     if (filters.author && filters.author.length) {
       reportFilters.authors = [];
-      filters.author.map(a => reportFilters.authors.push(a.value));
+      filters.author.map((a) => reportFilters.authors.push(a.value));
     }
 
     if (filters.route) {
       reportFilters.routes = [
         {
-          id: filters.route
-        }
+          id: filters.route,
+        },
       ];
     }
 
     this.props.publisher
       .generateAnalyticsReport(reportFilters)
-      .then(response => {
+      .then((response) => {
         this.props.api.notify.success(
           "You fired report generation. Please note: the process takes some time. The link for generated report will be sent via email. Once generatet the report will be available in Reports History list."
         );
@@ -191,7 +193,7 @@ class Analytics extends React.Component {
           this.setState({ activeView: "reports" })
         );
       })
-      .catch(err => {
+      .catch((err) => {
         this.props.api.notify.error("Cannot generate report");
       });
   };
@@ -203,16 +205,11 @@ class Analytics extends React.Component {
 
         <div
           className={classNames("sd-page-content__content-block", {
-            "open-filters": this.state.filtersOpen
+            "open-filters": this.state.filtersOpen,
           })}
         >
           <div className="subnav">
-            <a
-              href="#/publisher"
-              className="navbtn navbtn--left"
-              sd-tooltip="Dashboard"
-              flow="right"
-            >
+            <a href="#/publisher" className="navbtn navbtn--left">
               <i className="icon-arrow-left" />
             </a>
             <h3 className="subnav__page-title">
@@ -224,13 +221,13 @@ class Analytics extends React.Component {
           </div>
           <div
             className={classNames("sd-column-box--3", {
-              "content-nav-closed": !this.state.tenantsNavOpen
+              "content-nav-closed": !this.state.tenantsNavOpen,
             })}
           >
             <SitesSideNav
               sites={this.state.sites}
               selectedSite={this.state.selectedSite}
-              setTenant={site => this.setTenant(site)}
+              setTenant={(site) => this.setTenant(site)}
               toggle={this.toggleTenantsNav}
               open={this.state.tenantsNavOpen}
             />
@@ -246,28 +243,19 @@ class Analytics extends React.Component {
                   >
                     <i className="icon-filter-large" />
                   </button>
-                  <span className="sd-check__wrapper">
-                    <span
-                      className={classNames(
-                        "sd-checkbox sd-checkbox--button-style sd-checkbox--radio",
-                        { checked: this.state.activeView === "listing" }
-                      )}
-                      onClick={() => this.changeActiveView("listing")}
-                    >
-                      <label>Analytics</label>
-                    </span>
-                  </span>
-                  <span className="sd-check__wrapper">
-                    <span
-                      className={classNames(
-                        "sd-checkbox sd-checkbox--button-style sd-checkbox--radio",
-                        { checked: this.state.activeView === "reports" }
-                      )}
-                      onClick={() => this.changeActiveView("reports")}
-                    >
-                      <label>Reports History</label>
-                    </span>
-                  </span>
+                  <div style={{ marginLeft: "1rem" }}>
+                    <CheckButtonGroup>
+                      <RadioButton
+                        value={this.state.activeView}
+                        options={[
+                          { value: "listing", label: "Analytics" },
+                          { value: "reports", label: "Reports History" },
+                        ]}
+                        onChange={(value) => this.changeActiveView(value)}
+                      />
+                    </CheckButtonGroup>
+                  </div>
+
                   {this.state.activeView === "listing" && (
                     <div className="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1">
                       <SortingOptions
@@ -282,7 +270,7 @@ class Analytics extends React.Component {
                   <FiltersPanel
                     toggle={this.toggleFilters}
                     filters={this.state.filters}
-                    setFilters={filters => this.setFilters(filters)}
+                    setFilters={(filters) => this.setFilters(filters)}
                     routes={this.state.routes}
                     api={this.props.api}
                     generateReport={this.generateReport}
@@ -310,7 +298,7 @@ class Analytics extends React.Component {
 Analytics.propTypes = {
   tenant: PropTypes.string,
   publisher: PropTypes.object.isRequired,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
 };
 
 export default Analytics;

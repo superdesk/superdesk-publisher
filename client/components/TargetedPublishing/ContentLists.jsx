@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Button } from "superdesk-ui-framework/react";
 
-import ButtonWide from "../UI/ButtonWide";
 import ContentListElement from "./ContentListElement";
 
-const ContentLists = props => {
+const ContentLists = (props) => {
   let ruleLists = [...props.ruleLists];
   let allContentLists = [...props.contentLists];
   let remainingLists = [...props.contentLists];
 
-  ruleLists.forEach(list => {
-    let index = remainingLists.findIndex(rlist => list.id === rlist.id);
+  ruleLists.forEach((list) => {
+    let index = remainingLists.findIndex((rlist) => list.id === rlist.id);
     if (index >= 0) {
       remainingLists.splice(index, 1);
     }
@@ -33,7 +33,13 @@ const ContentLists = props => {
       ))}
 
       {!!remainingLists.length && (
-        <ButtonWide onClick={props.addList} label="Add to content list" />
+        <Button
+          onClick={props.addList}
+          text="Add to content list"
+          style="hollow"
+          type="primary"
+          expand="true"
+        />
       )}
     </div>
   );
@@ -44,7 +50,7 @@ ContentLists.propTypes = {
   contentLists: PropTypes.array.isRequired,
   removeList: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
-  save: PropTypes.func.isRequired
+  save: PropTypes.func.isRequired,
 };
 
 export default ContentLists;

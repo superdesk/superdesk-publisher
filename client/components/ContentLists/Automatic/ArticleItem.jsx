@@ -11,7 +11,7 @@ const ArticleItem = ({
   openPreview,
   previewItem,
   pinUnpin,
-  remove
+  remove,
 }) => {
   let thumbnail = null;
 
@@ -22,7 +22,7 @@ const ArticleItem = ({
   return (
     <div
       className={classNames("sd-list-item", {
-        "sd-list-item--activated": previewItem && previewItem.id === item.id
+        "sd-list-item--activated": previewItem && previewItem.id === item.id,
       })}
       onClick={() => openPreview(item)}
       style={style}
@@ -56,10 +56,10 @@ const ArticleItem = ({
               "label--success label--hollow":
                 item.content.status === "published",
               "label--alert": item.content.status === "unpublished",
-              "label--yellow2": item.content.status === "new"
+              "label--yellow2": item.content.status === "new",
             })}
           >
-            {item.content.route.name}
+            {item.content.route && item.content.route.name}
           </span>
           {item.sticky && (
             <span className="pull-right label label--primary label--hollow">
@@ -71,7 +71,7 @@ const ArticleItem = ({
       <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
         <button
           className="pull-right"
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             pinUnpin(item);
           }}
@@ -82,7 +82,7 @@ const ArticleItem = ({
           <i className="icon-pin" />
         </button>
         <button
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             remove(item.content.id);
           }}
@@ -103,7 +103,7 @@ ArticleItem.propTypes = {
   openPreview: PropTypes.func.isRequired,
   previewItem: PropTypes.object,
   pinUnpin: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired
+  remove: PropTypes.func.isRequired,
 };
 
 export default ArticleItem;

@@ -3,17 +3,19 @@ import React from "react";
 import Dropdown from "../UI/Dropdown";
 import Store from "./Store";
 
-const SortingOptions = props => {
+import { IconButton } from "superdesk-ui-framework/react";
+
+const SortingOptions = (props) => {
   const store = React.useContext(Store);
 
-  const setSort = value => {
+  const setSort = (value) => {
     let filters = { ...store.filters };
 
     filters.sort = value;
     store.actions.setFilters(filters);
   };
 
-  const setOrder = value => {
+  const setOrder = (value) => {
     let filters = { ...store.filters };
 
     filters.order = value;
@@ -38,23 +40,17 @@ const SortingOptions = props => {
         </li>
       </Dropdown>
       {store.filters.order === "desc" ? (
-        <a
-          className="icn-btn"
-          sd-tooltip="Descending"
-          flow="bottom"
+        <IconButton
+          icon="descending"
+          tooltip={{ text: "Descending", flow: "bottom" }}
           onClick={() => setOrder("asc")}
-        >
-          <i className="icon-descending"></i>
-        </a>
+        />
       ) : (
-        <a
-          className="icn-btn"
-          sd-tooltip="Ascending"
-          flow="bottom"
+        <IconButton
+          icon="ascending"
+          tooltip={{ text: "Ascending", flow: "bottom" }}
           onClick={() => setOrder("desc")}
-        >
-          <i className="icon-ascending"></i>
-        </a>
+        />
       )}
     </React.Fragment>
   );

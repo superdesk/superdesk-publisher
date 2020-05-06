@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import _ from "lodash";
 import helpers from "../../../services/helpers";
 import DropdownScrollable from "../../UI/DropdownScrollable";
-import CheckButton from "../../UI/CheckButton";
+
+import {
+  Button,
+  CheckButtonGroup,
+  RadioButton,
+} from "superdesk-ui-framework/react";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
 import MetadataEditor from "./MetadataEditor";
@@ -23,8 +27,8 @@ class Publish extends React.Component {
       metadataEditor: {
         isOpen: false,
         destination: null,
-        type: "facebook"
-      }
+        type: "facebook",
+      },
     };
   }
 
@@ -37,7 +41,11 @@ class Publish extends React.Component {
       this.setState(
         {
           newDestinations: this.props.destinations,
-          metadataEditor: { isOpen: false, destination: null, type: "Facebook" }
+          metadataEditor: {
+            isOpen: false,
+            destination: null,
+            type: "Facebook",
+          },
         },
         this.setAvailableTenants
       );
@@ -48,9 +56,9 @@ class Publish extends React.Component {
     let availableTenants = [...this.context.tenants];
     let newDestinations = [...this.state.newDestinations];
 
-    newDestinations.map(dest => {
+    newDestinations.map((dest) => {
       let tenantIndex = availableTenants.findIndex(
-        tenant => tenant.code === dest.tenant.code
+        (tenant) => tenant.code === dest.tenant.code
       );
 
       if (tenantIndex >= 0) {
@@ -61,15 +69,15 @@ class Publish extends React.Component {
     this.setState({ availableTenants });
   };
 
-  setFilter = filter => this.setState({ filter: filter });
+  setFilter = (filter) => this.setState({ filter: filter });
 
   toggleMetadataEditor = (destination, type) => {
     this.setState({
       metadataEditor: {
         isOpen: !this.state.metadataEditor.isOpen,
         destination: destination,
-        type: type
-      }
+        type: type,
+      },
     });
   };
 
@@ -80,35 +88,37 @@ class Publish extends React.Component {
     this.setState({ newDestinations });
   };
 
-  removeDestination = index => {
+  removeDestination = (index) => {
     let newDestinations = [...this.state.newDestinations];
 
     newDestinations.splice(index, 1);
     this.setState({ newDestinations }, this.setAvailableTenants);
   };
 
-  addDestination = tenant => {
+  addDestination = (tenant) => {
     let newDestinations = [...this.state.newDestinations];
     let destination = {
       tenant: tenant,
       route: {},
       is_published_fbia: false,
       paywall_secured: false,
+      is_published_to_apple_news: false,
       status: "new",
-      content_lists: []
+      content_lists: [],
     };
 
     newDestinations.unshift(destination);
     this.setState({ newDestinations }, this.setAvailableTenants);
   };
 
-  convertDestination = item => {
+  convertDestination = (item) => {
     let destination = {
       tenant: item.tenant.code,
       route: item.route && item.route.id ? item.route.id : null,
       is_published_fbia: item.is_published_fbia,
       published: item.route && item.route.id ? true : false,
-      paywall_secured: item.paywall_secured
+      paywall_secured: item.paywall_secured,
+      is_published_to_apple_news: item.is_published_to_apple_news,
     };
 
     if (
@@ -126,12 +136,12 @@ class Publish extends React.Component {
     let newDestinations = [...this.state.newDestinations];
     let destinations = [];
 
-    newDestinations.forEach(item => {
+    newDestinations.forEach((item) => {
       if (item.status === "new") {
         destinations.push(this.convertDestination(item));
       } else {
         let originalItem = this.props.destinations.find(
-          i => i.tenant.code === item.tenant.code
+          (i) => i.tenant.code === item.tenant.code
         );
 
         if (!originalItem) {
@@ -154,13 +164,13 @@ class Publish extends React.Component {
         )
         .then(() => {
           let event = new CustomEvent("refreshOutputLists", {
-            detail: true
+            detail: true,
           });
           document.dispatchEvent(event);
           this.context.actions.togglePublish(null);
           this.context.actions.togglePreview(null);
         })
-        .catch(err => {
+        .catch((err) => {
           this.context.notify.error("Publishing failed!");
         });
     }
@@ -187,17 +197,17 @@ class Publish extends React.Component {
           <div className="side-panel__content-block side-panel__content-block--flex side-panel__content-block--space-between">
             <DropdownScrollable
               button={
-                <button
-                  className="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
+                <Button
+                  type="primary"
+                  icon="plus-large"
+                  shape="round"
                   sd-tooltip="Add destination"
                   flow="right"
                   disabled={this.state.availableTenants.length ? false : true}
-                >
-                  <i className="icon-plus-large"></i>
-                </button>
+                />
               }
             >
-              {this.state.availableTenants.map(tenant => (
+              {this.state.availableTenants.map((tenant) => (
                 <li key={"availableTenants" + tenant.code}>
                   <button onClick={() => this.addDestination(tenant)}>
                     {tenant.name}
@@ -206,22 +216,17 @@ class Publish extends React.Component {
               ))}
             </DropdownScrollable>
             <div>
-              <CheckButton
-                label="All"
-                onClick={() => this.setFilter("all")}
-                isChecked={this.state.filter === "all" ? true : false}
-              />
-
-              <CheckButton
-                label="Published"
-                onClick={() => this.setFilter("published")}
-                isChecked={this.state.filter === "published" ? true : false}
-              />
-              <CheckButton
-                label="Unpublished"
-                onClick={() => this.setFilter("unpublished")}
-                isChecked={this.state.filter === "unpublished" ? true : false}
-              />
+              <CheckButtonGroup>
+                <RadioButton
+                  value={this.state.filter}
+                  options={[
+                    { value: "all", label: "All" },
+                    { value: "published", label: "Published" },
+                    { value: "unpublished", label: "Unpublished" },
+                  ]}
+                  onChange={(value) => this.setFilter(value)}
+                />
+              </CheckButtonGroup>
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--pad-small">
@@ -231,16 +236,16 @@ class Publish extends React.Component {
                 <Destination
                   destination={destination}
                   originalDestination={this.props.destinations.find(
-                    dest => dest.tenant.code === destination.tenant.code
+                    (dest) => dest.tenant.code === destination.tenant.code
                   )}
-                  update={destination =>
+                  update={(destination) =>
                     this.updateDestination(destination, index)
                   }
                   openMetadataEditor={(destination, type) =>
                     this.toggleMetadataEditor(destination, type)
                   }
                   remove={() => this.removeDestination(index)}
-                  openPreview={item => this.props.openPreview(item)}
+                  openPreview={(item) => this.props.openPreview(item)}
                   key={"destination" + destination.tenant.code}
                 />
               ) : null
@@ -260,13 +265,13 @@ class Publish extends React.Component {
         />
 
         <div className="side-panel__footer side-panel__footer--button-box-large">
-          <button
-            className="btn btn--large btn--success btn--expanded"
+          <Button
+            text="Publish"
+            type="success"
+            expand={true}
             onClick={this.publish}
             disabled={this.isChanged() ? false : true}
-          >
-            Publish
-          </button>
+          />
         </div>
       </React.Fragment>
     );
@@ -275,7 +280,7 @@ class Publish extends React.Component {
 
 Publish.propTypes = {
   destinations: PropTypes.array.isRequired,
-  openPreview: PropTypes.func.isRequired
+  openPreview: PropTypes.func.isRequired,
 };
 
 export default Publish;

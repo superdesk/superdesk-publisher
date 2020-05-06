@@ -15,11 +15,12 @@ exports[`ContentLists/ListCard renders correctly 1`] = `
     <div
       class="sd-card__actions-group"
     >
-      <a
+      <button
+        aria-label="button"
         class="btn btn--small btn--hollow btn--ui-dark"
       >
         Edit
-      </a>
+      </button>
       <div
         class="dropdown dropdown--align-right"
         flow="left"

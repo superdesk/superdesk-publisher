@@ -77,12 +77,16 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       <div
         class="subnav__stretch-bar"
       />
-      <button
-        class="btn btn--primary margin--right"
-        disabled=""
+      <span
+        class="margin--right"
       >
-        Save
-      </button>
+        <button
+          aria-label="button"
+          class="btn btn--primary btn--disabled"
+        >
+          Save
+        </button>
+      </span>
     </div>
     <div
       class="sd-column-box--3"
@@ -201,10 +205,13 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
           class="sd-list-item-group sd-shadow--z2"
         >
           <li
-            aria-roledescription="Draggable item. Press space bar to lift"
-            data-react-beautiful-dnd-drag-handle="0"
-            data-react-beautiful-dnd-draggable="0"
+            aria-describedby="rbd-hidden-text-0-hidden-text-0"
+            data-rbd-drag-handle-context-id="0"
+            data-rbd-drag-handle-draggable-id="draggable_1317"
+            data-rbd-draggable-context-id="0"
+            data-rbd-draggable-id="draggable_1317"
             draggable="false"
+            role="button"
             tabindex="0"
           >
             <div
@@ -250,15 +257,19 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
           <div
             class="side-panel__header side-panel__header--border-b"
           >
-            <a
-              class="icn-btn side-panel__close"
-              flow="left"
-              sd-tooltip="Close filters"
+            <span
+              class="side-panel__close"
             >
-              <i
-                class="icon-close-small"
-              />
-            </a>
+              <a
+                class="icn-btn"
+                data-flow="left"
+                data-sd-tooltip="Close"
+              >
+                <i
+                  class="icon-close-small"
+                />
+              </a>
+            </span>
             <h3
               class="side-panel__heading"
             >
@@ -364,16 +375,18 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
             <div
               class="flex-grid flex-grid--boxed-small flex-grid--small-2"
             >
-              <a
+              <button
+                aria-label="button"
                 class="btn btn--hollow"
               >
                 Clear
-              </a>
-              <a
+              </button>
+              <button
+                aria-label="button"
                 class="btn btn--primary"
               >
                 Filter
-              </a>
+              </button>
             </div>
           </div>
         </div>
