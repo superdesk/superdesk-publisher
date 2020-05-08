@@ -20,8 +20,8 @@ class Automatic extends React.Component {
         page: 0,
         totalPages: 1,
         loading: false,
-        itemSize: 56
-      }
+        itemSize: 56,
+      },
     };
   }
 
@@ -34,8 +34,8 @@ class Automatic extends React.Component {
           page: 0,
           totalPages: 1,
           loading: false,
-          itemSize: 56
-        }
+          itemSize: 56,
+        },
       });
     }
   }
@@ -48,20 +48,23 @@ class Automatic extends React.Component {
     this._isMounted = false;
   }
 
-  pinUnpin = item => {
-    let index = this.state.articles.items.findIndex(i => item.id === i.id);
+  pinUnpin = (item) => {
+    let index = this.state.articles.items.findIndex((i) => item.id === i.id);
 
     let articles = { ...this.state.articles };
 
     articles.items[index].loading = true;
     articles.loading = true;
 
+    let data = {
+      sticky: !item.sticky,
+      sticky_position: index,
+    };
+
     this.setState({ articles }, () => {
       this.props.publisher
-        .pinArticle(this.props.list.id, item.id, {
-          sticky: !item.sticky
-        })
-        .then(newItem => {
+        .pinArticle(this.props.list.id, item.id, data)
+        .then((newItem) => {
           articles.items[index] = newItem;
           articles.loading = false;
           this.setState({ articles });
@@ -69,23 +72,23 @@ class Automatic extends React.Component {
     });
   };
 
-  removeItem = id => {
+  removeItem = (id) => {
     let change = [
       {
         content_id: id,
-        action: "delete"
-      }
+        action: "delete",
+      },
     ];
 
     this.props.publisher
       .saveManualList(
         {
           items: change,
-          updated_at: this.props.list.updated_at
+          updated_at: this.props.list.updated_at,
         },
         this.props.list.id
       )
-      .then(savedList => {
+      .then((savedList) => {
         let list = { ...this.props.list };
 
         list.updated_at = savedList.updated_at;
@@ -95,7 +98,7 @@ class Automatic extends React.Component {
 
         this.props.onListUpdate(list);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.status === 409) {
           this.props.api.notify.error(
             "Cannot save. List has been already modified by another user"
@@ -107,8 +110,8 @@ class Automatic extends React.Component {
               page: 0,
               totalPages: 1,
               loading: false,
-              itemSize: 56
-            }
+              itemSize: 56,
+            },
           });
           this._queryArticles();
         } else {
@@ -117,7 +120,7 @@ class Automatic extends React.Component {
       });
   };
 
-  onFiltersSave = updatedList => {
+  onFiltersSave = (updatedList) => {
     this._queryArticles();
     this.props.onListUpdate(updatedList);
   };
@@ -129,16 +132,17 @@ class Automatic extends React.Component {
       let params = {};
       params.limit = 20;
       params.page = this.state.articles.page + 1;
+      params["sorting[position]"] = "asc";
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)
-        .then(response => {
+        .then((response) => {
           let articles = {
             page: response.page,
             totalPages: response.pages,
             items: [...this.state.articles.items, ...response._embedded._items],
             loading: false,
-            itemSize: this.state.articles.itemSize
+            itemSize: this.state.articles.itemSize,
           };
           if (this._isMounted) this.setState({ articles });
         });
@@ -159,7 +163,7 @@ class Automatic extends React.Component {
             <button
               onClick={this.props.toggleFilters}
               className={classNames("navbtn navbtn--left navbtn--darker", {
-                "navbtn--active": this.props.filtersOpen
+                "navbtn--active": this.props.filtersOpen,
               })}
               sd-tooltip="Filter"
               flow="right"
@@ -177,7 +181,7 @@ class Automatic extends React.Component {
               <li>
                 <div className="dropdown__menu-label">{this.props.label}</div>
               </li>
-              {this.props.lists.map(item => (
+              {this.props.lists.map((item) => (
                 <li key={"dropdownElement" + item.id}>
                   <button onClick={() => this.props.listEdit(item)}>
                     {item.name}
@@ -193,7 +197,7 @@ class Automatic extends React.Component {
               toggle={this.props.toggleFilters}
               publisher={this.props.publisher}
               filters={this.props.list.filters ? this.props.list.filters : {}}
-              onFiltersSave={list => this.onFiltersSave(list)}
+              onFiltersSave={(list) => this.onFiltersSave(list)}
               api={this.props.api}
             />
             <div
@@ -224,10 +228,10 @@ class Automatic extends React.Component {
                     itemSize={this.state.articles.itemSize}
                     ItemRenderer={ArticleItem}
                     itemRendererProps={{
-                      openPreview: item => this.props.openPreview(item),
+                      openPreview: (item) => this.props.openPreview(item),
                       previewItem: this.props.previewItem,
-                      pinUnpin: item => this.pinUnpin(item),
-                      remove: id => this.removeItem(id)
+                      pinUnpin: (item) => this.pinUnpin(item),
+                      remove: (id) => this.removeItem(id),
                     }}
                     heightSubtract={0}
                   />
@@ -252,7 +256,7 @@ Automatic.propTypes = {
   openPreview: PropTypes.func,
   previewItem: PropTypes.object,
   filtersOpen: PropTypes.bool,
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
 };
 
 export default Automatic;

@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import CheckButton from "../UI/CheckButton";
 import ListCard from "./ListCard";
 import Dropdown from "../UI/Dropdown";
-
 import SearchBar from "../UI/SearchBar";
+import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
 
 class Listing extends React.Component {
   constructor(props) {
@@ -13,13 +12,13 @@ class Listing extends React.Component {
 
     this.state = {
       filter: "all",
-      search: ""
+      search: "",
     };
   }
 
-  setFilter = kind => this.setState({ filter: kind });
+  setFilter = (kind) => this.setState({ filter: kind });
 
-  addList = type => {
+  addList = (type) => {
     if (this.state.filter !== "all" && type !== this.state.filter) {
       this.setState({ filter: "all" });
     }
@@ -30,15 +29,17 @@ class Listing extends React.Component {
     let lists = [...this.props.lists];
 
     if (this.state.filter !== "all")
-      lists = lists.filter(list => list.type === this.state.filter);
+      lists = lists.filter((list) => list.type === this.state.filter);
 
     if (this.state.search)
-      lists = lists.filter(list =>
+      lists = lists.filter((list) =>
         list.name.toLowerCase().includes(this.state.search)
       );
 
     let addButtonDisabled = false;
-    let newListIndex = lists.findIndex(list => typeof list.id === "undefined");
+    let newListIndex = lists.findIndex(
+      (list) => typeof list.id === "undefined"
+    );
 
     if (newListIndex > -1) addButtonDisabled = true;
 
@@ -47,24 +48,22 @@ class Listing extends React.Component {
         <div className="subnav subnav--lower-z-index">
           <SearchBar
             value={this.state.search}
-            onChange={value => this.setState({ search: value.toLowerCase() })}
+            onChange={(value) => this.setState({ search: value.toLowerCase() })}
             debounceTime={1}
           />
-          <CheckButton
-            label="All"
-            isChecked={this.state.filter === "all"}
-            onClick={() => this.setFilter("all")}
-          />
-          <CheckButton
-            label="Automatic"
-            isChecked={this.state.filter === "automatic"}
-            onClick={() => this.setFilter("automatic")}
-          />
-          <CheckButton
-            label="Manual"
-            isChecked={this.state.filter === "manual"}
-            onClick={() => this.setFilter("manual")}
-          />
+          <div style={{ marginLeft: "1rem" }}>
+            <CheckButtonGroup>
+              <RadioButton
+                value={this.state.filter}
+                options={[
+                  { value: "all", label: "All" },
+                  { value: "automatic", label: "Automatic" },
+                  { value: "manual", label: "Manual" },
+                ]}
+                onChange={(value) => this.setFilter(value)}
+              />
+            </CheckButtonGroup>
+          </div>
 
           <div className="subnav__stretch-bar" />
           <Dropdown
@@ -107,9 +106,10 @@ class Listing extends React.Component {
                 key={list.id + "listCard"}
                 list={list}
                 publisher={this.props.publisher}
-                onListDelete={id => this.props.onListDelete(id)}
-                onListCreated={list => this.props.onListCreated(list)}
-                listEdit={list => this.props.listEdit(list)}
+                onListDelete={(id) => this.props.onListDelete(id)}
+                onListCreated={(list) => this.props.onListCreated(list)}
+                onListUpdate={(list) => this.props.onListUpdate(list)}
+                listEdit={(list) => this.props.listEdit(list)}
               />
             ))}
           </div>
@@ -133,8 +133,9 @@ Listing.propTypes = {
   publisher: PropTypes.object.isRequired,
   onListDelete: PropTypes.func.isRequired,
   onListCreated: PropTypes.func.isRequired,
+  onListUpdate: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
-  listEdit: PropTypes.func.isRequired
+  listEdit: PropTypes.func.isRequired,
 };
 
 export default Listing;

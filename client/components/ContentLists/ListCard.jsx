@@ -4,7 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import helpers from "../../services/helpers.js";
 import _ from "lodash";
-
+import { Button, Label } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
 import Modal from "../UI/Modal";
 
@@ -22,7 +22,7 @@ class ListCard extends React.Component {
         props.list.content_list_items_count - 5 > 0
           ? props.list.content_list_items_count - 5
           : 0,
-      modalType: null
+      modalType: null,
     };
   }
 
@@ -41,13 +41,17 @@ class ListCard extends React.Component {
 
     this.props.publisher
       .manageList(list, this.state.list.id)
-      .then(res => {
+      .then((res) => {
         let list = { ...res };
         this.modalClose();
         this.editClose();
-        this.props.onListCreated(list);
+        if (this.state.list.id) {
+          this.props.onListUpdate(list);
+        } else {
+          this.props.onListCreated(list);
+        }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -134,18 +138,15 @@ class ListCard extends React.Component {
             </form>
           </div>
           <div className="modal__footer">
-            <button className="btn" onClick={this.modalClose}>
-              Cancel
-            </button>
-            <button
-              className="btn btn--primary"
+            <Button text="Cancel" onClick={this.modalClose} />
+            <Button
+              text="Save"
+              type="primary"
               onClick={this.save}
               disabled={_.isEmpty(
                 helpers.getUpdatedValues(this.state.list, this.props.list)
               )}
-            >
-              Save
-            </button>
+            />
           </div>
         </React.Fragment>
       );
@@ -161,12 +162,8 @@ class ListCard extends React.Component {
             Please confirm you want to delete list.
           </div>
           <div className="modal__footer">
-            <button className="btn" onClick={this.modalClose}>
-              Cancel
-            </button>
-            <button className="btn btn--primary" onClick={this.deleteList}>
-              OK
-            </button>
+            <Button text="Cancel" onClick={this.modalClose} />
+            <Button text="Ok" type="primary" onClick={this.deleteList} />
           </div>
         </React.Fragment>
       );
@@ -177,7 +174,7 @@ class ListCard extends React.Component {
         <div className="sd-card flexGrow">
           <div
             className={classNames("sd-card__header sd-card__header--padding", {
-              "sd-card__header--secondary-color": list.type === "automatic"
+              "sd-card__header--secondary-color": list.type === "automatic",
             })}
           >
             {this.state.isEditing ? (
@@ -211,12 +208,14 @@ class ListCard extends React.Component {
                   {list.name}
                 </div>
                 <div className="sd-card__actions-group">
-                  <a
-                    className="btn btn--small btn--hollow btn--ui-dark"
+                  <Button
+                    text="Edit"
+                    style="hollow"
+                    size="small"
+                    theme="dark"
                     onClick={() => this.props.listEdit(list)}
-                  >
-                    Edit
-                  </a>
+                  />
+
                   <Dropdown
                     button={
                       <button className="dropdown__toggle icn-btn">
@@ -287,7 +286,7 @@ class ListCard extends React.Component {
               <span>{moment(list.updated_at).fromNow()}</span>
             </div>
             {list.enabled && (
-              <span className="label label--success label--hollow">active</span>
+              <Label text="active" type="success" style="hollow" />
             )}
           </div>
         </div>
@@ -304,7 +303,8 @@ ListCard.propTypes = {
   list: PropTypes.object.isRequired,
   publisher: PropTypes.object.isRequired,
   listEdit: PropTypes.func.isRequired,
-  onListCreated: PropTypes.func.isRequired
+  onListCreated: PropTypes.func.isRequired,
+  onListUpdate: PropTypes.func.isRequired,
 };
 
 export default ListCard;

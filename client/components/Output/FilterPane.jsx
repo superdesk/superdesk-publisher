@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import { Button, IconButton } from "superdesk-ui-framework/react";
+
 import MultiSelect from "../UI/MultiSelect";
 import Store from "./Store";
 
@@ -193,14 +195,13 @@ class FilterPane extends React.Component {
           >
             <div className="side-panel side-panel--transparent side-panel--shadow-right">
               <div className="side-panel__header side-panel__header--border-b">
-                <a
-                  className="icn-btn side-panel__close"
-                  sd-tooltip="Close filters"
-                  flow="left"
-                  onClick={this.props.toggle}
-                >
-                  <i className="icon-close-small" />
-                </a>
+                <span className="side-panel__close">
+                  <IconButton
+                    icon="close-small"
+                    tooltip={{ text: "Close", flow: "left" }}
+                    onClick={this.props.toggle}
+                  />
+                </span>
                 <h3 className="side-panel__heading side-panel__heading--big">
                   Advanced Filter
                 </h3>
@@ -279,12 +280,8 @@ class FilterPane extends React.Component {
               </div>
               <div className="side-panel__footer side-panel__footer--button-box">
                 <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-                  <a className="btn btn--hollow" onClick={this.clear}>
-                    Clear
-                  </a>
-                  <a className="btn btn--primary" onClick={this.save}>
-                    Filter
-                  </a>
+                  <Button text="Clear" style="hollow" onClick={this.clear} />
+                  <Button text="Filter" type="primary" onClick={this.save} />
                 </div>
               </div>
             </div>
