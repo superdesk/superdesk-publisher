@@ -132,6 +132,7 @@ class Automatic extends React.Component {
       let params = {};
       params.limit = 20;
       params.page = this.state.articles.page + 1;
+      params["sorting[position]"] = "asc";
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)

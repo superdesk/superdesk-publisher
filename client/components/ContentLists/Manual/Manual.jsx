@@ -185,6 +185,7 @@ class Manual extends React.Component {
       let params = {};
       params.limit = limit;
       params.page = this.state.list.page + 1;
+      params["sorting[position]"] = "asc";
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)
@@ -289,7 +290,11 @@ class Manual extends React.Component {
 
       changesRecord.push(change);
       changesRecord = this.updatePositions(changesRecord, list.items);
-      list.items[index] = { ...item, sticky: !item.sticky };
+      list.items[index] = {
+        ...item,
+        sticky: !item.sticky,
+        sticky_position: index,
+      };
 
       this.setState({ changesRecord, list });
     }
@@ -305,6 +310,7 @@ class Manual extends React.Component {
     if (index > -1) {
       this.recordChange("delete", index, [...list.items]);
       list.items.splice(index, 1);
+      list.items = this.fixPinnedItemsPosition(list.items);
       this.setState({ list });
     }
   };
@@ -357,11 +363,13 @@ class Manual extends React.Component {
     }
 
     if (source.droppableId === destination.droppableId) {
-      const items = reorder(
+      let items = reorder(
         this.getList(source.droppableId),
         source.index,
         destination.index
       );
+
+      items = this.fixPinnedItemsPosition(items);
 
       let list = { ...this.state.list };
 
@@ -379,7 +387,7 @@ class Manual extends React.Component {
       let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
-      list.items = result.contentList;
+      list.items = this.fixPinnedItemsPosition(result.contentList);
       articles.items = result.articles;
       this.recordChange("add", destination.index, [...list.items]);
       this.setState({
@@ -387,6 +395,16 @@ class Manual extends React.Component {
         articles,
       });
     }
+  };
+
+  fixPinnedItemsPosition = (items) => {
+    items.forEach((item, index) => {
+      if (item.sticky) {
+        items = reorder(items, index, item.sticky_position);
+      }
+    });
+
+    return items;
   };
 
   // action = move, add, delete
@@ -555,6 +573,7 @@ class Manual extends React.Component {
                             key={"list" + item.id + "" + index}
                             draggableId={this.getDraggableId(item)}
                             index={index}
+                            isDragDisabled={item.sticky ? true : false}
                           >
                             {(provided, snapshot) => (
                               <li

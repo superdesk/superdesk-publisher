@@ -45,7 +45,11 @@ class ListCard extends React.Component {
         let list = { ...res };
         this.modalClose();
         this.editClose();
-        this.props.onListCreated(list);
+        if (this.state.list.id) {
+          this.props.onListUpdate(list);
+        } else {
+          this.props.onListCreated(list);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -300,6 +304,7 @@ ListCard.propTypes = {
   publisher: PropTypes.object.isRequired,
   listEdit: PropTypes.func.isRequired,
   onListCreated: PropTypes.func.isRequired,
+  onListUpdate: PropTypes.func.isRequired,
 };
 
 export default ListCard;

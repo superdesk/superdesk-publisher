@@ -108,6 +108,7 @@ class Listing extends React.Component {
                 publisher={this.props.publisher}
                 onListDelete={(id) => this.props.onListDelete(id)}
                 onListCreated={(list) => this.props.onListCreated(list)}
+                onListUpdate={(list) => this.props.onListUpdate(list)}
                 listEdit={(list) => this.props.listEdit(list)}
               />
             ))}
@@ -132,6 +133,7 @@ Listing.propTypes = {
   publisher: PropTypes.object.isRequired,
   onListDelete: PropTypes.func.isRequired,
   onListCreated: PropTypes.func.isRequired,
+  onListUpdate: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
   listEdit: PropTypes.func.isRequired,
 };

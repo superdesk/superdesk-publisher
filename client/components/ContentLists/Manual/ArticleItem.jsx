@@ -26,9 +26,16 @@ const ArticleItem = ({
       className={classNames("sd-list-item", {
         "sd-list-item--activated": previewItem && previewItem.id === item.id,
       })}
-      style={willBeTrimmed ? { opacity: 0.5 } : {}}
+      style={{
+        cursor: item.sticky ? "not-allowed" : "grab",
+        opacity: willBeTrimmed ? 0.5 : 1,
+      }}
       onClick={() => openPreview(item)}
     >
+      {item.sticky && (
+        <div className="sd-list-item__border sd-list-item__border--locked"></div>
+      )}
+
       {showExtras && item.isDuplicate && (
         <div className="sd-list-item__column" style={{ overflow: "visible" }}>
           <a
@@ -75,7 +82,7 @@ const ArticleItem = ({
             type="success"
             style="hollow"
           />
-          {item.sticky && <Label text="pinned" type="primary" style="hollow" />}
+          {item.sticky && <Label text="pinned" type="alert" style="hollow" />}
         </div>
       </div>
       {showExtras && (

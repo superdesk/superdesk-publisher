@@ -3,6 +3,7 @@
 exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
 <div
   class="sd-list-item sd-list-item--activated"
+  style="cursor: grab; opacity: 1;"
 >
   <div
     class="sd-list-item__column"
@@ -37,10 +38,21 @@ exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
     </div>
   </div>
   <div
-    class="sd-list-item__action-menu"
+    class="sd-list-item__action-menu sd-list-item__action-menu--direction-row"
   >
     <button
-      title="Remove"
+      class="pull-right"
+      flow="left"
+      sd-tooltip="Pin"
+      title="Pin"
+    >
+      <i
+        class="icon-pin"
+      />
+    </button>
+    <button
+      flow="left"
+      sd-tooltip="Remove"
     >
       <i
         class="icon-trash"
@@ -53,6 +65,7 @@ exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
 exports[`ContentLists/Manual/ArticleItem renders correctly without extras 1`] = `
 <div
   class="sd-list-item sd-list-item--activated"
+  style="cursor: grab; opacity: 1;"
 >
   <div
     class="sd-list-item__column sd-list-item__column--grow"

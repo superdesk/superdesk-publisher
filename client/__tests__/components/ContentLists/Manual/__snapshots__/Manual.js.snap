@@ -216,6 +216,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
           >
             <div
               class="sd-list-item"
+              style="cursor: grab; opacity: 1;"
             >
               <div
                 class="sd-list-item__column sd-list-item__column--grow"
