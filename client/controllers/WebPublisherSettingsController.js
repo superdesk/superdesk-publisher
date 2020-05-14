@@ -786,7 +786,8 @@ export function WebPublisherSettingsController(
 
           publisher
             .reorderMenu({ parent: parentId, position: menuPosition }, item.id)
-            .then(this._refreshCurrentMenu.bind(this));
+            .then(this._refreshCurrentMenu.bind(this))
+            .catch(this._refreshCurrentMenu.bind(this));
         }
       }
     }

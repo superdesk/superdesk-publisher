@@ -229,7 +229,7 @@ class FilterPanel extends React.Component {
             <div className="side-panel__content-block">
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Categories</label>
+                  <label className="sd-line-input__label">Routes</label>
                   <MultiSelect
                     onSelect={(values) => this.handleRoutesChange(values)}
                     options={routesOptions}
