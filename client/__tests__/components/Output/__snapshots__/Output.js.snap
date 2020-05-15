@@ -323,7 +323,7 @@ exports[`Output/Output renders properly 1`] = `
               class="form__row"
             >
               <div
-                class="sd-line-input sd-line-input--is-select"
+                class="sd-line-input"
               >
                 <label
                   class="sd-line-input__label"
