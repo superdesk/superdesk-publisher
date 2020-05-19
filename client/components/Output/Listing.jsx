@@ -90,6 +90,12 @@ class Listing extends React.Component {
     }
   };
 
+  updateArticlesCounts = (value) => {
+    let articlesCounts = { ...this.context.articlesCounts };
+    articlesCounts[this.props.type] = articlesCounts[this.props.type] + value;
+    this.context.actions.setArticlesCounts(articlesCounts);
+  };
+
   removeArticle = (itemId) => {
     let articles = [...this.state.articles];
 
@@ -98,17 +104,14 @@ class Listing extends React.Component {
     if (index > -1) {
       articles.items.splice(index, 1);
       this.setState({ articles });
-
-      let articlesCounts = { ...this.context.articlesCounts };
-      articlesCounts[this.props.type] = articlesCounts[this.props.type] - 1;
-      this.context.actions.setArticlesCounts(articlesCounts);
+      this.updateArticlesCounts(-1);
     }
   };
 
   addUpdateArticle = (item, state) => {
     item.animate = true;
 
-    let articles = [...this.state.articles];
+    let articles = { ...this.state.articles };
 
     if (state === "update") {
       //update
@@ -122,9 +125,7 @@ class Listing extends React.Component {
       if (articles.items.length % this.queryLimit === 0) {
         articles.items.splice(-1, 1);
       }
-      let articlesCounts = { ...this.context.articlesCounts };
-      articlesCounts[this.props.type] = articlesCounts[this.props.type] + 1;
-      this.context.actions.setArticlesCounts(articlesCounts);
+      this.updateArticlesCounts(1);
     }
 
     this.setState({ articles });
@@ -247,11 +248,15 @@ class Listing extends React.Component {
     articles.items = [...this.state.articles.items];
     let index = articles.items.findIndex((item) => item.id === id);
 
-    if (index) {
+    if (index > -1) {
       articles.items = [
         ...articles.items.slice(0, index),
         ...articles.items.slice(index + 1, articles.items.length),
       ];
+
+      let articlesCounts = { ...this.context.articlesCounts };
+      articlesCounts.incoming = articlesCounts.incoming - 1;
+      this.context.actions.setArticlesCounts(articlesCounts);
     }
     this.setState({ articles });
   };
