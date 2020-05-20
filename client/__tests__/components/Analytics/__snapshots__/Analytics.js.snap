@@ -374,6 +374,8 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                 </div>
                 <div
                   class="flex-grid flex-grid--boxed-small flex-grid--small-1"
+                  data-sd-tooltip="Select date range please"
+                  style="overflow: visible;"
                 >
                   <button
                     aria-label="button"
