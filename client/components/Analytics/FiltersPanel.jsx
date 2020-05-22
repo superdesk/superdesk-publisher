@@ -97,18 +97,13 @@ class FiltersPanel extends React.Component {
     this.props.setFilters(filters);
   };
 
-  isFiltersEmpty = () => {
+  shouldAllowReportGeneration = () => {
     let filters = { ...this.state.filters };
 
-    if (
-      (filters.author && filters.author.length) ||
-      filters.route ||
-      filters.published_after ||
-      filters.published_before
-    ) {
-      return false;
+    if (filters.published_after && filters.published_before) {
+      return true;
     }
-    return true;
+    return false;
   };
 
   handleDateFilterTypeChange = (e) => {
@@ -271,17 +266,25 @@ class FiltersPanel extends React.Component {
               <Button text="Clear" style="hollow" onClick={this.clear} />
               <Button text="Run Report" type="primary" onClick={this.save} />
             </div>
-            <div className="flex-grid flex-grid--boxed-small flex-grid--small-1">
+            <div
+              className="flex-grid flex-grid--boxed-small flex-grid--small-1"
+              data-sd-tooltip={
+                this.shouldAllowReportGeneration()
+                  ? null
+                  : "Select date range please"
+              }
+              style={{ overflow: "visible" }}
+            >
               <Button
                 text="Generate Report"
                 type="primary"
                 expanded={true}
                 onClick={() =>
-                  this.isFiltersEmpty()
-                    ? null
-                    : this.props.generateReport(this.state.filters)
+                  this.shouldAllowReportGeneration()
+                    ? this.props.generateReport(this.state.filters)
+                    : null
                 }
-                disabled={this.isFiltersEmpty()}
+                disabled={!this.shouldAllowReportGeneration()}
               />
             </div>
           </div>

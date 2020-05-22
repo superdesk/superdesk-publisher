@@ -43,6 +43,10 @@ class Destination extends React.Component {
   handleSwitchChange = (value, fieldName) => {
     const dest = { ...this.props.destination };
     dest[fieldName] = value;
+    if (fieldName === "republish" && !value) {
+      delete dest[fieldName];
+    }
+
     this.props.update(dest);
   };
 
@@ -272,8 +276,8 @@ class Destination extends React.Component {
               />
             )}
 
-            {!destination.status !== "new" ? (
-              <div className="form__row" ng-if="destination.status !== 'new'">
+            {destination.slug ? (
+              <div className="form__row">
                 <MetadataButtons
                   open={(type) =>
                     this.props.openMetadataEditor(destination, type)

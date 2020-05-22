@@ -36,11 +36,7 @@ class PublishPane extends React.Component {
   }
 
   componentDidUpdate() {
-    if (
-      this.props.isOpen &&
-      this.context.selectedItem &&
-      this.context.selectedItem.id !== this.state.package.id
-    ) {
+    if (this.props.isOpen && this.context.selectedItem) {
       // build destinations
       let destinations = [];
 

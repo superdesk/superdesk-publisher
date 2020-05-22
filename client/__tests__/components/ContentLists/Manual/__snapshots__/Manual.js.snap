@@ -292,7 +292,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
                   <label
                     class="sd-line-input__label"
                   >
-                    Categories
+                    Routes
                   </label>
                   div
                 </div>

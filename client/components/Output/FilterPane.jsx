@@ -265,7 +265,7 @@ class FilterPane extends React.Component {
                     </div>
                   </div>
                   <div className="form__row">
-                    <div className="sd-line-input sd-line-input--is-select">
+                    <div className="sd-line-input">
                       <label className="sd-line-input__label">
                         Ingest source
                       </label>

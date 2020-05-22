@@ -44,7 +44,7 @@ exports[`ContentLists/Manual/FilterPanel renders properly 1`] = `
             <label
               class="sd-line-input__label"
             >
-              Categories
+              Routes
             </label>
             div
           </div>
