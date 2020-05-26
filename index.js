@@ -242,6 +242,7 @@ export default angular
     "$templateCache",
     "urls",
     "api",
+
     (extensionPoints, session, config, $templateCache, urls, api) => {
       cacheIncludedTemplates($templateCache);
       extensionPoints.register(

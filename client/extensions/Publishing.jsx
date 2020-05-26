@@ -83,9 +83,21 @@ class Publishing extends React.Component {
           this.setState({
             rules: rules,
             loading: false,
+            evaluateError: false,
           });
         }
         return res;
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+
+        this.setState({
+          loading: false,
+          evaluateError:
+            err.response && err.response.data && err.response.data.message
+              ? err.response.data.message
+              : true,
+        });
       });
   };
 
@@ -94,36 +106,52 @@ class Publishing extends React.Component {
       <React.Fragment>
         {this.state.ninjsError && (
           <div className="tp-alert">
-            <span style={{ fontWeight: "500" }}>Error: </span>
+            <strong>Error: </strong>
             {this.state.ninjsError}
           </div>
         )}
+        {this.state.evaluateError && (
+          <div className="tp-alert">
+            {this.state.evaluateError}
+            <p style={{ marginTop: "1em" }}>
+              <strong>
+                Please make sure that all required fields are not empty.
+              </strong>
+            </p>
+          </div>
+        )}
         {this.state.loading && <Loading />}
-        {!this.state.loading && !this.state.ninjsError && (
-          <TargetedPublishing
-            config={this.props.config}
-            rules={this.state.rules}
-            apiUrl={this.state.apiUrl}
-            apiHeader={this.state.apiHeader}
-            item={this.state.item}
-            reload={() => this.evaluate()}
-          />
-        )}
-        {!this.state.loading && !this.state.ninjsError && (
-          <RelatedArticlesStatus
-            rules={this.state.rules}
-            apiUrl={this.state.apiUrl}
-            apiHeader={this.state.apiHeader}
-            item={this.state.item}
-          />
-        )}
-        {!this.state.loading && !this.state.ninjsError && (
-          <MetaData
-            apiUrl={this.state.apiUrl}
-            apiHeader={this.state.apiHeader}
-            item={this.state.item}
-          />
-        )}
+        {!this.state.loading &&
+          !this.state.ninjsError &&
+          !this.state.evaluateError && (
+            <TargetedPublishing
+              config={this.props.config}
+              rules={this.state.rules}
+              apiUrl={this.state.apiUrl}
+              apiHeader={this.state.apiHeader}
+              item={this.state.item}
+              reload={() => this.evaluate()}
+            />
+          )}
+        {!this.state.loading &&
+          !this.state.ninjsError &&
+          !this.state.evaluateError && (
+            <RelatedArticlesStatus
+              rules={this.state.rules}
+              apiUrl={this.state.apiUrl}
+              apiHeader={this.state.apiHeader}
+              item={this.state.item}
+            />
+          )}
+        {!this.state.loading &&
+          !this.state.ninjsError &&
+          !this.state.evaluateError && (
+            <MetaData
+              apiUrl={this.state.apiUrl}
+              apiHeader={this.state.apiHeader}
+              item={this.state.item}
+            />
+          )}
       </React.Fragment>
     );
   }
