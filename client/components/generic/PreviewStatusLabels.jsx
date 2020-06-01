@@ -27,15 +27,17 @@ const PreviewStatusLabels = ({ articles }) => {
                   article={article}
                   style={{ marginRight: ".6em" }}
                   url={
-                    article.tenant.subdomain
-                      ? "http://" +
-                        article.tenant.subdomain +
-                        "." +
-                        article.tenant.domain_name +
-                        article._links.online.href
-                      : "http://" +
-                        article.tenant.domain_name +
-                        article._links.online.href
+                    article.tenant
+                      ? article.tenant.subdomain
+                        ? "http://" +
+                          article.tenant.subdomain +
+                          "." +
+                          article.tenant.domain_name +
+                          article._links.online.href
+                        : "http://" +
+                          article.tenant.domain_name +
+                          article._links.online.href
+                      : null
                   }
                 />
               ))}
