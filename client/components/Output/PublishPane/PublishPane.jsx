@@ -22,8 +22,10 @@ class PublishPane extends React.Component {
       isMetadataOpen: false,
       isPreviewOpen: false,
       previewItem: null,
+      loading: true,
       destinations: [],
       package: {},
+      selectedItem: {},
     };
   }
 
@@ -36,48 +38,64 @@ class PublishPane extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.isOpen && this.context.selectedItem) {
-      // build destinations
-      let destinations = [];
-
-      this.context.publisher
-        .getPackage(this.context.selectedItem.id)
-        .then((response) => {
-          response.articles.forEach((item) => {
-            let tenant = this.context.tenants.find((t) => {
-              return t.code === item.tenant.code;
-            });
-
-            if (tenant && item.route) {
-              let tenantUrl = tenant.subdomain
-                ? tenant.subdomain + "." + tenant.domain_name
-                : tenant.domain_name;
-
-              destinations.push({
-                tenant: tenant,
-                route: item.route,
-                is_published_fbia: item.is_published_fbia,
-                status: item.status,
-                updated_at: item.updated_at,
-                paywall_secured: item.paywall_secured,
-                content_lists: item.content_lists,
-                seo_metadata: item.seo_metadata,
-                slug: item.slug,
-                live_url:
-                  item.status === "published"
-                    ? "http://" + tenantUrl + item._links.online.href
-                    : null,
-              });
-            }
-          });
-
-          this.setState({
-            destinations,
-            package: response,
-          });
-        });
+    if (
+      this.props.isOpen &&
+      this.context.selectedItem &&
+      this.context.selectedItem.id !== this.state.selectedItem.id
+    ) {
+      this.setState(
+        {
+          destinations: [],
+          selectedItem: this.context.selectedItem,
+          loading: true,
+        },
+        this.loadPackage
+      );
     }
   }
+
+  loadPackage = () => {
+    // build destinations
+    let destinations = [];
+
+    this.context.publisher
+      .getPackage(this.context.selectedItem.id)
+      .then((response) => {
+        response.articles.forEach((item) => {
+          let tenant = this.context.tenants.find((t) => {
+            return t.code === item.tenant.code;
+          });
+
+          if (tenant && item.route) {
+            let tenantUrl = tenant.subdomain
+              ? tenant.subdomain + "." + tenant.domain_name
+              : tenant.domain_name;
+
+            destinations.push({
+              tenant: tenant,
+              route: item.route,
+              is_published_fbia: item.is_published_fbia,
+              status: item.status,
+              updated_at: item.updated_at,
+              paywall_secured: item.paywall_secured,
+              content_lists: item.content_lists,
+              seo_metadata: item.seo_metadata,
+              slug: item.slug,
+              live_url:
+                item.status === "published"
+                  ? "http://" + tenantUrl + item._links.online.href
+                  : null,
+            });
+          }
+        });
+
+        this.setState({
+          destinations,
+          package: response,
+          loading: false,
+        });
+      });
+  };
 
   togglePreview = (item) => {
     this.setState({
@@ -131,13 +149,18 @@ class PublishPane extends React.Component {
               ) : null}
             </ul>
           </div>
+
           {this.state.tab === "publish" ? (
             <Publish
               destinations={this.state.destinations}
               openPreview={(item) => this.togglePreview(item)}
+              loading={this.state.loading}
             />
           ) : (
-            <Unpublish destinations={this.state.destinations} />
+            <Unpublish
+              destinations={this.state.destinations}
+              loading={this.state.loading}
+            />
           )}
         </div>
 

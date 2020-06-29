@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import helpers from "../../../services/helpers";
 import DropdownScrollable from "../../UI/DropdownScrollable";
+import Loading from "../../UI/Loading/Loading";
 
 import {
   Button,
@@ -176,12 +177,19 @@ class Publish extends React.Component {
     }
   };
 
-  isChanged = () => {
+  shouldPublishButtonBeDisabled = () => {
     let updated = helpers.getUpdatedValues(
       this.state.newDestinations,
       this.props.destinations
     );
-    return Object.keys(updated).length ? true : false;
+    let flag = Object.keys(updated).length ? false : true;
+    let destinationsWithoutRoute = this.state.newDestinations.filter(
+      (destination) => (Object.keys(destination.route).length ? false : true)
+    );
+
+    if (destinationsWithoutRoute.length) flag = true;
+
+    return flag;
   };
 
   render() {
@@ -230,6 +238,7 @@ class Publish extends React.Component {
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--pad-small">
+            {this.props.loading && <Loading />}
             {this.state.newDestinations.map((destination, index) =>
               this.state.filter === "all" ||
               this.state.filter === destination.status ? (
@@ -270,7 +279,7 @@ class Publish extends React.Component {
             type="success"
             expand={true}
             onClick={this.publish}
-            disabled={this.isChanged() ? false : true}
+            disabled={this.shouldPublishButtonBeDisabled()}
           />
         </div>
       </React.Fragment>
@@ -281,6 +290,7 @@ class Publish extends React.Component {
 Publish.propTypes = {
   destinations: PropTypes.array.isRequired,
   openPreview: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default Publish;

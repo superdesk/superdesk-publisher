@@ -250,6 +250,17 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
+     * @name publisher#getList
+     * @param {Number} id
+     * @returns {Promise}
+     * @description Get content list
+    */
+    getList(id) {
+      return pubapi.get("content/lists", id);
+    }
+
+    /**
+     * @ngdoc method
      * @name publisher#manageList
      * @param {Object} list - list which is edited
      * @param {String} id - id of list which is edited

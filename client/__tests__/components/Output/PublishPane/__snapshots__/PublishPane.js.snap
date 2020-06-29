@@ -15,8 +15,6 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       >
         <a
           class="icn-btn"
-          data-flow="left"
-          data-sd-tooltip="Close"
         >
           <i
             class="icon-close-small"
@@ -145,7 +143,21 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       </div>
       <div
         class="side-panel__content-block side-panel__content-block--pad-small"
-      />
+      >
+        <div
+          class="spinner"
+        >
+          <div
+            class="bounce1"
+          />
+          <div
+            class="bounce2"
+          />
+          <div
+            class="bounce3"
+          />
+        </div>
+      </div>
       <div
         class="side-panel__content-block"
       >
@@ -212,8 +224,6 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           >
             <a
               class="icn-btn"
-              data-flow="right"
-              data-sd-tooltip="Back"
             >
               <i
                 class="icon-arrow-left"

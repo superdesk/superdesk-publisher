@@ -121,8 +121,6 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
               </span>
               <a
                 class="icn-btn"
-                data-flow="left"
-                data-sd-tooltip="Remove tenant"
               >
                 <i
                   class="icon-trash"
@@ -166,8 +164,6 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             </span>
             <a
               class="icn-btn"
-              data-flow="left"
-              data-sd-tooltip="Remove tenant"
             >
               <i
                 class="icon-trash"

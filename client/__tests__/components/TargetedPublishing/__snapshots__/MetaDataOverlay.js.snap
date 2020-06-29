@@ -15,8 +15,6 @@ exports[`TargetedPublishing/MetaDataOverlay renders correctly 1`] = `
       >
         <a
           class="icn-btn"
-          data-flow="right"
-          data-sd-tooltip="Back"
         >
           <i
             class="icon-arrow-left"

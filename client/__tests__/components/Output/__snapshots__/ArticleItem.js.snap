@@ -50,8 +50,6 @@ exports[`Output/ArticleItem renders correctly 1`] = `
   >
     <a
       class="icn-btn"
-      data-flow="left"
-      data-sd-tooltip="Correct"
     >
       <i
         class="icon-pencil"
@@ -59,8 +57,6 @@ exports[`Output/ArticleItem renders correctly 1`] = `
     </a>
     <a
       class="icn-btn"
-      data-flow="left"
-      data-sd-tooltip="Publish"
     >
       <i
         class="icon-expand-thin"

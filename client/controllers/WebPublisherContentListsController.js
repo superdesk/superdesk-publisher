@@ -38,7 +38,10 @@ export function WebPublisherContentListsController(
 
       let isLanguagesEnabled = false;
 
+      let vocabulariesList = [];
+
       vocabularies.getVocabularies().then(res => {
+        vocabulariesList = res;
         let languages = res.find(v => v._id === "languages");
         languages = languages && languages.items ? languages.items.filter(l => l.is_active) : [];
 
@@ -54,6 +57,7 @@ export function WebPublisherContentListsController(
             api={this.api}
             isLanguagesEnabled={isLanguagesEnabled}
             languages={languages}
+            vocabularies={vocabulariesList}
           />,
           document.getElementById("sp-content-lists-react-app")
         );

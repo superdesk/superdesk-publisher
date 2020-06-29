@@ -89,8 +89,6 @@ class Publishing extends React.Component {
         return res;
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-
         this.setState({
           loading: false,
           evaluateError:

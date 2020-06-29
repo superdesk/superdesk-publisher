@@ -26,7 +26,7 @@ class Automatic extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.props.list, prevProps.list)) {
+    if (this.props.list.id !== prevProps.list.id) {
       this.setState({
         isEmpty: this.props.list.content_list_items_count ? false : true,
         articles: {
@@ -68,65 +68,88 @@ class Automatic extends React.Component {
           articles.items[index] = newItem;
           articles.loading = false;
           this.setState({ articles });
+
+          this.props.publisher.getList(this.props.list.id).then((response) => {
+            this.props.onListUpdate(response);
+          });
         });
     });
   };
 
   removeItem = (id) => {
-    let change = [
-      {
-        content_id: id,
-        action: "delete",
-      },
-    ];
+    let index = this.state.articles.items.findIndex((i) => i.content.id === id);
+    let articles = { ...this.state.articles };
 
-    this.props.publisher
-      .saveManualList(
+    articles.items[index].loading = true;
+    articles.loading = true;
+
+    this.setState({ articles }, () => {
+      let change = [
         {
-          items: change,
-          updated_at: this.props.list.updated_at,
+          content_id: id,
+          action: "delete",
         },
-        this.props.list.id
-      )
-      .then((savedList) => {
-        let list = { ...this.props.list };
+      ];
 
-        list.updated_at = savedList.updated_at;
-        list.content_list_items_updated_at =
-          savedList.content_list_items_updated_at;
-        list.content_list_items_count = savedList.content_list_items_count;
+      this.props.publisher
+        .saveManualList(
+          {
+            items: change,
+            updated_at: this.props.list.updated_at,
+          },
+          this.props.list.id
+        )
+        .then((savedList) => {
+          articles.items.splice(index, 1);
+          this.setState({ articles });
 
-        this.props.onListUpdate(list);
-      })
-      .catch((err) => {
-        if (err.status === 409) {
-          this.props.api.notify.error(
-            "Cannot save. List has been already modified by another user"
-          );
+          let list = { ...this.props.list };
 
-          this.setState({
-            articles: {
-              items: [],
-              page: 0,
-              totalPages: 1,
-              loading: false,
-              itemSize: 56,
-            },
-          });
-          this._queryArticles();
-        } else {
-          this.props.api.notify.error("Something went wrong. Try again.");
-        }
-      });
+          list.updated_at = savedList.updated_at;
+          list.content_list_items_updated_at =
+            savedList.content_list_items_updated_at;
+          list.content_list_items_count = savedList.content_list_items_count;
+          this.props.onListUpdate(list);
+        })
+        .catch((err) => {
+          if (err.status === 409) {
+            this.props.api.notify.error(
+              "Cannot save. List has been already modified by another user"
+            );
+
+            this.setState({
+              articles: {
+                items: [],
+                page: 0,
+                totalPages: 1,
+                loading: false,
+                itemSize: 56,
+              },
+            });
+          } else {
+            this.props.api.notify.error("Something went wrong. Try again.");
+          }
+        });
+    });
   };
 
   onFiltersSave = (updatedList) => {
-    this._queryArticles();
+    this.setState({
+      articles: {
+        items: [],
+        page: 0,
+        totalPages: 1,
+        loading: false,
+        itemSize: 56,
+      },
+    });
     this.props.onListUpdate(updatedList);
   };
 
   _queryArticles = () => {
     let articles = this.state.articles;
+    if (articles.loading) return;
+
     articles.loading = true;
     this.setState({ articles }, () => {
       let params = {};
@@ -199,6 +222,7 @@ class Automatic extends React.Component {
               filters={this.props.list.filters ? this.props.list.filters : {}}
               onFiltersSave={(list) => this.onFiltersSave(list)}
               api={this.props.api}
+              vocabularies={this.props.vocabularies}
             />
             <div
               className="sd-column-box__main-column relative"
@@ -257,6 +281,7 @@ Automatic.propTypes = {
   previewItem: PropTypes.object,
   filtersOpen: PropTypes.bool,
   api: PropTypes.func.isRequired,
+  vocabularies: PropTypes.array.isRequired,
 };
 
 export default Automatic;

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 import { Button } from "superdesk-ui-framework/react";
+import Loading from "../../UI/Loading/Loading";
 import Store from "../Store";
 
 class Unpublish extends React.Component {
@@ -59,6 +60,7 @@ class Unpublish extends React.Component {
           <div className="side-panel__content-block">
             <div className="form__row form__row--small-padding">
               <div className="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-1">
+                {this.props.loading && <Loading />}
                 {this.state.newDestinations.map((item, index) => {
                   if (item.status === "published") {
                     return (
@@ -98,6 +100,7 @@ class Unpublish extends React.Component {
 
 Unpublish.propTypes = {
   destinations: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default Unpublish;

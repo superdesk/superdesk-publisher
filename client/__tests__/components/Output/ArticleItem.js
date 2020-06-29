@@ -94,7 +94,7 @@ describe("Output/ArticleItem", () => {
         />
       </Store.Provider>
     );
-    const removeIcon = container.querySelector('a[data-sd-tooltip="Remove"]');
+    const removeIcon = container.querySelector('a.icn-btn .icon-trash').closest('a.icn-btn');
     fireEvent.click(removeIcon);
 
     const removeButton = await waitForElement(

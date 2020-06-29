@@ -92,7 +92,7 @@ describe("TargetedPublishing/ContentListElement", () => {
       />
     );
 
-    const button = container.querySelector('a[data-sd-tooltip="Remove list"]');
+    const button = container.querySelector('a.icn-btn .icon-trash').closest('a.icn-btn');
 
     fireEvent.click(button);
 
