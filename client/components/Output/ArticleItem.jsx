@@ -186,6 +186,19 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 <span>{item.comments_count}</span>
               </React.Fragment>
             ) : null}
+
+            {item.place && item.place.length ? (
+              <React.Fragment>
+                <span className="sd-list-item__text-label">location:</span>
+                {item.place.map((place, index) =>
+                  index > 0 ? (
+                    <span>, {place.name}</span>
+                  ) : (
+                    <span>{place.name}</span>
+                  )
+                )}
+              </React.Fragment>
+            ) : null}
           </span>
         </div>
       </div>

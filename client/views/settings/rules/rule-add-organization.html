@@ -41,9 +41,20 @@
 						</select>
 					</div>
 				</div>
-				<div class="form__row-item" ng-if="expression.option.name != 'Category' && expression.option.name != 'Author' && expression.option.name != 'Language' ">
+				<div class="form__row-item" ng-if="expression.option.name != 'Category' && expression.option.name != 'Author' && expression.option.name != 'Language' && expression.option.name != 'Ingest Source'">
 					<div class="sd-line-input margin--bottom0">
 						<input class="sd-line-input__input" type="text" ng-model="expression.value" ng-disabled="!expression.operator" required>
+					</div>
+				</div>
+				<div class="form__row-item" ng-if="expression.option.name == 'Ingest Source'">
+					<div class="sd-line-input sd-line-input--is-select margin--bottom0">
+						<select class="sd-line-input__select"
+							required
+							ng-disabled="!expression.operator"
+							ng-model="expression.value"
+							>
+							<option ng-repeat="source in webPublisherSettings.ingestSources" value="{{source.name}}">{{source.name}}</option>
+						</select>
 					</div>
 				</div>
 				<div class="form__row-item" ng-if="expression.option.name == 'Category'">

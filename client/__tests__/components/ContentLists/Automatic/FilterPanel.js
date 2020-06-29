@@ -23,6 +23,15 @@ api.users.query = function () {
   });
 };
 
+const vocabularies = [
+  {
+    _id: 'voc1', display_name: 'vocabulary 1', items: [
+      { qcode: '1', name: 'option1' },
+      { qcode: '2', name: 'option2' }
+    ]
+  }
+];
+
 describe("ContentLists/Automatic/FilterPanel", () => {
   it("renders properly", async () => {
     const { container, getByText } = render(
@@ -32,6 +41,7 @@ describe("ContentLists/Automatic/FilterPanel", () => {
         publisher={publisher}
         filters={lists[0].filters}
         api={api}
+        vocabularies={vocabularies}
       />
     );
     expect(container.firstChild).toMatchSnapshot();

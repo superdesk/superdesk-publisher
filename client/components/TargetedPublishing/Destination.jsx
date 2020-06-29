@@ -54,6 +54,8 @@ class Destination extends Component {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
         destination.is_published_fbia = props.rule.is_published_fbia;
+        destination.is_published_to_apple_news =
+          props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
         destination.paywall_secured = props.rule.paywall_secured;
         destination.content_lists = props.rule.content_lists
@@ -136,6 +138,8 @@ class Destination extends Component {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
         destination.is_published_fbia = props.rule.is_published_fbia;
+        destination.is_published_to_apple_news =
+          props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
         destination.paywall_secured = props.rule.paywall_secured;
         destination.content_lists = props.rule.content_lists

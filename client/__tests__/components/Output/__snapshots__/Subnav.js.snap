@@ -80,8 +80,6 @@ exports[`Output/Subnav renders correctly 1`] = `
     </div>
     <a
       class="icn-btn"
-      data-flow="bottom"
-      data-sd-tooltip="Ascending"
     >
       <i
         class="icon-ascending"

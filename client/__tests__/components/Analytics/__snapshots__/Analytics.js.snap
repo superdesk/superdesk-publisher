@@ -175,8 +175,6 @@ exports[`Analytics/Analytics renders correctly 1`] = `
             </div>
             <a
               class="icn-btn"
-              data-flow="bottom"
-              data-sd-tooltip="Descending"
             >
               <i
                 class="icon-descending"
@@ -201,8 +199,6 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                 >
                   <a
                     class="icn-btn"
-                    data-flow="left"
-                    data-sd-tooltip="Close"
                   >
                     <i
                       class="icon-close-small"

@@ -69,8 +69,6 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
         </span>
         <a
           class="icn-btn"
-          data-flow="left"
-          data-sd-tooltip="Remove"
         >
           <i
             class="icon-trash"

@@ -77,8 +77,6 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
             >
               <a
                 class="icn-btn"
-                data-flow="left"
-                data-sd-tooltip="Close"
               >
                 <i
                   class="icon-close-small"
@@ -183,29 +181,28 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 </div>
               </div>
               <div
-                class="form__row form__row--flex"
+                class="dropdown "
               >
-                <div
-                  class="sd-line-input"
+                <button
+                  class="btn btn--small btn--primary dropdown__toggle dropdown-toggle"
                 >
-                  <label
-                    class="sd-line-input__label"
-                  >
-                    Metadata
-                  </label>
-                  <div
-                    class="margin--top"
-                  >
-                    <button
-                      aria-label="button"
-                      class="btn btn--primary btn--icon-only"
-                    >
+                  <i
+                    class="icon-plus-sign"
+                  />
+                  Add Metadata
+                </button>
+                <ul
+                  class="dropdown__menu"
+                >
+                  <li>
+                    <button>
                       <i
-                        class="icon-plus-large"
+                        class=""
                       />
+                      vocabulary 1
                     </button>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

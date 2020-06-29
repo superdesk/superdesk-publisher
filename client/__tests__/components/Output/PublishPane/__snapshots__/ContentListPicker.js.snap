@@ -42,8 +42,6 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
       </div>
       <a
         class="icn-btn"
-        data-flow="left"
-        data-sd-tooltip="Remove list"
       >
         <i
           class="icon-trash"

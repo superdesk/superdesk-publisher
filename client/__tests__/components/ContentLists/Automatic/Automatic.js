@@ -28,6 +28,15 @@ api.users.query = function () {
   });
 };
 
+const vocabularies = [
+  {
+    _id: 'voc1', display_name: 'vocabulary 1', items: [
+      { qcode: '1', name: 'option1' },
+      { qcode: '2', name: 'option2' }
+    ]
+  }
+];
+
 describe("ContentLists/Automatic/Automatic", () => {
   it("renders properly", async () => {
     const { container, getByText } = render(
@@ -39,6 +48,7 @@ describe("ContentLists/Automatic/Automatic", () => {
         onListUpdate={jest.fn()}
         api={api}
         toggleFilters={jest.fn()}
+        vocabularies={vocabularies}
       />
     );
 

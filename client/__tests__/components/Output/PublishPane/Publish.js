@@ -104,7 +104,8 @@ describe("Output/PublishPane/Publish", () => {
 
 
     // removes destination and updates available tenants
-    const removeTenantButton = container.querySelector('[data-sd-tooltip="Remove tenant"]');
+    const removeTenantButton = container.querySelector('a.icn-btn .icon-trash').closest('a.icn-btn');
+
 
     fireEvent.click(removeTenantButton);
     expect(plusButton.classList.contains('btn--disabled')).toBe(false)

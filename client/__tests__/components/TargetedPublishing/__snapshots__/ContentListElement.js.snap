@@ -12,8 +12,6 @@ exports[`TargetedPublishing/ContentListElement renders correctly 1`] = `
     >
       <a
         class="icn-btn"
-        data-flow="left"
-        data-sd-tooltip="Remove list"
       >
         <i
           class="icon-trash"

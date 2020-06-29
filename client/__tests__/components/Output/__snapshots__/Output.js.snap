@@ -122,8 +122,6 @@ exports[`Output/Output renders properly 1`] = `
       </div>
       <a
         class="icn-btn"
-        data-flow="bottom"
-        data-sd-tooltip="Descending"
       >
         <i
           class="icon-descending"
@@ -233,8 +231,6 @@ exports[`Output/Output renders properly 1`] = `
           >
             <a
               class="icn-btn"
-              data-flow="left"
-              data-sd-tooltip="Close"
             >
               <i
                 class="icon-close-small"

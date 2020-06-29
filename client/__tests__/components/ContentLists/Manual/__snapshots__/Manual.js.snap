@@ -263,8 +263,6 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
             >
               <a
                 class="icn-btn"
-                data-flow="left"
-                data-sd-tooltip="Close"
               >
                 <i
                   class="icon-close-small"

@@ -15,8 +15,6 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
       >
         <a
           class="icn-btn"
-          data-flow="left"
-          data-sd-tooltip="Close"
         >
           <i
             class="icon-close-small"

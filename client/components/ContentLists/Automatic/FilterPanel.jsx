@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import { Button, IconButton } from "superdesk-ui-framework/react";
+import { Button, IconButton, Dropdown } from "superdesk-ui-framework/react";
 import MultiSelect from "../../UI/MultiSelect";
 
 class FilterPanel extends React.Component {
@@ -11,9 +11,14 @@ class FilterPanel extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      filters: { metadata: [], route: [], author: [] },
+      filters: {
+        metadata: { service: [], subject: [] },
+        route: [],
+        author: [],
+      },
       routes: [],
       authors: [],
+      vocabularies: [],
       loading: true,
     };
   }
@@ -21,13 +26,9 @@ class FilterPanel extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    this.props.publisher.queryRoutes({ type: "collection" }).then((routes) => {
-      if (this._isMounted) {
-        this.setState({ routes }, this.prepareFilters);
-      }
-    });
-
     this.loadAuthors();
+    this.loadRoutes();
+    this.prepareMetadata();
   }
 
   componentWillUnmount() {
@@ -37,8 +38,24 @@ class FilterPanel extends React.Component {
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters, prevProps.filters)) {
       this.prepareFilters();
+      this.prepareMetadata();
     }
   }
+
+  loadRoutes = () => {
+    this.props.publisher.queryRoutes({ type: "collection" }).then((routes) => {
+      if (this._isMounted) {
+        let routesOptions = [];
+        routes.map((route) => {
+          routesOptions.push({
+            value: parseInt(route.id),
+            label: route.name,
+          });
+        });
+        this.setState({ routes: routesOptions }, this.prepareFilters);
+      }
+    });
+  };
 
   loadAuthors = (page = 1) => {
     this.props.api.users
@@ -53,8 +70,18 @@ class FilterPanel extends React.Component {
       .then((response) => {
         let authors = response._items.filter((item) => item.is_author);
 
-        if (this._isMounted && authors.length)
-          this.setState({ authors: [...this.state.authors, ...authors] });
+        let authorsOptions = [];
+        authors.map((author) => {
+          authorsOptions.push({
+            value: author.display_name,
+            label: author.display_name,
+          });
+        });
+
+        if (this._isMounted && authorsOptions.length)
+          this.setState({
+            authors: [...this.state.authors, ...authorsOptions],
+          });
 
         if (response._links.next) this.loadAuthors(page + 1);
       });
@@ -67,10 +94,13 @@ class FilterPanel extends React.Component {
     if (filters.route) {
       filters.route.map((id) => {
         let routeObj = this.state.routes.find(
-          (route) => parseInt(id) === parseInt(route.id)
+          (route) => parseInt(id) === parseInt(route.value)
         );
         if (routeObj)
-          newRoute.push({ value: parseInt(routeObj.id), label: routeObj.name });
+          newRoute.push({
+            value: parseInt(routeObj.value),
+            label: routeObj.label,
+          });
       });
     }
     filters.route = newRoute;
@@ -83,15 +113,102 @@ class FilterPanel extends React.Component {
     }
     filters.author = newAuthor;
 
-    let newMetadata = [];
-    if (filters && filters.metadata) {
-      Object.entries(filters.metadata).forEach(([key, value]) => {
-        newMetadata.push({ key: key, value: value });
+    this.setState({ filters, loading: false });
+  };
+
+  prepareMetadata = () => {
+    let filters = { ...this.props.filters };
+    if (!filters.metadata) return;
+
+    let vocabularies = [];
+
+    // categories
+    if (filters.metadata.service && filters.metadata.service.length) {
+      let service = this.props.vocabularies.find((v) => v._id === "categories");
+      let serviceItems =
+        service && service.items
+          ? service.items.filter((i) => i.is_active)
+          : [];
+      let serviceOptions = [];
+
+      if (serviceItems.length) {
+        serviceItems.map((item) => {
+          serviceOptions.push({
+            value: item.qcode,
+            label: item.name,
+          });
+        });
+      }
+
+      let value = [];
+      for (let serviceItem of filters.metadata.service) {
+        let originalServiceItem = serviceItems.find(
+          (s) => s.qcode === serviceItem.code
+        );
+
+        value.push({
+          value: serviceItem.code,
+          label: originalServiceItem.name,
+        });
+      }
+
+      vocabularies.push({
+        name: "Categories",
+        id: "categories",
+        options: serviceOptions,
+        value: value,
       });
     }
-    filters.metadata = newMetadata;
 
-    this.setState({ filters, loading: false });
+    // all other
+    if (filters.metadata.subject && filters.metadata.subject.length) {
+      let groupedSubject = _.groupBy(
+        filters.metadata.subject,
+        (subject) => subject.scheme
+      );
+
+      for (const [key, subjectValue] of Object.entries(groupedSubject)) {
+        let originalVocabulary = this.props.vocabularies.find(
+          (v) => v._id === key
+        );
+
+        let subjectItems =
+          originalVocabulary && originalVocabulary.items
+            ? originalVocabulary.items.filter((i) => i.is_active)
+            : [];
+        let subjectOptions = [];
+
+        if (subjectItems.length) {
+          subjectItems.map((item) => {
+            subjectOptions.push({
+              value: item.qcode,
+              label: item.name,
+            });
+          });
+        }
+
+        let value = [];
+        for (let subjectItem of subjectValue) {
+          let originalSubjectItem = subjectItems.find(
+            (s) => s.qcode === subjectItem.code
+          );
+
+          value.push({
+            value: subjectItem.code,
+            label: originalSubjectItem.name,
+          });
+        }
+
+        vocabularies.push({
+          name: originalVocabulary.display_name,
+          id: originalVocabulary._id,
+          options: subjectOptions,
+          value: value,
+        });
+      }
+    }
+
+    this.setState({ vocabularies });
   };
 
   save = () => {
@@ -100,11 +217,33 @@ class FilterPanel extends React.Component {
     let filters = _.pickBy({ ...this.state.filters }, _.identity);
 
     let newMetadata = {};
-    filters.metadata.forEach((item) => {
-      if (item.key) {
-        newMetadata[item.key] = item.value;
+
+    let services = this.state.vocabularies.find((v) => v.id === "categories");
+
+    if (services) {
+      newMetadata.service = [];
+
+      for (let serviceValue of services.value) {
+        newMetadata.service.push({
+          code: serviceValue.value,
+        });
       }
-    });
+    }
+
+    let subjects = this.state.vocabularies.filter((v) => v.id !== "categories");
+
+    if (subjects.length) {
+      newMetadata.subject = [];
+
+      for (let subject of subjects) {
+        for (let subjectValue of subject.value) {
+          newMetadata.subject.push({
+            scheme: subject.id,
+            code: subjectValue.value,
+          });
+        }
+      }
+    }
 
     filters.metadata = newMetadata;
 
@@ -123,6 +262,11 @@ class FilterPanel extends React.Component {
     });
 
     filters.author = newAuthor;
+
+    if (!filters.route.length) delete filters.route;
+    if (!filters.author.length) delete filters.author;
+    if (filters.metadata.subject && !filters.metadata.subject.length)
+      delete filters.metadata.subject;
 
     this.props.publisher
       .manageList({ filters: JSON.stringify(filters) }, this.props.list.id)
@@ -168,46 +312,77 @@ class FilterPanel extends React.Component {
     this.setState({ filters });
   };
 
-  addMetadata = () => {
-    let filters = { ...this.state.filters };
+  handleMetadataChange = (arr, vocabularyId) => {
+    let vocabularies = [...this.state.vocabularies];
 
-    filters.metadata.push({ key: "", value: "" });
-    this.setState({ filters });
+    let index = vocabularies.findIndex((voc) => voc.id === vocabularyId);
+    if (index > -1) {
+      vocabularies[index].value = arr ? arr : [];
+      this.setState({ vocabularies });
+    }
   };
 
-  removeMetaData = (index) => {
-    let filters = { ...this.state.filters };
+  addVocabulary = (vocabularyId) => {
+    let vocabularies = [...this.state.vocabularies];
+    let subject = this.props.vocabularies.find((v) => v._id === vocabularyId);
+    let subjectItems =
+      subject && subject.items ? subject.items.filter((i) => i.is_active) : [];
+    let subjectOptions = [];
 
-    delete filters.metadata[index];
-    this.setState({ filters });
+    if (subjectItems.length) {
+      subjectItems.map((item) => {
+        subjectOptions.push({
+          value: item.qcode,
+          label: item.name,
+        });
+      });
+      vocabularies.push({
+        name: subject.display_name,
+        id: subject._id,
+        options: subjectOptions,
+        value: [],
+      });
+    }
+
+    this.setState({ vocabularies });
   };
 
-  handleMetaDataChange = (e, index) => {
-    let { name, value } = e.target;
-    let filters = { ...this.state.filters };
+  removeVocabulary = (vocabularyId) => {
+    let vocabularies = [...this.state.vocabularies];
+    let index = vocabularies.findIndex((v) => v.id === vocabularyId);
 
-    filters.metadata[index][name] = value;
-    this.setState({ filters });
+    if (index > -1) {
+      vocabularies.splice(index, 1);
+      this.setState({ vocabularies });
+    }
   };
 
   render() {
-    let routesOptions = [];
+    const vocabulariesToRemove = [
+      "replace_words",
+      "locators",
+      "default_categories",
+      "crop_sizes",
+      "author_roles",
+      "annotation_types",
+      "job_titles",
+      "package-story-labels",
+      "contact_mobile_usage",
+      "contact_phone_usage",
+      "languages",
+      "regions",
+      "countries",
+      "usageterms",
+      "rightsinfo",
+    ];
 
-    this.state.routes.map((route) => {
-      routesOptions.push({
-        value: parseInt(route.id),
-        label: route.name,
-      });
-    });
-
-    let authorsOptions = [];
-
-    this.state.authors.map((author) => {
-      authorsOptions.push({
-        value: author.display_name,
-        label: author.display_name,
-      });
-    });
+    let filteredVocabularies = this.props.vocabularies.filter(
+      (vocabulary) =>
+        this.state.vocabularies.findIndex((v) => v.id === vocabulary._id) ===
+          -1 &&
+        vocabulary.items.length &&
+        vocabulariesToRemove.indexOf(vocabulary._id) === -1
+    );
 
     return (
       <div className="sd-filters-panel sd-filters-panel--border-right relative">
@@ -232,7 +407,7 @@ class FilterPanel extends React.Component {
                   <label className="sd-line-input__label">Routes</label>
                   <MultiSelect
                     onSelect={(values) => this.handleRoutesChange(values)}
-                    options={routesOptions}
+                    options={this.state.routes}
                     selectedOptions={this.state.filters.route}
                   />
                 </div>
@@ -242,11 +417,12 @@ class FilterPanel extends React.Component {
                   <label className="sd-line-input__label">Author</label>
                   <MultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
-                    options={authorsOptions}
+                    options={this.state.authors}
                     selectedOptions={this.state.filters.author}
                   />
                 </div>
               </div>
+
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Published date</label>
@@ -299,52 +475,53 @@ class FilterPanel extends React.Component {
                   />
                 </div>
               </div>
-              <div className="form__row form__row--flex">
-                <div className="sd-line-input">
-                  <label className="sd-line-input__label">Metadata</label>
-                  {this.state.filters.metadata.map((meta, index) => (
-                    <div className="grid" key={"metadata" + index}>
-                      <div className="grid__item grid__item--col-5">
-                        <input
-                          className="sd-line-input__input"
-                          type="text"
-                          onChange={(e) => this.handleMetaDataChange(e, index)}
-                          name="key"
-                          value={meta.key ? meta.key : ""}
-                          placeholder="Name"
-                        />
-                      </div>
-                      <div className="grid__item grid__item--col-5">
-                        <input
-                          className="sd-line-input__input"
-                          type="text"
-                          onChange={(e) => this.handleMetaDataChange(e, index)}
-                          name="value"
-                          value={meta.value ? meta.value : ""}
-                          placeholder="Value"
-                        />
-                      </div>
-                      <div className="grid__item grid__item--col-2">
-                        <Button
-                          type="primary"
-                          icon="close-small"
-                          size="small"
-                          onClick={() => this.removeMetaData(index)}
-                          sd-tooltip="Remove"
-                        />
-                      </div>
-                    </div>
-                  ))}
 
-                  <div className="margin--top">
-                    <Button
-                      type="primary"
-                      icon="plus-large"
-                      onClick={this.addMetadata}
-                    />
+              {this.state.vocabularies.map((vocabulary) => (
+                <div
+                  className="sd-shadow--z1 sd-margin-b--1 sd-padding--1"
+                  style={{ position: "relative", backgroundColor: "white" }}
+                  key={vocabulary.id}
+                >
+                  <span
+                    className="side-panel__close"
+                    style={{ right: 0, top: 0 }}
+                    onClick={() => this.removeVocabulary(vocabulary.id)}
+                  >
+                    <a className="icn-btn">
+                      <i className="icon-close-small"></i>
+                    </a>
+                  </span>
+                  <div className="form__row">
+                    <div className="sd-line-input sd-line-input--no-margin">
+                      <label className="sd-line-input__label">
+                        {vocabulary.name}
+                      </label>
+                      <p>{vocabulary.id}</p>
+
+                      <MultiSelect
+                        onSelect={(values) =>
+                          this.handleMetadataChange(values, vocabulary.id)
+                        }
+                        options={vocabulary.options}
+                        selectedOptions={vocabulary.value}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
+
+              <Dropdown
+                items={filteredVocabularies.map((vocabulary) => {
+                  return {
+                    label: vocabulary.display_name,
+                    onSelect: () => this.addVocabulary(vocabulary._id),
+                  };
+                })}
+              >
+                <button className="btn btn--small btn--primary">
+                  <i className="icon-plus-sign"></i>Add Metadata
+                </button>
+              </Dropdown>
             </div>
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
@@ -370,6 +547,7 @@ FilterPanel.propTypes = {
   filters: PropTypes.object.isRequired,
   onFiltersSave: PropTypes.func,
   api: PropTypes.func.isRequired,
+  vocabularies: PropTypes.array.isRequired,
 };
 
 export default FilterPanel;
