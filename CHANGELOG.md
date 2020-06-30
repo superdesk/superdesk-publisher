@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.1 - unreleased
+## 2.1
 
 **Features:**
 
@@ -17,8 +17,14 @@
   > Visual notification will appear once limit is set for a content list and user exceeds that limit by putting too many items. It is now clearly visible which articles are above the limit and therefore will be removed once list is saved.
 - Ability to remove item from automatic content lists
   > It is now possible to manually remove an article that matches automatic content list criteria but is unwanted.
+- Ability to set automatic content list criteria based on predefined and custom vocabularies.
 - Ability to create custom route with variable (used for dynamic pages like Author or Tag pages. Theme has to support it)
 - Ability to create menu item based on custom route. New UI that allows to set custom variable or select author will appear once custom route is picked in create menu item form.
+- Publishing to Apple News
+- Pinning on manual content lists
+  > Allows to pin an article and preserve its position.
+- Article republish
+  > Allows republishing of an article that was unpublished before.
 
 **Improvements/Fixes:**
 
@@ -27,7 +33,10 @@
 - Preview pane rewritten to React `(speed improvement)`
 - New gallery component `(speed improvement)`
 - Article author names are displayed in preview
+- Location assigned to package displayed in output control
 - Big numbers formatted properly
 - Content Lists UI was blocked when adding multiple lists
 - Output Control: incoming content remove confirmation was malfunctioning
 - Every author input replaced with auto suggestion select
+- Embeds in article preview
+- Selectable ingest source in filtering
