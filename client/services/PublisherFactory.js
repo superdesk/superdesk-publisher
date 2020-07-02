@@ -234,8 +234,13 @@ export function PublisherFactory(pubapi) {
      * @returns {Promise}
      * @description List all menus
      */
-    queryMenus() {
-      return pubapi.query("menus");
+    queryMenus(params) {
+      let newParams = { ...params };
+
+      if (!newParams.limit) {
+        newParams.limit = 99999;
+      }
+      return pubapi.query("menus", newParams);
     }
 
     /**
