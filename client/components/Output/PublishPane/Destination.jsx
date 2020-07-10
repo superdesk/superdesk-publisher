@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import { Switch } from "superdesk-ui-framework/react";
+import { Switch, IconButton } from "superdesk-ui-framework/react";
 import Store from "../Store";
 import PublishingOptionSwitches from "../../generic/PublishingOptionSwitches";
 import RouteSelect from "./RouteSelect";
@@ -43,6 +43,10 @@ class Destination extends React.Component {
   handleSwitchChange = (value, fieldName) => {
     const dest = { ...this.props.destination };
     dest[fieldName] = value;
+    if (fieldName === "republish" && !value) {
+      delete dest[fieldName];
+    }
+
     this.props.update(dest);
   };
 
@@ -105,17 +109,14 @@ class Destination extends React.Component {
                   </span>
                 </span>
                 {destination.status === "new" ? (
-                  <a
-                    className="icn-btn disabled"
-                    sd-tooltip="Remove tenant"
-                    flow="left"
+                  <IconButton
+                    icon="trash"
+                    tooltip={{ text: "Remove tenant", flow: "left" }}
                     onClick={(event) => {
                       this.props.remove();
                       event.stopPropagation();
                     }}
-                  >
-                    <i className="icon-trash"></i>
-                  </a>
+                  />
                 ) : (
                   <a className="icn-btn disabled"></a>
                 )}
@@ -168,26 +169,18 @@ class Destination extends React.Component {
               })}
             ></div>
             <div className="sd-collapse-box__tools sd-collapse-box__tools--flex">
-              <a
-                className="sd-collapse-box__collapse-btn"
-                onClick={this.toggle}
-              >
-                <span className="icn-btn">
-                  <i className="icon-chevron-up-thin"></i>
-                </span>
-              </a>
+              <span className="sd-collapse-box__collapse-btn">
+                <IconButton icon="chevron-up-thin" onClick={this.toggle} />
+              </span>
               {destination.status === "new" && (
-                <a
-                  className="icn-btn"
-                  sd-tooltip="Remove tenant"
-                  flow="left"
+                <IconButton
+                  icon="trash"
+                  tooltip={{ text: "Remove tenant", flow: "left" }}
                   onClick={(event) => {
                     this.props.remove();
                     event.stopPropagation();
                   }}
-                >
-                  <i className="icon-trash"></i>
-                </a>
+                />
               )}
             </div>
             <div className="sd-collapse-box__content-block sd-collapse-box__content-block--top">
@@ -283,8 +276,8 @@ class Destination extends React.Component {
               />
             )}
 
-            {!destination.status !== "new" ? (
-              <div className="form__row" ng-if="destination.status !== 'new'">
+            {destination.slug ? (
+              <div className="form__row">
                 <MetadataButtons
                   open={(type) =>
                     this.props.openMetadataEditor(destination, type)

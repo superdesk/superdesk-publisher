@@ -13,15 +13,17 @@ exports[`ContentLists/Automatic/FilterPanel renders properly 1`] = `
     <div
       class="side-panel__header side-panel__header--border-b"
     >
-      <a
-        class="icn-btn side-panel__close"
-        flow="left"
-        sd-tooltip="Close filters"
+      <span
+        class="side-panel__close"
       >
-        <i
-          class="icon-close-small"
-        />
-      </a>
+        <a
+          class="icn-btn"
+        >
+          <i
+            class="icon-close-small"
+          />
+        </a>
+      </span>
       <h3
         class="side-panel__heading side-panel__heading--big"
       >
@@ -43,7 +45,7 @@ exports[`ContentLists/Automatic/FilterPanel renders properly 1`] = `
             <label
               class="sd-line-input__label"
             >
-              Categories
+              Routes
             </label>
             div
           </div>
@@ -120,26 +122,28 @@ exports[`ContentLists/Automatic/FilterPanel renders properly 1`] = `
           </div>
         </div>
         <div
-          class="form__row form__row--flex"
+          class="dropdown "
         >
-          <div
-            class="sd-line-input"
+          <button
+            class="btn btn--small btn--primary dropdown__toggle dropdown-toggle"
           >
-            <label
-              class="sd-line-input__label"
-            >
-              Metadata
-            </label>
-            <button
-              class="btn btn--primary btn--icon-only margin--top"
-              flow="right"
-              type="button"
-            >
-              <i
-                class="icon-plus-large"
-              />
-            </button>
-          </div>
+            <i
+              class="icon-plus-sign"
+            />
+            Add Metadata
+          </button>
+          <ul
+            class="dropdown__menu"
+          >
+            <li>
+              <button>
+                <i
+                  class=""
+                />
+                vocabulary 1
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -149,16 +153,18 @@ exports[`ContentLists/Automatic/FilterPanel renders properly 1`] = `
       <div
         class="flex-grid flex-grid--boxed-small flex-grid--small-2"
       >
-        <a
+        <button
+          aria-label="button"
           class="btn btn--hollow"
         >
           Clear
-        </a>
-        <a
+        </button>
+        <button
+          aria-label="button"
           class="btn btn--primary"
         >
           Update Criteria
-        </a>
+        </button>
       </div>
     </div>
   </div>

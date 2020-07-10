@@ -85,3 +85,11 @@
     word-wrap: break-word;
     padding-bottom: 1rem;
 }
+// Side panel embed width
+.side-panel__content-block {
+    .embed-block {
+        iframe {
+            width: 100%;
+        }
+    }
+}

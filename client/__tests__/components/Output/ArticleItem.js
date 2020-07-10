@@ -75,7 +75,7 @@ describe("Output/ArticleItem", () => {
   it("opens confirmation modal and fires remove action", async () => {
     const onRemove = jest.fn();
 
-    const { container, getByText, getBy } = render(
+    const { container, getByText } = render(
       <Store.Provider
         value={{
           publisher: {
@@ -94,7 +94,7 @@ describe("Output/ArticleItem", () => {
         />
       </Store.Provider>
     );
-    const removeIcon = container.querySelector('button[sd-tooltip="Remove"]');
+    const removeIcon = container.querySelector('a.icn-btn .icon-trash').closest('a.icn-btn');
     fireEvent.click(removeIcon);
 
     const removeButton = await waitForElement(

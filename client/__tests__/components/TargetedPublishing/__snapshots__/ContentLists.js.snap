@@ -19,9 +19,7 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
         class="sd-list-item__row no-margin sd-flex-justify-end"
       >
         <a
-          class="icn-btn disabled"
-          flow="left"
-          sd-tooltip="Remove list"
+          class="icn-btn"
         >
           <i
             class="icon-trash"
@@ -130,7 +128,8 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
     </div>
   </div>
   <button
-    class="btn btn--hollow btn--expanded btn--primary"
+    aria-label="button"
+    class="btn btn--expanded btn--primary btn--hollow"
   >
     Add to content list
   </button>

@@ -12,6 +12,7 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
     >
       <span
         class="sd-margin-r--1"
+        style="padding-top: 1.4rem;"
       >
         Choose list
       </span>
@@ -40,9 +41,7 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
         </select>
       </div>
       <a
-        class="icn-btn disabled"
-        flow="left"
-        sd-tooltip="Remove list"
+        class="icn-btn"
       >
         <i
           class="icon-trash"
@@ -54,6 +53,7 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
     >
       <span
         class="sd-margin-r--1"
+        style="padding-top: 1.4rem;"
       >
         Set order
       </span>

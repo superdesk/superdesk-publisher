@@ -42,7 +42,8 @@ describe("TargetedPublishing/MetaDataOverlay", () => {
       />
     );
 
-    fireEvent.click(container.querySelector('a[sd-tooltip="Back"]'));
+    fireEvent.click(container.querySelector('a.icn-btn .icon-arrow-left').closest('a.icn-btn'));
+
     expect(toggle).toHaveBeenCalled();
   });
 

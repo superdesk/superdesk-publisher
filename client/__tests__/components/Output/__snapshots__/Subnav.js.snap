@@ -7,28 +7,44 @@ exports[`Output/Subnav renders correctly 1`] = `
   <div
     class="subnav__content-bar"
   >
-    <span
-      class="sd-check__wrapper"
+    <div
+      style="margin-left: 1rem;"
     >
-      <span
-        class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+      <div
+        class="sd-check-button__group sd-check-button__group--left"
       >
-        <label>
-          Incoming content
-        </label>
-      </span>
-    </span>
-    <span
-      class="sd-check__wrapper"
-    >
-      <span
-        class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
-      >
-        <label>
-          Published
-        </label>
-      </span>
-    </span>
+        <input
+          class="visuallyhidden"
+          id="id10"
+          type="checkbox"
+        />
+        <span
+          class="sd-check-button checked"
+        >
+          <label
+            class="sd-check-button__text-label"
+            for="id10"
+          >
+            Incoming
+          </label>
+        </span>
+        <input
+          class="visuallyhidden"
+          id="id11"
+          type="checkbox"
+        />
+        <span
+          class="sd-check-button"
+        >
+          <label
+            class="sd-check-button__text-label"
+            for="id11"
+          >
+            Published
+          </label>
+        </span>
+      </div>
+    </div>
   </div>
   <div
     class="subnav__content-bar sd-flex-wrap ml-auto sd-padding-l--1"
@@ -64,8 +80,6 @@ exports[`Output/Subnav renders correctly 1`] = `
     </div>
     <a
       class="icn-btn"
-      flow="bottom"
-      sd-tooltip="Ascending"
     >
       <i
         class="icon-ascending"
@@ -85,9 +99,13 @@ exports[`Output/Subnav renders correctly 1`] = `
         Incoming:
       </span>
       <span
-        class="badge sd-margin-l--0-5"
+        class="sd-margin-l--0-5"
       >
-        0
+        <span
+          class="badge"
+        >
+          0
+        </span>
       </span>
     </div>
     <div>
@@ -95,9 +113,13 @@ exports[`Output/Subnav renders correctly 1`] = `
         Published:
       </span>
       <span
-        class="badge sd-margin-l--0-5"
+        class="sd-margin-l--0-5"
       >
-        0
+        <span
+          class="badge"
+        >
+          0
+        </span>
       </span>
     </div>
   </div>

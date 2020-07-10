@@ -16,8 +16,6 @@ exports[`Output/PreviewPane renders correctly 1`] = `
       >
         <a
           class="icn-btn"
-          flow="top"
-          sd-tooltip="Close"
         >
           <i
             class="icon-close-small"

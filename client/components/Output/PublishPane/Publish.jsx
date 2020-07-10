@@ -1,10 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import _ from "lodash";
 import helpers from "../../../services/helpers";
 import DropdownScrollable from "../../UI/DropdownScrollable";
-import CheckButton from "../../UI/CheckButton";
+import Loading from "../../UI/Loading/Loading";
+
+import {
+  Button,
+  CheckButtonGroup,
+  RadioButton,
+} from "superdesk-ui-framework/react";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
 import MetadataEditor from "./MetadataEditor";
@@ -172,12 +177,19 @@ class Publish extends React.Component {
     }
   };
 
-  isChanged = () => {
+  shouldPublishButtonBeDisabled = () => {
     let updated = helpers.getUpdatedValues(
       this.state.newDestinations,
       this.props.destinations
     );
-    return Object.keys(updated).length ? true : false;
+    let flag = Object.keys(updated).length ? false : true;
+    let destinationsWithoutRoute = this.state.newDestinations.filter(
+      (destination) => (Object.keys(destination.route).length ? false : true)
+    );
+
+    if (destinationsWithoutRoute.length) flag = true;
+
+    return flag;
   };
 
   render() {
@@ -193,14 +205,14 @@ class Publish extends React.Component {
           <div className="side-panel__content-block side-panel__content-block--flex side-panel__content-block--space-between">
             <DropdownScrollable
               button={
-                <button
-                  className="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
+                <Button
+                  type="primary"
+                  icon="plus-large"
+                  shape="round"
                   sd-tooltip="Add destination"
                   flow="right"
                   disabled={this.state.availableTenants.length ? false : true}
-                >
-                  <i className="icon-plus-large"></i>
-                </button>
+                />
               }
             >
               {this.state.availableTenants.map((tenant) => (
@@ -212,25 +224,21 @@ class Publish extends React.Component {
               ))}
             </DropdownScrollable>
             <div>
-              <CheckButton
-                label="All"
-                onClick={() => this.setFilter("all")}
-                isChecked={this.state.filter === "all" ? true : false}
-              />
-
-              <CheckButton
-                label="Published"
-                onClick={() => this.setFilter("published")}
-                isChecked={this.state.filter === "published" ? true : false}
-              />
-              <CheckButton
-                label="Unpublished"
-                onClick={() => this.setFilter("unpublished")}
-                isChecked={this.state.filter === "unpublished" ? true : false}
-              />
+              <CheckButtonGroup>
+                <RadioButton
+                  value={this.state.filter}
+                  options={[
+                    { value: "all", label: "All" },
+                    { value: "published", label: "Published" },
+                    { value: "unpublished", label: "Unpublished" },
+                  ]}
+                  onChange={(value) => this.setFilter(value)}
+                />
+              </CheckButtonGroup>
             </div>
           </div>
           <div className="side-panel__content-block side-panel__content-block--pad-small">
+            {this.props.loading && <Loading />}
             {this.state.newDestinations.map((destination, index) =>
               this.state.filter === "all" ||
               this.state.filter === destination.status ? (
@@ -266,13 +274,13 @@ class Publish extends React.Component {
         />
 
         <div className="side-panel__footer side-panel__footer--button-box-large">
-          <button
-            className="btn btn--large btn--success btn--expanded"
+          <Button
+            text="Publish"
+            type="success"
+            expand={true}
             onClick={this.publish}
-            disabled={this.isChanged() ? false : true}
-          >
-            Publish
-          </button>
+            disabled={this.shouldPublishButtonBeDisabled()}
+          />
         </div>
       </React.Fragment>
     );
@@ -282,6 +290,7 @@ class Publish extends React.Component {
 Publish.propTypes = {
   destinations: PropTypes.array.isRequired,
   openPreview: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default Publish;

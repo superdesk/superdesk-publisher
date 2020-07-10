@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 
+import { Button } from "superdesk-ui-framework/react";
 import FilterPanel from "./FilterPanel";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import SearchBar from "../../UI/SearchBar";
@@ -184,6 +185,7 @@ class Manual extends React.Component {
       let params = {};
       params.limit = limit;
       params.page = this.state.list.page + 1;
+      params["sorting[position]"] = "asc";
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)
@@ -268,6 +270,36 @@ class Manual extends React.Component {
       this._queryArticles(true)
     );
 
+  pinUnpin = (id) => {
+    let list = { ...this.state.list };
+    let index = list.items.findIndex((item) => {
+      let itemId = item.content ? item.content.id : item.id;
+      return itemId === id;
+    });
+
+    if (index > -1) {
+      let changesRecord = [...this.state.changesRecord];
+      let item = list.items[index];
+
+      let change = {
+        content_id: id,
+        action: "move",
+        position: index,
+        sticky: !item.sticky,
+      };
+
+      changesRecord.push(change);
+      changesRecord = this.updatePositions(changesRecord, list.items);
+      list.items[index] = {
+        ...item,
+        sticky: !item.sticky,
+        sticky_position: index,
+      };
+
+      this.setState({ changesRecord, list });
+    }
+  };
+
   removeItem = (id) => {
     let list = { ...this.state.list };
     let index = list.items.findIndex((item) => {
@@ -278,6 +310,7 @@ class Manual extends React.Component {
     if (index > -1) {
       this.recordChange("delete", index, [...list.items]);
       list.items.splice(index, 1);
+      list.items = this.fixPinnedItemsPosition(list.items);
       this.setState({ list });
     }
   };
@@ -330,11 +363,13 @@ class Manual extends React.Component {
     }
 
     if (source.droppableId === destination.droppableId) {
-      const items = reorder(
+      let items = reorder(
         this.getList(source.droppableId),
         source.index,
         destination.index
       );
+
+      items = this.fixPinnedItemsPosition(items);
 
       let list = { ...this.state.list };
 
@@ -352,7 +387,7 @@ class Manual extends React.Component {
       let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
-      list.items = result.contentList;
+      list.items = this.fixPinnedItemsPosition(result.contentList);
       articles.items = result.articles;
       this.recordChange("add", destination.index, [...list.items]);
       this.setState({
@@ -360,6 +395,16 @@ class Manual extends React.Component {
         articles,
       });
     }
+  };
+
+  fixPinnedItemsPosition = (items) => {
+    items.forEach((item, index) => {
+      if (item.sticky) {
+        items = reorder(items, index, item.sticky_position);
+      }
+    });
+
+    return items;
   };
 
   // action = move, add, delete
@@ -472,13 +517,14 @@ class Manual extends React.Component {
                 ))}
               </DropdownScrollable>
               <div className="subnav__stretch-bar" />
-              <button
-                className="btn btn--primary margin--right"
-                disabled={this.state.changesRecord.length ? false : true}
-                onClick={this.save}
-              >
-                Save
-              </button>
+              <span className="margin--right">
+                <Button
+                  text="Save"
+                  type="primary"
+                  onClick={this.save}
+                  disabled={this.state.changesRecord.length ? false : true}
+                />
+              </span>
             </div>
 
             <div className="sd-column-box--3">
@@ -527,6 +573,7 @@ class Manual extends React.Component {
                             key={"list" + item.id + "" + index}
                             draggableId={this.getDraggableId(item)}
                             index={index}
+                            isDragDisabled={item.sticky ? true : false}
                           >
                             {(provided, snapshot) => (
                               <li
@@ -536,7 +583,11 @@ class Manual extends React.Component {
                                 style={provided.draggableProps.style}
                               >
                                 <ArticleItem
-                                  item={item.content ? item.content : item}
+                                  item={
+                                    item.content
+                                      ? { ...item.content, sticky: item.sticky }
+                                      : item
+                                  }
                                   openPreview={(item) =>
                                     this.props.openPreview(item)
                                   }
@@ -544,6 +595,7 @@ class Manual extends React.Component {
                                   index={index}
                                   showExtras={true}
                                   remove={(id) => this.removeItem(id)}
+                                  pinUnpin={(id) => this.pinUnpin(id)}
                                   willBeTrimmed={
                                     this.props.list.limit &&
                                     this.props.list.limit <= index

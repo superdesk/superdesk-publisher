@@ -4,6 +4,8 @@ import axios from "axios";
 import classNames from "classnames";
 import _ from "lodash";
 
+import { Label, IconButton } from "superdesk-ui-framework/react";
+
 import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";
 import PublishingOptionSwitches from "../generic/PublishingOptionSwitches";
@@ -52,6 +54,8 @@ class Destination extends Component {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
         destination.is_published_fbia = props.rule.is_published_fbia;
+        destination.is_published_to_apple_news =
+          props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
         destination.paywall_secured = props.rule.paywall_secured;
         destination.content_lists = props.rule.content_lists
@@ -134,6 +138,8 @@ class Destination extends Component {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
         destination.is_published_fbia = props.rule.is_published_fbia;
+        destination.is_published_to_apple_news =
+          props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
         destination.paywall_secured = props.rule.paywall_secured;
         destination.content_lists = props.rule.content_lists
@@ -360,7 +366,7 @@ class Destination extends Component {
               </div>
               {!this.state.destination.published && (
                 <div className="sd-list-item__row">
-                  <span className="label label--alert">Do not publish</span>
+                  <Label text="Do not publish" type="alert" />
                 </div>
               )}
               {this.state.destination.published && publishRoute && (
@@ -385,20 +391,15 @@ class Destination extends Component {
         <div className="sd-collapse-box__content-wraper">
           <div className="sd-collapse-box__content">
             <div className="sd-collapse-box__tools sd-collapse-box__tools--flex">
-              <a
-                className="sd-collapse-box__collapse-btn"
-                onClick={this.toggleOpen}
-              >
-                <span className="icn-btn">
-                  <i className="icon-chevron-up-thin" />
-                </span>
-              </a>
+              <span className="sd-collapse-box__collapse-btn">
+                <IconButton icon="chevron-up-thin" onClick={this.toggleOpen} />
+              </span>
               {this.props.rule && (
-                <a onClick={this.delete} sd-tooltip="Remove">
-                  <span className="icn-btn">
-                    <i className="icon-trash" />
-                  </span>
-                </a>
+                <IconButton
+                  icon="trash"
+                  tooltip={{ text: "Remove", flow: "left" }}
+                  onClick={this.delete}
+                />
               )}
             </div>
             {showSaveBar && (

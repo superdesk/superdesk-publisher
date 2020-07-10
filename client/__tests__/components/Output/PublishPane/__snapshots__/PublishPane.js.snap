@@ -66,9 +66,8 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
         >
           <span>
             <button
-              class="btn btn--primary btn--icon-only-circle btn--large dropdown__toggle"
-              flow="right"
-              sd-tooltip="Add destination"
+              aria-label="button"
+              class="btn btn--primary btn--icon-only btn--icon-only-circle"
             >
               <i
                 class="icon-plus-large"
@@ -91,44 +90,74 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           </ul>
         </div>
         <div>
-          <span
-            class="sd-check__wrapper"
+          <div
+            class="sd-check-button__group sd-check-button__group--left"
           >
+            <input
+              class="visuallyhidden"
+              id="id10"
+              type="checkbox"
+            />
             <span
-              class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio checked"
+              class="sd-check-button checked"
             >
-              <label>
+              <label
+                class="sd-check-button__text-label"
+                for="id10"
+              >
                 All
               </label>
             </span>
-          </span>
-          <span
-            class="sd-check__wrapper"
-          >
+            <input
+              class="visuallyhidden"
+              id="id11"
+              type="checkbox"
+            />
             <span
-              class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+              class="sd-check-button"
             >
-              <label>
+              <label
+                class="sd-check-button__text-label"
+                for="id11"
+              >
                 Published
               </label>
             </span>
-          </span>
-          <span
-            class="sd-check__wrapper"
-          >
+            <input
+              class="visuallyhidden"
+              id="id12"
+              type="checkbox"
+            />
             <span
-              class="sd-checkbox sd-checkbox--button-style sd-checkbox--radio"
+              class="sd-check-button"
             >
-              <label>
+              <label
+                class="sd-check-button__text-label"
+                for="id12"
+              >
                 Unpublished
               </label>
             </span>
-          </span>
+          </div>
         </div>
       </div>
       <div
         class="side-panel__content-block side-panel__content-block--pad-small"
-      />
+      >
+        <div
+          class="spinner"
+        >
+          <div
+            class="bounce1"
+          />
+          <div
+            class="bounce2"
+          />
+          <div
+            class="bounce3"
+          />
+        </div>
+      </div>
       <div
         class="side-panel__content-block"
       >
@@ -190,15 +219,17 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
         <div
           class="side-panel__header"
         >
-          <a
-            class="icn-btn sd-margin-l--1"
-            flow="right"
-            sd-tooltip="Back"
+          <span
+            class="sd-margin-l--1"
           >
-            <i
-              class="icon-arrow-left"
-            />
-          </a>
+            <a
+              class="icn-btn"
+            >
+              <i
+                class="icon-arrow-left"
+              />
+            </a>
+          </span>
           <h3
             class="side-panel__heading side-panel__heading--big"
           >
@@ -302,8 +333,8 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       class="side-panel__footer side-panel__footer--button-box-large"
     >
       <button
-        class="btn btn--large btn--success btn--expanded"
-        disabled=""
+        aria-label="button"
+        class="btn btn--expanded btn--success btn--disabled"
       >
         Publish
       </button>

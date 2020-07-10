@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
-
+import { Label } from "superdesk-ui-framework/react";
 import helpers from "../../../services/helpers.js";
 
 const ArticleItem = ({
@@ -12,7 +12,8 @@ const ArticleItem = ({
   index,
   showExtras = false,
   remove,
-  willBeTrimmed
+  pinUnpin,
+  willBeTrimmed,
 }) => {
   let thumbnail = null;
 
@@ -23,11 +24,18 @@ const ArticleItem = ({
   return (
     <div
       className={classNames("sd-list-item", {
-        "sd-list-item--activated": previewItem && previewItem.id === item.id
+        "sd-list-item--activated": previewItem && previewItem.id === item.id,
       })}
-      style={willBeTrimmed ? { opacity: 0.5 } : {}}
+      style={{
+        cursor: item.sticky ? "not-allowed" : "grab",
+        opacity: willBeTrimmed ? 0.5 : 1,
+      }}
       onClick={() => openPreview(item)}
     >
+      {item.sticky && (
+        <div className="sd-list-item__border sd-list-item__border--locked"></div>
+      )}
+
       {showExtras && item.isDuplicate && (
         <div className="sd-list-item__column" style={{ overflow: "visible" }}>
           <a
@@ -69,19 +77,35 @@ const ArticleItem = ({
           <span className="sd-overflow-ellipsis sd-list-item--element-grow">
             {moment(item.published_at).fromNow()}
           </span>
-          <span className="label label--success label--hollow">
-            {item.route && item.route.name}
-          </span>
+          <Label
+            text={item.route && item.route.name}
+            type="success"
+            style="hollow"
+          />
+          {item.sticky && <Label text="pinned" type="alert" style="hollow" />}
         </div>
       </div>
       {showExtras && (
-        <div className="sd-list-item__action-menu">
+        <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
           <button
-            onClick={e => {
+            className="pull-right"
+            onClick={(e) => {
+              e.stopPropagation();
+              pinUnpin(item.id);
+            }}
+            title={item.sticky ? "Unpin" : "Pin"}
+            sd-tooltip={item.sticky ? "Unpin" : "Pin"}
+            flow="left"
+          >
+            <i className="icon-pin" />
+          </button>
+          <button
+            onClick={(e) => {
               e.stopPropagation();
               remove(item.id);
             }}
-            title="Remove"
+            sd-tooltip="Remove"
+            flow="left"
           >
             <i className="icon-trash" />
           </button>
@@ -98,7 +122,8 @@ ArticleItem.propTypes = {
   index: PropTypes.number,
   showExtras: PropTypes.bool,
   remove: PropTypes.func,
-  willBeTrimmed: PropTypes.bool
+  pinUnpin: PropTypes.func,
+  willBeTrimmed: PropTypes.bool,
 };
 
 export default ArticleItem;

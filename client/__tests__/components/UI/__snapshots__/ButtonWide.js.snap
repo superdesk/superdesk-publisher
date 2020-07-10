@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`UI/ButtonWide renders correctly 1`] = `
-<button
-  class="btn btn--hollow btn--expanded btn--primary"
->
-  Label
-</button>
-`;

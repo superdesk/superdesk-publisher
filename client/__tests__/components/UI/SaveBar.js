@@ -13,8 +13,8 @@ describe("UI/SaveBar", () => {
 
   it("save function fired", () => {
     const save = jest.fn();
-    const { container } = render(<SaveBar save={save} cancel={jest.fn()} />);
-    const button = container.querySelector("button");
+    const { getByText } = render(<SaveBar save={save} cancel={jest.fn()} />);
+    const button = getByText(/save/i);
 
     fireEvent.click(button);
     expect(save).toHaveBeenCalled();

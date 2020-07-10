@@ -31,10 +31,17 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       />
     </div>
     <div
-      class="sd-alert sd-alert--hollow sd-alert--alert sd-alert--small"
-      style="margin: 1em 2em 1em 1em;"
+      style="margin: 1em 2em 0px 1em;"
     >
-      Argument 1 passed to SWP\\Bundle\\CoreBundle\\MessageHandler\\AbstractContentPushHandler::__construct() must implement interface Symfony\\Component\\Messenger\\MessageBusInterface, instance of Symfony\\Bridge\\Monolog\\Logger given, called in /private/var/www/publisher/var/cache/dev/ContainerADrp4xz/getContentPushHandlerService.php on line 17
+      <div
+        class="sd-alert__container"
+      >
+        <div
+          class="sd-alert sd-alert--hollow sd-alert--small sd-alert--alert"
+        >
+          Argument 1 passed to SWP\\Bundle\\CoreBundle\\MessageHandler\\AbstractContentPushHandler::__construct() must implement interface Symfony\\Component\\Messenger\\MessageBusInterface, instance of Symfony\\Bridge\\Monolog\\Logger given, called in /private/var/www/publisher/var/cache/dev/ContainerADrp4xz/getContentPushHandlerService.php on line 17
+        </div>
+      </div>
     </div>
     <div>
       <ul
@@ -77,25 +84,22 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       <div
         class="nav-tabs__content"
       >
-        <div
-          class="nav-tabs__pane"
-        >
-          <div>
-            <strong>
-              tenant
-              : 
-            </strong>
-            <pre>
-              1
-            </pre>
-          </div>
-          <div>
-            <strong>
-              content
-              : 
-            </strong>
-            <pre>
-              {
+        <div>
+          <strong>
+            tenant
+            : 
+          </strong>
+          <pre>
+            1
+          </pre>
+        </div>
+        <div>
+          <strong>
+            content
+            : 
+          </strong>
+          <pre>
+            {
       "language":"en",
       "slugline":"abstract-html-test",
       "body_html":"&lt;p&gt;some html body edit 3 raf&lt;/p&gt;",
@@ -139,8 +143,7 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       "located":"Warsaw",
       "pubstatus":"usable"
     }
-            </pre>
-          </div>
+          </pre>
         </div>
       </div>
     </div>

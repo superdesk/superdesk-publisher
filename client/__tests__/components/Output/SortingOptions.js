@@ -33,7 +33,7 @@ describe("Output/SortingOptions", () => {
         <SortingOptions />
       </Store.Provider>
     );
-    const orderButton = container.querySelector('a[sd-tooltip="Ascending"]');
+    const orderButton = container.querySelector('a.icn-btn .icon-ascending').closest('a.icn-btn');
     fireEvent.click(orderButton);
 
     expect(setFilters).toHaveBeenCalled();
@@ -44,7 +44,7 @@ describe("Output/SortingOptions", () => {
   it("changes sorting", async () => {
     const setFilters = jest.fn();
 
-    const { container, getByText } = render(
+    const { getByText } = render(
       <Store.Provider
         value={{
           filters: { sort: 'updated_at' },

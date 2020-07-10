@@ -24,7 +24,7 @@ class ContentLists extends React.Component {
       selectedList: null,
       filtersOpen: false,
       previewOpen: false,
-      previewItem: null
+      previewItem: null,
     };
   }
 
@@ -34,12 +34,12 @@ class ContentLists extends React.Component {
     this.props.publisher
       .setToken()
       .then(this.props.publisher.querySites)
-      .then(sites => {
+      .then((sites) => {
         let tenantsNavOpen = sites.length > 1 ? true : false;
         this.setState({ sites, tenantsNavOpen });
 
         if (this.props.tenant) {
-          let site = sites.find(site => site.code === this.props.tenant);
+          let site = sites.find((site) => site.code === this.props.tenant);
           if (site) this.setTenant(site);
         } else if (sites[0]) {
           this.setTenant(sites[0]);
@@ -51,37 +51,37 @@ class ContentLists extends React.Component {
     this._isMounted = false;
   }
 
-  setTenant = site => {
+  setTenant = (site) => {
     this.props.publisher.setTenant(site);
 
     this.setState(
       {
-        selectedSite: site
+        selectedSite: site,
       },
       this._getLists
     );
   };
 
-  listEdit = list =>
+  listEdit = (list) =>
     this.setState({
       selectedList: list,
-      filtersOpen: list.type === "automatic" ? true : false
+      filtersOpen: list.type === "automatic" ? true : false,
     });
 
   cancelListEdit = () =>
     this.setState({
       selectedList: null,
       filtersOpen: false,
-      previewOpen: false
+      previewOpen: false,
     });
 
   _getLists = () => {
     this.setState({ loading: true }, () => {
-      return this.props.publisher.queryLists().then(lists => {
+      return this.props.publisher.queryLists().then((lists) => {
         let selectedList = null;
 
         if (this.props.list) {
-          let list = lists.find(l => l.id === parseInt(this.props.list));
+          let list = lists.find((l) => l.id === parseInt(this.props.list));
           if (list) selectedList = list;
         }
 
@@ -93,18 +93,18 @@ class ContentLists extends React.Component {
             loading: false,
             selectedList,
             filtersOpen:
-              selectedList && selectedList.type === "automatic" ? true : false
+              selectedList && selectedList.type === "automatic" ? true : false,
           });
       });
     });
   };
 
-  onListDelete = id => {
+  onListDelete = (id) => {
     let lists = [...this.state.lists];
-    let index = lists.findIndex(list => list.id === id);
+    let index = lists.findIndex((list) => list.id === id);
 
     if (index < 0) {
-      index = lists.findIndex(list => typeof list.id === "undefined");
+      index = lists.findIndex((list) => typeof list.id === "undefined");
     }
 
     if (index > -1) {
@@ -113,9 +113,9 @@ class ContentLists extends React.Component {
     }
   };
 
-  onListUpdate = updatedList => {
+  onListUpdate = (updatedList) => {
     let lists = [...this.state.lists];
-    let index = lists.findIndex(list => list.id === updatedList.id);
+    let index = lists.findIndex((list) => list.id === updatedList.id);
     let selectedList = { ...this.state.selectedList };
 
     if (selectedList.id === updatedList.id) {
@@ -126,12 +126,15 @@ class ContentLists extends React.Component {
       lists[index] = updatedList;
     }
 
-    this.setState({ lists, selectedList });
+    this.setState({
+      lists,
+      selectedList: selectedList.id !== undefined ? selectedList : null,
+    });
   };
 
-  onListCreated = newList => {
+  onListCreated = (newList) => {
     let lists = [...this.state.lists];
-    let oldIndex = lists.findIndex(list => typeof list.id === "undefined");
+    let oldIndex = lists.findIndex((list) => typeof list.id === "undefined");
 
     if (oldIndex > -1) {
       lists.splice(oldIndex, 1);
@@ -147,14 +150,15 @@ class ContentLists extends React.Component {
 
   toggleFilters = () => this.setState({ filtersOpen: !this.state.filtersOpen });
 
-  openPreview = item => this.setState({ previewOpen: true, previewItem: item });
+  openPreview = (item) =>
+    this.setState({ previewOpen: true, previewItem: item });
   closePreview = () => this.setState({ previewOpen: false, previewItem: null });
 
-  addList = type => {
+  addList = (type) => {
     let list = {
       name: "",
       type: type,
-      cache_life_time: 0
+      cache_life_time: 0,
     };
 
     this.setState({ lists: [list, ...this.state.lists] });
@@ -169,7 +173,7 @@ class ContentLists extends React.Component {
             "sd-page-content__content-block--double-sidebar": this.state
               .selectedList,
             "open-filters": this.state.filtersOpen,
-            "open-preview": this.state.previewOpen
+            "open-preview": this.state.previewOpen,
           })}
         >
           <div className="subnav">
@@ -190,13 +194,13 @@ class ContentLists extends React.Component {
           </div>
           <div
             className={classNames("sd-column-box--3", {
-              "content-nav-closed": !this.state.tenantsNavOpen
+              "content-nav-closed": !this.state.tenantsNavOpen,
             })}
           >
             <SitesSideNav
               sites={this.state.sites}
               selectedSite={this.state.selectedSite}
-              setTenant={site => this.setTenant(site)}
+              setTenant={(site) => this.setTenant(site)}
               toggle={this.toggleTenantsNav}
               open={this.state.tenantsNavOpen}
             />
@@ -205,10 +209,11 @@ class ContentLists extends React.Component {
               <Listing
                 lists={this.state.lists}
                 publisher={this.props.publisher}
-                onListDelete={id => this.onListDelete(id)}
-                onListCreated={list => this.onListCreated(list)}
-                addList={type => this.addList(type)}
-                listEdit={list => this.listEdit(list)}
+                onListDelete={(id) => this.onListDelete(id)}
+                onListCreated={(list) => this.onListCreated(list)}
+                onListUpdate={(list) => this.onListUpdate(list)}
+                addList={(type) => this.addList(type)}
+                listEdit={(list) => this.listEdit(list)}
               />
             )}
 
@@ -218,14 +223,15 @@ class ContentLists extends React.Component {
                   list={this.state.selectedList}
                   lists={this.state.lists}
                   publisher={this.props.publisher}
-                  listEdit={list => this.listEdit(list)}
+                  listEdit={(list) => this.listEdit(list)}
                   onEditCancel={this.cancelListEdit}
-                  onListUpdate={list => this.onListUpdate(list)}
+                  onListUpdate={(list) => this.onListUpdate(list)}
                   toggleFilters={this.toggleFilters}
-                  openPreview={item => this.openPreview(item)}
+                  openPreview={(item) => this.openPreview(item)}
                   previewItem={this.state.previewItem}
                   filtersOpen={this.state.filtersOpen}
                   api={this.props.api}
+                  vocabularies={this.props.vocabularies}
                 />
               )}
 
@@ -235,11 +241,11 @@ class ContentLists extends React.Component {
                   list={this.state.selectedList}
                   lists={this.state.lists}
                   publisher={this.props.publisher}
-                  listEdit={list => this.listEdit(list)}
+                  listEdit={(list) => this.listEdit(list)}
                   onEditCancel={this.cancelListEdit}
-                  onListUpdate={list => this.onListUpdate(list)}
+                  onListUpdate={(list) => this.onListUpdate(list)}
                   toggleFilters={this.toggleFilters}
-                  openPreview={item => this.openPreview(item)}
+                  openPreview={(item) => this.openPreview(item)}
                   previewItem={this.state.previewItem}
                   filtersOpen={this.state.filtersOpen}
                   api={this.props.api}
@@ -271,7 +277,8 @@ ContentLists.propTypes = {
   publisher: PropTypes.object.isRequired,
   api: PropTypes.func.isRequired,
   isLanguagesEnabled: PropTypes.bool.isRequired,
-  languages: PropTypes.array.isRequired
+  languages: PropTypes.array.isRequired,
+  vocabularies: PropTypes.array.isRequired,
 };
 
 export default ContentLists;

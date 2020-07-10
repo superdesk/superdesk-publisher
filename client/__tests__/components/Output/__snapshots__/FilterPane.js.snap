@@ -10,15 +10,17 @@ exports[`Output/FilterPane renders properly 1`] = `
     <div
       class="side-panel__header side-panel__header--border-b"
     >
-      <a
-        class="icn-btn side-panel__close"
-        flow="left"
-        sd-tooltip="Close filters"
+      <span
+        class="side-panel__close"
       >
-        <i
-          class="icon-close-small"
-        />
-      </a>
+        <a
+          class="icn-btn"
+        >
+          <i
+            class="icon-close-small"
+          />
+        </a>
+      </span>
       <h3
         class="side-panel__heading side-panel__heading--big"
       >
@@ -101,7 +103,7 @@ exports[`Output/FilterPane renders properly 1`] = `
           class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--is-select"
+            class="sd-line-input"
           >
             <label
               class="sd-line-input__label"
@@ -119,16 +121,18 @@ exports[`Output/FilterPane renders properly 1`] = `
       <div
         class="flex-grid flex-grid--boxed-small flex-grid--small-2"
       >
-        <a
+        <button
+          aria-label="button"
           class="btn btn--hollow"
         >
           Clear
-        </a>
-        <a
+        </button>
+        <button
+          aria-label="button"
           class="btn btn--primary"
         >
           Filter
-        </a>
+        </button>
       </div>
     </div>
   </div>

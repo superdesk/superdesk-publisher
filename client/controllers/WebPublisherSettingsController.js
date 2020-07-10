@@ -103,6 +103,8 @@ export function WebPublisherSettingsController(
         case "rules":
           this.selectedRule = {};
           this._refreshRules();
+          this.ingestSources = [];
+          this._loadIngestSources();
           break;
         case "tenant":
           this.openSiteEdit = false;
@@ -212,6 +214,12 @@ export function WebPublisherSettingsController(
           this.webhookPaneOpen = false;
           this.selectedWebhook = {};
           this._refreshWebhooks();
+        }).catch(err => {
+          $scope.loading = false;
+          let message = err.data.message
+            ? err.data.message
+            : "Something went wrong. Try again.";
+          modal.confirm(message);
         });
     }
 
@@ -786,7 +794,8 @@ export function WebPublisherSettingsController(
 
           publisher
             .reorderMenu({ parent: parentId, position: menuPosition }, item.id)
-            .then(this._refreshCurrentMenu.bind(this));
+            .then(this._refreshCurrentMenu.bind(this))
+            .catch(this._refreshCurrentMenu.bind(this));
         }
       }
     }
@@ -884,10 +893,13 @@ export function WebPublisherSettingsController(
       let filteredNewSite = { ...$scope.newSite };
       delete filteredNewSite.updated_at;
 
+      if (filteredNewSite.apple_news_config === null) filteredNewSite.apple_news_config = { api_key_id: null, api_key_secret: null, channel_id: null };
+
       let updatedKeys = this._updatedKeys(filteredNewSite, this.selectedSite);
       this.loading = true;
+
       publisher
-        .manageSite(_.pick($scope.newSite, updatedKeys), this.selectedSite.code)
+        .manageSite(_.pick(filteredNewSite, updatedKeys), this.selectedSite.code)
         .then(site => {
           this.siteForm.$setPristine();
           this.selectedSite = site;
@@ -937,9 +949,9 @@ export function WebPublisherSettingsController(
     }
 
     switchAppleNewsConfig() {
-      $scope.newSite.apple_news_config = $scope.newSite.apple_news_config === null ? {} : null;
+      $scope.newSite.apple_news_config = $scope.newSite.apple_news_config === null || $scope.newSite.apple_news_config.channel_id === null ? { api_key_id: '', api_key_secret: '', channel_id: '' } : null;
+      this.siteForm.$setDirty();
     }
-
 
     /**
      * @ngdoc method
@@ -1594,6 +1606,27 @@ export function WebPublisherSettingsController(
         return rules;
       });
     }
+
+    /**
+    * @ngdoc method
+    * @name WebPublisherSettingsController#_loadIngestSources
+    * @description Loads ingest sources
+    */
+    _loadIngestSources = (page = 1) => {
+      api.ingestProviders
+        .query({ max_results: 200, page: page })
+        .then((response) => {
+          let ingestSources = response._items;
+
+          if (ingestSources.length) {
+            this.ingestSources = [...this.ingestSources, ...ingestSources]
+          }
+
+          if (response._links.next) this._loadIngestSources(page + 1);
+
+
+        });
+    };
 
     /**
      * @ngdoc method

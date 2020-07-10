@@ -48,24 +48,20 @@ exports[`Output/ArticleItem renders correctly 1`] = `
   <div
     class="sd-list-item__action-menu sd-list-item__action-menu--direction-row"
   >
-    <button
+    <a
       class="icn-btn"
-      flow="left"
-      sd-tooltip="Correct"
     >
       <i
         class="icon-pencil"
       />
-    </button>
-    <button
+    </a>
+    <a
       class="icn-btn"
-      flow="left"
-      sd-tooltip="Publish"
     >
       <i
         class="icon-expand-thin"
       />
-    </button>
+    </a>
   </div>
   <div
     class="modal modal--double"

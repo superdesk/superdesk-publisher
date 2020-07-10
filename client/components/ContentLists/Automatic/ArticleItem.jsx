@@ -27,6 +27,9 @@ const ArticleItem = ({
       onClick={() => openPreview(item)}
       style={style}
     >
+      {item.sticky && (
+        <div className="sd-list-item__border sd-list-item__border--locked"></div>
+      )}
       {item.loading && <div className="sd-loader" />}
       {thumbnail && (
         <div
@@ -62,7 +65,7 @@ const ArticleItem = ({
             {item.content.route && item.content.route.name}
           </span>
           {item.sticky && (
-            <span className="pull-right label label--primary label--hollow">
+            <span className="pull-right label label--alert label--hollow">
               pinned
             </span>
           )}
