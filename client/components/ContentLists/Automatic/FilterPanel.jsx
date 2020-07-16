@@ -263,7 +263,6 @@ class FilterPanel extends React.Component {
 
     filters.author = newAuthor;
 
-    if (!filters.route.length) delete filters.route;
     if (!filters.author.length) delete filters.author;
     if (filters.metadata.subject && !filters.metadata.subject.length)
       delete filters.metadata.subject;
