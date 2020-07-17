@@ -287,7 +287,10 @@ class FilterPanel extends React.Component {
   };
 
   clear = () => {
-    this.setState({ filters: { metadata: [], route: [], author: [] } });
+    this.setState({
+      filters: { metadata: [], route: [], author: [] },
+      vocabularies: [],
+    });
   };
 
   handleInputChange = (e) => {
