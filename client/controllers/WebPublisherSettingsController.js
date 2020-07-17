@@ -29,6 +29,7 @@ export function WebPublisherSettingsController(
       this.TEMPLATES_DIR = "scripts/apps/web-publisher/views";
       $scope.mainLoading = true;
       this.siteWizardActive = false;
+      $scope.redirects = { items: [], pages: 1 };
 
       this.isLanguagesEnabled = false;
 
@@ -145,13 +146,13 @@ export function WebPublisherSettingsController(
           this.routeType = "";
           // getting only route redirects to fill route objects
           this.redirectType = "route";
-          this._refreshRedirects().then(redirects => this._refreshRoutes(redirects));
+          this.loadRedirects(true, 100000).then(redirects => this._refreshRoutes(redirects));
 
           break;
         case "redirects":
           this.redirectType = "";
           this._refreshRoutes();
-          this._refreshRedirects();
+          this.loadRedirects(true);
           break;
         case "navigation":
           $scope.menu = {};
@@ -487,7 +488,7 @@ export function WebPublisherSettingsController(
 
     changeRedirectFilter(type) {
       this.redirectType = type;
-      this._refreshRedirects();
+      this.loadRedirects(true);
     }
 
     saveRedirect() {
@@ -503,7 +504,7 @@ export function WebPublisherSettingsController(
         )
         .then(r => {
           this.toggleCreateRedirect(false);
-          this._refreshRedirects();
+          this.loadRedirects(true);
         }).catch(err => {
           let message = err.data.message
             ? err.data.message
@@ -539,7 +540,8 @@ export function WebPublisherSettingsController(
         .confirm(gettext("Please confirm you want to delete redirect."))
         .then(() =>
           publisher.removeRedirect(id).then(() => {
-            this._refreshRedirects();
+            let index = $scope.redirects.items.findIndex(redirect => redirect.id === id);
+            if (index !== -1) $scope.redirects.items.splice(index, 1);
           })
         )
         .catch(err => {
@@ -550,24 +552,42 @@ export function WebPublisherSettingsController(
         });
     }
 
-    _refreshRedirects() {
-      $scope.loading = true;
-      return publisher.queryRedirects().then(redirects => {
-        let filteredRedirects = redirects;
+    loadRedirects(reset, limit) {
+      if (reset) $scope.redirects = { items: [], pages: 1 };
+
+
+      const page = !$scope.redirects.page ? 1 : $scope.redirects.page + 1;
+      const params = {
+        page: page,
+        limit: limit ? limit : 50,
+        "sorting[createdAt]": "desc"
+      };
+
+      if ((!reset && $scope.redirects.pages && page > $scope.redirects.pages) || $scope.redirects.loading) {
+        return;
+      }
+
+      $scope.redirects.loading = true;
+
+      return publisher.queryRedirects(params).then(redirects => {
+        let filteredRedirects = redirects._embedded._items;
 
         if (this.redirectType === "route") {
-          filteredRedirects = redirects.filter(
+          filteredRedirects = filteredRedirects.filter(
             redirect => redirect.route_target && redirect.route_source
           );
         } else if (this.redirectType === "custom") {
-          filteredRedirects = redirects.filter(
+          filteredRedirects = filteredRedirects.filter(
             redirect => !redirect.route_target && !redirect.route_source
           );
         }
 
-        $scope.loading = false;
-        $scope.redirects = filteredRedirects;
-        return filteredRedirects;
+        $scope.redirects.loading = false;
+        $scope.redirects.page = page;
+        $scope.redirects.pages = redirects.pages;
+        $scope.redirects.items = [...$scope.redirects.items, ...filteredRedirects];
+
+        return $scope.redirects.items;
       });
     }
 

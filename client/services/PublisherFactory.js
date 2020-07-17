@@ -163,11 +163,15 @@ export function PublisherFactory(pubapi) {
     * @returns {Promise}
     * @description List all redirects
     */
-    queryRedirects() {
-      let params = {
-        limit: 1000
-      };
-      return pubapi.query("redirects", params);
+    queryRedirects(params) {
+      if (!params) {
+        params = {
+          limit: 100000,
+          "sorting[createdAt]": "desc"
+        }
+      }
+
+      return pubapi.queryWithDetails("redirects", params);
     }
 
     /**

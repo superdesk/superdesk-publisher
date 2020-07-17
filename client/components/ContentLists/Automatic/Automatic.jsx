@@ -18,7 +18,7 @@ class Automatic extends React.Component {
       articles: {
         items: [],
         page: 0,
-        totalPages: 1,
+        totalPages: 10,
         loading: false,
         itemSize: 56,
       },
@@ -32,7 +32,7 @@ class Automatic extends React.Component {
         articles: {
           items: [],
           page: 0,
-          totalPages: 1,
+          totalPages: 10,
           loading: false,
           itemSize: 56,
         },
@@ -121,7 +121,7 @@ class Automatic extends React.Component {
               articles: {
                 items: [],
                 page: 0,
-                totalPages: 1,
+                totalPages: 10,
                 loading: false,
                 itemSize: 56,
               },
@@ -134,15 +134,18 @@ class Automatic extends React.Component {
   };
 
   onFiltersSave = (updatedList) => {
-    this.setState({
-      articles: {
-        items: [],
-        page: 0,
-        totalPages: 1,
-        loading: false,
-        itemSize: 56,
+    this.setState(
+      {
+        articles: {
+          items: [],
+          page: 0,
+          totalPages: 10,
+          loading: false,
+          itemSize: 56,
+        },
       },
-    });
+      this._queryArticles
+    );
     this.props.onListUpdate(updatedList);
   };
 
@@ -167,7 +170,11 @@ class Automatic extends React.Component {
             loading: false,
             itemSize: this.state.articles.itemSize,
           };
-          if (this._isMounted) this.setState({ articles });
+          if (this._isMounted)
+            this.setState({
+              articles,
+              isEmpty: articles.items.length ? false : true,
+            });
         });
     });
   };

@@ -1,4 +1,5 @@
 import "ng-file-upload";
+import "ng-infinite-scroll";
 import "./client/styles/_publisher.scss";
 import "angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists";
 import 'superdesk-ui-framework/dist/superdesk-ui.bundle.css';
@@ -138,6 +139,7 @@ function cacheIncludedTemplates($templateCache) {
 export default angular
   .module("superdesk-publisher", [
     "dndLists",
+    'infinite-scroll',
     "ngFileUpload"
   ])
   .directive("sdSiteWizard", directive.SiteWizardDirective)
