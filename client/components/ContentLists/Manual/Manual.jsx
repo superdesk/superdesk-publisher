@@ -337,7 +337,10 @@ class Manual extends React.Component {
           this.setState({ list, changesRecord: [] });
           this._queryListArticles();
         } else {
-          this.props.api.notify.error("Something went wrong. Try again.");
+          let message = err.message
+            ? err.message
+            : "Something went wrong. Try again.";
+          this.props.api.notify.error(message);
         }
       });
   };

@@ -55,16 +55,20 @@
   class="sd-page-content__content-block sd-page-content__content-block--main relative"
   ng-class="{'open-preview': webPublisherSettings.paneOpen}"
 >
-  <div class="sd-loader" ng-if="loading"></div>
   <div class="sd-column-box--3">
     <div class="sd-column-box__main-column">
-      <ul ng-if="redirects.length" class="sd-list-item-group">
+      <ul
+        infinite-scroll="webPublisherSettings.loadRedirects()"
+        infinite-scroll-parent="true"
+        class="sd-list-item-group"
+      >
         <li
-          ng-repeat="redirect in redirects"
+          ng-repeat="redirect in redirects.items"
           ng-include="'settings/website-management/redirects/item.html'"
         ></li>
       </ul>
     </div>
+    <div class="sd-loader" ng-if="redirects.loading"></div>
     <div class="sd-preview-panel">
       <div
         class="side-panel side-panel--shadow-right"
