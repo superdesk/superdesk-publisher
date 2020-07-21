@@ -146,10 +146,12 @@ class FilterPanel extends React.Component {
           (s) => s.qcode === serviceItem.code
         );
 
-        value.push({
-          value: serviceItem.code,
-          label: originalServiceItem.name,
-        });
+        if (originalServiceItem) {
+          value.push({
+            value: serviceItem.code,
+            label: originalServiceItem.name,
+          });
+        }
       }
 
       vocabularies.push({
