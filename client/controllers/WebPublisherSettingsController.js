@@ -646,7 +646,7 @@ export function WebPublisherSettingsController(
       if ($scope.newMenu.route) {
         let route = $scope.routes.find(r => r.id === $scope.newMenu.route);
         if (route.type === 'custom') {
-          let valueSlug = $scope.newMenu.variableValue.toLowerCase().replace(" ", "-");
+          let valueSlug = $scope.newMenu.variableValue.toLowerCase().replaceAll(" ", "-");
 
           $scope.newMenu.uri = valueSlug.length ? route.static_prefix + "/" + valueSlug : route.static_prefix;
           delete $scope.newMenu.route;
