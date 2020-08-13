@@ -22,7 +22,7 @@ exports[`ContentLists/Automatic/ArticleItem renders correctly 1`] = `
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        2 days ago
+        2017-07-26
       </span>
       <span
         class="label"

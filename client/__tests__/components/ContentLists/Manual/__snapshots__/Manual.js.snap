@@ -236,7 +236,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
                   <span
                     class="sd-overflow-ellipsis sd-list-item--element-grow"
                   >
-                    2 days ago
+                    2019-12-28
                   </span>
                   <span
                     class="label label--success label--hollow"

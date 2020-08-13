@@ -30,7 +30,7 @@ exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        a few seconds ago
+        2020-08-13
       </span>
       <span
         class="label label--success label--hollow"
@@ -83,7 +83,7 @@ exports[`ContentLists/Manual/ArticleItem renders correctly without extras 1`] = 
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        a few seconds ago
+        2020-08-13
       </span>
       <span
         class="label label--success label--hollow"

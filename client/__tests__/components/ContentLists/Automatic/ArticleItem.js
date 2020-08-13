@@ -3,8 +3,6 @@ import ArticleItem from "../../../../components/ContentLists/Automatic/ArticleIt
 import { render } from "@testing-library/react";
 import moment from 'moment';
 
-jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
-
 describe("ContentLists/Automatic/ArticleItem", () => {
   const item = {
     content: {

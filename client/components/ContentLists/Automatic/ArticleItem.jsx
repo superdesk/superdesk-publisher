@@ -52,7 +52,7 @@ const ArticleItem = ({
         </div>
         <div className="sd-list-item__row">
           <span className="sd-overflow-ellipsis sd-list-item--element-grow">
-            {moment(item.content.published_at).fromNow()}
+            {moment(item.content.published_at).format("YYYY-MM-DD")}
           </span>
           <span
             className={classNames("label", {

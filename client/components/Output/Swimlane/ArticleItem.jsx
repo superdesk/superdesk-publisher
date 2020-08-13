@@ -81,11 +81,11 @@ const ArticleItem = ({ item, style }) => {
           )}
           {item.updated_at ? (
             <time title={moment(item.updated_at).format()}>
-              {moment(item.updated_at).fromNow()}
+              {moment(item.updated_at).format("YYYY-MM-DD")}
             </time>
           ) : (
             <time title={moment(item.created_at).format()}>
-              {moment(item.created_at).fromNow()}
+              {moment(item.created_at).format("YYYY-MM-DD")}
             </time>
           )}
         </div>
