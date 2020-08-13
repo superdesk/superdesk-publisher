@@ -7,8 +7,6 @@ import Publisher from "../../../../__mocks__/publisher";
 
 const publisher = new Publisher();
 
-jest.mock('moment', () => () => ({ fromNow: () => '2 days ago' }));
-
 let lists = [];
 publisher.queryLists().then(items => (lists = items));
 
