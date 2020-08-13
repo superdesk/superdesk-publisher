@@ -74,7 +74,7 @@ const ArticlePreview = ({ article, close }) => {
               <p className="sd-text__date-and-author">
                 {article.updated_at ? (
                   <time title={article.updated_at}>
-                    {moment(article.updated_at).fromNow()}
+                    {moment(article.updated_at).format("YYYY-MM-DD")}
                   </time>
                 ) : (
                   <time
@@ -88,7 +88,7 @@ const ArticlePreview = ({ article, close }) => {
                       article.published_at
                         ? article.published_at
                         : article.created_at
-                    ).fromNow()}
+                    ).format("YYYY-MM-DD")}
                   </time>
                 )}
 

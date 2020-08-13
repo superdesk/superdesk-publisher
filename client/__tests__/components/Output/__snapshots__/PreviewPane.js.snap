@@ -43,7 +43,7 @@ exports[`Output/PreviewPane renders correctly 1`] = `
             <time
               title="2019-10-21T13:15:00+00:00"
             >
-              1 day ago
+              2020–01–01T12:00:00+00:00
             </time>
             
           </p>

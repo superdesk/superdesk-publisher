@@ -43,7 +43,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
             <time
               title="2019–08–30T12:34:56+00:00"
             >
-              2 days ago
+              2020–01–01T12:00:00+00:00
             </time>
             
           </p>

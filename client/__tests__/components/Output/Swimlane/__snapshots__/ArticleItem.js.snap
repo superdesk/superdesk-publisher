@@ -21,7 +21,7 @@ exports[`Output/Swimlane/ArticleItem renders correctly 1`] = `
       <time
         title="2020–01–01T12:00:00+00:00"
       >
-        1 day ago
+        2020–01–01T12:00:00+00:00
       </time>
     </div>
   </div>
