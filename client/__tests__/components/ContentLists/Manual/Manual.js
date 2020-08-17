@@ -1,7 +1,6 @@
 import React from "react";
 import Manual from "../../../../components/ContentLists/Manual/Manual";
 import { render, wait } from "@testing-library/react";
-import axios from "axios";
 
 import Publisher from "../../../../__mocks__/publisher";
 
@@ -44,6 +43,7 @@ describe("ContentLists/Manual/Manual", () => {
         toggleFilters={jest.fn()}
         isLanguagesEnabled={true}
         languages={languages}
+        site={{ default_language: "en" }}
       />
     );
 

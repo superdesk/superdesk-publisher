@@ -159,7 +159,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
             <button
               class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle"
             >
-              All Languages
+              English
               <span
                 class="dropdown__caret"
               />
