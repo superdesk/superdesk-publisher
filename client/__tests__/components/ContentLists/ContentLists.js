@@ -23,7 +23,6 @@ const languages = [
   { qcode: 'de', name: 'German' },
 ]
 
-
 describe("ContentLists/ContentLists", () => {
   it("renders properly", async () => {
     const { container, getByText } = render(
