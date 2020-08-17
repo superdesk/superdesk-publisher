@@ -22,7 +22,9 @@ exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
     >
       <span
         class="sd-overflow-ellipsis sd-list-item__text-strong"
-      />
+      >
+        test
+      </span>
     </div>
     <div
       class="sd-list-item__row"
@@ -30,11 +32,13 @@ exports[`ContentLists/Manual/ArticleItem renders correctly with extras 1`] = `
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        2020-08-13
+        2017-07-26
       </span>
       <span
         class="label label--success label--hollow"
-      />
+      >
+        route
+      </span>
     </div>
   </div>
   <div
@@ -75,7 +79,9 @@ exports[`ContentLists/Manual/ArticleItem renders correctly without extras 1`] = 
     >
       <span
         class="sd-overflow-ellipsis sd-list-item__text-strong"
-      />
+      >
+        test
+      </span>
     </div>
     <div
       class="sd-list-item__row"
@@ -83,11 +89,13 @@ exports[`ContentLists/Manual/ArticleItem renders correctly without extras 1`] = 
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        2020-08-13
+        2017-07-26
       </span>
       <span
         class="label label--success label--hollow"
-      />
+      >
+        route
+      </span>
     </div>
   </div>
 </div>
