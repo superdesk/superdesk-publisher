@@ -47,6 +47,16 @@
             required
           />
         </div>
+
+        <div class="item">
+          <label for="routeDescription" translate>description</label>
+          <input 
+            type="text" 
+            class="line-input" 
+            id="routeDescription" 
+            ng-model="newRoute.description">
+        </div>
+
         <div
           class="item"
           ng-class="{'sd-line-input sd-line-input--invalid': newRoute.id}"
