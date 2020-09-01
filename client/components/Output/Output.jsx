@@ -35,18 +35,26 @@ class Output extends React.Component {
       isPreviewPaneOpen: false,
       isFilterPaneOpen: window.localStorage.getItem("swpOutputFilterOpen")
         ? JSON.parse(window.localStorage.getItem("swpOutputFilterOpen"))
-        : false
+        : false,
     };
   }
 
   componentDidMount() {
     this._isMounted = true;
+    this.websocket = new Websocket(
+      this.props.config,
+      this.props.publisher,
+      (newPackage, state) => this.newPackageEventHandler(newPackage, state)
+    );
 
     this.props.publisher
       .setToken()
       .then(() => this.props.publisher.querySites(true, true))
-      .then(tenants => {
-        if (this._isMounted) this.setState({ tenants, loading: false });
+      .then((tenants) => {
+        if (this._isMounted) {
+          this.setState({ tenants, loading: false });
+          this.websocket.open();
+        }
       });
 
     document.addEventListener(
@@ -54,13 +62,6 @@ class Output extends React.Component {
       this.handleEditorOpenChange,
       false
     );
-
-    this.websocket = new Websocket(
-      this.props.config,
-      this.props.publisher,
-      (newPackage, state) => this.newPackageEventHandler(newPackage, state)
-    );
-    this.websocket.open();
   }
 
   componentWillUnmount() {
@@ -75,12 +76,12 @@ class Output extends React.Component {
 
   newPackageEventHandler = (newPackage, state) => {
     let event = new CustomEvent("newPackage", {
-      detail: { newPackage: newPackage, state: state }
+      detail: { newPackage: newPackage, state: state },
     });
     document.dispatchEvent(event);
   };
 
-  handleEditorOpenChange = e => {
+  handleEditorOpenChange = (e) => {
     if (this.state.isSuperdeskEditorOpen !== e.detail && e.detail) {
       this.togglePreview(null);
       this.togglePublish(null);
@@ -88,11 +89,11 @@ class Output extends React.Component {
     this.setState({ isSuperdeskEditorOpen: e.detail });
   };
 
-  setFilters = filters => {
+  setFilters = (filters) => {
     this.setState({ filters: { ...this.state.filters, ...filters } });
   };
 
-  setArticlesCounts = articlesCounts => {
+  setArticlesCounts = (articlesCounts) => {
     this.setState({ articlesCounts });
   };
 
@@ -108,7 +109,7 @@ class Output extends React.Component {
   togglePreview = (item = null) => {
     this.setState(
       {
-        isPreviewPaneOpen: item ? true : false
+        isPreviewPaneOpen: item ? true : false,
       },
       () => this.setSelectedItem(item)
     );
@@ -117,13 +118,13 @@ class Output extends React.Component {
   togglePublish = (item = null) => {
     this.setState(
       {
-        isPublishPaneOpen: item ? true : false
+        isPublishPaneOpen: item ? true : false,
       },
       () => this.setSelectedItem(item)
     );
   };
 
-  setSelectedItem = item => {
+  setSelectedItem = (item) => {
     if (item) {
       this.setState({ selectedItem: item });
     } else if (!this.state.isPreviewPaneOpen && !this.state.isPublishPaneOpen) {
@@ -135,18 +136,19 @@ class Output extends React.Component {
     this.togglePreview(null);
     this.togglePublish(null);
     this.setState({
-      listViewType: this.state.listViewType === "normal" ? "swimlane" : "normal"
+      listViewType:
+        this.state.listViewType === "normal" ? "swimlane" : "normal",
     });
   };
 
-  setSelectedList = listType => {
+  setSelectedList = (listType) => {
     this.togglePreview(null);
     this.togglePublish(null);
     window.localStorage.setItem("swpOutputListType", listType);
     this.setState({ selectedList: listType });
   };
 
-  correctPackage = item => {
+  correctPackage = (item) => {
     let newItem = {};
 
     newItem._id = item.guid;
@@ -171,14 +173,14 @@ class Output extends React.Component {
           filters: this.state.filters,
           articlesCounts: this.state.articlesCounts,
           actions: {
-            togglePreview: item => this.togglePreview(item),
-            togglePublish: item => this.togglePublish(item),
+            togglePreview: (item) => this.togglePreview(item),
+            togglePublish: (item) => this.togglePublish(item),
             toggleListViewType: () => this.toggleListViewType(),
-            setSelectedList: listType => this.setSelectedList(listType),
-            setFilters: filters => this.setFilters(filters),
-            setArticlesCounts: counts => this.setArticlesCounts(counts),
-            correctPackage: item => this.correctPackage(item)
-          }
+            setSelectedList: (listType) => this.setSelectedList(listType),
+            setFilters: (filters) => this.setFilters(filters),
+            setArticlesCounts: (counts) => this.setArticlesCounts(counts),
+            correctPackage: (item) => this.correctPackage(item),
+          },
         }}
       >
         <div
@@ -187,14 +189,14 @@ class Output extends React.Component {
             {
               "open-filters": this.state.isFilterPaneOpen,
               "open-preview": this.state.isPreviewPaneOpen,
-              "open-publish": this.state.isPublishPaneOpen
+              "open-publish": this.state.isPublishPaneOpen,
             }
           )}
         >
           <div className="subnav">
             <button
               className={classNames("navbtn navbtn--left navbtn--darker", {
-                "navbtn--active": this.state.isFilterPaneOpen
+                "navbtn--active": this.state.isFilterPaneOpen,
               })}
               onClick={this.toggleFilterPane}
               sd-tooltip="Filter"
@@ -207,7 +209,7 @@ class Output extends React.Component {
             </h3>
             <SearchBar
               leftBorder={true}
-              onChange={term => this.setFilters({ term: term })}
+              onChange={(term) => this.setFilters({ term: term })}
             />
           </div>
           <Subnav />
@@ -251,7 +253,7 @@ Output.propTypes = {
   authoringWorkspace: PropTypes.object.isRequired,
   api: PropTypes.func.isRequired,
   isLanguagesEnabled: PropTypes.bool.isRequired,
-  languages: PropTypes.array.isRequired
+  languages: PropTypes.array.isRequired,
 };
 
 export default Output;
