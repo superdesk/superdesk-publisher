@@ -238,8 +238,8 @@ class Destination extends React.Component {
               </div>
             )}
             <PublishingOptionSwitches
-              fbiaEnabled={tenant.paywall_enabled}
-              paywallEnabled={tenant.fbia_enabled}
+              fbiaEnabled={tenant.fbia_enabled}
+              paywallEnabled={tenant.paywall_enabled}
               appleNewsEnabled={
                 tenant.apple_news_config && tenant.apple_news_config.channel_id
                   ? true

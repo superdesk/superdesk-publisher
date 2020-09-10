@@ -239,7 +239,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
           >
             <div
               class="flex-grid__item"
-              sd-tooltip="Publish to facebook"
+              sd-tooltip="Enable Paywall"
               style="margin-bottom: 1em;"
             >
               <span>
@@ -259,7 +259,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
                     class=""
                     for="id2"
                   >
-                    Facebook
+                    Paywall
                   </label>
                 </span>
               </span>
