@@ -38,12 +38,12 @@ describe("generic/PublishingOptionsSwithces", () => {
       />
     );
 
-    await waitForElement(() => getByText("Facebook"));
+    await waitForElement(() => getByText("FBIA"));
     await waitForElement(() => getByText("Paywall"));
     await waitForElement(() => getByText("Apple News"));
   });
 
-  it("renders facebook switch only", async () => {
+  it("renders fbia switch only", async () => {
     const { getByText, queryByText } = render(
       <PublishingOptionsSwithces
         fbiaEnabled={true}
@@ -54,7 +54,7 @@ describe("generic/PublishingOptionsSwithces", () => {
       />
     );
 
-    await waitForElement(() => getByText("Facebook"));
+    await waitForElement(() => getByText("FBIA"));
     await wait(() =>
       expect(queryByText("Paywall")).not.toBeInTheDocument()
     );
@@ -72,7 +72,7 @@ describe("generic/PublishingOptionsSwithces", () => {
     );
 
     await waitForElement(() => getByText("Paywall"));
-    await wait(() => expect(queryByText("Facebook")).not.toBeInTheDocument());
+    await wait(() => expect(queryByText("FBIA")).not.toBeInTheDocument());
   });
 
   it("fires onChange", async () => {
