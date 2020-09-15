@@ -167,7 +167,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
                 class=""
                 for="id1"
               >
-                Facebook
+                FBIA
               </label>
             </span>
           </span>

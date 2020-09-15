@@ -24,7 +24,7 @@ const PublishingOptionSwitches = ({
           >
             <span>
               <Checkbox
-                label={{ text: "Facebook" }}
+                label={{ text: "FBIA" }}
                 checked={destination.is_published_fbia}
                 onChange={(value) => onChange(value, "is_published_fbia")}
               />
