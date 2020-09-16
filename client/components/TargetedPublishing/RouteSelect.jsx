@@ -10,8 +10,10 @@ class RouteSelect extends Component {
 
     this.state = {
       routes: [],
-      loading: true
+      loading: true,
     };
+
+    this.pubConfig = this.props.config.publisher || {};
   }
 
   componentDidMount() {
@@ -22,25 +24,25 @@ class RouteSelect extends Component {
     axios
       .get(this.props.apiUrl + "content/routes/", {
         headers: this.props.apiHeader,
-        params: { limit: 1000 }
+        params: { limit: 1000 },
       })
-      .then(res => {
+      .then((res) => {
         this.setState({
           routes: res.data._embedded._items,
-          loading: false
+          loading: false,
         });
       });
   };
 
   render() {
     let collectionRoutes = this.state.routes.filter(
-      route => route.type === "collection"
+      (route) => route.type === "collection"
     );
     let contentRoutes = this.state.routes.filter(
-      route => route.type === "content"
+      (route) => route.type === "content"
     );
     let customRoutes = this.state.routes.filter(
-      route => route.type != "content" && route.type != "collection"
+      (route) => route.type != "content" && route.type != "collection"
     );
 
     return (
@@ -73,18 +75,24 @@ class RouteSelect extends Component {
             nameField="name"
             label="Collection"
           />
-          <OptGroup
-            list={contentRoutes}
-            valueField="id"
-            nameField="name"
-            label="Content"
-          />
-          <OptGroup
-            list={customRoutes}
-            valueField="id"
-            nameField="name"
-            label="Custom"
-          />
+
+          {this.pubConfig.hideContentRoutesInPublishPane ? null : (
+            <OptGroup
+              list={contentRoutes}
+              valueField="id"
+              nameField="name"
+              label="Content"
+            />
+          )}
+
+          {this.pubConfig.hideCustomRoutesInPublishPane ? null : (
+            <OptGroup
+              list={customRoutes}
+              valueField="id"
+              nameField="name"
+              label="Custom"
+            />
+          )}
         </select>
       </div>
     );
@@ -95,7 +103,8 @@ RouteSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   selectedRouteId: PropTypes.any.isRequired,
   apiHeader: PropTypes.object.isRequired,
-  apiUrl: PropTypes.string.isRequired
+  apiUrl: PropTypes.string.isRequired,
+  config: PropTypes.object.isRequired,
 };
 
 export default RouteSelect;

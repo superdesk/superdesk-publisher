@@ -1,6 +1,7 @@
 import React from "react";
 import RouteSelect from "../../../../components/Output/PublishPane/RouteSelect";
 import { render } from "@testing-library/react";
+import Store from "../../../../components/Output/Store";
 
 const routes = [
   { id: 1, name: 'route1' },
@@ -11,11 +12,17 @@ const routes = [
 describe("Output/PublishPane/RouteSelect", () => {
   it("renders properly", async () => {
     const { container, getByText } = render(
-      <RouteSelect
-        routes={routes}
-        selectedRouteId={1}
-        onChange={jest.fn()}
-      />
+      <Store.Provider
+        value={{
+          config: { publisher: {} }
+        }}
+      >
+        <RouteSelect
+          routes={routes}
+          selectedRouteId={1}
+          onChange={jest.fn()}
+        />
+      </Store.Provider>
     );
 
     expect(container.firstChild).toMatchSnapshot();
