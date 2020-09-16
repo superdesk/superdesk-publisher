@@ -35,7 +35,7 @@ describe("Output/Output", () => {
       <Output
         publisher={publisher}
         notify={{ error: jest.fn() }}
-        config={{}}
+        config={{ publisher: {} }}
         authoringWorkspace={{}}
         api={api}
         isLanguagesEnabled={true}

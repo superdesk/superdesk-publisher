@@ -26,6 +26,7 @@ describe("Output/PublishPane/Destination", () => {
     const { container } = render(
       <Store.Provider
         value={{
+          config: { publisher: {} },
           tenants: [
             {
               name: 'tenant1', code: 'tenant1', paywall_enabled: true, fbia_enabled: false,
