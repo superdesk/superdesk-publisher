@@ -9,6 +9,7 @@ describe("TargetedPublishing/RouteSelect", () => {
   it("renders correctly", async () => {
     const { container, getByText } = render(
       <RouteSelect
+        config={{ publisher: {} }}
         apiUrl="example.com/"
         apiHeader={{ Authrization: "Basic 1234567" }}
         onChange={jest.fn()}
@@ -25,6 +26,7 @@ describe("TargetedPublishing/RouteSelect", () => {
     const onChange = jest.fn();
     const { container } = render(
       <RouteSelect
+        config={{ publisher: {} }}
         apiUrl="example.com/"
         apiHeader={{ Authrization: "Basic 1234567" }}
         onChange={onChange}

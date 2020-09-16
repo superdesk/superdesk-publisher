@@ -27,6 +27,7 @@ describe("Output/PublishPane/Publish", () => {
     const { container } = render(
       <Store.Provider
         value={{
+          config: { publisher: {} },
           publisher: { queryRelatedArticlesStatus: jest.fn().mockResolvedValue({ related_article_items: [] }) },
           selectedItem: { id: 1 },
           tenants: [
@@ -64,6 +65,7 @@ describe("Output/PublishPane/Publish", () => {
     const { container, getByText } = render(
       <Store.Provider
         value={{
+          config: { publisher: {} },
           publisher: { queryRelatedArticlesStatus: jest.fn().mockResolvedValue({ related_article_items: [] }) },
           selectedItem: { id: 1 },
           tenants: [

@@ -444,6 +444,7 @@ class Destination extends Component {
             {!this.state.hasOutputChannel && (
               <div className="form__row">
                 <RouteSelect
+                  config={this.props.config}
                   apiUrl={this.state.apiUrl}
                   apiHeader={this.props.apiHeader}
                   onChange={(e) => this.handleRouteChange(e)}
