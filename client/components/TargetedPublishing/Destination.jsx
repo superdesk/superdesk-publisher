@@ -80,7 +80,6 @@ class Destination extends Component {
     this.state = {
       contentLists: [],
       previewUrl: null,
-      originalDestination: destination ? destination : {},
       destination: destination ? JSON.parse(JSON.stringify(destination)) : {},
       apiUrl: protocol
         ? `${protocol}://${
@@ -102,8 +101,13 @@ class Destination extends Component {
     this.getContentLists();
   }
 
-  componentWillReceiveProps(props) {
-    if (props.rule || props.site) {
+  componentDidUpdate(prevProps, prevState) {
+    let props = this.props;
+
+    if (
+      (props.rule && !_.isEqual(props.rule, prevProps.rule)) ||
+      (props.site && !_.isEqual(props.site, prevProps.site))
+    ) {
       let destination = {
         is_published_fbia: false,
         published: true,
@@ -162,7 +166,6 @@ class Destination extends Component {
 
       this.setState(
         {
-          originalDestination: destination,
           destination: JSON.parse(JSON.stringify(destination)),
           apiUrl: `${protocol}://${
             subdomain ? subdomain + "." : ""
@@ -177,6 +180,13 @@ class Destination extends Component {
         },
         this.getContentLists
       );
+    }
+
+    if (
+      !_.isEqual(prevState.destination, this.state.destination) &&
+      (this.state.destination.route || this.state.hasOutputChannel)
+    ) {
+      this.save();
     }
   }
 
@@ -249,34 +259,30 @@ class Destination extends Component {
   };
 
   saveContentList = (data) => {
-    let destination = { ...this.state.destination };
+    let destination = JSON.parse(JSON.stringify(this.state.destination));
     destination.content_lists = data;
 
     this.setState({ destination });
   };
 
   addContentList = () => {
-    let destination = { ...this.state.destination };
+    let destination = JSON.parse(JSON.stringify(this.state.destination));
     destination.content_lists.push({ id: "", position: 0 });
     this.setState({ destination });
   };
 
   removeContentList = (index) => {
-    let destination = { ...this.state.destination };
+    let destination = JSON.parse(JSON.stringify(this.state.destination));
     destination.content_lists.splice(index, 1);
     this.setState({ destination });
   };
 
   save = () => {
-    axios
-      .post(
-        this.state.apiUrl + "organization/destinations/",
-        this.state.destination,
-        { headers: this.props.apiHeader }
-      )
-      .then((res) => {
-        this.props.done();
-      });
+    axios.post(
+      this.state.apiUrl + "organization/destinations/",
+      this.state.destination,
+      { headers: this.props.apiHeader }
+    );
   };
 
   delete = () => {
@@ -291,22 +297,8 @@ class Destination extends Component {
     let siteDomain = this.state.subdomain
       ? this.state.subdomain + "." + this.state.domainName
       : this.state.domainName;
-    let showSaveBar = true;
-    let disableSave =
-      this.state.destination &&
-      !this.state.destination.route &&
-      !this.state.hasOutputChannel
-        ? true
-        : false;
     const destination = { ...this.state.destination };
     let contentListsNames = "";
-
-    if (
-      this.props.rule &&
-      _.isEqual(this.state.destination, this.state.originalDestination)
-    ) {
-      showSaveBar = false;
-    }
 
     if (destination.content_lists && destination.content_lists.length) {
       destination.content_lists.forEach((list) => {
@@ -402,13 +394,6 @@ class Destination extends Component {
                 />
               )}
             </div>
-            {showSaveBar && (
-              <SaveBar
-                save={() => this.save()}
-                cancel={() => this.props.cancel()}
-                isDisabled={disableSave}
-              />
-            )}
             <div className="sd-collapse-box__content-block sd-collapse-box__content-block--top">
               <div className="sd-list-item sd-list-item--no-bg sd-list-item--no-hover">
                 <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
@@ -467,7 +452,9 @@ class Destination extends Component {
             />
             {!!this.state.contentLists.length && (
               <ContentLists
-                ruleLists={destination.content_lists}
+                ruleLists={JSON.parse(
+                  JSON.stringify(this.state.destination.content_lists)
+                )}
                 contentLists={this.state.contentLists}
                 save={this.saveContentList}
                 addList={this.addContentList}
