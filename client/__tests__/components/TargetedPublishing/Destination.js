@@ -4,8 +4,6 @@ import {
   render,
   fireEvent,
   waitForElement,
-  wait,
-  getByLabelText
 } from "@testing-library/react";
 
 describe("TargetedPublishing/Destination", () => {
@@ -65,25 +63,6 @@ describe("TargetedPublishing/Destination", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it("renders SaveBar with disabled save when new destination", async () => {
-    // no rule prop
-    const { getByText } = render(
-      <Destination
-        apiHeader={{ Authrization: "Basic 1234567" }}
-        config={config}
-        site={site}
-        item={item}
-        cancel={jest.fn()}
-        done={jest.fn()}
-        isOpen={true}
-      />
-    );
-
-    const saveButton = getByText("Save");
-
-    expect(saveButton.classList.contains('btn--disabled')).toBe(true)
-  });
-
   it("rerenders preview", async () => {
     const { container, getByText } = render(
       <Destination
@@ -112,27 +91,5 @@ describe("TargetedPublishing/Destination", () => {
     );
   });
 
-  it("changes route, shows SaveBar and fires cancel", async () => {
-    const cancel = jest.fn();
-    const { container, getByText } = render(
-      <Destination
-        apiHeader={{ Authrization: "Basic 1234567" }}
-        config={config}
-        site={site}
-        item={item}
-        rule={rule}
-        cancel={cancel}
-        done={jest.fn()}
-        isOpen={false}
-      />
-    );
 
-    const select = container.querySelector('select[name="routeId"]');
-    fireEvent.change(select, { target: { value: 2 } });
-
-    const cancelButton = getByText("Cancel");
-    fireEvent.click(cancelButton);
-
-    expect(cancel).toHaveBeenCalled();
-  });
 });
