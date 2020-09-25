@@ -81,7 +81,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         class="margin--right"
       >
         <button
-          aria-label="button"
+          aria-label=""
           class="btn btn--primary btn--disabled"
         >
           Save
@@ -265,6 +265,8 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
                 class="icn-btn"
               >
                 <i
+                  aria-hidden="true"
+                  aria-label="close-small"
                   class="icon-close-small"
                 />
               </a>
@@ -375,13 +377,13 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
               class="flex-grid flex-grid--boxed-small flex-grid--small-2"
             >
               <button
-                aria-label="button"
+                aria-label=""
                 class="btn btn--hollow"
               >
                 Clear
               </button>
               <button
-                aria-label="button"
+                aria-label=""
                 class="btn btn--primary"
               >
                 Filter

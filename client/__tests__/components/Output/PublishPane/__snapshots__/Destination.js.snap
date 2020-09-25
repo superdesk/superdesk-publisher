@@ -32,6 +32,8 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
             class="icn-btn"
           >
             <i
+              aria-hidden="true"
+              aria-label="trash"
               class="icon-trash"
             />
           </a>
@@ -65,6 +67,8 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
             class="icn-btn"
           >
             <i
+              aria-hidden="true"
+              aria-label="chevron-up-thin"
               class="icon-chevron-up-thin"
             />
           </a>
@@ -73,6 +77,8 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="trash"
             class="icon-trash"
           />
         </a>
@@ -173,7 +179,7 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
         class="form__row"
       >
         <button
-          aria-label="button"
+          aria-label=""
           class="btn btn--expanded btn--primary btn--hollow"
         >
           Add to content list

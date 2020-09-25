@@ -209,6 +209,7 @@ class Publish extends React.Component {
                   type="primary"
                   icon="plus-large"
                   shape="round"
+                  iconOnly={true}
                   sd-tooltip="Add destination"
                   flow="right"
                   disabled={this.state.availableTenants.length ? false : true}

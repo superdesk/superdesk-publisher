@@ -19,10 +19,10 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
     >
       <span>
         <button
-          aria-label="button"
           class="btn btn--primary btn--icon-only btn--icon-only-circle"
         >
           <i
+            aria-label="plus-large"
             class="icon-plus-large"
           />
         </button>
@@ -123,6 +123,8 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
                 class="icn-btn"
               >
                 <i
+                  aria-hidden="true"
+                  aria-label="trash"
                   class="icon-trash"
                 />
               </a>
@@ -158,6 +160,8 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
                 class="icn-btn"
               >
                 <i
+                  aria-hidden="true"
+                  aria-label="chevron-up-thin"
                   class="icon-chevron-up-thin"
                 />
               </a>
@@ -166,6 +170,8 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
               class="icn-btn"
             >
               <i
+                aria-hidden="true"
+                aria-label="trash"
                 class="icon-trash"
               />
             </a>
@@ -269,7 +275,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             class="form__row"
           >
             <button
-              aria-label="button"
+              aria-label=""
               class="btn btn--expanded btn--primary btn--hollow"
             >
               Add to content list

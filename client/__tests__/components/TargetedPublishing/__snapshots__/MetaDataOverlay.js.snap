@@ -17,6 +17,8 @@ exports[`TargetedPublishing/MetaDataOverlay renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="arrow-left"
             class="icon-arrow-left"
           />
         </a>

@@ -78,6 +78,7 @@ class AddWebsite extends React.Component {
           <Button
             type="primary"
             icon="plus-large"
+            iconOnly={true}
             shape="round"
             onClick={this.toggleSitesDropdown}
           />

@@ -22,6 +22,8 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="trash"
             class="icon-trash"
           />
         </a>
@@ -128,7 +130,7 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
     </div>
   </div>
   <button
-    aria-label="button"
+    aria-label=""
     class="btn btn--expanded btn--primary btn--hollow"
   >
     Add to content list
