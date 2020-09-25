@@ -11,13 +11,13 @@ exports[`UI/SaveBar renders correctly 1`] = `
       class="sliding-toolbar__inner"
     />
     <button
-      aria-label="button"
+      aria-label=""
       class="btn btn--hollow btn--ui-dark"
     >
       Cancel
     </button>
     <button
-      aria-label="button"
+      aria-label=""
       class="btn btn--primary btn--ui-dark"
     >
       Save

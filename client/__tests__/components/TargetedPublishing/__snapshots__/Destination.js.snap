@@ -63,6 +63,8 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
             class="icn-btn"
           >
             <i
+              aria-hidden="true"
+              aria-label="chevron-up-thin"
               class="icon-chevron-up-thin"
             />
           </a>
@@ -71,6 +73,8 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="trash"
             class="icon-trash"
           />
         </a>

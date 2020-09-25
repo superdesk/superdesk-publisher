@@ -44,62 +44,61 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       </div>
     </div>
     <div>
-      <ul
-        class="nav-tabs"
-      >
-        <li
-          class="nav-tabs__tab nav-tabs__tab--active"
-        >
-          <button
-            class="nav-tabs__link"
-          >
-            <span>
-              Message
-            </span>
-          </button>
-        </li>
-        <li
-          class="nav-tabs__tab"
-        >
-          <button
-            class="nav-tabs__link"
-          >
-            <span>
-              Stacktrace
-            </span>
-          </button>
-        </li>
-        <li
-          class="nav-tabs__tab"
-        >
-          <button
-            class="nav-tabs__link"
-          >
-            <span>
-              Redeliveries
-            </span>
-          </button>
-        </li>
-      </ul>
       <div
-        class="nav-tabs__content"
+        class="sd-nav-tabs"
+        role="tablist"
       >
-        <div>
-          <strong>
-            tenant
-            : 
-          </strong>
-          <pre>
-            1
-          </pre>
-        </div>
-        <div>
-          <strong>
-            content
-            : 
-          </strong>
-          <pre>
-            {
+        <button
+          aria-selected="true"
+          class="sd-nav-tabs__tab sd-nav-tabs__tab--active"
+          role="tab"
+        >
+          <span>
+            Message
+          </span>
+        </button>
+        <button
+          aria-selected="false"
+          class="sd-nav-tabs__tab"
+          role="tab"
+        >
+          <span>
+            Stacktrace
+          </span>
+        </button>
+        <button
+          aria-selected="false"
+          class="sd-nav-tabs__tab"
+          role="tab"
+        >
+          <span>
+            Redeliveries
+          </span>
+        </button>
+      </div>
+      <div
+        class="sd-nav-tabs__content"
+      >
+        <div
+          class="sd-nav-tabs__pane"
+          role="tabpanel"
+        >
+          <div>
+            <strong>
+              tenant
+              : 
+            </strong>
+            <pre>
+              1
+            </pre>
+          </div>
+          <div>
+            <strong>
+              content
+              : 
+            </strong>
+            <pre>
+              {
       "language":"en",
       "slugline":"abstract-html-test",
       "body_html":"&lt;p&gt;some html body edit 3 raf&lt;/p&gt;",
@@ -143,7 +142,8 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       "located":"Warsaw",
       "pubstatus":"usable"
     }
-          </pre>
+            </pre>
+          </div>
         </div>
       </div>
     </div>

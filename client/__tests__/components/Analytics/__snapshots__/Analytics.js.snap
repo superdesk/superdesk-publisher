@@ -177,6 +177,8 @@ exports[`Analytics/Analytics renders correctly 1`] = `
               class="icn-btn"
             >
               <i
+                aria-hidden="true"
+                aria-label="descending"
                 class="icon-descending"
               />
             </a>
@@ -201,6 +203,8 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                     class="icn-btn"
                   >
                     <i
+                      aria-hidden="true"
+                      aria-label="close-small"
                       class="icon-close-small"
                     />
                   </a>
@@ -356,13 +360,13 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                   class="flex-grid flex-grid--boxed-small flex-grid--small-2"
                 >
                   <button
-                    aria-label="button"
+                    aria-label=""
                     class="btn btn--hollow"
                   >
                     Clear
                   </button>
                   <button
-                    aria-label="button"
+                    aria-label=""
                     class="btn btn--primary"
                   >
                     Run Report
@@ -374,7 +378,7 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                   style="overflow: visible;"
                 >
                   <button
-                    aria-label="button"
+                    aria-label=""
                     class="btn btn--primary btn--disabled"
                   >
                     Generate Report
