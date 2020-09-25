@@ -21,11 +21,6 @@ class TargetedPublishing extends React.Component {
     });
   };
 
-  onSave = () => {
-    this.setNewDestination({});
-    this.props.reload();
-  };
-
   render() {
     return (
       <ToggleBox
@@ -38,7 +33,7 @@ class TargetedPublishing extends React.Component {
             No websites have been set, this article won't show up on any
             website. It will go to: <br />
             <span style={{ fontWeight: "500" }}>
-              Publisher > Output Control > Incoming list
+              Publisher &gt; Output Control &gt; Incoming list
             </span>
           </div>
         )}
@@ -50,8 +45,8 @@ class TargetedPublishing extends React.Component {
             apiHeader={this.props.apiHeader}
             config={this.props.config}
             item={this.props.item}
-            cancel={this.onSave}
-            done={this.onSave}
+            cancel={() => this.setNewDestination({})}
+            reload={this.props.reload}
           />
         ))}
 
@@ -64,16 +59,17 @@ class TargetedPublishing extends React.Component {
             config={this.props.config}
             item={this.props.item}
             cancel={() => this.setNewDestination({})}
-            done={this.onSave}
+            reload={this.props.reload}
           />
         )}
         <AddWebsite
-          setNewDestination={(newDestination) =>
-            this.setNewDestination(newDestination)
-          }
+          setNewDestination={(newDestination) => {
+            this.props.reload();
+            this.setNewDestination(newDestination);
+          }}
           apiHeader={this.props.apiHeader}
           apiUrl={this.props.apiUrl}
-          rules={this.props.rules}
+          rules={[...this.props.rules, this.state.newDestination]}
         />
       </ToggleBox>
     );

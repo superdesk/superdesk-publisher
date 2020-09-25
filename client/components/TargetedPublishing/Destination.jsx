@@ -287,8 +287,16 @@ class Destination extends Component {
 
   delete = () => {
     let destination = { ...this.state.destination };
+    if (!destination.route) {
+      this.props.cancel();
+      this.props.reload();
+      return;
+    }
     destination.published = false;
-    this.setState({ destination, deleted: true }, this.save);
+    this.setState({ destination, deleted: true }, () => {
+      this.save();
+      this.props.reload();
+    });
   };
 
   render() {
@@ -386,13 +394,11 @@ class Destination extends Component {
               <span className="sd-collapse-box__collapse-btn">
                 <IconButton icon="chevron-up-thin" onClick={this.toggleOpen} />
               </span>
-              {this.props.rule && (
-                <IconButton
-                  icon="trash"
-                  tooltip={{ text: "Remove", flow: "left" }}
-                  onClick={this.delete}
-                />
-              )}
+              <IconButton
+                icon="trash"
+                tooltip={{ text: "Remove", flow: "left" }}
+                onClick={this.delete}
+              />
             </div>
             <div className="sd-collapse-box__content-block sd-collapse-box__content-block--top">
               <div className="sd-list-item sd-list-item--no-bg sd-list-item--no-hover">
@@ -474,9 +480,9 @@ Destination.propTypes = {
   apiHeader: PropTypes.object.isRequired,
   config: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  cancel: PropTypes.func.isRequired,
-  done: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
+  cancel: PropTypes.func.isRequired,
+  reload: PropTypes.func.isRequired,
 };
 
 Destination.defaultProps = {
