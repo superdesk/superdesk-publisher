@@ -18,6 +18,8 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="close-small"
             class="icon-close-small"
           />
         </a>

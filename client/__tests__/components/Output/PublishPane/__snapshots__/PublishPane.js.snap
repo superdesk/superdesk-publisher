@@ -17,6 +17,8 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           class="icn-btn"
         >
           <i
+            aria-hidden="true"
+            aria-label="close-small"
             class="icon-close-small"
           />
         </a>
@@ -66,10 +68,10 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
         >
           <span>
             <button
-              aria-label="button"
               class="btn btn--primary btn--icon-only btn--icon-only-circle"
             >
               <i
+                aria-label="plus-large"
                 class="icon-plus-large"
               />
             </button>
@@ -226,6 +228,8 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
               class="icn-btn"
             >
               <i
+                aria-hidden="true"
+                aria-label="arrow-left"
                 class="icon-arrow-left"
               />
             </a>
@@ -333,7 +337,7 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       class="side-panel__footer side-panel__footer--button-box-large"
     >
       <button
-        aria-label="button"
+        aria-label=""
         class="btn btn--expanded btn--success btn--disabled"
       >
         Publish

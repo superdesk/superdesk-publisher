@@ -44,6 +44,8 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
         class="icn-btn"
       >
         <i
+          aria-hidden="true"
+          aria-label="trash"
           class="icon-trash"
         />
       </a>

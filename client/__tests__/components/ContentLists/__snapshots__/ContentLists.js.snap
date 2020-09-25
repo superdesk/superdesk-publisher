@@ -236,7 +236,7 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                 class="sd-card__actions-group"
               >
                 <button
-                  aria-label="button"
+                  aria-label=""
                   class="btn btn--small btn--hollow btn--ui-dark"
                 >
                   Edit
@@ -343,7 +343,7 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                 class="sd-card__actions-group"
               >
                 <button
-                  aria-label="button"
+                  aria-label=""
                   class="btn btn--small btn--hollow btn--ui-dark"
                 >
                   Edit

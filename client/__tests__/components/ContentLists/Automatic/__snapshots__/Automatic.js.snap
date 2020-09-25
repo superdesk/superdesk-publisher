@@ -79,6 +79,8 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 class="icn-btn"
               >
                 <i
+                  aria-hidden="true"
+                  aria-label="close-small"
                   class="icon-close-small"
                 />
               </a>
@@ -183,14 +185,18 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
               <div
                 class="dropdown "
               >
-                <button
-                  class="btn btn--small btn--primary dropdown__toggle dropdown-toggle"
+                <div
+                  style="display: content;"
                 >
-                  <i
-                    class="icon-plus-sign"
-                  />
-                  Add Metadata
-                </button>
+                  <button
+                    class="btn btn--small btn--primary dropdown__toggle dropdown-toggle"
+                  >
+                    <i
+                      class="icon-plus-sign"
+                    />
+                    Add Metadata
+                  </button>
+                </div>
                 <ul
                   class="dropdown__menu"
                 >
@@ -213,13 +219,13 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
               class="flex-grid flex-grid--boxed-small flex-grid--small-2"
             >
               <button
-                aria-label="button"
+                aria-label=""
                 class="btn btn--hollow"
               >
                 Clear
               </button>
               <button
-                aria-label="button"
+                aria-label=""
                 class="btn btn--primary"
               >
                 Update Criteria
