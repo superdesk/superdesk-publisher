@@ -26,7 +26,7 @@ const VirtualizedList = ({
   ItemRenderer,
   itemRendererProps,
   // height that will be subtracted. ex: wrapper is a table and there is an extra table head that takes space.
-  heightSubtract = 0
+  heightSubtract = 0,
 }) => {
   // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const itemCount = hasNextPage ? items.length + 1 : items.length;
@@ -36,7 +36,7 @@ const VirtualizedList = ({
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
 
   // Every row is loaded except for our loading indicator row.
-  const isItemLoaded = index => !hasNextPage || index < items.length;
+  const isItemLoaded = (index) => !hasNextPage || index < items.length;
 
   const rowRenderer = ({ index, key, style }) => {
     return isItemLoaded(index) ? (
@@ -86,7 +86,7 @@ VirtualizedList.propTypes = {
   itemSize: PropTypes.number,
   ItemRenderer: PropTypes.func.isRequired,
   itemRendererProps: PropTypes.object,
-  heightSubtract: PropTypes.number
+  heightSubtract: PropTypes.number,
 };
 
 export default VirtualizedList;
