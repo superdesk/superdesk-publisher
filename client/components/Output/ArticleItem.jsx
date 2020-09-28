@@ -192,9 +192,9 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 <span className="sd-list-item__text-label">location:</span>
                 {item.place.map((place, index) =>
                   index > 0 ? (
-                    <span>, {place.name}</span>
+                    <span key={"place" + index}>, {place.name}</span>
                   ) : (
-                    <span>{place.name}</span>
+                    <span key={"place" + index}>{place.name}</span>
                   )
                 )}
               </React.Fragment>
