@@ -19,7 +19,13 @@ class FilterPane extends React.Component {
       routes: [],
       authors: { items: [], loading: false },
       ingestSources: { items: [], loading: false },
-      filters: { route: [], author: [], source: [] },
+      filters: {
+        route: [],
+        author: [],
+        source: [],
+        published_before: null,
+        published_after: null,
+      },
     };
   }
 
@@ -145,12 +151,22 @@ class FilterPane extends React.Component {
   };
 
   clear = () => {
-    this.setState({ filters: { route: [], author: [] } }, this.save);
+    this.setState(
+      {
+        filters: {
+          route: [],
+          author: [],
+          source: [],
+          published_before: null,
+          published_after: null,
+        },
+      },
+      this.save
+    );
   };
 
   save = () => {
-    let filters = _.pickBy({ ...this.state.filters }, _.identity);
-    this.context.actions.setFilters(filters);
+    this.context.actions.setFilters(this.state.filters);
   };
 
   render() {

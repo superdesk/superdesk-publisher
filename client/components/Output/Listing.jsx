@@ -184,11 +184,11 @@ class Listing extends React.Component {
       queryParams["status[]"] = ["published", "unpublished"];
       queryParams["tenant[]"] = tenant.length ? tenant : null;
       queryParams["route[]"] = route.length ? route : null;
-      queryParams.published_before = this.state.filters.publishedBefore
-        ? this.state.filters.publishedBefore
+      queryParams.published_before = this.state.filters.published_before
+        ? this.state.filters.published_before
         : null;
-      queryParams.published_after = this.state.filters.publishedAfter
-        ? this.state.filters.publishedAfter
+      queryParams.published_after = this.state.filters.published_after
+        ? this.state.filters.published_after
         : null;
     }
     queryParams[

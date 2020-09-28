@@ -24,9 +24,9 @@ class TenantBoard extends React.Component {
         page: 0,
         totalPages: 1,
         loading: true,
-        itemSize: 56
+        itemSize: 56,
       },
-      totalArticles: ""
+      totalArticles: "",
     };
   }
 
@@ -50,8 +50,8 @@ class TenantBoard extends React.Component {
             page: 0,
             totalPages: 1,
             loading: true,
-            itemSize: 56
-          }
+            itemSize: 56,
+          },
         },
         this._queryArticles
       );
@@ -62,15 +62,15 @@ class TenantBoard extends React.Component {
     let queryParams = {
       page: this.state.articles.page + 1,
       limit: this.queryLimit,
-      "status[]": []
+      "status[]": [],
     };
 
     // route
     let route = [];
     if (this.state.filters.route) {
-      this.state.filters.route.forEach(routeObj => {
+      this.state.filters.route.forEach((routeObj) => {
         let checkIfRouteFromCurrentTenant = this.props.tenant.routes.find(
-          route => route.id === routeObj.value
+          (route) => route.id === routeObj.value
         );
 
         if (checkIfRouteFromCurrentTenant) route.push(routeObj.value);
@@ -80,7 +80,7 @@ class TenantBoard extends React.Component {
     // authors
     let author = [];
     if (this.state.filters.author) {
-      this.state.filters.author.forEach(ath => {
+      this.state.filters.author.forEach((ath) => {
         author.push(ath.value);
       });
     }
@@ -98,11 +98,11 @@ class TenantBoard extends React.Component {
     queryParams["status[]"] = ["published", "unpublished"];
     queryParams["tenant[]"] = [this.props.tenant.code];
     queryParams["route[]"] = route.length ? route : null;
-    queryParams.published_before = this.state.filters.publishedBefore
-      ? this.state.filters.publishedBefore
+    queryParams.published_before = this.state.filters.published_before
+      ? this.state.filters.published_before
       : null;
-    queryParams.published_after = this.state.filters.publishedAfter
-      ? this.state.filters.publishedAfter
+    queryParams.published_after = this.state.filters.published_after
+      ? this.state.filters.published_after
       : null;
 
     queryParams["sorting[updated_at]"] = "desc";
@@ -119,13 +119,13 @@ class TenantBoard extends React.Component {
 
     this.context.publisher
       .queryMonitoringArticles(queryParams)
-      .then(response => {
+      .then((response) => {
         let newArticles = response._embedded._items;
 
-        newArticles.forEach(item => {
+        newArticles.forEach((item) => {
           item.comments_count = helpers.countComments(item.articles);
           item.page_views_count = helpers.countPageViews(item.articles);
-          item.articles.forEach(item => {
+          item.articles.forEach((item) => {
             if (item.route && item.status == "published" && item.tenant) {
               let tenantUrl = item.tenant.subdomain
                 ? item.tenant.subdomain + "." + item.tenant.domain_name
@@ -144,11 +144,11 @@ class TenantBoard extends React.Component {
           this.setState({
             articles,
             loading: false,
-            totalArticles: response.total
+            totalArticles: response.total,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (this._isMounted) {
           articles.loading = false;
           this.setState({ articles, loading: false });
@@ -201,7 +201,7 @@ class TenantBoard extends React.Component {
 }
 
 TenantBoard.propTypes = {
-  tenant: PropTypes.object.isRequired
+  tenant: PropTypes.object.isRequired,
 };
 
 export default TenantBoard;
