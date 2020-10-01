@@ -8,16 +8,25 @@ class Reports extends React.Component {
   constructor(props) {
     super(props);
 
+    this.timer = null;
+
     this.state = {
       reports: [],
       page: 0,
       totalPages: 1,
-      loading: false
+      loading: false,
     };
   }
 
   componentDidMount() {
     this.loadReports();
+    this.timer = setInterval(() => {
+      this.refreshReports();
+    }, 15000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   loadReports = () => {
@@ -28,17 +37,38 @@ class Reports extends React.Component {
     let params = {
       "sorting[createdAt]": "desc",
       limit: 10,
-      page: this.state.page + 1
+      page: this.state.page + 1,
     };
 
-    this.props.publisher.getAnalyticsReports(params).then(response =>
+    this.props.publisher.getAnalyticsReports(params).then((response) =>
       this.setState({
         reports: [...this.state.reports, ...response._embedded._items],
         loading: false,
         totalPages: response.pages,
-        page: this.state.page + 1
+        page: this.state.page + 1,
       })
     );
+  };
+
+  refreshReports = () => {
+    let params = {
+      "sorting[createdAt]": "desc",
+      limit: 10 * this.state.page,
+      page: 1,
+    };
+
+    this.props.publisher.getAnalyticsReports(params).then((response) => {
+      const currentReports = [...this.state.reports];
+      const newItems = response._embedded._items;
+
+      let reports = currentReports.map((item) =>
+        newItems.find((newItem) => item.id === newItem.id)
+      );
+
+      this.setState({
+        reports: reports,
+      });
+    });
   };
 
   render() {
@@ -54,7 +84,7 @@ class Reports extends React.Component {
             scrollableTarget="scrollableDiv"
           >
             {this.state.reports.map((item, index) => (
-              <Item item={item} key={"report" + index} />
+              <Item item={item} key={"report" + item.id} />
             ))}
           </InfiniteScroll>
         </div>
@@ -64,7 +94,7 @@ class Reports extends React.Component {
 }
 
 Reports.propTypes = {
-  publisher: PropTypes.object.isRequired
+  publisher: PropTypes.object.isRequired,
 };
 
 export default Reports;
