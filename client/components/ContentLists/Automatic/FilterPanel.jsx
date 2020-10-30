@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import moment from "moment";
 import { Button, IconButton, Dropdown } from "superdesk-ui-framework/react";
 import MultiSelect from "../../UI/MultiSelect";
+import { DatePicker } from "superdesk-ui-framework/react";
 
 class FilterPanel extends React.Component {
   constructor(props) {
@@ -430,53 +432,82 @@ class FilterPanel extends React.Component {
 
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Published date</label>
-                  <input
-                    className="sd-line-input__input"
-                    type="date"
-                    onChange={this.handleInputChange}
-                    name="published_at"
+                  <label className="sd-line-input__label">Publish date</label>
+                  <DatePicker
                     value={
                       this.state.filters.published_at
-                        ? this.state.filters.published_at
-                        : ""
+                        ? moment(
+                            this.state.filters.published_at,
+                            "YYYY-MM-DD"
+                          ).toDate()
+                        : null
                     }
+                    dateFormat="YYYY-MM-DD"
+                    onChange={(date) => {
+                      let stringDate = moment(date).format("YYYY-MM-DD");
+
+                      this.handleInputChange({
+                        target: {
+                          name: "published_at",
+                          value: stringDate,
+                        },
+                      });
+                    }}
                   />
                 </div>
               </div>
               <div className="form__row form__row--flex">
-                <div className="sd-line-input sd-line-input--no-margin">
+                <div className="sd-line-input sd-line-input--no-margin form__row-item">
                   <label className="sd-line-input__label">
                     Published after
                   </label>
-                  <input
-                    className="sd-line-input__input"
-                    type="date"
-                    onChange={this.handleInputChange}
-                    name="published_after"
+                  <DatePicker
                     value={
                       this.state.filters.published_after
-                        ? this.state.filters.published_after
-                        : ""
+                        ? moment(
+                            this.state.filters.published_after,
+                            "YYYY-MM-DD"
+                          ).toDate()
+                        : null
                     }
+                    dateFormat="YYYY-MM-DD"
+                    onChange={(date) => {
+                      let stringDate = moment(date).format("YYYY-MM-DD");
+
+                      this.handleInputChange({
+                        target: {
+                          name: "published_after",
+                          value: stringDate,
+                        },
+                      });
+                    }}
                   />
                 </div>
-              </div>
-              <div className="form__row form__row--flex">
-                <div className="sd-line-input sd-line-input--no-margin">
+
+                <div className="form__row-item sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">
                     Published before
                   </label>
-                  <input
-                    className="sd-line-input__input"
-                    type="date"
-                    onChange={this.handleInputChange}
-                    name="published_before"
+                  <DatePicker
                     value={
                       this.state.filters.published_before
-                        ? this.state.filters.published_before
-                        : ""
+                        ? moment(
+                            this.state.filters.published_before,
+                            "YYYY-MM-DD"
+                          ).toDate()
+                        : null
                     }
+                    dateFormat="YYYY-MM-DD"
+                    onChange={(date) => {
+                      let stringDate = moment(date).format("YYYY-MM-DD");
+
+                      this.handleInputChange({
+                        target: {
+                          name: "published_before",
+                          value: stringDate,
+                        },
+                      });
+                    }}
                   />
                 </div>
               </div>

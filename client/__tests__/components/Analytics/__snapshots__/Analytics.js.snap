@@ -323,12 +323,30 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                         >
                           From
                         </label>
-                        <input
-                          class="sd-line-input__input"
-                          name="published_after"
-                          type="date"
-                          value=""
-                        />
+                        <span
+                          class="p-calendar p-calendar-w-btn"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="p-inputtext p-component p-inputtext p-component"
+                            type="text"
+                            value=""
+                          />
+                          <button
+                            class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <span
+                              class="icon-calendar p-c p-button-icon-left"
+                            />
+                            <span
+                              class="p-button-text p-c"
+                            >
+                              p-btn
+                            </span>
+                          </button>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -342,12 +360,30 @@ exports[`Analytics/Analytics renders correctly 1`] = `
                         >
                           To
                         </label>
-                        <input
-                          class="sd-line-input__input"
-                          name="published_before"
-                          type="date"
-                          value=""
-                        />
+                        <span
+                          class="p-calendar p-calendar-w-btn"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="p-inputtext p-component p-inputtext p-component"
+                            type="text"
+                            value=""
+                          />
+                          <button
+                            class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <span
+                              class="icon-calendar p-c p-button-icon-left"
+                            />
+                            <span
+                              class="p-button-text p-c"
+                            >
+                              p-btn
+                            </span>
+                          </button>
+                        </span>
                       </div>
                     </div>
                   </div>

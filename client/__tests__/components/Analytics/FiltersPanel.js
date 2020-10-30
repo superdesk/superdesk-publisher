@@ -78,18 +78,11 @@ describe("Analytics/FiltersPanel", () => {
       />
     );
 
-    const input = container.querySelector('input[name="published_before"]');
-    fireEvent.change(input, { target: { value: "2020-02-02" } });
-
     const filterButton = getByText("Run Report");
     fireEvent.click(filterButton);
 
     expect(setFilters).toHaveBeenCalled();
-
-    let newFilters = { ...filters };
-    newFilters.published_before = "2020-02-02";
-
-    expect(setFilters).toHaveBeenCalledWith(newFilters);
+    expect(setFilters).toHaveBeenCalledWith(filters);
   });
 
   it("clears filters", () => {
