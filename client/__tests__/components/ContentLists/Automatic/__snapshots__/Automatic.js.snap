@@ -134,52 +134,102 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                   <label
                     class="sd-line-input__label"
                   >
-                    Published date
+                    Publish date
                   </label>
-                  <input
-                    class="sd-line-input__input"
-                    name="published_at"
-                    type="date"
-                    value="2019-12-28T12:09:32+01:00"
-                  />
+                  <span
+                    class="p-calendar p-calendar-w-btn p-inputwrapper-filled"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="p-inputtext p-component p-inputtext p-component p-filled"
+                      type="text"
+                      value="2019-12-28"
+                    />
+                    <button
+                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      <span
+                        class="icon-calendar p-c p-button-icon-left"
+                      />
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        p-btn
+                      </span>
+                    </button>
+                  </span>
                 </div>
               </div>
               <div
                 class="form__row form__row--flex"
               >
                 <div
-                  class="sd-line-input sd-line-input--no-margin"
+                  class="sd-line-input sd-line-input--no-margin form__row-item"
                 >
                   <label
                     class="sd-line-input__label"
                   >
                     Published after
                   </label>
-                  <input
-                    class="sd-line-input__input"
-                    name="published_after"
-                    type="date"
-                    value=""
-                  />
+                  <span
+                    class="p-calendar p-calendar-w-btn"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="p-inputtext p-component p-inputtext p-component"
+                      type="text"
+                      value=""
+                    />
+                    <button
+                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      <span
+                        class="icon-calendar p-c p-button-icon-left"
+                      />
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        p-btn
+                      </span>
+                    </button>
+                  </span>
                 </div>
-              </div>
-              <div
-                class="form__row form__row--flex"
-              >
                 <div
-                  class="sd-line-input sd-line-input--no-margin"
+                  class="form__row-item sd-line-input sd-line-input--no-margin"
                 >
                   <label
                     class="sd-line-input__label"
                   >
                     Published before
                   </label>
-                  <input
-                    class="sd-line-input__input"
-                    name="published_before"
-                    type="date"
-                    value=""
-                  />
+                  <span
+                    class="p-calendar p-calendar-w-btn"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="p-inputtext p-component p-inputtext p-component"
+                      type="text"
+                      value=""
+                    />
+                    <button
+                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      <span
+                        class="icon-calendar p-c p-button-icon-left"
+                      />
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        p-btn
+                      </span>
+                    </button>
+                  </span>
                 </div>
               </div>
               <div
