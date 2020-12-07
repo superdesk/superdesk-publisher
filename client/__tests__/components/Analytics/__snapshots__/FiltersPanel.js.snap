@@ -39,26 +39,14 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
           class="form__row"
         >
           <div
-            class="sd-line-input sd-line-input--no-margin sd-line-input--is-select"
+            class="sd-line-input sd-line-input--no-margin"
           >
             <label
               class="sd-line-input__label"
             >
               Category
             </label>
-            <select
-              class="sd-line-input__select"
-              name="route"
-            >
-              <option
-                value=""
-              />
-              <option
-                value="1"
-              >
-                testroute
-              </option>
-            </select>
+            <div />
           </div>
         </div>
         <div
