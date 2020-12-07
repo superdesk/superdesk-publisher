@@ -25,6 +25,7 @@ class FiltersPanel extends React.Component {
     if (!_.isEqual(this.props.filters, prevProps.filters)) {
       let filters = { ...this.props.filters };
       let newAuthors = [];
+      let newRoutes = [];
 
       if (filters.author && filters.author.length) {
         filters.author.forEach((item) => {
@@ -40,6 +41,22 @@ class FiltersPanel extends React.Component {
 
         filters.author = newAuthors;
       }
+
+      if (filters.routes && filters.routes.length) {
+        filters.routes.forEach((item) => {
+          let route = this.props.routes.find((a) => a.id === item);
+
+          if (route) {
+            newRoutes.push({
+              value: route.id,
+              label: route.name,
+            });
+          }
+        });
+
+        filters.routes = newRoutes;
+      }
+
       this.setState({ filters: filters });
     }
   }
@@ -79,6 +96,13 @@ class FiltersPanel extends React.Component {
     this.setState({ filters });
   };
 
+  handleRouteChange = (arr) => {
+    let filters = { ...this.state.filters };
+
+    filters.routes = arr ? arr : [];
+    this.setState({ filters });
+  };
+
   clear = () => {
     this.setState({ dateFilterType: "range", filters: {} });
     this.props.setFilters({});
@@ -87,6 +111,7 @@ class FiltersPanel extends React.Component {
   save = () => {
     let filters = { ...this.state.filters };
     let newAuthor = [];
+    let newRoutes = [];
 
     if (filters.author && filters.author.length) {
       filters.author.map((item) => {
@@ -94,6 +119,14 @@ class FiltersPanel extends React.Component {
       });
 
       filters.author = newAuthor;
+    }
+
+    if (filters.routes && filters.routes.length) {
+      filters.routes.map((item) => {
+        newRoutes.push(item.value);
+      });
+
+      filters.routes = newRoutes;
     }
 
     this.props.setFilters(filters);
@@ -150,11 +183,19 @@ class FiltersPanel extends React.Component {
 
   render() {
     let authorsOptions = [];
+    let routesOptions = [];
 
     this.state.authors.map((author) => {
       authorsOptions.push({
         value: author.display_name,
         label: author.display_name,
+      });
+    });
+
+    this.props.routes.map((route) => {
+      routesOptions.push({
+        value: route.id,
+        label: route.name,
       });
     });
 
@@ -176,23 +217,15 @@ class FiltersPanel extends React.Component {
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin sd-line-input--is-select">
+                <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">Category</label>
-                  <select
-                    className="sd-line-input__select"
-                    onChange={this.handleInputChange}
-                    name="route"
-                    value={
-                      this.state.filters.route ? this.state.filters.route : ""
+                  <MultiSelect
+                    onSelect={(values) => this.handleRouteChange(values)}
+                    options={routesOptions}
+                    selectedOptions={
+                      this.state.filters.routes ? this.state.filters.routes : []
                     }
-                  >
-                    <option value="" />
-                    {this.props.routes.map((route) => (
-                      <option key={"route" + route.id} value={route.id}>
-                        {route.name}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
               </div>
               <div className="form__row">

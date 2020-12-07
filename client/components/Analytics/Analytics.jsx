@@ -99,8 +99,8 @@ class Analytics extends React.Component {
         params["author[]"] = this.state.filters.author;
       }
 
-      if (this.state.filters.route && this.state.filters.route.length) {
-        params["route[]"] = this.state.filters.route;
+      if (this.state.filters.routes && this.state.filters.routes.length) {
+        params["route[]"] = this.state.filters.routes;
       }
 
       if (
@@ -174,12 +174,13 @@ class Analytics extends React.Component {
       filters.author.map((a) => reportFilters.authors.push(a.value));
     }
 
-    if (filters.route) {
-      reportFilters.routes = [
-        {
-          id: filters.route,
-        },
-      ];
+    if (filters.routes && filters.routes.length) {
+      reportFilters.routes = [];
+      filters.routes.map((a) =>
+        reportFilters.routes.push({
+          id: a.value,
+        })
+      );
     }
 
     this.props.publisher
