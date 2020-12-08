@@ -81,15 +81,15 @@ const ArticleItem = ({ item, style, onRemove }) => {
           <span className="sd-overflow-ellipsis sd-list-item__headline">
             {item.headline}
           </span>
+
+          <time title={moment(item.created_at).format()}>
+            {moment(item.created_at).format("YYYY-MM-DD")}
+          </time>
           {item.updated_at ? (
             <time title={moment(item.updated_at).format()}>
-              {moment(item.updated_at).format("YYYY-MM-DD")}
+              (updated at: {moment(item.updated_at).format("YYYY-MM-DD")})
             </time>
-          ) : (
-            <time title={moment(item.created_at).format()}>
-              {moment(item.created_at).format("YYYY-MM-DD")}
-            </time>
-          )}
+          ) : null}
         </div>
         <div className="sd-list-item__row sd-list-item__row--wrap">
           {item.extra_items.map(
