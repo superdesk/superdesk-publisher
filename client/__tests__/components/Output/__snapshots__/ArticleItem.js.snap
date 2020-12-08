@@ -23,6 +23,13 @@ exports[`Output/ArticleItem renders correctly 1`] = `
       >
         2020–01–01T12:00:00+00:00
       </time>
+      <time
+        title="2020–01–01T12:00:00+00:00"
+      >
+        (updated at: 
+        2020–01–01T12:00:00+00:00
+        )
+      </time>
     </div>
     <div
       class="sd-list-item__row sd-list-item__row--wrap"
