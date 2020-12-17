@@ -11,7 +11,6 @@ import PublishPane from "./PublishPane/PublishPane";
 import Listing from "./Listing";
 import PreviewPane from "./PreviewPane";
 import Swimlane from "./Swimlane/Swimlane";
-
 import Websocket from "../../services/websocket";
 
 class Output extends React.Component {
@@ -217,6 +216,7 @@ class Output extends React.Component {
             <FilterPane
               toggle={this.toggleFilterPane}
               isOpen={this.state.isFilterPaneOpen}
+              publisher={this.props.publisher}
             />
             <Listing
               type="incoming"

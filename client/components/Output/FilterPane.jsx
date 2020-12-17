@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
+import _ from "lodash";
 import { Button, IconButton, DatePicker } from "superdesk-ui-framework/react";
 
 import MultiSelect from "../UI/MultiSelect";
+import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import Store from "./Store";
 
 class FilterPane extends React.Component {
@@ -17,7 +19,7 @@ class FilterPane extends React.Component {
 
     this.state = {
       routes: [],
-      authors: { items: [], loading: false },
+      authors: [],
       ingestSources: { items: [], loading: false },
       filters: {
         route: [],
@@ -38,10 +40,6 @@ class FilterPane extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.state.authors.items.length) {
-      this.loadAuthors();
-    }
-
     if (!this.state.ingestSources.items.length) {
       this.loadIngestSources();
     }
@@ -90,34 +88,26 @@ class FilterPane extends React.Component {
       });
   };
 
-  loadAuthors = (page = 1) => {
-    if (this.state.authors.loading) return;
-    this.setState({ authors: { ...this.state.authors, loading: true } });
+  loadAuthors = (inputValue = null) => {
+    if (inputValue && inputValue.length < 3) return this.state.authors;
 
-    this.context.api.users
-      .query({
-        max_results: 200,
-        page: page,
-        sort: '[("first_name", 1), ("last_name", 1)]',
-        where: {
-          is_support: { $ne: true },
-        },
-      })
+    return this.props.publisher
+      .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
-        let authors = response._items.filter((item) => item.is_author);
+        let authorsOptions = [];
 
-        if (this._isMounted && authors.length)
-          this.setState(
-            {
-              authors: {
-                items: [...this.state.authors.items, ...authors],
-                loading: false,
-              },
-            },
-            () => {
-              if (response._links.next) this.loadAuthors(page + 1);
-            }
-          );
+        response._embedded._items.forEach((item) => {
+          authorsOptions.push({
+            value: item.id,
+            label: item.name,
+          });
+        });
+
+        this.setState({ authors: authorsOptions });
+        return authorsOptions;
+      })
+      .catch((err) => {
+        return this.state.authors;
       });
   };
 
@@ -179,15 +169,6 @@ class FilterPane extends React.Component {
       });
     });
 
-    let authorsOptions = [];
-
-    this.state.authors.items.map((author) => {
-      authorsOptions.push({
-        value: author.display_name,
-        label: author.display_name,
-      });
-    });
-
     let ingestSourceOptions = [];
 
     this.state.ingestSources.items.map((source) => {
@@ -237,9 +218,11 @@ class FilterPane extends React.Component {
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                       <label className="sd-line-input__label">Authors</label>
-                      <MultiSelect
+                      <AsyncMultiSelect
                         onSelect={(values) => this.handleAuthorChange(values)}
-                        options={authorsOptions}
+                        loadOptions={(inputValue) =>
+                          this.loadAuthors(inputValue)
+                        }
                         selectedOptions={this.state.filters.author}
                       />
                     </div>
@@ -330,6 +313,7 @@ class FilterPane extends React.Component {
 FilterPane.propTypes = {
   toggle: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  publisher: PropTypes.object.isRequired,
 };
 
 export default FilterPane;

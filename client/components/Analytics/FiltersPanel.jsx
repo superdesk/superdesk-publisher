@@ -4,6 +4,7 @@ import _ from "lodash";
 import moment from "moment";
 import { Button, IconButton } from "superdesk-ui-framework/react";
 import MultiSelect from "../UI/MultiSelect";
+import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FiltersPanel extends React.Component {
@@ -11,36 +12,16 @@ class FiltersPanel extends React.Component {
     super(props);
 
     this.state = {
-      filters: props.filters ? props.filters : {},
+      filters: props.filters ? props.filters : { route: [], author: [] },
       authors: [],
       dateFilterType: "range",
     };
   }
 
-  componentDidMount() {
-    this.loadAuthors();
-  }
-
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters, prevProps.filters)) {
       let filters = { ...this.props.filters };
-      let newAuthors = [];
       let newRoutes = [];
-
-      if (filters.author && filters.author.length) {
-        filters.author.forEach((item) => {
-          let author = this.state.authors.find((a) => a.display_name === item);
-
-          if (author) {
-            newAuthors.push({
-              value: author.display_name,
-              label: author.display_name,
-            });
-          }
-        });
-
-        filters.author = newAuthors;
-      }
 
       if (filters.routes && filters.routes.length) {
         filters.routes.forEach((item) => {
@@ -61,24 +42,34 @@ class FiltersPanel extends React.Component {
     }
   }
 
-  loadAuthors = (page = 1) => {
-    this.props.api.users
-      .query({
-        max_results: 200,
-        page: page,
-        sort: '[("first_name", 1), ("last_name", 1)]',
-        where: {
-          is_support: { $ne: true },
-        },
-      })
+  loadAuthors = (inputValue = null) => {
+    if (inputValue && inputValue.length < 3) return this.state.authors;
+
+    return this.props.publisher
+      .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
-        let authors = response._items.filter((item) => item.is_author);
+        let authorsOptions = [];
 
-        if (authors.length)
-          this.setState({ authors: [...this.state.authors, ...authors] });
+        response._embedded._items.forEach((item) => {
+          authorsOptions.push({
+            value: item.id,
+            label: item.name,
+          });
+        });
 
-        if (response._links.next) this.loadAuthors(page + 1);
+        this.setState({ authors: authorsOptions });
+        return authorsOptions;
+      })
+      .catch((err) => {
+        return this.state.authors;
       });
+  };
+
+  handleAuthorChange = (arr) => {
+    let filters = { ...this.state.filters };
+
+    filters.author = arr ? arr : [];
+    this.setState({ filters });
   };
 
   handleInputChange = (e) => {
@@ -86,13 +77,6 @@ class FiltersPanel extends React.Component {
     let filters = { ...this.state.filters };
 
     filters[name] = value;
-    this.setState({ filters });
-  };
-
-  handleAuthorChange = (arr) => {
-    let filters = { ...this.state.filters };
-
-    filters.author = arr ? arr : [];
     this.setState({ filters });
   };
 
@@ -110,16 +94,7 @@ class FiltersPanel extends React.Component {
 
   save = () => {
     let filters = { ...this.state.filters };
-    let newAuthor = [];
     let newRoutes = [];
-
-    if (filters.author && filters.author.length) {
-      filters.author.map((item) => {
-        newAuthor.push(item.value);
-      });
-
-      filters.author = newAuthor;
-    }
 
     if (filters.routes && filters.routes.length) {
       filters.routes.map((item) => {
@@ -182,15 +157,7 @@ class FiltersPanel extends React.Component {
   };
 
   render() {
-    let authorsOptions = [];
     let routesOptions = [];
-
-    this.state.authors.map((author) => {
-      authorsOptions.push({
-        value: author.display_name,
-        label: author.display_name,
-      });
-    });
 
     this.props.routes.map((route) => {
       routesOptions.push({
@@ -230,10 +197,10 @@ class FiltersPanel extends React.Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Author</label>
-                  <MultiSelect
+                  <label className="sd-line-input__label">Authors</label>
+                  <AsyncMultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
-                    options={authorsOptions}
+                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
                     selectedOptions={
                       this.state.filters.author ? this.state.filters.author : []
                     }
@@ -353,7 +320,7 @@ FiltersPanel.propTypes = {
   filters: PropTypes.object.isRequired,
   setFilters: PropTypes.func.isRequired,
   routes: PropTypes.array,
-  api: PropTypes.func.isRequired,
+  publisher: PropTypes.object.isRequired,
   generateReport: PropTypes.func.isRequired,
 };
 
