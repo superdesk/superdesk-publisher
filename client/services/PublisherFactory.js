@@ -690,6 +690,17 @@ export function PublisherFactory(pubapi) {
     getFailedQueue(params) {
       return pubapi.queryWithDetails("failed_queue", params);
     }
+
+
+    /**
+   * @ngdoc method
+   * @name publisher#queryAuthors
+   * @returns {Promise}
+   * @description Queries authors
+   */
+    queryAuthors(params) {
+      return pubapi.queryWithDetails("authors", params);
+    }
   }
 
   return new Publisher();
