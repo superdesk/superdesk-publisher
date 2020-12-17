@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import { Button, IconButton } from "superdesk-ui-framework/react";
 import MultiSelect from "../../UI/MultiSelect";
+import AsyncMultiSelect from "../../UI/AsyncMultiSelect";
 
 class FilterPanel extends React.Component {
   constructor(props) {
@@ -26,31 +27,32 @@ class FilterPanel extends React.Component {
         this.setState({ routes }, this.prepareFilters);
       }
     });
-
-    this.loadAuthors();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  loadAuthors = (page = 1) => {
-    this.props.api.users
-      .query({
-        max_results: 200,
-        page: page,
-        sort: '[("first_name", 1), ("last_name", 1)]',
-        where: {
-          is_support: { $ne: true },
-        },
-      })
+  loadAuthors = (inputValue = null) => {
+    if (inputValue && inputValue.length < 3) return this.state.authors;
+
+    return this.props.publisher
+      .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
-        let authors = response._items.filter((item) => item.is_author);
+        let authorsOptions = [];
 
-        if (this._isMounted && authors.length)
-          this.setState({ authors: [...this.state.authors, ...authors] });
+        response._embedded._items.forEach((item) => {
+          authorsOptions.push({
+            value: item.id,
+            label: item.name,
+          });
+        });
 
-        if (response._links.next) this.loadAuthors(page + 1);
+        this.setState({ authors: authorsOptions });
+        return authorsOptions;
+      })
+      .catch((err) => {
+        return this.state.authors;
       });
   };
 
@@ -149,10 +151,12 @@ class FilterPanel extends React.Component {
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                   <label className="sd-line-input__label">Author</label>
-                  <MultiSelect
+                  <AsyncMultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
-                    options={authorsOptions}
-                    selectedOptions={this.state.filters.author}
+                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
+                    selectedOptions={
+                      this.state.filters.author ? this.state.filters.author : []
+                    }
                   />
                 </div>
               </div>

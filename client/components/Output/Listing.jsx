@@ -146,7 +146,7 @@ class Listing extends React.Component {
 
     // route
     let route = [];
-    if (this.state.filters.route) {
+    if (this.state.filters.route && this.state.filters.route.length) {
       this.state.filters.route.forEach((routeObj) => {
         route.push(routeObj.value);
       });
@@ -154,7 +154,7 @@ class Listing extends React.Component {
 
     // authors
     let author = [];
-    if (this.state.filters.author) {
+    if (this.state.filters.author && this.state.filters.author.length) {
       this.state.filters.author.forEach((ath) => {
         author.push(ath.value);
       });

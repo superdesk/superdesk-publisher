@@ -21,6 +21,8 @@ class Analytics extends React.Component {
       loading: true,
       tenantsNavOpen: false,
       filters: {
+        route: [],
+        author: [],
         sort: "published_at",
         order: "desc",
       },
@@ -70,6 +72,8 @@ class Analytics extends React.Component {
       articles,
       loading: false,
       filters: {
+        route: [],
+        author: [],
         sort: "published_at",
         order: "desc",
       },
@@ -95,9 +99,13 @@ class Analytics extends React.Component {
       params.status = "published";
       params.page = this.state.articles.page + 1;
 
+      let author = [];
       if (this.state.filters.author && this.state.filters.author.length) {
-        params["author[]"] = this.state.filters.author;
+        this.state.filters.author.forEach((ath) => {
+          author.push(ath.value);
+        });
       }
+      params["author[]"] = author.length ? author : null;
 
       if (this.state.filters.routes && this.state.filters.routes.length) {
         params["route[]"] = this.state.filters.routes;
@@ -171,7 +179,7 @@ class Analytics extends React.Component {
 
     if (filters.author && filters.author.length) {
       reportFilters.authors = [];
-      filters.author.map((a) => reportFilters.authors.push(a.value));
+      filters.author.map((a) => reportFilters.authors.push({ id: a.value }));
     }
 
     if (filters.routes && filters.routes.length) {
@@ -273,7 +281,7 @@ class Analytics extends React.Component {
                     filters={this.state.filters}
                     setFilters={(filters) => this.setFilters(filters)}
                     routes={this.state.routes}
-                    api={this.props.api}
+                    publisher={this.props.publisher}
                     generateReport={this.generateReport}
                   />
 

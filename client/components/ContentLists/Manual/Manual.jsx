@@ -703,7 +703,7 @@ class Manual extends React.Component {
                       {!this.state.articles.items.length &&
                         !this.state.articles.loading && (
                           <li>
-                            <div class="alert alert-error alert-block">
+                            <div className="alert alert-error alert-block">
                               <h4>No results</h4>
                             </div>
                           </li>
