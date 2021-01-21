@@ -201,26 +201,27 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                     Publish date
                   </label>
                   <span
-                    class="p-calendar p-calendar-w-btn p-inputwrapper-filled"
+                    class="p-calendar p-inputwrapper p-calendar-w-btn p-inputwrapper-filled"
+                    id="pr_id_1"
                   >
                     <input
                       autocomplete="off"
-                      class="p-inputtext p-component p-inputtext p-component p-filled"
+                      class="p-inputtext p-component"
+                      inputmode="none"
                       type="text"
-                      value="2019-12-28"
                     />
                     <button
-                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
                       tabindex="-1"
                       type="button"
                     >
                       <span
-                        class="icon-calendar p-c p-button-icon-left"
+                        class="icon-calendar p-c"
                       />
                       <span
-                        class="p-button-text p-c"
+                        class="p-button-label p-c"
                       >
-                        p-btn
+                         
                       </span>
                     </button>
                   </span>
@@ -238,26 +239,27 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                     Published after
                   </label>
                   <span
-                    class="p-calendar p-calendar-w-btn"
+                    class="p-calendar p-inputwrapper p-calendar-w-btn"
+                    id="pr_id_2"
                   >
                     <input
                       autocomplete="off"
-                      class="p-inputtext p-component p-inputtext p-component"
+                      class="p-inputtext p-component"
+                      inputmode="none"
                       type="text"
-                      value=""
                     />
                     <button
-                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
                       tabindex="-1"
                       type="button"
                     >
                       <span
-                        class="icon-calendar p-c p-button-icon-left"
+                        class="icon-calendar p-c"
                       />
                       <span
-                        class="p-button-text p-c"
+                        class="p-button-label p-c"
                       >
-                        p-btn
+                         
                       </span>
                     </button>
                   </span>
@@ -271,26 +273,27 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                     Published before
                   </label>
                   <span
-                    class="p-calendar p-calendar-w-btn"
+                    class="p-calendar p-inputwrapper p-calendar-w-btn"
+                    id="pr_id_3"
                   >
                     <input
                       autocomplete="off"
-                      class="p-inputtext p-component p-inputtext p-component"
+                      class="p-inputtext p-component"
+                      inputmode="none"
                       type="text"
-                      value=""
                     />
                     <button
-                      class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
                       tabindex="-1"
                       type="button"
                     >
                       <span
-                        class="icon-calendar p-c p-button-icon-left"
+                        class="icon-calendar p-c"
                       />
                       <span
-                        class="p-button-text p-c"
+                        class="p-button-label p-c"
                       >
-                        p-btn
+                         
                       </span>
                     </button>
                   </span>
