@@ -31,10 +31,12 @@ class PublishPane extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    document.addEventListener("refreshOutputLists", this.reset, false);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
+    document.removeEventListener("refreshOutputLists", this.reset, false);
   }
 
   componentDidUpdate() {
@@ -53,6 +55,14 @@ class PublishPane extends React.Component {
       );
     }
   }
+
+  reset = () => {
+    this.setState({
+      destinations: [],
+      selectedItem: {},
+      loading: true,
+    });
+  };
 
   loadPackage = () => {
     // build destinations
