@@ -199,26 +199,27 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
                 From
               </label>
               <span
-                class="p-calendar p-calendar-w-btn p-inputwrapper-filled"
+                class="p-calendar p-inputwrapper p-calendar-w-btn p-inputwrapper-filled"
+                id="pr_id_1"
               >
                 <input
                   autocomplete="off"
-                  class="p-inputtext p-component p-inputtext p-component p-filled"
+                  class="p-inputtext p-component"
+                  inputmode="none"
                   type="text"
-                  value="2019-07-04"
                 />
                 <button
-                  class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                  class="p-button p-component p-datepicker-trigger p-button-icon-only"
                   tabindex="-1"
                   type="button"
                 >
                   <span
-                    class="icon-calendar p-c p-button-icon-left"
+                    class="icon-calendar p-c"
                   />
                   <span
-                    class="p-button-text p-c"
+                    class="p-button-label p-c"
                   >
-                    p-btn
+                     
                   </span>
                 </button>
               </span>
@@ -236,26 +237,27 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
                 To
               </label>
               <span
-                class="p-calendar p-calendar-w-btn p-inputwrapper-filled"
+                class="p-calendar p-inputwrapper p-calendar-w-btn p-inputwrapper-filled"
+                id="pr_id_2"
               >
                 <input
                   autocomplete="off"
-                  class="p-inputtext p-component p-inputtext p-component p-filled"
+                  class="p-inputtext p-component"
+                  inputmode="none"
                   type="text"
-                  value="2019-07-04"
                 />
                 <button
-                  class="p-button p-component p-datepicker-trigger p-calendar-button p-button-icon-only"
+                  class="p-button p-component p-datepicker-trigger p-button-icon-only"
                   tabindex="-1"
                   type="button"
                 >
                   <span
-                    class="icon-calendar p-c p-button-icon-left"
+                    class="icon-calendar p-c"
                   />
                   <span
-                    class="p-button-text p-c"
+                    class="p-button-label p-c"
                   >
-                    p-btn
+                     
                   </span>
                 </button>
               </span>
