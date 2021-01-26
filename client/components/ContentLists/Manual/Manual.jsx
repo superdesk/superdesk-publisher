@@ -559,7 +559,7 @@ class Manual extends React.Component {
                       {filteredContentListItems.map((item, index) => {
                         let retArray = [];
 
-                        if (index === this.props.list.limit) {
+                        if (index && index === this.props.list.limit) {
                           retArray.push(
                             <li
                               key={"limitnotification"}
@@ -601,6 +601,7 @@ class Manual extends React.Component {
                                   pinUnpin={(id) => this.pinUnpin(id)}
                                   willBeTrimmed={
                                     this.props.list.limit &&
+                                    index &&
                                     this.props.list.limit <= index
                                   }
                                 />
