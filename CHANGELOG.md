@@ -7,6 +7,7 @@
 - Multi language support
   > When Superdesk is configured for many languages (language vocabulary is present) Publisher will add a language code label to items in output control and allow filtering articles by language.
   > New `default language` setting in tenant general setting will appear. Therefore articles in manual content lists will be filtered by that language by default.
+  > Publishing Rules can now be based on selected language
 - Error Log
   > This is a new view that will collect and show all errors coming from Publisher including stacktrace and exact error messages for developers.
 - Analytics report generation
@@ -25,6 +26,7 @@
   > Allows to pin an article and preserve its position.
 - Article republish
   > Allows republishing of an article that was unpublished before.
+- Filtering by multiple authors and routes implemented in all views
 
 **Improvements/Fixes:**
 
@@ -32,6 +34,7 @@
 - Dashboard rewritten to React `(speed improvement)`
 - Preview pane rewritten to React `(speed improvement)`
 - New gallery component `(speed improvement)`
+- Gallery images order fixed
 - Article author names are displayed in preview
 - Location assigned to package displayed in output control
 - Big numbers formatted properly
@@ -40,3 +43,4 @@
 - Every author input replaced with auto suggestion select
 - Embeds in article preview
 - Selectable ingest source in filtering
+- And many fixes...
