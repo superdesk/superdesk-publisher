@@ -52,7 +52,24 @@ const ArticleItem = ({
         </div>
         <div className="sd-list-item__row">
           <span className="sd-overflow-ellipsis sd-list-item--element-grow">
-            {moment(item.content.published_at).format("YYYY-MM-DD")}
+            <time
+              title={moment(item.content.published_at).format()}
+              sd-tooltip={moment(item.content.published_at).format("HH:mm")}
+              flow="right"
+            >
+              {moment(item.content.published_at).format("YYYY-MM-DD")}
+            </time>
+            {item.content.updated_at &&
+            item.content.updated_at !== item.content.published_at ? (
+              <time
+                title={moment(item.content.updated_at).format()}
+                sd-tooltip={moment(item.content.updated_at).format("HH:mm")}
+                flow="right"
+              >
+                (updated at:{" "}
+                {moment(item.content.updated_at).format("YYYY-MM-DD")})
+              </time>
+            ) : null}
           </span>
           <span
             className={classNames("label", {

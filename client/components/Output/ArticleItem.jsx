@@ -82,11 +82,19 @@ const ArticleItem = ({ item, style, onRemove }) => {
             {item.headline}
           </span>
 
-          <time title={moment(item.created_at).format()}>
+          <time
+            title={moment(item.created_at).format()}
+            sd-tooltip={moment(item.created_at).format("HH:mm")}
+            flow="right"
+          >
             {moment(item.created_at).format("YYYY-MM-DD")}
           </time>
-          {item.updated_at ? (
-            <time title={moment(item.updated_at).format()}>
+          {item.updated_at && item.updated_at !== item.created_at ? (
+            <time
+              title={moment(item.updated_at).format()}
+              sd-tooltip={moment(item.updated_at).format("HH:mm")}
+              flow="right"
+            >
               (updated at: {moment(item.updated_at).format("YYYY-MM-DD")})
             </time>
           ) : null}

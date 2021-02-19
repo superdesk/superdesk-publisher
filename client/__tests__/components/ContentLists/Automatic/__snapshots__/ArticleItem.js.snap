@@ -22,7 +22,13 @@ exports[`ContentLists/Automatic/ArticleItem renders correctly 1`] = `
       <span
         class="sd-overflow-ellipsis sd-list-item--element-grow"
       >
-        2017-07-26
+        <time
+          flow="right"
+          sd-tooltip="15:43"
+          title="2017-07-26T15:43:33+02:00"
+        >
+          2017-07-26
+        </time>
       </span>
       <span
         class="label"
