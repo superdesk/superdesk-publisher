@@ -12,7 +12,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
       this.scope = {
         active: "=active",
         managerController: "=managerController",
-        outputChannelType: "=outputChannelType"
+        outputChannelType: "=outputChannelType",
       };
       this.template = require("./wizard.html");
     }
@@ -28,17 +28,17 @@ export function SiteWizardDirective(publisher, WizardHandler) {
           busy: false,
           errorMessage: null,
           site: null,
-          ready: false
+          ready: false,
         };
         scope.newSite = {};
 
         if (scope.outputChannelType) {
           scope.newSite.output_channel = {
-            type: scope.output_channelType.toLowerCase(),
+            type: scope.outputChannelType.toLowerCase(),
             config: {
               url: "",
-              authorization_key: ""
-            }
+              authorization_key: "",
+            },
           };
         }
       };
@@ -69,7 +69,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
         scope.wizard.busy = true;
         let newUrl = scope.newSite.subdomain + "." + scope.newSite.domain_name;
 
-        publisher.checkIfPublisher(newUrl).then(isPublisher => {
+        publisher.checkIfPublisher(newUrl).then((isPublisher) => {
           if (!isPublisher) {
             scope.wizard.busy = false;
             scope.wizard.errorMessage =
@@ -79,7 +79,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
 
           publisher
             .manageSite(scope.newSite)
-            .then(site => {
+            .then((site) => {
               scope.wizard.errorMessage = false;
               scope.wizard.site = site;
               publisher.setTenant(site);
@@ -91,7 +91,7 @@ export function SiteWizardDirective(publisher, WizardHandler) {
                 WizardHandler.wizard("siteWizard").next();
               }
             })
-            .catch(error => {
+            .catch((error) => {
               scope.wizard.busy = false;
               if (error.status === 409) {
                 scope.wizard.errorMessage = "Site already exists";
