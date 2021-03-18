@@ -89,7 +89,7 @@
             id="routeParent"
             class="dropdown__toggle line-input"
             ng-model="newRoute.parent"
-            ng-options="route.id as route.name for route in routes.children | filter: {id: newRoute.id ? '!' + newRoute.id : ''}"
+            ng-options="route.id as route.name for route in routes_flat | filter: {id: newRoute.id ? '!' + newRoute.id : ''}"
           >
             <option value=""></option>
           </select>
