@@ -33,13 +33,19 @@ export function SiteWizardDirective(publisher, WizardHandler) {
         scope.newSite = {};
 
         if (scope.outputChannelType) {
-          scope.newSite.output_channel = {
-            type: scope.outputChannelType.toLowerCase(),
-            config: {
+          if (scope.outputChannelType === "PWA") {
+            scope.newSite.pwa_config = {
               url: "",
-              authorization_key: "",
-            },
-          };
+            };
+          } else {
+            scope.newSite.output_channel = {
+              type: scope.outputChannelType.toLowerCase(),
+              config: {
+                url: "",
+                authorization_key: "",
+              },
+            };
+          }
         }
       };
 
