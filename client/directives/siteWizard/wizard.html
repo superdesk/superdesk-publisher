@@ -6,11 +6,8 @@
     <h3 class="modal__heading" translate>
       Create Site Wizard
       <span ng-if="newSite.output_channel"
-        >-
-        {{
-          newSite.output_channel.type.charAt(0).toUpperCase() +
-            newSite.output_channel.type.slice(1)
-        }}</span
+        >- {{ newSite.output_channel.type.charAt(0).toUpperCase() +
+        newSite.output_channel.type.slice(1) }}</span
       >
     </h3>
   </div>
@@ -36,7 +33,10 @@
           {{ wizard.errorMessage }}
         </div>
         <fieldset>
-          <div ng-if="newSite.output_channel" class="form__row form__row--flex">
+          <div
+            ng-if="newSite.output_channel || newSite.pwa_config"
+            class="form__row form__row--flex"
+          >
             <h4 class="text--light text--thin text--uppercase">
               Superdesk Publisher tenant settings
             </h4>
@@ -101,13 +101,37 @@
           >
             <div class="form__row-item">
               <div class="sd-line-input sd-line-input--required">
-                <label class="sd-line-input__label" translate>{{
-                  name.replace("_", " ")
-                }}</label>
+                <label class="sd-line-input__label" translate
+                  >{{ name.replace("_", " ") }}</label
+                >
                 <input
                   class="sd-line-input__input"
                   type="text"
                   ng-model="newSite.output_channel.config[name]"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="newSite.pwa_config" class="form__row form__row--flex">
+            <h4 class="text--light text--thin text--uppercase">PWA settings</h4>
+          </div>
+          <div
+            class="form__row form__row--flex"
+            ng-if="newSite.pwa_config"
+            ng-repeat="(name, value) in newSite.pwa_config"
+          >
+            <div class="form__row-item">
+              <div class="sd-line-input sd-line-input--required">
+                <label class="sd-line-input__label" translate
+                  >{{ name.replace("_", " ") }}</label
+                >
+                <input
+                  class="sd-line-input__input"
+                  type="text"
+                  ng-model="newSite.pwa_config[name]"
+                  placeholder="{{name === 'url' ? 'https://website.com' : null}}"
                   required
                 />
               </div>
@@ -157,7 +181,7 @@
           Configure your site
         </button>
         <button
-          class="btn btn--hollow  btn--primary"
+          class="btn btn--hollow btn--primary"
           ng-disabled="!wizard.ready"
           ng-click="managerController.toggleSiteWizard()"
         >

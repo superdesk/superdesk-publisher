@@ -2,7 +2,7 @@
   <h3 class="sd-grid-item-header__heading sd-overflow-ellipsis">
     <a
       target="_blank"
-      ng-href="{{site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}"
+      ng-href="{{site.pwa_config && site.pwa_config.url ? site.pwa_config.url: site.output_channel ? site.output_channel.config.url : site.subdomain ? 'http://' + site.subdomain + '.' + site.domain_name: 'http://' + site.domain_name}}"
       flow="down"
     >
       <span>{{ site.name }}</span><i class="icon-external"></i>
@@ -28,17 +28,27 @@
 </div>
 <div class="sd-card sd-card--flex-grow">
   <div class="dashboard-content-header sd-shadow--z1">
-    <div class="dashboard-thumbnail-block">
+    <div
+      class="dashboard-thumbnail-block"
+      ng-if="site.pwa_config && site.pwa_config.url"
+    >
+      <span class="sp-logo-pwa" style="width: 100px; height: 62px"></span>
+    </div>
+    <div
+      class="dashboard-thumbnail-block"
+      ng-if="!site.pwa_config || !site.pwa_config.url"
+    >
       <div class="dashboard-thumbnail-block__image">
         <img
           ng-if="!site.theme.screenshots[0] || !site.theme.screenshots[0].url"
           src="../../../../directives/themeManager/no-theme-preview.png"
-          style="max-width:140px; max-height: 60px"
+          style="max-width: 140px; max-height: 60px"
         />
+
         <img
           ng-if="site.theme.screenshots[0] && site.theme.screenshots[0].url"
           ng-src="{{site.theme.screenshots[0].url}}"
-          style="max-width:140px; max-height: 60px"
+          style="max-width: 140px; max-height: 60px"
         />
       </div>
       <div class="dashboard-thumbnail-block__meta">
