@@ -44,12 +44,12 @@ const ArticleItem = ({ item, style }) => {
             target="_blank"
             href={
               item.tenant.subdomain
-                ? "http://" +
+                ? "https://" +
                   item.tenant.subdomain +
                   "." +
                   item.tenant.domain_name +
                   item._links.online.href
-                : "http://" + item.tenant.domain_name + item._links.online.href
+                : "https://" + item.tenant.domain_name + item._links.online.href
             }
           >
             <i className="icon-external" />
@@ -71,7 +71,7 @@ const ArticleItem = ({ item, style }) => {
 
 ArticleItem.propTypes = {
   item: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 };
 
 export default ArticleItem;

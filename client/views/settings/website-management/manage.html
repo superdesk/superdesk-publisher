@@ -11,7 +11,7 @@
     <a
       class="btn btn--text-only"
       target="_blank"
-      ng-href="{{webPublisherSettings.selectedSite.subdomain ? 'http://' + webPublisherSettings.selectedSite.subdomain + '.' + webPublisherSettings.selectedSite.domain_name: 'http://' + webPublisherSettings.selectedSite.domain_name}}"
+      ng-href="{{webPublisherSettings.selectedSite.pwa_config && webPublisherSettings.selectedSite.pwa_config.url ? webPublisherSettings.selectedSite.pwa_config.url : webPublisherSettings.selectedSite.subdomain ? 'http://' + webPublisherSettings.selectedSite.subdomain + '.' + webPublisherSettings.selectedSite.domain_name: 'http://' + webPublisherSettings.selectedSite.domain_name}}"
     >
       <i class="icon-globe"></i> Open website
     </a>

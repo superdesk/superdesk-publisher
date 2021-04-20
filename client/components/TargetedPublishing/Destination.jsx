@@ -21,6 +21,7 @@ class Destination extends Component {
     const protocol = pubConfig.protocol || "https";
     let subdomain = null;
     let domainName = null;
+    let siteName = null;
     let hasOutputChannel = false;
     let hasFbiaEnabled = false;
     let hasPaywallEnabled = false;
@@ -50,6 +51,7 @@ class Destination extends Component {
         hasOutputChannel = props.site.output_channel;
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
+        siteName = props.site.name;
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
@@ -74,6 +76,7 @@ class Destination extends Component {
           ? props.rule.tenant.subdomain
           : "";
         domainName = props.rule.tenant.domain_name;
+        siteName = props.rule.tenant.name;
       }
     }
 
@@ -88,6 +91,7 @@ class Destination extends Component {
         : "",
       subdomain: subdomain ? subdomain : "",
       domainName: domainName ? domainName : "",
+      siteName: siteName ? siteName : "",
       hasOutputChannel: hasOutputChannel ? hasOutputChannel : false,
       hasPaywallEnabled: hasPaywallEnabled ? hasPaywallEnabled : false,
       hasAppleNewsEnabled: hasAppleNewsEnabled ? true : false,
@@ -122,6 +126,7 @@ class Destination extends Component {
       const protocol = pubConfig.protocol || "https";
       let subdomain = null;
       let domainName = null;
+      let siteName = null;
       let hasOutputChannel = false;
       let hasFbiaEnabled = false;
       let hasPaywallEnabled = false;
@@ -138,6 +143,7 @@ class Destination extends Component {
         hasOutputChannel = props.site.output_channel;
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
+        siteName = props.site.name;
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
@@ -162,6 +168,7 @@ class Destination extends Component {
           ? props.rule.tenant.subdomain
           : "";
         domainName = props.rule.tenant.domain_name;
+        siteName = props.rule.tenant.name;
       }
 
       this.setState(
@@ -172,6 +179,7 @@ class Destination extends Component {
           }${domainName}/api/v2/`,
           subdomain: subdomain,
           domainName: domainName,
+          siteName: siteName,
           hasOutputChannel: hasOutputChannel,
           hasPaywallEnabled: hasPaywallEnabled,
           hasAppleNewsEnabled: hasAppleNewsEnabled,
@@ -301,10 +309,6 @@ class Destination extends Component {
 
   render() {
     if (this.state.deleted) return null;
-
-    let siteDomain = this.state.subdomain
-      ? this.state.subdomain + "." + this.state.domainName
-      : this.state.domainName;
     const destination = { ...this.state.destination };
     let contentListsNames = "";
 
@@ -360,7 +364,7 @@ class Destination extends Component {
               <div className="sd-list-item__row">
                 <span className="sd-overflow-ellipsis sd-list-item--element-grow">
                   <span className="sd-list-item__text-strong">
-                    {siteDomain}
+                    {this.state.siteName}
                   </span>
                 </span>
               </div>
@@ -405,7 +409,7 @@ class Destination extends Component {
                 <div className="sd-list-item__column sd-list-item__column--grow sd-list-item__column--no-border">
                   <div className="sd-list-item__row">
                     <span className="sd-overflow-ellipsis sd-list-item--element-grow sd-list-item__text-strong">
-                      {siteDomain}
+                      {this.state.siteName}
                     </span>
                     {preview}
                   </div>
