@@ -120,7 +120,7 @@ export function WebPublisherSettingsController(
     /**
      * @ngdoc method
      * @name WebPublisherSettingsController#toggleSiteWizard
-     * @param {String} outputChannelType - channel type (eg wordpress, drupal)
+     * @param {String} outputChannelType - channel type (eg wordpress, drupal, PWA)
      * @description Toggles site creation wizard
      */
     toggleSiteWizard(outputChannelType) {
@@ -1138,7 +1138,11 @@ export function WebPublisherSettingsController(
         return site.code == code;
       });
 
-      return tenant ? tenant.subdomain + "." + tenant.domain_name : null;
+      return tenant
+        ? tenant.pwa_config && tenant.pwa_config.url
+          ? tenant.pwa_config.url
+          : tenant.subdomain + "." + tenant.domain_name
+        : null;
     }
 
     /**

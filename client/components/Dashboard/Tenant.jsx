@@ -14,8 +14,8 @@ const Tenant = ({ tenant }) => {
                 : tenant.output_channel
                 ? tenant.output_channel.config.url
                 : tenant.subdomain
-                ? "http://" + tenant.subdomain + "." + tenant.domain_name
-                : "http://" + tenant.domain_name
+                ? "https://" + tenant.subdomain + "." + tenant.domain_name
+                : "https://" + tenant.domain_name
             }
             flow="down"
           >

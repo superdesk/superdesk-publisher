@@ -77,9 +77,12 @@ class PublishPane extends React.Component {
           });
 
           if (tenant && item.route) {
-            let tenantUrl = tenant.subdomain
-              ? tenant.subdomain + "." + tenant.domain_name
-              : tenant.domain_name;
+            let tenantUrl =
+              tenant.pwa_config && tenant.pwa_config.url
+                ? tenant.pwa_config.url
+                : tenant.subdomain
+                ? "https://" + tenant.subdomain + "." + tenant.domain_name
+                : "https://" + tenant.domain_name;
 
             destinations.push({
               tenant: tenant,
@@ -93,7 +96,7 @@ class PublishPane extends React.Component {
               slug: item.slug,
               live_url:
                 item.status === "published"
-                  ? "http://" + tenantUrl + item._links.online.href
+                  ? tenantUrl + item._links.online.href
                   : null,
             });
           }
