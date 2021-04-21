@@ -20,6 +20,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
       <span>
         <button
           class="btn btn--primary btn--icon-only btn--icon-only-circle"
+          tabindex="0"
         >
           <i
             aria-label="plus-large"
@@ -41,49 +42,70 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
       <div
         class="sd-check-button__group sd-check-button__group--left"
       >
-        <input
-          class="visuallyhidden"
-          id="id10"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button checked"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id10"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id10"
           >
-            All
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              All
+            </span>
           </label>
         </span>
-        <input
-          class="visuallyhidden"
-          id="id11"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id11"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id11"
           >
-            Published
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Published
+            </span>
           </label>
         </span>
-        <input
-          class="visuallyhidden"
-          id="id12"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id12"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id12"
           >
-            Unpublished
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Unpublished
+            </span>
           </label>
         </span>
       </div>
@@ -119,15 +141,16 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
                   tenant1
                 </span>
               </span>
-              <a
+              <button
                 class="icn-btn"
+                tabindex="0"
               >
                 <i
                   aria-hidden="true"
                   aria-label="trash"
                   class="icon-trash"
                 />
-              </a>
+              </button>
             </div>
             <div
               class="sd-list-item__row"
@@ -156,25 +179,27 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             <span
               class="sd-collapse-box__collapse-btn"
             >
-              <a
+              <button
                 class="icn-btn"
+                tabindex="0"
               >
                 <i
                   aria-hidden="true"
                   aria-label="chevron-up-thin"
                   class="icon-chevron-up-thin"
                 />
-              </a>
+              </button>
             </span>
-            <a
+            <button
               class="icn-btn"
+              tabindex="0"
             >
               <i
                 aria-hidden="true"
                 aria-label="trash"
                 class="icon-trash"
               />
-            </a>
+            </button>
           </div>
           <div
             class="sd-collapse-box__content-block sd-collapse-box__content-block--top"
@@ -251,18 +276,18 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
               <span>
                 <span
                   class="sd-check-new__wrapper"
+                  tabindex="-1"
                 >
                   <input
-                    class="visuallyhidden"
+                    class="sd-check-new__input"
                     id="id2"
+                    tabindex="0"
                     type="checkbox"
                   />
                   <span
-                    aria-label="false"
                     class="sd-check-new"
                   />
                   <label
-                    class=""
                     for="id2"
                   >
                     Paywall
@@ -277,6 +302,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             <button
               aria-label=""
               class="btn btn--expanded btn--primary btn--hollow"
+              tabindex="0"
             >
               Add to content list
             </button>

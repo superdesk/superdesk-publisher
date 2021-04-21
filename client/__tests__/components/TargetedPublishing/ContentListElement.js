@@ -6,26 +6,26 @@ describe("TargetedPublishing/ContentListElement", () => {
   const ruleLists = [
     {
       id: 1,
-      position: 0
-    }
+      position: 0,
+    },
   ];
 
   const list = {
     id: 1,
-    position: 0
+    position: 0,
   };
 
   const allContentLists = [
     {
       content_list_items_count: 10,
       id: 1,
-      name: "test1"
+      name: "test1",
     },
     {
       content_list_items_count: 5,
       id: 2,
-      name: "test2"
-    }
+      name: "test2",
+    },
   ];
 
   it("renders correctly", () => {
@@ -92,7 +92,9 @@ describe("TargetedPublishing/ContentListElement", () => {
       />
     );
 
-    const button = container.querySelector('a.icn-btn .icon-trash').closest('a.icn-btn');
+    const button = container
+      .querySelector(".icn-btn .icon-trash")
+      .closest(".icn-btn");
 
     fireEvent.click(button);
 
@@ -122,8 +124,8 @@ describe("TargetedPublishing/ContentListElement", () => {
     expect(save).toBeCalledWith([
       {
         id: 1,
-        position: 4
-      }
+        position: 4,
+      },
     ]);
   });
 });

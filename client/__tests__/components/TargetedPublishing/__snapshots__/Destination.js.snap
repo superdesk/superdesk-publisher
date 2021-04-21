@@ -59,25 +59,27 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
         <span
           class="sd-collapse-box__collapse-btn"
         >
-          <a
+          <button
             class="icn-btn"
+            tabindex="0"
           >
             <i
               aria-hidden="true"
               aria-label="chevron-up-thin"
               class="icon-chevron-up-thin"
             />
-          </a>
+          </button>
         </span>
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="trash"
             class="icon-trash"
           />
-        </a>
+        </button>
       </div>
       <div
         class="sd-collapse-box__content-block sd-collapse-box__content-block--top"
@@ -157,18 +159,18 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
           <span>
             <span
               class="sd-check-new__wrapper"
+              tabindex="-1"
             >
               <input
-                class="visuallyhidden"
+                class="sd-check-new__input"
                 id="id1"
+                tabindex="0"
                 type="checkbox"
               />
               <span
-                aria-label="false"
                 class="sd-check-new"
               />
               <label
-                class=""
                 for="id1"
               >
                 FBIA
@@ -184,18 +186,18 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
           <span>
             <span
               class="sd-check-new__wrapper"
+              tabindex="-1"
             >
               <input
-                class="visuallyhidden"
+                class="sd-check-new__input"
                 id="id2"
+                tabindex="0"
                 type="checkbox"
               />
               <span
-                aria-label="false"
                 class="sd-check-new"
               />
               <label
-                class=""
                 for="id2"
               >
                 Paywall

@@ -13,34 +13,48 @@ exports[`Output/Subnav renders correctly 1`] = `
       <div
         class="sd-check-button__group sd-check-button__group--left"
       >
-        <input
-          class="visuallyhidden"
-          id="id10"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button checked"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id10"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id10"
           >
-            Incoming
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Incoming
+            </span>
           </label>
         </span>
-        <input
-          class="visuallyhidden"
-          id="id11"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id11"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id11"
           >
-            Published
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Published
+            </span>
           </label>
         </span>
       </div>
@@ -78,15 +92,16 @@ exports[`Output/Subnav renders correctly 1`] = `
         </li>
       </ul>
     </div>
-    <a
+    <button
       class="icn-btn"
+      tabindex="0"
     >
       <i
         aria-hidden="true"
         aria-label="ascending"
         class="icon-ascending"
       />
-    </a>
+    </button>
   </div>
   <div
     class="subnav__spacer subnav__spacer--no-margin"
