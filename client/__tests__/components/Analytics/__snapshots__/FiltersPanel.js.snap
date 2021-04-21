@@ -13,15 +13,16 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
       <span
         class="side-panel__close"
       >
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="close-small"
             class="icon-close-small"
           />
-        </a>
+        </button>
       </span>
       <h3
         class="side-panel__heading side-panel__heading--big"
@@ -275,12 +276,14 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
         <button
           aria-label=""
           class="btn btn--hollow"
+          tabindex="0"
         >
           Clear
         </button>
         <button
           aria-label=""
           class="btn btn--primary"
+          tabindex="0"
         >
           Run Report
         </button>
@@ -292,6 +295,7 @@ exports[`Analytics/FiltersPanel renders correctly 1`] = `
         <button
           aria-label=""
           class="btn btn--primary"
+          tabindex="0"
         >
           Generate Report
         </button>

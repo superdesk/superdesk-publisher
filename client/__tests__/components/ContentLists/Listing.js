@@ -6,10 +6,10 @@ import Publisher from "../../../__mocks__/publisher";
 
 const publisher = new Publisher();
 
-jest.mock('moment', () => () => ({ fromNow: () => '2 days ago' }));
+jest.mock("moment", () => () => ({ fromNow: () => "2 days ago" }));
 
 let lists = [];
-publisher.queryLists().then(items => (lists = items));
+publisher.queryLists().then((items) => (lists = items));
 
 describe("ContentLists/Listing", () => {
   it("renders correctly", async () => {
@@ -18,6 +18,8 @@ describe("ContentLists/Listing", () => {
         publisher={publisher}
         lists={lists}
         onListDelete={jest.fn()}
+        onListCreated={jest.fn()}
+        onListUpdate={jest.fn()}
         addList={jest.fn()}
         listEdit={jest.fn()}
       />
@@ -33,6 +35,8 @@ describe("ContentLists/Listing", () => {
         publisher={publisher}
         lists={lists}
         onListDelete={jest.fn()}
+        onListCreated={jest.fn()}
+        onListUpdate={jest.fn()}
         addList={addList}
         listEdit={jest.fn()}
       />

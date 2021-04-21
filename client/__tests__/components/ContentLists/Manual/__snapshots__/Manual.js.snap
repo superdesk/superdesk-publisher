@@ -83,6 +83,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         <button
           aria-label=""
           class="btn btn--primary btn--disabled"
+          tabindex="0"
         >
           Save
         </button>
@@ -267,15 +268,16 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
             <span
               class="side-panel__close"
             >
-              <a
+              <button
                 class="icn-btn"
+                tabindex="0"
               >
                 <i
                   aria-hidden="true"
                   aria-label="close-small"
                   class="icon-close-small"
                 />
-              </a>
+              </button>
             </span>
             <h3
               class="side-panel__heading"
@@ -449,12 +451,14 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
               <button
                 aria-label=""
                 class="btn btn--hollow"
+                tabindex="0"
               >
                 Clear
               </button>
               <button
                 aria-label=""
                 class="btn btn--primary"
+                tabindex="0"
               >
                 Filter
               </button>

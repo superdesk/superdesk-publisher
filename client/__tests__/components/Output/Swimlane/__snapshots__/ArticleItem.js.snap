@@ -28,24 +28,26 @@ exports[`Output/Swimlane/ArticleItem renders correctly 1`] = `
   <div
     class="sd-list-item__action-menu sd-list-item__action-menu--direction-row"
   >
-    <a
+    <button
       class="icn-btn"
+      tabindex="0"
     >
       <i
         aria-hidden="true"
         aria-label="pencil"
         class="icon-pencil"
       />
-    </a>
-    <a
+    </button>
+    <button
       class="icn-btn"
+      tabindex="0"
     >
       <i
         aria-hidden="true"
         aria-label="expand-thin"
         class="icon-expand-thin"
       />
-    </a>
+    </button>
   </div>
 </div>
 `;

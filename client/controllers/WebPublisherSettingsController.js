@@ -148,10 +148,8 @@ export function WebPublisherSettingsController(
         case "routes":
           this.routeType = "";
           // getting only route redirects to fill route objects
-          this.redirectType = "route";
-          this.loadRedirects(true, 100000).then((redirects) =>
-            this._refreshRoutes(redirects)
-          );
+          this.redirectType = "";
+          this._refreshRoutes();
 
           break;
         case "redirects":
@@ -440,10 +438,9 @@ export function WebPublisherSettingsController(
      * @ngdoc method
      * @name WebPublisherSettingsController#_refreshRoutes
      * @private
-     * @param {Array} redirects - list of redirects
      * @description Loads list of routes
      */
-    _refreshRoutes(redirects) {
+    _refreshRoutes() {
       $scope.loading = true;
       publisher.queryRoutes().then((routes) => {
         $scope.loading = false;
@@ -459,15 +456,6 @@ export function WebPublisherSettingsController(
             .filter((item) => !item.parent);
         } else {
           filteredRoutes.children = routes.filter((item) => !item.parent);
-        }
-
-        if (redirects && redirects.length) {
-          filteredRoutes.children.forEach((route) => {
-            let routeRedirect = redirects.find((r) => {
-              return r.route_source.id === route.id;
-            });
-            if (routeRedirect) route.redirect = routeRedirect;
-          });
         }
 
         $scope.routes = filteredRoutes;

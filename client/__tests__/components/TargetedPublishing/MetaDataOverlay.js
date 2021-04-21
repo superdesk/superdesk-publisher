@@ -9,7 +9,7 @@ describe("TargetedPublishing/MetaDataOverlay", () => {
     og_title: null,
     og_description: null,
     twitter_title: null,
-    twitter_description: null
+    twitter_description: null,
   };
 
   it("renders correctly", () => {
@@ -42,7 +42,9 @@ describe("TargetedPublishing/MetaDataOverlay", () => {
       />
     );
 
-    fireEvent.click(container.querySelector('a.icn-btn .icon-arrow-left').closest('a.icn-btn'));
+    fireEvent.click(
+      container.querySelector(".icn-btn .icon-arrow-left").closest(".icn-btn")
+    );
 
     expect(toggle).toHaveBeenCalled();
   });
@@ -65,8 +67,8 @@ describe("TargetedPublishing/MetaDataOverlay", () => {
 
     fireEvent.change(input, {
       target: {
-        files: ["dummyValue.something"]
-      }
+        files: ["dummyValue.something"],
+      },
     });
     expect(uploadImage).toHaveBeenCalled();
   });
@@ -87,8 +89,8 @@ describe("TargetedPublishing/MetaDataOverlay", () => {
 
     fireEvent.change(container.querySelector('input[name="og_title"]'), {
       target: {
-        value: "teststring"
-      }
+        value: "teststring",
+      },
     });
 
     expect(setMetaData).toHaveBeenCalled();

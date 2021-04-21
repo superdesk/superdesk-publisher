@@ -10,7 +10,7 @@ exports[`generic/PreviewStatusLabels renders published article labels correctly 
   <div>
     <a
       class="label label--success cursorPointer"
-      href="http://sourcefabric.org/href"
+      href="https://sourcefabric.org/href"
       style="margin-right: .6em;"
       target="_blank"
     >
