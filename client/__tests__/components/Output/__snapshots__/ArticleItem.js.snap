@@ -43,7 +43,7 @@ exports[`Output/ArticleItem renders correctly 1`] = `
       >
         <a
           class="label label--success cursorPointer"
-          href="http://sourcefabric.org/test"
+          href="https://sourcefabric.org/test"
           target="_blank"
         >
           <span>

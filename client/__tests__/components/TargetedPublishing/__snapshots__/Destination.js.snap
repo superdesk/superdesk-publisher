@@ -25,7 +25,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
             <span
               class="sd-list-item__text-strong"
             >
-              tenant-1.sourcefabric.org
+              tenant 1
             </span>
           </span>
         </div>
@@ -94,7 +94,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
               <span
                 class="sd-overflow-ellipsis sd-list-item--element-grow sd-list-item__text-strong"
               >
-                tenant-1.sourcefabric.org
+                tenant 1
               </span>
               <a
                 class="icn-btn"

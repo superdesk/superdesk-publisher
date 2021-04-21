@@ -4,7 +4,7 @@ import {
   render,
   fireEvent,
   wait,
-  waitForElement
+  waitForElement,
 } from "@testing-library/react";
 import axios from "axios";
 
@@ -20,13 +20,9 @@ describe("TargetedPublishing/AddWebsite", () => {
         rules={[]}
       />
     );
-    await wait(() =>
-      expect(getByText("tenant1.sourcefabric.org")).toBeInTheDocument()
-    );
+    await wait(() => expect(getByText("TENANT1")).toBeInTheDocument());
 
-    await wait(() =>
-      expect(getByText("tenant2.sourcefabric.org")).toBeInTheDocument()
-    );
+    await wait(() => expect(getByText("TENANT2")).toBeInTheDocument());
   });
 
   it("filters tenants with rules - should render one tenant only", async () => {
@@ -38,13 +34,9 @@ describe("TargetedPublishing/AddWebsite", () => {
         rules={[{ tenant: { id: 2 } }]}
       />
     );
-    await wait(() =>
-      expect(getByText("tenant1.sourcefabric.org")).toBeInTheDocument()
-    );
+    await wait(() => expect(getByText("TENANT1")).toBeInTheDocument());
 
-    await wait(() =>
-      expect(queryByText("tenant2.sourcefabric.org")).not.toBeInTheDocument()
-    );
+    await wait(() => expect(queryByText("TENANT2")).not.toBeInTheDocument());
   });
 
   it("opens dropdown", async () => {
@@ -75,9 +67,7 @@ describe("TargetedPublishing/AddWebsite", () => {
         rules={[]}
       />
     );
-    const tenantItem = await waitForElement(() =>
-      getByText("tenant1.sourcefabric.org")
-    );
+    const tenantItem = await waitForElement(() => getByText("TENANT1"));
 
     fireEvent.click(tenantItem);
 
