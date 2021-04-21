@@ -26,14 +26,16 @@
   </div>
   <div class="listElement__right">
     <span
-      sd-tooltip="This route is redirected"
+      sd-tooltip="This route is redirected to {{route.redirect_route.route_target.name}}"
       flow="left"
-      ng-if="route.redirect"
-      ><i class="icon-random"></i
-    ></span>
+      ng-if="route.redirect_route"
+    >
+      <i class="icon-random"></i>
+    </span>
     <span sd-tooltip="Paywall secured" flow="left" ng-if="route.paywall_secured"
       ><i class="icon-paywall icon--orange icon--full-opacity"></i
     ></span>
+
     <div class="dropdown dropdown--align-right" dropdown>
       <button class="dropdown__toggle dropdown--toggle" dropdown__toggle>
         <i class="icon-dots-vertical"></i>

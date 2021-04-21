@@ -22,10 +22,11 @@
 
 <div class="side-panel__content">
   <div class="side-panel__content-block">
-    <div class="sd-alert sd-alert--hollow" ng-if="newRoute.redirect">
+    <div class="sd-alert sd-alert--hollow" ng-if="newRoute.redirect_route">
       <Icon name="random" />
       <p className="sd-margin-l--1">
-        This Route has redirect set to another Route. Details on:
+        This Route has redirect set to
+        {{newRoute.redirect_route.route_target.name}}. Details on:
         <a
           className="text-link"
           href=""
