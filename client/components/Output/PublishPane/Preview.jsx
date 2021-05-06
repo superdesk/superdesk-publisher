@@ -28,13 +28,20 @@ class Preview extends React.Component {
       let token = this.context.publisher.getToken();
       let destination = this.props.item;
 
-      let tenantUrl = destination.tenant.subdomain
-        ? destination.tenant.subdomain + "." + destination.tenant.domain_name
-        : destination.tenant.domain_name;
+      console.log(destination);
+
+      let tenantUrl =
+        destination.tenant.pwa_config && destination.tenant.pwa_config.url
+          ? destination.tenant.pwa_config.url
+          : destination.tenant.subdomain
+          ? "//" +
+            destination.tenant.subdomain +
+            "." +
+            destination.tenant.domain_name
+          : "//" + destination.tenant.domain_name;
 
       let urls = {
         regular:
-          "//" +
           tenantUrl +
           "/preview/package/" +
           destination.route.id +
@@ -43,7 +50,6 @@ class Preview extends React.Component {
           "?auth_token=" +
           token,
         amp:
-          "//" +
           tenantUrl +
           "/preview/package/" +
           destination.route.id +
