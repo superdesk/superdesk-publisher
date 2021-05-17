@@ -18,7 +18,7 @@ class PreviewPane extends React.Component {
 
     this.state = {
       package: null,
-      loading: true
+      loading: true,
     };
   }
 
@@ -42,14 +42,16 @@ class PreviewPane extends React.Component {
   loadPackage = () => {
     this.setState({ loading: true });
 
-    this.context.publisher.getPackage(this.props.package.id).then(response => {
-      if (this._isMounted) {
-        this.setState({
-          loading: false,
-          package: response
-        });
-      }
-    });
+    this.context.publisher
+      .getPackage(this.props.package.id)
+      .then((response) => {
+        if (this._isMounted) {
+          this.setState({
+            loading: false,
+            package: response,
+          });
+        }
+      });
   };
 
   render() {
@@ -58,7 +60,7 @@ class PreviewPane extends React.Component {
     let slideshows = [];
 
     if (this.state.package && this.state.package.extra_items) {
-      this.state.package.extra_items.map(gal => {
+      this.state.package.extra_items.map((gal) => {
         if (gal.id === "gallery") {
           if (gal.items[1] && Number.isInteger(parseInt(gal.items[1].order))) {
             gal.items = _.sortBy(gal.items, "order");
@@ -77,12 +79,12 @@ class PreviewPane extends React.Component {
 
     let article = {
       feature_media:
-        this.state.package && this.state.package.feature_media
-          ? this.state.package.feature_media
+        this.state.package && this.state.package.featured_media
+          ? this.state.package.featured_media
           : null,
       updated_at: this.props.package.updated_at,
       article_statistics: {
-        page_views_number: this.props.package.page_views_count
+        page_views_number: this.props.package.page_views_count,
       },
       comments_count: this.props.package.comments_count,
       title: this.props.package.headline,
@@ -94,7 +96,7 @@ class PreviewPane extends React.Component {
         ? this.props.package.articles[0].paywall_secured
         : false,
       articles: this.props.package.articles,
-      authors: this.props.package.authors ? this.props.package.authors : []
+      authors: this.props.package.authors ? this.props.package.authors : [],
     };
 
     return <ArticlePreview article={article} close={this.props.close} />;
@@ -103,7 +105,7 @@ class PreviewPane extends React.Component {
 
 PreviewPane.propTypes = {
   close: PropTypes.func.isRequired,
-  package: PropTypes.object
+  package: PropTypes.object,
 };
 
 export default PreviewPane;

@@ -9,9 +9,6 @@ import { Label, IconButton } from "superdesk-ui-framework/react";
 import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";
 import PublishingOptionSwitches from "../generic/PublishingOptionSwitches";
-
-import SaveBar from "../UI/SaveBar";
-
 class Destination extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +18,7 @@ class Destination extends Component {
     const protocol = pubConfig.protocol || "https";
     let subdomain = null;
     let domainName = null;
+    let pwaUrl = null;
     let siteName = null;
     let hasOutputChannel = false;
     let hasFbiaEnabled = false;
@@ -52,6 +50,10 @@ class Destination extends Component {
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
         siteName = props.site.name;
+        pwaUrl =
+          props.site.pwa_config && props.site.pwa_config.url
+            ? props.site.pwa_config.url
+            : null;
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
@@ -77,6 +79,10 @@ class Destination extends Component {
           : "";
         domainName = props.rule.tenant.domain_name;
         siteName = props.rule.tenant.name;
+        pwaUrl =
+          props.rule.tenant.pwa_config && props.rule.tenant.pwa_config.url
+            ? props.rule.tenant.pwa_config.url
+            : null;
       }
     }
 
@@ -91,6 +97,7 @@ class Destination extends Component {
         : "",
       subdomain: subdomain ? subdomain : "",
       domainName: domainName ? domainName : "",
+      pwaUrl: pwaUrl,
       siteName: siteName ? siteName : "",
       hasOutputChannel: hasOutputChannel ? hasOutputChannel : false,
       hasPaywallEnabled: hasPaywallEnabled ? hasPaywallEnabled : false,
@@ -126,6 +133,7 @@ class Destination extends Component {
       const protocol = pubConfig.protocol || "https";
       let subdomain = null;
       let domainName = null;
+      let pwaUrl = null;
       let siteName = null;
       let hasOutputChannel = false;
       let hasFbiaEnabled = false;
@@ -144,6 +152,10 @@ class Destination extends Component {
         subdomain = props.site.subdomain ? props.site.subdomain : "";
         domainName = props.site.domain_name;
         siteName = props.site.name;
+        pwaUrl =
+          props.site.pwa_config && props.site.pwa_config.url
+            ? props.site.pwa_config.url
+            : null;
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
@@ -169,6 +181,10 @@ class Destination extends Component {
           : "";
         domainName = props.rule.tenant.domain_name;
         siteName = props.rule.tenant.name;
+        pwaUrl =
+          props.rule.tenant.pwa_config && props.rule.tenant.pwa_config.url
+            ? props.rule.tenant.pwa_config.url
+            : null;
       }
 
       this.setState(
@@ -179,6 +195,7 @@ class Destination extends Component {
           }${domainName}/api/v2/`,
           subdomain: subdomain,
           domainName: domainName,
+          pwaUrl: pwaUrl,
           siteName: siteName,
           hasOutputChannel: hasOutputChannel,
           hasPaywallEnabled: hasPaywallEnabled,
@@ -217,8 +234,17 @@ class Destination extends Component {
         { headers: this.props.apiHeader }
       )
       .then((res) => {
+        let previewUrl = res.data.preview_url;
+
+        if (this.state.pwaUrl) {
+          const regex = /preview\/publish\/package\/([a-zA-Z0-9]+)/gm;
+          const match = regex.exec(previewUrl);
+
+          previewUrl = this.state.pwaUrl + "/preview/token/" + match[1];
+        }
+
         this.setState({
-          previewUrl: res.data.preview_url,
+          previewUrl: previewUrl,
         });
         return res;
       });
