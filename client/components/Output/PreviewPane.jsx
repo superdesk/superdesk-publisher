@@ -65,7 +65,6 @@ class PreviewPane extends React.Component {
           if (gal.items[1] && Number.isInteger(parseInt(gal.items[1].order))) {
             gal.items = _.sortBy(gal.items, "order");
           }
-
           slideshows.push(gal);
         }
       });
