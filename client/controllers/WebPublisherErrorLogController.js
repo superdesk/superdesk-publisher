@@ -10,20 +10,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ErrorLog from "../components/ErrorLog/ErrorLog";
 
-WebPublisherErrorLogController.$inject = [
-  "publisher"
-];
-export function WebPublisherErrorLogController(
-  publisher
-) {
+WebPublisherErrorLogController.$inject = ["publisher"];
+export function WebPublisherErrorLogController(publisher) {
   class WebPublisherErrorLog {
     constructor() {
       this.publisher = publisher;
+      this.publisher.setTenant();
 
       ReactDOM.render(
-        <ErrorLog
-          publisher={this.publisher}
-        />,
+        <ErrorLog publisher={this.publisher} />,
         document.getElementById("sp-error-log-react-app")
       );
     }
