@@ -10,7 +10,7 @@ exports[`Dashboard/Tenant renders correctly 1`] = `
     >
       <a
         flow="down"
-        href="http://site1.sourcefabric.org"
+        href="https://site1.sourcefabric.org"
         target="_blank"
       >
         <span>

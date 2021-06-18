@@ -42,8 +42,10 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-infinite-scroll-component": "^5.0.4",
     "react-select": "^3.0.4",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "react-virtualized": "^9.22.2",
-    "superdesk-ui-framework": "^2.3.4"
+    "superdesk-ui-framework": "^2.3.8"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -61,7 +63,7 @@
     "jest-dom": "^3.4.0",
     "jest-transform-css": "^2.0.0",
     "superdesk-code-style": "^1.0.0",
-    "superdesk-core": "superdesk/superdesk-client-core#9242566",
+    "superdesk-core": "superdesk/superdesk-client-core",
     "wait-for-expect": "^1.2.0"
   }
 }

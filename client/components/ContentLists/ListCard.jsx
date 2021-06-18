@@ -39,6 +39,9 @@ class ListCard extends React.Component {
       ? helpers.getUpdatedValues(this.state.list, this.props.list)
       : { ...this.state.list };
 
+    delete list.updated_at;
+    delete list.latest_items;
+
     this.props.publisher
       .manageList(list, this.state.list.id)
       .then((res) => {
@@ -119,6 +122,16 @@ class ListCard extends React.Component {
                     value={this.state.list.limit}
                     name="limit"
                     min="0"
+                    onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="listLimit">Description</label>
+                  <input
+                    type="text"
+                    className="line-input"
+                    value={this.state.list.description}
+                    name="description"
                     onChange={this.handleInputChange}
                   />
                 </div>

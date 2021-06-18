@@ -10,29 +10,30 @@ describe("TargetedPublishing/TargetedPublishing", () => {
     {
       tenant: {
         code: "eif0ca",
+        name: "TENANT1",
         subdomain: "tenant1",
         domain_name: "sourcefabric.org",
         fbia_enabled: false,
         paywall_enabled: false,
-        output_channel: false
+        output_channel: false,
       },
       route: {
-        name: "route"
+        name: "route",
       },
       is_published_fbia: false,
       published: true,
-      paywall_secured: false
-    }
+      paywall_secured: false,
+    },
   ];
 
   const item = {
-    guid: "asdfasdf87876876"
+    guid: "asdfasdf87876876",
   };
 
   const config = {
     publisher: {
-      protocol: "https"
-    }
+      protocol: "https",
+    },
   };
 
   it('renders "no websites has been set" and AdddWebsite component', async () => {
@@ -66,6 +67,6 @@ describe("TargetedPublishing/TargetedPublishing", () => {
       />
     );
 
-    expect(getAllByText("tenant1.sourcefabric.org")).toHaveLength(2);
+    expect(getAllByText("TENANT1")).toHaveLength(2);
   });
 });

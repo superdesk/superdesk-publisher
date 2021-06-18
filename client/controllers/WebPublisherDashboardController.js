@@ -10,20 +10,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Dashboard from "../components/Dashboard/Dashboard";
 
-WebPublisherDashboardController.$inject = [
-  "publisher"
-];
-export function WebPublisherDashboardController(
-  publisher
-) {
+WebPublisherDashboardController.$inject = ["publisher"];
+export function WebPublisherDashboardController(publisher) {
   class WebPublisherDashboard {
     constructor() {
       this.publisher = publisher;
+      this.publisher.setTenant();
 
       ReactDOM.render(
-        <Dashboard
-          publisher={this.publisher}
-        />,
+        <Dashboard publisher={this.publisher} />,
         document.getElementById("sp-dashboard-react-app")
       );
     }

@@ -18,15 +18,16 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
       <div
         class="sd-list-item__row no-margin sd-flex-justify-end"
       >
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="trash"
             class="icon-trash"
           />
-        </a>
+        </button>
       </div>
       <div
         class="sd-list-item__row"
@@ -132,6 +133,7 @@ exports[`TargetedPublishing/ContentLists renders correctly 1`] = `
   <button
     aria-label=""
     class="btn btn--expanded btn--primary btn--hollow"
+    tabindex="0"
   >
     Add to content list
   </button>

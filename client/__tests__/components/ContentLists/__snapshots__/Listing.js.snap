@@ -34,49 +34,70 @@ exports[`ContentLists/Listing renders correctly 1`] = `
       <div
         class="sd-check-button__group sd-check-button__group--left"
       >
-        <input
-          class="visuallyhidden"
-          id="id10"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button checked"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id10"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id10"
           >
-            All
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              All
+            </span>
           </label>
         </span>
-        <input
-          class="visuallyhidden"
-          id="id11"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id11"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id11"
           >
-            Automatic
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Automatic
+            </span>
           </label>
         </span>
-        <input
-          class="visuallyhidden"
-          id="id12"
-          type="checkbox"
-        />
         <span
-          class="sd-check-button"
+          class="sd-check-button sd-check-button--native"
+          tabindex="-1"
         >
+          <input
+            class="sd-check-button__input"
+            id="id12"
+            name="id1"
+            tabindex="0"
+            type="radio"
+          />
           <label
             class="sd-check-button__text-label"
             for="id12"
           >
-            Manual
+            <span
+              class="sd-check-button__text-label-inner"
+            >
+              Manual
+            </span>
           </label>
         </span>
       </div>
@@ -150,6 +171,7 @@ exports[`ContentLists/Listing renders correctly 1`] = `
             <button
               aria-label=""
               class="btn btn--small btn--hollow btn--ui-dark"
+              tabindex="0"
             >
               Edit
             </button>
@@ -257,6 +279,7 @@ exports[`ContentLists/Listing renders correctly 1`] = `
             <button
               aria-label=""
               class="btn btn--small btn--hollow btn--ui-dark"
+              tabindex="0"
             >
               Edit
             </button>

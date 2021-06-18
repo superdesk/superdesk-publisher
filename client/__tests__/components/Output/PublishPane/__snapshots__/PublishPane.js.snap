@@ -13,15 +13,16 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       <div
         class="side-panel__tools"
       >
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="close-small"
             class="icon-close-small"
           />
-        </a>
+        </button>
       </div>
       <ul
         class="nav-tabs nav-tabs--ui-dark"
@@ -69,6 +70,7 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           <span>
             <button
               class="btn btn--primary btn--icon-only btn--icon-only-circle"
+              tabindex="0"
             >
               <i
                 aria-label="plus-large"
@@ -95,49 +97,70 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           <div
             class="sd-check-button__group sd-check-button__group--left"
           >
-            <input
-              class="visuallyhidden"
-              id="id10"
-              type="checkbox"
-            />
             <span
-              class="sd-check-button checked"
+              class="sd-check-button sd-check-button--native"
+              tabindex="-1"
             >
+              <input
+                class="sd-check-button__input"
+                id="id10"
+                name="id1"
+                tabindex="0"
+                type="radio"
+              />
               <label
                 class="sd-check-button__text-label"
                 for="id10"
               >
-                All
+                <span
+                  class="sd-check-button__text-label-inner"
+                >
+                  All
+                </span>
               </label>
             </span>
-            <input
-              class="visuallyhidden"
-              id="id11"
-              type="checkbox"
-            />
             <span
-              class="sd-check-button"
+              class="sd-check-button sd-check-button--native"
+              tabindex="-1"
             >
+              <input
+                class="sd-check-button__input"
+                id="id11"
+                name="id1"
+                tabindex="0"
+                type="radio"
+              />
               <label
                 class="sd-check-button__text-label"
                 for="id11"
               >
-                Published
+                <span
+                  class="sd-check-button__text-label-inner"
+                >
+                  Published
+                </span>
               </label>
             </span>
-            <input
-              class="visuallyhidden"
-              id="id12"
-              type="checkbox"
-            />
             <span
-              class="sd-check-button"
+              class="sd-check-button sd-check-button--native"
+              tabindex="-1"
             >
+              <input
+                class="sd-check-button__input"
+                id="id12"
+                name="id1"
+                tabindex="0"
+                type="radio"
+              />
               <label
                 class="sd-check-button__text-label"
                 for="id12"
               >
-                Unpublished
+                <span
+                  class="sd-check-button__text-label-inner"
+                >
+                  Unpublished
+                </span>
               </label>
             </span>
           </div>
@@ -224,15 +247,16 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
           <span
             class="sd-margin-l--1"
           >
-            <a
+            <button
               class="icn-btn"
+              tabindex="0"
             >
               <i
                 aria-hidden="true"
                 aria-label="arrow-left"
                 class="icon-arrow-left"
               />
-            </a>
+            </button>
           </span>
           <h3
             class="side-panel__heading side-panel__heading--big"
@@ -339,6 +363,7 @@ exports[`Output/PublishPane/PublishPane renders correctly 1`] = `
       <button
         aria-label=""
         class="btn btn--expanded btn--success btn--disabled"
+        tabindex="0"
       >
         Publish
       </button>

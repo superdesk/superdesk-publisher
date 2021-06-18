@@ -9,11 +9,13 @@ const Tenant = ({ tenant }) => {
           <a
             target="_blank"
             href={
-              tenant.output_channel
+              tenant.pwa_config && tenant.pwa_config.url
+                ? tenant.pwa_config.url
+                : tenant.output_channel
                 ? tenant.output_channel.config.url
                 : tenant.subdomain
-                ? "http://" + tenant.subdomain + "." + tenant.domain_name
-                : "http://" + tenant.domain_name
+                ? "https://" + tenant.subdomain + "." + tenant.domain_name
+                : "https://" + tenant.domain_name
             }
             flow="down"
           >
@@ -21,6 +23,9 @@ const Tenant = ({ tenant }) => {
             <i className="icon-external"></i>
           </a>
         </h3>
+        {tenant.pwa_config && tenant.pwa_config.url && (
+          <span className="sp-logo-pwa"></span>
+        )}
       </div>
       <div className="sd-card sd-card--flex-grow">
         <div className="dashboard-content-header sd-shadow--z1">
@@ -65,7 +70,7 @@ const Tenant = ({ tenant }) => {
           className="sd-card__content"
           style={{
             maxHeight: "210px",
-            overflowY: "auto"
+            overflowY: "auto",
           }}
         >
           <ul className="sd-card__content-list">
@@ -82,7 +87,7 @@ const Tenant = ({ tenant }) => {
                 <p className="panel-info__description">&nbsp;</p>
               </div>
             ) : (
-              tenant.content_lists.map(list => (
+              tenant.content_lists.map((list) => (
                 <li
                   key={list.name + list.id}
                   className="sd-card__content-list-item sd-card__content-list-item--no-padding"
@@ -107,7 +112,7 @@ const Tenant = ({ tenant }) => {
 };
 
 Tenant.propTypes = {
-  tenant: PropTypes.object.isRequired
+  tenant: PropTypes.object.isRequired,
 };
 
 export default Tenant;

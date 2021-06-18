@@ -149,14 +149,19 @@ const ArticleItem = ({ item, style, onRemove }) => {
                   key={`articlestatuslabel_${index}_${article.id}`}
                   article={article}
                   url={
-                    article.tenant
+                    article.tenant &&
+                    article.tenant.pwa_config &&
+                    article.tenant.pwa_config.url
+                      ? article.tenant.pwa_config.url +
+                        article._links.online.href
+                      : article.tenant
                       ? article.tenant.subdomain
-                        ? "http://" +
+                        ? "https://" +
                           article.tenant.subdomain +
                           "." +
                           article.tenant.domain_name +
                           article._links.online.href
-                        : "http://" +
+                        : "https://" +
                           article.tenant.domain_name +
                           article._links.online.href
                       : null

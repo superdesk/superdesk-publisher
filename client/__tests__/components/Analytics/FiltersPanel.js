@@ -2,10 +2,10 @@ import React from "react";
 import FiltersPanel from "../../../components/Analytics/FiltersPanel";
 import { render, fireEvent } from "@testing-library/react";
 
-let api = () => { };
+let api = () => {};
 
 jest.mock("../../../components/UI/MultiSelect", () => () => {
-  return (<div></div>)
+  return <div></div>;
 });
 
 api.users = {};
@@ -13,7 +13,7 @@ api.users.query = function () {
   return new Promise((resolve, reject) => {
     resolve({
       _items: [{ is_author: true, display_name: "author" }],
-      _links: {}
+      _links: {},
     });
   });
 };
@@ -22,14 +22,14 @@ describe("Analytics/FiltersPanel", () => {
   const filters = {
     route: 1,
     published_after: "2019-07-04",
-    published_before: "2019-07-04"
+    published_before: "2019-07-04",
   };
 
   const routes = [
     {
       id: 1,
-      name: "testroute"
-    }
+      name: "testroute",
+    },
   ];
 
   it("renders correctly", () => {
@@ -59,7 +59,7 @@ describe("Analytics/FiltersPanel", () => {
       />
     );
 
-    const button = container.querySelector(".side-panel__close a");
+    const button = container.querySelector(".side-panel__close button");
 
     fireEvent.click(button);
     expect(toggle).toHaveBeenCalled();

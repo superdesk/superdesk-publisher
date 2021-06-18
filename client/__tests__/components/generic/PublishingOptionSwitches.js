@@ -4,13 +4,13 @@ import {
   render,
   fireEvent,
   waitForElement,
-  wait
+  wait,
 } from "@testing-library/react";
 
 describe("generic/PublishingOptionsSwithces", () => {
   const destination = {
     is_published_fbia: true,
-    paywall_secured: true
+    paywall_secured: true,
   };
 
   it("returns null when all options are disabled", () => {
@@ -55,9 +55,7 @@ describe("generic/PublishingOptionsSwithces", () => {
     );
 
     await waitForElement(() => getByText("FBIA"));
-    await wait(() =>
-      expect(queryByText("Paywall")).not.toBeInTheDocument()
-    );
+    await wait(() => expect(queryByText("Paywall")).not.toBeInTheDocument());
   });
 
   it("renders paywall switch only", async () => {
@@ -89,7 +87,7 @@ describe("generic/PublishingOptionsSwithces", () => {
     );
 
     const checkbox = await waitForElement(() =>
-      container.querySelector(".sd-check-new")
+      container.querySelector(".sd-check-new__input")
     );
 
     fireEvent.click(checkbox);

@@ -14,15 +14,16 @@ exports[`Output/PreviewPane renders correctly 1`] = `
       <div
         class="side-panel__tools"
       >
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="close-small"
             class="icon-close-small"
           />
-        </a>
+        </button>
       </div>
       <h3
         class="side-panel__heading"

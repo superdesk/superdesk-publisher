@@ -13,15 +13,16 @@ exports[`Output/PublishPane/MetadataEditor renders correctly 1`] = `
       <span
         class="sd-margin-l--1"
       >
-        <a
+        <button
           class="icn-btn"
+          tabindex="0"
         >
           <i
             aria-hidden="true"
             aria-label="arrow-left"
             class="icon-arrow-left"
           />
-        </a>
+        </button>
       </span>
       <h3
         class="side-panel__heading side-panel__heading--big"

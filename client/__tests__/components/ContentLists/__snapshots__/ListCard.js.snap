@@ -18,6 +18,7 @@ exports[`ContentLists/ListCard renders correctly 1`] = `
       <button
         aria-label=""
         class="btn btn--small btn--hollow btn--ui-dark"
+        tabindex="0"
       >
         Edit
       </button>

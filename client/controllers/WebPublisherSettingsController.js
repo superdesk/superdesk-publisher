@@ -13,7 +13,7 @@ WebPublisherSettingsController.$inject = [
   "vocabularies",
   "$sce",
   "notify",
-  "api"
+  "api",
 ];
 export function WebPublisherSettingsController(
   $scope,
@@ -33,9 +33,12 @@ export function WebPublisherSettingsController(
 
       this.isLanguagesEnabled = false;
 
-      vocabularies.getVocabularies().then(res => {
-        this.languages = res.find(v => v._id === "languages");
-        this.languages = this.languages && this.languages.items ? this.languages.items.filter(l => l.is_active) : [];
+      vocabularies.getVocabularies().then((res) => {
+        this.languages = res.find((v) => v._id === "languages");
+        this.languages =
+          this.languages && this.languages.items
+            ? this.languages.items.filter((l) => l.is_active)
+            : [];
 
         if (this.languages.length > 1) {
           this.isLanguagesEnabled = true;
@@ -48,33 +51,34 @@ export function WebPublisherSettingsController(
       publisher
         .setToken()
         .then(publisher.querySites)
-        .then(sites => {
+        .then((sites) => {
           this.sites = sites;
           $scope.mainLoading = false;
           // loading routes
           angular.forEach(this.sites, (siteObj, key) => {
             publisher.setTenant(siteObj);
-            publisher.queryRoutes({ type: "collection" }).then(routes => {
+            publisher.queryRoutes({ type: "collection" }).then((routes) => {
               siteObj.routes = routes;
             });
           });
+          publisher.setTenant();
           // rules panel is default
           this.changePanel("tenant");
         });
     }
 
     loadAuthors(page = 0) {
-
-      api.users.query({
-        max_results: 200,
-        page: page,
-        sort: '[("first_name", 1), ("last_name", 1)]',
-        where: {
-          is_support: { $ne: true }
-        }
-      })
-        .then(response => {
-          let authors = response._items.filter(item => item.is_author);
+      api.users
+        .query({
+          max_results: 200,
+          page: page,
+          sort: '[("first_name", 1), ("last_name", 1)]',
+          where: {
+            is_support: { $ne: true },
+          },
+        })
+        .then((response) => {
+          let authors = response._items.filter((item) => item.is_author);
 
           if (authors.length) this.authors = [...this.authors, ...authors];
           if (response._links.next) this.loadAuthors(page + 1);
@@ -117,7 +121,7 @@ export function WebPublisherSettingsController(
     /**
      * @ngdoc method
      * @name WebPublisherSettingsController#toggleSiteWizard
-     * @param {String} outputChannelType - channel type (eg wordpress, drupal)
+     * @param {String} outputChannelType - channel type (eg wordpress, drupal, PWA)
      * @description Toggles site creation wizard
      */
     toggleSiteWizard(outputChannelType) {
@@ -145,8 +149,8 @@ export function WebPublisherSettingsController(
         case "routes":
           this.routeType = "";
           // getting only route redirects to fill route objects
-          this.redirectType = "route";
-          this.loadRedirects(true, 100000).then(redirects => this._refreshRoutes(redirects));
+          this.redirectType = "";
+          this._refreshRoutes();
 
           break;
         case "redirects":
@@ -211,11 +215,12 @@ export function WebPublisherSettingsController(
 
       publisher
         .manageWebhook(_.pick(newWebhook, updatedKeys), this.selectedWebhook.id)
-        .then(webhook => {
+        .then((webhook) => {
           this.webhookPaneOpen = false;
           this.selectedWebhook = {};
           this._refreshWebhooks();
-        }).catch(err => {
+        })
+        .catch((err) => {
           $scope.loading = false;
           let message = err.data.message
             ? err.data.message
@@ -238,7 +243,7 @@ export function WebPublisherSettingsController(
             this._refreshWebhooks();
           })
         )
-        .catch(err => {
+        .catch((err) => {
           let message = err.data.message
             ? err.data.message
             : "Something went wrong. Try again.";
@@ -253,7 +258,7 @@ export function WebPublisherSettingsController(
      */
     _refreshWebhooks() {
       $scope.loading = true;
-      publisher.getWebhooks().then(webhooks => {
+      publisher.getWebhooks().then((webhooks) => {
         this.webhooks = webhooks;
         $scope.loading = false;
       });
@@ -290,9 +295,9 @@ export function WebPublisherSettingsController(
         const regex = /\/{([a-zA-Z0-9]*)}/gm;
         let match = regex.exec($scope.newRoute.variable_pattern);
 
-        $scope.newRoute.variableName = match[1] ? match[1] : '';
+        $scope.newRoute.variableName = match[1] ? match[1] : "";
 
-        delete $scope.newRoute.requirements
+        delete $scope.newRoute.requirements;
         delete $scope.newRoute.variable_pattern;
       }
 
@@ -307,20 +312,19 @@ export function WebPublisherSettingsController(
      * @description Saving route
      */
     saveRoute() {
-
       if ($scope.newRoute.type === "custom") {
-        $scope.newRoute.variable_pattern = "/{" + $scope.newRoute.variableName + "}";
+        $scope.newRoute.variable_pattern =
+          "/{" + $scope.newRoute.variableName + "}";
 
         $scope.newRoute.requirements = [
           {
-            "key": $scope.newRoute.variableName,
-            "value": "[a-zA-Z\\-_]+"
-          }
+            key: $scope.newRoute.variableName,
+            value: "[a-zA-Z\\-_]+",
+          },
         ];
 
         delete $scope.newRoute.variableName;
       }
-
 
       let updatedKeys = this._updatedKeys($scope.newRoute, this.selectedRoute);
 
@@ -334,7 +338,7 @@ export function WebPublisherSettingsController(
           _.pick($scope.newRoute, updatedKeys),
           this.selectedRoute.id
         )
-        .then(route => {
+        .then((route) => {
           this.paneOpen = false;
           this._refreshRoutes();
         });
@@ -354,7 +358,7 @@ export function WebPublisherSettingsController(
             this._refreshRoutes();
           })
         )
-        .catch(err => {
+        .catch((err) => {
           let message = err.data.message
             ? err.data.message
             : "Something went wrong. Try again.";
@@ -394,7 +398,7 @@ export function WebPublisherSettingsController(
 
           if (removedItem) {
             removedItem.removed = true;
-            parent.children = parent.children.filter(item => !item.removed);
+            parent.children = parent.children.filter((item) => !item.removed);
           }
         } else if (!item.parent) {
           // item was top level and was moved to other list
@@ -403,7 +407,7 @@ export function WebPublisherSettingsController(
           if (removedItem) {
             removedItem.removed = true;
             $scope.routes.children = $scope.routes.children.filter(
-              item => !item.removed
+              (item) => !item.removed
             );
           }
         }
@@ -412,7 +416,7 @@ export function WebPublisherSettingsController(
           .slice(0, index)
           .concat(item)
           .concat(list.children.slice(index))
-          .filter(item => !item.removed);
+          .filter((item) => !item.removed);
 
         let parentId = list.children[0].parent;
         let newPosition = list.children.indexOf(item);
@@ -435,55 +439,49 @@ export function WebPublisherSettingsController(
      * @ngdoc method
      * @name WebPublisherSettingsController#_refreshRoutes
      * @private
-     * @param {Array} redirects - list of redirects
      * @description Loads list of routes
      */
-    _refreshRoutes(redirects) {
+    _refreshRoutes() {
       $scope.loading = true;
-      publisher.queryRoutes().then(routes => {
+      publisher.queryRoutes().then((routes) => {
         $scope.loading = false;
         let filteredRoutes = { children: null };
 
         if (this.routeType === "content") {
           filteredRoutes.children = routes.filter(
-            item => item.type === "content"
+            (item) => item.type === "content"
           );
         } else if (this.routeType === "collection") {
           filteredRoutes.children = routes
-            .filter(item => item.type === "collection")
-            .filter(item => !item.parent);
+            .filter((item) => item.type === "collection")
+            .filter((item) => !item.parent);
         } else {
-          filteredRoutes.children = routes.filter(item => !item.parent);
+          filteredRoutes.children = routes.filter((item) => !item.parent);
         }
 
-        if (redirects && redirects.length) {
-          filteredRoutes.children.forEach(route => {
-            let routeRedirect = redirects.find(r => {
-              return r.route_source.id === route.id
-            }
-            );
-            if (routeRedirect) route.redirect = routeRedirect;
-          })
-        }
         $scope.routes = filteredRoutes;
+        $scope.routes_flat = this._flattenTree(filteredRoutes);
       });
     }
     // ---------------------------------- REDIRECTS
     /**
-    * @ngdoc method
-    * @name WebPublisherSettingsController#toogleCreateRedirect
-    * @param {Boolean} paneOpen - should pane be open
-    * @param {String} kind - type of redirect
-    * @description Opens window for creating new redirect
-    */
-    toggleCreateRedirect(paneOpen, kind = 'route') {
+     * @ngdoc method
+     * @name WebPublisherSettingsController#toogleCreateRedirect
+     * @param {Boolean} paneOpen - should pane be open
+     * @param {String} kind - type of redirect
+     * @description Opens window for creating new redirect
+     */
+    toggleCreateRedirect(paneOpen, kind = "route") {
       this.selectedRedirect = {};
       $scope.newRedirect = { kind: kind, permanent: "true" };
       this.paneOpen = paneOpen;
     }
 
     onChangeRedirectKind() {
-      $scope.newRedirect = { kind: $scope.newRedirect.kind, permanent: $scope.newRedirect.permanent };
+      $scope.newRedirect = {
+        kind: $scope.newRedirect.kind,
+        permanent: $scope.newRedirect.permanent,
+      };
     }
 
     changeRedirectFilter(type) {
@@ -492,20 +490,21 @@ export function WebPublisherSettingsController(
     }
 
     saveRedirect() {
-      let updatedKeys = this._updatedKeys($scope.newRedirect, this.selectedRedirect);
+      let updatedKeys = this._updatedKeys(
+        $scope.newRedirect,
+        this.selectedRedirect
+      );
       let newRedirect = _.pick($scope.newRedirect, updatedKeys);
 
       delete newRedirect.kind;
 
       publisher
-        .manageRedirect(
-          newRedirect,
-          this.selectedRedirect.id
-        )
-        .then(r => {
+        .manageRedirect(newRedirect, this.selectedRedirect.id)
+        .then((r) => {
           this.toggleCreateRedirect(false);
           this.loadRedirects(true);
-        }).catch(err => {
+        })
+        .catch((err) => {
           let message = err.data.message
             ? err.data.message
             : "Something went wrong. Try again.";
@@ -516,7 +515,7 @@ export function WebPublisherSettingsController(
     editRedirect(redirect) {
       let editedRedirect = {
         permanent: redirect.permanent ? "true" : "false",
-        id: redirect.id
+        id: redirect.id,
       };
 
       if (redirect.route_target && redirect.route_source) {
@@ -540,11 +539,13 @@ export function WebPublisherSettingsController(
         .confirm(gettext("Please confirm you want to delete redirect."))
         .then(() =>
           publisher.removeRedirect(id).then(() => {
-            let index = $scope.redirects.items.findIndex(redirect => redirect.id === id);
+            let index = $scope.redirects.items.findIndex(
+              (redirect) => redirect.id === id
+            );
             if (index !== -1) $scope.redirects.items.splice(index, 1);
           })
         )
-        .catch(err => {
+        .catch((err) => {
           let message = err.data.message
             ? err.data.message
             : "Something went wrong. Try again.";
@@ -555,42 +556,46 @@ export function WebPublisherSettingsController(
     loadRedirects(reset, limit) {
       if (reset) $scope.redirects = { items: [], pages: 1 };
 
-
       const page = !$scope.redirects.page ? 1 : $scope.redirects.page + 1;
       const params = {
         page: page,
         limit: limit ? limit : 50,
-        "sorting[createdAt]": "desc"
+        "sorting[createdAt]": "desc",
       };
 
-      if ((!reset && $scope.redirects.pages && page > $scope.redirects.pages) || $scope.redirects.loading) {
+      if (
+        (!reset && $scope.redirects.pages && page > $scope.redirects.pages) ||
+        $scope.redirects.loading
+      ) {
         return;
       }
 
       $scope.redirects.loading = true;
 
-      return publisher.queryRedirects(params).then(redirects => {
+      return publisher.queryRedirects(params).then((redirects) => {
         let filteredRedirects = redirects._embedded._items;
 
         if (this.redirectType === "route") {
           filteredRedirects = filteredRedirects.filter(
-            redirect => redirect.route_target && redirect.route_source
+            (redirect) => redirect.route_target && redirect.route_source
           );
         } else if (this.redirectType === "custom") {
           filteredRedirects = filteredRedirects.filter(
-            redirect => !redirect.route_target && !redirect.route_source
+            (redirect) => !redirect.route_target && !redirect.route_source
           );
         }
 
         $scope.redirects.loading = false;
         $scope.redirects.page = page;
         $scope.redirects.pages = redirects.pages;
-        $scope.redirects.items = [...$scope.redirects.items, ...filteredRedirects];
+        $scope.redirects.items = [
+          ...$scope.redirects.items,
+          ...filteredRedirects,
+        ];
 
         return $scope.redirects.items;
       });
     }
-
 
     // ---------------------------------- NAVIGATION
 
@@ -644,11 +649,15 @@ export function WebPublisherSettingsController(
       }
 
       if ($scope.newMenu.route) {
-        let route = $scope.routes.find(r => r.id === $scope.newMenu.route);
-        if (route.type === 'custom') {
-          let valueSlug = $scope.newMenu.variableValue.toLowerCase().replaceAll(" ", "-");
+        let route = $scope.routes.find((r) => r.id === $scope.newMenu.route);
+        if (route.type === "custom") {
+          let valueSlug = $scope.newMenu.variableValue
+            .toLowerCase()
+            .replaceAll(" ", "-");
 
-          $scope.newMenu.uri = valueSlug.length ? route.static_prefix + "/" + valueSlug : route.static_prefix;
+          $scope.newMenu.uri = valueSlug.length
+            ? route.static_prefix + "/" + valueSlug
+            : route.static_prefix;
           delete $scope.newMenu.route;
           delete $scope.newMenu.variableValue;
         }
@@ -686,7 +695,7 @@ export function WebPublisherSettingsController(
     editMenuTree(menu) {
       $scope.menu = menu;
       $scope.menusInTree = this._flattenTree(menu);
-      publisher.queryRoutes().then(routes => {
+      publisher.queryRoutes().then((routes) => {
         $scope.routes = routes;
       });
       this.changeManageTab("navigation-menu");
@@ -728,14 +737,14 @@ export function WebPublisherSettingsController(
     isRouteTypeCustom(routeId) {
       if (!$scope.routes || !$scope.routes.length) return null;
 
-      let route = $scope.routes.find(r => r.id === routeId);
-      return route.type === 'custom';
+      let route = $scope.routes.find((r) => r.id === routeId);
+      return route.type === "custom";
     }
 
     getRouteNameById(routeId) {
       if (!$scope.routes || !$scope.routes.length) return null;
 
-      let route = $scope.routes.find(r => r.id === routeId);
+      let route = $scope.routes.find((r) => r.id === routeId);
       return route.name;
     }
 
@@ -761,7 +770,7 @@ export function WebPublisherSettingsController(
     navigationMenuSetUri() {
       if ($scope.newMenu.route) {
         let route = $scope.routes.find(
-          route => route.id === $scope.newMenu.route
+          (route) => route.id === $scope.newMenu.route
         );
 
         $scope.newMenu.uri = route.staticPrefix;
@@ -805,7 +814,7 @@ export function WebPublisherSettingsController(
           .slice(0, index)
           .concat(item)
           .concat(list.children.slice(index))
-          .filter(item => !item.removed);
+          .filter((item) => !item.removed);
 
         let menuPosition = list.children.indexOf(item);
 
@@ -828,7 +837,7 @@ export function WebPublisherSettingsController(
      */
     _refreshCurrentMenu() {
       this.menuPaneOpen = false;
-      publisher.getMenu($scope.menu.id).then(menu => {
+      publisher.getMenu($scope.menu.id).then((menu) => {
         $scope.menu = menu;
         $scope.menusInTree = this._flattenTree(menu);
       });
@@ -844,7 +853,7 @@ export function WebPublisherSettingsController(
       $scope.loading = true;
       this.menuAdd = false;
       this.menuPaneOpen = false;
-      publisher.queryMenus().then(menus => {
+      publisher.queryMenus().then((menus) => {
         $scope.loading = false;
         $scope.menus = menus;
       });
@@ -913,21 +922,29 @@ export function WebPublisherSettingsController(
       let filteredNewSite = { ...$scope.newSite };
       delete filteredNewSite.updated_at;
 
-      if (filteredNewSite.apple_news_config === null) filteredNewSite.apple_news_config = { api_key_id: null, api_key_secret: null, channel_id: null };
+      if (filteredNewSite.apple_news_config === null)
+        filteredNewSite.apple_news_config = {
+          api_key_id: null,
+          api_key_secret: null,
+          channel_id: null,
+        };
 
       let updatedKeys = this._updatedKeys(filteredNewSite, this.selectedSite);
       this.loading = true;
 
       publisher
-        .manageSite(_.pick(filteredNewSite, updatedKeys), this.selectedSite.code)
-        .then(site => {
+        .manageSite(
+          _.pick(filteredNewSite, updatedKeys),
+          this.selectedSite.code
+        )
+        .then((site) => {
           this.siteForm.$setPristine();
           this.selectedSite = site;
           this.loading = false;
           publisher.setTenant(site);
           this._refreshSites();
         })
-        .catch(err => {
+        .catch((err) => {
           $scope.newSite = angular.copy(this.selectedSite);
           this.loading = false;
         });
@@ -949,7 +966,7 @@ export function WebPublisherSettingsController(
               publisher.setTenant();
               this._refreshSites();
             })
-            .catch(err => {
+            .catch((err) => {
               if (err.status === 409) {
                 modal
                   .confirm(
@@ -969,7 +986,11 @@ export function WebPublisherSettingsController(
     }
 
     switchAppleNewsConfig() {
-      $scope.newSite.apple_news_config = $scope.newSite.apple_news_config === null || $scope.newSite.apple_news_config.channel_id === null ? { api_key_id: '', api_key_secret: '', channel_id: '' } : null;
+      $scope.newSite.apple_news_config =
+        $scope.newSite.apple_news_config === null ||
+        $scope.newSite.apple_news_config.channel_id === null
+          ? { api_key_id: "", api_key_secret: "", channel_id: "" }
+          : null;
       this.siteForm.$setDirty();
     }
 
@@ -1012,10 +1033,10 @@ export function WebPublisherSettingsController(
      * @description Saving theme settings and logo
      */
     saveThemeSettings() {
-      let settingsToSave = _.map($scope.newThemeSettings.settings, value => {
+      let settingsToSave = _.map($scope.newThemeSettings.settings, (value) => {
         return _.pick(value, ["name", "value"]);
       });
-      publisher.saveSettings({ bulk: settingsToSave }).then(settings => {
+      publisher.saveSettings({ bulk: settingsToSave }).then((settings) => {
         this.themeSettingsForm.$setPristine();
       });
     }
@@ -1035,12 +1056,12 @@ export function WebPublisherSettingsController(
         if (!logoFile.$error) {
           publisher
             .uploadThemeLogo({ logo: logoFile }, type)
-            .then(response => {
+            .then((response) => {
               this.themeSettings[type] = response.data;
               let flagName = "replace_" + type;
               this[flagName] = false;
             })
-            .catch(err => {
+            .catch((err) => {
               $scope.newThemeSettings[type].error = true;
             });
         }
@@ -1058,7 +1079,7 @@ export function WebPublisherSettingsController(
       $scope.newRule = {
         type: type,
         destinations: [],
-        expressions: [{}]
+        expressions: [{}],
       };
 
       this.rulePaneOpen = type ? true : false;
@@ -1072,7 +1093,7 @@ export function WebPublisherSettingsController(
      * @description gets tenant name by its code
      */
     getTenantNameByCode(code) {
-      let tenant = this.sites.find(site => {
+      let tenant = this.sites.find((site) => {
         return site.code == code;
       });
 
@@ -1086,7 +1107,7 @@ export function WebPublisherSettingsController(
      * @description gets tenant name by its code
      */
     getTenantOutputChannelNameByCode(code) {
-      let tenant = this.sites.find(site => {
+      let tenant = this.sites.find((site) => {
         return site.code == code;
       });
 
@@ -1106,7 +1127,11 @@ export function WebPublisherSettingsController(
         return site.code == code;
       });
 
-      return tenant ? tenant.subdomain + "." + tenant.domain_name : null;
+      return tenant
+        ? tenant.pwa_config && tenant.pwa_config.url
+          ? tenant.pwa_config.url
+          : tenant.subdomain + "." + tenant.domain_name
+        : null;
     }
 
     /**
@@ -1320,7 +1345,7 @@ export function WebPublisherSettingsController(
         // organization rule
         $scope.newRule.destinations = [];
 
-        _.each($scope.newRule.configuration.destinations, destination => {
+        _.each($scope.newRule.configuration.destinations, (destination) => {
           let tenant = this.sites.find(function (site) {
             return site.code == destination.tenant;
           });
@@ -1342,18 +1367,18 @@ export function WebPublisherSettingsController(
         description: $scope.newRule.description,
         priority: "1",
         expression: "",
-        configuration: []
+        configuration: [],
       };
 
       if ($scope.newRule.type == "organization") {
         newRule.configuration.push({
           key: "destinations",
-          value: []
+          value: [],
         });
 
-        _.each($scope.newRule.destinations, destination => {
+        _.each($scope.newRule.destinations, (destination) => {
           let configuration = {
-            tenant: destination.code
+            tenant: destination.code,
           };
 
           newRule.configuration[0].value.push(configuration);
@@ -1365,7 +1390,7 @@ export function WebPublisherSettingsController(
         if ($scope.newRule.action.route) {
           newRule.configuration.push({
             key: "route",
-            value: $scope.newRule.action.route
+            value: $scope.newRule.action.route,
           });
         }
         if ($scope.newRule.action.published) {
@@ -1414,10 +1439,7 @@ export function WebPublisherSettingsController(
           }
         });
       }
-      return _(newRule)
-        .omitBy(_.isNil)
-        .omitBy(_.isEmpty)
-        .value();
+      return _(newRule).omitBy(_.isNil).omitBy(_.isEmpty).value();
     }
 
     /**
@@ -1436,7 +1458,7 @@ export function WebPublisherSettingsController(
             _.pick(newRule, updatedKeys),
             this.selectedRule.id
           )
-          .then(rule => {
+          .then((rule) => {
             this.rulePaneOpen = false;
             this.selectedRule = {};
             this._refreshRules();
@@ -1445,7 +1467,7 @@ export function WebPublisherSettingsController(
         publisher.setTenant($scope.newRule.action.tenant);
         publisher
           .manageTenantRule(_.pick(newRule, updatedKeys), this.selectedRule.id)
-          .then(rule => {
+          .then((rule) => {
             this.rulePaneOpen = false;
             this.selectedRule = {};
             this._refreshRules();
@@ -1472,7 +1494,7 @@ export function WebPublisherSettingsController(
 
     sitesFilter(site) {
       return $scope.newRule.destinations.find(
-        destination => destination.code === site.code
+        (destination) => destination.code === site.code
       )
         ? false
         : true;
@@ -1498,7 +1520,7 @@ export function WebPublisherSettingsController(
 
     _loadThemes() {
       $scope.loading = true;
-      return publisher.getOrganizationThemes().then(response => {
+      return publisher.getOrganizationThemes().then((response) => {
         $scope.loading = false;
         $scope.organizationThemes = response._embedded._items;
       });
@@ -1514,11 +1536,11 @@ export function WebPublisherSettingsController(
       $scope.loading = true;
       return publisher
         .querySites()
-        .then(sites => {
+        .then((sites) => {
           // assigning theme to site
-          angular.forEach(sites, site => {
+          angular.forEach(sites, (site) => {
             site.theme = $scope.organizationThemes.find(
-              theme => site.theme_name == theme.name
+              (theme) => site.theme_name == theme.name
             );
           });
           $scope.sites = sites;
@@ -1527,7 +1549,7 @@ export function WebPublisherSettingsController(
             this.toggleInfoCarousel();
           }
         })
-        .catch(err => {
+        .catch((err) => {
           $scope.loading = false;
           notify.error("Couldn't get list of tenants. Try again");
         });
@@ -1540,22 +1562,22 @@ export function WebPublisherSettingsController(
      * @description Loads theme settings
      */
     _refreshThemeSettings() {
-      return publisher.getThemeSettings().then(settings => {
+      return publisher.getThemeSettings().then((settings) => {
         this.themeSettings = {};
         this.themeSettings.theme_logo = _.find(settings, {
-          name: "theme_logo"
+          name: "theme_logo",
         });
         this.themeSettings.theme_logo_second = _.find(settings, {
-          name: "theme_logo_second"
+          name: "theme_logo_second",
         });
         this.themeSettings.theme_logo_third = _.find(settings, {
-          name: "theme_logo_third"
+          name: "theme_logo_third",
         });
-        _.remove(settings, setting => {
+        _.remove(settings, (setting) => {
           return setting.name.includes("theme_logo") ? true : false;
         });
         // little hack to make ng-select work properly
-        this.themeSettings.settings = settings.map(setting => {
+        this.themeSettings.settings = settings.map((setting) => {
           if (setting.options) {
             setting.value = setting.value.toString();
           }
@@ -1584,10 +1606,12 @@ export function WebPublisherSettingsController(
      * @description Loads Organization Rules
      */
     _loadOrganizationRules() {
-      return publisher.queryOrganizationRules({ limit: 99999 }).then(rules => {
-        this.organizationRules = rules;
-        return rules;
-      });
+      return publisher
+        .queryOrganizationRules({ limit: 99999 })
+        .then((rules) => {
+          this.organizationRules = rules;
+          return rules;
+        });
     }
 
     /**
@@ -1599,8 +1623,8 @@ export function WebPublisherSettingsController(
       this.tenantsRules = {};
       // tenants configured with organization rules
       this.availableTenants = [];
-      _.each(this.organizationRules, rule => {
-        _.each(rule.configuration.destinations, dest => {
+      _.each(this.organizationRules, (rule) => {
+        _.each(rule.configuration.destinations, (dest) => {
           let tenant = this.sites.find(function (site) {
             return site.code == dest.tenant;
           });
@@ -1608,7 +1632,7 @@ export function WebPublisherSettingsController(
           if (tenant) {
             publisher.setTenant(tenant);
             this.availableTenants.push(tenant);
-            this._loadTenantRules().then(rules => {
+            this._loadTenantRules().then((rules) => {
               this.tenantsRules[tenant.code] = rules;
             });
           }
@@ -1622,16 +1646,16 @@ export function WebPublisherSettingsController(
      * @description Loads Tenant Rules
      */
     _loadTenantRules() {
-      return publisher.queryTenantRules({ limit: 99999 }).then(rules => {
+      return publisher.queryTenantRules({ limit: 99999 }).then((rules) => {
         return rules;
       });
     }
 
     /**
-    * @ngdoc method
-    * @name WebPublisherSettingsController#_loadIngestSources
-    * @description Loads ingest sources
-    */
+     * @ngdoc method
+     * @name WebPublisherSettingsController#_loadIngestSources
+     * @description Loads ingest sources
+     */
     _loadIngestSources = (page = 1) => {
       api.ingestProviders
         .query({ max_results: 200, page: page })
@@ -1639,12 +1663,10 @@ export function WebPublisherSettingsController(
           let ingestSources = response._items;
 
           if (ingestSources.length) {
-            this.ingestSources = [...this.ingestSources, ...ingestSources]
+            this.ingestSources = [...this.ingestSources, ...ingestSources];
           }
 
           if (response._links.next) this._loadIngestSources(page + 1);
-
-
         });
     };
 
@@ -1658,18 +1680,24 @@ export function WebPublisherSettingsController(
 
       this.expressionBuilder = {
         operators: {
-          string: [{ name: "=", value: "==" }, { name: "!=", value: "!=" }],
+          string: [
+            { name: "=", value: "==" },
+            { name: "!=", value: "!=" },
+          ],
           number: [
             { name: "=", value: "==" },
             { name: "!=", value: "!=" },
             { name: "<", value: "<" },
             { name: ">", value: ">" },
             { name: "<=", value: "<=" },
-            { name: ">=", value: ">=" }
+            { name: ">=", value: ">=" },
           ],
           in: [{ name: "=", value: "in" }],
-          custom: [{ name: "=", value: "==" }, { name: "!=", value: "!=" }]
-        }
+          custom: [
+            { name: "=", value: "==" },
+            { name: "!=", value: "!=" },
+          ],
+        },
       };
 
       if ($scope.newRule.type == "organization") {
@@ -1680,10 +1708,10 @@ export function WebPublisherSettingsController(
           {
             name: "Ingest Source",
             value: "package.getSource()",
-            type: "string"
+            type: "string",
           },
           { name: "Priority", value: "package.getPriority()", type: "number" },
-          { name: "Urgency", value: "package.getUrgency()", type: "number" }
+          { name: "Urgency", value: "package.getUrgency()", type: "number" },
         ];
       } else {
         // article
@@ -1694,29 +1722,29 @@ export function WebPublisherSettingsController(
           {
             name: "Category",
             value: "article.getPackage().getServicesNames()",
-            type: "in"
+            type: "in",
           },
           { name: "Author", value: "article.getAuthorsNames()", type: "in" },
           {
             name: "Ingest Source",
             value: "article.getPackage().getSource()",
-            type: "string"
+            type: "string",
           },
           {
             name: "Priority",
             value: "article.getPackage().getPriority()",
-            type: "number"
+            type: "number",
           },
           {
             name: "Urgency",
             value: "article.getPackage().getUrgency()",
-            type: "number"
-          }
+            type: "number",
+          },
         ];
       }
 
-      vocabularies.getAllActiveVocabularies().then(result => {
-        result.forEach(vocabulary => {
+      vocabularies.getAllActiveVocabularies().then((result) => {
+        result.forEach((vocabulary) => {
           if (vocabulary._id === "categories") {
             this.expressionBuilder.categories = vocabulary.items;
           }
@@ -1725,7 +1753,7 @@ export function WebPublisherSettingsController(
               name: vocabulary.display_name,
               value:
                 customRuleFunctionName + "['" + vocabulary.display_name + "']",
-              type: "custom"
+              type: "custom",
             });
           }
         });

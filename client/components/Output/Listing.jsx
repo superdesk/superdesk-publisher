@@ -216,10 +216,18 @@ class Listing extends React.Component {
             item.page_views_count = helpers.countPageViews(item.articles);
             item.articles.forEach((item) => {
               if (item.route && item.status == "published" && item.tenant) {
-                let tenantUrl = item.tenant.subdomain
-                  ? item.tenant.subdomain + "." + item.tenant.domain_name
-                  : item.tenant.domain_name;
-                item.live_url = "http://" + tenantUrl + item._links.online.href;
+                let tenantUrl =
+                  item.tenant &&
+                  item.tenant.pwa_config &&
+                  item.tenant.pwa_config.url
+                    ? item.tenant.pwa_config.url
+                    : item.tenant.subdomain
+                    ? "https://" +
+                      item.tenant.subdomain +
+                      "." +
+                      item.tenant.domain_name
+                    : "https://" + item.tenant.domain_name;
+                item.live_url = tenantUrl + item._links.online.href;
               }
             });
           });

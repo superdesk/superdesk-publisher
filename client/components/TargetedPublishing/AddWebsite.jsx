@@ -87,21 +87,15 @@ class AddWebsite extends React.Component {
           <div style={{ padding: "1.5rem" }}>
             <h3 className="tp-dropdown-heading">Add Website</h3>
             <ul className="simple-list--dotted simple-list">
-              {remainingSites.map((site) => {
-                let siteDomain = site.subdomain
-                  ? site.subdomain + "." + site.domain_name
-                  : site.domain_name;
-
-                return (
-                  <li
-                    key={site.id}
-                    className="simple-list__item tp-dropdown-li"
-                    onClick={() => this.addDestination(site)}
-                  >
-                    {siteDomain}
-                  </li>
-                );
-              })}
+              {remainingSites.map((site) => (
+                <li
+                  key={site.id}
+                  className="simple-list__item tp-dropdown-li"
+                  onClick={() => this.addDestination(site)}
+                >
+                  {site.name}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

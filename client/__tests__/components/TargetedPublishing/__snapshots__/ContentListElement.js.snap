@@ -10,15 +10,16 @@ exports[`TargetedPublishing/ContentListElement renders correctly 1`] = `
     <div
       class="sd-list-item__row no-margin sd-flex-justify-end"
     >
-      <a
+      <button
         class="icn-btn"
+        tabindex="0"
       >
         <i
           aria-hidden="true"
           aria-label="trash"
           class="icon-trash"
         />
-      </a>
+      </button>
     </div>
     <div
       class="sd-list-item__row"
