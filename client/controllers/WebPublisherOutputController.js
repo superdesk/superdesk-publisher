@@ -18,7 +18,7 @@ WebPublisherOutputController.$inject = [
   "vocabularies",
   "notify",
   "config",
-  "api"
+  "api",
 ];
 export function WebPublisherOutputController(
   $scope,
@@ -34,13 +34,18 @@ export function WebPublisherOutputController(
       this.editorOpen = false;
       let isLanguagesEnabled = false;
 
-      vocabularies.getVocabularies().then(res => {
-        let languages = res.find(v => v._id === "languages");
-        languages = languages && languages.items ? languages.items.filter(l => l.is_active) : [];
+      vocabularies.getVocabularies().then((res) => {
+        let languages = res.find((v) => v._id === "languages");
+        languages =
+          languages && languages.items
+            ? languages.items.filter((l) => l.is_active)
+            : [];
 
         if (languages.length > 1) {
           isLanguagesEnabled = true;
         }
+
+        publisher.setTenant();
 
         ReactDOM.render(
           React.createElement(Output, {
@@ -50,21 +55,19 @@ export function WebPublisherOutputController(
             authoringWorkspace: authoringWorkspace,
             api: api,
             isLanguagesEnabled: isLanguagesEnabled,
-            languages: languages
+            languages: languages,
           }),
           document.getElementById("sp-output-react-app")
         );
-      })
+      });
 
-      $scope.$watch(authoringWorkspace.getState, state => {
+      $scope.$watch(authoringWorkspace.getState, (state) => {
         this.editorOpen = state && state.item ? true : false;
         let event = new CustomEvent("isSuperdeskEditorOpen", {
-          detail: this.editorOpen
+          detail: this.editorOpen,
         });
         document.dispatchEvent(event);
       });
-
-
     }
   }
 

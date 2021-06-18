@@ -61,6 +61,7 @@ export function WebPublisherSettingsController(
               siteObj.routes = routes;
             });
           });
+          publisher.setTenant();
           // rules panel is default
           this.changePanel("tenant");
         });
