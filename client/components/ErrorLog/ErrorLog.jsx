@@ -21,7 +21,7 @@ class ErrorLog extends React.Component {
 
     const {gettext} = superdeskApi.localization;
 
-    console.log(gettext('Hello world')); // Bonjour à tout le monde
+    console.log(gettext('check this out')); // Bonjour à tout le monde
   }
 
   componentWillUnmount() {
