@@ -4,6 +4,12 @@ import "./client/styles/_publisher.scss";
 import "angular-drag-and-drop-lists-spiria/angular-drag-and-drop-lists";
 import 'superdesk-ui-framework/dist/superdesk-ui.bundle.css';
 
+/**
+ * Import `superdeskApi` in order to initialize the global variable
+ * that `publisher-extension` will later use to assign superdesk API to.
+ */
+import './client/superdeskApi';
+
 import * as controllers from "./client/controllers";
 import * as services from "./client/services";
 import * as directive from "./client/directives";
