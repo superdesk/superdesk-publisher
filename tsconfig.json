@@ -1,0 +1,23 @@
+{
+    "files": [
+        "index.js"
+    ],
+    "include": [
+        "client",
+        "publisher-extension",
+    ],
+    "compilerOptions": {
+        "baseUrl": "client",
+        "skipLibCheck": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es2017",
+            "es2018.promise"
+        ],
+        "jsx": "react",
+    }
+}

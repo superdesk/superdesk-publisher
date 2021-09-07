@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Item from "./Item";
+import {superdeskApi} from '../../superdeskApi';
 
 class ErrorLog extends React.Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class ErrorLog extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.publisher.setToken().then(this.getErrors);
+
+    const {gettext} = superdeskApi.localization;
+
+    console.log(gettext('check this out')); // Bonjour à tout le monde
   }
 
   componentWillUnmount() {

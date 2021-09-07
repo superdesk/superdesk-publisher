@@ -1,0 +1,23 @@
+# 
+# Translators:
+# Petr Jašek <petr.jasek@sourcefabric.org>, 2021
+# Gideon Lehmann <gideon.lehmann@sourcefabric.org>, 2021
+# Marie-Eve Ouellette <marie-eve.ouellette@lapressecanadienne.com>, 2021
+# Evzen Deulin <evgeny.deulin@sourcefabric.org>, 2021
+# Simon Peacock <simon.peacock@gmail.com>, 2021
+# Charles-Philippe Giroux <charles-philippe.giroux@lapressecanadienne.com>, 2021
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Last-Translator: Charles-Philippe Giroux <charles-philippe.giroux@lapressecanadienne.com>, 2021\n"
+"Language-Team: French (Canada) (https://www.transifex.com/sourcefabric/teams/6584/fr_CA/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+
+#: client/utils/filters.ts:80
+msgid "check this out"
+msgstr "regarde ça"
