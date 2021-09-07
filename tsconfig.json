@@ -3,7 +3,8 @@
         "index.js"
     ],
     "include": [
-        "client"
+        "client",
+        "publisher-extension",
     ],
     "compilerOptions": {
         "baseUrl": "client",
