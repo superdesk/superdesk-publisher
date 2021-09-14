@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
-import { superdesk } from '../../../publisher-extension/src/superdesk';
 import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
 
 import SitesSideNav from "../generic/SitesSideNav";
@@ -10,8 +9,8 @@ import FiltersPanel from "./FiltersPanel";
 import Listing from "./Listing";
 import SortingOptions from "./SortingOptions";
 import Reports from "./Reports/Reports";
+import {gettext} from '../../superdeskApi';
 
-const { gettext } = superdesk.localization;
 class Analytics extends React.Component {
   
   constructor(props) {
