@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
-
+import { superdesk } from '../../../publisher-extension/src/superdesk';
 import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
 
 import SitesSideNav from "../generic/SitesSideNav";
@@ -11,7 +11,9 @@ import Listing from "./Listing";
 import SortingOptions from "./SortingOptions";
 import Reports from "./Reports/Reports";
 
+const { gettext } = superdesk.localization;
 class Analytics extends React.Component {
+  
   constructor(props) {
     super(props);
 
@@ -222,6 +224,7 @@ class Analytics extends React.Component {
               <i className="icon-arrow-left" />
             </a>
             <h3 className="subnav__page-title">
+              {gettext('Copy')} ugaczaka
               Content Analytics
               {this.state.selectedSite && this.state.selectedSite.name && (
                 <span> / {this.state.selectedSite.name}</span>
