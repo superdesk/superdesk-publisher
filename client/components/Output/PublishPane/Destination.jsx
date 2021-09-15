@@ -7,6 +7,7 @@ import PublishingOptionSwitches from "../../generic/PublishingOptionSwitches";
 import RouteSelect from "./RouteSelect";
 import MetadataButtons from "./MetadataButtons";
 import ContentListPicker from "./ContentListPicker";
+import { gettext } from "../../../superdeskApi";
 
 class Destination extends React.Component {
   static contextType = Store;
@@ -111,7 +112,7 @@ class Destination extends React.Component {
                 {destination.status === "new" ? (
                   <IconButton
                     icon="trash"
-                    tooltip={{ text: "Remove tenant", flow: "left" }}
+                    tooltip={{ text: gettext("Remove tenant"), flow: "left" }}
                     onClick={(event) => {
                       this.props.remove();
                       event.stopPropagation();
@@ -128,7 +129,7 @@ class Destination extends React.Component {
                   })}
                 >
                   {shouldItemMarkedUnpublished
-                    ? "unpublished"
+                    ? gettext("unpublished")
                     : destination.route
                     ? destination.route.name
                     : null}
@@ -148,7 +149,7 @@ class Destination extends React.Component {
               {destination.content_lists && destination.content_lists.length ? (
                 <div className="sd-list-item__row">
                   <span className="sd-list-item__text-label">
-                    Content lists:
+                    {gettext("Content lists")}:
                   </span>
                   <span className="sd-overflow-ellipsis">
                     {destination.content_lists.map((list, index) =>
@@ -175,7 +176,7 @@ class Destination extends React.Component {
               {destination.status === "new" && (
                 <IconButton
                   icon="trash"
-                  tooltip={{ text: "Remove tenant", flow: "left" }}
+                  tooltip={{ text: gettext("Remove tenant"), flow: "left" }}
                   onClick={(event) => {
                     this.props.remove();
                     event.stopPropagation();
@@ -198,7 +199,7 @@ class Destination extends React.Component {
                         href={destination.live_url}
                         target="_blank"
                         className="icn-btn"
-                        sd-tooltip="Preview"
+                        sd-tooltip={gettext("Preview")}
                         flow="bottom"
                       >
                         <i className="icon-external icon--full-opacity icon--white"></i>
@@ -214,7 +215,7 @@ class Destination extends React.Component {
                       <a
                         onClick={() => this.props.openPreview(destination)}
                         className="icn-btn"
-                        sd-tooltip="Preview"
+                        sd-tooltip={gettext("Preview")}
                         flow="bottom"
                       >
                         <i className="icon-external icon--full-opacity icon--white"></i>
@@ -255,7 +256,7 @@ class Destination extends React.Component {
             destination.content_lists.length &&
             destination.status !== "new" ? (
               <div className="form__row">
-                <label className="form-label">Content lists</label>
+                <label className="form-label">{gettext("Content lists")}</label>
                 <div>
                   {destination.content_lists.map((list, index) => (
                     <span
@@ -294,7 +295,7 @@ class Destination extends React.Component {
                     this.handleSwitchChange(value, "republish")
                   }
                 />
-                <label style={{ color: "rgb(255, 255, 255)" }}>Republish</label>
+                <label style={{ color: "rgb(255, 255, 255)" }}>{gettext("Republish")}</label>
               </div>
             )}
           </div>

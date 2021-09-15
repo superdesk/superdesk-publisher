@@ -5,7 +5,7 @@ import _ from "lodash";
 import { Button } from "superdesk-ui-framework/react";
 import Loading from "../../UI/Loading/Loading";
 import Store from "../Store";
-
+import {gettext} from "../../../superdeskApi"
 class Unpublish extends React.Component {
   static contextType = Store;
 
@@ -83,7 +83,7 @@ class Unpublish extends React.Component {
 
         <div className="side-panel__footer side-panel__footer--button-box-large">
           <Button
-            text="Unpublish"
+            text={gettext("Unpublish")}
             type="alert"
             expand={true}
             disabled={

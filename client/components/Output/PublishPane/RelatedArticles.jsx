@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { ToggleBox } from "../../UI/ToggleBox";
 import Loading from "../../UI/Loading/Loading";
 import Store from "../Store";
+import {gettext} from "../../../superdeskApi"
 
 class RelatedArticles extends React.Component {
   static contextType = Store;
@@ -62,7 +63,7 @@ class RelatedArticles extends React.Component {
     return (
       <div className="side-panel__content-block">
         <ToggleBox
-          title="Related Articles"
+          title={gettext("Related Articles")}
           style="toggle-box--dark sp--dark-ui"
           isOpen={true}
         >

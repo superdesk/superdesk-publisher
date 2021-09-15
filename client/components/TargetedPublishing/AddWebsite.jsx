@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-
+import { gettext } from "../../superdeskApi";
 import { Button } from "superdesk-ui-framework/react";
 
 class AddWebsite extends React.Component {
@@ -85,7 +85,7 @@ class AddWebsite extends React.Component {
         )}
         <div style={styles.addWebsiteDropdown} data-testid="dropdown">
           <div style={{ padding: "1.5rem" }}>
-            <h3 className="tp-dropdown-heading">Add Website</h3>
+            <h3 className="tp-dropdown-heading">{gettext("Add Website")}</h3>
             <ul className="simple-list--dotted simple-list">
               {remainingSites.map((site) => (
                 <li

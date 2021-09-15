@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { gettext } from "../../superdeskApi";
 
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 import { Label } from "superdesk-ui-framework/react";
@@ -17,7 +18,7 @@ const PreviewStatusLabels = ({ articles }) => {
     <React.Fragment>
       {articles.filter((item) => item.status === "published").length ? (
         <div className="form__row form__row--small-padding">
-          <label>Published to:</label>
+          <label>{gettext("Published to")}:</label>
           <div>
             {articles
               .filter((item) => item.status === "published")
@@ -61,7 +62,7 @@ const PreviewStatusLabels = ({ articles }) => {
       ) : null}
       {articles.filter((item) => item.status === "new").length ? (
         <div className="form__row form__row--small-padding">
-          <label>Sent to:</label>
+          <label>{gettext("Sent to")}:</label>
           <div>
             {articles
               .filter((item) => item.status === "new")
@@ -77,7 +78,7 @@ const PreviewStatusLabels = ({ articles }) => {
       ) : null}
       {articles.filter((item) => item.status === "unpublished").length ? (
         <div className="form__row form__row--small-padding">
-          <label>Unpublished from:</label>
+          <label>{gettext("Unpublished from")}:</label>
           <div>
             {articles
               .filter((item) => item.status === "unpublished")

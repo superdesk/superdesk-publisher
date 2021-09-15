@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { gettext } from "../../../superdeskApi";
 
 import _ from "lodash";
 import { Button, IconButton } from "superdesk-ui-framework/react";
@@ -130,17 +131,17 @@ class FilterPanel extends React.Component {
             <span className="side-panel__close">
               <IconButton
                 icon="close-small"
-                tooltip={{ text: "Close", flow: "left" }}
+                tooltip={{ text: gettext("Close"), flow: "left" }}
                 onClick={this.props.toggle}
               />
             </span>
-            <h3 className="side-panel__heading">Advanced filters</h3>
+            <h3 className="side-panel__heading">{gettext("Advanced filters")}</h3>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                  <label className="sd-line-input__label">Routes</label>
+                  <label className="sd-line-input__label">{gettext("Routes")}</label>
                   <MultiSelect
                     onSelect={(values) => this.handleRoutesChange(values)}
                     options={routesOptions}
@@ -150,7 +151,7 @@ class FilterPanel extends React.Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                  <label className="sd-line-input__label">Author</label>
+                  <label className="sd-line-input__label">{gettext("Author")}</label>
                   <AsyncMultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
                     loadOptions={(inputValue) => this.loadAuthors(inputValue)}
@@ -162,7 +163,7 @@ class FilterPanel extends React.Component {
               </div>
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Published date</label>
+                  <label className="sd-line-input__label">{gettext("Published date")}</label>
                   <input
                     className="sd-line-input__input"
                     type="date"
@@ -179,7 +180,7 @@ class FilterPanel extends React.Component {
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">
-                    Published after
+                    {gettext("Published after")}
                   </label>
                   <input
                     className="sd-line-input__input"
@@ -197,7 +198,7 @@ class FilterPanel extends React.Component {
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">
-                    Published before
+                    {gettext("Published before")}
                   </label>
                   <input
                     className="sd-line-input__input"
@@ -216,8 +217,8 @@ class FilterPanel extends React.Component {
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-              <Button text="Clear" style="hollow" onClick={this.clear} />
-              <Button text="Filter" type="primary" onClick={this.save} />
+              <Button text={gettext("Clear")} style="hollow" onClick={this.clear} />
+              <Button text={gettext("Filter")} type="primary" onClick={this.save} />
             </div>
           </div>
         </div>

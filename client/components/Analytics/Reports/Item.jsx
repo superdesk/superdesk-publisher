@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import classNames from "classnames";
+import {gettext} from '../../../superdeskApi';
 
 const Item = ({ item }) => {
   let filterAuthors = "",
@@ -29,13 +30,13 @@ const Item = ({ item }) => {
         <div className="sd-list-item__row">
           <div className="sd-overflow-ellipsis">
             <span className="sd-text__date-time sd-text__italic">
-              Report Author:{" "}
+              {gettext("Report Author")}:{" "}
             </span>
             <span className="sd-text__normal sd-margin-r--1">
               {item.user.username}
             </span>
             <span className="sd-text__date-time sd-text__italic">
-              Report created:{" "}
+              {gettext("Report created")}:{" "}
             </span>
             <span className="sd-text__date-time sd-margin-r--1">
               {moment(item.created_at).format("YYYY-MM-DD, HH:mm")}
@@ -50,11 +51,11 @@ const Item = ({ item }) => {
               "label--alert": item.status === "errored"
             })}
           >
-            {item.status}
+            {gettext(item.status)}
           </span>
           {(item.filters.start || item.filters.end) && (
             <React.Fragment>
-              <span className="sd-text__date-time sd-text__italic">Range:</span>
+              <span className="sd-text__date-time sd-text__italic">{gettext("Range")}:</span>
               <span className="sd-text__normal sd-margin-r--1 leftSpace">
                 {item.filters.start &&
                   moment(item.filters.start).format("YYYY-MM-DD")}{" "}
@@ -67,7 +68,7 @@ const Item = ({ item }) => {
           {filterCategories && (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">
-                Category:
+                {gettext("Category")}:
               </span>
               <span className="sd-text__normal sd-margin-r--1 leftSpace">
                 {filterCategories}
@@ -77,7 +78,7 @@ const Item = ({ item }) => {
           {filterAuthors && (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">
-                Authors:
+                {gettext("Authors")}:
               </span>
               <span className="sd-text__normal sd-margin-r--1 leftSpace">
                 {filterAuthors}

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "superdesk-ui-framework/react";
-
+import { gettext } from "../../superdeskApi";
 const ContentListElement = (props) => {
   const createPositionOptions = (list) => {
     if (!Number.isInteger(list.id)) return null;
@@ -57,13 +57,13 @@ const ContentListElement = (props) => {
         <div className="sd-list-item__row no-margin sd-flex-justify-end">
           <IconButton
             icon="trash"
-            tooltip={{ text: "Remove list", flow: "left" }}
+            tooltip={{ text: gettext("Remove list"), flow: "left" }}
             onClick={() => props.removeList(props.index)}
           />
         </div>
         <div className="sd-list-item__row">
           <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow">
-            <label className="sd-line-input__label">Choose list</label>
+            <label className="sd-line-input__label">{gettext("Choose list")}</label>
             <select
               className="sd-line-input__select"
               value={props.list.id ? props.list.id : ""}
@@ -84,7 +84,7 @@ const ContentListElement = (props) => {
         </div>
         <div className="sd-list-item__row">
           <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow">
-            <label className="sd-line-input__label">Set order</label>
+            <label className="sd-line-input__label">{gettext("Set order")}</label>
             <select
               className="sd-line-input__select"
               value={props.list.position}

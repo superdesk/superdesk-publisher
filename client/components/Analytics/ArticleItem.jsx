@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import {gettext} from '../../superdeskApi';
 
 const ArticleItem = ({ item, style }) => {
   return (
@@ -17,7 +18,7 @@ const ArticleItem = ({ item, style }) => {
           {item.authors && item.authors.length ? (
             <React.Fragment>
               <span className="sd-text__date-time sd-text__italic">
-                Authors:{" "}
+                {gettext("Authors")}:{" "}
               </span>
               <span className="sd-text__normal sd-margin-r--1">
                 {item.authors.map((author, index) =>
@@ -32,7 +33,7 @@ const ArticleItem = ({ item, style }) => {
           ) : null}
 
           <span className="sd-text__date-time sd-text__italic ">
-            Published:{" "}
+            {gettext("Published")}:{" "}
           </span>
           <time>{moment(item.published_at).format("YYYY.MM.DD, HH:mm")}</time>
         </div>

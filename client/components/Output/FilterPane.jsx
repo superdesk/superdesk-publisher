@@ -4,7 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
 import { Button, IconButton, DatePicker } from "superdesk-ui-framework/react";
-
+import { gettext } from "../../superdeskApi";
 import MultiSelect from "../UI/MultiSelect";
 import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import Store from "./Store";
@@ -195,19 +195,19 @@ class FilterPane extends React.Component {
                 <span className="side-panel__close">
                   <IconButton
                     icon="close-small"
-                    tooltip={{ text: "Close", flow: "left" }}
+                    tooltip={{ text: gettext("Close"), flow: "left" }}
                     onClick={this.props.toggle}
                   />
                 </span>
                 <h3 className="side-panel__heading side-panel__heading--big">
-                  Advanced Filter
+                  {gettext("Advanced Filter")}
                 </h3>
               </div>
               <div className="side-panel__content">
                 <div className="side-panel__content-block">
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Routes</label>
+                      <label className="sd-line-input__label">{gettext("Routes")}</label>
                       <MultiSelect
                         onSelect={(values) => this.handleRoutesChange(values)}
                         options={routesOptions}
@@ -217,7 +217,7 @@ class FilterPane extends React.Component {
                   </div>
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Authors</label>
+                      <label className="sd-line-input__label">{gettext("Authors")}</label>
                       <AsyncMultiSelect
                         onSelect={(values) => this.handleAuthorChange(values)}
                         loadOptions={(inputValue) =>
@@ -230,7 +230,7 @@ class FilterPane extends React.Component {
                   <div className="form__row form__row--flex">
                     <div className="sd-line-input sd-line-input--no-margin form__row-item">
                       <label className="sd-line-input__label">
-                        Published after
+                        {gettext("Published after")}
                       </label>
                       <DatePicker
                         value={
@@ -257,7 +257,7 @@ class FilterPane extends React.Component {
 
                     <div className="form__row-item sd-line-input sd-line-input--no-margin">
                       <label className="sd-line-input__label">
-                        Published before
+                        {gettext("Published before")}
                       </label>
                       <DatePicker
                         value={
@@ -285,7 +285,7 @@ class FilterPane extends React.Component {
                   <div className="form__row">
                     <div className="sd-line-input">
                       <label className="sd-line-input__label">
-                        Ingest source
+                        {gettext("Ingest source")}
                       </label>
                       <MultiSelect
                         onSelect={(values) => this.handleSourceChange(values)}
@@ -298,8 +298,8 @@ class FilterPane extends React.Component {
               </div>
               <div className="side-panel__footer side-panel__footer--button-box">
                 <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-                  <Button text="Clear" style="hollow" onClick={this.clear} />
-                  <Button text="Filter" type="primary" onClick={this.save} />
+                  <Button text={gettext("Clear")} style="hollow" onClick={this.clear} />
+                  <Button text={gettext("Filter")} type="primary" onClick={this.save} />
                 </div>
               </div>
             </div>

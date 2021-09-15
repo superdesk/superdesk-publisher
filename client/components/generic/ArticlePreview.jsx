@@ -8,6 +8,7 @@ import helpers from "../../services/helpers";
 import Slideshow from "../UI/Slideshow/Slideshow";
 import PreviewStatusLabels from "./PreviewStatusLabels";
 import { IconButton, IconLabel } from "superdesk-ui-framework/react";
+import { gettext } from "../../superdeskApi";
 
 const ArticlePreview = ({ article, close }) => {
   const [state, setState] = React.useState({ isExpanded: true });
@@ -57,11 +58,11 @@ const ArticlePreview = ({ article, close }) => {
           <div className="side-panel__tools">
             <IconButton
               icon="close-small"
-              tooltip={{ text: "Close", flow: "left" }}
+              tooltip={{ text: gettext("Close"), flow: "left" }}
               onClick={close}
             />
           </div>
-          <h3 className="side-panel__heading">Item preview</h3>
+          <h3 className="side-panel__heading">{gettext("Item preview")}</h3>
         </div>
 
         <div className="side-panel__content">
@@ -94,7 +95,7 @@ const ArticlePreview = ({ article, close }) => {
 
                 {authors && (
                   <span className="leftSpace">
-                    by <strong>{authors}</strong>
+                    {gettext("by")} <strong>{authors}</strong>
                   </span>
                 )}
               </p>
@@ -119,7 +120,7 @@ const ArticlePreview = ({ article, close }) => {
                   <div className="flex-grid flex-grid--wrap-items flex-grid--small-2">
                     <div className="flex-grid__item">
                       <label className="form-label form-label--light">
-                        Page views
+                        {gettext("Page views")}
                       </label>
                       <p>
                         {article.article_statistics
@@ -129,7 +130,7 @@ const ArticlePreview = ({ article, close }) => {
                     </div>
                     <div className="flex-grid__item">
                       <label className="form-label form-label--light">
-                        Comments
+                        {gettext("Comments")}
                       </label>
                       <p>
                         {article.comments_count ? article.comments_count : 0}

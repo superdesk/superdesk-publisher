@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {gettext} from '../../superdeskApi';
 
 import VirtualizedList from "../generic/VirtualizedList";
 import ArticleItem from "./ArticleItem";
@@ -13,11 +14,11 @@ const Listing = props => {
       >
         <div className="sd-flex-table__row sd-flex-table--head">
           <div className="sd-flex-table__cell sd-flex-grow">
-            <div>Title</div>
+            <div>{gettext("Title")}</div>
           </div>
           <div className="sd-flex-table__cell">&nbsp;</div>
           <div className="sd-flex-table__cell">
-            <div>Page Views</div>
+            <div>{gettext("Page Views")}</div>
           </div>
           {/* <div className="sd-flex-table__cell">
           <div>Click Rate</div>
@@ -30,7 +31,7 @@ const Listing = props => {
           props.articles.items &&
           !props.articles.items.length && (
             <p style={{ padding: "1em", textAlign: "center" }}>
-              No results found
+              {gettext("No results found")}
             </p>
           )}
         {!props.loading && (

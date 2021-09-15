@@ -7,6 +7,7 @@ import { Button, IconButton, Label } from "superdesk-ui-framework/react";
 import Store from "./Store";
 import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 import Modal from "../UI/Modal";
+import { gettext } from "../../superdeskApi";
 
 const ArticleItem = ({ item, style, onRemove }) => {
   const store = React.useContext(Store);
@@ -23,7 +24,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
         setState({ confirm: false });
         onRemove(item.id);
       })
-      .catch((e) => store.notify.error("Cannot remove article"));
+      .catch((e) => store.notify.error(gettext("Cannot remove article")));
   };
 
   let modalContent = null;
@@ -31,21 +32,21 @@ const ArticleItem = ({ item, style, onRemove }) => {
     modalContent = (
       <React.Fragment>
         <div className="modal__header ">
-          <h3>Confirm</h3>
+          <h3>{gettext("Confirm")}</h3>
         </div>
         <div className="modal__body ">
-          Please confirm you want to remove article from incoming list.
+          {gettext("Please confirm you want to remove article from incoming list.")}
         </div>
         <div className="modal__footer">
           <Button
-            text="Cancel"
+            text={gettext("Cancel")}
             onClick={(e) => {
               e.stopPropagation();
               removeCancel();
             }}
           />
           <Button
-            text="Remove"
+            text={gettext("Remove")}
             type="primary"
             onClick={(e) => {
               e.stopPropagation();
@@ -95,7 +96,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
               sd-tooltip={moment(item.updated_at).format("HH:mm")}
               flow="right"
             >
-              (updated at: {moment(item.updated_at).format("YYYY-MM-DD")})
+              ({gettext("updated at")}: {moment(item.updated_at).format("YYYY-MM-DD")})
             </time>
           ) : null}
         </div>
@@ -134,7 +135,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           {item.articles[0] && item.articles[0].paywall_secured && (
             <span
               className="sd-list-item__inline-text no-line-height"
-              sd-tooltip="Paywall secured"
+              sd-tooltip={gettext("Paywall secured")}
               flow="left"
             >
               <i className="icon-paywall icon--orange icon--full-opacity"></i>
@@ -175,7 +176,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
           ) : null}
           {item.articles.length - 3 > 0 && (
             <span className="sd-margin-r--1">
-              +{item.articles.length - 3} more
+              +{item.articles.length - 3} {gettext("more")}
             </span>
           )}
 
@@ -188,21 +189,21 @@ const ArticleItem = ({ item, style, onRemove }) => {
 
             {store.selectedList === "published" && item.page_views_count ? (
               <React.Fragment>
-                <span className="sd-list-item__text-label">pageviews:</span>
+                <span className="sd-list-item__text-label">{gettext("pageviews")}:</span>
                 <span>{item.page_views_count}</span>
               </React.Fragment>
             ) : null}
 
             {store.selectedList === "published" && item.comments_count ? (
               <React.Fragment>
-                <span className="sd-list-item__text-label">comments:</span>
+                <span className="sd-list-item__text-label">{gettext("comments")}:</span>
                 <span>{item.comments_count}</span>
               </React.Fragment>
             ) : null}
 
             {item.place && item.place.length ? (
               <React.Fragment>
-                <span className="sd-list-item__text-label">location:</span>
+                <span className="sd-list-item__text-label">{gettext("location")}:</span>
                 {item.place.map((place, index) =>
                   index > 0 ? (
                     <span key={"place" + index}>, {place.name}</span>
@@ -225,7 +226,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
         {store.selectedList === "incoming" && (
           <IconButton
             icon="trash"
-            tooltip={{ text: "Remove", flow: "left" }}
+            tooltip={{ text: gettext("Remove"), flow: "left" }}
             onClick={(e) => {
               e.stopPropagation();
               removeConfirm();
@@ -235,7 +236,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
 
         <IconButton
           icon="pencil"
-          tooltip={{ text: "Correct", flow: "left" }}
+          tooltip={{ text: gettext("Correct"), flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.correctPackage(item);
@@ -243,7 +244,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
         />
         <IconButton
           icon="expand-thin"
-          tooltip={{ text: "Publish", flow: "left" }}
+          tooltip={{ text: gettext("Publish"), flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.togglePublish(item);

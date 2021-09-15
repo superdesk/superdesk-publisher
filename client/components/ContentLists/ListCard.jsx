@@ -7,7 +7,7 @@ import _ from "lodash";
 import { Button, Label } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
 import Modal from "../UI/Modal";
-
+import {gettext} from '../../superdeskApi';
 class ListCard extends React.Component {
   constructor(props) {
     super(props);
@@ -109,13 +109,13 @@ class ListCard extends React.Component {
             <a className="close" onClick={this.modalClose}>
               <i className="icon-close-small" />
             </a>
-            <h3>Settings</h3>
+            <h3>{gettext("Settings")}</h3>
           </div>
           <div className="modal__body">
             <form name="settingsForm">
               <fieldset>
                 <div className="field">
-                  <label htmlFor="listLimit">number of articles limit</label>
+                  <label htmlFor="listLimit">{gettext("number of articles limit")}</label>
                   <input
                     type="number"
                     className="line-input"
@@ -126,7 +126,7 @@ class ListCard extends React.Component {
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="listLimit">Description</label>
+                  <label htmlFor="listLimit">{gettext("Description")}</label>
                   <input
                     type="text"
                     className="line-input"
@@ -136,7 +136,7 @@ class ListCard extends React.Component {
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="listCacheLifeTime">cache lifetime</label>
+                  <label htmlFor="listCacheLifeTime">{gettext("cache lifetime")}</label>
                   <input
                     type="number"
                     className="line-input"
@@ -153,7 +153,7 @@ class ListCard extends React.Component {
           <div className="modal__footer">
             <Button text="Cancel" onClick={this.modalClose} />
             <Button
-              text="Save"
+              text={gettext("Save")}
               type="primary"
               onClick={this.save}
               disabled={_.isEmpty(
@@ -169,14 +169,14 @@ class ListCard extends React.Component {
       modalContent = (
         <React.Fragment>
           <div className="modal__header ">
-            <h3>Confirm</h3>
+            <h3>{gettext("Confirmation")}</h3>
           </div>
           <div className="modal__body ">
-            Please confirm you want to delete list.
+            {gettext("Please confirm you want to delete list.")}
           </div>
           <div className="modal__footer">
-            <Button text="Cancel" onClick={this.modalClose} />
-            <Button text="Ok" type="primary" onClick={this.deleteList} />
+            <Button text={gettext("Cancel")} onClick={this.modalClose} />
+            <Button text={gettext("Ok")} type="primary" onClick={this.deleteList} />
           </div>
         </React.Fragment>
       );
@@ -222,7 +222,7 @@ class ListCard extends React.Component {
                 </div>
                 <div className="sd-card__actions-group">
                   <Button
-                    text="Edit"
+                    text={gettext("Edit")}
                     style="hollow"
                     size="small"
                     theme="dark"
@@ -239,13 +239,13 @@ class ListCard extends React.Component {
                     <li>
                       <button onClick={this.settingsShow} title="Settings">
                         <i className="icon-settings" />
-                        Settings
+                        {gettext("Settings")}
                       </button>
                     </li>
                     <li>
                       <button onClick={this.deleteConfirm} title="Remove list">
                         <i className="icon-trash" />
-                        Remove
+                        {gettext("Remove")}
                       </button>
                     </li>
                   </Dropdown>
@@ -260,7 +260,7 @@ class ListCard extends React.Component {
                 (!this.state.list.latest_items ||
                   !this.state.list.latest_items.length) && (
                   <div className="sd-card__content-list-item sd-card__content-list-item--small">
-                    <span>No articles in this list</span>
+                    <span>{gettext("No articles in this list")}</span>
                   </div>
                 )}
               {!this.state.loading &&
@@ -288,18 +288,18 @@ class ListCard extends React.Component {
                   className="sd-card__content-list-item sd-card__content-list-item--small"
                   style={{ fontStyle: "italic" }}
                 >
-                  {this.state.moreItemsAmount} more...
+                  {this.state.moreItemsAmount} {gettext("more...")}
                 </li>
               ) : null}
             </ul>
           </div>
           <div className="sd-card__footer sd-card__footer--spread">
             <div>
-              <span className="sd-text__info">Last modified: </span>
+              <span className="sd-text__info">{gettext("Last modified")}: </span>
               <span>{moment(list.updated_at).fromNow()}</span>
             </div>
             {list.enabled && (
-              <Label text="active" type="success" style="hollow" />
+              <Label text={gettext("active")} type="success" style="hollow" />
             )}
           </div>
         </div>

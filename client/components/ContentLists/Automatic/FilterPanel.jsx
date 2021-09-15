@@ -6,6 +6,7 @@ import { Button, IconButton, Dropdown } from "superdesk-ui-framework/react";
 import MultiSelect from "../../UI/MultiSelect";
 import AsyncMultiSelect from "../../UI/AsyncMultiSelect";
 import { DatePicker } from "superdesk-ui-framework/react";
+import { gettext } from "../../../superdeskApi";
 
 class FilterPanel extends React.Component {
   constructor(props) {
@@ -290,10 +291,10 @@ class FilterPanel extends React.Component {
         this.setState({ loading: false });
         if (err.status === 409) {
           this.props.api.notify.error(
-            "Cannot save. List has been modified by another user"
+            gettext("Cannot save. List has been modified by another user")
           );
         } else {
-          this.props.api.notify.error("Something went wrong. Try again.");
+          this.props.api.notify.error(gettext("Something went wrong. Try again."));
         }
       });
   };
@@ -407,19 +408,19 @@ class FilterPanel extends React.Component {
             <span className="side-panel__close">
               <IconButton
                 icon="close-small"
-                tooltip={{ text: "Close", flow: "left" }}
+                tooltip={{ text: gettext("Close"), flow: "left" }}
                 onClick={this.props.toggle}
               />
             </span>
             <h3 className="side-panel__heading side-panel__heading--big">
-              Automatic List Criteria
+              {gettext("Automatic List Criteria")}
             </h3>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Routes</label>
+                  <label className="sd-line-input__label">{gettext("Routes")}</label>
                   <MultiSelect
                     onSelect={(values) => this.handleRoutesChange(values)}
                     options={this.state.routes}
@@ -429,7 +430,7 @@ class FilterPanel extends React.Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Author</label>
+                  <label className="sd-line-input__label">{gettext("Author")}</label>
                   <AsyncMultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
                     loadOptions={(inputValue) => this.loadAuthors(inputValue)}
@@ -442,7 +443,7 @@ class FilterPanel extends React.Component {
 
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Publish date</label>
+                  <label className="sd-line-input__label">{gettext("Publish date")}</label>
                   <DatePicker
                     value={
                       this.state.filters.published_at
@@ -469,7 +470,7 @@ class FilterPanel extends React.Component {
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin form__row-item">
                   <label className="sd-line-input__label">
-                    Published after
+                    {gettext("Published after")}
                   </label>
                   <DatePicker
                     value={
@@ -496,7 +497,7 @@ class FilterPanel extends React.Component {
 
                 <div className="form__row-item sd-line-input sd-line-input--no-margin">
                   <label className="sd-line-input__label">
-                    Published before
+                    {gettext("Published before")}
                   </label>
                   <DatePicker
                     value={
@@ -565,7 +566,7 @@ class FilterPanel extends React.Component {
                 })}
               >
                 <button className="btn btn--small btn--primary">
-                  <i className="icon-plus-sign"></i>Add Metadata
+                  <i className="icon-plus-sign"></i>{gettext("Add Metadata")}
                 </button>
               </Dropdown>
             </div>
@@ -574,7 +575,7 @@ class FilterPanel extends React.Component {
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
               <Button text="Clear" style="hollow" onClick={this.clear} />
               <Button
-                text="Update Criteria"
+                text={gettext("Update Criteria")}
                 type="primary"
                 onClick={this.save}
               />

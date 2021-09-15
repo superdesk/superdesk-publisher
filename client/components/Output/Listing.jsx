@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-
+import { gettext } from "../../superdeskApi";
 import helpers from "../../services/helpers.js";
 import VirtualizedList from "../generic/VirtualizedList";
 import ArticleItem from "./ArticleItem";
@@ -247,7 +247,7 @@ class Listing extends React.Component {
       .catch((err) => {
         articles.loading = false;
         this.setState({ articles, loading: false });
-        this.context.notify.error("Cannot load articles");
+        this.context.notify.error(gettext("Cannot load articles"));
       });
   };
 
@@ -308,7 +308,7 @@ class Listing extends React.Component {
               <i className="big-icon--text"></i>
             </div>
             <h3 className="panel-info__heading">
-              No {this.props.type} articles.
+              {gettext("No {{type}} articles.", {type: this.props.type})}
             </h3>
           </div>
         ) : null}

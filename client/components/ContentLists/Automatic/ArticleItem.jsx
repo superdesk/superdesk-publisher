@@ -4,6 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 
 import helpers from "../../../services/helpers.js";
+import { gettext } from "../../../superdeskApi";
 
 const ArticleItem = ({
   item,
@@ -66,7 +67,7 @@ const ArticleItem = ({
                 sd-tooltip={moment(item.content.updated_at).format("HH:mm")}
                 flow="right"
               >
-                (updated at:{" "}
+                ({gettext("updated at")}:{" "}
                 {moment(item.content.updated_at).format("YYYY-MM-DD")})
               </time>
             ) : null}
@@ -83,7 +84,7 @@ const ArticleItem = ({
           </span>
           {item.sticky && (
             <span className="pull-right label label--alert label--hollow">
-              pinned
+              {gettext("pinned")}
             </span>
           )}
         </div>
@@ -95,8 +96,8 @@ const ArticleItem = ({
             e.stopPropagation();
             pinUnpin(item);
           }}
-          title={item.sticky ? "Unpin" : "Pin"}
-          sd-tooltip={item.sticky ? "Unpin" : "Pin"}
+          title={item.sticky ? gettext("Unpin") : gettext("Pin")}
+          sd-tooltip={item.sticky ? gettext("Unpin") : gettext("Pin")}
           flow="left"
         >
           <i className="icon-pin" />
@@ -106,9 +107,9 @@ const ArticleItem = ({
             e.stopPropagation();
             remove(item.content.id);
           }}
-          sd-tooltip="remove"
+          sd-tooltip={gettext("remove")}
           flow="left"
-          title="Remove"
+          title={gettext("Remove")}
         >
           <i className="icon-trash" />
         </button>

@@ -9,6 +9,7 @@ import { Label, IconButton } from "superdesk-ui-framework/react";
 import ContentLists from "./ContentLists";
 import RouteSelect from "./RouteSelect";
 import PublishingOptionSwitches from "../generic/PublishingOptionSwitches";
+import { gettext } from "../../superdeskApi";
 class Destination extends Component {
   constructor(props) {
     super(props);
@@ -349,7 +350,7 @@ class Destination extends Component {
     }
 
     let preview = (
-      <a className="icn-btn" sd-tooltip="Preview" flow="left" target="_blank" />
+      <a className="icn-btn" sd-tooltip={gettext("Preview")} flow="left" target="_blank" />
     );
 
     if (this.state.previewUrl) {
@@ -358,7 +359,7 @@ class Destination extends Component {
           href={this.state.previewUrl}
           target="_blank"
           className="icn-btn"
-          sd-tooltip="Preview"
+          sd-tooltip={gettext("Preview")}
           flow="left"
         >
           <i className="icon-external" />
@@ -396,19 +397,19 @@ class Destination extends Component {
               </div>
               {!this.state.destination.published && (
                 <div className="sd-list-item__row">
-                  <Label text="Do not publish" type="alert" />
+                  <Label text={gettext("Do not publish")} type="alert" />
                 </div>
               )}
               {this.state.destination.published && publishRoute && (
                 <div className="sd-list-item__row">
-                  <span className="sd-list-item__text-label">Publish to:</span>
+                  <span className="sd-list-item__text-label">{gettext("Publish to")}:</span>
                   <span className="sd-overflow-ellipsis">{publishRoute}</span>
                 </div>
               )}
               {contentListsNames && this.state.destination.published && (
                 <div className="sd-list-item__row">
                   <span className="sd-list-item__text-label">
-                    Content lists:
+                    {gettext("Content lists")}:
                   </span>
                   <span className="sd-overflow-ellipsis">
                     {contentListsNames}
@@ -426,7 +427,7 @@ class Destination extends Component {
               </span>
               <IconButton
                 icon="trash"
-                tooltip={{ text: "Remove", flow: "left" }}
+                tooltip={{ text: gettext("Remove"), flow: "left" }}
                 onClick={this.delete}
               />
             </div>
@@ -442,7 +443,7 @@ class Destination extends Component {
                   {publishRoute && (
                     <div className="sd-list-item__row">
                       <span className="sd-list-item__text-label sd-overflow-ellipsis">
-                        Automatically:
+                        {gettext("Automatically")}:
                       </span>
                       <span className="sd-overflow-ellipsis">
                         {publishRoute}
@@ -452,7 +453,7 @@ class Destination extends Component {
                   {contentListsNames ? (
                     <div className="sd-list-item__row">
                       <span className="sd-list-item__text-label">
-                        Content lists:
+                        {gettext("Content lists")}:
                       </span>
                       <span className="sd-overflow-ellipsis">
                         {contentListsNames}

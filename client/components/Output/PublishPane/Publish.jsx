@@ -14,6 +14,7 @@ import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
 import MetadataEditor from "./MetadataEditor";
 import Store from "../Store";
+import { gettext } from "../../../superdeskApi";
 
 class Publish extends React.Component {
   static contextType = Store;
@@ -210,7 +211,7 @@ class Publish extends React.Component {
                   icon="plus-large"
                   shape="round"
                   iconOnly={true}
-                  sd-tooltip="Add destination"
+                  sd-tooltip={gettext("Add destination")}
                   flow="right"
                   disabled={this.state.availableTenants.length ? false : true}
                 />
@@ -229,9 +230,9 @@ class Publish extends React.Component {
                 <RadioButton
                   value={this.state.filter}
                   options={[
-                    { value: "all", label: "All" },
-                    { value: "published", label: "Published" },
-                    { value: "unpublished", label: "Unpublished" },
+                    { value: "all", label: gettext("All") },
+                    { value: "published", label: gettext("Published") },
+                    { value: "unpublished", label: gettext("Unpublished") },
                   ]}
                   onChange={(value) => this.setFilter(value)}
                 />
@@ -276,7 +277,7 @@ class Publish extends React.Component {
 
         <div className="side-panel__footer side-panel__footer--button-box-large">
           <Button
-            text="Publish"
+            text={gettext("Publish")}
             type="success"
             expand={true}
             onClick={this.publish}

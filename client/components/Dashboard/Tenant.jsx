@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {gettext} from '../../superdeskApi';
 
 const Tenant = ({ tenant }) => {
   return (
@@ -34,9 +35,9 @@ const Tenant = ({ tenant }) => {
               {tenant.articles_count}
             </div>
             <div className="big-number-block__text">
-              Published
+              {gettext("Published")}
               <br />
-              items
+              {gettext("items")}
             </div>
           </div>
           {!tenant.output_channel ? (

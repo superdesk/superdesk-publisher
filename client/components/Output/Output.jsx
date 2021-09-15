@@ -12,6 +12,7 @@ import Listing from "./Listing";
 import PreviewPane from "./PreviewPane";
 import Swimlane from "./Swimlane/Swimlane";
 import Websocket from "../../services/websocket";
+import {gettext} from "../../superdeskApi"
 
 class Output extends React.Component {
   constructor(props) {
@@ -204,7 +205,7 @@ class Output extends React.Component {
               <i className="icon-filter-large" />
             </button>
             <h3 className="subnav__page-title sd-flex-no-grow">
-              Output Control
+              {gettext("Output Control")}
             </h3>
             <SearchBar
               leftBorder={true}

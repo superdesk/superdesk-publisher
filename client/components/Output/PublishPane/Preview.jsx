@@ -5,7 +5,7 @@ import _ from "lodash";
 import Store from "../Store";
 import Modal from "../../UI/Modal";
 import { Button } from "superdesk-ui-framework/react";
-
+import {gettext} from "../../../superdeskApi"
 class Preview extends React.Component {
   static contextType = Store;
 
@@ -93,7 +93,7 @@ class Preview extends React.Component {
       <Modal isOpen={true} type="modal--kindafullscreen">
         <div className="subnav subnav--lower-z-index">
           <h6 className="sd-margin-l--1" style={{ width: "300px" }}>
-            Live preview: <b className="text--dark">{modeName}</b>
+            {gettext("Live preview")}: <b className="text--dark">{modeName}</b>
           </h6>
 
           <div className="text--center">
@@ -149,7 +149,7 @@ class Preview extends React.Component {
           </div>
           <div className="subnav__stretch-bar"></div>
           <span className="sd-margin-r--1">
-            <Button text="Close" onClick={() => this.props.close()} />
+            <Button text={gettext("Close")} onClick={() => this.props.close()} />
           </span>
         </div>
 

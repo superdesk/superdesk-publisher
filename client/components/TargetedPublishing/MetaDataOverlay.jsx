@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 import { IconButton } from "superdesk-ui-framework/react";
 import ImageUpload from "../UI/ImageUpload";
+import { gettext } from "../../superdeskApi";
 
 class MetaDataOverlay extends Component {
   handleInputChange = (e, a) => {
@@ -55,7 +56,7 @@ class MetaDataOverlay extends Component {
             <span className="sd-margin-l--1">
               <IconButton
                 icon="arrow-left"
-                tooltip={{ text: "Back", flow: "right" }}
+                tooltip={{ text: gettext("Back"), flow: "right" }}
                 onClick={this.props.toggle}
               />
             </span>
@@ -76,7 +77,7 @@ class MetaDataOverlay extends Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
-                  <label className="sd-line-input__label">Title</label>
+                  <label className="sd-line-input__label">{gettext("Title")}</label>
                   <input
                     className="sd-line-input__input"
                     type="text"
@@ -92,7 +93,7 @@ class MetaDataOverlay extends Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
-                  <label className="sd-line-input__label">Description</label>
+                  <label className="sd-line-input__label">{gettext("Description")}</label>
                   <textarea
                     className="sd-line-input__input"
                     name={descriptionFieldName}

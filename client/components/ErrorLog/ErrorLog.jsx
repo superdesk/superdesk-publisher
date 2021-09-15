@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Item from "./Item";
-import {superdeskApi} from '../../superdeskApi';
+import {gettext} from '../../superdeskApi';
 
 class ErrorLog extends React.Component {
   constructor(props) {
@@ -18,10 +18,6 @@ class ErrorLog extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.publisher.setToken().then(this.getErrors);
-
-    const {gettext} = superdeskApi.localization;
-
-    console.log(gettext('check this out')); // Bonjour à tout le monde
   }
 
   componentWillUnmount() {
@@ -47,7 +43,7 @@ class ErrorLog extends React.Component {
     return (
       <React.Fragment>
         <div className="subnav">
-          <h3 className="subnav__page-title">Error Log</h3>
+          <h3 className="subnav__page-title">{gettext("Error Log")}</h3>
         </div>
         <div className="sd-column-box--3">
           <div className="sd-column-box__main-column">
@@ -58,7 +54,7 @@ class ErrorLog extends React.Component {
                 <div className="panel-info__icon">
                   <i className="big-icon--add-to-list"></i>
                 </div>
-                <h3 className="panel-info__heading">No errors so far.</h3>
+                <h3 className="panel-info__heading">{gettext("No errors so far.")}</h3>
               </div>
             )}
             {!this.state.loading && this.state.errors.length ? (

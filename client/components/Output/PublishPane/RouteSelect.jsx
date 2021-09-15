@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Store from "../Store";
 import OptGroup from "../../UI/OptGroup";
-
+import { gettext } from "../../../superdeskApi";
 const RouteSelect = (props) => {
   const store = React.useContext(Store);
   const pubConfig = store.config.publisher || {};
@@ -17,7 +17,7 @@ const RouteSelect = (props) => {
 
   return (
     <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
-      <label className="sd-line-input__label">Route</label>
+      <label className="sd-line-input__label">{gettext("Route")}</label>
       <select
         name="routeId"
         className="sd-line-input__select"
@@ -26,27 +26,27 @@ const RouteSelect = (props) => {
       >
         {props.routes.length && !props.selectedRouteId && (
           <option value="" disabled>
-            Select a route
+            {gettext("Select a route")}
           </option>
         )}
 
         {!props.routes.length && (
           <option value="" disabled>
-            No routes defined
+            {gettext("No routes defined")}
           </option>
         )}
         <OptGroup
           list={collectionRoutes}
           valueField="id"
           nameField="name"
-          label="Collection"
+          label={gettext("Collection")}
         />
         {pubConfig.hideContentRoutesInPublishPane ? null : (
           <OptGroup
             list={contentRoutes}
             valueField="id"
             nameField="name"
-            label="Content"
+            label={gettext("Content")}
           />
         )}
 
@@ -55,7 +55,7 @@ const RouteSelect = (props) => {
             list={customRoutes}
             valueField="id"
             nameField="name"
-            label="Custom"
+            label={gettext("Custom")}
           />
         )}
       </select>

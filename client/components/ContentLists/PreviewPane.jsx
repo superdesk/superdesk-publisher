@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 
 import ArticlePreview from "../generic/ArticlePreview";
-
 class PreviewPane extends React.Component {
   constructor(props) {
     super(props);

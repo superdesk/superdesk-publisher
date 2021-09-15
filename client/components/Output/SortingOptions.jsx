@@ -4,6 +4,7 @@ import Dropdown from "../UI/Dropdown";
 import Store from "./Store";
 
 import { IconButton } from "superdesk-ui-framework/react";
+import { gettext } from "../../superdeskApi";
 
 const SortingOptions = (props) => {
   const store = React.useContext(Store);
@@ -27,28 +28,28 @@ const SortingOptions = (props) => {
       <Dropdown
         button={
           <button className="dropdown__toggle">
-            {store.filters.sort === "updated_at" ? "Updated" : "Created"}
+            {store.filters.sort === "updated_at" ?  gettext("Updated") :  gettext("Created")}
             <span className="dropdown__caret"></span>
           </button>
         }
       >
         <li>
-          <button onClick={() => setSort("updated_at")}>Updated</button>
+          <button onClick={() => setSort("updated_at")}> {gettext("Updated")}</button>
         </li>
         <li>
-          <button onClick={() => setSort("created_at")}>Created</button>
+          <button onClick={() => setSort("created_at")}> {gettext("Created")}</button>
         </li>
       </Dropdown>
       {store.filters.order === "desc" ? (
         <IconButton
           icon="descending"
-          tooltip={{ text: "Descending", flow: "bottom" }}
+          tooltip={{ text:  gettext("Descending"), flow: "bottom" }}
           onClick={() => setOrder("asc")}
         />
       ) : (
         <IconButton
           icon="ascending"
-          tooltip={{ text: "Ascending", flow: "bottom" }}
+          tooltip={{ text: gettext("Ascending"), flow: "bottom" }}
           onClick={() => setOrder("desc")}
         />
       )}

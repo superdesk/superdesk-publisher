@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { Button, IconButton } from "superdesk-ui-framework/react";
+import { gettext } from "../../../superdeskApi";
 
 const ContentListPicker = (props) => {
   const allLists = props.destination.tenant.content_lists.filter(
@@ -91,7 +92,7 @@ const ContentListPicker = (props) => {
                   className="sd-margin-r--1"
                   style={{ paddingTop: "1.4rem" }}
                 >
-                  Choose list
+                   {gettext("Choose list")}
                 </span>
                 <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin">
                   <select
@@ -122,7 +123,7 @@ const ContentListPicker = (props) => {
                 </div>
                 <IconButton
                   icon="trash"
-                  tooltip={{ text: "Remove list", flow: "left" }}
+                  tooltip={{ text: gettext("Remove list"), flow: "left" }}
                   onClick={() => removeList(index)}
                 />
               </div>
@@ -131,7 +132,7 @@ const ContentListPicker = (props) => {
                   className="sd-margin-r--1"
                   style={{ paddingTop: "1.4rem" }}
                 >
-                  Set order
+                   {gettext("Set order")}
                 </span>
                 <div className="sd-line-input sd-line-input--is-select sd-list-item--element-grow sd-line-input--no-margin sd-line-input--no-label sd-margin-r--2">
                   <select
@@ -150,7 +151,7 @@ const ContentListPicker = (props) => {
       {remainingLists.length ? (
         <div className="form__row">
           <Button
-            text="Add to content list"
+            text={gettext("Add to content list")}
             type="primary"
             style="hollow"
             expand={true}

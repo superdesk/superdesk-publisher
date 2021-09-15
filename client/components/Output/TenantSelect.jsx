@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import DropdownScrollable from "../UI/DropdownScrollable";
 import Store from "./Store";
+import { gettext } from "../../superdeskApi";
 
 const TenantSelect = props => {
   const store = React.useContext(Store);
@@ -26,14 +26,14 @@ const TenantSelect = props => {
         <DropdownScrollable
           button={
             <button className="dropdown__toggle navbtn navbtn--text-only dropdown-toggle">
-              {store.filters.tenant ? store.filters.tenant.name : "All Tenants"}
+              {store.filters.tenant ? store.filters.tenant.name : gettext("All Tenants")}
               <span className="dropdown__caret" />
             </button>
           }
           classes="dropdown--align-right"
         >
           <li>
-            <button onClick={() => setTenant(null)}>All Tenants</button>
+            <button onClick={() => setTenant(null)}> {gettext("All Tenants")}</button>
           </li>
           <li className="dropdown__menu-divider" />
           {store.tenants.map(item => (

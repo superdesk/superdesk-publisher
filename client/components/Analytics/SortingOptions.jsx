@@ -1,6 +1,7 @@
 import React from "react";
 import { IconButton } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
+import {gettext} from '../../superdeskApi';
 
 const SortingOptions = ({ filters, setFilters }) => {
   const setSort = (value) => {
@@ -24,26 +25,26 @@ const SortingOptions = ({ filters, setFilters }) => {
         }
       >
         <li>
-          <button onClick={() => setSort("published_at")}>Publish date</button>
+          <button onClick={() => setSort("published_at")}>{gettext("Publish date")}</button>
         </li>
         <li>
           <button
             onClick={() => setSort("article_statistics.page_views_number")}
           >
-            Page views
+            {gettext("Page views")}
           </button>
         </li>
       </Dropdown>
       {filters.order === "desc" ? (
         <IconButton
           icon="descending"
-          tooltip={{ text: "Descending", flow: "bottom" }}
+          tooltip={{ text: gettext("Descending"), flow: "bottom" }}
           onClick={() => setOrder("asc")}
         />
       ) : (
         <IconButton
           icon="ascending"
-          tooltip={{ text: "Ascending", flow: "bottom" }}
+          tooltip={{ text: gettext("Ascending"), flow: "bottom" }}
           onClick={() => setOrder("desc")}
         />
       )}

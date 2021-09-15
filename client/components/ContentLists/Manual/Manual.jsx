@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
+import { gettext } from "../../../superdeskApi";
 
 import { Button } from "superdesk-ui-framework/react";
 import FilterPanel from "./FilterPanel";
@@ -330,7 +331,7 @@ class Manual extends React.Component {
       .catch((err) => {
         if (err.status === 409) {
           this.props.api.notify.error(
-            "Cannot save. List has been already modified by another user"
+            gettext("Cannot save. List has been already modified by another user")
           );
 
           let list = { items: [], page: 0, totalPages: 1, loading: false };
@@ -339,7 +340,7 @@ class Manual extends React.Component {
         } else {
           let message = err.message
             ? err.message
-            : "Something went wrong. Try again.";
+            : gettext("Something went wrong. Try again.");
           this.props.api.notify.error(message);
         }
       });
@@ -522,7 +523,7 @@ class Manual extends React.Component {
               <div className="subnav__stretch-bar" />
               <span className="margin--right">
                 <Button
-                  text="Save"
+                  text={gettext("Save")}
                   type="primary"
                   onClick={this.save}
                   disabled={this.state.changesRecord.length ? false : true}
@@ -542,7 +543,7 @@ class Manual extends React.Component {
                 ref={this.listScroll}
               >
                 {!this.state.list.items.length && !this.state.list.loading && (
-                  <h2 className="dropZone__heading">Drag your Articles here</h2>
+                  <h2 className="dropZone__heading">{gettext("Drag your Articles here")}</h2>
                 )}
                 <Droppable droppableId="contentList">
                   {(provided, snapshot) => (
@@ -565,8 +566,7 @@ class Manual extends React.Component {
                               key={"limitnotification"}
                               className="listLimitNotification"
                             >
-                              This list is limited to {this.props.list.limit}{" "}
-                              items. Articles below will be removed.
+                              {gettext("This list is limited to {{limit}} items. Articles below will be removed.", {limit: this.props.list.limit})}
                             </li>
                           );
                         }
@@ -632,7 +632,7 @@ class Manual extends React.Component {
                 className={classNames("navbtn navbtn--left navbtn--darker", {
                   "navbtn--active": this.props.filtersOpen,
                 })}
-                sd-tooltip="Filter"
+                sd-tooltip={gettext("Filter")}
                 flow="right"
               >
                 <i className="icon-filter-large" />
@@ -645,7 +645,7 @@ class Manual extends React.Component {
                 }
                 onChange={(value) => this.handleArticlesSearch(value)}
               />
-              <h3 className="subnav__page-title">All published articles</h3>
+              <h3 className="subnav__page-title">{gettext("All published articles")}</h3>
               {this.props.isLanguagesEnabled && (
                 <LanguageSelect
                   languages={this.props.languages}
@@ -705,7 +705,7 @@ class Manual extends React.Component {
                         !this.state.articles.loading && (
                           <li>
                             <div className="alert alert-error alert-block">
-                              <h4>No results</h4>
+                              <h4>{gettext("No results")}</h4>
                             </div>
                           </li>
                         )}

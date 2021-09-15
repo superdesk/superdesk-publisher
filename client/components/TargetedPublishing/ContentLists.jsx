@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "superdesk-ui-framework/react";
-
+import { gettext } from "../../superdeskApi";
 import ContentListElement from "./ContentListElement";
 
 const ContentLists = (props) => {
@@ -18,7 +18,7 @@ const ContentLists = (props) => {
 
   return (
     <div style={{ margin: "1em 0" }}>
-      <label className="form-label">Content lists</label>
+      <label className="form-label">{gettext("Content lists")}</label>
       {ruleLists.map((list, index) => (
         <ContentListElement
           key={"list_el" + index}
@@ -35,7 +35,7 @@ const ContentLists = (props) => {
       {!!remainingLists.length && (
         <Button
           onClick={props.addList}
-          text="Add to content list"
+          text={gettext("Add to content list")}
           style="hollow"
           type="primary"
           expand="true"

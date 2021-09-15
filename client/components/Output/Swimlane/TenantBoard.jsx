@@ -1,12 +1,14 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import {gettext} from "../../../superdeskApi"
 
 import helpers from "../../../services/helpers.js";
 import VirtualizedList from "../../generic/VirtualizedList";
 import Store from "../Store";
 
 import ArticleItem from "./ArticleItem";
+import { gettext } from "superdeskApi.js";
 
 class TenantBoard extends React.Component {
   static contextType = Store;
@@ -160,7 +162,7 @@ class TenantBoard extends React.Component {
         if (this._isMounted) {
           articles.loading = false;
           this.setState({ articles, loading: false });
-          this.context.notify.error("Cannot load articles");
+          this.context.notify.error(gettext("Cannot load articles"));
         }
       });
   };

@@ -6,6 +6,7 @@ import FilterPanel from "./FilterPanel";
 import DropdownScrollable from "../../UI/DropdownScrollable";
 import VirtualizedList from "../../generic/VirtualizedList";
 import ArticleItem from "./ArticleItem";
+import { gettext } from "../../../superdeskApi";
 
 class Automatic extends React.Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class Automatic extends React.Component {
         .catch((err) => {
           if (err.status === 409) {
             this.props.api.notify.error(
-              "Cannot save. List has been already modified by another user"
+              gettext("Cannot save. List has been already modified by another user")
             );
 
             this.setState({
@@ -127,7 +128,7 @@ class Automatic extends React.Component {
               },
             });
           } else {
-            this.props.api.notify.error("Something went wrong. Try again.");
+            this.props.api.notify.error(gettext("Something went wrong. Try again."));
           }
         });
     });
@@ -195,7 +196,7 @@ class Automatic extends React.Component {
               className={classNames("navbtn navbtn--left navbtn--darker", {
                 "navbtn--active": this.props.filtersOpen,
               })}
-              sd-tooltip="Filter"
+              sd-tooltip={gettext("Filter")}
               flow="right"
             >
               <i className="icon-filter-large" />
@@ -241,9 +242,9 @@ class Automatic extends React.Component {
               >
                 {this.state.isEmpty ? (
                   <div className="alert alert-info alert-block">
-                    <h4>The list is empty</h4>
+                    <h4>{gettext("The list is empty")}</h4>
                     <p>
-                      Please update filter criteria to add articles to the list.
+                     {gettext("Please update filter criteria to add articles to the list.")}
                     </p>
                   </div>
                 ) : (

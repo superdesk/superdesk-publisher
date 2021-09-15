@@ -10,6 +10,7 @@ import {
 import TenantSelect from "./TenantSelect";
 import SortingOptions from "./SortingOptions";
 import LanguageSelect from "../UI/LanguageSelect";
+import { gettext } from "../../superdeskApi";
 
 const Subnav = (props) => {
   return (
@@ -26,17 +27,16 @@ const Subnav = (props) => {
                       value: "incoming",
                       label: store.isSuperdeskEditorOpen ? (
                         <i className="icon-ingest" />
-                      ) : (
-                        "Incoming"
-                      ),
+                      ) : 
+                      gettext("Incoming")
+                      ,
                     },
                     {
                       value: "published",
                       label: store.isSuperdeskEditorOpen ? (
                         <i className="icon-expand-thin" />
-                      ) : (
-                        "Published"
-                      ),
+                      ) : gettext("Published")
+                     ,
                     },
                   ]}
                   onChange={(value) => store.actions.setSelectedList(value)}
@@ -58,7 +58,7 @@ const Subnav = (props) => {
             )}
           >
             <div className="sd-margin-r--1">
-              <span>Incoming:</span>
+              <span> {gettext("Incoming")}:</span>
               <span className="sd-margin-l--0-5">
                 <Badge
                   text={store.articlesCounts.incoming
@@ -68,7 +68,7 @@ const Subnav = (props) => {
               </span>
             </div>
             <div>
-              <span>Published:</span>
+              <span> {gettext("Published")}:</span>
               <span className="sd-margin-l--0-5">
                 <Badge
                   text={store.articlesCounts.published

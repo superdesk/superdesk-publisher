@@ -7,6 +7,7 @@ import _ from "lodash";
 import Store from "../Store";
 
 import { IconButton, Label } from "superdesk-ui-framework/react";
+import { gettext } from "../../../superdeskApi";
 
 const ArticleItem = ({ item, style }) => {
   const store = React.useContext(Store);
@@ -73,7 +74,7 @@ const ArticleItem = ({ item, style }) => {
           {item.articles[0] && item.articles[0].paywall_secured && (
             <span
               className="sd-list-item__inline-text no-line-height"
-              sd-tooltip="Paywall secured"
+              sd-tooltip={gettext("Paywall secured")}
               flow="left"
             >
               <i className="icon-paywall icon--orange icon--full-opacity"></i>
@@ -93,7 +94,7 @@ const ArticleItem = ({ item, style }) => {
       <div className="sd-list-item__action-menu sd-list-item__action-menu--direction-row">
         <IconButton
           icon="pencil"
-          tooltip={{ text: "Correct", flow: "left" }}
+          tooltip={{ text: gettext("Correct"), flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.correctPackage(item);
@@ -101,7 +102,7 @@ const ArticleItem = ({ item, style }) => {
         />
         <IconButton
           icon="expand-thin"
-          tooltip={{ text: "Publish", flow: "left" }}
+          tooltip={{ text: gettext("Publish"), flow: "left" }}
           onClick={(e) => {
             e.stopPropagation();
             store.actions.togglePublish(item);

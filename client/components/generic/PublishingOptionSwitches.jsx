@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { gettext } from "../../superdeskApi";
 
 import { Checkbox } from "superdesk-ui-framework/react";
 
@@ -20,7 +21,7 @@ const PublishingOptionSwitches = ({
           <div
             className="flex-grid__item"
             style={{ marginBottom: "1em" }}
-            sd-tooltip="Publish to facebook"
+            sd-tooltip={gettext("Publish to facebook")}
           >
             <span>
               <Checkbox
@@ -36,7 +37,7 @@ const PublishingOptionSwitches = ({
           <div
             className="flex-grid__item"
             style={{ marginBottom: "1em" }}
-            sd-tooltip="Publish to Apple News"
+            sd-tooltip={gettext("Publish to Apple News")}
           >
             <span>
               <Checkbox
@@ -54,11 +55,11 @@ const PublishingOptionSwitches = ({
           <div
             className="flex-grid__item"
             style={{ marginBottom: "1em" }}
-            sd-tooltip="Enable Paywall"
+            sd-tooltip={gettext("Enable Paywall")}
           >
             <span>
               <Checkbox
-                label={{ text: "Paywall" }}
+                label={{ text: gettext("Paywall") }}
                 checked={destination.paywall_secured}
                 onChange={(value) => onChange(value, "paywall_secured")}
               />

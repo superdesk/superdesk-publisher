@@ -10,7 +10,7 @@ export const superdeskApi: ISuperdesk = window['sd-publisher-api'] as ISuperdesk
  * 
  * Can not be called synchronously from top-level code.
  */
-export function gettext(str) {
+export function gettext(str, options = {}) {
     if (typeof superdeskApi?.localization?.gettext !== 'function') {
         console.error('`superdeskApi` accessed synchronously. Translation WILL NOT work!');
 
@@ -19,6 +19,6 @@ export function gettext(str) {
         // Use a different name so translation string extractor doesn't try to process this.
         const alias = superdeskApi.localization.gettext;
 
-        return alias(str);
+        return alias(str, options);
     }
 }

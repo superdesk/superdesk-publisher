@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import {gettext} from '../../superdeskApi';
 import Tenant from "./Tenant";
 
 class Dashboard extends React.Component {
@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
     return (
       <React.Fragment>
         <div className="subnav">
-          <h3 className="subnav__page-title">Publisher Dashboard</h3>
+          <h3 className="subnav__page-title">Publisher {gettext("Dashboard")}</h3>
         </div>
         <div className="sd-column-box--3">
           <div className="sd-column-box__main-column">
@@ -53,9 +53,9 @@ class Dashboard extends React.Component {
                 <div className="panel-info__icon">
                   <i className="big-icon--add-to-list"></i>
                 </div>
-                <h3 className="panel-info__heading">No tenants so far.</h3>
+                <h3 className="panel-info__heading">{gettext("No tenants so far.")}</h3>
                 <p className="panel-info__description">
-                  To create a site go to Publisher Settings
+                  {gettext("To create a site go to Publisher Settings")}
                 </p>
               </div>
             )}

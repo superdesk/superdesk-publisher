@@ -4,6 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import { Label } from "superdesk-ui-framework/react";
 import helpers from "../../../services/helpers.js";
+import { gettext } from "../../../superdeskApi";
 
 const ArticleItem = ({
   item,
@@ -88,7 +89,7 @@ const ArticleItem = ({
                 sd-tooltip={moment(item.updated_at).format("HH:mm")}
                 flow="right"
               >
-                (updated at: {moment(item.updated_at).format("YYYY-MM-DD")})
+                ({gettext("updated at")}: {moment(item.updated_at).format("YYYY-MM-DD")})
               </time>
             ) : null}
           </span>
@@ -109,8 +110,8 @@ const ArticleItem = ({
               e.stopPropagation();
               pinUnpin(item.id);
             }}
-            title={item.sticky ? "Unpin" : "Pin"}
-            sd-tooltip={item.sticky ? "Unpin" : "Pin"}
+            title={item.sticky ? gettext("Unpin") : gettext("Pin")}
+            sd-tooltip={item.sticky ? gettext("Unpin") : gettext("Pin")}
             flow="left"
           >
             <i className="icon-pin" />
@@ -120,7 +121,7 @@ const ArticleItem = ({
               e.stopPropagation();
               remove(item.id);
             }}
-            sd-tooltip="Remove"
+            sd-tooltip={gettext("Remove")}
             flow="left"
           >
             <i className="icon-trash" />

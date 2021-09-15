@@ -8,6 +8,7 @@ import Listing from "./Listing";
 import AutomaticList from "./Automatic/Automatic";
 import ManualList from "./Manual/Manual";
 import PreviewPane from "./PreviewPane";
+import {gettext} from '../../superdeskApi';
 
 class ContentLists extends React.Component {
   constructor(props) {
@@ -186,7 +187,7 @@ class ContentLists extends React.Component {
               <i className="icon-arrow-left" />
             </a>
             <h3 className="subnav__page-title">
-              Content Lists
+              {gettext("Content Lists")}
               {this.state.selectedSite && (
                 <span> / {this.state.selectedSite.name}</span>
               )}

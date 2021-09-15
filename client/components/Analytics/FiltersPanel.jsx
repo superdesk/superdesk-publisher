@@ -6,6 +6,7 @@ import { Button, IconButton } from "superdesk-ui-framework/react";
 import MultiSelect from "../UI/MultiSelect";
 import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import { DatePicker } from "superdesk-ui-framework/react";
+import {gettext} from '../../superdeskApi';
 
 class FiltersPanel extends React.Component {
   constructor(props) {
@@ -178,14 +179,14 @@ class FiltersPanel extends React.Component {
               />
             </span>
             <h3 className="side-panel__heading side-panel__heading--big">
-              Filter
+              {gettext("Filter")}
             </h3>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Category</label>
+                  <label className="sd-line-input__label">{gettext("Category")}</label>
                   <MultiSelect
                     onSelect={(values) => this.handleRouteChange(values)}
                     options={routesOptions}
@@ -197,7 +198,7 @@ class FiltersPanel extends React.Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Authors</label>
+                  <label className="sd-line-input__label">{gettext("Authors")}</label>
                   <AsyncMultiSelect
                     onSelect={(values) => this.handleAuthorChange(values)}
                     loadOptions={(inputValue) => this.loadAuthors(inputValue)}
@@ -209,18 +210,18 @@ class FiltersPanel extends React.Component {
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-line-input--is-select">
-                  <label className="sd-line-input__label">Date filter</label>
+                  <label className="sd-line-input__label">{gettext("Date filter")}</label>
                   <select
                     className="sd-line-input__select"
                     onChange={this.handleDateFilterTypeChange}
                     name="route"
                     value={this.state.dateFilterType}
                   >
-                    <option value="range">Custom</option>
-                    <option value="lastWeek">Last week</option>
-                    <option value="lastMonth">Last month</option>
-                    <option value="thisWeek">This week</option>
-                    <option value="thisMonth">This month</option>
+                    <option value="range">{gettext("Custom")}</option>
+                    <option value="lastWeek">{gettext("Last week")}</option>
+                    <option value="lastMonth">{gettext("Last month")}</option>
+                    <option value="thisWeek">{gettext("This week")}</option>
+                    <option value="thisMonth">{gettext("This month")}</option>
                   </select>
                 </div>
               </div>
@@ -229,7 +230,7 @@ class FiltersPanel extends React.Component {
                 <div className="form__row form__row--flex">
                   <div className="form__row-item">
                     <div className="sd-line-input sd-line-input--no-margin">
-                      <label className="sd-line-input__label">From</label>
+                      <label className="sd-line-input__label">{gettext("From")}</label>
                       <DatePicker
                         value={
                           this.state.filters.published_after
@@ -255,7 +256,7 @@ class FiltersPanel extends React.Component {
                   </div>
                   <div className="form__row-item">
                     <div className="sd-line-input sd-line-input--no-margin">
-                      <label className="sd-line-input__label">To</label>
+                      <label className="sd-line-input__label">{gettext("To")}</label>
                       <DatePicker
                         value={
                           this.state.filters.published_before
@@ -284,20 +285,20 @@ class FiltersPanel extends React.Component {
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
             <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-              <Button text="Clear" style="hollow" onClick={this.clear} />
-              <Button text="Run Report" type="primary" onClick={this.save} />
+              <Button text={gettext("Clear")} style="hollow" onClick={this.clear} />
+              <Button text={gettext("Run Report")} type="primary" onClick={this.save} />
             </div>
             <div
               className="flex-grid flex-grid--boxed-small flex-grid--small-1"
               data-sd-tooltip={
                 this.shouldAllowReportGeneration()
                   ? null
-                  : "Select date range please"
+                  : gettext("Select date range please")
               }
               style={{ overflow: "visible" }}
             >
               <Button
-                text="Generate Report"
+                text={gettext("Generate Report")}
                 type="primary"
                 expanded={true}
                 onClick={() =>

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {gettext} from '../../superdeskApi';
 
 import ListCard from "./ListCard";
 import Dropdown from "../UI/Dropdown";
@@ -56,9 +57,9 @@ class Listing extends React.Component {
               <RadioButton
                 value={this.state.filter}
                 options={[
-                  { value: "all", label: "All" },
-                  { value: "automatic", label: "Automatic" },
-                  { value: "manual", label: "Manual" },
+                  { value: "all", label: gettext("All") },
+                  { value: "automatic", label: gettext("Automatic") },
+                  { value: "manual", label: gettext("Manual") },
                 ]}
                 onChange={(value) => this.setFilter(value)}
               />
@@ -78,7 +79,7 @@ class Listing extends React.Component {
             }
           >
             <li>
-              <div className="dropdown__menu-label">Create new list</div>
+              <div className="dropdown__menu-label">{gettext("Create new list")}</div>
             </li>
             <li className="dropdown__menu-divider" />
             <li>
@@ -86,7 +87,7 @@ class Listing extends React.Component {
                 disabled={addButtonDisabled}
                 onClick={() => this.addList("automatic")}
               >
-                Automatic List
+                {gettext("Automatic List")}
               </button>
             </li>
             <li>
@@ -94,7 +95,7 @@ class Listing extends React.Component {
                 disabled={addButtonDisabled}
                 onClick={() => this.addList("manual")}
               >
-                Manual List
+               {gettext("Manual List")}
               </button>
             </li>
           </Dropdown>
@@ -119,8 +120,8 @@ class Listing extends React.Component {
             <div className="panel-info__icon">
               <i className="big-icon--add-to-list" />
             </div>
-            <h3 className="panel-info__heading">No Content Lists</h3>
-            <p className="panel-info__description">Create the first one...</p>
+            <h3 className="panel-info__heading">{gettext("No Content Lists")}</h3>
+            <p className="panel-info__description">{gettext("Create the first one...")}</p>
           </div>
         ) : null}
       </div>

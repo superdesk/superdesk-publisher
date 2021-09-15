@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { gettext } from "../../superdeskApi";
 
 const SitesSideNav = ({ toggle, setTenant, open, sites, selectedSite }) => {
   return (
@@ -13,7 +14,7 @@ const SitesSideNav = ({ toggle, setTenant, open, sites, selectedSite }) => {
         <ul className="nav-tabs-vertical__list">
           <li className="nav-tabs-vertical__tab">
             <button className="nav-tabs-vertical__link" onClick={toggle}>
-              Website
+              {gettext("Website")}
             </button>
           </li>
         </ul>
@@ -21,7 +22,7 @@ const SitesSideNav = ({ toggle, setTenant, open, sites, selectedSite }) => {
       <div className="sd-content-navigation-panel sd-content-navigation-panel--border-right">
         <div className="subnav subnav--padded subnav--lower-z-index">
           <h3 className="sd-content-nav-title sd-content-nav-title--uppercase">
-            Website
+            {gettext("Website")}
           </h3>
           <a className="icn-btn ml-auto" onClick={toggle}>
             <i className="icon-close-small" />

@@ -7,6 +7,7 @@ import ImageUpload from "../../UI/ImageUpload";
 import Store from "../Store";
 
 import { IconButton } from "superdesk-ui-framework/react";
+import { gettext } from "../../../superdeskApi";
 
 class MetadataEditor extends React.Component {
   static contextType = Store;
@@ -163,7 +164,7 @@ class MetadataEditor extends React.Component {
             <span className="sd-margin-l--1">
               <IconButton
                 icon="arrow-left"
-                tooltip={{ text: "Back", flow: "right" }}
+                tooltip={{ text: gettext("Back"), flow: "right" }}
                 onClick={this.props.close}
               />
             </span>
@@ -197,7 +198,7 @@ class MetadataEditor extends React.Component {
 
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--dark-ui sd-line-input--boxed">
-                  <label className="sd-line-input__label">Description</label>
+                  <label className="sd-line-input__label">{gettext("Description")}</label>
                   <textarea
                     className="sd-line-input__input"
                     name="description"

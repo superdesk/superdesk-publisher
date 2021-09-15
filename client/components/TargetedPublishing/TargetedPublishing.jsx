@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { gettext } from "../../superdeskApi";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { ToggleBox } from "../UI/ToggleBox";
@@ -24,16 +24,15 @@ class TargetedPublishing extends React.Component {
   render() {
     return (
       <ToggleBox
-        title="Web publishing"
+        title={gettext("Web publishing")}
         style="toggle-box--dark sp--dark-ui toggle-box--circle"
         isOpen={true}
       >
         {!this.props.rules.length && (
           <div className="tp-alert">
-            No websites have been set, this article won't show up on any
-            website. It will go to: <br />
+            {gettext("No websites have been set, this article won't show up on any website. It will go to")}: <br />
             <span style={{ fontWeight: "500" }}>
-              Publisher &gt; Output Control &gt; Incoming list
+              {gettext("Publisher &gt; Output Control &gt; Incoming list")}
             </span>
           </div>
         )}

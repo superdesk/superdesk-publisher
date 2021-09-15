@@ -196,7 +196,7 @@ class Analytics extends React.Component {
       .generateAnalyticsReport(reportFilters)
       .then((response) => {
         this.props.api.notify.success(
-          "You fired report generation. Please note: the process takes some time. The link for generated report will be sent via email. Once generatet the report will be available in Reports History list."
+          gettext("You fired report generation. Please note: the process takes some time. The link for generated report will be sent via email. Once generatet the report will be available in Reports History list.")
         );
         // this is ugly...
         this.setState({ activeView: null }, () =>
@@ -204,7 +204,7 @@ class Analytics extends React.Component {
         );
       })
       .catch((err) => {
-        this.props.api.notify.error("Cannot generate report");
+        this.props.api.notify.error(gettext("Cannot generate report"));
       });
   };
 
@@ -223,8 +223,7 @@ class Analytics extends React.Component {
               <i className="icon-arrow-left" />
             </a>
             <h3 className="subnav__page-title">
-              {gettext('Copy')} ugaczaka
-              Content Analytics
+              {gettext("Content Analytics")}
               {this.state.selectedSite && this.state.selectedSite.name && (
                 <span> / {this.state.selectedSite.name}</span>
               )}
@@ -259,8 +258,8 @@ class Analytics extends React.Component {
                       <RadioButton
                         value={this.state.activeView}
                         options={[
-                          { value: "listing", label: "Analytics" },
-                          { value: "reports", label: "Reports History" },
+                          { value: "listing", label: gettext("Analytics") },
+                          { value: "reports", label: gettext("Reports History") },
                         ]}
                         onChange={(value) => this.changeActiveView(value)}
                       />

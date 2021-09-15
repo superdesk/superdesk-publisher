@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-
+import { gettext } from "../../superdeskApi";
 import OptGroup from "../UI/OptGroup";
 
 class RouteSelect extends Component {
@@ -47,7 +47,7 @@ class RouteSelect extends Component {
 
     return (
       <div className="sd-line-input sd-line-input--is-select sd-line-input--dark-ui sd-line-input--no-margin">
-        <label className="sd-line-input__label">Route</label>
+        <label className="sd-line-input__label">{gettext("Route")}</label>
         <select
           name="routeId"
           className="sd-line-input__select"
@@ -56,24 +56,24 @@ class RouteSelect extends Component {
         >
           {this.state.loading && (
             <option value="" disabled>
-              Loading...
+              {gettext("Loading...")}
             </option>
           )}
           {this.state.routes.length && (
             <option value="" disabled>
-              Select a route
+              {gettext("Select a route")}
             </option>
           )}
           {!this.state.routes.length && !this.state.loading && (
             <option value="" disabled>
-              No routes defined
+              {gettext("No routes defined")}
             </option>
           )}
           <OptGroup
             list={collectionRoutes}
             valueField="id"
             nameField="name"
-            label="Collection"
+            label={gettext("Collection")}
           />
 
           {this.pubConfig.hideContentRoutesInPublishPane ? null : (
@@ -81,7 +81,7 @@ class RouteSelect extends Component {
               list={contentRoutes}
               valueField="id"
               nameField="name"
-              label="Content"
+              label={gettext("Content")}
             />
           )}
 
@@ -90,7 +90,7 @@ class RouteSelect extends Component {
               list={customRoutes}
               valueField="id"
               nameField="name"
-              label="Custom"
+              label={gettext("Custom")}
             />
           )}
         </select>

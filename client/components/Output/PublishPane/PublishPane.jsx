@@ -8,6 +8,7 @@ import Preview from "./Preview";
 import Store from "../Store";
 
 import { IconButton } from "superdesk-ui-framework/react";
+import { gettext } from "../../../superdeskApi";
 
 class PublishPane extends React.Component {
   static contextType = Store;
@@ -129,7 +130,7 @@ class PublishPane extends React.Component {
             <div className="side-panel__tools">
               <IconButton
                 icon="close-small"
-                tooltip={{ text: "Close", flow: "left" }}
+                tooltip={{ text: gettext("Close"), flow: "left" }}
                 onClick={() => this.context.actions.togglePublish(null)}
               />
             </div>
@@ -143,7 +144,7 @@ class PublishPane extends React.Component {
                   onClick={() => this.switchTab("publish")}
                   className="nav-tabs__link"
                 >
-                  <span>Publish</span>
+                  <span>{gettext("Publish")}</span>
                 </button>
               </li>
               {this.state.package && this.state.package.status !== "new" ? (
@@ -156,7 +157,7 @@ class PublishPane extends React.Component {
                     onClick={() => this.switchTab("unpublish")}
                     className="nav-tabs__link"
                   >
-                    <span>Unpublish</span>
+                    <span>{gettext("Unpublish")}</span>
                   </button>
                 </li>
               ) : null}
