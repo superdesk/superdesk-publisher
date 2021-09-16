@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-
+import { gettext } from "../../superdeskApi";
 import Loading from "./Loading/Loading";
 
 const ImageUpload = ({ upload, href, fieldName, isUploadingInProgress }) => {
@@ -18,13 +18,13 @@ const ImageUpload = ({ upload, href, fieldName, isUploadingInProgress }) => {
             <label
               htmlFor={fieldName}
               className="sd-overlay-block__overlay-action"
-              sd-tooltip="Upload image"
+              sd-tooltip={gettext("Upload image")}
             >
               <i className="icon-upload" />
             </label>
             {!href && (
               <span className="sd-overlay-block__overlay-message">
-                No image has been set so far.
+                {gettext("No image has been set so far.")}
               </span>
             )}
           </div>

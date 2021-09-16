@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-
+import { gettext } from "../../superdeskApi";
 import DropdownScrollable from "./DropdownScrollable";
 
 const LanguageSelect = props => {
-  let selectedLanguageName = "All Languages";
+  let selectedLanguageName = gettext("All Languages");
 
   if (props.selectedLanguageCode) {
     let lang = props.languages.find(
@@ -33,7 +33,7 @@ const LanguageSelect = props => {
         >
           <li>
             <button onClick={() => props.setLanguage(null)}>
-              All Languages
+              {gettext("All Languages")}
             </button>
           </li>
           <li className="dropdown__menu-divider" />

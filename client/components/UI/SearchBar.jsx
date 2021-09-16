@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
+import { gettext } from "../../superdeskApi";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class SearchBar extends React.Component {
           </label>
           <input
             type="text"
-            placeholder="Search"
+            placeholder={gettext("Search")}
             value={this.state.value}
             onChange={this.handleChange}
             style={inputStyle}
