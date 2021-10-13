@@ -13,7 +13,7 @@
       target="_blank"
       ng-href="{{webPublisherSettings.selectedSite.pwa_config && webPublisherSettings.selectedSite.pwa_config.url ? webPublisherSettings.selectedSite.pwa_config.url : webPublisherSettings.selectedSite.subdomain ? 'http://' + webPublisherSettings.selectedSite.subdomain + '.' + webPublisherSettings.selectedSite.domain_name: 'http://' + webPublisherSettings.selectedSite.domain_name}}"
     >
-      <i class="icon-globe"></i> Open website
+      <i class="icon-globe"></i> <span translate>Open website</span>
     </a>
   </div>
 </div>
@@ -31,6 +31,7 @@
         <button
           class="nav-tabs-vertical__link"
           ng-click="sideNavOpen=!sideNavOpen"
+          translate
         >
           Website
         </button>
@@ -52,8 +53,9 @@
       ng-show="webPublisherSettings.siteForm.$dirty"
     >
       <div class="sliding-toolbar__inner"></div>
-      <a class="btn" ng-click="webPublisherSettings.cancelEditSite()">Cancel</a>
+      <a class="btn" ng-click="webPublisherSettings.cancelEditSite()" translate>Cancel</a>
       <a class="btn btn--primary" ng-click="webPublisherSettings.saveSite()"
+        translate
         >Save</a
       >
     </div>
@@ -65,11 +67,13 @@
     >
       <div class="sliding-toolbar__inner"></div>
       <a class="btn" ng-click="webPublisherSettings.cancelEditThemeSettings()"
+        translate
         >Cancel</a
       >
       <a
         class="btn btn--primary"
         ng-click="webPublisherSettings.saveThemeSettings()"
+        translate
         >Save</a
       >
     </div>
@@ -83,7 +87,7 @@
           ng-disabled="webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">General</span>
+          <span translat>General</span>
         </button>
       </li>
       <li
@@ -95,7 +99,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Routes</span>
+          <span translate>Routes</span>
         </button>
       </li>
       <li
@@ -107,7 +111,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Redirects</span>
+          <span translate>Redirects</span>
         </button>
       </li>
       <li
@@ -119,7 +123,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Navigation</span>
+          <span translate>Navigation</span>
         </button>
       </li>
       <li
@@ -131,7 +135,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Webhooks</span>
+          <span translate>Webhooks</span>
         </button>
       </li>
       <li
@@ -143,7 +147,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty || webPublisherSettings.themeSettingsForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Theme</span>
+          <span translate>Theme</span>
         </button>
       </li>
       <li
@@ -156,7 +160,7 @@
           ng-disabled="!webPublisherSettings.selectedSite.code || webPublisherSettings.siteForm.$dirty"
           class="nav-tabs__link"
         >
-          <span translate="">Theme Customization</span>
+          <span translate>Theme Customization</span>
         </button>
       </li>
     </ul>

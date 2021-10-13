@@ -15,10 +15,10 @@
             </span>
 
 
-            <span ng-if="webhook.enabled" class="label label--success">
+            <span ng-if="webhook.enabled" class="label label--success" translate>
                 enabled
             </span>
-            <span ng-if="!webhook.enabled" class="label label--red2">
+            <span ng-if="!webhook.enabled" class="label label--red2" translate>
                 disabled
             </span>
         </div>
@@ -31,19 +31,19 @@
             <ul class="dropdown__menu">
                 <li>
                     <div class="dropdown__menu-label">
-                        Actions
+                       <span translate>Actions</span>
                         <button class="dropdown__menu-close"><i class="icon-close-small"></i></button>
                     </div>
                 </li>
                 <li class="dropdown__menu-divider"></li>
                 <li>
                     <button ng-click="webPublisherSettings.editWebhook(webhook)">
-                        <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+                        <i class="icon-pencil"></i><span translate>Edit</span>
                     </button>
                 </li>
                 <li>
                     <button ng-click="webPublisherSettings.deleteWebhook(webhook.id)">
-                        <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+                        <i class="icon-trash"></i><span translate>Remove</span>
                     </button>
                 </li>
             </ul>

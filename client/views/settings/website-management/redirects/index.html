@@ -30,12 +30,13 @@
   <span class="sd-page__element-grow"></span>
   <div class="dropdown sd-margin-l--auto" dropdown="">
     <button class="btn btn--primary ng-binding" dropdown__toggle="">
-      <i class="icon-plus-sign icon--white"></i>Add New
+      <i class="icon-plus-sign icon--white"></i><span translate>Add New</span>
     </button>
     <ul class="dropdown__menu dropdown--align-right">
       <li>
         <button
           ng-click="webPublisherSettings.toggleCreateRedirect(true, 'route')"
+          translate
         >
           Route to route
         </button>
@@ -43,6 +44,7 @@
       <li>
         <button
           ng-click="webPublisherSettings.toggleCreateRedirect(true, 'custom')"
+          translate
         >
           Custom redirect
         </button>

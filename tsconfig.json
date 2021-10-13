@@ -6,6 +6,10 @@
         "client",
         "publisher-extension",
     ],
+    "exclude": [
+        "node_modules", 
+        "client/__mocks__/*.*"
+    ],
     "compilerOptions": {
         "baseUrl": "client",
         "skipLibCheck": true,

@@ -16,10 +16,10 @@
 
 <div class="side-panel__footer side-panel__footer--button-box">
 	<div class="flex-grid flex-grid--boxed-small flex-grid--wrap-items flex-grid--small-2">
-		<a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateRule()">Cancel</a>
+		<a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateRule()" translate>Cancel</a>
 		<button class="btn btn--primary"
 			ng-disabled="webPublisherSettings.ruleForm.$invalid || !webPublisherSettings.ruleForm.$dirty"
-			ng-click="webPublisherSettings.saveRule()">
+			ng-click="webPublisherSettings.saveRule()" translate>
 			Save
 		</button>
 	</div>

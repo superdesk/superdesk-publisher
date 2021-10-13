@@ -1,5 +1,5 @@
 <div class="sd-page__header sd-page__header--white">
-  <h2 class="sd-page__page-heading sd-margin-r--5">Website Management</h2>
+  <h2 class="sd-page__page-heading sd-margin-r--5" translate>Website Management</h2>
   <sd-search-handler
     ng-model="filterQuery"
     data-debounce="200"
@@ -9,15 +9,15 @@
   ></sd-search-handler>
   <div class="dropdown sd-margin-l--auto" dropdown="">
     <button class="btn btn--primary ng-binding" dropdown__toggle="">
-      <i class="icon-plus-sign icon--white"></i>Add New
+      <i class="icon-plus-sign icon--white"></i><span translate>Add New</span>
     </button>
     <ul class="dropdown__menu dropdown--align-right">
       <li>
-        <div class="dropdown__menu-label">Create new site</div>
+        <div class="dropdown__menu-label" translate>Create new site</div>
       </li>
       <li class="dropdown__menu-divider"></li>
       <li>
-        <button ng-click="webPublisherSettings.toggleSiteWizard()">
+        <button ng-click="webPublisherSettings.toggleSiteWizard()" translate>
           Superdesk Publisher
         </button>
       </li>
@@ -53,8 +53,8 @@
     <div class="panel-info__icon">
       <i class="big-icon--add-to-list"></i>
     </div>
-    <h3 class="panel-info__heading">No tenants so far.</h3>
-    <p class="panel-info__description">Don't hesitate to create one.</p>
+    <h3 class="panel-info__heading" translate>No tenants so far.</h3>
+    <p class="panel-info__description" translate>Don't hesitate to create one.</p>
   </div>
 </div>
 <div

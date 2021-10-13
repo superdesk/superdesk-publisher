@@ -39,7 +39,7 @@
       <ul class="dropdown__menu">
         <li>
           <div class="dropdown__menu-label">
-            Actions
+            <span translate>Actions</span>
             <button class="dropdown__menu-close">
               <i class="icon-close-small"></i>
             </button>
@@ -48,12 +48,12 @@
         <li class="dropdown__menu-divider"></li>
         <li>
           <button ng-click="webPublisherSettings.editRedirect(redirect)">
-            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+            <i class="icon-pencil"></i><span translate>Edit</span>
           </button>
         </li>
         <li>
           <button ng-click="webPublisherSettings.deleteRedirect(redirect.id)">
-            <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+            <i class="icon-trash"></i><span translate>Remove</span>
           </button>
         </li>
       </ul>

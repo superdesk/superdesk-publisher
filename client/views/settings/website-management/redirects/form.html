@@ -18,7 +18,7 @@
       <fieldset class="label-light margin--topBig">
         <div class="item" ng-if="newRedirect.kind === 'route'">
           <div class="sd-line-input sd-line-input--is-select">
-            <label class="sd-line-input__label">From route</label>
+            <label class="sd-line-input__label" translate>From route</label>
             <select
               class="sd-line-input__select"
               ng-model="newRedirect.route_source"
@@ -29,7 +29,7 @@
         </div>
         <div class="item" ng-if="newRedirect.kind === 'route'">
           <div class="sd-line-input sd-line-input--is-select">
-            <label class="sd-line-input__label">To route</label>
+            <label class="sd-line-input__label" translate>To route</label>
             <select
               class="sd-line-input__select"
               ng-model="newRedirect.route_target"
@@ -41,7 +41,7 @@
 
         <div class="item" ng-if="newRedirect.kind === 'custom'">
           <div class="sd-line-input ">
-            <label class="sd-line-input__label">From uri</label>
+            <label class="sd-line-input__label" translate>From uri</label>
             <input
               type="text"
               class="line-input"
@@ -52,14 +52,14 @@
 
         <div class="item" ng-if="newRedirect.kind === 'custom'">
           <div class="sd-line-input ">
-            <label class="sd-line-input__label">To uri</label>
+            <label class="sd-line-input__label" translate>To uri</label>
             <input type="text" class="line-input" ng-model="newRedirect.uri" />
           </div>
         </div>
 
         <div class="item">
           <div class="sd-line-input sd-line-input--is-select">
-            <label class="sd-line-input__label">Redirect type</label>
+            <label class="sd-line-input__label" translate>Redirect type</label>
             <select
               class="sd-line-input__select"
               ng-model="newRedirect.permanent"
@@ -80,12 +80,14 @@
     <a
       class="btn btn--hollow"
       ng-click="webPublisherSettings.toggleCreateRedirect(false)"
+      translate
       >Cancel</a
     >
     <button
       class="btn btn--primary"
       ng-disabled="webPublisherSettings.redirectForm.$invalid || !webPublisherSettings.redirectForm.$dirty"
       ng-click="webPublisherSettings.saveRedirect()"
+      translate
     >
       Save
     </button>

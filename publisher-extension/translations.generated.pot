@@ -1,0 +1,1249 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:104
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:127
+msgid "{{ name.replace(\"_\", \" \") }}"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:42
+msgid "<i class=\"icon-plus-sign icon--white\"></i>Add New"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:75
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/item.html:42
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:34
+msgid "Actions"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:302
+msgid "active"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:55
+msgid "Active theme:"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:7
+msgid "Add {{newRoute.type}} route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:214
+msgid "Add destination"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:103
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:120
+msgid "Add expression"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:58
+msgid "Add Menu Item"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:569
+msgid "Add Metadata"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/index.html:9
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/index.html:3
+msgid "Add new"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:31
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:11
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:33
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:12
+msgid "Add New"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:7
+msgid "Add Redirect"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add.html:3
+msgid "Add Rule"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/ContentListPicker.jsx:154
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/ContentLists.jsx:38
+msgid "Add to content list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:7
+msgid "Add Webhook"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/AddWebsite.jsx:88
+msgid "Add Website"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:203
+msgid "Advanced Filter"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:138
+msgid "Advanced filters"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:7
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:7
+msgid "all"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:60
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:233
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:16
+msgid "All"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/LanguageSelect.jsx:36
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/LanguageSelect.jsx:8
+msgid "All Languages"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:648
+msgid "All published articles"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/TenantSelect.jsx:29
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/TenantSelect.jsx:36
+msgid "All Tenants"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:82
+msgid "All Websites"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Analytics.jsx:261
+msgid "Analytics"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:113
+msgid "article template name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/SortingOptions.jsx:47
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:52
+msgid "Ascending"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:433
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:154
+msgid "Author"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:136
+msgid "author page"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/ArticleItem.jsx:21
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:201
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Reports/Item.jsx:81
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:220
+msgid "Authors"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:51
+msgid "auto publish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:141
+msgid "Auto Publish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:61
+msgid "Automatic"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:90
+msgid "Automatic List"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:416
+msgid "Automatic List Criteria"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:446
+msgid "Automatically"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/MetadataEditor.jsx:167
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/MetaDataOverlay.jsx:59
+msgid "Back"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:114
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/index.html:15
+msgid "Be the first one..."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:74
+msgid ""
+"Beware than changing slug will affect article urls and may cause SEO\n"
+"issues."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/ArticlePreview.jsx:98
+msgid "by"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:139
+msgid "cache lifetime"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:178
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:42
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/SaveBar.jsx:11
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add.html:19
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:56
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:69
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:182
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:80
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:129
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:77
+msgid "Cancel"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Analytics.jsx:207
+msgid "Cannot generate report"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Listing.jsx:250
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/TenantBoard.jsx:165
+msgid "Cannot load articles"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:27
+msgid "Cannot remove article"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/Automatic.jsx:118
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:334
+msgid "Cannot save. List has been already modified by another user"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:294
+msgid "Cannot save. List has been modified by another user"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:18
+msgid "Catch all"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:189
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Reports/Item.jsx:71
+msgid "Category"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/ContentListPicker.jsx:95
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/ContentListElement.jsx:66
+msgid "Choose list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:132
+msgid "Choose tenant"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:288
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:220
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:301
+msgid "Clear"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:411
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:134
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/ArticlePreview.jsx:61
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:198
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Preview.jsx:152
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/PublishPane.jsx:133
+msgid "Close"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:13
+msgid "collection"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:42
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:76
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:35
+msgid "Collection"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:199
+msgid "comments"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/ArticlePreview.jsx:133
+msgid "Comments"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:35
+msgid "Confirm"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:172
+msgid "Confirmation"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:23
+msgid "content"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:49
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:84
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:43
+msgid "Content"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Analytics.jsx:226
+msgid "Content Analytics"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:152
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:259
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/ContentLists.jsx:21
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:412
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:456
+msgid "Content lists"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ContentLists.jsx:190
+msgid "Content Lists"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:239
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/ArticleItem.jsx:97
+msgid "Correct"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:82
+msgid "Create new list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:47
+msgid "Create new rule"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:16
+msgid "Create new site"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:6
+msgid ""
+"Create Site Wizard\n"
+"<span ng-if=\"newSite.output_channel\">- {{ newSite.output_channel.type.charAt(0).toUpperCase() +\n"
+"newSite.output_channel.type.slice(1) }}</span>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:124
+msgid "Create the first one..."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:31
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:40
+msgid "Created"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:220
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:58
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:93
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:51
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:23
+msgid "Custom"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:45
+msgid "Custom redirect"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:20
+msgid "Custom URI"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:133
+msgid "custom value"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:68
+msgid "customize theme"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Dashboard/Dashboard.jsx:45
+msgid "Dashboard"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:213
+msgid "Date filter"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:44
+msgid "Default Language"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/tree-renderer.html:48
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/routes-tree.html:51
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:23
+msgid "Delete"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/SortingOptions.jsx:41
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:46
+msgid "Descending"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:54
+msgid "description"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:129
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/MetadataEditor.jsx:201
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/MetaDataOverlay.jsx:96
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:10
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:10
+msgid "Description"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:29
+msgid "Details on"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:21
+msgid "disabled"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:67
+msgid "Disabled"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:400
+msgid "Do not publish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:60
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:19
+msgid "Domain name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:57
+msgid "Don't hesitate to create one."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:546
+msgid "Drag your Articles here"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:22
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:46
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:70
+msgid "Drop Your Logo Here"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/themeManager/index.html:22
+msgid "Drop Your Theme Here"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:225
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:84
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/tree-renderer.html:43
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/routes-tree.html:46
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/item.html:51
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:41
+msgid "Edit"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:14
+msgid "Edit {{newRoute.type}} route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:65
+msgid "Edit Menu Item"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:10
+msgid "Edit Redirect"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add.html:4
+msgid "Edit Rule"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:10
+msgid "Edit Webhook"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:106
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:110
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:114
+msgid "Enable"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PublishingOptionSwitches.jsx:58
+msgid "Enable Paywall"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:18
+msgid "enabled"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:66
+msgid "Enabled"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/themeManager/index.html:6
+msgid "Error"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ErrorLog/ErrorLog.jsx:46
+msgid "Error Log"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:16
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:113
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:29
+msgid "Expression"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:182
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/Automatic.jsx:199
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:221
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:635
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:302
+msgid "Filter"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:233
+msgid "From"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:21
+msgid "From route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:44
+msgid "From uri"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:84
+msgid "General <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:301
+msgid "Generate Report"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Subnav.jsx:31
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Subnav.jsx:61
+msgid "Incoming"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:288
+msgid "Ingest source"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/ArticlePreview.jsx:65
+msgid "Item preview"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Dashboard/Tenant.jsx:40
+msgid "items"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:90
+msgid "label"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:298
+msgid "Last modified"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:222
+msgid "Last month"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:221
+msgid "Last week"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Preview.jsx:96
+msgid "Live preview"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:59
+msgid "Loading..."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:206
+msgid "location"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:5
+msgid "Logos"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:8
+msgid "Main Logo"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:62
+msgid "Manual"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:98
+msgid "Manual List"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:179
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:41
+msgid "more"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:291
+msgid "more..."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:79
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:43
+msgid "name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:4
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:4
+msgid "Name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:126
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/index.html:2
+msgid "Navigation"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:117
+msgid "Navigation <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Listing.jsx:311
+msgid "No {{type}} articles."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:263
+msgid "No articles in this list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:123
+msgid "No Content Lists"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ErrorLog/ErrorLog.jsx:57
+msgid "No errors so far."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/ImageUpload.jsx:27
+msgid "No image has been set so far."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:708
+msgid "No results"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Listing.jsx:34
+msgid "No results found"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:35
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:69
+msgid "No routes defined"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:113
+msgid "No rules so far."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-organization.html:137
+msgid "No tenants available"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Dashboard/Dashboard.jsx:56
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:56
+msgid "No tenants so far."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/index.html:14
+msgid "No webhooks so far."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/TargetedPublishing.jsx:33
+msgid "No websites have been set, this article won't show up on any website. It will go to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:118
+msgid "number of articles limit"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:179
+msgid "Ok"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:16
+msgid "Open website"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/themeManager/index.html:24
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:24
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:48
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:72
+msgid "or"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:51
+msgid "Organization Rule"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:119
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:23
+msgid "Organization Rules"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Output.jsx:208
+msgid "Output Control"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/SortingOptions.jsx:34
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/ArticlePreview.jsx:123
+msgid "Page views"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Listing.jsx:21
+msgid "Page Views"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:192
+msgid "pageviews"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:115
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:89
+msgid "parent"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PublishingOptionSwitches.jsx:62
+msgid "Paywall"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:138
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/ArticleItem.jsx:77
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:101
+msgid "Paywall secured"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:145
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-preview.html:56
+msgid "Paywall Secured"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:100
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:99
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:113
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:114
+msgid "Pin"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:87
+msgid "pinned"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:175
+msgid "Please confirm you want to delete list."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:683
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:788
+msgid "Please confirm you want to delete menu."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:539
+msgid "Please confirm you want to delete redirect."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:355
+msgid "Please confirm you want to delete route."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:1288
+msgid "Please confirm you want to delete rule."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:240
+msgid "Please confirm you want to delete webhook."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/controllers/WebPublisherSettingsController.js:961
+msgid "Please confirm you want to delete website."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:38
+msgid "Please confirm you want to remove article from incoming list."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/Automatic.jsx:247
+msgid "Please update filter criteria to add articles to the list."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:202
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:218
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:353
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:362
+msgid "Preview"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:247
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:280
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/PublishPane.jsx:147
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/ArticleItem.jsx:105
+msgid "Publish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/SortingOptions.jsx:28
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:446
+msgid "Publish date"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:142
+msgid "Publish on Facebook"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:405
+msgid "Publish to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PublishingOptionSwitches.jsx:40
+msgid "Publish to Apple News"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PublishingOptionSwitches.jsx:24
+msgid "Publish to facebook"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/ArticleItem.jsx:36
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Dashboard/Tenant.jsx:38
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:234
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Subnav.jsx:38
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Subnav.jsx:71
+msgid "Published"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:473
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:183
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:233
+msgid "Published after"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:500
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:201
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:260
+msgid "Published before"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:166
+msgid "Published date"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PreviewStatusLabels.jsx:21
+msgid "Published to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/TargetedPublishing.jsx:35
+msgid "Publisher &gt; Output Control &gt; Incoming list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/index.html:15
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:6
+msgid "Publishing Rules"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Reports/Item.jsx:58
+msgid "Range"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:62
+msgid "Redirect type"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:114
+msgid "Redirects"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:106
+msgid "Redirects <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:30
+msgid "Redirects tab"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RelatedArticles.jsx:66
+msgid "Related Articles"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:110
+msgid "remove"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:112
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:248
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:124
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:229
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:49
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/Destination.jsx:430
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:89
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/item.html:56
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:46
+msgid "Remove"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/ContentListPicker.jsx:126
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/ContentListElement.jsx:60
+msgid "Remove list"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:115
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:179
+msgid "Remove tenant"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Reports/Item.jsx:33
+msgid "Report Author"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Reports/Item.jsx:39
+msgid "Report created"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Analytics.jsx:262
+msgid "Reports History"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:298
+msgid "Republish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:125
+msgid "Revert styles"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:127
+msgid "Revert styles back to theme defaults:"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:101
+msgid "route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:20
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:50
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:130
+msgid "Route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:15
+msgid "Route Based"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:37
+msgid "Route to route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:15
+msgid "Route to Route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/tree-renderer.html:26
+msgid "route:"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:423
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:144
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:210
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:102
+msgid "Routes"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:95
+msgid "Routes <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-preview.html:12
+msgid "Rule preview"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:132
+msgid "Rules"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:289
+msgid "Run Report"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:156
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:526
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/SaveBar.jsx:13
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add.html:20
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:57
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:73
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:188
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:86
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:135
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:83
+msgid "Save"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/SearchBar.jsx:73
+msgid "Search"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:32
+msgid "Second Logo"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/RouteSelect.jsx:29
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/RouteSelect.jsx:64
+msgid "Select a route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:296
+msgid "Select date range please"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:25
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:49
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:73
+msgid "Select from folder"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-preview.html:29
+msgid "Send to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PreviewStatusLabels.jsx:65
+msgid "Sent to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/ContentListPicker.jsx:135
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/ContentListElement.jsx:87
+msgid "Set order"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:119
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:143
+msgid "settings"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:112
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:242
+msgid "Settings"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:47
+msgid "Site name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:67
+msgid "slug"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:20
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:44
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:68
+msgid "Something went wrong"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/Automatic.jsx:131
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:297
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:343
+msgid "Something went wrong. Try again."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:78
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:32
+msgid "Subdomain name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:20
+msgid "Superdesk Publisher"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:104
+msgid "template name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add-tenant.html:17
+msgid "Tenant"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:59
+msgid "Tenant Rule"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:31
+msgid "Tenant Rules"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/Automatic.jsx:245
+msgid "The list is empty"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:150
+msgid "Theme"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:139
+msgid "Theme <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:163
+msgid "Theme Customization"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:132
+msgid "Theme defaults"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:84
+msgid "Theme Settings"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:56
+msgid "Third Logo"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:569
+msgid "This list is limited to {{limit}} items. Articles below will be removed."
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:224
+msgid "This month"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:28
+msgid "This Route has redirect set to"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:223
+msgid "This week"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Listing.jsx:17
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/MetaDataOverlay.jsx:80
+msgid "Title"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:259
+msgid "To"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Dashboard/Dashboard.jsx:58
+msgid "To create a site go to Publisher Settings"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:32
+msgid "To route"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:55
+msgid "To uri"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:100
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:99
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:113
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:114
+msgid "Unpin"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/PublishPane.jsx:160
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Unpublish.jsx:86
+msgid "Unpublish"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Destination.jsx:132
+msgid "unpublished"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:235
+msgid "Unpublished"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/PreviewStatusLabels.jsx:81
+msgid "Unpublished from"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/FilterPanel.jsx:578
+msgid "Update Criteria"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:31
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/SortingOptions.jsx:37
+msgid "Updated"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Automatic/ArticleItem.jsx:70
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/ArticleItem.jsx:92
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:99
+msgid "updated at"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/ImageUpload.jsx:21
+msgid "Upload image"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:164
+msgid "uri"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/tree-renderer.html:31
+msgid "URI:"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:54
+msgid "URL"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:80
+msgid "variable name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:130
+msgid "Variable value"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/TargetedPublishing/TargetedPublishing.jsx:27
+msgid "Web publishing"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:138
+msgid "Webhooks"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:128
+msgid "Webhooks <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/SitesSideNav.jsx:17
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/SitesSideNav.jsx:25
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-nav.html:2
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:31
+msgid "Website"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/index.html:5
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/tenant-list.html:2
+msgid "Website Management"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-general.html:8
+msgid "Website name"
+msgstr ""
+
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/Analytics.jsx:199
+msgid "You fired report generation. Please note: the process takes some time. The link for generated report will be sent via email. Once generatet the report will be available in Reports History list."
+msgstr ""

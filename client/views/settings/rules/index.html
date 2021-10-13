@@ -13,22 +13,23 @@
         ng-value="all"
         label-position="inside"
         ng-click="webPublisherSettings.selectedTenant=false"
-        >All</sd-check
-      >
+        ><div translate>All</div>
+      </sd-check>
       <sd-check
         ng-model="listType"
         type="radio"
         ng-value="organization"
         label-position="inside"
-        >Organization Rules</sd-check
-      >
+        ><div translate>Organization Rules</div>
+      </sd-check>
       <sd-check
         ng-model="listType"
         type="radio"
         ng-value="tenant"
         label-position="inside"
-        >Tenant Rules</sd-check
-      >
+        >
+          <div translate>Tenant Rules</div>
+      </sd-check>
     </div>
     <sd-search-handler
       data-debounce="200"
@@ -38,17 +39,18 @@
       ng-model="filterQuery"
     ></sd-search-handler>
     <div class="dropdown sd-margin-l--auto" dropdown="">
-      <button class="btn btn--primary ng-binding" dropdown__toggle="">
+      <button class="btn btn--primary ng-binding" dropdown__toggle="" translate>
         <i class="icon-plus-sign icon--white"></i>Add New
       </button>
       <ul class="dropdown__menu dropdown--align-right">
         <li>
-          <div class="dropdown__menu-label">Create new rule</div>
+          <div class="dropdown__menu-label" translate>Create new rule</div>
         </li>
         <li class="dropdown__menu-divider"></li>
         <li>
           <button
             ng-click="webPublisherSettings.toggleCreateRule('organization'); webPublisherSettings.togglePreviewRule()"
+            translate
           >
             Organization Rule
           </button>
@@ -57,6 +59,7 @@
           <button
             ng-click="webPublisherSettings.toggleCreateRule('tenant'); webPublisherSettings.togglePreviewRule()"
             ng-disabled="!webPublisherSettings.organizationRules.length"
+            translate
           >
             Tenant Rule
           </button>
@@ -81,6 +84,7 @@
                 class="sd-content-nav__btn"
                 ng-click="webPublisherSettings.selectedTenant=false"
                 ng-class="{'sd-content-nav__btn--active' : !webPublisherSettings.selectedTenant}"
+                translate
                 >All Websites</a
               >
             </li>
@@ -106,13 +110,13 @@
           <div class="panel-info__icon">
             <i class="big-icon--comments"></i>
           </div>
-          <h3 class="panel-info__heading">No rules so far.</h3>
-          <p class="panel-info__description">Be the first one...</p>
+          <h3 class="panel-info__heading" translate>No rules so far.</h3>
+          <p class="panel-info__description" translate>Be the first one...</p>
         </div>
         <div ng-if="webPublisherSettings.organizationRules.length">
           <div ng-if="listType !=='tenant'">
             <div class="sd-list-header margin--none margin--topBig">
-              <span class="sd-list-header__name">Organization Rules</span>
+              <span class="sd-list-header__name" translate>Organization Rules</span>
             </div>
             <div
               ng-repeat="rule in webPublisherSettings.organizationRules | filter:{name: filterQuery}"
@@ -125,7 +129,7 @@
           >
             <div class="sd-list-header margin--none margin--topBig">
               <span class="sd-list-header__name flexGrow"
-                >{{webPublisherSettings.getTenantNameByCode(code)}} Rules</span
+                >{{webPublisherSettings.getTenantNameByCode(code)}} <span translate>Rules</span></span
               >
               <span
                 class="text--uppercase text--blue text--smaller"

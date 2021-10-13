@@ -9,7 +9,7 @@
       ><i class="icon-close-small"></i
     ></a>
   </div>
-  <h3 class="side-panel__heading">Rule preview</h3>
+  <h3 class="side-panel__heading" translate>Rule preview</h3>
 </div>
 
 <div class="side-panel__content">
@@ -26,7 +26,7 @@
       {{webPublisherSettings.selectedRule.expression}}
     </p>
     <div class="form__row">
-      <p class="form-label sd-d-block">Send to:</p>
+      <p class="form-label sd-d-block"><span translate>Send to</span>:</p>
       <span
         class="label label--darkBlue2 margin--right"
         ng-repeat="dest in webPublisherSettings.selectedRule.configuration.destinations"
@@ -53,7 +53,7 @@
         ng-if="webPublisherSettings.selectedRule.configuration.paywall_secured"
         class="label-icon label-icon--warning"
       >
-        <i class="icon-paywall"></i> Paywall Secured
+        <i class="icon-paywall"></i> <span translate>Paywall Secured</span>
       </span>
     </div>
   </div>

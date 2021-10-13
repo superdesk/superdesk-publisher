@@ -20,7 +20,7 @@
       </li>
       <li>
         <button ng-click="webPublisherSettings.deleteSite(site.code)">
-          <i class="icon-trash"></i>Delete
+          <i class="icon-trash"></i> <span translate>Delete</span>
         </button>
       </li>
     </ul>
@@ -52,7 +52,7 @@
         />
       </div>
       <div class="dashboard-thumbnail-block__meta">
-        <span class="dashboard-thumbnail-block__label">Active theme:</span>
+        <span class="dashboard-thumbnail-block__label" translate>Active theme:</span>
         <h4
           class="dashboard-thumbnail-block__heading"
           sd-tooltip="AMP {{ site.amp_enabled ? 'enabled' : 'disabled'}}"
@@ -69,6 +69,7 @@
             href=""
             ng-click="webPublisherSettings.editSite(site, 'theme-settings')"
             class="dashboard-thumbnail-block__link"
+            translate
             >customize theme</a
           ></span
         >
@@ -84,6 +85,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'general')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >General <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>
@@ -94,6 +96,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'routes')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >Routes <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>
@@ -104,6 +107,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'redirects')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >Redirects <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>
@@ -114,6 +118,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'navigation')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >Navigation <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>
@@ -124,6 +129,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'webhooks')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >Webhooks <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>
@@ -134,6 +140,7 @@
           href=""
           ng-click="webPublisherSettings.editSite(site, 'theme')"
           class="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
+          translate
           >Theme <i class="icon-pencil icon--dark-blue-grey"></i
         ></a>
       </li>

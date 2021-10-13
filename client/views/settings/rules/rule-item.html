@@ -38,8 +38,8 @@
         {{webPublisherSettings.getTenantNameByCode(dest.tenant)}}
       </span>
       <span ng-if="rule.configuration.destinations.length - 6 > 0"
-        >+{{rule.configuration.destinations.length - 6}} more</span
-      >
+        >+{{rule.configuration.destinations.length - 6}} <span translate>more</span>
+      </span>
       <span
         ng-if="rule.configuration.route"
         class="label"
@@ -51,6 +51,7 @@
       <span
         ng-if="!rule.configuration.route && rule.configuration.published"
         class="label label--success"
+        translate
       >
         auto publish
       </span>
@@ -71,7 +72,7 @@
       <ul class="dropdown__menu">
         <li>
           <div class="dropdown__menu-label">
-            Actions
+            <span translate>Actions</span>
             <button class="dropdown__menu-close">
               <i class="icon-close-small"></i>
             </button>
@@ -80,12 +81,12 @@
         <li class="dropdown__menu-divider"></li>
         <li>
           <button ng-click="webPublisherSettings.editRule(rule, code)">
-            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+            <i class="icon-pencil"></i><span translate>Edit</span>
           </button>
         </li>
         <li>
           <button ng-click="webPublisherSettings.deleteRule(rule.id, code)">
-            <i class="icon-trash"></i>{{:: 'Remove'| translate}}
+            <i class="icon-trash"></i><span translate>Remove</span>
           </button>
         </li>
       </ul>

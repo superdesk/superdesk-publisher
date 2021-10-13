@@ -63,8 +63,8 @@
 
         <div class="item">
           <span ng-model="newWebhook.enabled" sd-switch=""></span
-          ><label ng-if="newWebhook.enabled">Enabled</label
-          ><label ng-if="!newWebhook.enabled">Disabled</label>
+          ><label ng-if="newWebhook.enabled" translate>Enabled</label
+          ><label ng-if="!newWebhook.enabled" translate>Disabled</label>
         </div>
       </fieldset>
     </form>
@@ -77,12 +77,14 @@
     <a
       class="btn btn--hollow"
       ng-click="webPublisherSettings.toggleCreateWebhook()"
+      translate
       >Cancel</a
     >
     <button
       class="btn btn--primary"
       ng-disabled="!newWebhook.events.length || webPublisherSettings.webhookForm.$invalid || !webPublisherSettings.webhookForm.$dirty"
       ng-click="webPublisherSettings.saveWebhook()"
+      translate
     >
       Save
     </button>

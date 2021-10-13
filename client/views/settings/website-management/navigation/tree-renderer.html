@@ -23,12 +23,12 @@
       <span class="text--bold">{{data.name}}</span>
     </div>
     <div>
-      <span class="text--light text--italic" ng-if="data.route">route:</span>
+      <span class="text--light text--italic" ng-if="data.route" translate>route:</span>
       <span class="text--lighter" ng-if="data.route"
         >{{webPublisherSettings.getRouteNameById(data.route)}}</span
       >
 
-      <span class="leftSpace text--light text--italic">URI:</span>
+      <span class="leftSpace text--light text--italic" translate>URI:</span>
       <span class="text--bold">{{data.uri}}</span>
     </div>
   </div>
@@ -40,12 +40,12 @@
       <ul class="dropdown__menu">
         <li>
           <button ng-click="webPublisherSettings.editMenu(data)">
-            <i class="icon-pencil"></i>{{:: 'Edit'| translate}}
+            <i class="icon-pencil"></i><span translate>Edit</span>
           </button>
         </li>
         <li>
           <button ng-click="webPublisherSettings.removeMenu(data)">
-            <i class="icon-trash"></i>{{:: 'Delete'| translate}}
+            <i class="icon-trash"></i><span translate>Delete</span>
           </button>
         </li>
       </ul>

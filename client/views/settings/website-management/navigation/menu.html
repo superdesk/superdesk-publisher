@@ -8,17 +8,18 @@
 
   <div class="dropdown sd-margin-l--auto" dropdown="">
     <button class="btn btn--primary ng-binding" dropdown__toggle="">
-      <i class="icon-plus-sign icon--white"></i>Add New
+      <i class="icon-plus-sign icon--white"></i><span translate>Add New</span>
     </button>
     <ul class="dropdown__menu dropdown--align-right">
       <li>
-        <button ng-click="webPublisherSettings.toogleCreateMenu(true, 'route')">
+        <button ng-click="webPublisherSettings.toogleCreateMenu(true, 'route')" translate>
           Route Based
         </button>
       </li>
       <li>
         <button
           ng-click="webPublisherSettings.toogleCreateMenu(true, 'custom')"
+          translate
         >
           Custom URI
         </button>
@@ -126,13 +127,13 @@
                   ng-if="newMenu.route && webPublisherSettings.isRouteTypeCustom(newMenu.route)"
                   ng-init="vtype = 'custom'"
                 >
-                  <label>Variable value</label>
+                  <label translate>Variable value</label>
                   <div>
                     <sd-check ng-model="vtype" type="radio" ng-value="custom"
-                      >custom value</sd-check
+                      ><div translate>custom value</div></sd-check
                     >
                     <sd-check ng-model="vtype" type="radio" ng-value="author"
-                      >author page</sd-check
+                      ><div translate>author page</div></sd-check
                     >
                   </div>
                   <div class="margin--top" ng-if="vtype==='custom'">
@@ -181,12 +182,14 @@
             <a
               class="btn btn--hollow"
               ng-click="webPublisherSettings.toogleCreateMenu(false)"
+              translate
               >Cancel</a
             >
             <button
               class="btn btn--primary"
               ng-disabled="webPublisherSettings.menuForm.$invalid || !webPublisherSettings.menuForm.$dirty"
               ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshCurrentMenu)"
+              translate
             >
               Save
             </button>

@@ -1,21 +1,21 @@
 <form name="webPublisherSettings.ruleForm" class="flat">
 	<div class="form__row">
 		<div class="sd-line-input">
-			<label class="sd-line-input__label">Name</label>
+			<label class="sd-line-input__label" translate>Name</label>
 			<input class="sd-line-input__input" type="text" ng-model="newRule.name" required>
 		</div>
 	</div>
 	<div class="form__row">
 		<div class="sd-line-input">
-			<label class="sd-line-input__label">Description</label>
+			<label class="sd-line-input__label" translate>Description</label>
 			<input class="sd-line-input__input" type="text" ng-model="newRule.description">
 		</div>
 	</div>
 	<div class="shadowBlock">
 		<span ng-if="!newRule.id">
-			<label class="form-label inlineBlock">Expression</label>
+			<label class="form-label inlineBlock" translate>Expression</label>
 			<div class="inlineBlock pull-right">
-				<label class="inlineBlock form-label">Catch all</label><span ng-model="newRule.catchAll" sd-switch=""></span>
+				<label class="inlineBlock form-label" translate>Catch all</label><span ng-model="newRule.catchAll" sd-switch=""></span>
 			</div>
 			<div class="form__row form__row--flex margin--bottom0"
 				ng-if="!newRule.catchAll"
@@ -74,7 +74,7 @@
 									required
 									ng-disabled="!expression.operator"
 									ng-model="expression.value"
-									">
+									>
 									<option ng-repeat="author in webPublisherSettings.authors" value="{{author.display_name}}">{{author.display_name}}</option>
 							</select>
 					</div>
@@ -85,7 +85,7 @@
 								required
 								ng-disabled="!expression.operator"
 								ng-model="expression.value"
-								">
+								>
 								<option ng-repeat="lang in webPublisherSettings.languages" value="{{lang.qcode}}">{{lang.name}}</option>
 						</select>
 					</div>
@@ -102,7 +102,8 @@
 			<div class="form__row margin--top" ng-if="!newRule.catchAll">
 				<button class="btn"
 					ng-click="webPublisherSettings.addRuleExpression()"
-					ng-disabled="!newRule.expressions[newRule.expressions.length-1].value">
+					ng-disabled="!newRule.expressions[newRule.expressions.length-1].value"
+					translate>
 					Add expression
 				</button>
 			</div>
@@ -128,12 +129,12 @@
 				</button>
 				<ul class="dropdown__menu">
 					<li>
-						<div class="dropdown__menu-label">Choose tenant</div>
+						<div class="dropdown__menu-label" translate>Choose tenant</div>
 					</li>
 					<li ng-repeat="site in filteredSites = (webPublisherSettings.sites | filter:webPublisherSettings.sitesFilter)">
 						<button ng-click="webPublisherSettings.addRuleDestination({name: site.name, code: site.code})">{{site.name}}</button>
 					</li>
-					<li ng-if="!filteredSites.length" class="dropdown__menu-item--no-link">No tenants available</li>
+					<li ng-if="!filteredSites.length" class="dropdown__menu-item--no-link" translate>No tenants available</li>
 				</ul>
 			</div>
 		</div>

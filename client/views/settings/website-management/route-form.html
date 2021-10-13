@@ -25,13 +25,14 @@
     <div class="sd-alert sd-alert--hollow" ng-if="newRoute.redirect_route">
       <Icon name="random" />
       <p className="sd-margin-l--1">
-        This Route has redirect set to
-        {{newRoute.redirect_route.route_target.name}}. Details on:
+        <span translate>This Route has redirect set to</span>
+        {{newRoute.redirect_route.route_target.name}}. <span translate>Details on</span>:
         <a
           className="text-link"
           href=""
           style="cursor: pointer"
           ng-click="webPublisherSettings.changeManageTab('redirects')"
+          translate
           >Redirects tab</a
         >
       </p>
@@ -70,7 +71,7 @@
             id="routeSlug"
             ng-model="newRoute.slug"
           />
-          <div ng-if="newRoute.id" class="sd-line-input__message">
+          <div ng-if="newRoute.id" class="sd-line-input__message" translate>
             Beware than changing slug will affect article urls and may cause SEO
             issues.
           </div>
@@ -97,7 +98,7 @@
         </div>
         <div class="item">
           <span ng-model="newRoute.paywall_secured" sd-switch=""></span
-          ><label>Paywall secured</label>
+          ><label translate>Paywall secured</label>
         </div>
         <div class="item">
           <label for="routeTemplate" translate>template name</label>
@@ -128,12 +129,14 @@
     <a
       class="btn btn--hollow"
       ng-click="webPublisherSettings.toggleCreateRoute(false)"
+      translate
       >Cancel</a
     >
     <button
       class="btn btn--primary"
       ng-disabled="webPublisherSettings.routeForm.$invalid || !webPublisherSettings.routeForm.$dirty"
       ng-click="webPublisherSettings.saveRoute()"
+      translate
     >
       Save
     </button>

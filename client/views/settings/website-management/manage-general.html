@@ -5,7 +5,7 @@
   >
     <div class="form__row">
       <div class="sd-line-input">
-        <label class="sd-line-input__label">Website name</label>
+        <label class="sd-line-input__label" translate>Website name</label>
         <input
           class="sd-line-input__input sd-line-input--required"
           type="text"
@@ -16,7 +16,7 @@
     </div>
     <div class="form__row">
       <div class="sd-line-input">
-        <label class="sd-line-input__label">Domain name</label>
+        <label class="sd-line-input__label" translate>Domain name</label>
         <input
           class="sd-line-input__input sd-line-input--required"
           type="text"
@@ -29,7 +29,7 @@
     </div>
     <div class="form__row">
       <div class="sd-line-input">
-        <label class="sd-line-input__label">Subdomain name</label>
+        <label class="sd-line-input__label" translate>Subdomain name</label>
         <input
           class="sd-line-input__input"
           type="text"
@@ -41,7 +41,7 @@
     </div>
     <div class="form__row" ng-if="webPublisherSettings.isLanguagesEnabled">
       <div class="sd-line-input">
-        <label class="sd-line-input__label">Default Language</label>
+        <label class="sd-line-input__label" translate>Default Language</label>
         <select
           class="dropdown__toggle line-input"
           ng-model="newSite.default_language"
@@ -103,20 +103,20 @@
 
     <div class="form__row">
       <span ng-model="newSite.amp_enabled" sd-switch=""></span
-      ><label>Enable AMP</label>
+      ><label><span translate>Enable</span> AMP</label>
     </div>
     <div class="form__row">
       <span ng-model="newSite.fbia_enabled" sd-switch=""></span
-      ><label>Enable FBIA</label>
+      ><label><span translate>Enable</span> FBIA</label>
     </div>
     <div class="form__row">
       <span ng-model="newSite.paywall_enabled" sd-switch=""></span
-      ><label>Enable Paywall</label>
+      ><label><span translate>Enable</span> Paywall</label>
     </div>
     <div ng-if="newSite.output_channel">
       <div class="form__row">
         <h4 class="text--light text--uppercase">
-          {{newSite.output_channel.type}} settings
+          {{newSite.output_channel.type}} <span translate>settings</span>
         </h4>
       </div>
       <div
@@ -125,7 +125,7 @@
       >
         <div class="form__row-item">
           <div class="sd-line-input sd-line-input--required">
-            <label class="sd-line-input__label" translate
+            <label class="sd-line-input__label"
               >{{name.replace('_', ' ')}}</label
             >
             <input
@@ -140,12 +140,12 @@
     </div>
     <div ng-if="newSite.pwa_config && newSite.pwa_config.url">
       <div class="form__row">
-        <h4 class="text--light text--uppercase">PWA settings</h4>
+        <h4 class="text--light text--uppercase">PWA <span translate>settings</span></h4>
       </div>
       <div class="form__row" ng-repeat="(name, value) in newSite.pwa_config">
         <div class="form__row-item">
           <div class="sd-line-input sd-line-input--required">
-            <label class="sd-line-input__label" translate
+            <label class="sd-line-input__label"
               >{{name.replace('_', ' ')}}</label
             >
             <input
