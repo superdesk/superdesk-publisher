@@ -1,7 +1,9 @@
 import React from "react";
 import FiltersPanel from "../../../components/Analytics/FiltersPanel";
 import { render, fireEvent } from "@testing-library/react";
+import Publisher from "../../../__mocks__/publisher";
 
+const publisher = new Publisher();
 let api = () => {};
 
 jest.mock("../../../components/UI/MultiSelect", () => () => {
@@ -40,6 +42,7 @@ describe("Analytics/FiltersPanel", () => {
         setFilters={jest.fn()}
         routes={routes}
         api={api}
+        publisher={publisher}
       />
     );
 
@@ -56,6 +59,7 @@ describe("Analytics/FiltersPanel", () => {
         setFilters={jest.fn()}
         routes={[]}
         api={api}
+        publisher={publisher}
       />
     );
 
@@ -75,6 +79,7 @@ describe("Analytics/FiltersPanel", () => {
         setFilters={setFilters}
         routes={routes}
         api={api}
+        publisher={publisher}
       />
     );
 
@@ -95,6 +100,7 @@ describe("Analytics/FiltersPanel", () => {
         setFilters={setFilters}
         routes={routes}
         api={api}
+        publisher={publisher}
       />
     );
 

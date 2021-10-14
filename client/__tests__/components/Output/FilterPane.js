@@ -2,16 +2,29 @@ import React from "react";
 import FilterPane from "../../../components/Output/FilterPane";
 import { render } from "@testing-library/react";
 import Store from "../../../components/Output/Store";
+import Publisher from "../../../__mocks__/publisher";
+
+const publisher = new Publisher();
 
 jest.mock("react-select", () => props => "div");
 
-let api = () => { };
+let api = () => {};
 
 api.users = {};
 api.users.query = function () {
   return new Promise((resolve, reject) => {
     resolve({
       _items: [{ is_author: true, display_name: "test author" }],
+      _links: {}
+    });
+  });
+};
+
+api.ingestProviders = {};
+api.ingestProviders.query = function () {
+  return new Promise((resolve, reject) => {
+    resolve({
+      _items: [],
       _links: {}
     });
   });
@@ -39,6 +52,7 @@ describe("Output/FilterPane", () => {
         <FilterPane
           toggle={jest.fn()}
           isOpen={true}
+          publisher={publisher}
         />
       </Store.Provider>
     );

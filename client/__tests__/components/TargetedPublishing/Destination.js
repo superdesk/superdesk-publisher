@@ -55,6 +55,7 @@ describe("TargetedPublishing/Destination", () => {
         item={item}
         rule={rule}
         cancel={jest.fn()}
+        reload={jest.fn()}
         done={jest.fn()}
         isOpen={false}
       />
@@ -72,6 +73,7 @@ describe("TargetedPublishing/Destination", () => {
         item={item}
         rule={rule}
         cancel={jest.fn()}
+        reload={jest.fn()}
         done={jest.fn()}
         isOpen={false}
       />
