@@ -16,8 +16,8 @@ msgstr ""
 msgid "Active theme:"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:7
-msgid "Add {{newRoute.type}} route"
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:12
+msgid "Add"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/PublishPane/Publish.jsx:214
@@ -933,6 +933,7 @@ msgid "Revert styles back to theme defaults:"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:101
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:12
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:18
 msgid "route"
 msgstr ""
