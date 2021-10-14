@@ -2,15 +2,6 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:104
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:127
-msgid "{{ name.replace(\"_\", \" \") }}"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:42
-msgid "<i class=\"icon-plus-sign icon--white\"></i>Add New"
-msgstr ""
-
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-item.html:75
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/item.html:42
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:34
@@ -51,6 +42,7 @@ msgstr ""
 msgid "Add new"
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/index.html:43
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-routes.html:31
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:11
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/index.html:33
@@ -120,7 +112,7 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:113
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:112
 msgid "article template name"
 msgstr ""
 
@@ -179,7 +171,7 @@ msgstr ""
 msgid "Be the first one..."
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:74
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:73
 msgid ""
 "Beware than changing slug will affect article urls and may cause SEO\n"
 "issues."
@@ -196,12 +188,13 @@ msgstr ""
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/ListCard.jsx:178
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:42
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/UI/SaveBar.jsx:11
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:144
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-add.html:19
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:56
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:69
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:182
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:80
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:129
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:128
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:77
 msgid "Cancel"
 msgstr ""
@@ -279,6 +272,10 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:178
+msgid "Configure your site"
+msgstr ""
+
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:35
 msgid "Confirm"
 msgstr ""
@@ -313,6 +310,10 @@ msgstr ""
 msgid "Content Lists"
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:151
+msgid "Continue"
+msgstr ""
+
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:239
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/ArticleItem.jsx:97
 msgid "Correct"
@@ -330,11 +331,8 @@ msgstr ""
 msgid "Create new site"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:6
-msgid ""
-"Create Site Wizard\n"
-"<span ng-if=\"newSite.output_channel\">- {{ newSite.output_channel.type.charAt(0).toUpperCase() +\n"
-"newSite.output_channel.type.slice(1) }}</span>"
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:7
+msgid "Create Site Wizard"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:124
@@ -393,7 +391,7 @@ msgstr ""
 msgid "Descending"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:54
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:53
 msgid "description"
 msgstr ""
 
@@ -405,7 +403,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:29
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:28
 msgid "Details on"
 msgstr ""
 
@@ -430,6 +428,10 @@ msgstr ""
 msgid "Don't hesitate to create one."
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/siteWizard/wizard.html:186
+msgid "Done"
+msgstr ""
+
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/Manual.jsx:546
 msgid "Drag your Articles here"
 msgstr ""
@@ -449,12 +451,9 @@ msgstr ""
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/tree-renderer.html:43
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/routes-tree.html:46
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/item.html:51
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:18
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-item.html:41
 msgid "Edit"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:14
-msgid "Edit {{newRoute.type}} route"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:65
@@ -525,8 +524,8 @@ msgstr ""
 msgid "From uri"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:84
-msgid "General <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:88
+msgid "General"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Analytics/FiltersPanel.jsx:301
@@ -586,6 +585,10 @@ msgstr ""
 msgid "Main Logo"
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:18
+msgid "Manage"
+msgstr ""
+
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Listing.jsx:62
 msgid "Manual"
 msgstr ""
@@ -604,7 +607,7 @@ msgid "more..."
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:79
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:43
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:42
 msgid "name"
 msgstr ""
 
@@ -615,11 +618,8 @@ msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:126
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/index.html:2
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:120
 msgid "Navigation"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:117
-msgid "Navigation <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Listing.jsx:311
@@ -722,7 +722,7 @@ msgid "pageviews"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:115
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:89
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:88
 msgid "parent"
 msgstr ""
 
@@ -732,7 +732,7 @@ msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/ArticleItem.jsx:138
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/Swimlane/ArticleItem.jsx:77
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:101
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:100
 msgid "Paywall secured"
 msgstr ""
 
@@ -870,14 +870,11 @@ msgid "Redirect type"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:114
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:109
 msgid "Redirects"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:106
-msgid "Redirects <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:30
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:29
 msgid "Redirects tab"
 msgstr ""
 
@@ -936,6 +933,7 @@ msgid "Revert styles back to theme defaults:"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:101
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:18
 msgid "route"
 msgstr ""
 
@@ -965,11 +963,8 @@ msgstr ""
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/ContentLists/Manual/FilterPanel.jsx:144
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/Output/FilterPane.jsx:210
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:102
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:98
 msgid "Routes"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:95
-msgid "Routes <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/rules/rule-preview.html:12
@@ -992,7 +987,7 @@ msgstr ""
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:73
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/navigation/menu.html:188
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/redirects/form.html:86
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:135
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:134
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/webhooks/webhook-add.html:83
 msgid "Save"
 msgstr ""
@@ -1014,6 +1009,7 @@ msgstr ""
 msgid "Select date range please"
 msgstr ""
 
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/directives/themeManager/index.html:25
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:25
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:49
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage-theme-settings.html:73
@@ -1047,7 +1043,7 @@ msgstr ""
 msgid "Site name"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:67
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:66
 msgid "slug"
 msgstr ""
 
@@ -1072,7 +1068,7 @@ msgstr ""
 msgid "Superdesk Publisher"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:104
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:103
 msgid "template name"
 msgstr ""
 
@@ -1093,11 +1089,8 @@ msgid "The list is empty"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:150
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:142
 msgid "Theme"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:139
-msgid "Theme <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:163
@@ -1124,7 +1117,7 @@ msgstr ""
 msgid "This month"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:28
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:27
 msgid "This Route has redirect set to"
 msgstr ""
 
@@ -1208,7 +1201,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:80
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/route-form.html:79
 msgid "variable name"
 msgstr ""
 
@@ -1221,11 +1214,8 @@ msgid "Web publishing"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/manage.html:138
+#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:131
 msgid "Webhooks"
-msgstr ""
-
-#: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/views/settings/website-management/partials/tenant.html:128
-msgid "Webhooks <i class=\"icon-pencil icon--dark-blue-grey\"></i>"
 msgstr ""
 
 #: /Users/tomaszrondio/Desktop/projekty/PUBLISHER/superdesk-publisher/client/components/generic/SitesSideNav.jsx:17

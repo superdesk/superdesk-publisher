@@ -3,8 +3,8 @@
     <a href="" class="close" ng-click="managerController.toggleSiteWizard()"
       ><i class="icon-close-small"></i
     ></a>
-    <h3 class="modal__heading" translate>
-      Create Site Wizard
+    <h3 class="modal__heading">
+      <span translate>Create Site Wizard</span>
       <span ng-if="newSite.output_channel"
         >- {{ newSite.output_channel.type.charAt(0).toUpperCase() +
         newSite.output_channel.type.slice(1) }}</span
@@ -21,7 +21,7 @@
   >
     <div
       sd-wizard-step
-      data-title="{{ 'Add site' | translate }}"
+      data-title="Add site"
       data-code="addSite"
       data-disabled="true"
     >
@@ -101,7 +101,7 @@
           >
             <div class="form__row-item">
               <div class="sd-line-input sd-line-input--required">
-                <label class="sd-line-input__label" translate
+                <label class="sd-line-input__label"
                   >{{ name.replace("_", " ") }}</label
                 >
                 <input
@@ -124,7 +124,7 @@
           >
             <div class="form__row-item">
               <div class="sd-line-input sd-line-input--required">
-                <label class="sd-line-input__label" translate
+                <label class="sd-line-input__label"
                   >{{ name.replace("_", " ") }}</label
                 >
                 <input
@@ -144,6 +144,7 @@
         <button
           class="btn btn--hollow"
           ng-click="managerController.toggleSiteWizard()"
+          translate
         >
           Cancel
         </button>
@@ -152,6 +153,7 @@
           class="btn btn--primary"
           ng-click="saveSite()"
           ng-disabled="!generalStep.$valid || wizard.busy"
+          translate
         >
           Continue
         </button>
@@ -159,7 +161,7 @@
     </div>
     <div
       sd-wizard-step
-      data-title="{{ :: 'Install theme' | translate }}"
+      data-title="Install theme"
       ng-if="!newSite.output_channel"
       data-code="installTheme"
       data-disabled="true"
@@ -177,6 +179,7 @@
           class="btn btn--primary"
           ng-disabled="!wizard.ready"
           ng-click="configureSite()"
+          translate
         >
           Configure your site
         </button>
@@ -184,6 +187,7 @@
           class="btn btn--hollow btn--primary"
           ng-disabled="!wizard.ready"
           ng-click="managerController.toggleSiteWizard()"
+          translate
         >
           Done
         </button>
