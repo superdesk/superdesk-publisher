@@ -27,7 +27,7 @@ describe("ContentLists/ContentLists", () => {
   it("renders properly", async () => {
     const { container, getByText } = render(
       <ContentLists tenant={null} list={null} api={api} publisher={publisher} isLanguagesEnabled={true}
-        languages={languages} />
+        languages={languages} vocabularies={[]}/>
     );
     let title = await waitForElement(() => getByText("Content Lists"));
     expect(container.firstChild).toMatchSnapshot();

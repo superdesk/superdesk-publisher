@@ -1,7 +1,6 @@
 import React from "react";
 import ArticleItem from "../../../../components/ContentLists/Automatic/ArticleItem";
 import { render } from "@testing-library/react";
-import moment from 'moment';
 
 describe("ContentLists/Automatic/ArticleItem", () => {
   const item = {
@@ -28,6 +27,7 @@ describe("ContentLists/Automatic/ArticleItem", () => {
         openPreview={jest.fn()}
         previewItem={{}}
         pinUnpin={jest.fn()}
+        remove={jest.fn()}
       />
     );
 

@@ -111,13 +111,13 @@ describe("Output/PublishPane/Publish", () => {
     );
 
     // adds destination and updates available tenants
-    let plusButton = container.querySelector(".btn--icon-only-circle");
+    let plusButton = container.querySelector(".btn--icon-only-circle").closest("span");
     fireEvent.click(plusButton);
 
     const tenantButton = getByText("tenant2");
     fireEvent.click(tenantButton);
 
-    expect(plusButton.classList.contains("btn--disabled")).toBe(true);
+    expect(plusButton.querySelector("button").classList.contains("btn--disabled")).toBe(true);
 
     // removes destination and updates available tenants
     const removeTenantButton = container
@@ -125,6 +125,6 @@ describe("Output/PublishPane/Publish", () => {
       .closest(".icn-btn");
 
     fireEvent.click(removeTenantButton);
-    expect(plusButton.classList.contains("btn--disabled")).toBe(false);
+    expect(plusButton.querySelector("button").classList.contains("btn--disabled")).toBe(false);
   });
 });
