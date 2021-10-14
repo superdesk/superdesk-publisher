@@ -20,9 +20,9 @@ const helpers = (() => {
 
     if (!rendition) rendition = renditions.find(el => el.name === "original");
 
-    if (rendition.href) return rendition.href;
+    if (rendition && rendition.href) return rendition.href;
 
-    if (rendition._links && rendition._links.public_url)
+    if (rendition && rendition._links && rendition._links.public_url)
       return rendition._links.public_url.href;
 
     return null;
