@@ -1,22 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tenant = ({ tenant }) => {
+const Tenant = ({ tenant, sessionToken }) => {
+  const tenant_href = tenant.pwa_config && tenant.pwa_config.url
+                ? tenant.pwa_config.url
+                : tenant.output_channel
+                ? tenant.output_channel.config.url
+                : tenant.subdomain
+                ? "https://" + tenant.subdomain + "." + tenant.domain_name
+                : "https://" + tenant.domain_name;
   return (
     <React.Fragment>
       <div className="sd-grid-item-header">
         <h3 className="sd-grid-item-header__heading sd-overflow-ellipsis">
           <a
             target="_blank"
-            href={
-              tenant.pwa_config && tenant.pwa_config.url
-                ? tenant.pwa_config.url
-                : tenant.output_channel
-                ? tenant.output_channel.config.url
-                : tenant.subdomain
-                ? "https://" + tenant.subdomain + "." + tenant.domain_name
-                : "https://" + tenant.domain_name
-            }
+            href={tenant_href}
             flow="down"
           >
             <span>{tenant.name}</span>
@@ -41,6 +40,16 @@ const Tenant = ({ tenant }) => {
           </div>
           {!tenant.output_channel ? (
             <div className="btn-icon-group">
+              {tenant.pwa_config && tenant.pwa_config.url && (
+                <a
+                  href={tenant_href+"/page-editor?token="+sessionToken}
+                  className="btn btn--icon-only-circle btn--large btn--hollow"
+                  sd-tooltip="Theme Editor"
+                  flow="down"
+                >
+                  <i className="icon-edit-line"></i>
+                </a>
+              )}
               <a
                 href={"#/publisher/analytics/" + tenant.code}
                 className="btn btn--icon-only-circle btn--large btn--hollow"
@@ -113,6 +122,7 @@ const Tenant = ({ tenant }) => {
 
 Tenant.propTypes = {
   tenant: PropTypes.object.isRequired,
+  sessionToken: PropTypes.string.isRequired
 };
 
 export default Tenant;

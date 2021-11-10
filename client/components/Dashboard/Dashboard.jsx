@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
               <div className="sd-grid-list sd-grid-list--large">
                 {this.state.tenants.map(tenant => (
                   <div className="sd-grid-item-wrapper" key={tenant.code}>
-                    <Tenant tenant={tenant} />
+                    <Tenant tenant={tenant} sessionToken={this.props.sessionToken}/>
                   </div>
                 ))}
               </div>
@@ -76,7 +76,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  publisher: PropTypes.object.isRequired
+  publisher: PropTypes.object.isRequired,
+  sessionToken: PropTypes.string.isRequired
 };
 
 export default Dashboard;
