@@ -178,18 +178,13 @@ class Publish extends React.Component {
   };
 
   shouldPublishButtonBeDisabled = () => {
-    let updated = helpers.getUpdatedValues(
-      this.state.newDestinations,
-      this.props.destinations
-    );
-    let flag = Object.keys(updated).length ? false : true;
     let destinationsWithoutRoute = this.state.newDestinations.filter(
       (destination) => (Object.keys(destination.route).length ? false : true)
     );
 
-    if (destinationsWithoutRoute.length) flag = true;
+    if (destinationsWithoutRoute.length) return true;
 
-    return flag;
+    return false;
   };
 
   render() {
