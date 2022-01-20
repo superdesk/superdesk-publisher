@@ -178,18 +178,26 @@ class Publish extends React.Component {
   };
 
   shouldPublishButtonBeDisabled = () => {
+    // if there are destinations without route - should be disabled
+     let destinationsWithoutRoute = this.state.newDestinations.filter(
+      (destination) => (Object.keys(destination.route).length ? false : true)
+    );
+
+    if (destinationsWithoutRoute.length) return true;
+
+    // if there are destination that are not published - status "new" and have route assigned (from previous check) - should not be disabled
+     let destinationsNotPublished = this.state.newDestinations.filter(
+      (destination) => destination.status === "new" ? true : false
+    );
+
+    if (destinationsNotPublished.length) return false;
+    
+    // otherwise lets check if anything got updated
     let updated = helpers.getUpdatedValues(
       this.state.newDestinations,
       this.props.destinations
     );
-    let flag = Object.keys(updated).length ? false : true;
-    let destinationsWithoutRoute = this.state.newDestinations.filter(
-      (destination) => (Object.keys(destination.route).length ? false : true)
-    );
-
-    if (destinationsWithoutRoute.length) flag = true;
-
-    return flag;
+    return Object.keys(updated).length ? false : true;
   };
 
   render() {
