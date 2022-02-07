@@ -38,7 +38,7 @@ class Publishing extends React.Component {
         urls.item("format-document-for-preview") +
         `?subscriber_id=${subscriber_id}&formatter=ninjs&document_id=${item._id}`;
 
-      fetch(formatterUrl, {credentials: "include").then((response) =>
+      fetch(formatterUrl, {credentials: "include"}).then((response) =>
         response.text().then((responseText) => {
           let json = JSON.parse(responseText);
           if (!json.guid) {
