@@ -132,6 +132,84 @@ class FilterPanel extends React.Component {
 
     let vocabularies = [];
 
+    // priority
+    if (filters.metadata.priority) {
+      let service = this.props.vocabularies.find((v) => v._id === "priority");
+      let serviceItems =
+        service && service.items
+          ? service.items.filter((i) => i.is_active)
+          : [];
+      let serviceOptions = [];
+
+      if (serviceItems.length) {
+        serviceItems.map((item) => {
+          serviceOptions.push({
+            value: item.qcode,
+            label: item.name,
+          });
+        });
+      }
+
+      let value = [];
+
+      let originalServiceItem = serviceItems.find(
+        (s) => s.qcode === filters.metadata.priority
+      );
+
+      if (originalServiceItem) {
+        value.push({
+          value: filters.metadata.priority,
+          label: originalServiceItem.name,
+        });
+      }
+
+      vocabularies.push({
+        name: "Priority",
+        id: "priority",
+        options: serviceOptions,
+        value: value,
+      });
+    }
+
+    // urgency
+    if (filters.metadata.urgency) {
+      let service = this.props.vocabularies.find((v) => v._id === "urgency");
+      let serviceItems =
+        service && service.items
+          ? service.items.filter((i) => i.is_active)
+          : [];
+      let serviceOptions = [];
+
+      if (serviceItems.length) {
+        serviceItems.map((item) => {
+          serviceOptions.push({
+            value: item.qcode,
+            label: item.name,
+          });
+        });
+      }
+
+      let value = [];
+
+      let originalServiceItem = serviceItems.find(
+        (s) => s.qcode === filters.metadata.urgency
+      );
+
+      if (originalServiceItem) {
+        value.push({
+          value: filters.metadata.urgency,
+          label: originalServiceItem.name,
+        });
+      }
+
+      vocabularies.push({
+        name: "Urgency",
+        id: "urgency",
+        options: serviceOptions,
+        value: value,
+      });
+    }
+
     // categories
     if (filters.metadata.service && filters.metadata.service.length) {
       let service = this.props.vocabularies.find((v) => v._id === "categories");
@@ -225,12 +303,26 @@ class FilterPanel extends React.Component {
 
   save = () => {
     this.setState({ loading: true });
-
+    let vocabularies = [...this.state.vocabularies];
     let filters = _.pickBy({ ...this.state.filters }, _.identity);
-
     let newMetadata = {};
 
-    let services = this.state.vocabularies.find((v) => v.id === "categories");
+    // priority and urgency
+    const priority = vocabularies.find((v) => v.id === "priority");
+
+    if (priority) {
+      newMetadata.priority = priority.value[0].value;
+      vocabularies = vocabularies.filter((v) => v.id !== "priority");
+    }
+
+    const urgency = vocabularies.find((v) => v.id === "urgency");
+
+    if (urgency) {
+      newMetadata.urgency = urgency.value[0].value;
+    }
+
+    // services
+    const services = vocabularies.find((v) => v.id === "categories");
 
     if (services) {
       newMetadata.service = [];
@@ -240,14 +332,15 @@ class FilterPanel extends React.Component {
           code: serviceValue.value,
         });
       }
+
+      vocabularies = vocabularies.filter((v) => v.id !== "categories");
     }
 
-    let subjects = this.state.vocabularies.filter((v) => v.id !== "categories");
-
-    if (subjects.length) {
+    // subjects
+    if (vocabularies.length) {
       newMetadata.subject = [];
 
-      for (let subject of subjects) {
+      for (let subject of vocabularies) {
         for (let subjectValue of subject.value) {
           newMetadata.subject.push({
             scheme: subject.id,
@@ -542,7 +635,7 @@ class FilterPanel extends React.Component {
                       <label className="sd-line-input__label">
                         {vocabulary.name}
                       </label>
-                      <p>{vocabulary.id}</p>
+                      {/* <p>{vocabulary.id}</p> */}
 
                       <MultiSelect
                         onSelect={(values) =>
