@@ -5,7 +5,8 @@ exports[`generic/PreviewStatusLabels renders published article labels correctly 
   class="form__row form__row--small-padding"
 >
   <label>
-    Published to:
+    Published to
+    :
   </label>
   <div>
     <a

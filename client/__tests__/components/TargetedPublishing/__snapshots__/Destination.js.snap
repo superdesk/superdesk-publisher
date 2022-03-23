@@ -35,7 +35,8 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
           <span
             class="sd-list-item__text-label"
           >
-            Publish to:
+            Publish to
+            :
           </span>
           <span
             class="sd-overflow-ellipsis"
@@ -111,7 +112,8 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
               <span
                 class="sd-list-item__text-label sd-overflow-ellipsis"
               >
-                Automatically:
+                Automatically
+                :
               </span>
               <span
                 class="sd-overflow-ellipsis"

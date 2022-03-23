@@ -29,7 +29,8 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       <span
         class="sd-text__date-time sd-text__italic"
       >
-        Authors:
+        Authors
+        :
          
       </span>
       <span
@@ -43,7 +44,8 @@ exports[`Analytics/ArticleItem renders correctly 1`] = `
       <span
         class="sd-text__date-time sd-text__italic "
       >
-        Published:
+        Published
+        :
          
       </span>
       <time>

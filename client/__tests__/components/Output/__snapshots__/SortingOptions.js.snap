@@ -20,11 +20,13 @@ exports[`Output/SortingOptions renders correctly 1`] = `
   >
     <li>
       <button>
+         
         Updated
       </button>
     </li>
     <li>
       <button>
+         
         Created
       </button>
     </li>

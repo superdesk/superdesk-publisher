@@ -8,7 +8,8 @@ exports[`Dashboard/Dashboard renders properly 1`] = `
     <h3
       class="subnav__page-title"
     >
-      Publisher Dashboard
+      Publisher 
+      Dashboard
     </h3>
   </div>
   <div

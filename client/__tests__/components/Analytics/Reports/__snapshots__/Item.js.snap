@@ -16,7 +16,8 @@ exports[`Analytics/Reports/Item renders correctly 1`] = `
         <span
           class="sd-text__date-time sd-text__italic"
         >
-          Report Author:
+          Report Author
+          :
            
         </span>
         <span
@@ -27,7 +28,8 @@ exports[`Analytics/Reports/Item renders correctly 1`] = `
         <span
           class="sd-text__date-time sd-text__italic"
         >
-          Report created:
+          Report created
+          :
            
         </span>
         <span
@@ -48,7 +50,8 @@ exports[`Analytics/Reports/Item renders correctly 1`] = `
       <span
         class="sd-text__date-time sd-text__italic"
       >
-        Range:
+        Range
+        :
       </span>
       <span
         class="sd-text__normal sd-margin-r--1 leftSpace"

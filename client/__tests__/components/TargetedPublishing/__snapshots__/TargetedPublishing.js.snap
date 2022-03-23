@@ -32,7 +32,8 @@ exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set
       <div
         class="tp-alert"
       >
-        No websites have been set, this article won't show up on any website. It will go to: 
+        No websites have been set, this article won't show up on any website. It will go to
+        : 
         <br />
         <span
           style="font-weight: 500;"

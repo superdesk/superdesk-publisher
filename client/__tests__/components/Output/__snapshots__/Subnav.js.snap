@@ -82,11 +82,13 @@ exports[`Output/Subnav renders correctly 1`] = `
       >
         <li>
           <button>
+             
             Updated
           </button>
         </li>
         <li>
           <button>
+             
             Created
           </button>
         </li>
@@ -113,7 +115,9 @@ exports[`Output/Subnav renders correctly 1`] = `
       class="sd-margin-r--1"
     >
       <span>
-        Incoming:
+         
+        Incoming
+        :
       </span>
       <span
         class="sd-margin-l--0-5"
@@ -127,7 +131,9 @@ exports[`Output/Subnav renders correctly 1`] = `
     </div>
     <div>
       <span>
-        Published:
+         
+        Published
+        :
       </span>
       <span
         class="sd-margin-l--0-5"

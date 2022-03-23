@@ -1,14 +1,11 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import {gettext} from "../../../superdeskApi"
-
+import { gettext } from "../../../superdeskApi";
 import helpers from "../../../services/helpers.js";
 import VirtualizedList from "../../generic/VirtualizedList";
 import Store from "../Store";
-
 import ArticleItem from "./ArticleItem";
-import { gettext } from "superdeskApi.js";
 
 class TenantBoard extends React.Component {
   static contextType = Store;

@@ -112,7 +112,7 @@ describe("Output/PublishPane/Publish", () => {
 
     // adds destination and updates available tenants
     let plusButton = container.querySelector(".btn--icon-only-circle");
-    fireEvent.click(plusButton);
+    fireEvent.click(plusButton.closest("span"));
 
     const tenantButton = getByText("tenant2");
     fireEvent.click(tenantButton);

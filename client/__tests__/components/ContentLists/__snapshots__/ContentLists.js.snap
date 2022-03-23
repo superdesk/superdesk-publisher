@@ -325,7 +325,8 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                 <span
                   class="sd-text__info"
                 >
-                  Last modified: 
+                  Last modified
+                  : 
                 </span>
                 <span>
                   2 days ago
@@ -431,7 +432,8 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
                 <span
                   class="sd-text__info"
                 >
-                  Last modified: 
+                  Last modified
+                  : 
                 </span>
                 <span>
                   2 days ago
