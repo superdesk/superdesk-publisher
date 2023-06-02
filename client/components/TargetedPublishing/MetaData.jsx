@@ -20,6 +20,7 @@ class MetaData extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.item) return;
     this.getMetaData();
   }
 
