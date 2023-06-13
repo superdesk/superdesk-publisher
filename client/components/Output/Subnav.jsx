@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Store from "./Store";
 import {
   CheckButtonGroup,
-  RadioButton,
+  RadioButtonGroup,
   Badge,
 } from "superdesk-ui-framework/react";
 import TenantSelect from "./TenantSelect";
@@ -19,7 +19,7 @@ const Subnav = (props) => {
           <div className="subnav__content-bar">
             <div style={{ marginLeft: "1rem" }}>
               <CheckButtonGroup>
-                <RadioButton
+                <RadioButtonGroup
                   value={store.selectedList}
                   options={[
                     {
