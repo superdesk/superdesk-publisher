@@ -8,7 +8,7 @@ import Loading from "../../UI/Loading/Loading";
 import {
   Button,
   CheckButtonGroup,
-  RadioButton,
+  RadioButtonGroup,
 } from "superdesk-ui-framework/react";
 import RelatedArticles from "./RelatedArticles";
 import Destination from "./Destination";
@@ -234,7 +234,7 @@ class Publish extends React.Component {
             </DropdownScrollable>
             <div>
               <CheckButtonGroup>
-                <RadioButton
+                <RadioButtonGroup
                   value={this.state.filter}
                   options={[
                     { value: "all", label: "All" },

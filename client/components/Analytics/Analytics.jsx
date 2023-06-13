@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 
-import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
+import { CheckButtonGroup, RadioButtonGroup } from "superdesk-ui-framework/react";
 
 import SitesSideNav from "../generic/SitesSideNav";
 import FiltersPanel from "./FiltersPanel";
@@ -254,7 +254,7 @@ class Analytics extends React.Component {
                   </button>
                   <div style={{ marginLeft: "1rem" }}>
                     <CheckButtonGroup>
-                      <RadioButton
+                      <RadioButtonGroup
                         value={this.state.activeView}
                         options={[
                           { value: "listing", label: "Analytics" },
