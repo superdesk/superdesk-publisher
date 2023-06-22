@@ -58,7 +58,7 @@ class MetaData extends Component {
     delete metaData._links;
 
     return axios.put(
-      this.props.apiUrl + "packages/seo/" + this.props.item.guid,
+      this.props.apiUrl + "packages/seo/" + this.props.item.evolvedfrom,
       metaData,
       { headers: this.props.apiHeader }
     );
