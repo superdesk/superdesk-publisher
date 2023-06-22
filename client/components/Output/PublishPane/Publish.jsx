@@ -101,7 +101,6 @@ class Publish extends React.Component {
     let destination = {
       tenant: tenant,
       route: {},
-      is_published_fbia: false,
       paywall_secured: false,
       is_published_to_apple_news: false,
       status: "new",
@@ -116,7 +115,6 @@ class Publish extends React.Component {
     let destination = {
       tenant: item.tenant.code,
       route: item.route && item.route.id ? item.route.id : null,
-      is_published_fbia: item.is_published_fbia,
       published: item.route && item.route.id ? true : false,
       paywall_secured: item.paywall_secured,
       is_published_to_apple_news: item.is_published_to_apple_news,

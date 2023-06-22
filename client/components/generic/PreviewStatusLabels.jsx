@@ -5,11 +5,9 @@ import ArticleStatusLabel from "../UI/ArticleStatusLabel";
 import { Label } from "superdesk-ui-framework/react";
 
 const PreviewStatusLabels = ({ articles }) => {
-  let isPublishedFbia = false;
   let isPublishedAppleNews = false;
 
   articles.forEach((article) => {
-    if (article.is_published_fbia) isPublishedFbia = true;
     if (article.is_published_to_apple_news) isPublishedAppleNews = true;
   });
 
@@ -46,11 +44,6 @@ const PreviewStatusLabels = ({ articles }) => {
                   }
                 />
               ))}
-            {isPublishedFbia ? (
-              <span style={{ marginRight: ".6em" }}>
-                <Label text="facebook" type="primary" />
-              </span>
-            ) : null}
             {isPublishedAppleNews ? (
               <span style={{ marginRight: ".6em" }}>
                 <Label text="Apple News" color="pink--400" />

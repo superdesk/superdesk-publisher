@@ -133,11 +133,6 @@ class Destination extends React.Component {
                     ? destination.route.name
                     : null}
                 </span>
-                {!!destination.is_published_fbia && (
-                  <span className="sd-list-item__inline-text sd-list-item--element-grow no-line-height">
-                    <i className="icon-facebook icon--blue icon--full-opacity"></i>
-                  </span>
-                )}
                 {!!destination.paywall_secured && (
                   <span className="sd-list-item__inline-text no-line-height">
                     <i className="icon-paywall icon--full-opacity icon--orange"></i>
@@ -238,7 +233,6 @@ class Destination extends React.Component {
               </div>
             )}
             <PublishingOptionSwitches
-              fbiaEnabled={tenant.fbia_enabled}
               paywallEnabled={tenant.paywall_enabled}
               appleNewsEnabled={
                 tenant.apple_news_config && tenant.apple_news_config.channel_id

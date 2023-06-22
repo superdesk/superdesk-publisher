@@ -57,11 +57,9 @@ const ArticleItem = ({ item, style, onRemove }) => {
     );
   }
 
-  let isPublishedFbia = false;
   let isPublishedAppleNews = false;
 
   item.articles.forEach((article) => {
-    if (article.is_published_fbia) isPublishedFbia = true;
     if (article.is_published_to_apple_news) isPublishedAppleNews = true;
   });
 
@@ -169,7 +167,6 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 />
               ))}
           </span>
-          {isPublishedFbia ? <Label text="facebook" type="primary" /> : null}
           {isPublishedAppleNews ? (
             <Label text="Apple News" color="pink--400" />
           ) : null}

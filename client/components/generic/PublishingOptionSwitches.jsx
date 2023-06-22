@@ -4,33 +4,17 @@ import PropTypes from "prop-types";
 import { Checkbox } from "superdesk-ui-framework/react";
 
 const PublishingOptionSwitches = ({
-  fbiaEnabled,
   paywallEnabled,
   appleNewsEnabled,
   destination,
   onChange,
 }) => {
-  if (paywallEnabled || fbiaEnabled || appleNewsEnabled) {
+  if (paywallEnabled || appleNewsEnabled) {
     return (
       <div
         className="flex-grid flex-grid--wrap-items flex-grid--small-1 flex-grid--medium-2"
         style={{ overflow: "visible" }}
       >
-        {fbiaEnabled && (
-          <div
-            className="flex-grid__item"
-            style={{ marginBottom: "1em" }}
-            sd-tooltip="Publish to facebook"
-          >
-            <span>
-              <Checkbox
-                label={{ text: "FBIA" }}
-                checked={destination.is_published_fbia}
-                onChange={(value) => onChange(value, "is_published_fbia")}
-              />
-            </span>
-          </div>
-        )}
 
         {appleNewsEnabled && (
           <div
@@ -73,7 +57,6 @@ const PublishingOptionSwitches = ({
 };
 
 PublishingOptionSwitches.propTypes = {
-  fbiaEnabled: PropTypes.bool.isRequired,
   paywallEnabled: PropTypes.bool.isRequired,
   appleNewsEnabled: PropTypes.bool.isRequired,
   destination: PropTypes.object.isRequired,
