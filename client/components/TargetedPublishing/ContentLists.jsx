@@ -28,7 +28,6 @@ const ContentLists = (props) => {
           list={list}
           allContentLists={allContentLists}
           save={props.save}
-          ruleLists={props.ruleLists}
         />
       ))}
 
