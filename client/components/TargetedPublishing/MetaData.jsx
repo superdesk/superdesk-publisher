@@ -26,7 +26,7 @@ class MetaData extends Component {
 
   getMetaData = () => {
     axios
-      .get(this.props.apiUrl + "packages/seo/" + this.props.item.guid, {
+      .get(this.props.apiUrl + "packages/seo/" + this.props.item.evolvedfrom, {
         headers: this.props.apiHeader
       })
       .then(res => {
