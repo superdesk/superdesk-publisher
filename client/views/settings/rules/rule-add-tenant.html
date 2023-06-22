@@ -139,7 +139,6 @@
         </div>
         <div class="form__row">
             <sd-check ng-model="newRule.action.published">Auto Publish</sd-check>
-            <sd-check ng-if="newRule.action.tenant.fbia_enabled" ng-model="newRule.action.fbia">Publish on Facebook</sd-check>
         </div>
         <div class="form__row" ng-if="newRule.action.tenant.paywall_enabled && !newRule.action.tenant.output_channel">
             <sd-check ng-model="newRule.action.paywall_secured">Paywall Secured</sd-check>
