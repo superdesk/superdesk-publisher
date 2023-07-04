@@ -117,7 +117,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
                 <Label
                   key={"articleService" + item.id + "-" + service.name}
                   text={service.name}
-                  style="hollow"
+                  style="translucent"
                 />
               ) : null
             )}
@@ -125,8 +125,8 @@ const ArticleItem = ({ item, style, onRemove }) => {
           {item.version > 1 && store.selectedList === "incoming" && (
             <Label
               text={"update " + item.version}
-              style="hollow"
-              color="indigo--700"
+              style="translucent"
+              type="highlight"
             />
           )}
           {item.articles[0] && item.articles[0].paywall_secured && (
@@ -214,7 +214,7 @@ const ArticleItem = ({ item, style, onRemove }) => {
       </div>
       {store.isLanguagesEnabled && (
         <div className="sd-list-item__column sd-list-item__column--no-border">
-          <Label text={item.language} style="hollow" />
+          <Label text={item.language} style="translucent" />
         </div>
       )}
 

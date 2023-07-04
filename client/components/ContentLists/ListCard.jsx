@@ -4,7 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import helpers from "../../services/helpers.js";
 import _ from "lodash";
-import { Button, Label } from "superdesk-ui-framework/react";
+import { Button, Label, IconButton, Icon } from "superdesk-ui-framework/react";
 import Dropdown from "../UI/Dropdown";
 import Modal from "../UI/Modal";
 
@@ -186,39 +186,43 @@ class ListCard extends React.Component {
       <React.Fragment>
         <div className="sd-card flexGrow">
           <div
-            className={classNames("sd-card__header sd-card__header--padding", {
+            data-theme="dark-ui"
+            className={classNames("sd-card__header", {
               "sd-card__header--secondary-color": list.type === "automatic",
             })}
           >
             {this.state.isEditing ? (
               <React.Fragment>
-                <div className="sd-card__heading">
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={this.handleInputChange}
-                    value={this.state.list.name}
-                    className="line-input line-input--alt"
-                    required
-                    autoFocus
-                  />
+                <div className="sd-card__heading sd-card__heading--editable">
+                  <div class="sd-input sd-input--medium sd-input--boxed-style sd-input sd-input--inline-label">
+                    <input
+                      type="text"
+                      name="name"
+                      onChange={this.handleInputChange}
+                      value={this.state.list.name}
+                      className="sd-input__input"
+                      required
+                      autoFocus
+                    />
+                  </div>
                 </div>
-                <div className="sd-card__btn-group sd-card__btn-group--right margin--top0">
-                  <button
-                    onClick={this.cancelEditing}
-                    className="btn btn--icon-only"
-                  >
-                    <i className="icon-close-small" />
-                  </button>
-                  <button onClick={this.save} className="btn btn--icon-only">
-                    <i className="icon-ok" />
-                  </button>
+                <div className="button-group button-group--compact button-group--end sd-margin-r--1">
+                  <IconButton
+                    icon="close-small"
+                    ariaValue="Cancel"
+                    onClick={this.cancelEditing} 
+                  />
+                  <IconButton
+                    icon="ok"
+                    ariaValue="Save"
+                    onClick={this.save} 
+                  /> 
                 </div>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div className="sd-card__heading" onClick={this.edit}>
-                  {list.name}
+                <div className="sd-card__heading sd-card__heading--editable" onClick={this.edit}>
+                  <div className="sd-card__heading-dummy-input" title="Click to rename">{list.name}</div>
                 </div>
                 <div className="sd-card__actions-group">
                   <Button
@@ -299,7 +303,7 @@ class ListCard extends React.Component {
               <span>{moment(list.updated_at).fromNow()}</span>
             </div>
             {list.enabled && (
-              <Label text="active" type="success" style="hollow" />
+              <Label text="active" type="success" style="translucent" />
             )}
           </div>
         </div>

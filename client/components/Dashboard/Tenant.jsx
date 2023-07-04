@@ -108,7 +108,7 @@ const Tenant = ({ tenant, sessionToken }) => {
                     className="sd-card__content-list-block-link sd-card__content-list-block-link--icon-hover sd-overflow-ellipsis"
                   >
                     {list.name}
-                    <i className="icon-pencil icon--dark-blue-grey"></i>
+                    <i className="icon-pencil"></i>
                   </a>
                 </li>
               ))

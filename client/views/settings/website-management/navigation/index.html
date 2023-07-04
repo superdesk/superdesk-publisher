@@ -11,54 +11,56 @@
 </div>
 
 <div class="sd-page__content">
-  <div class="flex-grid box wrap-items small-1 medium-1 large-2 xlarge-3">
+  <div class="sd-grid-list sd-grid-list--large">
     <div
-      class="flex-item card-box"
+      class="sd-card"
       ng-repeat="menu in menus | orderBy: 'id' track by menu.id"
     >
-      <div class="card-box__header sd-d-flex sd-flex-align-items-center">
+      <div data-theme="dark-ui" class="sd-card__header sd-card__header--secondary-color">
         <div
           ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
           ng-click="webPublisherSettings.editMenuCard(menu)"
-          class="card-box__heading card-box__heading--editable sd-flex-grow"
+          class="sd-card__heading sd-card__heading--editable"
         >
-          <div>{{ menu.name }}</div>
+          <div class="sd-card__heading-dummy-input" title="Click to rename" >{{ menu.name }}</div>
         </div>
         <div
           ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
-          class="card-box__heading card-box__heading--editable sd-flex-grow"
+          class="sd-card__heading sd-card__heading--editable"
         >
-          <input
-            type="text"
-            ng-model="newMenu.name"
-            class="line-input line-input--alt"
-            required
-            sd-card-input-focus
-          />
+          <div class="sd-input sd-input--medium sd-input--boxed-style sd-input sd-input--inline-label">
+            <input
+              type="text"
+              ng-model="newMenu.name"
+              class="sd-input__input"
+              placeholder="Navigation name"
+              required
+              sd-card-input-focus
+            />
+
+          </div>
+
         </div>
         <div
           ng-if="webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
-          class="card-box__btn-group card-box__btn-group--right sd-margin-t--0"
+          class="button-group button-group--compact button-group--end sd-margin-r--1"
         >
           <button
             ng-click="webPublisherSettings.cancelEditMenuCard()"
             class="icn-btn"
-            style="margin-top: .9em"
           >
             <i class="icon-close-small"></i>
           </button>
           <button
             ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshMenus)"
             class="icn-btn"
-            style="margin-top: .9em"
           >
             <i class="icon-ok"></i>
           </button>
         </div>
         <div
           ng-if="!webPublisherSettings._editMode(menu, webPublisherSettings.selectedMenu, webPublisherSettings.menuAdd)"
-          class="sd-d-flex sd-margin-l--auto sd-margin-r--1"
-          style="margin-top: 1em"
+          class="button-group button-group--compact button-group--end sd-margin-r--1"
         >
           <a
             ng-click="webPublisherSettings.editMenuTree(menu)"
@@ -74,18 +76,17 @@
           ></a>
         </div>
       </div>
-      <div class="card-box__content card-box__content--scrollable relative">
+      <div class="sd-card__content sd-card__content--scrollable relative">
         <div class="sd-loader" ng-if="loading"></div>
-        <ul class="card-box__content-list">
+        <ul class="sd-card__content-list">
           <li
             ng-repeat="child in menu.children | orderBy: 'position' track by child.id"
-            class="card-box__content-list-item--small card-box__content-list-item--border-bottom"
+            class="sd-card__content-list-item--small sd-card__content-list-item--border-bottom sd-display--flex sd-flex--items-center"
           >
-            <h4 class="card-box__h4--normal-case">
-              {{ child.name }}<span class="label"
-                >{{ child.children.length }}</span
-              >
-            </h4>
+            <span class="sd-margin-e--auto">
+              {{ child.name }}
+            </span>
+            <span class="badge badge--light">{{ child.children.length }}</span>
           </li>
         </ul>
       </div>

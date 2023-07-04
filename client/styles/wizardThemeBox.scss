@@ -1,13 +1,18 @@
 .wizardThemeBox {
-    background-color: $white;
+    background-color: var(--sd-item__main-Bg);
     position: relative;
+    border: 2px solid var(--sd-item__main-Bg);
+    border-radius: var(--b-radius--medium);
     &--active {
-        background-color: $green;
+        background-color: var(--sd-colour-interactive);
+        border: 2px solid var(--sd-colour-interactive);
         color: $white;
     }
 
-    &__image {
+    .wizardThemeBox__image {
         width: 100%;
+        border-radius: var(--b-radius--medium);
+        overflow: hidden;
         img {
             display: block;
             object-fit: cover;
@@ -15,19 +20,17 @@
             width: 100%;
         }
     }
-    &__name {
+    .wizardThemeBox__name {
         display: block;
         text-align: center;
         line-height: 2.5em;
     }
-    &__overlay {
+    .wizardThemeBox__overlay {
         opacity: 0;
-        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: var(--b-radius--medium);
+        background-color: var(--sd-colour-overlay-actioning);
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         transition: opacity .2s linear;
         display: flex;
         align-items: flex-end;
@@ -40,22 +43,26 @@
         opacity: 1;
     }
 
-    &--upload {
+    &.wizardThemeBox--upload {
         height: 222px;
         background: none;
-        border: 2px dashed rgba(51, 51, 51, 0.25);
-        border-radius: 3px;
+        border: none;
+
         .drag-area {
+            inset: 0;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             padding: 1rem;
+            transition: all 0.2s ease;
+            border: 2px dashed var(--sd-colour-line--medium) !important;
+            border-radius: var(--b-radius--medium);
 
-            &.dragover{
-                border: none;
-                background-color: rgba(255,255,255,.7);
+            &.dragover {
+                border: 2px dashed var(--sd-colour-interactive) !important;
+                background-color: var(--sd-colour-interactive--alpha-10);
             }
             .title {
                 width: auto;
