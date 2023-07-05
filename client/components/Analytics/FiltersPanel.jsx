@@ -169,17 +169,21 @@ class FiltersPanel extends React.Component {
     return (
       <div className="sd-filters-panel sd-filters-panel--border-right">
         <div className="side-panel side-panel--transparent side-panel--shadow-right">
-          <div className="side-panel__header side-panel__header--border-b">
-            <span className="side-panel__close">
-              <IconButton
-                icon="close-small"
-                tooltip={{ text: "Close", flow: "left" }}
-                onClick={this.props.toggle}
-              />
-            </span>
-            <h3 className="side-panel__heading side-panel__heading--big">
-              Filter
-            </h3>
+          <div className="side-panel__header side-panel__header--border-b side-panel__header--has-close">
+            <div className="side-panel__header-wrapper">
+              <div className="side-panel__header-inner">
+                <h3 className="side-panel__heading side-panel__heading--big">
+                  Filter
+                </h3>
+              </div>
+              <div className="button-group button-group--end button-group--no-space side-panel__btn-group">
+                <IconButton
+                  icon="close-small"
+                  tooltip={{ text: "Close", flow: "left" }}
+                  onClick={this.props.toggle}
+                />
+              </div>
+            </div>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
@@ -283,12 +287,12 @@ class FiltersPanel extends React.Component {
             </div>
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
-            <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
+            <div className="button-group button-group--start button-group--compact">
               <Button text="Clear" style="hollow" onClick={this.clear} />
               <Button text="Run Report" type="primary" onClick={this.save} />
             </div>
             <div
-              className="flex-grid flex-grid--boxed-small flex-grid--small-1"
+              className="button-group button-group--end button-group--compact"
               data-sd-tooltip={
                 this.shouldAllowReportGeneration()
                   ? null

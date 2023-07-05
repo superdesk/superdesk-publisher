@@ -4,11 +4,11 @@
     left: 5px;
     bottom: 5px;
     right: 5px;
-    border: 3px dashed $background-main;
+    border: 3px dashed var(--sd-colour-line--medium);
     overflow-y: auto;
     @include user-select(none);
     &.dragover {
-        border-color: #e7e7e7;
+        border-color: var(--sd-colour-interactive);
     }
 
     .title {
@@ -20,7 +20,7 @@
         margin-left: -200px;
         padding-top: 100px;
         text-align: center;
-        color: #a0a0a0;
+        color: var(--color-text-light);
         font-size: 24px;
         font-weight: 300;
     }

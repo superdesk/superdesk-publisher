@@ -125,7 +125,7 @@ class FilterPanel extends React.Component {
 
     return (
       <div className="sd-filters-panel sd-filters-panel--border-left">
-        <div className="side-panel side-panel--transparent side-panel--shadow-right">
+        <div className="side-panel side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-b">
             <span className="side-panel__close">
               <IconButton

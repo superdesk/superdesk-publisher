@@ -1,26 +1,25 @@
 <div class="sd-page__header">
   <ul class="filter-type sd-margin-r--2">
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === ''}"
-    >
-      <a ng-click="webPublisherSettings.changeRedirectFilter('')" translate
+    <li>
+      <a
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.redirectType === ''}"
+        ng-click="webPublisherSettings.changeRedirectFilter('')" translate
         >all</a
       >
     </li>
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === 'route'}"
-    >
-      <a ng-click="webPublisherSettings.changeRedirectFilter('route')" translate
+    <li>
+      <a
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.redirectType === 'route'}"
+        ng-click="webPublisherSettings.changeRedirectFilter('route')" translate
         >Route to Route</a
       >
     </li>
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.redirectType === 'custom'}"
-    >
+    <li>
       <a
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.redirectType === 'custom'}"
         ng-click="webPublisherSettings.changeRedirectFilter('custom')"
         translate
         >Custom</a

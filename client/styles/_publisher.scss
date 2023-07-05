@@ -52,3 +52,7 @@
   border-top: 2px dashed red;
   color: red;
 }
+.filter-type {
+  display: flex;
+  gap: var(--gap--small);
+}
