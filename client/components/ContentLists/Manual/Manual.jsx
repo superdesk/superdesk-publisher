@@ -357,9 +357,16 @@ class Manual extends React.Component {
 
   getList = (id) => this.state[this.id2List[id]].items;
 
-  onDragEnd = (result) => {
-    const { source, destination } = result;
+  getIndexInList = (list, draggableId) => {
+    let ids = draggableId.split('_');
+    let id = parseInt(ids[ids.length - 1]);
 
+    return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
+  } 
+
+  onDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+    
     // dropped outside the list
     if (!destination) {
       return;
@@ -377,7 +384,7 @@ class Manual extends React.Component {
       let list = { ...this.state.list };
 
       list.items = items;
-      this.recordChange("move", destination.index, [...list.items]);
+      this.recordChange("move", this.getIndexInList(list.items, draggableId), [...list.items]);
       this.setState({ list });
     } else {
       const result = move(
@@ -392,7 +399,8 @@ class Manual extends React.Component {
 
       list.items = this.fixPinnedItemsPosition(result.contentList);
       articles.items = result.articles;
-      this.recordChange("add", destination.index, [...list.items]);
+
+      this.recordChange("add", this.getIndexInList(list.items, draggableId), [...list.items]);
       this.setState({
         list,
         articles,
