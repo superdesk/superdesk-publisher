@@ -17,6 +17,10 @@
   background: transparent url(../images/PWA_logo.svg) center center no-repeat;
 }
 
+body[data-theme="dark-ui"] .sp-logo-pwa {
+  background: transparent url(../images/PWA_logo_dark.svg) center center no-repeat;
+}
+
 .absPosition {
   position: absolute;
 

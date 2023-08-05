@@ -73,7 +73,7 @@ class PreviewPane extends React.Component {
     let body = this.props.package.body_html;
 
     if (this.state.loading) {
-      body = renderToString(<Loading dark={true} />);
+      body = renderToString(<Loading />);
     }
 
     let article = {

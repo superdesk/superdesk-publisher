@@ -623,7 +623,7 @@ class Manual extends React.Component {
 
                       {this.state.list.loading && (
                         <li>
-                          <Loading dark={true} />
+                          <Loading />
                         </li>
                       )}
                     </ul>
@@ -706,7 +706,7 @@ class Manual extends React.Component {
                       {provided.placeholder}
                       {this.state.articles.loading && (
                         <li>
-                          <Loading dark={true} />
+                          <Loading />
                         </li>
                       )}
                       {!this.state.articles.items.length &&

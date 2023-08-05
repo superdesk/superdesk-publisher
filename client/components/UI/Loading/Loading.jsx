@@ -3,17 +3,9 @@ import React from "react";
 import classNames from "classnames";
 import "./Loading.css";
 
-const Loading = ({ dark = false }) => {
+const Loading = () => {
   return (
-    <div
-      className={classNames("spinner", {
-        "spinner--dark": dark
-      })}
-    >
-      <div className="bounce1" />
-      <div className="bounce2" />
-      <div className="bounce3" />
-    </div>
+    <div className="sd-loader"></div>
   );
 };
 

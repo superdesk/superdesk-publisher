@@ -48,7 +48,7 @@ const VirtualizedList = ({
       />
     ) : (
       <div style={style} key={key}>
-        <Loading dark={true} />
+        <Loading />
       </div>
     );
   };
