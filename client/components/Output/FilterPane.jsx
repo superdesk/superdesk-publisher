@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
-import { Button, IconButton, DatePicker } from "superdesk-ui-framework/react";
+import { Button, IconButton, DatePicker, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 
-import MultiSelect from "../UI/MultiSelect";
-import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import Store from "./Store";
 
 class FilterPane extends React.Component {
@@ -88,27 +86,29 @@ class FilterPane extends React.Component {
       });
   };
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({
+          authorsOptions.push({value: {
             value: item.id,
             label: item.name,
-          });
+          }});
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+      return () => {};
   };
 
   handleAuthorChange = (arr) => {
@@ -213,22 +213,25 @@ class FilterPane extends React.Component {
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                       <label className="sd-line-input__label">Routes</label>
                       <MultiSelect
-                        onSelect={(values) => this.handleRoutesChange(values)}
+                        onChange={(values) => this.handleRoutesChange(values)}
                         options={routesOptions}
-                        selectedOptions={this.state.filters.route}
+                        optionLabel={(option) => option.label}
+                        value={this.state.filters.route}
+                        emptyFilterMessage="No routes found"
                       />
                     </div>
                   </div>
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
                       <label className="sd-line-input__label">Authors</label>
-                      <AsyncMultiSelect
-                        onSelect={(values) => this.handleAuthorChange(values)}
-                        loadOptions={(inputValue) =>
-                          this.loadAuthors(inputValue)
-                        }
-                        selectedOptions={this.state.filters.author}
-                      />
+                      <TreeSelect
+                        kind="asynchronous"
+                        value={this.state.filters.author}
+                        getLabel={(item) => item.label}
+                        getId={(item) => item}
+                        allowMultiple={true}
+                        searchOptions={this.loadAuthors}
+                        onChange={(values) => this.handleAuthorChange(values)} />
                     </div>
                   </div>
                   <div className="form__row form__row--flex">
@@ -292,9 +295,11 @@ class FilterPane extends React.Component {
                         Ingest source
                       </label>
                       <MultiSelect
-                        onSelect={(values) => this.handleSourceChange(values)}
+                        onChange={(values) => this.handleSourceChange(values)}
                         options={ingestSourceOptions}
-                        selectedOptions={this.state.filters.source}
+                        optionLabel={(option) => option.label}
+                        value={this.state.filters.source}
+                        filterPlaceholder="No options found"
                       />
                     </div>
                   </div>

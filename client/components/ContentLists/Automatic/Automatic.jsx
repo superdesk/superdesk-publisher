@@ -183,7 +183,7 @@ class Automatic extends React.Component {
     return (
       <div className="flex-grid flex-grid--grow flex-grid--small-1">
         <div className="flex-grid__item flex-grid__item--d-flex flex-grid__item--column">
-          <div className="subnav subnav--mid-blue-grey">
+          <div className="subnav subnav--mid-blue-grey" data-theme="dark-ui">
             <button
               className="navbtn navbtn--left"
               onClick={this.props.onEditCancel}
