@@ -45,7 +45,7 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-virtualized": "^9.22.2",
-    "superdesk-ui-framework": "^3.0.50"
+    "superdesk-ui-framework": "^3.0.52"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
