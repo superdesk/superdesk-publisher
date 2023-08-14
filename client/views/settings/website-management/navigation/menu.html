@@ -1,205 +1,151 @@
 <div class="sd-page__header">
-  <button
-    class="backlink sd-margin-r--2"
-    ng-click="webPublisherSettings.changeManageTab('navigation')"
-  ></button>
-  <h2 class="sd-page__page-heading">{{menu.name}}</h2>
-  <span class="sd-page__element-grow"></span>
+    <button class="backlink sd-margin-r--2" ng-click="webPublisherSettings.changeManageTab('navigation')"></button>
+    <h2 class="sd-page__page-heading">{{menu.name}}</h2>
+    <span class="sd-page__element-grow"></span>
 
-  <div class="dropdown sd-margin-l--auto" dropdown="">
-    <button class="btn btn--primary ng-binding" dropdown__toggle="">
-      <i class="icon-plus-sign icon--white"></i>Add New
-    </button>
-    <ul class="dropdown__menu dropdown--align-right">
-      <li>
-        <button ng-click="webPublisherSettings.toogleCreateMenu(true, 'route')">
-          Route Based
+    <div class="dropdown sd-margin-l--auto" dropdown="">
+        <button class="btn btn--primary ng-binding" dropdown__toggle="">
+            <i class="icon-plus-sign icon--white"></i>Add New
         </button>
-      </li>
-      <li>
-        <button
-          ng-click="webPublisherSettings.toogleCreateMenu(true, 'custom')"
-        >
-          Custom URI
-        </button>
-      </li>
-    </ul>
-  </div>
+        <ul class="dropdown__menu dropdown--align-right">
+            <li>
+                <button ng-click="webPublisherSettings.toogleCreateMenu(true, 'route')">
+                    Route Based
+                </button>
+            </li>
+            <li>
+                <button ng-click="webPublisherSettings.toogleCreateMenu(true, 'custom')">
+                    Custom URI
+                </button>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div
-  class="sd-page-content__content-block sd-page-content__content-block--main"
-  ng-class="{'open-preview': webPublisherSettings.menuPaneOpen}"
->
-  <div class="sd-column-box--3">
-    <div class="sd-column-box__main-column">
-      <ul
-        class="treeList sd-list-item-group"
-        dnd-list
-        dnd-drop="webPublisherSettings.reorderMenu(menu, item, index)"
-      >
-        <li
-          class="draggable"
-          ng-repeat="data in menu.children | orderBy: 'position'"
-          ng-include="'settings/website-management/navigation/tree-renderer.html'"
-        ></li>
-      </ul>
-    </div>
+<div class="sd-page-content__content-block sd-page-content__content-block--main"
+    ng-class="{'open-preview': webPublisherSettings.menuPaneOpen}">
+    <div class="sd-column-box--3">
+        <div class="sd-column-box__main-column">
+            <ul class="treeList sd-list-item-group" dnd-list
+                dnd-drop="webPublisherSettings.reorderMenu(menu, item, index)">
+                <li class="draggable" ng-repeat="data in menu.children | orderBy: 'position'"
+                    ng-include="'settings/website-management/navigation/tree-renderer.html'"></li>
+            </ul>
+        </div>
 
-    <div class="sd-preview-panel">
-      <div class="side-panel side-panel--shadow-right">
-        <div class="side-panel__header side-panel__header--border-b side-panel__header--has-close">
-          <div class="side-panel__header-wrapper">
-            <div class="side-panel__header-inner">
-              <h3
-                class="side-panel__heading"
-                ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedMenu)"
-                translate
-              >
-                Add Menu Item
-              </h3>
-              <h3
-                class="side-panel__heading"
-                ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedMenu)"
-                translate
-              >
-                Edit Menu Item
-              </h3>
+        <div class="sd-preview-panel">
+            <div class="side-panel side-panel--shadow-right">
+                <div class="side-panel__header side-panel__header--border-b side-panel__header--has-close">
+                    <div class="side-panel__header-wrapper">
+                        <div class="side-panel__header-inner">
+                            <h3 class="side-panel__heading"
+                                ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedMenu)" translate>
+                                Add Menu Item
+                            </h3>
+                            <h3 class="side-panel__heading"
+                                ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedMenu)" translate>
+                                Edit Menu Item
+                            </h3>
+                        </div>
+                        <div class="button-group button-group--end button-group--no-space side-panel__btn-group">
+                            <a class="icn-btn side-panel__close"
+                                ng-click="webPublisherSettings.toogleCreateMenu(false)">
+                                <i class="icon-close-small"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-panel__content">
+                    <div class="side-panel__content-block">
+                        <form name="webPublisherSettings.menuForm" class="flat">
+                            <fieldset class="label-light">
+                                <div class="form__row">
+                                    <div class="sd-line-input sd-line-input--no-margin">
+                                        <label class="sd-line-input__label" for="menuName" translate>name</label>
+                                        <input type="text" class="sd-line-input__input" id="menuName" ng-model="newMenu.name"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div class="form__row">
+                                    <div class="sd-line-input sd-line-input--no-margin">
+                                        <label class="sd-line-input__label" for="menuLabel" translate>label</label>
+                                        <input type="text" class="sd-line-input__input" id="menuLabel" ng-model="newMenu.label"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div class="form__row" ng-if="newMenu && newMenu.type === 'route' ">
+                                    <div class="sd-line-input sd-line-input--is-select sd-line-input--no-margin">
+                                        <label class="sd-line-input__label" for="menuRoute" translate>route</label>
+                                        <select id="menuRoute" class="dropdown__toggle line-input"
+                                            ng-model="newMenu.route"
+                                            ng-options="route.id as route.name for route in routes"
+                                            ng-required="!(newMenu.uri.length || newMenu.route)"
+                                            ng-change="webPublisherSettings.navigationMenuSetUri()">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form__row">
+                                    <div class="sd-line-input sd-line-input--is-select sd-line-input--no-margin">
+                                        <label class="sd-line-input__label" for="menuParent" translate>parent</label>
+                                        <select id="menuParent" class="sd-line-input__select" ng-model="newMenu.parent"
+                                            ng-options="parent.id as parent.name for parent in menusInTree | filter: {id: (menu.id ? '!' + menu.id : '')}">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form__row"
+                                    ng-if="newMenu.route && webPublisherSettings.isRouteTypeCustom(newMenu.route)"
+                                    ng-init="vtype = 'custom'">
+                                    <label>Variable value</label>
+                                    <div>
+                                        <sd-check ng-model="vtype" type="radio" ng-value="custom">custom
+                                            value</sd-check>
+                                        <sd-check ng-model="vtype" type="radio" ng-value="author">author page</sd-check>
+                                    </div>
+                                    <div class="margin--top" ng-if="vtype==='custom'">
+                                        <div class="sd-line-input sd-line-input--no-margin">
+                                            <input type="text" class="sd-line-input__input"
+                                                ng-model="newMenu.variableValue" />
+                                        </div>
+                                    </div>
+                                    <div class="sd-line-input sd-line-input--is-select sd-line-input--no-margin"
+                                        ng-if="vtype==='author'">
+                                        <select class="sd-line-input__select" ng-model="newMenu.variableValue">
+                                            <option ng-repeat="author in webPublisherSettings.authors"
+                                                value="{{author.display_name}}">
+                                                {{author.display_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form__row" ng-if="newMenu && newMenu.type === 'custom' ">
+                                    <div class="sd-line-input sd-line-input--no-margin">
+                                        <label class="sd-line-input__label" for="menuUri" translate>uri</label>
+                                        <input type="text" class="sd-line-input__input" id="menuUri" ng-model="newMenu.uri"
+                                            ng-required="!(newMenu.uri.length || newMenu.route)"
+                                            ng-disabled="newMenu.route" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="side-panel__footer side-panel__footer--button-box">
+                    <div class="button-group button-group--end button-group--comfort">
+                        <a class="btn btn--hollow" ng-click="webPublisherSettings.toogleCreateMenu(false)">Cancel</a>
+                        <button class="btn btn--primary"
+                            ng-disabled="webPublisherSettings.menuForm.$invalid || !webPublisherSettings.menuForm.$dirty"
+                            ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshCurrentMenu)">
+                            Save
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="button-group button-group--end button-group--no-space side-panel__btn-group">
-              <a
-                class="icn-btn side-panel__close"
-                ng-click="webPublisherSettings.toogleCreateMenu(false)"
-                >
-                  <i class="icon-close-small"></i>
-              </a>
-            </div>
-          </div>
         </div>
-
-        <div class="side-panel__content">
-          <div class="side-panel__content-block">
-            <form name="webPublisherSettings.menuForm" class="flat">
-              <fieldset class="label-light">
-                <div class="item">
-                  <label for="menuName" translate>name</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="menuName"
-                    ng-model="newMenu.name"
-                    required
-                  />
-                </div>
-
-                <div class="item">
-                  <label for="menuLabel" translate>label</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="menuLabel"
-                    ng-model="newMenu.label"
-                    required
-                  />
-                </div>
-
-                <div class="item" ng-if="newMenu && newMenu.type === 'route' ">
-                  <label for="menuRoute" translate>route</label>
-                  <select
-                    id="menuRoute"
-                    class="dropdown__toggle line-input"
-                    ng-model="newMenu.route"
-                    ng-options="route.id as route.name for route in routes"
-                    ng-required="!(newMenu.uri.length || newMenu.route)"
-                    ng-change="webPublisherSettings.navigationMenuSetUri()"
-                  >
-                    <option value=""></option>
-                  </select>
-                </div>
-
-                <div class="item">
-                  <label for="menuParent" translate>parent</label>
-                  <select
-                    id="menuParent"
-                    class="dropdown__toggle line-input"
-                    ng-model="newMenu.parent"
-                    ng-options="parent.id as parent.name for parent in menusInTree | filter: {id: (menu.id ? '!' + menu.id : '')}"
-                  >
-                  </select>
-                </div>
-
-                <div
-                  class="item"
-                  ng-if="newMenu.route && webPublisherSettings.isRouteTypeCustom(newMenu.route)"
-                  ng-init="vtype = 'custom'"
-                >
-                  <label>Variable value</label>
-                  <div>
-                    <sd-check ng-model="vtype" type="radio" ng-value="custom"
-                      >custom value</sd-check
-                    >
-                    <sd-check ng-model="vtype" type="radio" ng-value="author"
-                      >author page</sd-check
-                    >
-                  </div>
-                  <div class="margin--top" ng-if="vtype==='custom'">
-                    <input
-                      type="text"
-                      class="line-input"
-                      ng-model="newMenu.variableValue"
-                    />
-                  </div>
-                  <div
-                    class="sd-line-input sd-line-input--is-select"
-                    ng-if="vtype==='author'"
-                  >
-                    <select
-                      class="sd-line-input__select"
-                      ng-model="newMenu.variableValue"
-                    >
-                      <option
-                        ng-repeat="author in webPublisherSettings.authors"
-                        value="{{author.display_name}}"
-                        >{{author.display_name}}</option
-                      >
-                    </select>
-                  </div>
-                </div>
-
-                <div class="item" ng-if="newMenu && newMenu.type === 'custom' ">
-                  <label for="menuUri" translate>uri</label>
-                  <input
-                    type="text"
-                    class="line-input"
-                    id="menuUri"
-                    ng-model="newMenu.uri"
-                    ng-required="!(newMenu.uri.length || newMenu.route)"
-                    ng-disabled="newMenu.route"
-                  />
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <div class="side-panel__footer side-panel__footer--button-box">
-          <div
-            class="button-group button-group--end button-group--comfort"
-          >
-            <a
-              class="btn btn--hollow"
-              ng-click="webPublisherSettings.toogleCreateMenu(false)"
-              >Cancel</a
-            >
-            <button
-              class="btn btn--primary"
-              ng-disabled="webPublisherSettings.menuForm.$invalid || !webPublisherSettings.menuForm.$dirty"
-              ng-click="webPublisherSettings.saveMenu(webPublisherSettings._refreshCurrentMenu)"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

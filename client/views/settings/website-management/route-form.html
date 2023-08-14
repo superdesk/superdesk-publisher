@@ -1,145 +1,107 @@
 <div class="side-panel__header side-panel__header--border-b side-panel__header--has-close">
-  <div class="side-panel__header-wrapper">
-    <div class="side-panel__header-inner">
-      <h3
-        class="side-panel__heading"
-        ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
-        translate
-      >
-        Add {{newRoute.type}} route
-      </h3>
-      <h3
-        class="side-panel__heading"
-        ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
-        translate
-      >
-        Edit {{newRoute.type}} route
-      </h3>
+    <div class="side-panel__header-wrapper">
+        <div class="side-panel__header-inner">
+            <h3 class="side-panel__heading" ng-if="webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
+                translate>
+                Add {{newRoute.type}} route
+            </h3>
+            <h3 class="side-panel__heading" ng-if="!webPublisherSettings.isObjEmpty(webPublisherSettings.selectedRoute)"
+                translate>
+                Edit {{newRoute.type}} route
+            </h3>
+        </div>
+        <div class="button-group button-group--end button-group--no-space side-panel__btn-group">
+            <a class="icn-btn side-panel__close" ng-click="webPublisherSettings.toggleCreateRoute(false)">
+                <i class="icon-close-small"></i>
+            </a>
+        </div>
     </div>
-    <div class="button-group button-group--end button-group--no-space side-panel__btn-group">
-      <a
-        class="icn-btn side-panel__close"
-        ng-click="webPublisherSettings.toggleCreateRoute(false)">
-        <i class="icon-close-small"></i>
-      </a>
-    </div>
-  </div>
 </div>
 
 <div class="side-panel__content">
-  <div class="side-panel__content-block">
-    <div class="sd-alert sd-alert--hollow" ng-if="newRoute.redirect_route">
-      <Icon name="random" />
-      <p className="sd-margin-l--1">
-        This Route has redirect set to
-        {{newRoute.redirect_route.route_target.name}}. Details on:
-        <a
-          className="text-link"
-          href=""
-          style="cursor: pointer"
-          ng-click="webPublisherSettings.changeManageTab('redirects')"
-          >Redirects tab</a
-        >
-      </p>
+    <div class="side-panel__content-block">
+        <div class="sd-alert sd-alert--hollow" ng-if="newRoute.redirect_route">
+            <Icon name="random" />
+            <p className="sd-margin-l--1">
+                This Route has redirect set to
+                {{newRoute.redirect_route.route_target.name}}. Details on:
+                <a className="text-link" href="" style="cursor: pointer"
+                    ng-click="webPublisherSettings.changeManageTab('redirects')">Redirects tab</a>
+            </p>
+        </div>
+        <form name="webPublisherSettings.routeForm" class="flat">
+            <fieldset class="label-light">
+                <div class="form__row">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="routeName" translate>name</label>
+                        <input type="text" class="sd-line-input__input" id="routeName" ng-model="newRoute.name"
+                            required />
+                    </div>
+                </div>
+
+                <div class="form__row">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="routeDescription" translate>description</label>
+                        <input type="text" class="sd-line-input__input" id="routeDescription"
+                            ng-model="newRoute.description" />
+                    </div>
+                </div>
+
+                <div class="form__row" ng-class="{'sd-line-input sd-line-input--invalid': newRoute.id}">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="routeSlug" translate>slug</label>
+                        <input type="text" class="sd-line-input__input" id="routeSlug" ng-model="newRoute.slug" />
+                        <div ng-if="newRoute.id" class="sd-line-input__message">
+                            Beware than changing slug will affect article urls and may cause SEO
+                            issues.
+                        </div>
+                    </div>
+                </div>
+                <div class="form__row" ng-if="newRoute.type === 'custom'">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="variableName" translate>variable name</label>
+                        <input type="text" class="sd-line-input__input" id="variableName"
+                            ng-model="newRoute.variableName" />
+                    </div>
+                </div>
+                <div class="form__row" ng-if="newRoute.type !== 'custom'">
+                    <div class="sd-line-input sd-line-input--is-select sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="routeParent" translate>parent</label>
+                        <select id="routeParent" class="sd-line-input__select" ng-model="newRoute.parent"
+                            ng-options="route.id as route.name for route in routes_flat | filter: {id: newRoute.id ? '!' + newRoute.id : ''}">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__row">
+                    <span ng-model="newRoute.paywall_secured" sd-switch></span><label>Paywall secured</label>
+                </div>
+                <div class="form__row">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="routeTemplate" translate>template name</label>
+                        <input type="text" class="sd-line-input__input" id="routeTemplate"
+                            ng-model="newRoute.template_name" />
+                    </div>
+                </div>
+                <div class="form__row" ng-if="newRoute.type === 'collection'">
+                    <div class="sd-line-input sd-line-input--no-margin">
+                        <label class="sd-line-input__label" for="articleTemplate" translate>article template
+                            name</label>
+                        <input type="text" class="sd-line-input__input" id="articleTemplate"
+                            ng-model="newRoute.articles_template_name" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
-    <form name="webPublisherSettings.routeForm" class="flat">
-      <fieldset class="label-light">
-        <div class="item">
-          <label for="routeName" translate>name</label>
-          <input
-            type="text"
-            class="line-input"
-            id="routeName"
-            ng-model="newRoute.name"
-            required
-          />
-        </div>
-
-        <div class="item">
-          <label for="routeDescription" translate>description</label>
-          <input
-            type="text"
-            class="line-input"
-            id="routeDescription"
-            ng-model="newRoute.description"
-          />
-        </div>
-
-        <div
-          class="item"
-          ng-class="{'sd-line-input sd-line-input--invalid': newRoute.id}"
-        >
-          <label for="routeSlug" translate>slug</label>
-          <input
-            type="text"
-            class="line-input"
-            id="routeSlug"
-            ng-model="newRoute.slug"
-          />
-          <div ng-if="newRoute.id" class="sd-line-input__message">
-            Beware than changing slug will affect article urls and may cause SEO
-            issues.
-          </div>
-        </div>
-        <div class="item" ng-if="newRoute.type === 'custom'">
-          <label for="variableName" translate>variable name</label>
-          <input
-            type="text"
-            class="line-input"
-            id="variableName"
-            ng-model="newRoute.variableName"
-          />
-        </div>
-        <div class="item" ng-if="newRoute.type !== 'custom'">
-          <label for="routeParent" translate>parent</label>
-          <select
-            id="routeParent"
-            class="dropdown__toggle line-input"
-            ng-model="newRoute.parent"
-            ng-options="route.id as route.name for route in routes_flat | filter: {id: newRoute.id ? '!' + newRoute.id : ''}"
-          >
-            <option value=""></option>
-          </select>
-        </div>
-        <div class="item">
-          <span ng-model="newRoute.paywall_secured" sd-switch=""></span
-          ><label>Paywall secured</label>
-        </div>
-        <div class="item">
-          <label for="routeTemplate" translate>template name</label>
-          <input
-            type="text"
-            class="line-input"
-            id="routeTemplate"
-            ng-model="newRoute.template_name"
-          />
-        </div>
-        <div class="item" ng-if="newRoute.type === 'collection'">
-          <label for="articleTemplate" translate>article template name</label>
-          <input
-            type="text"
-            class="line-input"
-            id="articleTemplate"
-            ng-model="newRoute.articles_template_name"
-          />
-        </div>
-      </fieldset>
-    </form>
-  </div>
 </div>
 <div class="side-panel__footer side-panel__footer--button-box">
-  <div class="button-group button-group--end button-group--comfort">
-    <a
-      class="btn btn--hollow"
-      ng-click="webPublisherSettings.toggleCreateRoute(false)"
-      >Cancel</a
-    >
-    <button
-      class="btn btn--primary"
-      ng-disabled="webPublisherSettings.routeForm.$invalid || !webPublisherSettings.routeForm.$dirty"
-      ng-click="webPublisherSettings.saveRoute()"
-    >
-      Save
-    </button>
-  </div>
+    <div class="button-group button-group--end button-group--comfort">
+        <a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateRoute(false)">Cancel</a>
+        <button class="btn btn--primary"
+            ng-disabled="webPublisherSettings.routeForm.$invalid || !webPublisherSettings.routeForm.$dirty"
+            ng-click="webPublisherSettings.saveRoute()">
+            Save
+        </button>
+    </div>
 </div>

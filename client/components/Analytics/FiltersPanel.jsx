@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import { Button, IconButton } from "superdesk-ui-framework/react";
-import MultiSelect from "../UI/MultiSelect";
-import AsyncMultiSelect from "../UI/AsyncMultiSelect";
+import { Button, IconButton, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FiltersPanel extends React.Component {
@@ -42,27 +40,29 @@ class FiltersPanel extends React.Component {
     }
   }
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({
+          authorsOptions.push({value: {
             value: item.id,
             label: item.name,
-          });
+          }});
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+      return () => {};
   };
 
   handleAuthorChange = (arr) => {
@@ -188,27 +188,29 @@ class FiltersPanel extends React.Component {
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Category</label>
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <MultiSelect
-                    onSelect={(values) => this.handleRouteChange(values)}
-                    options={routesOptions}
-                    selectedOptions={
-                      this.state.filters.routes ? this.state.filters.routes : []
-                    }
+                      label="Category"
+                      onChange={(values) => this.handleRouteChange(values)}
+                      options={routesOptions}
+                      optionLabel={(option) => option.label}
+                      value={this.state.filters.routes}
+                      emptyFilterMessage="No routes found"
                   />
                 </div>
               </div>
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Authors</label>
-                  <AsyncMultiSelect
-                    onSelect={(values) => this.handleAuthorChange(values)}
-                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
-                    selectedOptions={
-                      this.state.filters.author ? this.state.filters.author : []
-                    }
-                  />
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
+                  <TreeSelect
+                      label="Authors"
+                      kind="asynchronous"
+                      value={this.state.filters.author}
+                      getLabel={(item) => item.label}
+                      getId={(item) => item}
+                      allowMultiple={true}
+                      searchOptions={this.loadAuthors}
+                      onChange={(values) => this.handleAuthorChange(values)}
+                    />
                 </div>
               </div>
               <div className="form__row">

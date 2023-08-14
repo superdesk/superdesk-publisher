@@ -9,9 +9,7 @@
       </h3>
     </div>
     <div class="button-group button-group--end button-group--no-space side-panel__btn-group">
-      <a
-        class="icn-btn side-panel__close"
-        ng-click="webPublisherSettings.toggleCreateWebhook(false)">
+      <a class="icn-btn side-panel__close" ng-click="webPublisherSettings.toggleCreateWebhook(false)">
         <i class="icon-close-small"></i>
       </a>
     </div>
@@ -23,10 +21,7 @@
     <form name="webPublisherSettings.webhookForm" class="flat">
       <fieldset class="label-light">
         <div class="item">
-          <sd-tag-input
-            ng-model="newWebhook.events"
-            data-label="Events"
-            data-items="[
+          <sd-tag-input ng-model="newWebhook.events" data-label="Events" data-items="[
 								'article[created]',
 								'article[updated]',
 								'article[published]',
@@ -42,35 +37,22 @@
 								'package[created]',
 								'package[updated]',
 								'package[processed]'
-							]"
-            data-freetext="false"
-            data-max-results-to-show="20"
-          >
-            <tags-input
-              ng-model="model"
-              add-from-autocomplete-only="{{items ? !freetext : false}}"
-              show-button="{{!!items}}"
-              display-property="{{field}}"
-              use-strings="{{!field}}"
-              data-max-results-to-show="20"
-            ></tags-input>
+							]" data-freetext="false" data-max-results-to-show="20">
+            <tags-input ng-model="model" add-from-autocomplete-only="{{items ? !freetext : false}}"
+              show-button="{{!!items}}" display-property="{{field}}" use-strings="{{!field}}"
+              data-max-results-to-show="20"></tags-input>
           </sd-tag-input>
         </div>
         <div class="item">
-          <label for="url" translate>URL</label>
-          <input
-            type="text"
-            class="line-input"
-            id="url"
-            ng-model="newWebhook.url"
-            required
-          />
+          <div class="sd-line-input sd-line-input--no-margin">
+            <label class="sd-line-input__label" for="url" translate>URL</label>
+            <input type="text" class="sd-line-input__input" id="url" ng-model="newWebhook.url" required />
+          </div>
         </div>
 
         <div class="item">
-          <span ng-model="newWebhook.enabled" sd-switch=""></span
-          ><label ng-if="newWebhook.enabled">Enabled</label
-          ><label ng-if="!newWebhook.enabled">Disabled</label>
+          <span ng-model="newWebhook.enabled" sd-switch=""></span><label
+            ng-if="newWebhook.enabled">Enabled</label><label ng-if="!newWebhook.enabled">Disabled</label>
         </div>
       </fieldset>
     </form>
@@ -78,16 +60,10 @@
 </div>
 <div class="side-panel__footer side-panel__footer--button-box">
   <div class="button-group button-group--end button-group--comfort">
-    <a
-      class="btn btn--hollow"
-      ng-click="webPublisherSettings.toggleCreateWebhook()"
-      >Cancel</a
-    >
-    <button
-      class="btn btn--primary"
+    <a class="btn btn--hollow" ng-click="webPublisherSettings.toggleCreateWebhook()">Cancel</a>
+    <button class="btn btn--primary"
       ng-disabled="!newWebhook.events.length || webPublisherSettings.webhookForm.$invalid || !webPublisherSettings.webhookForm.$dirty"
-      ng-click="webPublisherSettings.saveWebhook()"
-    >
+      ng-click="webPublisherSettings.saveWebhook()">
       Save
     </button>
   </div>

@@ -209,10 +209,10 @@ class FilterPane extends React.Component {
               </div>
               <div className="side-panel__content">
                 <div className="side-panel__content-block">
-                  <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Routes</label>
+                  <div className="form__row form__row--flex">
+                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button sd-padding-t--0">
                       <MultiSelect
+                        label="Routes"
                         onChange={(values) => this.handleRoutesChange(values)}
                         options={routesOptions}
                         optionLabel={(option) => option.label}
@@ -221,17 +221,18 @@ class FilterPane extends React.Component {
                       />
                     </div>
                   </div>
-                  <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Authors</label>
+                  <div className="form__row form__row--flex">
+                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button sd-padding-t--0">
                       <TreeSelect
+                        label="Authors"
                         kind="asynchronous"
                         value={this.state.filters.author}
                         getLabel={(item) => item.label}
                         getId={(item) => item}
                         allowMultiple={true}
                         searchOptions={this.loadAuthors}
-                        onChange={(values) => this.handleAuthorChange(values)} />
+                        onChange={(values) => this.handleAuthorChange(values)}
+                      />
                     </div>
                   </div>
                   <div className="form__row form__row--flex">
