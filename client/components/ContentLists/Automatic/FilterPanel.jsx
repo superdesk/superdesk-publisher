@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import { Button, IconButton, Dropdown, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
+import { Button, IconButton, Dropdown, MultiSelect, TreeSelect, Container } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FilterPanel extends React.Component {
@@ -620,11 +620,8 @@ class FilterPanel extends React.Component {
               </div>
 
               {this.state.vocabularies.map((vocabulary) => (
-                <div
-                  className="sd-shadow--z1 sd-margin-b--1 sd-padding--1"
-                  style={{ position: "relative" }}
-                  key={vocabulary.id}
-                >
+                <Container key={vocabulary.id}
+                  className="sd-radius--medium sd-panel-bg--000 sd-shadow--z2 sd-margin-b--2 sd-padding--2 sd-state--focus">
                   <span
                     className="side-panel__close"
                     style={{ right: 0, top: 0 }}
@@ -651,7 +648,7 @@ class FilterPanel extends React.Component {
                       />
                     </div>
                   </div>
-                </div>
+                </Container>
               ))}
 
               <Dropdown
