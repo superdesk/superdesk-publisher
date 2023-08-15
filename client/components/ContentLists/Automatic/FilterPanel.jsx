@@ -539,8 +539,8 @@ class FilterPanel extends React.Component {
 
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Publish date</label>
                   <DatePicker
+                    label="Publish date"
                     value={
                       this.state.filters.published_at
                         ? moment(
@@ -565,10 +565,8 @@ class FilterPanel extends React.Component {
               </div>
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin form__row-item">
-                  <label className="sd-line-input__label">
-                    Published after
-                  </label>
                   <DatePicker
+                    label="Published after"
                     value={
                       this.state.filters.published_after
                         ? moment(
@@ -592,10 +590,8 @@ class FilterPanel extends React.Component {
                 </div>
 
                 <div className="form__row-item sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">
-                    Published before
-                  </label>
                   <DatePicker
+                    label="Published before"
                     value={
                       this.state.filters.published_before
                         ? moment(
@@ -632,13 +628,9 @@ class FilterPanel extends React.Component {
                     </a>
                   </span>
                   <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin">
-                      <label className="sd-line-input__label">
-                        {vocabulary.name}
-                      </label>
-                      {/* <p>{vocabulary.id}</p> */}
-
+                    <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                       <MultiSelect
+                        label={vocabulary.name}
                         optionLabel={(option) => option.label}
                         options={vocabulary.options}
                         value={vocabulary.value}
