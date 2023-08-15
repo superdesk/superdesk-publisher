@@ -67,6 +67,9 @@ class FilterPanel extends React.Component {
     let filters = { ...this.state.filters };
 
     filters.route = arr ? arr : [];
+
+    console.log(filters);
+
     this.setState({ filters });
   };
 
@@ -145,7 +148,7 @@ class FilterPanel extends React.Component {
                     onChange={(values) => this.handleRoutesChange(values)}
                     options={routesOptions}
                     optionLabel={(option) => option.label}
-                    value={this.state.filters.routes}
+                    value={this.state.filters.route}
                     emptyFilterMessage="No routes found"
                   />
                 </div>

@@ -517,7 +517,7 @@ class FilterPanel extends React.Component {
                     onChange={(values) => this.handleRoutesChange(values)}
                     options={this.state.routes}
                     optionLabel={(option) => option.label}
-                    value={this.state.filters.routes}
+                    value={this.state.filters.route}
                     emptyFilterMessage="No routes found"
                   />
                 </div>
