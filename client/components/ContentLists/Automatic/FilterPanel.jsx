@@ -622,7 +622,7 @@ class FilterPanel extends React.Component {
               {this.state.vocabularies.map((vocabulary) => (
                 <div
                   className="sd-shadow--z1 sd-margin-b--1 sd-padding--1"
-                  style={{ position: "relative", backgroundColor: "white" }}
+                  style={{ position: "relative" }}
                   key={vocabulary.id}
                 >
                   <span
@@ -642,11 +642,12 @@ class FilterPanel extends React.Component {
                       {/* <p>{vocabulary.id}</p> */}
 
                       <MultiSelect
-                        onSelect={(values) =>
+                        optionLabel={(option) => option.label}
+                        options={vocabulary.options}
+                        value={vocabulary.value}
+                        onChange={(values) =>
                           this.handleMetadataChange(values, vocabulary.id)
                         }
-                        options={vocabulary.options}
-                        selectedOptions={vocabulary.value}
                       />
                     </div>
                   </div>
