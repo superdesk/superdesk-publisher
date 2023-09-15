@@ -28,8 +28,6 @@ class Preview extends React.Component {
       let token = this.context.publisher.getToken();
       let destination = this.props.item;
 
-      console.log(destination);
-
       let tenantUrl =
         destination.tenant.pwa_config && destination.tenant.pwa_config.url
           ? destination.tenant.pwa_config.url

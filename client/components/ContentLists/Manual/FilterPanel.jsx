@@ -70,8 +70,6 @@ class FilterPanel extends React.Component {
 
     filters.route = arr ? arr : [];
 
-    console.log(filters);
-
     this.setState({ filters });
   };
 

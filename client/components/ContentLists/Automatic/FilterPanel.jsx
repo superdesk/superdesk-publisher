@@ -69,10 +69,13 @@ class FilterPanel extends React.Component {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({value: {
-            value: item.id,
-            label: item.name,
-          }});
+          authorsOptions.push({
+            value: {
+              value: item.id,
+              label: item.name,
+            },
+            label: item.name
+          });
         });
 
         this.setState({ authors: authorsOptions });
@@ -82,7 +85,7 @@ class FilterPanel extends React.Component {
         callback(this.state.authors);
       });
 
-      return () => {};
+    return () => { };
   };
 
   prepareFilters = () => {
@@ -92,12 +95,12 @@ class FilterPanel extends React.Component {
     if (filters.route) {
       filters.route.map((id) => {
         let routeObj = this.state.routes.find(
-          (route) => parseInt(id) === parseInt(route.value)
+          (route) => parseInt(id) === parseInt(route.value.value)
         );
         if (routeObj)
           newRoute.push({
-            value: parseInt(routeObj.value),
-            label: routeObj.label,
+            value: routeObj.value.value,
+            label: routeObj.label
           });
       });
     }
@@ -147,8 +150,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -186,8 +192,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -225,8 +234,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -274,8 +286,11 @@ class FilterPanel extends React.Component {
         if (subjectItems.length) {
           subjectItems.map((item) => {
             subjectOptions.push({
-              value: item.qcode,
-              label: item.name,
+              value: {
+                value: item.qcode,
+                label: item.name,
+              },
+              label: item.name
             });
           });
         }
@@ -443,8 +458,11 @@ class FilterPanel extends React.Component {
     if (subjectItems.length) {
       subjectItems.map((item) => {
         subjectOptions.push({
-          value: item.qcode,
-          label: item.name,
+          value: {
+            value: item.qcode,
+            label: item.name,
+          },
+          label: item.name
         });
       });
       vocabularies.push({
@@ -490,7 +508,7 @@ class FilterPanel extends React.Component {
     let filteredVocabularies = this.props.vocabularies.filter(
       (vocabulary) =>
         this.state.vocabularies.findIndex((v) => v.id === vocabulary._id) ===
-          -1 &&
+        -1 &&
         vocabulary.items.length &&
         vocabulariesToRemove.indexOf(vocabulary._id) === -1
     );
@@ -528,15 +546,15 @@ class FilterPanel extends React.Component {
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <TreeSelect
-                      label="Authors"
-                      kind="asynchronous"
-                      value={this.state.filters.author}
-                      getLabel={(item) => item.label}
-                      getId={(item) => item}
-                      allowMultiple={true}
-                      searchOptions={this.loadAuthors}
-                      onChange={(values) => this.handleAuthorChange(values)}
-                    />
+                    label="Authors"
+                    kind="asynchronous"
+                    value={this.state.filters.author}
+                    getLabel={(item) => item.label}
+                    getId={(item) => item}
+                    allowMultiple={true}
+                    searchOptions={this.loadAuthors}
+                    onChange={(values) => this.handleAuthorChange(values)}
+                  />
                 </div>
               </div>
 
@@ -547,9 +565,9 @@ class FilterPanel extends React.Component {
                     value={
                       this.state.filters.published_at
                         ? moment(
-                            this.state.filters.published_at,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_at,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -573,9 +591,9 @@ class FilterPanel extends React.Component {
                     value={
                       this.state.filters.published_after
                         ? moment(
-                            this.state.filters.published_after,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_after,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -598,9 +616,9 @@ class FilterPanel extends React.Component {
                     value={
                       this.state.filters.published_before
                         ? moment(
-                            this.state.filters.published_before,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_before,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -632,19 +650,14 @@ class FilterPanel extends React.Component {
                   </span>
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
-                      <TreeSelect
+                      <MultiSelect
                         label={vocabulary.name}
-                        kind="synchonous"
+                        options={vocabulary.options}
+                        optionLabel={(option) => option.label}
                         value={vocabulary.value}
-                        getOptions={() => vocabulary.options}
-                        getLabel={(option) => option.label}
-                        optionTemplate={(option) => option}
-                        getId={(item) => item.value}
-                        allowMultiple={true}
-                        onChange={(values) =>
-                          this.handleMetadataChange(values[1], vocabulary.id)
-                        }
-                    />
+                        emptyFilterMessage="No routes found"
+                        onChange={(values) => this.handleMetadataChange(values, vocabulary.id)}
+                      />
                     </div>
                   </div>
                 </Container>
