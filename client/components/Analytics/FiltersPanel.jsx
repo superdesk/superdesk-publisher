@@ -49,10 +49,12 @@ class FiltersPanel extends React.Component {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({value: {
-            value: item.id,
-            label: item.name,
-          }});
+          authorsOptions.push({
+            value: {
+              value: item.id,
+              label: item.name,
+            }
+          });
         });
 
         this.setState({ authors: authorsOptions });
@@ -62,7 +64,7 @@ class FiltersPanel extends React.Component {
         callback(this.state.authors);
       });
 
-      return () => {};
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -161,8 +163,11 @@ class FiltersPanel extends React.Component {
 
     this.props.routes.map((route) => {
       routesOptions.push({
-        value: route.id,
-        label: route.name,
+        value: {
+          value: route.id,
+          label: route.name,
+        },
+        label: route.name
       });
     });
 
@@ -190,27 +195,27 @@ class FiltersPanel extends React.Component {
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <MultiSelect
-                      label="Category"
-                      onChange={(values) => this.handleRouteChange(values)}
-                      options={routesOptions}
-                      optionLabel={(option) => option.label}
-                      value={this.state.filters.routes}
-                      emptyFilterMessage="No routes found"
+                    label="Category"
+                    onChange={(values) => this.handleRouteChange(values)}
+                    options={routesOptions}
+                    optionLabel={(option) => option.label}
+                    value={this.state.filters.routes}
+                    emptyFilterMessage="No routes found"
                   />
                 </div>
               </div>
               <div className="form__row">
                 <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <TreeSelect
-                      label="Authors"
-                      kind="asynchronous"
-                      value={this.state.filters.author}
-                      getLabel={(item) => item.label}
-                      getId={(item) => item}
-                      allowMultiple={true}
-                      searchOptions={this.loadAuthors}
-                      onChange={(values) => this.handleAuthorChange(values)}
-                    />
+                    label="Authors"
+                    kind="asynchronous"
+                    value={this.state.filters.author}
+                    getLabel={(item) => item.label}
+                    getId={(item) => item}
+                    allowMultiple={true}
+                    searchOptions={this.loadAuthors}
+                    onChange={(values) => this.handleAuthorChange(values)}
+                  />
                 </div>
               </div>
               <div className="form__row">
@@ -240,9 +245,9 @@ class FiltersPanel extends React.Component {
                         value={
                           this.state.filters.published_after
                             ? moment(
-                                this.state.filters.published_after,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_after,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -266,9 +271,9 @@ class FiltersPanel extends React.Component {
                         value={
                           this.state.filters.published_before
                             ? moment(
-                                this.state.filters.published_before,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_before,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"

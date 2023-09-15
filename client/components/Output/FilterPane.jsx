@@ -95,10 +95,12 @@ class FilterPane extends React.Component {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({value: {
-            value: item.id,
-            label: item.name,
-          }});
+          authorsOptions.push({
+            value: {
+              value: item.id,
+              label: item.name,
+            }
+          });
         });
 
         this.setState({ authors: authorsOptions });
@@ -108,7 +110,7 @@ class FilterPane extends React.Component {
         callback(this.state.authors);
       });
 
-      return () => {};
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -164,8 +166,11 @@ class FilterPane extends React.Component {
 
     this.state.routes.map((route) => {
       routesOptions.push({
-        value: parseInt(route.id),
-        label: route.name,
+        value: {
+          value: parseInt(route.id),
+          label: route.name,
+        },
+        label: route.name
       });
     });
 
@@ -173,8 +178,11 @@ class FilterPane extends React.Component {
 
     this.state.ingestSources.items.map((source) => {
       ingestSourceOptions.push({
-        value: source.name,
-        label: source.name,
+        value: {
+          value: source.name,
+          label: source.name,
+        },
+        label: source.name
       });
     });
 
@@ -244,9 +252,9 @@ class FilterPane extends React.Component {
                         value={
                           this.state.filters.published_after
                             ? moment(
-                                this.state.filters.published_after,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_after,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -271,9 +279,9 @@ class FilterPane extends React.Component {
                         value={
                           this.state.filters.published_before
                             ? moment(
-                                this.state.filters.published_before,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_before,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -307,8 +315,8 @@ class FilterPane extends React.Component {
                 </div>
               </div>
               <div className="side-panel__footer side-panel__footer--button-box">
-                  <Button text="Clear" style="hollow" onClick={this.clear} />
-                  <Button text="Filter" type="primary" onClick={this.save} />
+                <Button text="Clear" style="hollow" onClick={this.clear} />
+                <Button text="Filter" type="primary" onClick={this.save} />
               </div>
             </div>
           </div>

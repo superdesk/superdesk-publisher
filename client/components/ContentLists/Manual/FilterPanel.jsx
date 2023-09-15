@@ -40,10 +40,12 @@ class FilterPanel extends React.Component {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
-          authorsOptions.push({value: {
-            value: item.id,
-            label: item.name,
-          }});
+          authorsOptions.push({
+            value: {
+              value: item.id,
+              label: item.name,
+            }
+          });
         });
 
         this.setState({ authors: authorsOptions });
@@ -53,7 +55,7 @@ class FilterPanel extends React.Component {
         callback(this.state.authors);
       });
 
-      return () => {};
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -112,8 +114,11 @@ class FilterPanel extends React.Component {
 
     this.state.routes.map((route) => {
       routesOptions.push({
-        value: parseInt(route.id),
-        label: route.name,
+        value: {
+          value: parseInt(route.id),
+          label: route.name,
+        },
+        label: route.name
       });
     });
 

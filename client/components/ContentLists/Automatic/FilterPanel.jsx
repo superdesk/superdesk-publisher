@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import { Button, IconButton, Dropdown, MultiSelect, TreeSelect, Container } from "superdesk-ui-framework/react";
+import { Button, IconButton, Dropdown, TreeSelect, MultiSelect, Container } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FilterPanel extends React.Component {
@@ -48,8 +48,11 @@ class FilterPanel extends React.Component {
         let routesOptions = [];
         routes.map((route) => {
           routesOptions.push({
-            value: parseInt(route.id),
-            label: route.name,
+            value: {
+              value: parseInt(route.id),
+              label: route.name,
+            },
+            label: route.name
           });
         });
         this.setState({ routes: routesOptions }, this.prepareFilters);
@@ -617,7 +620,7 @@ class FilterPanel extends React.Component {
 
               {this.state.vocabularies.map((vocabulary) => (
                 <Container key={vocabulary.id}
-                  className="sd-radius--medium sd-panel-bg--000 sd-shadow--z2 sd-margin-b--2 sd-padding--2 sd-state--focus">
+                  className="sd-radius--medium sd-panel-bg--000 sd-shadow--z2 sd-margin-b--2 sd-padding--2 sd-state--focus sd-position--relative">
                   <span
                     className="side-panel__close"
                     style={{ right: 0, top: 0 }}
@@ -629,15 +632,19 @@ class FilterPanel extends React.Component {
                   </span>
                   <div className="form__row">
                     <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
-                      <MultiSelect
+                      <TreeSelect
                         label={vocabulary.name}
-                        optionLabel={(option) => option.label}
-                        options={vocabulary.options}
+                        kind="synchonous"
                         value={vocabulary.value}
+                        getOptions={() => vocabulary.options}
+                        getLabel={(option) => option.label}
+                        optionTemplate={(option) => option}
+                        getId={(item) => item.value}
+                        allowMultiple={true}
                         onChange={(values) =>
-                          this.handleMetadataChange(values, vocabulary.id)
+                          this.handleMetadataChange(values[1], vocabulary.id)
                         }
-                      />
+                    />
                     </div>
                   </div>
                 </Container>
