@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-import { Button } from "superdesk-ui-framework/react";
+import { Button, Select, Option } from "superdesk-ui-framework/react";
 
 class AddWebsite extends React.Component {
   constructor(props) {
@@ -48,7 +48,6 @@ class AddWebsite extends React.Component {
     let styles = {
       addWebsiteDropdown: {
         boxSizing: "border-box",
-        background: "#fff",
         marginTop: "10px",
         maxHeight: 0,
         overflow: "hidden",
@@ -84,20 +83,17 @@ class AddWebsite extends React.Component {
           />
         )}
         <div style={styles.addWebsiteDropdown} data-testid="dropdown">
-          <div style={{ padding: "1.5rem" }}>
-            <h3 className="tp-dropdown-heading">Add Website</h3>
-            <ul className="simple-list--dotted simple-list">
-              {remainingSites.map((site) => (
-                <li
-                  key={site.id}
-                  className="simple-list__item tp-dropdown-li"
-                  onClick={() => this.addDestination(site)}
-                >
-                  {site.name}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Select
+            label="Add website"
+            value={this.state.value}
+            onChange={(value) => {
+              this.addDestination(value)
+            }}
+          >
+            {remainingSites.map((site) => (
+              <Option>{site.name}</Option>
+            ))};
+          </Select>
         </div>
       </React.Fragment>
     );
