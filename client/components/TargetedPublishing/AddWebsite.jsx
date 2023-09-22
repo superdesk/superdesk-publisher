@@ -20,41 +20,6 @@ class AddWebsite extends React.Component {
   }
 
   getSites = () => {
-    this.setState({
-      sites: [
-        {
-          "id": 1,
-          "subdomain": "sp-publisher",
-          "domain_name": "superdesk.pro",
-          "name": "sp",
-          "code": "zkuiqy",
-          "organization": {
-            "id": 1,
-            "name": "sp",
-            "code": "geuiay"
-          },
-          "created_at": "2022-07-18T11:01:15+00:00",
-          "updated_at": "2023-09-13T11:21:25+00:00",
-          "enabled": true,
-          "theme_name": "swp/default-theme",
-          "amp_enabled": true,
-          "output_channel": null,
-          "apple_news_config": null,
-          "pwa_config": {
-            "url": "https://sp-pwa.superdesk.pro"
-          },
-          "articles_count": 168,
-          "_links": {
-            "self": {
-              "href": "/api/v2/tenants/zkuiqy"
-            }
-          },
-          "default_language": "",
-          "fbia_enabled": false,
-          "paywall_enabled": false
-        }
-      ]
-    });
     return axios
       .get(this.props.apiUrl + "tenants/?limit=9999", {
         headers: this.props.apiHeader,
