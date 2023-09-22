@@ -94,6 +94,11 @@
   }
 }
 
+// Side panel inner background color fix
+.side-panel .side-panel__content-block-overlay .side-panel {
+  background-color: var(--sd-colour-panel-bg--000) !important;
+}
+
 // typography stuff in preview pane
 .side-panel__content-block-text {
   ul {

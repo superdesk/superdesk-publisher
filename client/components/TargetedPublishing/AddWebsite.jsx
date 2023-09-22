@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-import { Button, Select, Option } from "superdesk-ui-framework/react";
+import { Button } from "superdesk-ui-framework/react";
+import ButtonListItem from "../UI/ButtonListItem";
 
 class AddWebsite extends React.Component {
   constructor(props) {
@@ -19,6 +20,41 @@ class AddWebsite extends React.Component {
   }
 
   getSites = () => {
+    this.setState({
+      sites: [
+        {
+          "id": 1,
+          "subdomain": "sp-publisher",
+          "domain_name": "superdesk.pro",
+          "name": "sp",
+          "code": "zkuiqy",
+          "organization": {
+            "id": 1,
+            "name": "sp",
+            "code": "geuiay"
+          },
+          "created_at": "2022-07-18T11:01:15+00:00",
+          "updated_at": "2023-09-13T11:21:25+00:00",
+          "enabled": true,
+          "theme_name": "swp/default-theme",
+          "amp_enabled": true,
+          "output_channel": null,
+          "apple_news_config": null,
+          "pwa_config": {
+            "url": "https://sp-pwa.superdesk.pro"
+          },
+          "articles_count": 168,
+          "_links": {
+            "self": {
+              "href": "/api/v2/tenants/zkuiqy"
+            }
+          },
+          "default_language": "",
+          "fbia_enabled": false,
+          "paywall_enabled": false
+        }
+      ]
+    });
     return axios
       .get(this.props.apiUrl + "tenants/?limit=9999", {
         headers: this.props.apiHeader,
@@ -74,26 +110,14 @@ class AddWebsite extends React.Component {
     return (
       <React.Fragment>
         {!!remainingSites.length && (
-          <Button
-            type="primary"
-            icon="plus-large"
-            iconOnly={true}
-            shape="round"
-            onClick={this.toggleSitesDropdown}
-          />
+          <Button text="Add website" type="primary" icon="plus-sign" style="hollow" onClick={this.toggleSitesDropdown} />
         )}
         <div style={styles.addWebsiteDropdown} data-testid="dropdown">
-          <Select
-            label="Add website"
-            value={this.state.value}
-            onChange={(value) => {
-              this.addDestination(value)
-            }}
-          >
+          <div className="sd-list-item-group sd-shadow--z1 sd-margin-b--2">
             {remainingSites.map((site) => (
-              <Option>{site.name}</Option>
-            ))};
-          </Select>
+              <ButtonListItem key={site.id} label={site.name} onClick={() => this.addDestination(site)} />
+            ))}
+          </div>
         </div>
       </React.Fragment>
     );
