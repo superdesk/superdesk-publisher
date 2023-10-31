@@ -44,13 +44,20 @@ class MetaDataOverlay extends Component {
           : "";
     }
 
+    const styles = this.props.isOpen ? {} : {zIndex: '-1'}
+    const widthHeightPersistentStyle = {width: '100%', height: '100%'};
+
     return (
       <div
+        style={{...styles, ...widthHeightPersistentStyle}}
         className={classNames("side-panel__content-block-overlay", {
           "side-panel__content-block-overlay--open": this.props.isOpen,
         })}
       >
-        <div className="side-panel">
+        <div
+          style={widthHeightPersistentStyle}
+          className="side-panel"
+        >
           <div className="side-panel__header">
             <div className="side-panel__header-wrapper sd-flex--items-center">
               <span className="sd-margin-l--1">
