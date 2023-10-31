@@ -12,7 +12,6 @@ class MetaData extends Component {
     super(props);
 
     this.state = {
-      overlayOpen: false,
       overlayType: "",
       metaData: {},
       isUploadingInProgress: false
@@ -96,8 +95,8 @@ class MetaData extends Component {
   };
 
   toggleOverlay = type => {
+    this.props.toggleOverlay();
     this.setState({
-      overlayOpen: !this.state.overlayOpen,
       overlayType: type
     });
 
@@ -107,15 +106,15 @@ class MetaData extends Component {
   // a little hacky but there is no other way
   scrollTop = () => {
     let scrollElem = document.querySelector(
-      "div.side-panel__content-block--overlay-panel-inside div[sd-extension-point='authoring:publish']"
+      "div.metadata-publishing-extension div[sd-extension-point='authoring:publish']"
     );
 
-    scrollElem.scrollTop = 0;
+    scrollElem?.scrollTop = 0;
   };
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <ToggleBox
           title="Meta data"
           style="toggle-box--dark sp--dark-ui toggle-box--circle"
@@ -137,7 +136,7 @@ class MetaData extends Component {
           </div>
         </ToggleBox>
         <MetaDataOverlay
-          isOpen={this.state.overlayOpen}
+          isOpen={this.props.overlayOpen}
           toggle={() => this.toggleOverlay("")}
           type={this.state.overlayType}
           metaData={this.state.metaData}
@@ -145,7 +144,7 @@ class MetaData extends Component {
           uploadImage={e => this.uploadImage(e)}
           isUploadingInProgress={this.state.isUploadingInProgress}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -153,7 +152,9 @@ class MetaData extends Component {
 MetaData.propTypes = {
   apiUrl: PropTypes.string.isRequired,
   apiHeader: PropTypes.object.isRequired,
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  overlayOpen: PropTypes.bool.isRequired,
+  toggleOverlay: PropTypes.func.isRequired,
 };
 
 export default MetaData;

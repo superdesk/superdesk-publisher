@@ -26,6 +26,7 @@ class Publishing extends React.Component {
       rules: [],
       loading: true,
       ninjsError: false,
+      overlayOpen: false,
     };
   }
 
@@ -145,6 +146,12 @@ class Publishing extends React.Component {
           !this.state.ninjsError &&
           !this.state.evaluateError && (
             <MetaData
+              toggleOverlay={() => {
+                this.setState({
+                  overlayOpen: !this.state.overlayOpen,
+                })
+              }}
+              overlayOpen={this.state.overlayOpen}
               apiUrl={this.state.apiUrl}
               apiHeader={this.state.apiHeader}
               item={this.state.item}
