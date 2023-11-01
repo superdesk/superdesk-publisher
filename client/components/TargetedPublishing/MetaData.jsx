@@ -115,26 +115,30 @@ class MetaData extends Component {
   render() {
     return (
       <>
-        <ToggleBox
-          title="Meta data"
-          style="toggle-box--dark sp--dark-ui toggle-box--circle"
-          isOpen={true}
-        >
-          <div className="sd-list-item-group sd-shadow--z1">
-            <ButtonListItem
-              onClick={() => this.toggleOverlay("Facebook")}
-              label="Facebook"
-            />
-            <ButtonListItem
-              onClick={() => this.toggleOverlay("Twitter")}
-              label="Twitter"
-            />
-            <ButtonListItem
-              onClick={() => this.toggleOverlay("SEO")}
-              label="SEO"
-            />
-          </div>
-        </ToggleBox>
+        {
+          this.props.overlayOpen === false && (
+            <ToggleBox
+              title="Meta data"
+              style="toggle-box--dark sp--dark-ui toggle-box--circle"
+              isOpen={true}
+            >
+              <div className="sd-list-item-group sd-shadow--z1">
+                <ButtonListItem
+                  onClick={() => this.toggleOverlay("Facebook")}
+                  label="Facebook"
+                />
+                <ButtonListItem
+                  onClick={() => this.toggleOverlay("Twitter")}
+                  label="Twitter"
+                />
+                <ButtonListItem
+                  onClick={() => this.toggleOverlay("SEO")}
+                  label="SEO"
+                />
+              </div>
+            </ToggleBox>
+          )
+        }
         <MetaDataOverlay
           isOpen={this.props.overlayOpen}
           toggle={() => this.toggleOverlay("")}
