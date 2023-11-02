@@ -101,6 +101,7 @@ class Publishing extends React.Component {
   };
 
   render() {
+    console.log(this.state.item)
     return (
       <React.Fragment>
         {this.state.ninjsError && (
@@ -124,6 +125,7 @@ class Publishing extends React.Component {
           !this.state.ninjsError &&
           !this.state.evaluateError && (
             <TargetedPublishing
+              hide={this.state.overlayOpen}
               config={this.props.config}
               rules={this.state.rules}
               apiUrl={this.state.apiUrl}
@@ -136,6 +138,7 @@ class Publishing extends React.Component {
           !this.state.ninjsError &&
           !this.state.evaluateError && (
             <RelatedArticlesStatus
+              hide={this.state.overlayOpen}
               rules={this.state.rules}
               apiUrl={this.state.apiUrl}
               apiHeader={this.state.apiHeader}

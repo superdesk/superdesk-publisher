@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import { IconButton } from "superdesk-ui-framework/react";
@@ -44,20 +43,8 @@ class MetaDataOverlay extends Component {
           : "";
     }
 
-    const styles = this.props.isOpen ? {} : {zIndex: '-1'}
-    const widthHeightPersistentStyle = {width: '100%', height: '100%'};
-
-    return (
-      <div
-        style={{...styles, ...widthHeightPersistentStyle}}
-        className={classNames("side-panel__content-block-overlay", {
-          "side-panel__content-block-overlay--open": this.props.isOpen,
-        })}
-      >
-        <div
-          style={widthHeightPersistentStyle}
-          className="side-panel"
-        >
+    return this.props.isOpen && (
+        <div>
           <div className="side-panel__header">
             <div className="side-panel__header-wrapper sd-flex--items-center">
               <span className="sd-margin-l--1">
@@ -117,8 +104,7 @@ class MetaDataOverlay extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 
@@ -130,6 +116,7 @@ MetaDataOverlay.propTypes = {
   setMetaData: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   isUploadingInProgress: PropTypes.bool,
+  isOpen: PropTypes.bool,
 };
 
 export default MetaDataOverlay;

@@ -23,55 +23,57 @@ class TargetedPublishing extends React.Component {
 
   render() {
     return (
-      <ToggleBox
-        title="Web publishing"
-        style="toggle-box--dark sp--dark-ui toggle-box--circle"
-        isOpen={true}
-      >
-        {!this.props.rules.length && (
-          <div className="tp-alert">
-            No websites have been set, this article won't show up on any
-            website. It will go to: <br />
-            <span style={{ fontWeight: "500" }}>
-              Publisher &gt; Output Control &gt; Incoming list
-            </span>
-          </div>
-        )}
-        {this.props.rules.map((rule, index) => (
-          <Destination
-            key={rule.tenant.code}
-            isOpen={false}
-            rule={rule}
-            apiHeader={this.props.apiHeader}
-            config={this.props.config}
-            item={this.props.item}
-            cancel={() => this.setNewDestination({})}
-            reload={this.props.reload}
-          />
-        ))}
+      <div hidden={this.props.hide}>
+        <ToggleBox
+          title="Web publishing"
+          style="toggle-box--dark sp--dark-ui toggle-box--circle"
+          isOpen={true}
+        >
+          {!this.props.rules.length && (
+            <div className="tp-alert">
+              No websites have been set, this article won't show up on any
+              website. It will go to: <br />
+              <span style={{ fontWeight: "500" }}>
+                Publisher &gt; Output Control &gt; Incoming list
+              </span>
+            </div>
+          )}
+          {this.props.rules.map((rule, index) => (
+            <Destination
+              key={rule.tenant.code}
+              isOpen={false}
+              rule={rule}
+              apiHeader={this.props.apiHeader}
+              config={this.props.config}
+              item={this.props.item}
+              cancel={() => this.setNewDestination({})}
+              reload={this.props.reload}
+            />
+          ))}
 
-        {this.state.newDestination && this.state.newDestination.id && (
-          <Destination
-            key={this.state.newDestination.id}
-            isOpen={true}
-            site={this.state.newDestination}
+          {this.state.newDestination && this.state.newDestination.id && (
+            <Destination
+              key={this.state.newDestination.id}
+              isOpen={true}
+              site={this.state.newDestination}
+              apiHeader={this.props.apiHeader}
+              config={this.props.config}
+              item={this.props.item}
+              cancel={() => this.setNewDestination({})}
+              reload={this.props.reload}
+            />
+          )}
+          <AddWebsite
+            setNewDestination={(newDestination) => {
+              this.props.reload();
+              this.setNewDestination(newDestination);
+            }}
             apiHeader={this.props.apiHeader}
-            config={this.props.config}
-            item={this.props.item}
-            cancel={() => this.setNewDestination({})}
-            reload={this.props.reload}
+            apiUrl={this.props.apiUrl}
+            rules={[...this.props.rules, this.state.newDestination]}
           />
-        )}
-        <AddWebsite
-          setNewDestination={(newDestination) => {
-            this.props.reload();
-            this.setNewDestination(newDestination);
-          }}
-          apiHeader={this.props.apiHeader}
-          apiUrl={this.props.apiUrl}
-          rules={[...this.props.rules, this.state.newDestination]}
-        />
-      </ToggleBox>
+        </ToggleBox>
+      </div>
     );
   }
 }

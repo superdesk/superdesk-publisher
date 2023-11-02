@@ -42,39 +42,41 @@ class RelatedArticlesStatus extends React.Component {
     }
 
     return (
-      <ToggleBox
-        title="Related Articles"
-        style="toggle-box--dark sp--dark-ui"
-        isOpen={true}
-      >
-        {this.state.loading && <Loading />}
-        <ul className="simple-list simple-list--dotted simple-list--no-padding">
-          {this.state.relatedArticles.map(article => (
-            <li className="simple-list__item" key={article.title}>
-              <p>{article.title}</p>
-              {this.props.rules.map(rule => {
-                let index = article.tenants.findIndex(
-                  t => t && t.code === rule.tenant.code
-                );
-                let siteDomain = rule.tenant.subdomain
-                  ? rule.tenant.subdomain + "." + rule.tenant.domain_name
-                  : rule.tenant.domain_name;
+      <div hidden={this.props.hide}>
+        <ToggleBox
+          title="Related Articles"
+          style="toggle-box--dark sp--dark-ui"
+          isOpen={true}
+        >
+          {this.state.loading && <Loading />}
+          <ul className="simple-list simple-list--dotted simple-list--no-padding">
+            {this.state.relatedArticles.map(article => (
+              <li className="simple-list__item" key={article.title}>
+                <p>{article.title}</p>
+                {this.props.rules.map(rule => {
+                  let index = article.tenants.findIndex(
+                    t => t && t.code === rule.tenant.code
+                  );
+                  let siteDomain = rule.tenant.subdomain
+                    ? rule.tenant.subdomain + "." + rule.tenant.domain_name
+                    : rule.tenant.domain_name;
 
-                return (
-                  <span
-                    key={"site" + rule.tenant.code}
-                    className={classNames("label-icon", {
-                      "label-icon--success": index >= 0
-                    })}
-                  >
-                    <i className="icon-globe" /> {siteDomain}
-                  </span>
-                );
-              })}
-            </li>
-          ))}
-        </ul>
-      </ToggleBox>
+                  return (
+                    <span
+                      key={"site" + rule.tenant.code}
+                      className={classNames("label-icon", {
+                        "label-icon--success": index >= 0
+                      })}
+                    >
+                      <i className="icon-globe" /> {siteDomain}
+                    </span>
+                  );
+                })}
+              </li>
+            ))}
+          </ul>
+        </ToggleBox>
+      </div>
     );
   }
 }
