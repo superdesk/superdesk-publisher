@@ -365,6 +365,7 @@ class Destination extends Component {
 
     return (
       <div
+        style={{overflowY: 'scroll'}}
         className={classNames("sd-collapse-box sd-shadow--z2", {
           "sd-collapse-box--open": this.state.isOpen,
         })}
