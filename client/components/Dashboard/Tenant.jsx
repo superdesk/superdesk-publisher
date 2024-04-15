@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 const Tenant = ({ tenant, sessionToken }) => {
   const tenant_href = tenant.pwa_config && tenant.pwa_config.url
-                ? tenant.pwa_config.url
-                : tenant.output_channel
-                ? tenant.output_channel.config.url
-                : tenant.subdomain
-                ? "https://" + tenant.subdomain + "." + tenant.domain_name
-                : "https://" + tenant.domain_name;
+    ? tenant.pwa_config.url
+    : tenant.output_channel
+      ? tenant.output_channel.config.url
+      : tenant.subdomain
+        ? "https://" + tenant.subdomain + "." + tenant.domain_name
+        : "https://" + tenant.domain_name;
   return (
     <React.Fragment>
       <div className="sd-grid-item-header">
@@ -28,21 +28,21 @@ const Tenant = ({ tenant, sessionToken }) => {
       </div>
       <div className="sd-card sd-card--flex-grow">
         <div className="dashboard-content-header sd-shadow--z1">
-          <div className="big-number-block big-number-block--grow big-number-block--center">
+          <div className={`
+            big-number-block big-number-block--grow big-number-block--center
+            ${tenant.articles_count.toString().length > 5 ? 'big-number-block--wrap' : ''}`}>
             <div className="big-number-block__number">
               {tenant.articles_count}
             </div>
             <div className="big-number-block__text">
-              Published
-              <br />
-              items
+              Published <span>items</span>
             </div>
           </div>
           {!tenant.output_channel ? (
             <div className="btn-icon-group">
               {tenant.pwa_config && tenant.pwa_config.url && (
                 <a
-                  href={tenant_href+"/page-editor?token="+sessionToken}
+                  href={tenant_href + "/page-editor?token=" + sessionToken}
                   className="btn btn--icon-only-circle btn--large btn--hollow"
                   sd-tooltip="Theme Editor"
                   flow="down"
