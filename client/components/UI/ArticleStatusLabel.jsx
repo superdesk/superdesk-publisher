@@ -6,7 +6,7 @@ const ArticleStatusLabel = ({ article, style, url }) => {
   if (article.status === "published") {
     return (
       <a
-        className="label label--success cursorPointer"
+        className="label label--success cursorPointer sd-margin-r--1"
         href={url}
         target="_blank"
         style={style}
@@ -18,7 +18,7 @@ const ArticleStatusLabel = ({ article, style, url }) => {
   } else {
     return (
       <span
-        className={classNames("label", {
+        className={classNames("label sd-margin-r--1", {
           "label--alert": article.status == "unpublished"
         })}
         style={style}
