@@ -14,9 +14,10 @@
 @import "wizardThemeDetails.scss";
 @import "iconOnHover.scss";
 
-.sd-list-item-group li + li .sd-list-item {
+.sd-list-item-group li+li .sd-list-item {
   border-top: 1px solid rgba(123, 123, 123, 0.2);
 }
+
 .sd-kanban-list__board--wide {
   max-width: 40rem;
 }
@@ -39,9 +40,11 @@
   height: 100% !important;
   max-width: 100% !important;
 }
+
 .modal--kindafullscreen .modal__content {
   margin: 0;
 }
+
 .modal--kindafullscreen .modal__content .modal__body {
   max-width: 100% !important;
 }
@@ -52,7 +55,33 @@
   border-top: 2px dashed red;
   color: red;
 }
+
 .filter-type {
   display: flex;
   gap: var(--gap--small);
+}
+
+.big-number-block__text {
+  >span {
+    display: block;
+  }
+}
+
+.big-number-block {
+  &--wrap {
+    flex-direction: column;
+    align-items: flex-start !important;
+
+    br {
+      display: inline-block;
+    }
+
+    .big-number-block__text {
+      margin-left: 0;
+
+      span {
+        display: inline-block;
+      }
+    }
+  }
 }
