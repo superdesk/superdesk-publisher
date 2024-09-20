@@ -373,6 +373,30 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
+     * @name publisher#queryListArticlesFromSuperdesk
+     * @param {Object} params
+     * @returns {Promise}
+     * @description List all articles from superdesk
+     */
+    queryListArticlesFromSuperdesk(params) {
+      const query = {
+        filter: {
+          $and: [
+            { 'state': { $in: ['in_progress', 'scheduled'] } },
+          ]
+        },
+        page: 0,
+        max_results: 200,
+        sort: [{ 'versioncreated': 'asc' }],
+      };
+
+      return httpRequestJsonLocal < IRestApiResponse < IArticle >> ({
+        ...prepareSuperdeskQuery('/archive', query),
+      });
+    }
+
+    /**
+     * @ngdoc method
      * @name publisher#getArticle
      * @param {String} articleId - id of package
      * @returns {Promise}

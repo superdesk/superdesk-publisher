@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { prepareSuperdeskQuery, httpRequestJsonLocal } from '../../../../node_modules/superdesk-core/scripts/core/helpers/universal-query';
 import _ from "lodash";
 
 import { Button } from "superdesk-ui-framework/react";
@@ -11,6 +12,7 @@ import SearchBar from "../../UI/SearchBar";
 import ArticleItem from "./ArticleItem";
 import Loading from "../../UI/Loading/Loading";
 import LanguageSelect from "../../UI/LanguageSelect";
+import SourceSelect from "../../UI/SourceSelect";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -65,6 +67,7 @@ class Manual extends React.Component {
           ? { language: this.props.site.default_language }
           : {},
       changesRecord: [],
+      source: ""
     };
   }
 
@@ -90,6 +93,7 @@ class Manual extends React.Component {
               ? { language: this.props.site.default_language }
               : {},
           changesRecord: [],
+          source: ""
         },
         this._loadData
       );
@@ -100,6 +104,8 @@ class Manual extends React.Component {
     this._isMounted = true;
     this._loadData();
     this.attachScrollEvents();
+
+    console.log(this._querySuperdeskArticles());
   }
 
   componentWillUnmount() {
@@ -244,6 +250,21 @@ class Manual extends React.Component {
       });
     });
   };
+
+  _querySuperdeskArticles = (reset = false) => {
+    const query = {
+      filter: {$and: [
+          {'state': {$in: ['in_progress', 'scheduled']}},
+      ]},
+      page: 0,
+      max_results: 200,
+      sort: [{'versioncreated': 'asc'}],
+  };
+  
+  return httpRequestJsonLocal<IRestApiResponse<IArticle>>({
+      ...prepareSuperdeskQuery('/archive', query),
+  });
+  }
 
   handleListSearch = (query) => {
     this.setState(
@@ -653,7 +674,13 @@ class Manual extends React.Component {
                 }
                 onChange={(value) => this.handleArticlesSearch(value)}
               />
-              <h3 className="subnav__page-title">All published articles</h3>
+              <SourceSelect
+                sources={['Publisher', 'Superdesk']}
+                selectedSource={this.state.source}
+                setSource={(source) => {
+                  this.setState({ source: source });
+                }}
+              />
               {this.props.isLanguagesEnabled && (
                 <LanguageSelect
                   languages={this.props.languages}
