@@ -18,6 +18,7 @@ dist/
 *.egg-info
 *.pyc
 src/
+!client/publisher-extension/src
 yarn.lock
 build
 

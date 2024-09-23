@@ -5,7 +5,7 @@ import classNames from "classnames";
 import DropdownScrollable from "./DropdownScrollable";
 
 const SourceSelect = props => {
-  let selectedSource = "All published articles";
+  let selectedSource = {id: 'publisher', name: 'All published articles'};
 
   if (props.selectedSource) selectedSource = props.selectedSource;
   
@@ -20,7 +20,7 @@ const SourceSelect = props => {
         <DropdownScrollable
           button={
             <button className="dropdown__toggle navbtn navbtn--text-only dropdown-toggle">
-              {selectedSource}
+              {selectedSource.name}
               <span className="dropdown__caret" />
             </button>
           }
@@ -33,9 +33,9 @@ const SourceSelect = props => {
           </li>
           <li className="dropdown__menu-divider" />
           {props.sources.map(item => (
-            <li key={"sourceSelect" + item}>
+            <li key={"sourceSelect-" + item.id}>
               <button onClick={() => props.setSource(item)}>
-                {item}
+                {item.name}
               </button>
             </li>
           ))}
@@ -47,7 +47,10 @@ const SourceSelect = props => {
 
 SourceSelect.propTypes = {
   sources: PropTypes.array.isRequired,
-  selectedSource: PropTypes.string,
+  selectedSource: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
   setSource: PropTypes.func.isRequired
 };
 

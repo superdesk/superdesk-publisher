@@ -67,7 +67,7 @@ class Manual extends React.Component {
           ? { language: this.props.site.default_language }
           : {},
       changesRecord: [],
-      source: ""
+      source: { id: 'publisher', name: 'All published articles' }
     };
   }
 
@@ -104,8 +104,6 @@ class Manual extends React.Component {
     this._isMounted = true;
     this._loadData();
     this.attachScrollEvents();
-
-    console.log(this._querySuperdeskArticles());
   }
 
   componentWillUnmount() {
@@ -127,7 +125,9 @@ class Manual extends React.Component {
 
     if (listEl.scrollHeight - el.scrollTop - el.clientHeight < 100) {
       if (list === "articles") {
-        this._queryArticles();
+        this.state.source && this.state.source.id === 'superdesk' ?
+          this._querySuperdeskArticles() :
+          this._queryArticles();
       } else {
         this._queryListArticles();
       }
@@ -252,18 +252,70 @@ class Manual extends React.Component {
   };
 
   _querySuperdeskArticles = (reset = false) => {
-    const query = {
-      filter: {$and: [
-          {'state': {$in: ['in_progress', 'scheduled']}},
-      ]},
-      page: 0,
-      max_results: 200,
-      sort: [{'versioncreated': 'asc'}],
-  };
-  
-  return httpRequestJsonLocal<IRestApiResponse<IArticle>>({
-      ...prepareSuperdeskQuery('/archive', query),
-  });
+    // Get Superdesk API instance
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    let articles = this.state.articles;
+    if (articles.loading || (articles.page === articles.totalPages && !reset))
+      return;
+
+    if (reset) {
+      articles = {
+        items: [],
+        page: 0,
+        totalPages: 1,
+        loading: false,
+      };
+    }
+
+    articles.loading = true;
+    this.setState({ articles }, () => {
+      const query = {
+        filter: {
+          $and: [
+            { 'state': { $in: ['in_progress', 'scheduled'] } },
+            { 'type': { $eq: 'text' } }
+          ]
+        },
+        page: this.state.articles.page + 1,
+        max_results: 20,
+        sort: [{ 'versioncreated': 'desc' }],
+      };
+
+      superedeskApi.httpRequestJsonLocal({
+        ...superedeskApi.helpers.prepareSuperdeskQuery('/archive', query),
+      }).then((response) => {
+        const articleItemsMapped = response._items.map((
+          { _id, authors, body_html, headline, versioncreated, featured_image }) => ({
+            id: _id,
+            authors,
+            body: body_html,
+            title: headline,
+            published_at: versioncreated,
+            feature_media: featured_image,
+            route: { name: 'Superdesk' }
+          })
+        );
+
+        const articles = {
+          page: this.state.articles.page + 1,
+          totalPages: Math.round(response._meta.total / 20),
+          items: [...this.state.articles.items, ...articleItemsMapped],
+          loading: false,
+        };
+
+        if (this._isMounted) this.setState({ articles });
+      });
+
+    });
+  }
+
+  handleSourceChange = (source) => {
+    if (source && source.id === 'superdesk') {
+      this._querySuperdeskArticles(true);
+    } else {
+      this._queryArticles(true);
+    }
   }
 
   handleListSearch = (query) => {
@@ -383,11 +435,11 @@ class Manual extends React.Component {
     let id = parseInt(ids[ids.length - 1]);
 
     return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
-  } 
+  }
 
   onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
-    
+
     // dropped outside the list
     if (!destination) {
       return;
@@ -505,11 +557,11 @@ class Manual extends React.Component {
       filteredContentListItems = filteredContentListItems.filter((item) =>
         item.content
           ? item.content.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
           : item.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
       );
     }
 
@@ -580,7 +632,7 @@ class Manual extends React.Component {
                       ref={provided.innerRef}
                       style={
                         !this.state.list.items.length &&
-                        !this.state.list.loading
+                          !this.state.list.loading
                           ? { height: "calc(100% - 50px)" }
                           : {}
                       }
@@ -675,10 +727,14 @@ class Manual extends React.Component {
                 onChange={(value) => this.handleArticlesSearch(value)}
               />
               <SourceSelect
-                sources={['Publisher', 'Superdesk']}
+                sources={[
+                  { id: 'superdesk', name: 'Superdesk articles' },
+                ]}
                 selectedSource={this.state.source}
                 setSource={(source) => {
-                  this.setState({ source: source });
+                  this.setState({ source: source }, () => {
+                    this.handleSourceChange(source);
+                  });
                 }}
               />
               {this.props.isLanguagesEnabled && (
