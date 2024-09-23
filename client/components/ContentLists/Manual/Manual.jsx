@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { prepareSuperdeskQuery, httpRequestJsonLocal } from '../../../../node_modules/superdesk-core/scripts/core/helpers/universal-query';
 import _ from "lodash";
 
 import { Button } from "superdesk-ui-framework/react";
