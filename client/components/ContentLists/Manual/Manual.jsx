@@ -318,7 +318,7 @@ class Manual extends React.Component {
         path: '/export',
         payload: {
           item_ids: [item_id],
-          validate: true,
+          validate: false,
           inline: true,
           format_type: "NINJSFormatter"
         },
@@ -472,7 +472,6 @@ class Manual extends React.Component {
       const item_id = draggableId.replace('draggable_', '');
 
       this.publishItemFromSuperdesk(item_id).then((res) => {
-        console.log(this.state.changesRecord);
         let changesRecord = [...this.state.changesRecord];
         changesRecord = changesRecord.map((change) => {
           if (change.content_id === item_id) {
@@ -482,7 +481,6 @@ class Manual extends React.Component {
         });
 
         this.setState({ changesRecord });
-        console.log(this.state.changesRecord);
       });
     }
 
