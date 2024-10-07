@@ -170,6 +170,29 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
 
         /**
          * @ngdoc method
+         * @name pubapi#publish
+         * @param {String} resource
+         * @param {Object} item - item which is saved
+         * @returns {Promise}
+         * @description Publish an item
+         */
+        publish(resource, item) {
+            return this.req({
+                url: this.resourceURLWithoutID(resource),
+                method: 'POST',
+                data: item,
+                add_format: 'json'
+            }).then((response) => {
+                if (item) {
+                    angular.extend(item, response);
+                }
+
+                return response;
+            });
+        }
+
+        /**
+         * @ngdoc method
          * @name pubapi#patch
          * @param {String} resource
          * @param {Object} item - item which is saved
@@ -234,6 +257,17 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
          */
         resourceURL(resource, id = '') {
             return `${this._server}/${this._base}/${resource}/${id}`;
+        }
+        /**
+         * @ngdoc method
+         * @name pubapi#resourceURLWithoutID
+         * @param {String} resource
+         * @param {String} id
+         * @returns {String}
+         * @description Get resource url
+         */
+        resourceURLWithoutID(resource) {
+            return `${this._server}/${this._base}/${resource}`;
         }
 
         /**

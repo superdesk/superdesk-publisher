@@ -403,7 +403,29 @@ export function PublisherFactory(pubapi) {
      * @description gets article
      */
     getArticle(articleId) {
-      return pubapi.get("content/articles", articleId);
+      return pubapi.get("content/articles", articleId, );
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#getArticleByCode
+     * @param {String} articleCode - id of package
+     * @returns {Promise}
+     * @description gets article by code
+     */
+    getArticleByCode(code) {
+      return pubapi.get("content/article", 'search', {code: code});
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#pushArticle
+     * @param {String} article - ninjs of article
+     * @returns {Promise}
+     * @description push article to publsiher
+     */
+    publishSuperdeskArticle(article) {
+      return pubapi.publish("content/push", article);
     }
 
     /**

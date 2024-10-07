@@ -309,6 +309,29 @@ class Manual extends React.Component {
     });
   }
 
+  publishItemFromSuperdesk = (item_id) => {
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    return new Promise((resolve, reject) => {
+      superedeskApi.httpRequestJsonLocal({
+        method: 'POST',
+        path: '/export',
+        payload: {
+          item_ids: [item_id],
+          validate: true,
+          inline: true,
+          format_type: "NINJSFormatter"
+        },
+      }).then((response) => {
+        const ninjs = this.props.publisher.publishSuperdeskArticle(response.export[item_id]).then(() => {
+          this.props.publisher.getArticleByCode(item_id).then((res) => {
+            resolve(res);
+          });
+        });
+      });
+    });
+  }
+
   handleSourceChange = (source) => {
     if (source && source.id === 'superdesk') {
       this._querySuperdeskArticles(true);
@@ -431,7 +454,8 @@ class Manual extends React.Component {
 
   getIndexInList = (list, draggableId) => {
     let ids = draggableId.split('_');
-    let id = parseInt(ids[ids.length - 1]);
+    let id = this.state.source && this.state.source.id === 'superdesk' ?
+      ids[ids.length - 1] : parseInt(ids[ids.length - 1]);
 
     return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
   }
@@ -442,6 +466,24 @@ class Manual extends React.Component {
     // dropped outside the list
     if (!destination) {
       return;
+    }
+
+    if (this.state.source && this.state.source.id === 'superdesk') {
+      const item_id = draggableId.replace('draggable_', '');
+
+      this.publishItemFromSuperdesk(item_id).then((res) => {
+        console.log(this.state.changesRecord);
+        let changesRecord = [...this.state.changesRecord];
+        changesRecord = changesRecord.map((change) => {
+          if (change.content_id === item_id) {
+            change.content_id = res.id;
+          }
+          return change;
+        });
+
+        this.setState({ changesRecord });
+        console.log(this.state.changesRecord);
+      });
     }
 
     if (source.droppableId === destination.droppableId) {
