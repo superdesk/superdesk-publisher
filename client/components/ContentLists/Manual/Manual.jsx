@@ -285,14 +285,14 @@ class Manual extends React.Component {
         ...superedeskApi.helpers.prepareSuperdeskQuery('/archive', query),
       }).then((response) => {
         const articleItemsMapped = response._items.map((
-          { _id, authors, body_html, headline, versioncreated, featured_image }) => ({
+          { _id, authors, body_html, headline, versioncreated, state, associations }) => ({
             id: _id,
             authors,
             body: body_html,
             title: headline,
             published_at: versioncreated,
-            feature_media: featured_image,
-            route: { name: 'Superdesk' }
+            route: { name: state.replace('_', ' ') },
+            associations
           })
         );
 
