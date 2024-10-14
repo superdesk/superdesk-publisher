@@ -93,11 +93,20 @@ const ArticleItem = ({
             ) : null}
           </span>
 
-          <Label
-            text={item.route && item.route.name}
-            type="success"
-            style="hollow"
-          />
+          {item.route && item.route.name &&
+            <Label
+              text={item.route && item.route.name}
+              type="success"
+              style="hollow"
+            />
+          }
+          {item.status === 'new' &&
+            <Label
+              text={"Non published"}
+              type="warning"
+              style="hollow"
+            />
+          }
           {item.sticky && <Label text="pinned" type="alert" style="hollow" />}
         </div>
       </div>

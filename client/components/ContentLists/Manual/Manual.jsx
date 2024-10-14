@@ -460,7 +460,7 @@ class Manual extends React.Component {
     return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
   }
 
-  onDragEnd = (result) => {
+  onDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
 
     // dropped outside the list
@@ -468,10 +468,14 @@ class Manual extends React.Component {
       return;
     }
 
+    let list = { ...this.state.list };
     if (this.state.source && this.state.source.id === 'superdesk') {
       const item_id = draggableId.replace('draggable_', '');
 
-      this.publishItemFromSuperdesk(item_id).then((res) => {
+      list.loading = true;
+      this.setState({ list });
+
+      await this.publishItemFromSuperdesk(item_id).then((res) => {
         let changesRecord = [...this.state.changesRecord];
         changesRecord = changesRecord.map((change) => {
           if (change.content_id === item_id) {
@@ -480,9 +484,13 @@ class Manual extends React.Component {
           return change;
         });
 
+        list.loading = false;
+
         this.setState({ changesRecord });
       });
     }
+
+    list.loading = false;
 
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
@@ -492,8 +500,6 @@ class Manual extends React.Component {
       );
 
       items = this.fixPinnedItemsPosition(items);
-
-      let list = { ...this.state.list };
 
       list.items = items;
       this.recordChange("move", this.getIndexInList(list.items, draggableId), [...list.items]);
@@ -506,7 +512,6 @@ class Manual extends React.Component {
         destination
       );
 
-      let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
       list.items = this.fixPinnedItemsPosition(result.contentList);
