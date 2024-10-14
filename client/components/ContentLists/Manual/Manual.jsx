@@ -250,7 +250,7 @@ class Manual extends React.Component {
     });
   };
 
-  _querySuperdeskArticles = (reset = false) => {
+  _querySuperdeskArticles = (filter, reset = false) => {
     // Get Superdesk API instance
     const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
 
@@ -272,7 +272,7 @@ class Manual extends React.Component {
       const query = {
         filter: {
           $and: [
-            { 'state': { $in: ['in_progress', 'scheduled'] } },
+            { 'state': { $in: filter } },
             { 'type': { $eq: 'text' } }
           ]
         },
@@ -282,7 +282,7 @@ class Manual extends React.Component {
       };
 
       superedeskApi.httpRequestJsonLocal({
-        ...superedeskApi.helpers.prepareSuperdeskQuery('/archive', query),
+        ...superedeskApi.helpers.prepareSuperdeskQuery('/search', query),
       }).then((response) => {
         const articleItemsMapped = response._items.map((
           { _id, authors, body_html, headline, versioncreated, state, associations }) => ({
@@ -333,8 +333,8 @@ class Manual extends React.Component {
   }
 
   handleSourceChange = (source) => {
-    if (source && source.id === 'superdesk') {
-      this._querySuperdeskArticles(true);
+    if (source && (source.id === 'scheduled' || source.id === 'in-progress')) { 
+      this._querySuperdeskArticles(source.id, true);
     } else {
       this._queryArticles(true);
     }
@@ -772,7 +772,8 @@ class Manual extends React.Component {
               />
               <SourceSelect
                 sources={[
-                  { id: 'superdesk', name: 'Superdesk articles' },
+                  { id: 'scheduled', name: 'Scheduled Articles' },
+                  { id: 'in_progress', name: 'Articles in progress' },
                 ]}
                 selectedSource={this.state.source}
                 setSource={(source) => {
