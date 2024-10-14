@@ -333,7 +333,7 @@ class Manual extends React.Component {
   }
 
   handleSourceChange = (source) => {
-    if (source && (source.id === 'scheduled' || source.id === 'in-progress')) { 
+    if (source && (source.id === 'scheduled' || source.id === 'in_progress')) { 
       this._querySuperdeskArticles(source.id, true);
     } else {
       this._queryArticles(true);
@@ -469,7 +469,7 @@ class Manual extends React.Component {
     }
 
     let list = { ...this.state.list };
-    if (this.state.source && this.state.source.id === 'superdesk') {
+    if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
       const item_id = draggableId.replace('draggable_', '');
 
       list.loading = true;
