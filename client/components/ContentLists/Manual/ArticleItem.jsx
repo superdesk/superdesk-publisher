@@ -21,6 +21,17 @@ const ArticleItem = ({
     thumbnail = helpers.getRenditionUrl(item.feature_media.renditions);
   }
 
+  if (item.associations && item.associations.featuremedia) {
+    const renditions = item.associations.featuremedia.renditions;
+
+    const renditionsArray = Object.keys(renditions).map(key => ({
+      ...renditions[key],
+      name: key
+    }));
+
+    thumbnail = helpers.getRenditionUrl(renditionsArray);
+  }
+
   return (
     <div
       className={classNames("sd-list-item", {

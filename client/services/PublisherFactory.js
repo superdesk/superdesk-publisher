@@ -414,7 +414,7 @@ export function PublisherFactory(pubapi) {
      * @description gets article by code
      */
     getArticleByCode(code) {
-      return pubapi.get("content/article", 'search', {code: code});
+      return pubapi.get("content/article", 'search-code', {code: code});
     }
 
     /**
