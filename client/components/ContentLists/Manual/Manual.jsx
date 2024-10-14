@@ -272,7 +272,7 @@ class Manual extends React.Component {
       const query = {
         filter: {
           $and: [
-            { 'state': { $in: filter } },
+            { 'state': { $in: [filter] } },
             { 'type': { $eq: 'text' } }
           ]
         },
