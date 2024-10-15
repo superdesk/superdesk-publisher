@@ -104,20 +104,20 @@ const ArticleItem = ({
             ) : null}
           </span>
 
-          {item.route && item.route.name &&
+          {item.route?.name && (
             <Label
-              text={item.route && item.route.name}
+              text={item.route.name}
               type="success"
               style="hollow"
             />
-          }
-          {item.status === 'new' &&
+          )}
+          {item.status && item.status !== 'published' && (
             <Label
-              text={"Non published"}
+              text={item.status === 'new' ? "Non published" : item.status}
               type="warning"
               style="hollow"
             />
-          }
+          )}
           {item.sticky && <Label text="pinned" type="alert" style="hollow" />}
         </div>
       </div>

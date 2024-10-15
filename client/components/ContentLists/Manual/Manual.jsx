@@ -291,7 +291,8 @@ class Manual extends React.Component {
             body: body_html,
             title: headline,
             published_at: versioncreated,
-            route: { name: state.replace('_', ' ') },
+            status: this.state.source && this.state.source.label,
+            // status: state.replace('_', ' '),
             associations
           })
         );
@@ -333,7 +334,7 @@ class Manual extends React.Component {
   }
 
   handleSourceChange = (source) => {
-    if (source && (source.id === 'scheduled' || source.id === 'in_progress')) { 
+    if (source && (source.id === 'scheduled' || source.id === 'in_progress')) {
       this._querySuperdeskArticles(source.id, true);
     } else {
       this._queryArticles(true);
@@ -454,13 +455,13 @@ class Manual extends React.Component {
 
   getIndexInList = (list, draggableId) => {
     let ids = draggableId.split('_');
-    let id = this.state.source && this.state.source.id === 'superdesk' ?
+    let id = this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
       ids[ids.length - 1] : parseInt(ids[ids.length - 1]);
 
     return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
   }
 
-  onDragEnd = async (result) => {
+  onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
 
     // dropped outside the list
@@ -469,28 +470,7 @@ class Manual extends React.Component {
     }
 
     let list = { ...this.state.list };
-    if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
-      const item_id = draggableId.replace('draggable_', '');
-
-      list.loading = true;
-      this.setState({ list });
-
-      await this.publishItemFromSuperdesk(item_id).then((res) => {
-        let changesRecord = [...this.state.changesRecord];
-        changesRecord = changesRecord.map((change) => {
-          if (change.content_id === item_id) {
-            change.content_id = res.id;
-          }
-          return change;
-        });
-
-        list.loading = false;
-
-        this.setState({ changesRecord });
-      });
-    }
-
-    list.loading = false;
+    list.loading = true;
 
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
@@ -521,6 +501,23 @@ class Manual extends React.Component {
       this.setState({
         list,
         articles,
+      });
+    }
+
+    if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
+      const item_id = draggableId.replace('draggable_', '');
+
+      this.publishItemFromSuperdesk(item_id).then((res) => {
+        let changesRecord = [...this.state.changesRecord];
+        changesRecord = changesRecord.map((change) => {
+          if (change.content_id === item_id) {
+            change.content_id = res.id;
+          }
+          return change;
+        });
+
+        list.loading = false;
+        this.setState({ list });
       });
     }
   };
@@ -772,8 +769,8 @@ class Manual extends React.Component {
               />
               <SourceSelect
                 sources={[
-                  { id: 'scheduled', name: 'Scheduled Articles' },
-                  { id: 'in_progress', name: 'Articles in progress' },
+                  { id: 'scheduled', name: 'Scheduled Articles', label: 'Non published' },
+                  { id: 'in_progress', name: 'Articles in progress', label: 'Non published' },
                 ]}
                 selectedSource={this.state.source}
                 setSource={(source) => {
