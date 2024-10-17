@@ -470,8 +470,6 @@ class Manual extends React.Component {
     }
 
     let list = { ...this.state.list };
-    list.loading = true;
-
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
         this.getList(source.droppableId),
@@ -505,6 +503,8 @@ class Manual extends React.Component {
     }
 
     if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
+      list.loading = true;
+
       const item_id = draggableId.replace('draggable_', '');
 
       this.publishItemFromSuperdesk(item_id).then((res) => {
