@@ -373,13 +373,59 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
+     * @name publisher#queryListArticlesFromSuperdesk
+     * @param {Object} params
+     * @returns {Promise}
+     * @description List all articles from superdesk
+     */
+    queryListArticlesFromSuperdesk(params) {
+      const query = {
+        filter: {
+          $and: [
+            { 'state': { $in: ['in_progress', 'scheduled'] } },
+          ]
+        },
+        page: 0,
+        max_results: 200,
+        sort: [{ 'versioncreated': 'asc' }],
+      };
+
+      return httpRequestJsonLocal < IRestApiResponse < IArticle >> ({
+        ...prepareSuperdeskQuery('/archive', query),
+      });
+    }
+
+    /**
+     * @ngdoc method
      * @name publisher#getArticle
      * @param {String} articleId - id of package
      * @returns {Promise}
      * @description gets article
      */
     getArticle(articleId) {
-      return pubapi.get("content/articles", articleId);
+      return pubapi.get("content/articles", articleId, );
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#getArticleByCode
+     * @param {String} articleCode - id of package
+     * @returns {Promise}
+     * @description gets article by code
+     */
+    getArticleByCode(code) {
+      return pubapi.get("content/article", 'search-code', {code: code});
+    }
+
+    /**
+     * @ngdoc method
+     * @name publisher#pushArticle
+     * @param {String} article - ninjs of article
+     * @returns {Promise}
+     * @description push article to publsiher
+     */
+    publishSuperdeskArticle(article) {
+      return pubapi.publish("content/push", article);
     }
 
     /**

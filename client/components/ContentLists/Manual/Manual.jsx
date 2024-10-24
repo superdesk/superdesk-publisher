@@ -11,6 +11,7 @@ import SearchBar from "../../UI/SearchBar";
 import ArticleItem from "./ArticleItem";
 import Loading from "../../UI/Loading/Loading";
 import LanguageSelect from "../../UI/LanguageSelect";
+import SourceSelect from "../../UI/SourceSelect";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -65,6 +66,7 @@ class Manual extends React.Component {
           ? { language: this.props.site.default_language }
           : {},
       changesRecord: [],
+      source: { id: 'publisher', name: 'All published articles' }
     };
   }
 
@@ -90,6 +92,7 @@ class Manual extends React.Component {
               ? { language: this.props.site.default_language }
               : {},
           changesRecord: [],
+          source: ""
         },
         this._loadData
       );
@@ -121,7 +124,9 @@ class Manual extends React.Component {
 
     if (listEl.scrollHeight - el.scrollTop - el.clientHeight < 100) {
       if (list === "articles") {
-        this._queryArticles();
+        this.state.source && this.state.source.id === 'superdesk' ?
+          this._querySuperdeskArticles() :
+          this._queryArticles();
       } else {
         this._queryListArticles();
       }
@@ -245,6 +250,97 @@ class Manual extends React.Component {
     });
   };
 
+  _querySuperdeskArticles = (filter, reset = false) => {
+    // Get Superdesk API instance
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    let articles = this.state.articles;
+    if (articles.loading || (articles.page === articles.totalPages && !reset))
+      return;
+
+    if (reset) {
+      articles = {
+        items: [],
+        page: 0,
+        totalPages: 1,
+        loading: false,
+      };
+    }
+
+    articles.loading = true;
+    this.setState({ articles }, () => {
+      const query = {
+        filter: {
+          $and: [
+            { 'state': { $in: [filter] } },
+            { 'type': { $eq: 'text' } }
+          ]
+        },
+        page: this.state.articles.page + 1,
+        max_results: 20,
+        sort: [{ 'versioncreated': 'desc' }],
+      };
+
+      superedeskApi.httpRequestJsonLocal({
+        ...superedeskApi.helpers.prepareSuperdeskQuery('/search', query),
+      }).then((response) => {
+        const articleItemsMapped = response._items.map((
+          { _id, authors, body_html, headline, versioncreated, state, associations }) => ({
+            id: _id,
+            authors,
+            body: body_html,
+            title: headline,
+            published_at: versioncreated,
+            status: this.state.source && this.state.source.label,
+            // status: state.replace('_', ' '),
+            associations
+          })
+        );
+
+        const articles = {
+          page: this.state.articles.page + 1,
+          totalPages: Math.round(response._meta.total / 20),
+          items: [...this.state.articles.items, ...articleItemsMapped],
+          loading: false,
+        };
+
+        if (this._isMounted) this.setState({ articles });
+      });
+
+    });
+  }
+
+  publishItemFromSuperdesk = (item_id) => {
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    return new Promise((resolve, reject) => {
+      superedeskApi.httpRequestJsonLocal({
+        method: 'POST',
+        path: '/export',
+        payload: {
+          item_ids: [item_id],
+          validate: false,
+          inline: true,
+          format_type: "NINJSFormatter"
+        },
+      }).then((response) => {
+        const ninjs = this.props.publisher.publishSuperdeskArticle(response.export[item_id]).then(() => {
+          this.props.publisher.getArticleByCode(item_id).then((res) => {
+            resolve(res);
+          });
+        });
+      });
+    });
+  }
+
+  handleSourceChange = (source) => {
+    if (source && (source.id === 'scheduled' || source.id === 'in_progress')) {
+      this._querySuperdeskArticles(source.id, true);
+    } else {
+      this._queryArticles(true);
+    }
+  }
+
   handleListSearch = (query) => {
     this.setState(
       {
@@ -359,19 +455,21 @@ class Manual extends React.Component {
 
   getIndexInList = (list, draggableId) => {
     let ids = draggableId.split('_');
-    let id = parseInt(ids[ids.length - 1]);
+    let id = this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
+      ids[ids.length - 1] : parseInt(ids[ids.length - 1]);
 
     return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
-  } 
+  }
 
   onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
-    
+
     // dropped outside the list
     if (!destination) {
       return;
     }
 
+    let list = { ...this.state.list };
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
         this.getList(source.droppableId),
@@ -380,8 +478,6 @@ class Manual extends React.Component {
       );
 
       items = this.fixPinnedItemsPosition(items);
-
-      let list = { ...this.state.list };
 
       list.items = items;
       this.recordChange("move", this.getIndexInList(list.items, draggableId), [...list.items]);
@@ -394,7 +490,6 @@ class Manual extends React.Component {
         destination
       );
 
-      let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
       list.items = this.fixPinnedItemsPosition(result.contentList);
@@ -404,6 +499,25 @@ class Manual extends React.Component {
       this.setState({
         list,
         articles,
+      });
+    }
+
+    if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
+      list.loading = true;
+
+      const item_id = draggableId.replace('draggable_', '');
+
+      this.publishItemFromSuperdesk(item_id).then((res) => {
+        let changesRecord = [...this.state.changesRecord];
+        changesRecord = changesRecord.map((change) => {
+          if (change.content_id === item_id) {
+            change.content_id = res.id;
+          }
+          return change;
+        });
+
+        list.loading = false;
+        this.setState({ list });
       });
     }
   };
@@ -484,11 +598,11 @@ class Manual extends React.Component {
       filteredContentListItems = filteredContentListItems.filter((item) =>
         item.content
           ? item.content.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
           : item.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
       );
     }
 
@@ -559,7 +673,7 @@ class Manual extends React.Component {
                       ref={provided.innerRef}
                       style={
                         !this.state.list.items.length &&
-                        !this.state.list.loading
+                          !this.state.list.loading
                           ? { height: "calc(100% - 50px)" }
                           : {}
                       }
@@ -653,7 +767,18 @@ class Manual extends React.Component {
                 }
                 onChange={(value) => this.handleArticlesSearch(value)}
               />
-              <h3 className="subnav__page-title">All published articles</h3>
+              <SourceSelect
+                sources={[
+                  { id: 'scheduled', name: 'Scheduled Articles', label: 'Non published' },
+                  { id: 'in_progress', name: 'Articles in progress', label: 'Non published' },
+                ]}
+                selectedSource={this.state.source}
+                setSource={(source) => {
+                  this.setState({ source: source }, () => {
+                    this.handleSourceChange(source);
+                  });
+                }}
+              />
               {this.props.isLanguagesEnabled && (
                 <LanguageSelect
                   languages={this.props.languages}
