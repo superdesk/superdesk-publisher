@@ -325,7 +325,7 @@ class FilterPanel extends React.Component {
     let filters = _.pickBy({ ...this.state.filters }, _.identity);
     let newMetadata = {};
 
-    // priority and urgency
+    // priority
     const priority = vocabularies.find((v) => v.id === "priority");
 
     if (priority) {
@@ -333,10 +333,12 @@ class FilterPanel extends React.Component {
       vocabularies = vocabularies.filter((v) => v.id !== "priority");
     }
 
+    // urgency
     const urgency = vocabularies.find((v) => v.id === "urgency");
 
     if (urgency) {
       newMetadata.urgency = urgency.value[0].value;
+      vocabularies = vocabularies.filter((v) => v.id !== "urgency");
     }
 
     // services
