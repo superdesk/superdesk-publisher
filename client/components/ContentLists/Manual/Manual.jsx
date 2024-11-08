@@ -511,7 +511,13 @@ class Manual extends React.Component {
         let changesRecord = [...this.state.changesRecord];
         changesRecord = changesRecord.map((change) => {
           if (change.content_id === item_id) {
+            let index = list.items.findIndex((item) => {
+              let itemId = item.content ? item.content.id : item.id;
+              return itemId === item_id;
+            });
+
             change.content_id = res.id;
+            list.items[index].id = res.id;
           }
           return change;
         });
