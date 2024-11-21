@@ -324,10 +324,8 @@ class Manual extends React.Component {
           format_type: "NINJSFormatter"
         },
       }).then((response) => {
-        const ninjs = this.props.publisher.publishSuperdeskArticle(response.export[item_id]).then(() => {
-          this.props.publisher.getArticleByCode(item_id).then((res) => {
-            resolve(res);
-          });
+        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then((response) => {
+          resolve(response.article_ids[0]);
         });
       });
     });
@@ -516,8 +514,8 @@ class Manual extends React.Component {
               return itemId === item_id;
             });
 
-            change.content_id = res.id;
-            list.items[index].id = res.id;
+            change.content_id = res;
+            list.items[index].id = res;
           }
           return change;
         });
