@@ -325,7 +325,7 @@ class Manual extends React.Component {
         },
       }).then((response) => {
         const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then((response) => {
-          resolve(response[0]);
+          resolve(response.article_ids[0]);
         });
       });
     });
