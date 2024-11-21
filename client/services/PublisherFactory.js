@@ -424,8 +424,8 @@ export function PublisherFactory(pubapi) {
      * @returns {Promise}
      * @description push article to publsiher
      */
-    publishSuperdeskArticle(article) {
-      return pubapi.publish("content/push", article);
+    publishSuperdeskArticle(status, article) {
+      return pubapi.publish(`content/push-with-options?status=${status}`, article);
     }
 
     /**
