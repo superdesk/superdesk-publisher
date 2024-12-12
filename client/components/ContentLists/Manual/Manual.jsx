@@ -124,7 +124,7 @@ class Manual extends React.Component {
 
     if (listEl.scrollHeight - el.scrollTop - el.clientHeight < 100) {
       if (list === "articles") {
-        this.state.source && this.state.source.id === 'superdesk' ?
+        this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
           this._querySuperdeskArticles() :
           this._queryArticles();
       } else {
@@ -250,7 +250,7 @@ class Manual extends React.Component {
     });
   };
 
-  _querySuperdeskArticles = (filter, reset = false) => {
+  _querySuperdeskArticles = (filter = this.state.source.id, reset = false) => {
     // Get Superdesk API instance
     const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
 
