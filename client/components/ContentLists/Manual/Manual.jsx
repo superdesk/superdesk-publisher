@@ -325,8 +325,12 @@ class Manual extends React.Component {
         },
       }).then((response) => {
         const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then(async (response) => {
-          const article_id = await this.attemptFetch(10, item_id);
-          resolve(article_id);
+          try {
+            const article_id = await this.attemptFetch(10, item_id);
+            return resolve(article_id);
+          } catch (error) {
+            return reject(error);
+          }
         });
       });
     });
@@ -334,9 +338,11 @@ class Manual extends React.Component {
 
   attemptFetch = async (tries = 10, code) => {
     if (tries === 0) {
-      return this.props.api.notify.error(
+      this.props.api.notify.error(
         "Adding article to the content list failed, please try again. If the problem persists, please contact support."
       );
+
+      throw new Error('Failed to fetch article');
     }
 
     try {
@@ -349,7 +355,7 @@ class Manual extends React.Component {
       console.error('Error fetching article:', error);
     }
 
-    await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for 3 seconds
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 3 seconds
 
     return this.attemptFetch(tries - 1, code);
   };
@@ -491,6 +497,9 @@ class Manual extends React.Component {
     }
 
     let list = { ...this.state.list };
+    let originalList = { ...this.state.list };
+    let originalArticles = { ...this.state.articles };
+
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
         this.getList(source.droppableId),
@@ -545,6 +554,13 @@ class Manual extends React.Component {
 
         list.loading = false;
         this.setState({ list });
+      }).catch((err) => {
+        this.setState({
+          list: originalList,
+          articles: originalArticles,
+        });
+
+        list.loading = false;
       });
     }
   };
