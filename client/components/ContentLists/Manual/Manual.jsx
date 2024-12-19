@@ -324,12 +324,30 @@ class Manual extends React.Component {
           format_type: "NINJSFormatter"
         },
       }).then((response) => {
-        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then((response) => {
-          resolve(response.article_ids[0]);
+        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then(async (response) => {
+          const article_id = await this.attemptFetch(10, item_id);
+          resolve(article_id);
         });
       });
     });
   }
+
+  attemptFetch = async (tries = 10, code) => {
+    if (tries === 0) {
+      return this.props.api.notify.error(
+        "Adding article to the content list failed, please try again. If the problem persists, please contact support."
+      );
+    }
+
+    const article = await this.props.publisher.getArticleByCode(code);
+    if (article) {
+      console.warn('Article added to the content list successfully.', article);
+      return article.id;
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for 3 seconds
+    return attemptFetch(tries - 1);
+  };
 
   handleSourceChange = (source) => {
     if (source && (source.id === 'scheduled' || source.id === 'in_progress')) {
