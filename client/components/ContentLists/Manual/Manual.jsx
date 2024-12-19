@@ -339,14 +339,19 @@ class Manual extends React.Component {
       );
     }
 
-    const article = await this.props.publisher.getArticleByCode(code);
-    if (article) {
-      console.warn('Article added to the content list successfully.', article);
-      return article.id;
+    try {
+      const article = await this.props.publisher.getArticleByCode(code + '123');
+      if (article) {
+        console.warn('Article added to the content list successfully.', article);
+        return article.id;
+      }
+    } catch (error) {
+      console.error('Error fetching article:', error);
     }
 
     await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for 3 seconds
-    return attemptFetch(tries - 1);
+
+    return this.attemptFetch(tries - 1, code);
   };
 
   handleSourceChange = (source) => {
