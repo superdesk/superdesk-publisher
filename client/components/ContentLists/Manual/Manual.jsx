@@ -332,7 +332,7 @@ class Manual extends React.Component {
             return reject(error);
           }
         });
-      });
+      }, (error) => reject(error));
     });
   }
 
@@ -346,7 +346,7 @@ class Manual extends React.Component {
     }
 
     try {
-      const article = await this.props.publisher.getArticleByCode(code);
+      const article = await this.props.publisher.getArticleByCode(code + '123');
       if (article) {
         console.warn('Article added to the content list successfully.', article);
         return article.id;
@@ -499,6 +499,7 @@ class Manual extends React.Component {
     let list = { ...this.state.list };
     let originalList = { ...this.state.list };
     let originalArticles = { ...this.state.articles };
+    let originalChangesRecord = [...this.state.changesRecord];
 
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
@@ -558,6 +559,7 @@ class Manual extends React.Component {
         this.setState({
           list: originalList,
           articles: originalArticles,
+          changesRecord: originalChangesRecord
         });
 
         list.loading = false;
