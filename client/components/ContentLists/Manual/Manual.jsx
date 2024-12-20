@@ -346,7 +346,7 @@ class Manual extends React.Component {
     }
 
     try {
-      const article = await this.props.publisher.getArticleByCode(code + '123');
+      const article = await this.props.publisher.getArticleByCode(code);
       if (article) {
         console.warn('Article added to the content list successfully.', article);
         return article.id;
