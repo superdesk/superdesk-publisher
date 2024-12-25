@@ -124,7 +124,7 @@ class Manual extends React.Component {
 
     if (listEl.scrollHeight - el.scrollTop - el.clientHeight < 100) {
       if (list === "articles") {
-        this.state.source && this.state.source.id === 'superdesk' ?
+        this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
           this._querySuperdeskArticles() :
           this._queryArticles();
       } else {
@@ -250,7 +250,7 @@ class Manual extends React.Component {
     });
   };
 
-  _querySuperdeskArticles = (filter, reset = false) => {
+  _querySuperdeskArticles = (filter = this.state.source.id, reset = false) => {
     // Get Superdesk API instance
     const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
 
@@ -324,14 +324,41 @@ class Manual extends React.Component {
           format_type: "NINJSFormatter"
         },
       }).then((response) => {
-        const ninjs = this.props.publisher.publishSuperdeskArticle(response.export[item_id]).then(() => {
-          this.props.publisher.getArticleByCode(item_id).then((res) => {
-            resolve(res);
-          });
+        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then(async (response) => {
+          try {
+            const article_id = await this.attemptFetch(10, item_id);
+            return resolve(article_id);
+          } catch (error) {
+            return reject(error);
+          }
         });
-      });
+      }, (error) => reject(error));
     });
   }
+
+  attemptFetch = async (tries = 10, code) => {
+    if (tries === 0) {
+      this.props.api.notify.error(
+        "Adding article to the content list failed, please try again. If the problem persists, please contact support."
+      );
+
+      throw new Error('Failed to fetch article');
+    }
+
+    try {
+      const article = await this.props.publisher.getArticleByCode(code);
+      if (article) {
+        console.warn('Article added to the content list successfully.', article);
+        return article.id;
+      }
+    } catch (error) {
+      console.error('Error fetching article:', error);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 3 seconds
+
+    return this.attemptFetch(tries - 1, code);
+  };
 
   handleSourceChange = (source) => {
     if (source && (source.id === 'scheduled' || source.id === 'in_progress')) {
@@ -470,6 +497,10 @@ class Manual extends React.Component {
     }
 
     let list = { ...this.state.list };
+    let originalList = { ...this.state.list };
+    let originalArticles = { ...this.state.articles };
+    let originalChangesRecord = [...this.state.changesRecord];
+
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
         this.getList(source.droppableId),
@@ -516,14 +547,22 @@ class Manual extends React.Component {
               return itemId === item_id;
             });
 
-            change.content_id = res.id;
-            list.items[index].id = res.id;
+            change.content_id = res;
+            list.items[index].id = res;
           }
           return change;
         });
 
         list.loading = false;
         this.setState({ list });
+      }).catch((err) => {
+        this.setState({
+          list: originalList,
+          articles: originalArticles,
+          changesRecord: originalChangesRecord
+        });
+
+        list.loading = false;
       });
     }
   };
