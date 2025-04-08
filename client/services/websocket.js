@@ -47,12 +47,17 @@ class Websocket {
       const data = JSON.parse(event.data);
       // hello came
       if (data[0] === 0) {
-        // topic subscription
+        // topic subscriptions
         this.ws.send('[5, "package_created"]');
+        this.ws.send('[5, "content_list_topic"]');
       }
       // package came
       if (data[0] === 8 && data[2].package) {
         this.callback(data[2].package, data[2].state);
+      }
+      // content list update
+      if (data[0] === 8 && data[2].content_list_id) {
+        this.callback(data[2], null);
       }
     };
   }

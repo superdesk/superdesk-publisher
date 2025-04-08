@@ -12,6 +12,7 @@ import ArticleItem from "./ArticleItem";
 import Loading from "../../UI/Loading/Loading";
 import LanguageSelect from "../../UI/LanguageSelect";
 import SourceSelect from "../../UI/SourceSelect";
+import Websocket from "../../../services/websocket";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -46,6 +47,7 @@ class Manual extends React.Component {
     this._isMounted = false;
     this.listScroll = React.createRef();
     this.articlesScroll = React.createRef();
+    this.websocket = null;
 
     this.state = {
       list: {
@@ -101,14 +103,42 @@ class Manual extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this._loadData();
-    this.attachScrollEvents();
+    
+    // Initialize websocket but don't open the connection yet
+    this.websocket = new Websocket(
+      this.props.config,
+      this.props.publisher,
+      this.handleWebsocketMessage
+    );
+    
+    // Set token first and then open the connection
+    this.props.publisher
+      .setToken()
+      .then(() => {
+        if (this._isMounted) {
+          this.websocket.open();
+          this._loadData();
+          this.attachScrollEvents();
+        }
+      });
   }
 
   componentWillUnmount() {
     this._isMounted = false;
     this.detachScrollEvents();
+    if (this.websocket) {
+      this.websocket.close();
+    }
   }
+
+  handleWebsocketMessage = (message, state) => {
+    // Check if the message is for content list updates
+    if (message && message.content_list_id === this.props.list.id) {
+      if (message.action === 'BATCH-UPDATE') {
+        this._queryListArticles(true);
+      }
+    }
+  };
 
   scrollListener = (e, list) => {
     if (e.type !== "scroll") return;
@@ -449,6 +479,8 @@ class Manual extends React.Component {
       )
       .then((savedList) => {
         this.props.onListUpdate(savedList);
+        // Clear changes record after save
+        this.setState({ changesRecord: [] });
       })
       .catch((err) => {
         if (err.status === 409) {
@@ -921,6 +953,7 @@ Manual.propTypes = {
   isLanguagesEnabled: PropTypes.bool.isRequired,
   languages: PropTypes.array.isRequired,
   site: PropTypes.object.isRequired,
+  config: PropTypes.object,
 };
 
 export default Manual;
