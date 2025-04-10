@@ -17,7 +17,8 @@ WebPublisherContentListsController.$inject = [
   "$route",
   "api",
   "vocabularies",
-  "notify"
+  "notify",
+  "config"
 ];
 export function WebPublisherContentListsController(
   $scope,
@@ -25,7 +26,8 @@ export function WebPublisherContentListsController(
   $route,
   api,
   vocabularies,
-  notify
+  notify,
+  config
 ) {
   class WebPublisherContentLists {
     constructor() {
@@ -58,6 +60,7 @@ export function WebPublisherContentListsController(
             isLanguagesEnabled={isLanguagesEnabled}
             languages={languages}
             vocabularies={vocabulariesList}
+            config={config}
           />,
           document.getElementById("sp-content-lists-react-app")
         );

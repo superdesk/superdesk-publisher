@@ -103,7 +103,7 @@ class Manual extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    
+      
     // Initialize websocket but don't open the connection yet
     this.websocket = new Websocket(
       this.props.config,
@@ -479,7 +479,6 @@ class Manual extends React.Component {
       )
       .then((savedList) => {
         this.props.onListUpdate(savedList);
-        // Clear changes record after save
         this.setState({ changesRecord: [] });
       })
       .catch((err) => {
@@ -490,7 +489,6 @@ class Manual extends React.Component {
 
           let list = { items: [], page: 0, totalPages: 1, loading: false };
           this.setState({ list, changesRecord: [] });
-          this._queryListArticles();
         } else {
           let message = err.message
             ? err.message
@@ -942,6 +940,11 @@ Manual.propTypes = {
   list: PropTypes.object.isRequired,
   lists: PropTypes.array.isRequired,
   publisher: PropTypes.object.isRequired,
+  config: PropTypes.object,
+  api: PropTypes.func.isRequired,
+  isLanguagesEnabled: PropTypes.bool.isRequired,
+  languages: PropTypes.array.isRequired,
+  site: PropTypes.object.isRequired,
   listEdit: PropTypes.func,
   onEditCancel: PropTypes.func,
   onListUpdate: PropTypes.func.isRequired,
@@ -949,11 +952,7 @@ Manual.propTypes = {
   openPreview: PropTypes.func,
   previewItem: PropTypes.object,
   filtersOpen: PropTypes.bool,
-  api: PropTypes.func.isRequired,
-  isLanguagesEnabled: PropTypes.bool.isRequired,
-  languages: PropTypes.array.isRequired,
-  site: PropTypes.object.isRequired,
-  config: PropTypes.object,
+  label: PropTypes.string,
 };
 
 export default Manual;

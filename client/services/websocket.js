@@ -49,7 +49,7 @@ class Websocket {
       if (data[0] === 0) {
         // topic subscriptions
         this.ws.send('[5, "package_created"]');
-        this.ws.send('[5, "content_list_topic"]');
+        this.ws.send('[5, "content_list_update"]');
       }
       // package came
       if (data[0] === 8 && data[2].package) {
