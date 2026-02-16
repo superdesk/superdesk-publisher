@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = {
     entry: [path.join(__dirname, 'index')],
-    devtool: 'inline-source-map', //just do inline source maps instead of the default
+    devtool: 'inline-source-map',
     output: {
         path: path.join(process.cwd(), 'dist'),
         filename: 'app.bundle.js',
