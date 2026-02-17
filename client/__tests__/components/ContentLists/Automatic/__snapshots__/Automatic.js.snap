@@ -9,6 +9,7 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
   >
     <div
       class="subnav subnav--mid-blue-grey"
+      data-theme="dark-ui"
     >
       <button
         class="navbtn navbtn--left"
@@ -77,6 +78,7 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
             >
               <button
                 class="icn-btn"
+                id="uif-tooltip-4"
                 tabindex="0"
               >
                 <i
@@ -102,91 +104,151 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 class="form__row"
               >
                 <div
-                  class="sd-line-input sd-line-input--no-margin"
+                  class="sd-line-input sd-line-input--no-margin sd-padding-t--0"
                 >
-                  <label
-                    class="sd-line-input__label"
+                  <div
+                    class="sd-input sd-input--medium"
                   >
-                    Routes
-                  </label>
-                  div
+                    <label
+                      class="sd-input__label"
+                      for="id1"
+                      id="id1label"
+                    >
+                      Routes
+                    </label>
+                    <div
+                      class="sd-input__input-container"
+                    >
+                      <div
+                        class="p-multiselect p-component p-inputwrapper p-multiselect-chip p-inputwrapper-filled"
+                        id="pr_id_1"
+                      >
+                        <div
+                          class="p-hidden-accessible p-multiselect-hidden-select"
+                        >
+                          <select
+                            aria-hidden="true"
+                            multiple=""
+                            tabindex="-1"
+                          >
+                            <option
+                              value="2"
+                            />
+                            <option
+                              value="1"
+                            />
+                          </select>
+                        </div>
+                        <div
+                          class="p-hidden-accessible"
+                        >
+                          <input
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-labelledby="id1label"
+                            id="id1"
+                            readonly=""
+                            role="listbox"
+                            tabindex="0"
+                            type="text"
+                          />
+                        </div>
+                        <div
+                          class="p-multiselect-label-container"
+                        >
+                          <div
+                            class="p-multiselect-label"
+                          >
+                            <div
+                              class="p-multiselect-token"
+                            >
+                              <span
+                                class="p-multiselect-token-label"
+                              >
+                                route2
+                              </span>
+                              <span
+                                class="p-multiselect-token-icon pi pi-times-circle"
+                              />
+                            </div>
+                            <div
+                              class="p-multiselect-token"
+                            >
+                              <span
+                                class="p-multiselect-token-label"
+                              >
+                                route1
+                              </span>
+                              <span
+                                class="p-multiselect-token-icon pi pi-times-circle"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="p-multiselect-trigger"
+                        >
+                          <span
+                            class="p-multiselect-trigger-icon pi pi-chevron-down p-c"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
+                  </div>
                 </div>
               </div>
               <div
                 class="form__row"
               >
                 <div
-                  class="sd-line-input sd-line-input--no-margin"
+                  class="sd-line-input sd-line-input--no-margin sd-padding-t--0"
                 >
-                  <label
-                    class="sd-line-input__label"
-                  >
-                    Author
-                  </label>
                   <div
-                    class=" css-ewg31r-container"
+                    class="sd-input sd-input--medium"
                   >
+                    <label
+                      class="sd-input__label"
+                      for="id2"
+                      id="id2label"
+                    >
+                      Authors
+                    </label>
                     <div
-                      class=" css-1bpltnu-control"
+                      class="sd-input__input-container"
                     >
                       <div
-                        class=" css-g1d714-ValueContainer"
+                        class="
+                        tags-input sd-input__input
+                        tags-input--multi-select"
                       >
                         <div
-                          class=" css-1wa3eu0-placeholder"
+                          class="tags-input__tags"
                         >
-                          Select...
-                        </div>
-                        <div
-                          class="css-b8ldur-Input"
-                        >
-                          <div
-                            class=""
-                            style="display: inline-block;"
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="tree"
+                            class="
+                                        tags-input__add-button
+                                        "
+                            data-test-id="open-popover"
                           >
-                            <input
-                              aria-autocomplete="list"
-                              autocapitalize="none"
-                              autocomplete="off"
-                              autocorrect="off"
-                              id="react-select-2-input"
-                              spellcheck="false"
-                              style="box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;"
-                              tabindex="0"
-                              type="text"
-                              value=""
+                            <i
+                              class="icon-plus-large"
                             />
-                            <div
-                              style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
-                            />
-                          </div>
+                          </button>
+                          <ul
+                            class="tags-input__tag-list"
+                          />
                         </div>
                       </div>
-                      <div
-                        class=" css-1rkxiuv-IndicatorsContainer"
-                      >
-                        <span
-                          class=" css-1xjgjl1-IndicatorSeparator"
-                        />
-                        <div
-                          aria-hidden="true"
-                          class=" css-tlfecz-indicatorContainer"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="css-6q0nyr-Svg"
-                            focusable="false"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            width="20"
-                          >
-                            <path
-                              d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
+                      <div />
                     </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
                   </div>
                 </div>
               </div>
@@ -196,36 +258,51 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 <div
                   class="sd-line-input sd-line-input--no-margin"
                 >
-                  <label
-                    class="sd-line-input__label"
+                  <div
+                    class="sd-input sd-input--medium"
                   >
-                    Publish date
-                  </label>
-                  <span
-                    class="p-calendar p-inputwrapper p-calendar-w-btn p-inputwrapper-filled"
-                    id="pr_id_1"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="p-inputtext p-component"
-                      inputmode="none"
-                      type="text"
-                    />
-                    <button
-                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
-                      tabindex="-1"
-                      type="button"
+                    <label
+                      class="sd-input__label"
+                      for="id3"
+                      id="id3label"
+                    >
+                      Publish date
+                    </label>
+                    <div
+                      class="sd-input__input-container"
                     >
                       <span
-                        class="icon-calendar p-c"
-                      />
-                      <span
-                        class="p-button-label p-c"
+                        class="p-calendar p-inputwrapper p-calendar-w-btn p-inputwrapper-filled"
+                        id="pr_id_2"
                       >
-                         
+                        <input
+                          aria-labelledby="id3label"
+                          autocomplete="off"
+                          class="p-inputtext p-component"
+                          id="id3"
+                          inputmode="none"
+                          type="text"
+                        />
+                        <button
+                          class="p-button p-component p-datepicker-trigger p-button-icon-only"
+                          tabindex="-1"
+                          type="button"
+                        >
+                          <span
+                            class="icon-calendar p-c"
+                          />
+                          <span
+                            class="p-button-label p-c"
+                          >
+                             
+                          </span>
+                        </button>
                       </span>
-                    </button>
-                  </span>
+                    </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -234,70 +311,100 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 <div
                   class="sd-line-input sd-line-input--no-margin form__row-item"
                 >
-                  <label
-                    class="sd-line-input__label"
+                  <div
+                    class="sd-input sd-input--medium"
                   >
-                    Published after
-                  </label>
-                  <span
-                    class="p-calendar p-inputwrapper p-calendar-w-btn"
-                    id="pr_id_2"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="p-inputtext p-component"
-                      inputmode="none"
-                      type="text"
-                    />
-                    <button
-                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
-                      tabindex="-1"
-                      type="button"
+                    <label
+                      class="sd-input__label"
+                      for="id4"
+                      id="id4label"
+                    >
+                      Published after
+                    </label>
+                    <div
+                      class="sd-input__input-container"
                     >
                       <span
-                        class="icon-calendar p-c"
-                      />
-                      <span
-                        class="p-button-label p-c"
+                        class="p-calendar p-inputwrapper p-calendar-w-btn"
+                        id="pr_id_3"
                       >
-                         
+                        <input
+                          aria-labelledby="id4label"
+                          autocomplete="off"
+                          class="p-inputtext p-component"
+                          id="id4"
+                          inputmode="none"
+                          type="text"
+                        />
+                        <button
+                          class="p-button p-component p-datepicker-trigger p-button-icon-only"
+                          tabindex="-1"
+                          type="button"
+                        >
+                          <span
+                            class="icon-calendar p-c"
+                          />
+                          <span
+                            class="p-button-label p-c"
+                          >
+                             
+                          </span>
+                        </button>
                       </span>
-                    </button>
-                  </span>
+                    </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
+                  </div>
                 </div>
                 <div
                   class="form__row-item sd-line-input sd-line-input--no-margin"
                 >
-                  <label
-                    class="sd-line-input__label"
+                  <div
+                    class="sd-input sd-input--medium"
                   >
-                    Published before
-                  </label>
-                  <span
-                    class="p-calendar p-inputwrapper p-calendar-w-btn"
-                    id="pr_id_3"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="p-inputtext p-component"
-                      inputmode="none"
-                      type="text"
-                    />
-                    <button
-                      class="p-button p-component p-datepicker-trigger p-button-icon-only"
-                      tabindex="-1"
-                      type="button"
+                    <label
+                      class="sd-input__label"
+                      for="id5"
+                      id="id5label"
+                    >
+                      Published before
+                    </label>
+                    <div
+                      class="sd-input__input-container"
                     >
                       <span
-                        class="icon-calendar p-c"
-                      />
-                      <span
-                        class="p-button-label p-c"
+                        class="p-calendar p-inputwrapper p-calendar-w-btn"
+                        id="pr_id_4"
                       >
-                         
+                        <input
+                          aria-labelledby="id5label"
+                          autocomplete="off"
+                          class="p-inputtext p-component"
+                          id="id5"
+                          inputmode="none"
+                          type="text"
+                        />
+                        <button
+                          class="p-button p-component p-datepicker-trigger p-button-icon-only"
+                          tabindex="-1"
+                          type="button"
+                        >
+                          <span
+                            class="icon-calendar p-c"
+                          />
+                          <span
+                            class="p-button-label p-c"
+                          >
+                             
+                          </span>
+                        </button>
                       </span>
-                    </button>
-                  </span>
+                    </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -308,7 +415,7 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 >
                   <button
                     aria-expanded="false"
-                    aria-haspopup="true"
+                    aria-haspopup="menu"
                     class="btn btn--small btn--primary dropdown__toggle dropdown-toggle"
                   >
                     <i
@@ -319,9 +426,16 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
                 </div>
                 <ul
                   class="dropdown__menu"
+                  role="menu"
                 >
-                  <li>
-                    <button>
+                  <li
+                    class=""
+                    role="none"
+                  >
+                    <button
+                      role="menuitem"
+                      tabindex="0"
+                    >
                       <i
                         class=""
                       />
@@ -364,7 +478,7 @@ exports[`ContentLists/Automatic/Automatic renders properly 1`] = `
           style="flex-grow: 1;"
         >
           <div
-            class="alert alert-info alert-block"
+            class="alert alert-info alert-block sd-margin-b--0"
           >
             <h4>
               The list is empty

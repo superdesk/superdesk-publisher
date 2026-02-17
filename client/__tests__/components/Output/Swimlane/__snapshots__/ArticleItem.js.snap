@@ -30,6 +30,7 @@ exports[`Output/Swimlane/ArticleItem renders correctly 1`] = `
   >
     <button
       class="icn-btn"
+      id="uif-tooltip-1"
       tabindex="0"
     >
       <i
@@ -40,6 +41,7 @@ exports[`Output/Swimlane/ArticleItem renders correctly 1`] = `
     </button>
     <button
       class="icn-btn"
+      id="uif-tooltip-2"
       tabindex="0"
     >
       <i

@@ -23,6 +23,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
           tabindex="0"
         >
           <i
+            aria-hidden="true"
             aria-label="plus-large"
             class="icon-plus-large"
           />
@@ -40,74 +41,78 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
     </div>
     <div>
       <div
-        class="sd-check-button__group sd-check-button__group--left"
+        class="sd-check-button__group sd-check-button__group--start"
       >
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
+        <div
+          class="sd-check-button__group sd-check-button__group--start"
+          data-test-value="All"
+          role="radiogroup"
         >
-          <input
-            class="sd-check-button__input"
-            id="id10"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id10"
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              checked=""
+              class="sd-check-button__input"
+              id="id10"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id10"
             >
-              All
-            </span>
-          </label>
-        </span>
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
-        >
-          <input
-            class="sd-check-button__input"
-            id="id11"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id11"
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                All
+              </span>
+            </label>
+          </span>
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              class="sd-check-button__input"
+              id="id11"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id11"
             >
-              Published
-            </span>
-          </label>
-        </span>
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
-        >
-          <input
-            class="sd-check-button__input"
-            id="id12"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id12"
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                Published
+              </span>
+            </label>
+          </span>
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              class="sd-check-button__input"
+              id="id12"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id12"
             >
-              Unpublished
-            </span>
-          </label>
-        </span>
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                Unpublished
+              </span>
+            </label>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -143,6 +148,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
               </span>
               <button
                 class="icn-btn"
+                id="uif-tooltip-5"
                 tabindex="0"
               >
                 <i
@@ -181,6 +187,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             >
               <button
                 class="icn-btn"
+                id="uif-tooltip-2"
                 tabindex="0"
               >
                 <i
@@ -192,6 +199,7 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
             </span>
             <button
               class="icn-btn"
+              id="uif-tooltip-6"
               tabindex="0"
             >
               <i
@@ -276,12 +284,10 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
               <span>
                 <span
                   class="sd-check-new__wrapper"
-                  tabindex="-1"
                 >
                   <input
                     class="sd-check-new__input"
                     id="id2"
-                    tabindex="0"
                     type="checkbox"
                   />
                   <span
@@ -343,18 +349,8 @@ exports[`Output/PublishPane/Publish renders properly 1`] = `
           class="toggle-box__content"
         >
           <div
-            class="spinner"
-          >
-            <div
-              class="bounce1"
-            />
-            <div
-              class="bounce2"
-            />
-            <div
-              class="bounce3"
-            />
-          </div>
+            class="sd-loader"
+          />
           <ul
             class="simple-list simple-list--dotted simple-list--no-padding"
           />

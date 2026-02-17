@@ -38,18 +38,8 @@ exports[`UI/ImageUpload renders Loading indicator 1`] = `
       style="position: absolute; display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5);"
     >
       <div
-        class="spinner"
-      >
-        <div
-          class="bounce1"
-        />
-        <div
-          class="bounce2"
-        />
-        <div
-          class="bounce3"
-        />
-      </div>
+        class="sd-loader"
+      />
     </div>
   </div>
   <input

@@ -5,12 +5,18 @@ exports[`ContentLists/ListCard renders correctly 1`] = `
   class="sd-card flexGrow"
 >
   <div
-    class="sd-card__header sd-card__header--padding sd-card__header--secondary-color"
+    class="sd-card__header sd-card__header--secondary-color"
+    data-theme="dark-ui"
   >
     <div
-      class="sd-card__heading"
+      class="sd-card__heading sd-card__heading--editable"
     >
-      Most shared
+      <div
+        class="sd-card__heading-dummy-input"
+        title="Click to rename"
+      >
+        Most shared
+      </div>
     </div>
     <div
       class="sd-card__actions-group"
@@ -91,7 +97,7 @@ exports[`ContentLists/ListCard renders correctly 1`] = `
       </span>
     </div>
     <span
-      class="label label--success label--hollow"
+      class="label label--success label--translucent"
     >
       active
     </span>

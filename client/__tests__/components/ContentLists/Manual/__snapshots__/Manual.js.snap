@@ -9,6 +9,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
   >
     <div
       class="subnav subnav--lower-z-index subnav--dark-blue-grey"
+      data-theme="dark-ui"
     >
       <button
         class="navbtn navbtn--left"
@@ -23,6 +24,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       >
         <div
           class="search-handler"
+          style="border-right: 1px solid rgba(0, 0, 0, 0.1);"
         >
           <label
             class="trigger-icon"
@@ -83,6 +85,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         <button
           aria-label=""
           class="btn btn--primary btn--disabled"
+          disabled=""
           tabindex="0"
         >
           Save
@@ -102,6 +105,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         </h2>
         <ul
           class="sd-list-item-group sd-shadow--z2"
+          style="height: calc(100% - 50px);"
         />
       </div>
     </div>
@@ -142,11 +146,49 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
           />
         </div>
       </div>
-      <h3
-        class="subnav__page-title"
+      <div
+        class="subnav__spacer subnav__spacer--no-margin"
+      />
+      <div
+        class="subnav__content-bar sd-flex-no-shrink sd-margin-x--0"
       >
-        All published articles
-      </h3>
+        <div
+          class="dropdown dropdown--align-right"
+        >
+          <span>
+            <button
+              class="dropdown__toggle navbtn navbtn--text-only dropdown-toggle"
+            >
+              All published articles
+              <span
+                class="dropdown__caret"
+              />
+            </button>
+          </span>
+          <ul
+            class="dropdown__menu dropdown__menu--scrollable"
+          >
+            <li>
+              <button>
+                All published articles
+              </button>
+            </li>
+            <li
+              class="dropdown__menu-divider"
+            />
+            <li>
+              <button>
+                Scheduled Articles
+              </button>
+            </li>
+            <li>
+              <button>
+                Articles in progress
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
         class="subnav__spacer subnav__spacer--no-margin"
       />
@@ -260,7 +302,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
         class="sd-filters-panel sd-filters-panel--border-left"
       >
         <div
-          class="side-panel side-panel--transparent side-panel--shadow-right"
+          class="side-panel side-panel--shadow-right"
         >
           <div
             class="side-panel__header side-panel__header--border-b"
@@ -270,6 +312,7 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
             >
               <button
                 class="icn-btn"
+                id="uif-tooltip-5"
                 tabindex="0"
               >
                 <i
@@ -292,94 +335,124 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
               class="side-panel__content-block"
             >
               <div
-                class="form__row"
+                class="form__row form__row--flex"
               >
                 <div
-                  class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
+                  class="sd-line-input sd-line-input--no-margin sd-padding-t--0"
                 >
-                  <label
-                    class="sd-line-input__label"
-                  >
-                    Routes
-                  </label>
-                  div
-                </div>
-              </div>
-              <div
-                class="form__row"
-              >
-                <div
-                  class="sd-line-input sd-line-input--no-margin sd-line-input--with-button"
-                >
-                  <label
-                    class="sd-line-input__label"
-                  >
-                    Author
-                  </label>
                   <div
-                    class=" css-ewg31r-container"
+                    class="sd-input sd-input--medium"
                   >
+                    <label
+                      class="sd-input__label"
+                      for="id1"
+                      id="id1label"
+                    >
+                      Routes
+                    </label>
                     <div
-                      class=" css-1bpltnu-control"
+                      class="sd-input__input-container"
                     >
                       <div
-                        class=" css-g1d714-ValueContainer"
+                        class="p-multiselect p-component p-inputwrapper p-multiselect-chip"
+                        id="pr_id_1"
                       >
                         <div
-                          class=" css-1wa3eu0-placeholder"
+                          class="p-hidden-accessible p-multiselect-hidden-select"
                         >
-                          Select...
+                          <select
+                            aria-hidden="true"
+                            multiple=""
+                            tabindex="-1"
+                          />
                         </div>
                         <div
-                          class="css-b8ldur-Input"
+                          class="p-hidden-accessible"
+                        >
+                          <input
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-labelledby="id1label"
+                            id="id1"
+                            readonly=""
+                            role="listbox"
+                            tabindex="0"
+                            type="text"
+                          />
+                        </div>
+                        <div
+                          class="p-multiselect-label-container"
                         >
                           <div
-                            class=""
-                            style="display: inline-block;"
+                            class="p-multiselect-label p-multiselect-label-empty"
                           >
-                            <input
-                              aria-autocomplete="list"
-                              autocapitalize="none"
-                              autocomplete="off"
-                              autocorrect="off"
-                              id="react-select-2-input"
-                              spellcheck="false"
-                              style="box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;"
-                              tabindex="0"
-                              type="text"
-                              value=""
-                            />
-                            <div
-                              style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
-                            />
+                            empty
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class=" css-1rkxiuv-IndicatorsContainer"
-                      >
-                        <span
-                          class=" css-1xjgjl1-IndicatorSeparator"
-                        />
                         <div
-                          aria-hidden="true"
-                          class=" css-tlfecz-indicatorContainer"
+                          class="p-multiselect-trigger"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="css-6q0nyr-Svg"
-                            focusable="false"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            width="20"
-                          >
-                            <path
-                              d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                            />
-                          </svg>
+                          <span
+                            class="p-multiselect-trigger-icon pi pi-chevron-down p-c"
+                          />
                         </div>
                       </div>
                     </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="form__row form__row--flex"
+              >
+                <div
+                  class="sd-line-input sd-line-input--no-margin sd-padding-t--0"
+                >
+                  <div
+                    class="sd-input sd-input--medium"
+                  >
+                    <label
+                      class="sd-input__label"
+                      for="id2"
+                      id="id2label"
+                    >
+                      Author
+                    </label>
+                    <div
+                      class="sd-input__input-container"
+                    >
+                      <div
+                        class="
+                        tags-input sd-input__input
+                        tags-input--multi-select"
+                      >
+                        <div
+                          class="tags-input__tags"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="tree"
+                            class="
+                                        tags-input__add-button
+                                        "
+                            data-test-id="open-popover"
+                          >
+                            <i
+                              class="icon-plus-large"
+                            />
+                          </button>
+                          <ul
+                            class="tags-input__tag-list"
+                          />
+                        </div>
+                      </div>
+                      <div />
+                    </div>
+                    <div
+                      class="sd-input__message-box"
+                    />
                   </div>
                 </div>
               </div>

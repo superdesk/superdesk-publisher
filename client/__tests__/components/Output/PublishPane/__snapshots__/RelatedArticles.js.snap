@@ -33,18 +33,8 @@ exports[`Output/PublishPane/RelatedArticles renders correctly 1`] = `
         class="toggle-box__content"
       >
         <div
-          class="spinner"
-        >
-          <div
-            class="bounce1"
-          />
-          <div
-            class="bounce2"
-          />
-          <div
-            class="bounce3"
-          />
-        </div>
+          class="sd-loader"
+        />
         <ul
           class="simple-list simple-list--dotted simple-list--no-padding"
         />

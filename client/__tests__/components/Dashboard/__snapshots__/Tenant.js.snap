@@ -29,7 +29,9 @@ exports[`Dashboard/Tenant renders correctly 1`] = `
       class="dashboard-content-header sd-shadow--z1"
     >
       <div
-        class="big-number-block big-number-block--grow big-number-block--center"
+        class="
+            big-number-block big-number-block--grow big-number-block--center
+            "
       >
         <div
           class="big-number-block__number"
@@ -39,9 +41,10 @@ exports[`Dashboard/Tenant renders correctly 1`] = `
         <div
           class="big-number-block__text"
         >
-          Published
-          <br />
-          items
+          Published 
+          <span>
+            items
+          </span>
         </div>
       </div>
       <div
@@ -85,7 +88,7 @@ exports[`Dashboard/Tenant renders correctly 1`] = `
           >
             Most shared
             <i
-              class="icon-pencil icon--dark-blue-grey"
+              class="icon-pencil"
             />
           </a>
         </li>
@@ -98,7 +101,7 @@ exports[`Dashboard/Tenant renders correctly 1`] = `
           >
             Most commented
             <i
-              class="icon-pencil icon--dark-blue-grey"
+              class="icon-pencil"
             />
           </a>
         </li>
