@@ -2,7 +2,7 @@
 
 exports[`UI/ArticleStatusLabel renders published article labels correctly 1`] = `
 <a
-  class="label label--success cursorPointer"
+  class="label label--success cursorPointer sd-margin-r--1"
   href="https://sourcefabric.org"
   target="_blank"
 >
@@ -16,7 +16,7 @@ exports[`UI/ArticleStatusLabel renders published article labels correctly 1`] = 
 
 exports[`UI/ArticleStatusLabel renders unpublished article labels correctly 1`] = `
 <span
-  class="label label--alert"
+  class="label sd-margin-r--1 label--alert"
 >
   testtenant
   <span>

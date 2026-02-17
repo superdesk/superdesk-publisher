@@ -1,6 +1,6 @@
 import React from "react";
 import TargetedPublishing from "../../../components/TargetedPublishing/TargetedPublishing";
-import { render } from "@testing-library/react";
+import { render, waitForElement } from "@testing-library/react";
 import axios from "axios";
 
 jest.mock("axios");
@@ -37,6 +37,19 @@ describe("TargetedPublishing/TargetedPublishing", () => {
   };
 
   it('renders "no websites has been set" and AdddWebsite component', async () => {
+    // Mock axios to return sites data so AddWebsite component can render the button.
+    // AddWebsite fetches sites via axios.get() in componentDidMount and only shows
+    // the "Add website" button if there are available sites.
+    axios.get = jest.fn().mockResolvedValue({
+      data: {
+        _embedded: {
+          _items: [
+            { id: 1, name: "Test Site", code: "test" }
+          ]
+        }
+      }
+    });
+
     const { container, getByText } = render(
       <TargetedPublishing
         apiUrl="example.com/"
@@ -52,7 +65,9 @@ describe("TargetedPublishing/TargetedPublishing", () => {
 
     expect(container.firstChild).toMatchSnapshot();
     expect(alert).toBeInTheDocument();
-    expect(getByText("Add Website")).toBeInTheDocument();
+
+    // Wait for button to appear after async site fetch completes
+    await waitForElement(() => getByText("Add website"));
   });
 
   it("renders destination", async () => {

@@ -30,6 +30,7 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
           </span>
           <button
             class="icn-btn"
+            id="uif-tooltip-1"
             tabindex="0"
           >
             <i
@@ -66,6 +67,7 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
         >
           <button
             class="icn-btn"
+            id="uif-tooltip-2"
             tabindex="0"
           >
             <i
@@ -77,6 +79,7 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
         </span>
         <button
           class="icn-btn"
+          id="uif-tooltip-30000000000000004"
           tabindex="0"
         >
           <i
@@ -158,12 +161,10 @@ exports[`Output/PublishPane/Destination renders correctly 1`] = `
           <span>
             <span
               class="sd-check-new__wrapper"
-              tabindex="-1"
             >
               <input
                 class="sd-check-new__input"
                 id="id1"
-                tabindex="0"
                 type="checkbox"
               />
               <span

@@ -10,25 +10,30 @@ exports[`TargetedPublishing/MetaDataOverlay renders correctly 1`] = `
     <div
       class="side-panel__header"
     >
-      <span
-        class="sd-margin-l--1"
+      <div
+        class="side-panel__header-wrapper sd-flex--items-center"
       >
-        <button
-          class="icn-btn"
-          tabindex="0"
+        <span
+          class="sd-margin-l--1"
         >
-          <i
-            aria-hidden="true"
-            aria-label="arrow-left"
-            class="icon-arrow-left"
-          />
-        </button>
-      </span>
-      <h3
-        class="side-panel__heading side-panel__heading--big"
-      >
-        Facebook
-      </h3>
+          <button
+            class="icn-btn"
+            id="uif-tooltip-1"
+            tabindex="0"
+          >
+            <i
+              aria-hidden="true"
+              aria-label="arrow-left"
+              class="icon-arrow-left"
+            />
+          </button>
+        </span>
+        <h3
+          class="side-panel__heading side-panel__heading--big sd-margin-l--1"
+        >
+          Facebook
+        </h3>
+      </div>
     </div>
     <div
       class="side-panel__content"

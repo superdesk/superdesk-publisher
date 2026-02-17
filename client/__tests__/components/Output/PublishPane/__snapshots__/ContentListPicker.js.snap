@@ -42,6 +42,7 @@ exports[`Output/PublishPane/ContentListPicker renders properly 1`] = `
       </div>
       <button
         class="icn-btn"
+        id="uif-tooltip-1"
         tabindex="0"
       >
         <i

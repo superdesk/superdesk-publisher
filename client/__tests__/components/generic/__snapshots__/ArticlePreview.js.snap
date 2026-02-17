@@ -16,6 +16,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
       >
         <button
           class="icn-btn"
+          id="uif-tooltip-1"
           tabindex="0"
         >
           <i
@@ -35,13 +36,13 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
       class="side-panel__content"
     >
       <div
-        class="side-panel-collapsible-header active"
+        class="preview-header sd-margin--0 active"
       >
         <div
-          class="side-panel-collapsible-header__fixed"
+          class="side-panel-collapsible-header__fixed sd-padding-t--1"
         >
           <p
-            class="sd-text__date-and-author"
+            class="sd-text__date-and-author sd-margin--0"
           >
             <time
               title="2019–08–30T12:34:56+00:00"
@@ -52,7 +53,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
           </p>
         </div>
         <div
-          class="side-panel-collapsible-header__collapsible"
+          class="preview-header__flex-container sd-flex--direction-col"
         >
           <div
             class="form__row form__row--small-padding"
@@ -88,7 +89,7 @@ exports[`generic/ArticlePreview renders correctly 1`] = `
           </div>
         </div>
         <button
-          class="side-panel-collapsible-header__toggle active"
+          class="preview-header__toggle active"
         >
           <i
             class="icon-chevron-down-thin"

@@ -50,7 +50,9 @@ exports[`Dashboard/Dashboard renders properly 1`] = `
               class="dashboard-content-header sd-shadow--z1"
             >
               <div
-                class="big-number-block big-number-block--grow big-number-block--center"
+                class="
+            big-number-block big-number-block--grow big-number-block--center
+            "
               >
                 <div
                   class="big-number-block__number"
@@ -60,9 +62,10 @@ exports[`Dashboard/Dashboard renders properly 1`] = `
                 <div
                   class="big-number-block__text"
                 >
-                  Published
-                  <br />
-                  items
+                  Published 
+                  <span>
+                    items
+                  </span>
                 </div>
               </div>
               <div
@@ -152,7 +155,9 @@ exports[`Dashboard/Dashboard renders properly 1`] = `
               class="dashboard-content-header sd-shadow--z1"
             >
               <div
-                class="big-number-block big-number-block--grow big-number-block--center"
+                class="
+            big-number-block big-number-block--grow big-number-block--center
+            "
               >
                 <div
                   class="big-number-block__number"
@@ -162,9 +167,10 @@ exports[`Dashboard/Dashboard renders properly 1`] = `
                 <div
                   class="big-number-block__text"
                 >
-                  Published
-                  <br />
-                  items
+                  Published 
+                  <span>
+                    items
+                  </span>
                 </div>
               </div>
               <div

@@ -32,74 +32,78 @@ exports[`ContentLists/Listing renders correctly 1`] = `
       style="margin-left: 1rem;"
     >
       <div
-        class="sd-check-button__group sd-check-button__group--left"
+        class="sd-check-button__group sd-check-button__group--start"
       >
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
+        <div
+          class="sd-check-button__group sd-check-button__group--start"
+          data-test-value="All"
+          role="radiogroup"
         >
-          <input
-            class="sd-check-button__input"
-            id="id10"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id10"
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              checked=""
+              class="sd-check-button__input"
+              id="id10"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id10"
             >
-              All
-            </span>
-          </label>
-        </span>
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
-        >
-          <input
-            class="sd-check-button__input"
-            id="id11"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id11"
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                All
+              </span>
+            </label>
+          </span>
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              class="sd-check-button__input"
+              id="id11"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id11"
             >
-              Automatic
-            </span>
-          </label>
-        </span>
-        <span
-          class="sd-check-button sd-check-button--native"
-          tabindex="-1"
-        >
-          <input
-            class="sd-check-button__input"
-            id="id12"
-            name="id1"
-            tabindex="0"
-            type="radio"
-          />
-          <label
-            class="sd-check-button__text-label"
-            for="id12"
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                Automatic
+              </span>
+            </label>
+          </span>
+          <span
+            class="sd-check-button sd-check-button--native"
           >
-            <span
-              class="sd-check-button__text-label-inner"
+            <input
+              class="sd-check-button__input"
+              id="id12"
+              name="id1"
+              type="radio"
+            />
+            <label
+              class="sd-check-button__text-label"
+              data-test-id="item"
+              for="id12"
             >
-              Manual
-            </span>
-          </label>
-        </span>
+              <span
+                class="sd-check-button__text-label-inner"
+              >
+                Manual
+              </span>
+            </label>
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -158,12 +162,18 @@ exports[`ContentLists/Listing renders correctly 1`] = `
         class="sd-card flexGrow"
       >
         <div
-          class="sd-card__header sd-card__header--padding sd-card__header--secondary-color"
+          class="sd-card__header sd-card__header--secondary-color"
+          data-theme="dark-ui"
         >
           <div
-            class="sd-card__heading"
+            class="sd-card__heading sd-card__heading--editable"
           >
-            Most shared
+            <div
+              class="sd-card__heading-dummy-input"
+              title="Click to rename"
+            >
+              Most shared
+            </div>
           </div>
           <div
             class="sd-card__actions-group"
@@ -244,7 +254,7 @@ exports[`ContentLists/Listing renders correctly 1`] = `
             </span>
           </div>
           <span
-            class="label label--success label--hollow"
+            class="label label--success label--translucent"
           >
             active
           </span>
@@ -266,12 +276,18 @@ exports[`ContentLists/Listing renders correctly 1`] = `
         class="sd-card flexGrow"
       >
         <div
-          class="sd-card__header sd-card__header--padding"
+          class="sd-card__header"
+          data-theme="dark-ui"
         >
           <div
-            class="sd-card__heading"
+            class="sd-card__heading sd-card__heading--editable"
           >
-            Top news
+            <div
+              class="sd-card__heading-dummy-input"
+              title="Click to rename"
+            >
+              Top news
+            </div>
           </div>
           <div
             class="sd-card__actions-group"
@@ -350,7 +366,7 @@ exports[`ContentLists/Listing renders correctly 1`] = `
             </span>
           </div>
           <span
-            class="label label--success label--hollow"
+            class="label label--success label--translucent"
           >
             active
           </span>

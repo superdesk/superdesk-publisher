@@ -42,20 +42,11 @@ exports[`TargetedPublishing/TargetedPublishing renders "no websites has been set
       </div>
       <div
         data-testid="dropdown"
-        style="box-sizing: border-box; background: rgb(255, 255, 255); margin-top: 10px; max-height: 0; overflow: hidden; transition: all ease-in-out .4s;"
+        style="box-sizing: border-box; margin-top: 10px; max-height: 0; overflow: hidden; transition: all ease-in-out .4s;"
       >
         <div
-          style="padding: 1.5rem;"
-        >
-          <h3
-            class="tp-dropdown-heading"
-          >
-            Add Website
-          </h3>
-          <ul
-            class="simple-list--dotted simple-list"
-          />
-        </div>
+          class="sd-list-item-group sd-shadow--z1 sd-margin-b--2"
+        />
       </div>
     </div>
   </div>

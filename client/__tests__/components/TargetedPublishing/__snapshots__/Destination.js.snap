@@ -61,6 +61,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
         >
           <button
             class="icn-btn"
+            id="uif-tooltip-1"
             tabindex="0"
           >
             <i
@@ -72,6 +73,7 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
         </span>
         <button
           class="icn-btn"
+          id="uif-tooltip-2"
           tabindex="0"
         >
           <i
@@ -153,18 +155,16 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
       >
         <div
           class="flex-grid__item"
-          sd-tooltip="Publish to facebook"
+          sd-tooltip="Enable Paywall"
           style="margin-bottom: 1em;"
         >
           <span>
             <span
               class="sd-check-new__wrapper"
-              tabindex="-1"
             >
               <input
                 class="sd-check-new__input"
                 id="id1"
-                tabindex="0"
                 type="checkbox"
               />
               <span
@@ -172,33 +172,6 @@ exports[`TargetedPublishing/Destination renders correctly 1`] = `
               />
               <label
                 for="id1"
-              >
-                FBIA
-              </label>
-            </span>
-          </span>
-        </div>
-        <div
-          class="flex-grid__item"
-          sd-tooltip="Enable Paywall"
-          style="margin-bottom: 1em;"
-        >
-          <span>
-            <span
-              class="sd-check-new__wrapper"
-              tabindex="-1"
-            >
-              <input
-                class="sd-check-new__input"
-                id="id2"
-                tabindex="0"
-                type="checkbox"
-              />
-              <span
-                class="sd-check-new"
-              />
-              <label
-                for="id2"
               >
                 Paywall
               </label>
