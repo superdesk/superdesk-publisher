@@ -11,6 +11,7 @@ import SearchBar from "../../UI/SearchBar";
 import ArticleItem from "./ArticleItem";
 import Loading from "../../UI/Loading/Loading";
 import LanguageSelect from "../../UI/LanguageSelect";
+import SourceSelect from "../../UI/SourceSelect";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -65,6 +66,7 @@ class Manual extends React.Component {
           ? { language: this.props.site.default_language }
           : {},
       changesRecord: [],
+      source: { id: 'publisher', name: 'All published articles' }
     };
   }
 
@@ -90,6 +92,7 @@ class Manual extends React.Component {
               ? { language: this.props.site.default_language }
               : {},
           changesRecord: [],
+          source: ""
         },
         this._loadData
       );
@@ -121,7 +124,9 @@ class Manual extends React.Component {
 
     if (listEl.scrollHeight - el.scrollTop - el.clientHeight < 100) {
       if (list === "articles") {
-        this._queryArticles();
+        this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
+          this._querySuperdeskArticles() :
+          this._queryArticles();
       } else {
         this._queryListArticles();
       }
@@ -245,6 +250,124 @@ class Manual extends React.Component {
     });
   };
 
+  _querySuperdeskArticles = (filter = this.state.source.id, reset = false) => {
+    // Get Superdesk API instance
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    let articles = this.state.articles;
+    if (articles.loading || (articles.page === articles.totalPages && !reset))
+      return;
+
+    if (reset) {
+      articles = {
+        items: [],
+        page: 0,
+        totalPages: 1,
+        loading: false,
+      };
+    }
+
+    articles.loading = true;
+    this.setState({ articles }, () => {
+      const query = {
+        filter: {
+          $and: [
+            { 'state': { $in: [filter] } },
+            { 'type': { $eq: 'text' } }
+          ]
+        },
+        page: this.state.articles.page + 1,
+        max_results: 20,
+        sort: [{ 'versioncreated': 'desc' }],
+      };
+
+      superedeskApi.httpRequestJsonLocal({
+        ...superedeskApi.helpers.prepareSuperdeskQuery('/search', query),
+      }).then((response) => {
+        const articleItemsMapped = response._items.map((
+          { _id, authors, body_html, headline, versioncreated, state, associations }) => ({
+            id: _id,
+            authors,
+            body: body_html,
+            title: headline,
+            published_at: versioncreated,
+            status: this.state.source && this.state.source.label,
+            // status: state.replace('_', ' '),
+            associations
+          })
+        );
+
+        const articles = {
+          page: this.state.articles.page + 1,
+          totalPages: Math.round(response._meta.total / 20),
+          items: [...this.state.articles.items, ...articleItemsMapped],
+          loading: false,
+        };
+
+        if (this._isMounted) this.setState({ articles });
+      });
+
+    });
+  }
+
+  publishItemFromSuperdesk = (item_id) => {
+    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
+
+    return new Promise((resolve, reject) => {
+      superedeskApi.httpRequestJsonLocal({
+        method: 'POST',
+        path: '/export',
+        payload: {
+          item_ids: [item_id],
+          validate: false,
+          inline: true,
+          format_type: "NINJSFormatter"
+        },
+      }).then((response) => {
+        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then(async (response) => {
+          try {
+            const article_id = await this.attemptFetch(10, item_id);
+            return resolve(article_id);
+          } catch (error) {
+            return reject(error);
+          }
+        });
+      }, (error) => reject(error));
+    });
+  }
+
+  attemptFetch = async (tries = 10, code) => {
+    if (tries === 0) {
+      this.props.api.notify.error(
+        "Adding article to the content list failed, please try again. If the problem persists, please contact support."
+      );
+
+      throw new Error('Failed to fetch article');
+    }
+
+    try {
+      const article = await this.props.publisher.getArticleByCode(code);
+      if (article) {
+        console.warn('Article added to the content list successfully.', article);
+        return article.id;
+      }
+    } catch (error) {
+      console.error('Error fetching article:', error);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 3 seconds
+
+    return this.attemptFetch(tries - 1, code);
+  };
+
+  handleSourceChange = (source) => {
+    if (source && (source.id === 'scheduled' || source.id === 'in_progress')) {
+      this._querySuperdeskArticles(source.id, true);
+    } else {
+      this._queryArticles(true);
+    }
+  }
+
   handleListSearch = (query) => {
     this.setState(
       {
@@ -357,13 +480,26 @@ class Manual extends React.Component {
 
   getList = (id) => this.state[this.id2List[id]].items;
 
+  getIndexInList = (list, draggableId) => {
+    let ids = draggableId.split('_');
+    let id = this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
+      ids[ids.length - 1] : parseInt(ids[ids.length - 1]);
+
+    return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
+  }
+
   onDragEnd = (result) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
 
     // dropped outside the list
     if (!destination) {
       return;
     }
+
+    let list = { ...this.state.list };
+    let originalList = { ...this.state.list };
+    let originalArticles = { ...this.state.articles };
+    let originalChangesRecord = [...this.state.changesRecord];
 
     if (source.droppableId === destination.droppableId) {
       let items = reorder(
@@ -374,10 +510,8 @@ class Manual extends React.Component {
 
       items = this.fixPinnedItemsPosition(items);
 
-      let list = { ...this.state.list };
-
       list.items = items;
-      this.recordChange("move", destination.index, [...list.items]);
+      this.recordChange("move", this.getIndexInList(list.items, draggableId), [...list.items]);
       this.setState({ list });
     } else {
       const result = move(
@@ -387,15 +521,48 @@ class Manual extends React.Component {
         destination
       );
 
-      let list = { ...this.state.list };
       let articles = { ...this.state.articles };
 
       list.items = this.fixPinnedItemsPosition(result.contentList);
       articles.items = result.articles;
-      this.recordChange("add", destination.index, [...list.items]);
+
+      this.recordChange("add", this.getIndexInList(list.items, draggableId), [...list.items]);
       this.setState({
         list,
         articles,
+      });
+    }
+
+    if (this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress')) {
+      list.loading = true;
+
+      const item_id = draggableId.replace('draggable_', '');
+
+      this.publishItemFromSuperdesk(item_id).then((res) => {
+        let changesRecord = [...this.state.changesRecord];
+        changesRecord = changesRecord.map((change) => {
+          if (change.content_id === item_id) {
+            let index = list.items.findIndex((item) => {
+              let itemId = item.content ? item.content.id : item.id;
+              return itemId === item_id;
+            });
+
+            change.content_id = res;
+            list.items[index].id = res;
+          }
+          return change;
+        });
+
+        list.loading = false;
+        this.setState({ list });
+      }).catch((err) => {
+        this.setState({
+          list: originalList,
+          articles: originalArticles,
+          changesRecord: originalChangesRecord
+        });
+
+        list.loading = false;
       });
     }
   };
@@ -476,11 +643,11 @@ class Manual extends React.Component {
       filteredContentListItems = filteredContentListItems.filter((item) =>
         item.content
           ? item.content.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
           : item.title
-              .toLowerCase()
-              .includes(this.state.listSearchQuery.toLowerCase())
+            .toLowerCase()
+            .includes(this.state.listSearchQuery.toLowerCase())
       );
     }
 
@@ -488,7 +655,7 @@ class Manual extends React.Component {
       <div className="flex-grid flex-grid--grow flex-grid--small-2">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="flex-grid__item flex-grid__item--d-flex flex-grid__item--column panel-border-right">
-            <div className="subnav subnav--lower-z-index subnav--dark-blue-grey">
+            <div className="subnav subnav--lower-z-index subnav--dark-blue-grey" data-theme="dark-ui">
               <button
                 className="navbtn navbtn--left"
                 onClick={this.props.onEditCancel}
@@ -551,7 +718,7 @@ class Manual extends React.Component {
                       ref={provided.innerRef}
                       style={
                         !this.state.list.items.length &&
-                        !this.state.list.loading
+                          !this.state.list.loading
                           ? { height: "calc(100% - 50px)" }
                           : {}
                       }
@@ -615,7 +782,7 @@ class Manual extends React.Component {
 
                       {this.state.list.loading && (
                         <li>
-                          <Loading dark={true} />
+                          <Loading />
                         </li>
                       )}
                     </ul>
@@ -645,7 +812,18 @@ class Manual extends React.Component {
                 }
                 onChange={(value) => this.handleArticlesSearch(value)}
               />
-              <h3 className="subnav__page-title">All published articles</h3>
+              <SourceSelect
+                sources={[
+                  { id: 'scheduled', name: 'Scheduled Articles', label: 'Non published' },
+                  { id: 'in_progress', name: 'Articles in progress', label: 'Non published' },
+                ]}
+                selectedSource={this.state.source}
+                setSource={(source) => {
+                  this.setState({ source: source }, () => {
+                    this.handleSourceChange(source);
+                  });
+                }}
+              />
               {this.props.isLanguagesEnabled && (
                 <LanguageSelect
                   languages={this.props.languages}
@@ -698,7 +876,7 @@ class Manual extends React.Component {
                       {provided.placeholder}
                       {this.state.articles.loading && (
                         <li>
-                          <Loading dark={true} />
+                          <Loading />
                         </li>
                       )}
                       {!this.state.articles.items.length &&

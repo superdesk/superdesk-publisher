@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import { Button, IconButton } from "superdesk-ui-framework/react";
-import MultiSelect from "../UI/MultiSelect";
-import AsyncMultiSelect from "../UI/AsyncMultiSelect";
+import { Button, IconButton, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FiltersPanel extends React.Component {
@@ -42,27 +40,31 @@ class FiltersPanel extends React.Component {
     }
   }
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
           authorsOptions.push({
-            value: item.id,
-            label: item.name,
+            value: {
+              value: item.id,
+              label: item.name,
+            }
           });
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -161,49 +163,58 @@ class FiltersPanel extends React.Component {
 
     this.props.routes.map((route) => {
       routesOptions.push({
-        value: route.id,
-        label: route.name,
+        value: {
+          value: route.id,
+          label: route.name,
+        },
+        label: route.name
       });
     });
 
     return (
       <div className="sd-filters-panel sd-filters-panel--border-right">
         <div className="side-panel side-panel--transparent side-panel--shadow-right">
-          <div className="side-panel__header side-panel__header--border-b">
-            <span className="side-panel__close">
-              <IconButton
-                icon="close-small"
-                tooltip={{ text: "Close", flow: "left" }}
-                onClick={this.props.toggle}
-              />
-            </span>
-            <h3 className="side-panel__heading side-panel__heading--big">
-              Filter
-            </h3>
+          <div className="side-panel__header side-panel__header--border-b side-panel__header--has-close">
+            <div className="side-panel__header-wrapper">
+              <div className="side-panel__header-inner">
+                <h3 className="side-panel__heading side-panel__heading--big">
+                  Filter
+                </h3>
+              </div>
+              <div className="button-group button-group--end button-group--no-space side-panel__btn-group">
+                <IconButton
+                  icon="close-small"
+                  tooltip={{ text: "Close", flow: "left" }}
+                  onClick={this.props.toggle}
+                />
+              </div>
+            </div>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Category</label>
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <MultiSelect
-                    onSelect={(values) => this.handleRouteChange(values)}
+                    label="Category"
+                    onChange={(values) => this.handleRouteChange(values)}
                     options={routesOptions}
-                    selectedOptions={
-                      this.state.filters.routes ? this.state.filters.routes : []
-                    }
+                    optionLabel={(option) => option.label}
+                    value={this.state.filters.routes}
+                    emptyFilterMessage="No routes found"
                   />
                 </div>
               </div>
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Authors</label>
-                  <AsyncMultiSelect
-                    onSelect={(values) => this.handleAuthorChange(values)}
-                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
-                    selectedOptions={
-                      this.state.filters.author ? this.state.filters.author : []
-                    }
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
+                  <TreeSelect
+                    label="Authors"
+                    kind="asynchronous"
+                    value={this.state.filters.author}
+                    getLabel={(item) => item.label}
+                    getId={(item) => item}
+                    allowMultiple={true}
+                    searchOptions={this.loadAuthors}
+                    onChange={(values) => this.handleAuthorChange(values)}
                   />
                 </div>
               </div>
@@ -234,9 +245,9 @@ class FiltersPanel extends React.Component {
                         value={
                           this.state.filters.published_after
                             ? moment(
-                                this.state.filters.published_after,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_after,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -260,9 +271,9 @@ class FiltersPanel extends React.Component {
                         value={
                           this.state.filters.published_before
                             ? moment(
-                                this.state.filters.published_before,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_before,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -283,12 +294,12 @@ class FiltersPanel extends React.Component {
             </div>
           </div>
           <div className="side-panel__footer side-panel__footer--button-box">
-            <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
+            <div className="button-group button-group--start button-group--compact">
               <Button text="Clear" style="hollow" onClick={this.clear} />
               <Button text="Run Report" type="primary" onClick={this.save} />
             </div>
             <div
-              className="flex-grid flex-grid--boxed-small flex-grid--small-1"
+              className="button-group button-group--end button-group--compact"
               data-sd-tooltip={
                 this.shouldAllowReportGeneration()
                   ? null

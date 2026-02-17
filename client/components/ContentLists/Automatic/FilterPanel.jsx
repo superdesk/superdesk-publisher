@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
-import { Button, IconButton, Dropdown } from "superdesk-ui-framework/react";
-import MultiSelect from "../../UI/MultiSelect";
-import AsyncMultiSelect from "../../UI/AsyncMultiSelect";
+import { Button, IconButton, Dropdown, TreeSelect, MultiSelect, Container } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
 
 class FilterPanel extends React.Component {
@@ -50,8 +48,11 @@ class FilterPanel extends React.Component {
         let routesOptions = [];
         routes.map((route) => {
           routesOptions.push({
-            value: parseInt(route.id),
-            label: route.name,
+            value: {
+              value: parseInt(route.id),
+              label: route.name,
+            },
+            label: route.name
           });
         });
         this.setState({ routes: routesOptions }, this.prepareFilters);
@@ -59,27 +60,32 @@ class FilterPanel extends React.Component {
     });
   };
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
           authorsOptions.push({
-            value: item.id,
-            label: item.name,
+            value: {
+              value: item.id,
+              label: item.name,
+            },
+            label: item.name
           });
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+    return () => { };
   };
 
   prepareFilters = () => {
@@ -89,12 +95,12 @@ class FilterPanel extends React.Component {
     if (filters.route) {
       filters.route.map((id) => {
         let routeObj = this.state.routes.find(
-          (route) => parseInt(id) === parseInt(route.value)
+          (route) => parseInt(id) === parseInt(route.value.value)
         );
         if (routeObj)
           newRoute.push({
-            value: parseInt(routeObj.value),
-            label: routeObj.label,
+            value: routeObj.value.value,
+            label: routeObj.label
           });
       });
     }
@@ -144,8 +150,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -183,8 +192,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -222,8 +234,11 @@ class FilterPanel extends React.Component {
       if (serviceItems.length) {
         serviceItems.map((item) => {
           serviceOptions.push({
-            value: item.qcode,
-            label: item.name,
+            value: {
+              value: item.qcode,
+              label: item.name,
+            },
+            label: item.name
           });
         });
       }
@@ -271,8 +286,11 @@ class FilterPanel extends React.Component {
         if (subjectItems.length) {
           subjectItems.map((item) => {
             subjectOptions.push({
-              value: item.qcode,
-              label: item.name,
+              value: {
+                value: item.qcode,
+                label: item.name,
+              },
+              label: item.name
             });
           });
         }
@@ -307,7 +325,7 @@ class FilterPanel extends React.Component {
     let filters = _.pickBy({ ...this.state.filters }, _.identity);
     let newMetadata = {};
 
-    // priority and urgency
+    // priority
     const priority = vocabularies.find((v) => v.id === "priority");
 
     if (priority) {
@@ -315,10 +333,12 @@ class FilterPanel extends React.Component {
       vocabularies = vocabularies.filter((v) => v.id !== "priority");
     }
 
+    // urgency
     const urgency = vocabularies.find((v) => v.id === "urgency");
 
     if (urgency) {
       newMetadata.urgency = urgency.value[0].value;
+      vocabularies = vocabularies.filter((v) => v.id !== "urgency");
     }
 
     // services
@@ -440,8 +460,11 @@ class FilterPanel extends React.Component {
     if (subjectItems.length) {
       subjectItems.map((item) => {
         subjectOptions.push({
-          value: item.qcode,
-          label: item.name,
+          value: {
+            value: item.qcode,
+            label: item.name,
+          },
+          label: item.name
         });
       });
       vocabularies.push({
@@ -487,7 +510,7 @@ class FilterPanel extends React.Component {
     let filteredVocabularies = this.props.vocabularies.filter(
       (vocabulary) =>
         this.state.vocabularies.findIndex((v) => v.id === vocabulary._id) ===
-          -1 &&
+        -1 &&
         vocabulary.items.length &&
         vocabulariesToRemove.indexOf(vocabulary._id) === -1
     );
@@ -511,38 +534,42 @@ class FilterPanel extends React.Component {
           <div className="side-panel__content">
             <div className="side-panel__content-block">
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Routes</label>
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <MultiSelect
-                    onSelect={(values) => this.handleRoutesChange(values)}
+                    label="Routes"
+                    onChange={(values) => this.handleRoutesChange(values)}
                     options={this.state.routes}
-                    selectedOptions={this.state.filters.route}
+                    optionLabel={(option) => option.label}
+                    value={this.state.filters.route}
+                    emptyFilterMessage="No routes found"
                   />
                 </div>
               </div>
               <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Author</label>
-                  <AsyncMultiSelect
-                    onSelect={(values) => this.handleAuthorChange(values)}
-                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
-                    selectedOptions={
-                      this.state.filters.author ? this.state.filters.author : []
-                    }
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
+                  <TreeSelect
+                    label="Authors"
+                    kind="asynchronous"
+                    value={this.state.filters.author}
+                    getLabel={(item) => item.label}
+                    getId={(item) => item}
+                    allowMultiple={true}
+                    searchOptions={this.loadAuthors}
+                    onChange={(values) => this.handleAuthorChange(values)}
                   />
                 </div>
               </div>
 
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">Publish date</label>
                   <DatePicker
+                    label="Publish date"
                     value={
                       this.state.filters.published_at
                         ? moment(
-                            this.state.filters.published_at,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_at,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -561,16 +588,14 @@ class FilterPanel extends React.Component {
               </div>
               <div className="form__row form__row--flex">
                 <div className="sd-line-input sd-line-input--no-margin form__row-item">
-                  <label className="sd-line-input__label">
-                    Published after
-                  </label>
                   <DatePicker
+                    label="Published after"
                     value={
                       this.state.filters.published_after
                         ? moment(
-                            this.state.filters.published_after,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_after,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -588,16 +613,14 @@ class FilterPanel extends React.Component {
                 </div>
 
                 <div className="form__row-item sd-line-input sd-line-input--no-margin">
-                  <label className="sd-line-input__label">
-                    Published before
-                  </label>
                   <DatePicker
+                    label="Published before"
                     value={
                       this.state.filters.published_before
                         ? moment(
-                            this.state.filters.published_before,
-                            "YYYY-MM-DD"
-                          ).toDate()
+                          this.state.filters.published_before,
+                          "YYYY-MM-DD"
+                        ).toDate()
                         : null
                     }
                     dateFormat="YYYY-MM-DD"
@@ -616,11 +639,8 @@ class FilterPanel extends React.Component {
               </div>
 
               {this.state.vocabularies.map((vocabulary) => (
-                <div
-                  className="sd-shadow--z1 sd-margin-b--1 sd-padding--1"
-                  style={{ position: "relative", backgroundColor: "white" }}
-                  key={vocabulary.id}
-                >
+                <Container key={vocabulary.id}
+                  className="sd-radius--medium sd-panel-bg--000 sd-shadow--z2 sd-margin-b--2 sd-padding--2 sd-state--focus sd-position--relative">
                   <span
                     className="side-panel__close"
                     style={{ right: 0, top: 0 }}
@@ -631,22 +651,18 @@ class FilterPanel extends React.Component {
                     </a>
                   </span>
                   <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin">
-                      <label className="sd-line-input__label">
-                        {vocabulary.name}
-                      </label>
-                      {/* <p>{vocabulary.id}</p> */}
-
+                    <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                       <MultiSelect
-                        onSelect={(values) =>
-                          this.handleMetadataChange(values, vocabulary.id)
-                        }
+                        label={vocabulary.name}
                         options={vocabulary.options}
-                        selectedOptions={vocabulary.value}
+                        optionLabel={(option) => option.label}
+                        value={vocabulary.value}
+                        emptyFilterMessage="No routes found"
+                        onChange={(values) => this.handleMetadataChange(values, vocabulary.id)}
                       />
                     </div>
                   </div>
-                </div>
+                </Container>
               ))}
 
               <Dropdown

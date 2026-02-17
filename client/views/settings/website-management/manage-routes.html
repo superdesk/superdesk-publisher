@@ -1,26 +1,26 @@
 <div class="sd-page__header">
   <ul class="filter-type sd-margin-r--2">
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.routeType === ''}"
-    >
-      <a ng-click="webPublisherSettings.changeRouteFilter('')" translate>all</a>
+    <li>
+      <a 
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.routeType === ''}"
+        ng-click="webPublisherSettings.changeRouteFilter('')" translate
+        >all</a>
     </li>
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.routeType === 'collection'}"
-    >
+    <li>
       <a
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.routeType === 'collection'}"
         ng-click="webPublisherSettings.changeRouteFilter('collection')"
         translate
         >collection</a
       >
     </li>
-    <li
-      class="filter-type__item"
-      ng-class="{'filter-type__item--active': webPublisherSettings.routeType === 'content'}"
-    >
-      <a ng-click="webPublisherSettings.changeRouteFilter('content')" translate
+    <li>
+      <a
+        class="toggle-button"
+        ng-class="{'toggle-button--active': webPublisherSettings.routeType === 'content'}"
+        ng-click="webPublisherSettings.changeRouteFilter('content')" translate
         >content</a
       >
     </li>

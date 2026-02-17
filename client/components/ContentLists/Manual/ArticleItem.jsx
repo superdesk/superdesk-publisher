@@ -21,6 +21,17 @@ const ArticleItem = ({
     thumbnail = helpers.getRenditionUrl(item.feature_media.renditions);
   }
 
+  if (item.associations && item.associations.featuremedia) {
+    const renditions = item.associations.featuremedia.renditions;
+
+    const renditionsArray = Object.keys(renditions).map(key => ({
+      ...renditions[key],
+      name: key
+    }));
+
+    thumbnail = helpers.getRenditionUrl(renditionsArray);
+  }
+
   return (
     <div
       className={classNames("sd-list-item", {
@@ -75,13 +86,15 @@ const ArticleItem = ({
         </div>
         <div className="sd-list-item__row">
           <span className="sd-overflow-ellipsis sd-list-item--element-grow">
-            <time
-              title={moment(item.published_at).format()}
-              sd-tooltip={moment(item.published_at).format("HH:mm")}
-              flow="right"
-            >
-              {moment(item.published_at).format("YYYY-MM-DD")}
-            </time>
+            {item.published_at &&
+              <time
+                title={moment(item.published_at).format()}
+                sd-tooltip={moment(item.published_at).format("HH:mm")}
+                flow="right"
+              >
+                {moment(item.published_at).format("YYYY-MM-DD")}
+              </time>
+            }
             {item.updated_at && item.updated_at !== item.published_at ? (
               <time
                 title={moment(item.updated_at).format()}
@@ -93,11 +106,20 @@ const ArticleItem = ({
             ) : null}
           </span>
 
-          <Label
-            text={item.route && item.route.name}
-            type="success"
-            style="hollow"
-          />
+          {item.route?.name && (
+            <Label
+              text={item.route.name}
+              type="success"
+              style="hollow"
+            />
+          )}
+          {item.status && item.status !== 'published' && (
+            <Label
+              text={item.status === 'new' ? "Non published" : item.status}
+              type="warning"
+              style="hollow"
+            />
+          )}
           {item.sticky && <Label text="pinned" type="alert" style="hollow" />}
         </div>
       </div>

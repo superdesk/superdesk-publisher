@@ -17,6 +17,10 @@
   background: transparent url(../images/PWA_logo.svg) center center no-repeat;
 }
 
+body[data-theme="dark-ui"] .sp-logo-pwa {
+  background: transparent url(../images/PWA_logo_dark.svg) center center no-repeat;
+}
+
 .absPosition {
   position: absolute;
 
@@ -268,6 +272,7 @@ select[disabled] > option {
   cursor: move;
 }
 
+
 .sp-listSerialNumberMinWidth {
   min-width: 1.2em;
   text-align: center;
@@ -288,7 +293,7 @@ select[disabled] > option {
   font-size: 13px;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #f2f2f2;
+  background-color: var(--sd-item__main-Bg);
   border-radius: 3px;
   line-height: 140%;
   font-family: "Courier New", Courier, monospace;

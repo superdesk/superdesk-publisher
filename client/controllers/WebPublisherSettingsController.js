@@ -1334,9 +1334,6 @@ export function WebPublisherSettingsController(
         $scope.newRule.action.published = $scope.newRule.configuration.published
           ? true
           : false;
-        $scope.newRule.action.fbia = $scope.newRule.configuration.fbia
-          ? true
-          : false;
         $scope.newRule.action.paywall_secured = $scope.newRule.configuration
           .paywall_secured
           ? true
@@ -1395,10 +1392,6 @@ export function WebPublisherSettingsController(
         }
         if ($scope.newRule.action.published) {
           newRule.configuration.push({ key: "published", value: true });
-        }
-
-        if ($scope.newRule.action.fbia) {
-          newRule.configuration.push({ key: "fbia", value: true });
         }
 
         if ($scope.newRule.action.paywall_secured) {

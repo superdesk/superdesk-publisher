@@ -66,12 +66,12 @@ const ArticlePreview = ({ article, close }) => {
 
         <div className="side-panel__content">
           <div
-            className={classNames("side-panel-collapsible-header", {
+            className={classNames("preview-header sd-margin--0", {
               active: state.isExpanded,
             })}
           >
-            <div className="side-panel-collapsible-header__fixed">
-              <p className="sd-text__date-and-author">
+            <div className="side-panel-collapsible-header__fixed sd-padding-t--1">
+              <p className="sd-text__date-and-author sd-margin--0">
                 {article.updated_at ? (
                   <time title={article.updated_at}>
                     {moment(article.updated_at).format("YYYY-MM-DD")}
@@ -99,7 +99,7 @@ const ArticlePreview = ({ article, close }) => {
                 )}
               </p>
             </div>
-            <div className="side-panel-collapsible-header__collapsible">
+            <div className="preview-header__flex-container sd-flex--direction-col">
               {article.paywall_secured && (
                 <div className="form__row">
                   <IconLabel
@@ -140,7 +140,7 @@ const ArticlePreview = ({ article, close }) => {
               ) : null}
             </div>
             <button
-              className={classNames("side-panel-collapsible-header__toggle", {
+              className={classNames("preview-header__toggle", {
                 active: state.isExpanded,
               })}
               onClick={toggle}

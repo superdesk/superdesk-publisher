@@ -21,13 +21,11 @@ class Destination extends Component {
     let pwaUrl = null;
     let siteName = null;
     let hasOutputChannel = false;
-    let hasFbiaEnabled = false;
     let hasPaywallEnabled = false;
     let hasAppleNewsEnabled = false;
 
     if (props.rule || props.site) {
       destination = {
-        is_published_fbia: false,
         published: true,
         paywall_secured: false,
         package_guid: props.item.evolvedfrom
@@ -39,7 +37,6 @@ class Destination extends Component {
       if (props.site) {
         destination.tenant = props.site.code;
 
-        hasFbiaEnabled = props.site.fbia_enabled;
         hasPaywallEnabled = props.site.paywall_enabled;
         hasAppleNewsEnabled =
           props.site.apple_news_config &&
@@ -57,7 +54,6 @@ class Destination extends Component {
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
-        destination.is_published_fbia = props.rule.is_published_fbia;
         destination.is_published_to_apple_news =
           props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
@@ -66,7 +62,6 @@ class Destination extends Component {
           ? props.rule.content_lists
           : [];
 
-        hasFbiaEnabled = props.rule.tenant.fbia_enabled;
         hasPaywallEnabled = props.rule.tenant.paywall_enabled;
         hasAppleNewsEnabled =
           props.rule.tenant.apple_news_config &&
@@ -102,7 +97,6 @@ class Destination extends Component {
       hasOutputChannel: hasOutputChannel ? hasOutputChannel : false,
       hasPaywallEnabled: hasPaywallEnabled ? hasPaywallEnabled : false,
       hasAppleNewsEnabled: hasAppleNewsEnabled ? true : false,
-      hasFbiaEnabled: hasFbiaEnabled ? hasFbiaEnabled : false,
       isOpen: props.isOpen,
       deleted: false,
     };
@@ -120,7 +114,6 @@ class Destination extends Component {
       (props.site && !_.isEqual(props.site, prevProps.site))
     ) {
       let destination = {
-        is_published_fbia: false,
         published: true,
         paywall_secured: false,
         package_guid: props.item.evolvedfrom
@@ -136,14 +129,12 @@ class Destination extends Component {
       let pwaUrl = null;
       let siteName = null;
       let hasOutputChannel = false;
-      let hasFbiaEnabled = false;
       let hasPaywallEnabled = false;
       let hasAppleNewsEnabled = false;
 
       if (props.site) {
         destination.tenant = props.site.code;
 
-        hasFbiaEnabled = props.site.fbia_enabled;
         hasPaywallEnabled = props.site.paywall_enabled;
         hasAppleNewsEnabled =
           props.site.apple_news_config &&
@@ -159,7 +150,6 @@ class Destination extends Component {
       } else if (props.rule) {
         destination.tenant = props.rule.tenant.code;
         destination.route = props.rule.route ? props.rule.route.id : null;
-        destination.is_published_fbia = props.rule.is_published_fbia;
         destination.is_published_to_apple_news =
           props.rule.is_published_to_apple_news;
         destination.published = props.rule.published;
@@ -168,7 +158,6 @@ class Destination extends Component {
           ? props.rule.content_lists
           : [];
 
-        hasFbiaEnabled = props.rule.tenant.fbia_enabled;
         hasPaywallEnabled = props.rule.tenant.paywall_enabled;
         hasAppleNewsEnabled =
           props.rule.tenant.apple_news_config &&
@@ -200,7 +189,6 @@ class Destination extends Component {
           hasOutputChannel: hasOutputChannel,
           hasPaywallEnabled: hasPaywallEnabled,
           hasAppleNewsEnabled: hasAppleNewsEnabled,
-          hasFbiaEnabled: hasFbiaEnabled,
           isOpen: props.isOpen,
         },
         this.getContentLists
@@ -371,9 +359,7 @@ class Destination extends Component {
       if (this.props.rule.tenant.output_channel) {
         publishRoute = this.props.rule.tenant.output_channel.type;
       } else {
-        publishRoute = this.state.destination.is_published_fbia
-          ? this.props.rule.route.name + ", Facebook"
-          : this.props.rule.route.name;
+        publishRoute = this.props.rule.route.name;
       }
     }
 
@@ -478,7 +464,6 @@ class Destination extends Component {
               </div>
             )}
             <PublishingOptionSwitches
-              fbiaEnabled={this.state.hasFbiaEnabled}
               paywallEnabled={this.state.hasPaywallEnabled}
               appleNewsEnabled={this.state.hasAppleNewsEnabled}
               destination={this.state.destination}

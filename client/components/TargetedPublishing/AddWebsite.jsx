@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import { Button } from "superdesk-ui-framework/react";
+import ButtonListItem from "../UI/ButtonListItem";
 
 class AddWebsite extends React.Component {
   constructor(props) {
@@ -48,7 +49,6 @@ class AddWebsite extends React.Component {
     let styles = {
       addWebsiteDropdown: {
         boxSizing: "border-box",
-        background: "#fff",
         marginTop: "10px",
         maxHeight: 0,
         overflow: "hidden",
@@ -75,28 +75,13 @@ class AddWebsite extends React.Component {
     return (
       <React.Fragment>
         {!!remainingSites.length && (
-          <Button
-            type="primary"
-            icon="plus-large"
-            iconOnly={true}
-            shape="round"
-            onClick={this.toggleSitesDropdown}
-          />
+          <Button text="Add website" type="primary" icon="plus-sign" style="hollow" onClick={this.toggleSitesDropdown} />
         )}
         <div style={styles.addWebsiteDropdown} data-testid="dropdown">
-          <div style={{ padding: "1.5rem" }}>
-            <h3 className="tp-dropdown-heading">Add Website</h3>
-            <ul className="simple-list--dotted simple-list">
-              {remainingSites.map((site) => (
-                <li
-                  key={site.id}
-                  className="simple-list__item tp-dropdown-li"
-                  onClick={() => this.addDestination(site)}
-                >
-                  {site.name}
-                </li>
-              ))}
-            </ul>
+          <div className="sd-list-item-group sd-shadow--z1 sd-margin-b--2">
+            {remainingSites.map((site) => (
+              <ButtonListItem key={site.id} label={site.name} onClick={() => this.addDestination(site)} />
+            ))}
           </div>
         </div>
       </React.Fragment>

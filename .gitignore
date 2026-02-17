@@ -18,8 +18,16 @@ dist/
 *.egg-info
 *.pyc
 src/
+!client/publisher-extension/src
 yarn.lock
 build
+
+.history/
+.github
+.vscode
+.idea
+
+.DS_Store
 
 # VIM related files
 *.swo

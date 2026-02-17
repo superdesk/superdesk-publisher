@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
 import _ from "lodash";
-import { Button, IconButton, DatePicker } from "superdesk-ui-framework/react";
+import { Button, IconButton, DatePicker, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 
-import MultiSelect from "../UI/MultiSelect";
-import AsyncMultiSelect from "../UI/AsyncMultiSelect";
 import Store from "./Store";
 
 class FilterPane extends React.Component {
@@ -88,27 +86,31 @@ class FilterPane extends React.Component {
       });
   };
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
           authorsOptions.push({
-            value: item.id,
-            label: item.name,
+            value: {
+              value: item.id,
+              label: item.name,
+            }
           });
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -164,8 +166,11 @@ class FilterPane extends React.Component {
 
     this.state.routes.map((route) => {
       routesOptions.push({
-        value: parseInt(route.id),
-        label: route.name,
+        value: {
+          value: parseInt(route.id),
+          label: route.name,
+        },
+        label: route.name
       });
     });
 
@@ -173,8 +178,11 @@ class FilterPane extends React.Component {
 
     this.state.ingestSources.items.map((source) => {
       ingestSourceOptions.push({
-        value: source.name,
-        label: source.name,
+        value: {
+          value: source.name,
+          label: source.name,
+        },
+        label: source.name
       });
     });
 
@@ -190,40 +198,48 @@ class FilterPane extends React.Component {
               }
             )}
           >
-            <div className="side-panel side-panel--transparent side-panel--shadow-right">
-              <div className="side-panel__header side-panel__header--border-b">
-                <span className="side-panel__close">
-                  <IconButton
-                    icon="close-small"
-                    tooltip={{ text: "Close", flow: "left" }}
-                    onClick={this.props.toggle}
-                  />
-                </span>
-                <h3 className="side-panel__heading side-panel__heading--big">
-                  Advanced Filter
-                </h3>
+            <div className="side-panel side-panel--shadow-right">
+              <div className="side-panel__header side-panel__header--border-b side-panel__header--has-close">
+                <div className="side-panel__header-wrapper">
+                  <div className="side-panel__header-inner">
+                    <h3 className="side-panel__heading side-panel__heading--big">
+                      Advanced Filter
+                    </h3>
+                  </div>
+                  <div className="button-group button-group--end button-group--no-space side-panel__btn-group">
+                    <IconButton
+                      icon="close-small"
+                      tooltip={{ text: "Close", flow: "left" }}
+                      onClick={this.props.toggle}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="side-panel__content">
                 <div className="side-panel__content-block">
-                  <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Routes</label>
+                  <div className="form__row form__row--flex">
+                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button sd-padding-t--0">
                       <MultiSelect
-                        onSelect={(values) => this.handleRoutesChange(values)}
+                        label="Routes"
+                        onChange={(values) => this.handleRoutesChange(values)}
                         options={routesOptions}
-                        selectedOptions={this.state.filters.route}
+                        optionLabel={(option) => option.label}
+                        value={this.state.filters.route}
+                        emptyFilterMessage="No routes found"
                       />
                     </div>
                   </div>
-                  <div className="form__row">
-                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                      <label className="sd-line-input__label">Authors</label>
-                      <AsyncMultiSelect
-                        onSelect={(values) => this.handleAuthorChange(values)}
-                        loadOptions={(inputValue) =>
-                          this.loadAuthors(inputValue)
-                        }
-                        selectedOptions={this.state.filters.author}
+                  <div className="form__row form__row--flex">
+                    <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button sd-padding-t--0">
+                      <TreeSelect
+                        label="Authors"
+                        kind="asynchronous"
+                        value={this.state.filters.author}
+                        getLabel={(item) => item.label}
+                        getId={(item) => item}
+                        allowMultiple={true}
+                        searchOptions={this.loadAuthors}
+                        onChange={(values) => this.handleAuthorChange(values)}
                       />
                     </div>
                   </div>
@@ -236,9 +252,9 @@ class FilterPane extends React.Component {
                         value={
                           this.state.filters.published_after
                             ? moment(
-                                this.state.filters.published_after,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_after,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -263,9 +279,9 @@ class FilterPane extends React.Component {
                         value={
                           this.state.filters.published_before
                             ? moment(
-                                this.state.filters.published_before,
-                                "YYYY-MM-DD"
-                              ).toDate()
+                              this.state.filters.published_before,
+                              "YYYY-MM-DD"
+                            ).toDate()
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
@@ -288,19 +304,19 @@ class FilterPane extends React.Component {
                         Ingest source
                       </label>
                       <MultiSelect
-                        onSelect={(values) => this.handleSourceChange(values)}
+                        onChange={(values) => this.handleSourceChange(values)}
                         options={ingestSourceOptions}
-                        selectedOptions={this.state.filters.source}
+                        optionLabel={(option) => option.label}
+                        value={this.state.filters.source}
+                        filterPlaceholder="No options found"
                       />
                     </div>
                   </div>
                 </div>
               </div>
               <div className="side-panel__footer side-panel__footer--button-box">
-                <div className="flex-grid flex-grid--boxed-small flex-grid--small-2">
-                  <Button text="Clear" style="hollow" onClick={this.clear} />
-                  <Button text="Filter" type="primary" onClick={this.save} />
-                </div>
+                <Button text="Clear" style="hollow" onClick={this.clear} />
+                <Button text="Filter" type="primary" onClick={this.save} />
               </div>
             </div>
           </div>

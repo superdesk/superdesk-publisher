@@ -3,15 +3,11 @@
   <button class="sd-alert__close" ng-click="uploadError=false"></button>
   <span ng-if="uploadError != true">{{ uploadError }}</span>
   <span ng-if="uploadError === true"
-    ><span translate="">Error</span>: Something went wrong. Try again.</span
+    ><span translate>Error</span>: Something went wrong. Try again.</span
   >
 </div>
-<div
-  class="flex-grid flex-grid--boxed flex-grid--wrap-items flex-grid--large-3 flex-grid--xlarge-4"
-  ng-class="{'flex-grid--small-2' : grid == '2', 'flex-grid--small-4': grid == '4'}"
-  ng-if="!themeDetailsActive"
->
-  <div class="flex-grid__item upload-media">
+<div class="sd-grid-list sd-grid-list--medium" ng-if="!themeDetailsActive">
+
     <div class="wizardThemeBox wizardThemeBox--upload">
       <div
         class="drag-area"
@@ -34,8 +30,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="flex-grid__item" ng-repeat="item in organizationThemes">
+
+  <div class="" ng-repeat="item in organizationThemes">
     <div
       class="wizardThemeBox sd-shadow--z1"
       ng-class="{'wizardThemeBox--active': site.theme_name == item.name}"

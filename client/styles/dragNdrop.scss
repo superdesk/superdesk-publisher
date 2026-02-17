@@ -2,37 +2,36 @@ ul[dnd-list] {
   min-height: 42px;
 
   .dndPlaceholder {
-    border: 2px dashed $sd-blue;
-    background-color: $sd-hover;
+    border: 2px dashed var(--sd-colour-interactive);
+    background-color: var(--sd-colour-interactive--alpha-10);
     display: block;
     min-height: 42px;
   }
 
   li.selected .listElement {
-    background-color: $sd-hover;
+    background-color: hsla(0, 0%, 60%, 0.06);
   }
 }
 
 .dropZone {
   &--empty {
-    border: 2px dashed #adadad;
-    background-color: #ebebeb;
+    border: 2px dashed var(--color-border-line--medium);
+    background-color: hsla(0, 0%, 60%, 0.06);
   }
 
   &--active {
-    border: 2px dashed $sd-blue;
-    background-color: $sd-hover;
+    border: 2px dashed var(--sd-colour-interactive);
+    background-color: var(--sd-colour-interactive--alpha-10);
   }
-
-  &__heading {
-    display: inline-block;
-    position: absolute;
-    top: calc(50% - 25px);
-    left: 50%;
-    transform: translateY(-50%);
-    transform: translateX(-50%);
-    font-size: 2rem;
-    font-weight: 200;
-    color: $grayLight;
-  }
+}
+.dropZone__heading {
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: 50%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-text-light);
 }

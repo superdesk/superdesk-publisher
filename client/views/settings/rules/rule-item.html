@@ -16,7 +16,7 @@
     <div class="sd-list-item__row">
       <span class="sd-overflow-ellipsis sd-list-item--element-grow">
         <span
-          class="label label--primary label--hollow"
+          class="label label--primary label--translucent"
           ng-repeat="part in webPublisherSettings.makeExpressionReadable(rule.expression)"
         >
           {{part}}
@@ -53,9 +53,6 @@
         class="label label--success"
       >
         auto publish
-      </span>
-      <span ng-if="rule.configuration.fbia" class="label label--primary">
-        Facebook
       </span>
     </div>
   </div>

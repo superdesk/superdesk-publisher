@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
-import { Button, IconButton } from "superdesk-ui-framework/react";
-import MultiSelect from "../../UI/MultiSelect";
-import AsyncMultiSelect from "../../UI/AsyncMultiSelect";
+import { Button, IconButton, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 
 class FilterPanel extends React.Component {
   constructor(props) {
@@ -33,27 +31,31 @@ class FilterPanel extends React.Component {
     this._isMounted = false;
   }
 
-  loadAuthors = (inputValue = null) => {
-    if (inputValue && inputValue.length < 3) return this.state.authors;
+  loadAuthors = (inputValue = null, callback = null) => {
+    if (inputValue && inputValue.length < 2) callback(this.state.authors);
 
-    return this.props.publisher
+    this.props.publisher
       .queryAuthors({ term: inputValue, limit: 30 })
       .then((response) => {
         let authorsOptions = [];
 
         response._embedded._items.forEach((item) => {
           authorsOptions.push({
-            value: item.id,
-            label: item.name,
+            value: {
+              value: item.id,
+              label: item.name,
+            }
           });
         });
 
         this.setState({ authors: authorsOptions });
-        return authorsOptions;
+        callback(authorsOptions);
       })
       .catch((err) => {
-        return this.state.authors;
+        callback(this.state.authors);
       });
+
+    return () => { };
   };
 
   handleAuthorChange = (arr) => {
@@ -67,6 +69,7 @@ class FilterPanel extends React.Component {
     let filters = { ...this.state.filters };
 
     filters.route = arr ? arr : [];
+
     this.setState({ filters });
   };
 
@@ -109,8 +112,11 @@ class FilterPanel extends React.Component {
 
     this.state.routes.map((route) => {
       routesOptions.push({
-        value: parseInt(route.id),
-        label: route.name,
+        value: {
+          value: parseInt(route.id),
+          label: route.name,
+        },
+        label: route.name
       });
     });
 
@@ -125,7 +131,7 @@ class FilterPanel extends React.Component {
 
     return (
       <div className="sd-filters-panel sd-filters-panel--border-left">
-        <div className="side-panel side-panel--transparent side-panel--shadow-right">
+        <div className="side-panel side-panel--shadow-right">
           <div className="side-panel__header side-panel__header--border-b">
             <span className="side-panel__close">
               <IconButton
@@ -138,25 +144,29 @@ class FilterPanel extends React.Component {
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">
-              <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                  <label className="sd-line-input__label">Routes</label>
+              <div className="form__row form__row--flex">
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
                   <MultiSelect
-                    onSelect={(values) => this.handleRoutesChange(values)}
+                    label="Routes"
+                    onChange={(values) => this.handleRoutesChange(values)}
                     options={routesOptions}
-                    selectedOptions={this.state.filters.route}
+                    optionLabel={(option) => option.label}
+                    value={this.state.filters.route}
+                    emptyFilterMessage="No routes found"
                   />
                 </div>
               </div>
-              <div className="form__row">
-                <div className="sd-line-input sd-line-input--no-margin sd-line-input--with-button">
-                  <label className="sd-line-input__label">Author</label>
-                  <AsyncMultiSelect
-                    onSelect={(values) => this.handleAuthorChange(values)}
-                    loadOptions={(inputValue) => this.loadAuthors(inputValue)}
-                    selectedOptions={
-                      this.state.filters.author ? this.state.filters.author : []
-                    }
+              <div className="form__row form__row--flex">
+                <div className="sd-line-input sd-line-input--no-margin sd-padding-t--0">
+                  <TreeSelect
+                    label="Author"
+                    kind="asynchronous"
+                    value={this.state.filters.author}
+                    getLabel={(item) => item.label}
+                    getId={(item) => item}
+                    allowMultiple={true}
+                    searchOptions={this.loadAuthors}
+                    onChange={(values) => this.handleAuthorChange(values)}
                   />
                 </div>
               </div>

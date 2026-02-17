@@ -183,7 +183,7 @@ class Automatic extends React.Component {
     return (
       <div className="flex-grid flex-grid--grow flex-grid--small-1">
         <div className="flex-grid__item flex-grid__item--d-flex flex-grid__item--column">
-          <div className="subnav subnav--mid-blue-grey">
+          <div className="subnav subnav--mid-blue-grey" data-theme="dark-ui">
             <button
               className="navbtn navbtn--left"
               onClick={this.props.onEditCancel}
@@ -240,7 +240,7 @@ class Automatic extends React.Component {
                 style={{ flexGrow: "1" }}
               >
                 {this.state.isEmpty ? (
-                  <div className="alert alert-info alert-block">
+                  <div className="alert alert-info alert-block sd-margin-b--0">
                     <h4>The list is empty</h4>
                     <p>
                       Please update filter criteria to add articles to the list.

@@ -87,7 +87,6 @@ class PublishPane extends React.Component {
             destinations.push({
               tenant: tenant,
               route: item.route,
-              is_published_fbia: item.is_published_fbia,
               status: item.status,
               updated_at: item.updated_at,
               paywall_secured: item.paywall_secured,

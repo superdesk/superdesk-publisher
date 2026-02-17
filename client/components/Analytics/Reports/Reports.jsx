@@ -80,7 +80,7 @@ class Reports extends React.Component {
             dataLength={this.state.reports.length}
             next={this.loadReports}
             hasMore={this.state.page < this.state.totalPages}
-            loader={<Loading dark={true} />}
+            loader={<Loading />}
             scrollableTarget="scrollableDiv"
           >
             {this.state.reports.map((item, index) => (

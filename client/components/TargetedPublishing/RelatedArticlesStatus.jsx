@@ -16,7 +16,7 @@ class RelatedArticlesStatus extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.item.associations) return;
+    if (!this.props.item?.associations) return;
     this.getRelatedArticles();
   }
 
@@ -37,7 +37,7 @@ class RelatedArticlesStatus extends React.Component {
   };
 
   render() {
-    if (!this.props.item.associations) {
+    if (!this.props.item?.associations) {
       return null;
     }
 

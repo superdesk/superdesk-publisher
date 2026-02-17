@@ -20,12 +20,13 @@ class MetaData extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.item) return;
     this.getMetaData();
   }
 
   getMetaData = () => {
     axios
-      .get(this.props.apiUrl + "packages/seo/" + this.props.item.guid, {
+      .get(this.props.apiUrl + "packages/seo/" + this.props.item.evolvedfrom, {
         headers: this.props.apiHeader
       })
       .then(res => {

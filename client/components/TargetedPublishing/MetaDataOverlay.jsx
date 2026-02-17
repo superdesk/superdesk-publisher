@@ -29,7 +29,7 @@ class MetaDataOverlay extends Component {
       descriptionFieldName = "twitter_description";
       imageHref =
         this.props.metaData._links &&
-        this.props.metaData._links.twitter_media_url
+          this.props.metaData._links.twitter_media_url
           ? this.props.metaData._links.twitter_media_url.href
           : "";
     }
@@ -52,17 +52,19 @@ class MetaDataOverlay extends Component {
       >
         <div className="side-panel">
           <div className="side-panel__header">
-            <span className="sd-margin-l--1">
-              <IconButton
-                icon="arrow-left"
-                tooltip={{ text: "Back", flow: "right" }}
-                onClick={this.props.toggle}
-              />
-            </span>
+            <div className="side-panel__header-wrapper sd-flex--items-center">
+              <span className="sd-margin-l--1">
+                <IconButton
+                  icon="arrow-left"
+                  tooltip={{ text: "Back", flow: "right" }}
+                  onClick={this.props.toggle}
+                />
+              </span>
 
-            <h3 className="side-panel__heading side-panel__heading--big">
-              {this.props.type}
-            </h3>
+              <h3 className="side-panel__heading side-panel__heading--big sd-margin-l--1">
+                {this.props.type}
+              </h3>
+            </div>
           </div>
           <div className="side-panel__content">
             <div className="side-panel__content-block">

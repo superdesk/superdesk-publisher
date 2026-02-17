@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import ListCard from "./ListCard";
 import Dropdown from "../UI/Dropdown";
 import SearchBar from "../UI/SearchBar";
-import { CheckButtonGroup, RadioButton } from "superdesk-ui-framework/react";
+import { CheckButtonGroup, RadioButtonGroup } from "superdesk-ui-framework/react";
 
 class Listing extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class Listing extends React.Component {
           />
           <div style={{ marginLeft: "1rem" }}>
             <CheckButtonGroup>
-              <RadioButton
+              <RadioButtonGroup
                 value={this.state.filter}
                 options={[
                   { value: "all", label: "All" },
