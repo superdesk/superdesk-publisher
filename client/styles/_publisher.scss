@@ -56,6 +56,11 @@
   color: red;
 }
 
+.filter-type {
+  display: flex;
+  gap: var(--gap--small);
+}
+
 .big-number-block__text {
   >span {
     display: block;
