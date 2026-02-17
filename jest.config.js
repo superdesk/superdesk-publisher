@@ -1,7 +1,9 @@
 module.exports = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
-    "@testing-library/jest-dom"
+    "jest-dom/extend-expect",
+    "@testing-library/react/cleanup-after-each",
+    "<rootDir>/client/__mocks__/mathRandomMock.js"
   ],
   testMatch: ["**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
   testPathIgnorePatterns: ["\\\\node_modules\\\\"],

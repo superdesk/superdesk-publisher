@@ -16,7 +16,6 @@ describe("generic/PublishingOptionsSwithces", () => {
   it("returns null when all options are disabled", () => {
     const { container } = render(
       <PublishingOptionsSwithces
-        fbiaEnabled={false}
         paywallEnabled={false}
         appleNewsEnabled={false}
         destination={destination}
@@ -30,7 +29,6 @@ describe("generic/PublishingOptionsSwithces", () => {
   it("renders all switches", async () => {
     const { getByText } = render(
       <PublishingOptionsSwithces
-        fbiaEnabled={true}
         paywallEnabled={true}
         appleNewsEnabled={true}
         destination={destination}
@@ -38,30 +36,27 @@ describe("generic/PublishingOptionsSwithces", () => {
       />
     );
 
-    await waitForElement(() => getByText("FBIA"));
     await waitForElement(() => getByText("Paywall"));
     await waitForElement(() => getByText("Apple News"));
   });
 
-  it("renders fbia switch only", async () => {
+  it("renders Apple News switch only", async () => {
     const { getByText, queryByText } = render(
       <PublishingOptionsSwithces
-        fbiaEnabled={true}
         paywallEnabled={false}
-        appleNewsEnabled={false}
+        appleNewsEnabled={true}
         destination={destination}
         onChange={jest.fn()}
       />
     );
 
-    await waitForElement(() => getByText("FBIA"));
+    await waitForElement(() => getByText("Apple News"));
     await wait(() => expect(queryByText("Paywall")).not.toBeInTheDocument());
   });
 
   it("renders paywall switch only", async () => {
     const { getByText, queryByText } = render(
       <PublishingOptionsSwithces
-        fbiaEnabled={false}
         paywallEnabled={true}
         appleNewsEnabled={false}
         destination={destination}
@@ -70,7 +65,7 @@ describe("generic/PublishingOptionsSwithces", () => {
     );
 
     await waitForElement(() => getByText("Paywall"));
-    await wait(() => expect(queryByText("FBIA")).not.toBeInTheDocument());
+    await wait(() => expect(queryByText("Apple News")).not.toBeInTheDocument());
   });
 
   it("fires onChange", async () => {
@@ -78,7 +73,6 @@ describe("generic/PublishingOptionsSwithces", () => {
 
     const { container } = render(
       <PublishingOptionsSwithces
-        fbiaEnabled={true}
         paywallEnabled={true}
         appleNewsEnabled={true}
         destination={destination}

@@ -43,6 +43,7 @@ describe("Analytics/FiltersPanel", () => {
         routes={routes}
         api={api}
         publisher={publisher}
+        generateReport={jest.fn()}
       />
     );
 
@@ -60,10 +61,12 @@ describe("Analytics/FiltersPanel", () => {
         routes={[]}
         api={api}
         publisher={publisher}
+        generateReport={jest.fn()}
       />
     );
 
-    const button = container.querySelector(".side-panel__close button");
+    // Close button is now an IconButton with icon "close-small"
+    const button = container.querySelector('button[class*="icn-btn"]');
 
     fireEvent.click(button);
     expect(toggle).toHaveBeenCalled();
@@ -80,6 +83,7 @@ describe("Analytics/FiltersPanel", () => {
         routes={routes}
         api={api}
         publisher={publisher}
+        generateReport={jest.fn()}
       />
     );
 
@@ -101,6 +105,7 @@ describe("Analytics/FiltersPanel", () => {
         routes={routes}
         api={api}
         publisher={publisher}
+        generateReport={jest.fn()}
       />
     );
 
