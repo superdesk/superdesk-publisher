@@ -373,25 +373,63 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
-     * @name publisher#queryListArticlesFromSuperdesk
-     * @param {Object} params
+     * @name publisher#searchSuperdeskArticles
+     * @param {Object} query - search query with filter, page, max_results, sort
      * @returns {Promise}
-     * @description List all articles from superdesk
+     * @description Search articles in Superdesk
      */
-    queryListArticlesFromSuperdesk(params) {
-      const query = {
-        filter: {
-          $and: [
-            { 'state': { $in: ['in_progress', 'scheduled'] } },
-          ]
-        },
-        page: 0,
-        max_results: 200,
-        sort: [{ 'versioncreated': 'asc' }],
-      };
+    searchSuperdeskArticles(query) {
+      const source = JSON.stringify(query);
+      return pubapi.superdeskApiRequest({
+        method: 'GET',
+        path: '/search',
+        params: { source },
+      });
+    }
 
-      return httpRequestJsonLocal < IRestApiResponse < IArticle >> ({
-        ...prepareSuperdeskQuery('/archive', query),
+    /**
+     * @ngdoc method
+     * @name publisher#exportFromSuperdesk
+     * @param {Array} itemIds - array of article GUIDs
+     * @returns {Promise}
+     * @description Fetch articles from Superdesk and format as export-like response
+     */
+    exportFromSuperdesk(itemIds) {
+      return Promise.all(
+        itemIds.map(id =>
+          pubapi.superdeskApiRequest({ method: 'GET', path: '/archive/' + id })
+        )
+      ).then((articles) => {
+        const exportMap = {};
+        articles.forEach((article) => {
+          const id = article._id || article.guid;
+
+          let associations = {};
+          if (article.associations && article.associations.featuremedia) {
+            const fm = article.associations.featuremedia;
+            associations.featuremedia = {
+              renditions: fm.renditions || {},
+            };
+          }
+
+          exportMap[id] = {
+            guid: article.guid,
+            headline: article.headline,
+            language: article.language,
+            type: article.type,
+            version: String(article._current_version || article.version || '1'),
+            versioncreated: article.versioncreated,
+            firstcreated: article.firstcreated,
+            pubstatus: article.pubstatus,
+            service: (article.anpa_category || []).map(c => ({ code: c.qcode, name: c.name })),
+            publish_schedule: (article.schedule_settings && article.schedule_settings.utc_publish_schedule) || null,
+            source: article.source,
+            priority: article.priority,
+            urgency: article.urgency,
+            associations,
+          };
+        });
+        return { export: exportMap };
       });
     }
 

@@ -104,6 +104,15 @@ const ArticleItem = ({
                 (updated at: {moment(item.updated_at).format("YYYY-MM-DD")})
               </time>
             ) : null}
+            {item.publish_schedule && (
+              <time
+                title={moment(item.publish_schedule).format()}
+                sd-tooltip={moment(item.publish_schedule).format("HH:mm")}
+                flow="right"
+              >
+                {" "}(scheduled: {moment(item.publish_schedule).format("YYYY-MM-DD HH:mm")})
+              </time>
+            )}
           </span>
 
           {item.route?.name && (
@@ -113,9 +122,18 @@ const ArticleItem = ({
               style="hollow"
             />
           )}
+          {item.category && (
+            <Label
+              text={item.category}
+              type="success"
+              style="hollow"
+            />
+          )}
           {item.status && item.status !== 'published' && (
             <Label
-              text={item.status === 'new' ? "Non published" : item.status}
+              text={item.status === 'new'
+                ? (item.publish_schedule ? "Scheduled" : "In progress")
+                : item.status}
               type="warning"
               style="hollow"
             />

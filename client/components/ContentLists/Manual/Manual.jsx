@@ -172,6 +172,83 @@ class Manual extends React.Component {
     this._queryListArticles();
   };
 
+  _enrichNewItemsFromSuperdesk = async (items) => {
+    const newItems = items.filter(item => {
+      const content = item.content || item;
+      return content.status === 'new' && content.code;
+    });
+
+    if (!newItems.length) return items;
+
+    // Check if any 'new' items have since been published in Publisher
+    const publishedReplacements = {};
+    await Promise.all(newItems.map(async (item) => {
+      const content = item.content || item;
+      try {
+        const publishedArticle = await this.props.publisher.getArticleByCode(content.code);
+        if (publishedArticle && publishedArticle.status === 'published' && publishedArticle.id !== content.id) {
+          publishedReplacements[content.id] = publishedArticle;
+        }
+      } catch (e) {
+        // Not found or error — will enrich from Superdesk instead
+      }
+    }));
+
+    // If we found published replacements, record changes and swap items
+    if (Object.keys(publishedReplacements).length) {
+      let changesRecord = [...this.state.changesRecord];
+      items = items.map((item, index) => {
+        const content = item.content ? item.content : item;
+        const replacement = publishedReplacements[content.id];
+        if (!replacement) return item;
+
+        changesRecord.push({ content_id: content.id, action: 'delete' });
+        changesRecord.push({ content_id: replacement.id, action: 'add', position: index });
+
+        return item.content
+          ? { ...item, content: replacement }
+          : replacement;
+      });
+      this.setState({ changesRecord });
+    }
+
+    // Enrich remaining 'new' items from Superdesk
+    const remainingNewItems = items.filter(item => {
+      const content = item.content || item;
+      return content.status === 'new' && content.code;
+    });
+
+    if (!remainingNewItems.length) return items;
+
+    const codes = remainingNewItems.map(item => (item.content || item).code);
+
+    try {
+      const response = await this.props.publisher.exportFromSuperdesk(codes);
+
+      return items.map(item => {
+        const content = item.content ? item.content : item;
+        if (content.status !== 'new' || !content.code) return item;
+
+        const sdData = response.export && response.export[content.code];
+        if (!sdData) return item;
+
+        const enriched = {
+          ...content,
+          title: sdData.headline || content.title,
+          published_at: sdData.versioncreated || content.published_at,
+          category: sdData.service && sdData.service[0] ? sdData.service[0].name : null,
+          publish_schedule: sdData.publish_schedule || null,
+          associations: sdData.associations || content.associations,
+        };
+
+        return item.content ? { ...item, content: enriched } : enriched;
+      });
+    } catch (err) {
+      console.error('Failed to enrich list items from Superdesk:', err);
+      return items;
+    }
+  };
+
   _queryListArticles = (reset = false, limit = 20) => {
     let list = this.state.list;
     if (list.loading || (list.page === list.totalPages && !reset)) return;
@@ -194,11 +271,12 @@ class Manual extends React.Component {
 
       this.props.publisher
         .queryListArticlesWithDetails(this.props.list.id, params)
-        .then((response) => {
+        .then(async (response) => {
+          const enrichedItems = await this._enrichNewItemsFromSuperdesk(response._embedded._items);
           let list = {
             page: response.page,
             totalPages: response.pages,
-            items: [...this.state.list.items, ...response._embedded._items],
+            items: [...this.state.list.items, ...enrichedItems],
             loading: false,
           };
           if (this._isMounted) this.setState({ list });
@@ -251,9 +329,6 @@ class Manual extends React.Component {
   };
 
   _querySuperdeskArticles = (filter = this.state.source.id, reset = false) => {
-    // Get Superdesk API instance
-    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
-
     let articles = this.state.articles;
     if (articles.loading || (articles.page === articles.totalPages && !reset))
       return;
@@ -270,40 +345,47 @@ class Manual extends React.Component {
     articles.loading = true;
     this.setState({ articles }, () => {
       const query = {
-        filter: {
-          $and: [
-            { 'state': { $in: [filter] } },
-            { 'type': { $eq: 'text' } }
-          ]
+        query: {
+          filtered: {
+            filter: {
+              and: [
+                { term: { state: filter } },
+                { term: { type: 'text' } }
+              ]
+            }
+          }
         },
-        page: this.state.articles.page + 1,
-        max_results: 20,
-        sort: [{ 'versioncreated': 'desc' }],
+        from: this.state.articles.page * 20,
+        size: 20,
+        sort: [{ versioncreated: 'desc' }],
       };
 
-      superedeskApi.httpRequestJsonLocal({
-        ...superedeskApi.helpers.prepareSuperdeskQuery('/search', query),
-      }).then((response) => {
+      this.props.publisher.searchSuperdeskArticles(query).then((response) => {
         const articleItemsMapped = response._items.map((
-          { _id, authors, body_html, headline, versioncreated, state, associations }) => ({
+          { _id, authors, body_html, headline, versioncreated, associations, anpa_category }) => ({
             id: _id,
             authors,
             body: body_html,
             title: headline,
             published_at: versioncreated,
             status: this.state.source && this.state.source.label,
-            // status: state.replace('_', ' '),
+            category: anpa_category && anpa_category[0] ? anpa_category[0].name : null,
             associations
           })
         );
 
         const articles = {
           page: this.state.articles.page + 1,
-          totalPages: Math.round(response._meta.total / 20),
+          totalPages: Math.ceil(response._meta.total / 20),
           items: [...this.state.articles.items, ...articleItemsMapped],
           loading: false,
         };
 
+        if (this._isMounted) this.setState({ articles });
+      }).catch((err) => {
+        console.error('Failed to query Superdesk articles:', err);
+        let articles = { ...this.state.articles };
+        articles.loading = false;
         if (this._isMounted) this.setState({ articles });
       });
 
@@ -311,29 +393,15 @@ class Manual extends React.Component {
   }
 
   publishItemFromSuperdesk = (item_id) => {
-    const superedeskApi = window['extensionsApiInstances']['publisher-extension'];
-
-    return new Promise((resolve, reject) => {
-      superedeskApi.httpRequestJsonLocal({
-        method: 'POST',
-        path: '/export',
-        payload: {
-          item_ids: [item_id],
-          validate: false,
-          inline: true,
-          format_type: "NINJSFormatter"
-        },
-      }).then((response) => {
-        const ninjs = this.props.publisher.publishSuperdeskArticle('new', response.export[item_id]).then(async (response) => {
-          try {
-            const article_id = await this.attemptFetch(10, item_id);
-            return resolve(article_id);
-          } catch (error) {
-            return reject(error);
-          }
-        });
-      }, (error) => reject(error));
-    });
+    return this.props.publisher.exportFromSuperdesk([item_id])
+      .then((response) => {
+        const exportData = response.export
+          ? response.export[item_id]
+          : response[item_id] || response;
+        const { associations, ...ninjs } = exportData;
+        return this.props.publisher.publishSuperdeskArticle('new', ninjs)
+          .then(() => this.attemptFetch(10, item_id));
+      });
   }
 
   attemptFetch = async (tries = 10, code) => {
@@ -485,7 +553,10 @@ class Manual extends React.Component {
     let id = this.state.source && (this.state.source.id === 'scheduled' || this.state.source.id === 'in_progress') ?
       ids[ids.length - 1] : parseInt(ids[ids.length - 1]);
 
-    return list.findIndex(item => ids.length > 2 ? item.content.id === id : item.id === id);
+    return list.findIndex(item => {
+      let itemId = item.content ? item.content.id : item.id;
+      return itemId === id;
+    });
   }
 
   onDragEnd = (result) => {
@@ -814,8 +885,8 @@ class Manual extends React.Component {
               />
               <SourceSelect
                 sources={[
-                  { id: 'scheduled', name: 'Scheduled Articles', label: 'Non published' },
-                  { id: 'in_progress', name: 'Articles in progress', label: 'Non published' },
+                  { id: 'scheduled', name: 'Scheduled Articles', label: 'Scheduled' },
+                  { id: 'in_progress', name: 'Articles in progress', label: 'In progress' },
                 ]}
                 selectedSource={this.state.source}
                 setSource={(source) => {

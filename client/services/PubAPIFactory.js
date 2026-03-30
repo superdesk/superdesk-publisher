@@ -294,6 +294,28 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
         }
 
         /**
+         * @ngdoc method
+         * @name pubapi#superdeskApiRequest
+         * @param {Object} requestConfig - $http config (method, path, data, params)
+         * @returns {Promise}
+         * @description Makes a request to the Superdesk API using the session auth
+         */
+        superdeskApiRequest(requestConfig) {
+            const serverUrl = config.server ? config.server.url : '';
+            return $http({
+                method: requestConfig.method || 'GET',
+                url: serverUrl + requestConfig.path,
+                data: requestConfig.data,
+                params: requestConfig.params,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': session.token,
+                },
+                withCredentials: true,
+            }).then((response) => response.data);
+        }
+
+        /**
         * @ngdoc method
         * @name pubapi#upload
         * @param {String} resource
