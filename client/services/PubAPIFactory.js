@@ -284,8 +284,17 @@ export function PubAPIFactory(config, $http, $q, session, $location, Upload) {
                     return response.data;
                 }
 
+                console.error('publisher api error', response);
+                return $q.reject(response);
+            }, (response) => {
                 if (response.status === 401 || response.status === 403) {
-                    window.location.reload();
+                    session.expire();
+                    return session.getIdentity().then(() => {
+                        return this.setToken().then(() => {
+                            config.headers = { Authorization: 'Basic ' + this._token };
+                            return $http(config).then((retryResponse) => retryResponse.data);
+                        });
+                    });
                 }
 
                 console.error('publisher api error', response);
