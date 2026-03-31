@@ -897,6 +897,7 @@ class Manual extends React.Component {
                 toggle={this.props.toggleFilters}
                 publisher={this.props.publisher}
                 api={this.props.api}
+                config={this.props.config}
               />
             </div>
           </div>

@@ -232,6 +232,7 @@ class ContentLists extends React.Component {
                   filtersOpen={this.state.filtersOpen}
                   api={this.props.api}
                   vocabularies={this.props.vocabularies}
+                  config={this.props.config}
                 />
               )}
 
@@ -252,6 +253,7 @@ class ContentLists extends React.Component {
                   isLanguagesEnabled={this.props.isLanguagesEnabled}
                   languages={this.props.languages}
                   site={this.state.selectedSite}
+                  config={this.props.config}
                 />
               )}
 
@@ -279,6 +281,7 @@ ContentLists.propTypes = {
   isLanguagesEnabled: PropTypes.bool.isRequired,
   languages: PropTypes.array.isRequired,
   vocabularies: PropTypes.array.isRequired,
+  config: PropTypes.object,
 };
 
 export default ContentLists;
