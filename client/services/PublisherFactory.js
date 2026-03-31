@@ -392,44 +392,18 @@ export function PublisherFactory(pubapi) {
      * @name publisher#exportFromSuperdesk
      * @param {Array} itemIds - array of article GUIDs
      * @returns {Promise}
-     * @description Fetch articles from Superdesk and format as export-like response
+     * @description Export articles from Superdesk using the /export endpoint with NINJSFormatter
      */
     exportFromSuperdesk(itemIds) {
-      return Promise.all(
-        itemIds.map(id =>
-          pubapi.superdeskApiRequest({ method: 'GET', path: '/archive/' + id })
-        )
-      ).then((articles) => {
-        const exportMap = {};
-        articles.forEach((article) => {
-          const id = article._id || article.guid;
-
-          let associations = {};
-          if (article.associations && article.associations.featuremedia) {
-            const fm = article.associations.featuremedia;
-            associations.featuremedia = {
-              renditions: fm.renditions || {},
-            };
-          }
-
-          exportMap[id] = {
-            guid: article.guid,
-            headline: article.headline,
-            language: article.language,
-            type: article.type,
-            version: String(article._current_version || article.version || '1'),
-            versioncreated: article.versioncreated,
-            firstcreated: article.firstcreated,
-            pubstatus: article.pubstatus,
-            service: (article.anpa_category || []).map(c => ({ code: c.qcode, name: c.name })),
-            publish_schedule: (article.schedule_settings && article.schedule_settings.utc_publish_schedule) || null,
-            source: article.source,
-            priority: article.priority,
-            urgency: article.urgency,
-            associations,
-          };
-        });
-        return { export: exportMap };
+      return pubapi.superdeskApiRequest({
+        method: 'POST',
+        path: '/export',
+        data: {
+          item_ids: itemIds,
+          validate: false,
+          inline: true,
+          format_type: 'NINJSFormatter',
+        },
       });
     }
 

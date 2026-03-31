@@ -395,12 +395,14 @@ class Manual extends React.Component {
   publishItemFromSuperdesk = (item_id) => {
     return this.props.publisher.exportFromSuperdesk([item_id])
       .then((response) => {
-        const exportData = response.export
-          ? response.export[item_id]
-          : response[item_id] || response;
-        const { associations, ...ninjs } = exportData;
+        const ninjs = response.export[item_id];
         return this.props.publisher.publishSuperdeskArticle('new', ninjs)
-          .then(() => this.attemptFetch(10, item_id));
+          .then((pushResponse) => {
+            if (pushResponse && pushResponse.article_ids && pushResponse.article_ids.length) {
+              return pushResponse.article_ids[0];
+            }
+            return this.attemptFetch(10, item_id);
+          });
       });
   }
 
