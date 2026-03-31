@@ -11,6 +11,16 @@ class SearchBar extends React.Component {
       open: false,
       value: this.props.value ? this.props.value : ""
     };
+
+    this.wrapperRef = React.createRef();
+  }
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   componentDidUpdate(prevProps) {
@@ -19,13 +29,24 @@ class SearchBar extends React.Component {
     }
   }
 
+  handleClickOutside = (e) => {
+    if (
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(e.target) &&
+      this.state.open &&
+      !this.state.value
+    ) {
+      this.setState({ open: false });
+    }
+  };
+
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
       if (this.state.open) this.input.focus();
     });
   };
 
-  clear = () => this.setState({ value: "" }, this.debouncedChange);
+  clear = () => this.setState({ value: "", open: false }, this.debouncedChange);
 
   debouncedChange = _.debounce(
     () => this.props.onChange(this.state.value),
@@ -46,8 +67,14 @@ class SearchBar extends React.Component {
       inputStyle = { color: "#ffffff" };
       wrapperStyle = { backgroundColor: "transparent" };
     }
+
+    if (!this.state.open) {
+      wrapperStyle = { ...wrapperStyle, flexGrow: 0 };
+      handlerStyle = { ...handlerStyle, flexGrow: 0, minWidth: "auto", padding: "4px", borderInlineEnd: "none" };
+    }
     return (
       <div
+        ref={this.wrapperRef}
         className={classNames("flat-searchbar", {
           extended: this.state.open,
           "search-handler--left-border": this.props.leftBorder
@@ -64,19 +91,22 @@ class SearchBar extends React.Component {
             htmlFor="search-input"
             className="trigger-icon"
             onClick={this.toggle}
+            style={{ cursor: "pointer", pointerEvents: "auto" }}
           >
             <i className="icon-search" style={inputStyle} />
           </label>
-          <input
-            type="text"
-            placeholder="Search"
-            value={this.state.value}
-            onChange={this.handleChange}
-            style={inputStyle}
-            ref={input => {
-              this.input = input;
-            }}
-          />
+          {this.state.open && (
+            <input
+              type="text"
+              placeholder="Search"
+              value={this.state.value}
+              onChange={this.handleChange}
+              style={inputStyle}
+              ref={input => {
+                this.input = input;
+              }}
+            />
+          )}
           {this.state.value.length ? (
             <button
               className="search-close visible"
