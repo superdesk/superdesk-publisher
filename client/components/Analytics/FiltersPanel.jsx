@@ -4,6 +4,7 @@ import _ from "lodash";
 import moment from "moment";
 import { Button, IconButton, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 import { DatePicker } from "superdesk-ui-framework/react";
+import helpers from "../../services/helpers";
 
 class FiltersPanel extends React.Component {
   constructor(props) {
@@ -251,6 +252,7 @@ class FiltersPanel extends React.Component {
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
+                        locale={helpers.getDatePickerLocale(this.props.config && this.props.config.startingDay)}
                         onChange={(date) => {
                           let stringDate = moment(date).format("YYYY-MM-DD");
 
@@ -277,6 +279,7 @@ class FiltersPanel extends React.Component {
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
+                        locale={helpers.getDatePickerLocale(this.props.config && this.props.config.startingDay)}
                         onChange={(date) => {
                           let stringDate = moment(date).format("YYYY-MM-DD");
                           this.handleInputChange({
@@ -333,6 +336,7 @@ FiltersPanel.propTypes = {
   routes: PropTypes.array,
   publisher: PropTypes.object.isRequired,
   generateReport: PropTypes.func.isRequired,
+  config: PropTypes.object,
 };
 
 export default FiltersPanel;

@@ -230,6 +230,7 @@ class Automatic extends React.Component {
               onFiltersSave={(list) => this.onFiltersSave(list)}
               api={this.props.api}
               vocabularies={this.props.vocabularies}
+              config={this.props.config}
             />
             <div
               className="sd-column-box__main-column relative"
