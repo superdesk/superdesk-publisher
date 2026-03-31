@@ -67,6 +67,10 @@
   }
 }
 
+.navbtn.navbtn--text-only {
+  line-height: normal;
+}
+
 .big-number-block {
   &--wrap {
     flex-direction: column;
