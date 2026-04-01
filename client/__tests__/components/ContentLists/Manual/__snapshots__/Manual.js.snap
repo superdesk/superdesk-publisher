@@ -20,27 +20,22 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       </button>
       <div
         class="flat-searchbar"
-        style="background-color: transparent;"
+        style="background-color: transparent; flex-grow: 0;"
       >
         <div
           class="search-handler"
-          style="border-right: 1px solid rgba(0, 0, 0, 0.1);"
+          style="border-right: 1px solid rgba(0, 0, 0, 0.1); flex-grow: 0; min-width: auto; padding: 4px; border-inline-end: none;"
         >
           <label
             class="trigger-icon"
             for="search-input"
+            style="cursor: pointer; pointer-events: auto;"
           >
             <i
               class="icon-search"
               style="color: rgb(255, 255, 255);"
             />
           </label>
-          <input
-            placeholder="Search"
-            style="color: rgb(255, 255, 255);"
-            type="text"
-            value=""
-          />
         </div>
       </div>
       <div
@@ -127,23 +122,21 @@ exports[`ContentLists/Manual/Manual renders properly 1`] = `
       </button>
       <div
         class="flat-searchbar"
+        style="flex-grow: 0;"
       >
         <div
           class="search-handler"
+          style="flex-grow: 0; min-width: auto; padding: 4px; border-inline-end: none;"
         >
           <label
             class="trigger-icon"
             for="search-input"
+            style="cursor: pointer; pointer-events: auto;"
           >
             <i
               class="icon-search"
             />
           </label>
-          <input
-            placeholder="Search"
-            type="text"
-            value=""
-          />
         </div>
       </div>
       <div

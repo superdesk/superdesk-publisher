@@ -97,23 +97,21 @@ exports[`ContentLists/ContentLists renders properly 1`] = `
       >
         <div
           class="flat-searchbar"
+          style="flex-grow: 0;"
         >
           <div
             class="search-handler"
+            style="flex-grow: 0; min-width: auto; padding: 4px; border-inline-end: none;"
           >
             <label
               class="trigger-icon"
               for="search-input"
+              style="cursor: pointer; pointer-events: auto;"
             >
               <i
                 class="icon-search"
               />
             </label>
-            <input
-              placeholder="Search"
-              type="text"
-              value=""
-            />
           </div>
         </div>
         <div

@@ -23,23 +23,21 @@ exports[`Output/Output renders properly 1`] = `
     </h3>
     <div
       class="flat-searchbar search-handler--left-border"
+      style="flex-grow: 0;"
     >
       <div
         class="search-handler search-handler--left-border"
+        style="flex-grow: 0; min-width: auto; padding: 4px; border-inline-end: none;"
       >
         <label
           class="trigger-icon"
           for="search-input"
+          style="cursor: pointer; pointer-events: auto;"
         >
           <i
             class="icon-search"
           />
         </label>
-        <input
-          placeholder="Search"
-          type="text"
-          value=""
-        />
       </div>
     </div>
   </div>
