@@ -53,14 +53,23 @@ class Publishing extends React.Component {
   }
 
   prepare = () => {
-    this.authorize().then((res) => {
-      this.setState(
-        { apiHeader: { Authorization: "Basic " + res.data.token.api_key } },
-        () => {
-          this.evaluate();
+    this.authorize()
+      .then((res) => {
+        this.setState(
+          { apiHeader: { Authorization: "Basic " + res.data.token.api_key } },
+          () => {
+            this.evaluate();
+          }
+        );
+      })
+      .catch((err) => {
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          this.props.session.expire();
+          this.props.session.getIdentity().then(() => this.prepare());
+          return;
         }
-      );
-    });
+        this.setState({ loading: false });
+      });
   };
 
   authorize = () => {
@@ -89,6 +98,11 @@ class Publishing extends React.Component {
         return res;
       })
       .catch((err) => {
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          this.props.session.expire();
+          this.props.session.getIdentity().then(() => this.prepare());
+          return;
+        }
         this.setState({
           loading: false,
           evaluateError:
