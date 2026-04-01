@@ -12,8 +12,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Analytics from "../components/Analytics/Analytics";
 
-WebPublisherAnalyticsController.$inject = ["$scope", "publisher", "$route", "api", "notify"];
-export function WebPublisherAnalyticsController($scope, publisher, $route, api, notify) {
+WebPublisherAnalyticsController.$inject = ["$scope", "publisher", "$route", "api", "notify", "config"];
+export function WebPublisherAnalyticsController($scope, publisher, $route, api, notify, config) {
   class WebPublisherAnalytics {
     constructor() {
       this.tenant = $route.current.params._tenant;
@@ -22,7 +22,7 @@ export function WebPublisherAnalyticsController($scope, publisher, $route, api, 
       this.api.notify = notify;
 
       ReactDOM.render(
-        <Analytics tenant={this.tenant} publisher={this.publisher} api={this.api} />,
+        <Analytics tenant={this.tenant} publisher={this.publisher} api={this.api} config={config} />,
         document.getElementById("sp-analytics-react-app")
       );
     }

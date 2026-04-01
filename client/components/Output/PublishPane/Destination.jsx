@@ -283,12 +283,12 @@ class Destination extends React.Component {
             {destination.status === "unpublished" && (
               <div className="form__row" style={{ marginTop: "-2rem" }}>
                 <Switch
+                  label={{ content: "Republish", side: "right" }}
                   value={destination.republish ? true : false}
                   onChange={(value) =>
                     this.handleSwitchChange(value, "republish")
                   }
                 />
-                <label style={{ color: "rgb(255, 255, 255)" }}>Republish</label>
               </div>
             )}
           </div>

@@ -6,6 +6,7 @@ import _ from "lodash";
 import { Button, IconButton, DatePicker, MultiSelect, TreeSelect } from "superdesk-ui-framework/react";
 
 import Store from "./Store";
+import helpers from "../../services/helpers";
 
 class FilterPane extends React.Component {
   static contextType = Store;
@@ -258,6 +259,7 @@ class FilterPane extends React.Component {
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
+                        locale={helpers.getDatePickerLocale(this.context.config && this.context.config.startingDay)}
                         onChange={(date) => {
                           let stringDate = moment(date).format("YYYY-MM-DD");
 
@@ -285,6 +287,7 @@ class FilterPane extends React.Component {
                             : null
                         }
                         dateFormat="YYYY-MM-DD"
+                        locale={helpers.getDatePickerLocale(this.context.config && this.context.config.startingDay)}
                         onChange={(date) => {
                           let stringDate = moment(date).format("YYYY-MM-DD");
 

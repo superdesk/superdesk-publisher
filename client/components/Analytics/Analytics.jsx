@@ -283,6 +283,7 @@ class Analytics extends React.Component {
                     routes={this.state.routes}
                     publisher={this.props.publisher}
                     generateReport={this.generateReport}
+                    config={this.props.config}
                   />
 
                   {this.state.activeView === "reports" ? (
@@ -308,6 +309,7 @@ Analytics.propTypes = {
   tenant: PropTypes.string,
   publisher: PropTypes.object.isRequired,
   api: PropTypes.func.isRequired,
+  config: PropTypes.object,
 };
 
 export default Analytics;
