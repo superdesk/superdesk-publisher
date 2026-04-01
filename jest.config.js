@@ -6,7 +6,7 @@ module.exports = {
     "<rootDir>/client/__mocks__/mathRandomMock.js"
   ],
   testMatch: ["**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
-  testPathIgnorePatterns: ["\\\\node_modules\\\\"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   transform: {
     "^.+\\.js(x)?$": "babel-jest",
     "^.+\\.css$": "jest-transform-css"
