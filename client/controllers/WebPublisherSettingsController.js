@@ -461,6 +461,14 @@ export function WebPublisherSettingsController(
 
         $scope.routes = filteredRoutes;
         $scope.routes_flat = this._flattenTree(filteredRoutes);
+
+        // update site routes used by publishing rules dropdown
+        if (this.selectedSite && this.selectedSite.code) {
+          let site = this.sites.find(s => s.code === this.selectedSite.code);
+          if (site) {
+            site.routes = routes.filter(item => item.type === "collection");
+          }
+        }
       });
     }
     // ---------------------------------- REDIRECTS
