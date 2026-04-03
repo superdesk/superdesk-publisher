@@ -341,6 +341,17 @@ export function WebPublisherSettingsController(
         .then((route) => {
           this.paneOpen = false;
           this._refreshRoutes();
+        })
+        .catch((err) => {
+          let message = err.data && err.data.message
+            ? err.data.message
+            : "Something went wrong. Try again.";
+
+          if (err.status === 409) {
+            message = "Route with this name or slug already exists.";
+          }
+
+          notify.error(message);
         });
     }
 
