@@ -373,25 +373,37 @@ export function PublisherFactory(pubapi) {
 
     /**
      * @ngdoc method
-     * @name publisher#queryListArticlesFromSuperdesk
-     * @param {Object} params
+     * @name publisher#searchSuperdeskArticles
+     * @param {Object} query - search query with filter, page, max_results, sort
      * @returns {Promise}
-     * @description List all articles from superdesk
+     * @description Search articles in Superdesk
      */
-    queryListArticlesFromSuperdesk(params) {
-      const query = {
-        filter: {
-          $and: [
-            { 'state': { $in: ['in_progress', 'scheduled'] } },
-          ]
-        },
-        page: 0,
-        max_results: 200,
-        sort: [{ 'versioncreated': 'asc' }],
-      };
+    searchSuperdeskArticles(query) {
+      const source = JSON.stringify(query);
+      return pubapi.superdeskApiRequest({
+        method: 'GET',
+        path: '/search',
+        params: { source },
+      });
+    }
 
-      return httpRequestJsonLocal < IRestApiResponse < IArticle >> ({
-        ...prepareSuperdeskQuery('/archive', query),
+    /**
+     * @ngdoc method
+     * @name publisher#exportFromSuperdesk
+     * @param {Array} itemIds - array of article GUIDs
+     * @returns {Promise}
+     * @description Export articles from Superdesk using the /export endpoint with NINJSFormatter
+     */
+    exportFromSuperdesk(itemIds) {
+      return pubapi.superdeskApiRequest({
+        method: 'POST',
+        path: '/export',
+        data: {
+          item_ids: itemIds,
+          validate: false,
+          inline: true,
+          format_type: 'NINJSFormatter',
+        },
       });
     }
 
