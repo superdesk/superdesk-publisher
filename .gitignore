@@ -19,6 +19,7 @@ dist/
 src/
 !client/publisher-extension/src
 yarn.lock
+package-lock.json
 build
 
 .history/
