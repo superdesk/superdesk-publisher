@@ -27,6 +27,9 @@ class Dashboard extends React.Component {
           return s;
         });
         if (this._isMounted) this.setState({ tenants, loading: false });
+      })
+      .catch(() => {
+        if (this._isMounted) this.setState({ loading: false });
       });
   }
 
